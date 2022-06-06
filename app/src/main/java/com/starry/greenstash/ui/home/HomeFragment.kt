@@ -1,4 +1,4 @@
-package com.starry.greenstash
+package com.starry.greenstash.ui.home
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

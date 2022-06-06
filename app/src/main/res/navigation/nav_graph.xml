@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.starry.greenstash.HomeFragment"
+        android:name="com.starry.greenstash.ui.home.HomeFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_home">
 
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="com.starry.greenstash.InputFragment"
+        android:name="com.starry.greenstash.ui.input.InputFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_input">
 
