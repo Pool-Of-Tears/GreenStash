@@ -2,8 +2,8 @@
     <string name="app_name">GreenStash</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
+    <string name="home_fragment_label">First Fragment</string>
+    <string name="input_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
@@ -15,6 +15,9 @@
     <string name="supporting_text">supporting text</string>
     <string name="edit_item">Edit</string>
     <string name="item_history">History</string>
-    <string name="imputTextTitle">Title</string>
-    <string name="inputTextAmount">Amount</string>
+    <string name="imputTextTitle">Enter title</string>
+    <string name="inputTextAmount">Enter amount</string>
+    <string name="imagepicker_input">Pick an image</string>
+    <string name="input_deadline">Enter deadline</string>
+    <string name="input_save_btn">set saving goal</string>
 </resources>

@@ -10,7 +10,7 @@ data class Item(
     val title: String,
     val amount: Float,
     val itemImg: Bitmap,
-    val deadline: Date?
+    val deadline: String?
 ){
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
