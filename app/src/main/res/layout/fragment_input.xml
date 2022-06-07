@@ -46,7 +46,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/imagePickerText" />
 
     <EditText
         android:id="@+id/inputAmount"
@@ -62,7 +62,7 @@
         app:layout_constraintTop_toBottomOf="@+id/inputTitle" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/imagePickerText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -73,12 +73,15 @@
         app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/inputDeadline"
         android:layout_width="370dp"
         android:layout_height="68dp"
         android:layout_marginTop="22dp"
         android:ems="10"
         android:hint="@string/input_deadline"
+        android:focusable="false"
+        android:longClickable="false"
+        android:inputType="date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inputAmount" />
@@ -86,16 +89,15 @@
     <Button
         android:id="@+id/inputSaveButton"
         android:layout_width="370dp"
-        android:layout_height="68dp"
+        android:layout_height="60dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/round_button"
         android:text="@string/input_save_btn"
-        android:foreground="?android:attr/selectableItemBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName"
+        app:layout_constraintTop_toBottomOf="@+id/inputDeadline"
         app:layout_constraintVertical_bias="0.17" />
 
 

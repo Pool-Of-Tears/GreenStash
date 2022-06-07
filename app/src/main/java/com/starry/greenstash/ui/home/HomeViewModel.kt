@@ -20,20 +20,15 @@ class HomeViewModel(application: Application) : AndroidViewModel(application){
         allItems = repository.allItems
     }
 
-    fun insertItem(item: Item) {
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.insertItem(item)
-        }
-    }
     fun deleteItem(item: Item) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.deleteItem(item)
         }
     }
 
-    fun updateAmount(id: Int, amount: Float) {
+    fun updateCurrentAmount(id: Int, amount: Float) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.updateAmount(id, amount)
+            repository.updateCurrrentAmount(id, amount)
         }
     }
 

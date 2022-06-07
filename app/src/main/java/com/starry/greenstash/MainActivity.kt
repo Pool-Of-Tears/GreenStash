@@ -8,6 +8,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import com.starry.greenstash.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -28,7 +29,6 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         binding.fab.setOnClickListener { view ->
-            binding.fab.hide()
             findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.action_HomeFragment_to_InputFragment)
         }
     }
@@ -50,9 +50,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        binding.fab.show()
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
+    }
+
+    fun hideFab() {
+        if(binding.fab.visibility == View.VISIBLE) {
+            binding.fab.hide()
+        }
+    }
+
+    fun showFab() {
+        if(binding.fab.visibility == View.INVISIBLE) {
+            binding.fab.show()
+        }
     }
 }
