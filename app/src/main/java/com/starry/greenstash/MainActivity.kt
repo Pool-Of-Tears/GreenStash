@@ -8,7 +8,6 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import com.starry.greenstash.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -21,16 +20,11 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         setSupportActionBar(binding.toolbar)
 
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
-
-        binding.fab.setOnClickListener { view ->
-            findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.action_HomeFragment_to_InputFragment)
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -40,9 +34,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+        // Handle action bar item clicks here.
         return when (item.itemId) {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
@@ -51,19 +43,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
-        return navController.navigateUp(appBarConfiguration)
-                || super.onSupportNavigateUp()
-    }
-
-    fun hideFab() {
-        if(binding.fab.visibility == View.VISIBLE) {
-            binding.fab.hide()
-        }
-    }
-
-    fun showFab() {
-        if(binding.fab.visibility == View.INVISIBLE) {
-            binding.fab.show()
-        }
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 }

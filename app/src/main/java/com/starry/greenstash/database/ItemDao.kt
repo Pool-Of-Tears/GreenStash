@@ -1,6 +1,5 @@
 package com.starry.greenstash.database
 
-import android.graphics.Bitmap
 import androidx.lifecycle.LiveData
 import androidx.room.*
 
@@ -29,7 +28,7 @@ interface ItemDao {
             "currentAmount = :currentAmount, itemImage = :itemImage," +
             "deadline = :deadline WHERE id LIKE :id")
     suspend fun updateItemm(id: Int, title: String, totalAmount: Float, currentAmount: Float,
-                    itemImage: Bitmap, deadline: String
+                    itemImage: String, deadline: String
     )
 
 }

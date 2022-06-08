@@ -1,6 +1,5 @@
 package com.starry.greenstash.database
 
-import android.graphics.Bitmap
 import androidx.lifecycle.LiveData
 
 class ItemsRepository(private val itemDao: ItemDao) {
@@ -27,7 +26,7 @@ class ItemsRepository(private val itemDao: ItemDao) {
     }
 
     suspend fun updateItemm(id: Int, title: String, totalAmount: Float, currentAmount: Float,
-                            itemImage: Bitmap, deadline: String
+                            itemImage: String, deadline: String
     ) {
         itemDao.updateItemm(id, title, totalAmount, currentAmount, itemImage, deadline)
     }

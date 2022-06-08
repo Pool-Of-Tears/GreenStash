@@ -35,16 +35,28 @@
 
     </androidx.cardview.widget.CardView>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/imagePickerButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="100dp"
+        android:src="@drawable/ic_baseline_camera_alt_24"
+        app:backgroundTint="?attr/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="@+id/imagePickerText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <EditText
         android:id="@+id/inputTitle"
         android:layout_width="370dp"
         android:layout_height="68dp"
         android:layout_marginTop="22dp"
-        android:ems="10"
-        android:hint="@string/imputTextTitle"
+        android:hint="@string/inputTextTitle"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imagePickerText" />
 
@@ -53,11 +65,10 @@
         android:layout_width="370dp"
         android:layout_height="68dp"
         android:layout_marginTop="22dp"
-        android:ems="10"
         android:hint="@string/inputTextAmount"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inputTitle" />
 
@@ -68,7 +79,7 @@
         android:layout_marginTop="20dp"
         android:text="@string/imagepicker_input"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
@@ -77,11 +88,11 @@
         android:layout_width="370dp"
         android:layout_height="68dp"
         android:layout_marginTop="22dp"
-        android:ems="10"
         android:hint="@string/input_deadline"
         android:focusable="false"
         android:longClickable="false"
         android:inputType="date"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inputAmount" />
@@ -95,7 +106,7 @@
         android:text="@string/input_save_btn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inputDeadline"
         app:layout_constraintVertical_bias="0.17" />

@@ -78,18 +78,18 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/editButton"
+                    android:id="@+id/DepositButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
-                    android:text="@string/edit_item"
+                    android:text="@string/deposit_btn"
                     style="?attr/borderlessButtonStyle"
                     />
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/historyButton"
+                    android:id="@+id/withdrawButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/item_history"
+                    android:text="@string/withdraw_btn"
                     style="?attr/borderlessButtonStyle"/>
 
                 <ImageButton

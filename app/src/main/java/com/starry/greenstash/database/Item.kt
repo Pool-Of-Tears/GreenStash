@@ -1,6 +1,5 @@
 package com.starry.greenstash.database
 
-import android.graphics.Bitmap
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -8,8 +7,8 @@ import androidx.room.PrimaryKey
 data class Item(
     val title: String,
     val totalAmount: Float,
-    val currentAmount: Float,
-    val itemImage: Bitmap,
+    val currentAmount: Float = 0f,
+    val itemImage: String?,
     val deadline: String
 ){
     @PrimaryKey(autoGenerate = true)

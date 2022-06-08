@@ -2,22 +2,24 @@
     <string name="app_name">GreenStash</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="home_fragment_label">First Fragment</string>
-    <string name="input_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="home_fragment_label">Savings Dashboard</string>
+    <string name="input_fragment_label">It\'s time to save!</string>
+    <string name="cancel">Task Cancelled!</string>
+    <!-- Strings used for dashboard cards -->
     <string name="content_description_media">items information card</string>
     <string name="title">Item Title</string>
     <string name="secondary_text">Secondary text</string>
     <string name="supporting_text">supporting text</string>
-    <string name="edit_item">Edit</string>
-    <string name="item_history">History</string>
-    <string name="imputTextTitle">Enter title</string>
+    <string name="deposit_btn">Edit</string>
+    <string name="withdraw_btn">withdraw</string>
+    <!-- Strings used for fragments for input screen -->
+    <string name="inputTextTitle">Enter title</string>
+    <string name="title_empty_err">Woops! title is empty.</string>
     <string name="inputTextAmount">Enter amount</string>
+    <string name="amount_empty_err">Woops! amount is empty.</string>
     <string name="imagepicker_input">Pick an image</string>
     <string name="input_deadline">Enter deadline</string>
+    <string name="deadline_empty_err">Please enter deadline for this goal!</string>
     <string name="input_save_btn">set saving goal</string>
+    <string name="data_saved_success">Great job! saving goal saved.</string>
 </resources>
