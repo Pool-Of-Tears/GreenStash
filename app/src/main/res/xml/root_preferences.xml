@@ -1,0 +1,53 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/display_pref_header">
+        <ListPreference
+            app:icon="@drawable/ic_perf_display_theme_6_24"
+            app:defaultValue="system"
+            app:entries="@array/theme_entry"
+            app:entryValues="@array/theme_values"
+            app:key="display"
+            app:title="@string/display_pref_title"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+
+
+    <PreferenceCategory app:title="@string/locale_pref_header">
+        <ListPreference
+            app:icon="@drawable/ic_perf_locale_currency_24"
+            app:defaultValue="₹"
+            app:entries="@array/currency_entries"
+            app:entryValues="@array/currency_values"
+            app:key="currency"
+            app:title="@string/currency_pref_title"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/security_pref_header">
+        <SwitchPreferenceCompat
+            app:icon="@drawable/ic_perf_security_lock_24"
+            app:key="pattern_lock"
+            app:title="@string/pattern_lock_title" />
+
+        <SwitchPreferenceCompat
+            app:icon="@drawable/ic_perf_security_lock_visible_24"
+            app:dependency="pattern_lock"
+            app:key="pattern_lock_visibility"
+            app:summaryOff="@string/pattern_visibility_off"
+            app:summaryOn="@string/pattern_visibility_on"
+            app:title="@string/pattern_visibility_title" />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/about_pref_header">
+        <Preference
+            app:icon="@drawable/ic_perf_about_license_24"
+            app:title="@string/license_perf_title"
+            app:summary="@string/license_perf_summary"/>
+        <Preference
+            app:icon="@drawable/ic_perf_about_info_24"
+            app:title="@string/about_perf_title"
+            app:summary="@string/about_perf_summary"/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -24,11 +24,10 @@ interface ItemDao {
     @Query("UPDATE greenstash SET currentAmount = :amount WHERE id = :id" )
     suspend fun  updateCurrentAmount(id: Int, amount: Float)
 
-    @Query("UPDATE greenstash SET title = :title, totalAmount = :totalAmount," +
-            "currentAmount = :currentAmount, itemImage = :itemImage," +
-            "deadline = :deadline WHERE id LIKE :id")
-    suspend fun updateItemm(id: Int, title: String, totalAmount: Float, currentAmount: Float,
-                    itemImage: String, deadline: String
-    )
+    @Query("UPDATE greenstash SET deadline = :deadline WHERE id = :id" )
+    suspend fun updateDeadline(id: Int, deadline: String)
+
+    @Query("UPDATE greenstash SET itemImage= :itemImage WHERE id = :id" )
+    suspend fun updateItemImage(id: Int, itemImage: String)
 
 }

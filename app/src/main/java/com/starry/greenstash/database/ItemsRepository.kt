@@ -21,13 +21,15 @@ class ItemsRepository(private val itemDao: ItemDao) {
         itemDao.updateTotalAmount(id, amount)
     }
 
-    suspend fun  updateCurrrentAmount(id: Int, amount: Float) {
+    suspend fun  updateCurrentAmount(id: Int, amount: Float) {
         itemDao.updateCurrentAmount(id, amount)
     }
 
-    suspend fun updateItemm(id: Int, title: String, totalAmount: Float, currentAmount: Float,
-                            itemImage: String, deadline: String
-    ) {
-        itemDao.updateItemm(id, title, totalAmount, currentAmount, itemImage, deadline)
+    suspend fun updateDeadline(id: Int, deadline: String) {
+        itemDao.updateDeadline(id, deadline)
+    }
+
+    suspend fun updateItemImage(id: Int, itemImage: String) {
+        itemDao.updateItemImage(id, itemImage)
     }
 }

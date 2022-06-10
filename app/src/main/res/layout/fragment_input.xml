@@ -30,7 +30,7 @@
                 android:layout_width="181dp"
                 android:layout_height="180dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/noimage" />
+                android:src="@drawable/default_image" />
         </androidx.cardview.widget.CardView>
 
     </androidx.cardview.widget.CardView>
@@ -41,7 +41,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="120dp"
         android:layout_marginTop="100dp"
-        android:src="@drawable/ic_baseline_camera_alt_24"
+        android:src="@drawable/ic_fab_camera_alt_24"
+        app:tint="@color/white"
         app:backgroundTint="?attr/colorPrimary"
         app:layout_constraintBottom_toBottomOf="@+id/imagePickerText"
         app:layout_constraintEnd_toEndOf="parent"
@@ -104,6 +105,7 @@
         android:layout_marginTop="24dp"
         android:background="@drawable/round_button"
         android:text="@string/input_save_btn"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

@@ -9,10 +9,12 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardElevation="16dp"
-        app:cardCornerRadius="8dp"
-        android:layout_margin="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
         app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="14dp"
+        app:cardElevation="16dp"
         app:cardMaxElevation="12dp"
         app:cardPreventCornerOverlap="true"
         app:cardUseCompatPadding="true">
@@ -27,13 +29,14 @@
                 android:id="@+id/itemImage"
                 android:layout_width="match_parent"
                 android:layout_height="194dp"
-                app:srcCompat="@drawable/noimage"
                 android:contentDescription="@string/content_description_media"
-                />
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/default_image" />
+
             <com.google.android.material.progressindicator.LinearProgressIndicator
-                android:id="@+id/itemProgressBar"
+                android:id="@+id/goalProgressBar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -47,8 +50,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/title"
-                    android:textAppearance="?attr/textAppearanceHeadline6"
-                    />
+                    android:textAppearance="?attr/textAppearanceHeadline6" />
+
                 <TextView
                     android:id="@+id/itemSecondaryText"
                     android:layout_width="wrap_content"
@@ -56,8 +59,8 @@
                     android:layout_marginTop="8dp"
                     android:text="@string/secondary_text"
                     android:textAppearance="?attr/textAppearanceBody2"
-                    android:textColor="?android:attr/textColorSecondary"
-                    />
+                    android:textColor="?android:attr/textColorSecondary" />
+
                 <TextView
                     android:id="@+id/itemDescriptionText"
                     android:layout_width="wrap_content"
@@ -65,8 +68,7 @@
                     android:layout_marginTop="16dp"
                     android:text="@string/supporting_text"
                     android:textAppearance="?attr/textAppearanceBody2"
-                    android:textColor="?android:attr/textColorSecondary"
-                    />
+                    android:textColor="?android:attr/textColorSecondary" />
 
             </LinearLayout>
 
@@ -78,28 +80,43 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/DepositButton"
+                    android:id="@+id/depositButton"
+                    style="?attr/borderlessButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginEnd="2dp"
                     android:text="@string/deposit_btn"
-                    style="?attr/borderlessButtonStyle"
-                    />
+                    android:textColor="?attr/colorSecondary" />
+
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/withdrawButton"
+                    style="?attr/borderlessButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/withdraw_btn"
-                    style="?attr/borderlessButtonStyle"/>
+                    android:textColor="?attr/colorSecondary" />
 
                 <ImageButton
+                    android:id="@+id/editButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal|center_vertical"
-                    android:layout_marginStart="115dp"
+                    android:layout_marginStart="80dp"
                     android:background="@android:color/transparent"
-                    android:src="@drawable/ic_baseline_delete_outline_24"
-                    app:tint="@color/design_default_color_primary" />
+                    android:src="@drawable/ic_baseline_edit_24"
+                    android:contentDescription="@string/edit_btn_description" />
+
+
+                <ImageButton
+                    android:id="@+id/deleteButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_marginStart="8dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_baseline_delete_24"
+                    android:contentDescription="@string/delete_btn_description" />
+
             </LinearLayout>
 
         </LinearLayout>

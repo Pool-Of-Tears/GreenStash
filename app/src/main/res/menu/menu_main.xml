@@ -3,8 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.starry.greenstash.MainActivity">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/settingsFragment"
         android:orderInCategory="100"
         android:title="@string/action_settings"
-        app:showAsAction="never" />
+        app:showAsAction="never"
+        />
 </menu>

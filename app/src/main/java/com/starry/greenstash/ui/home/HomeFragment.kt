@@ -7,12 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.starry.greenstash.R
+import com.starry.greenstash.database.Item
 import com.starry.greenstash.databinding.FragmentHomeBinding
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), ClickListenerIF {
 
     private var _binding: FragmentHomeBinding? = null
 
@@ -40,5 +41,21 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onDepositClicked(item: Item) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onWithdrawClicked(item: Item) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onEditClicked(item: Item) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onDeleteClicked(item: Item) {
+        TODO("Not yet implemented")
     }
 }

@@ -28,7 +28,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application){
 
     fun updateCurrentAmount(id: Int, amount: Float) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.updateCurrrentAmount(id, amount)
+            repository.updateCurrentAmount(id, amount)
         }
     }
 

@@ -10,8 +10,15 @@
     <string name="title">Item Title</string>
     <string name="secondary_text">Secondary text</string>
     <string name="supporting_text">supporting text</string>
-    <string name="deposit_btn">Edit</string>
+    <string name="deposit_btn">Deposit</string>
     <string name="withdraw_btn">withdraw</string>
+    <string name="delete_btn_description">Delete this goal.</string>
+    <string name="edit_btn_description">Edit this goal.</string>
+    <string name="progress_greet1">You’re off to great start!</string>
+    <string name="progress_greet2">Keep on keeping on!</string>
+    <string name="progress_greet3">If you think you can do it, you can.</string>
+    <string name="progress_greet4">Almost there, You got this!</string>
+    <string name="progress_greet5">Congratulations &#x1F389;</string>
     <!-- Strings used for fragments for input screen -->
     <string name="inputTextTitle">Enter title</string>
     <string name="title_empty_err">Woops! title is empty.</string>
@@ -22,4 +29,23 @@
     <string name="deadline_empty_err">Please enter deadline for this goal!</string>
     <string name="input_save_btn">set saving goal</string>
     <string name="data_saved_success">Great job! saving goal saved.</string>
+    <!-- Preference Titles -->
+    <string name="display_pref_header">Display</string>
+    <string name="locale_pref_header">Locales</string>
+    <string name="security_pref_header">Security</string>
+    <string name="about_pref_header">About</string>
+    <!--  Display Preferences -->
+    <string name="display_pref_title">Default Theme</string>
+    <!-- Locale Preferences -->
+    <string name="currency_pref_title">Default currency</string>
+    <!-- Security Preferences -->
+    <string name="pattern_lock_title">Enable pattern lock</string>
+    <string name="pattern_visibility_title">Disable pattern visibility</string>
+    <string name="pattern_visibility_on">Pattern lock is invisible</string>
+    <string name="pattern_visibility_off">Pattern lock is visible</string>
+    <!-- About Preferences -->
+    <string name="license_perf_title">License &amp; Acknowledgements</string>
+    <string name="license_perf_summary">View open source license information</string>
+    <string name="about_perf_title">App information</string>
+    <string name="about_perf_summary">App version and developer information</string>
 </resources>

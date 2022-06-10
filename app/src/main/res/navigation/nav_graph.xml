@@ -15,6 +15,7 @@
             android:id="@+id/action_HomeFragment_to_InputFragment"
             app:destination="@id/InputFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/InputFragment"
         android:name="com.starry.greenstash.ui.input.InputFragment"
@@ -25,4 +26,9 @@
             android:id="@+id/action_InputFragment_to_HomeFragment"
             app:destination="@id/HomeFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.starry.greenstash.ui.settings.SettingsFragment"
+        android:label="SettingsFragment" />
 </navigation>
