@@ -12,6 +12,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" >?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="iconPreferenceColor">@color/light_gray</item>
     </style>
 
     <!-- Toolbar options menu color. -->

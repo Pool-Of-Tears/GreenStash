@@ -39,13 +39,11 @@
     <!-- Locale Preferences -->
     <string name="currency_pref_title">Default currency</string>
     <!-- Security Preferences -->
-    <string name="pattern_lock_title">Enable pattern lock</string>
-    <string name="pattern_visibility_title">Disable pattern visibility</string>
-    <string name="pattern_visibility_on">Pattern lock is invisible</string>
-    <string name="pattern_visibility_off">Pattern lock is visible</string>
+    <string name="app_lock_perf_title">Enable app lock</string>
+    <string name="app_lock_perf_summary">Use your fingerprint or screen lock password to unlock GreenStash..</string>
     <!-- About Preferences -->
     <string name="license_perf_title">License &amp; Acknowledgements</string>
-    <string name="license_perf_summary">View open source license information</string>
+    <string name="license_perf_summary">Show open source license information.</string>
     <string name="about_perf_title">App information</string>
-    <string name="about_perf_summary">App version and developer information</string>
+    <string name="about_perf_summary">Show app version and developer information.</string>
 </resources>

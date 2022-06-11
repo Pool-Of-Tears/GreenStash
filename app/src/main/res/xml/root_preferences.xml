@@ -11,7 +11,6 @@
             app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 
-
     <PreferenceCategory app:title="@string/locale_pref_header">
         <ListPreference
             app:icon="@drawable/ic_perf_locale_currency_24"
@@ -26,16 +25,9 @@
     <PreferenceCategory app:title="@string/security_pref_header">
         <SwitchPreferenceCompat
             app:icon="@drawable/ic_perf_security_lock_24"
-            app:key="pattern_lock"
-            app:title="@string/pattern_lock_title" />
-
-        <SwitchPreferenceCompat
-            app:icon="@drawable/ic_perf_security_lock_visible_24"
-            app:dependency="pattern_lock"
-            app:key="pattern_lock_visibility"
-            app:summaryOff="@string/pattern_visibility_off"
-            app:summaryOn="@string/pattern_visibility_on"
-            app:title="@string/pattern_visibility_title" />
+            app:key="app_lock"
+            app:title="@string/app_lock_perf_title"
+            app:summary="@string/app_lock_perf_summary"/>
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/about_pref_header">

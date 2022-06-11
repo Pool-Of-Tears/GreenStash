@@ -22,19 +22,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
 
-package com.starry.greenstash.database
+package com.starry.greenstash.utils
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.appcompat.app.AppCompatDelegate
 
-@Entity(tableName = "greenstash")
-data class Item(
-    val title: String,
-    val totalAmount: Float,
-    val currentAmount: Float = 0f,
-    val itemImage: String?,
-    val deadline: String
-){
-    @PrimaryKey(autoGenerate = true)
-    var id: Int = 0
+// change app theme globally.
+fun setAppTheme(mode: String) {
+    when (mode) {
+        "dark" ->  AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        "light" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        "system" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+    }
 }

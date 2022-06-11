@@ -24,17 +24,36 @@ SOFTWARE.
 
 package com.starry.greenstash.database
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.lifecycle.LiveData
 
-@Entity(tableName = "greenstash")
-data class Item(
-    val title: String,
-    val totalAmount: Float,
-    val currentAmount: Float = 0f,
-    val itemImage: String?,
-    val deadline: String
-){
-    @PrimaryKey(autoGenerate = true)
-    var id: Int = 0
+class ItemRepository(private val itemDao: ItemDao) {
+    val allItems: LiveData<List<Item>> = itemDao.getAllItems()
+
+    suspend fun getItem(id: Int) {
+        itemDao.getItem(id)
+    }
+
+    suspend fun insertItem(item: Item) {
+        itemDao.insert(item)
+    }
+
+    suspend fun deleteItem(item: Item) {
+        itemDao.delete(item)
+    }
+
+    suspend fun  updateTotalAmount(id: Int, amount: Float) {
+        itemDao.updateTotalAmount(id, amount)
+    }
+
+    suspend fun  updateCurrentAmount(id: Int, amount: Float) {
+        itemDao.updateCurrentAmount(id, amount)
+    }
+
+    suspend fun updateDeadline(id: Int, deadline: String) {
+        itemDao.updateDeadline(id, deadline)
+    }
+
+    suspend fun updateItemImage(id: Int, itemImage: String) {
+        itemDao.updateItemImage(id, itemImage)
+    }
 }

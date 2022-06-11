@@ -1,3 +1,27 @@
+/*
+MIT License
+
+Copyright (c) 2022 Stɑrry Shivɑm // This file is part of GreenStash.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+ */
+
 package com.starry.greenstash.ui.input
 
 import android.app.Activity
@@ -22,9 +46,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-/**
- * A simple [Fragment] subclass as the second destination in the navigation.
- */
 class InputFragment : Fragment() {
 
     private var _binding: FragmentInputBinding? = null
@@ -34,7 +55,7 @@ class InputFragment : Fragment() {
     private val binding get() = _binding!!
 
     // storing calender instance.
-    private var cal = Calendar.getInstance()!!
+    private var cal = Calendar.getInstance()
 
     // storing image picker result
     private var imagePickerResult: Intent? = null
@@ -64,15 +85,18 @@ class InputFragment : Fragment() {
                 updateDateInView()
             }
 
-        binding.inputDeadline!!.setOnClickListener {
-            DatePickerDialog(
+        binding.inputDeadline.setOnClickListener {
+            val datePickerDialog = DatePickerDialog(
                 requireContext(),
                 dateSetListener,
                 // set DatePickerDialog to point to today's date when it loads up
                 cal.get(Calendar.YEAR),
                 cal.get(Calendar.MONTH),
                 cal.get(Calendar.DAY_OF_MONTH)
-            ).show()
+            )
+            // sets today's date as minimum date and disable past dates.
+            datePickerDialog.datePicker.minDate = System.currentTimeMillis() - 10000
+            datePickerDialog.show()
         }
 
         binding.imagePickerButton.setOnClickListener {
@@ -90,7 +114,7 @@ class InputFragment : Fragment() {
         binding.inputSaveButton.setOnClickListener {
             val status = viewModel.insertItem(binding, imagePickerResult, requireContext())
             // data has been successfully validated and saved.
-            if (status == true) {
+            if (status) {
                 val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.hideSoftInputFromWindow(binding.inputSaveButton.windowToken, 0)
                 findNavController().navigate(R.id.action_InputFragment_to_HomeFragment)
