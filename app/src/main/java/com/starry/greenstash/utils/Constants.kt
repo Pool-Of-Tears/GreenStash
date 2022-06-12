@@ -24,26 +24,10 @@ SOFTWARE.
 
 package com.starry.greenstash.utils
 
-import android.view.View
-import androidx.appcompat.app.AppCompatDelegate
+import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG
+import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
 
-
-fun View.visible() {
-    visibility = View.VISIBLE
-}
-
-fun View.gone() {
-    visibility = View.GONE
-}
-
-fun View.invisible() {
-    visibility = View.INVISIBLE
-}
-// change app theme globally.
-fun setAppTheme(mode: String) {
-    when (mode) {
-        "dark" ->  AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        "light" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        "system" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-    }
+object AppConstants {
+    const val DATE_FORMAT = "dd/MM/yyyy"
+    const val AUTHENTICATORS =  BIOMETRIC_STRONG or DEVICE_CREDENTIAL
 }

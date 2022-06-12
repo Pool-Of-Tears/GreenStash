@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!-- MIT License
+<!--
+MIT License
 
 Copyright (c) 2022 Stɑrry Shivɑm // This file is part of GreenStash.
 
@@ -37,9 +38,9 @@ SOFTWARE. -->
         android:layout_marginTop="24dp"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="250dp"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteY="7dp">
 
         <androidx.cardview.widget.CardView
@@ -52,6 +53,7 @@ SOFTWARE. -->
                 android:id="@+id/imagePicker"
                 android:layout_width="181dp"
                 android:layout_height="180dp"
+                android:contentDescription="@null"
                 android:scaleType="centerCrop"
                 android:src="@drawable/default_image" />
         </androidx.cardview.widget.CardView>
@@ -64,13 +66,14 @@ SOFTWARE. -->
         android:layout_height="wrap_content"
         android:layout_marginStart="120dp"
         android:layout_marginTop="100dp"
+        android:contentDescription="@string/image_picker_input"
         android:src="@drawable/ic_fab_camera_alt_24"
-        app:tint="@color/white"
         app:backgroundTint="?attr/colorPrimary"
         app:layout_constraintBottom_toBottomOf="@+id/imagePickerText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/white" />
 
     <EditText
         android:id="@+id/inputTitle"
@@ -82,7 +85,8 @@ SOFTWARE. -->
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imagePickerText" />
+        app:layout_constraintTop_toBottomOf="@+id/imagePickerText"
+        android:importantForAutofill="no" />
 
     <EditText
         android:id="@+id/inputAmount"
@@ -90,6 +94,7 @@ SOFTWARE. -->
         android:layout_height="68dp"
         android:layout_marginTop="22dp"
         android:hint="@string/inputTextAmount"
+        android:importantForAutofill="no"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -101,7 +106,7 @@ SOFTWARE. -->
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="@string/imagepicker_input"
+        android:text="@string/image_picker_input"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -112,12 +117,13 @@ SOFTWARE. -->
         android:layout_width="370dp"
         android:layout_height="68dp"
         android:layout_marginTop="22dp"
-        android:hint="@string/input_deadline"
         android:focusable="false"
-        android:longClickable="false"
+        android:hint="@string/input_deadline"
+        android:importantForAutofill="no"
         android:inputType="date"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:longClickable="false"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inputAmount" />
 
@@ -134,7 +140,7 @@ SOFTWARE. -->
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inputDeadline"
-        app:layout_constraintVertical_bias="0.17" />
+        app:layout_constraintVertical_bias="0.12" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

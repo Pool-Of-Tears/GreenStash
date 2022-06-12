@@ -42,6 +42,7 @@ import com.github.dhaval2404.imagepicker.ImagePicker
 import com.rejowan.cutetoast.CuteToast
 import com.starry.greenstash.R
 import com.starry.greenstash.databinding.FragmentInputBinding
+import com.starry.greenstash.utils.AppConstants
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -157,8 +158,7 @@ class InputFragment : Fragment() {
     }
 
     private fun updateDateInView() {
-        val myFormat = "dd/MM/yyyy" // mention the format you need
-        val sdf = SimpleDateFormat(myFormat, Locale.US)
+        val sdf = SimpleDateFormat(AppConstants.DATE_FORMAT, Locale.US)
         binding.inputDeadline.setText(sdf.format(cal.getTime()))
     }
 }

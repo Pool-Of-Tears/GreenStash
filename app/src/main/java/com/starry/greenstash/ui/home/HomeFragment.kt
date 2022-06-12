@@ -25,18 +25,19 @@ SOFTWARE.
 package com.starry.greenstash.ui.home
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.starry.greenstash.R
 import com.starry.greenstash.database.Item
 import com.starry.greenstash.databinding.FragmentHomeBinding
 
-/**
- * A simple [Fragment] subclass as the default destination in the navigation.
- */
+
 class HomeFragment : Fragment(), ClickListenerIF {
 
     private var _binding: FragmentHomeBinding? = null
@@ -44,12 +45,15 @@ class HomeFragment : Fragment(), ClickListenerIF {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    private lateinit var viewModel: HomeViewModel
+    private lateinit var adapter: HomeRVAdapter
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
+        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
 
@@ -57,8 +61,19 @@ class HomeFragment : Fragment(), ClickListenerIF {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // set click listener on add goal fab button.
         binding.fab.setOnClickListener {
             findNavController().navigate(R.id.action_HomeFragment_to_InputFragment)
+        }
+        // attach adapter to recycler view.
+        adapter = HomeRVAdapter(requireContext(), this)
+        binding.mainRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.mainRecyclerView.adapter = adapter
+        // observe changes in items array and update homepage accordingly.
+        viewModel.allItems.observe(viewLifecycleOwner) { itemList ->
+            itemList.let {
+                adapter.updateItemsList(it)
+            }
         }
     }
 
@@ -68,18 +83,18 @@ class HomeFragment : Fragment(), ClickListenerIF {
     }
 
     override fun onDepositClicked(item: Item) {
-        TODO("Not yet implemented")
+        Toast.makeText(requireContext(), "deposit", Toast.LENGTH_SHORT).show()
     }
 
     override fun onWithdrawClicked(item: Item) {
-        TODO("Not yet implemented")
+        Toast.makeText(requireContext(), "withdraw", Toast.LENGTH_SHORT).show()
     }
 
     override fun onEditClicked(item: Item) {
-        TODO("Not yet implemented")
+        Toast.makeText(requireContext(), "edit", Toast.LENGTH_SHORT).show()
     }
 
     override fun onDeleteClicked(item: Item) {
-        TODO("Not yet implemented")
+        Toast.makeText(requireContext(), "delete", Toast.LENGTH_SHORT).show()
     }
 }

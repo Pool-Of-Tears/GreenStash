@@ -28,10 +28,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG
-import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
@@ -43,7 +40,10 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.preference.PreferenceManager
 import com.rejowan.cutetoast.CuteToast
 import com.starry.greenstash.databinding.ActivityMainBinding
+import com.starry.greenstash.utils.AppConstants
+import com.starry.greenstash.utils.invisible
 import com.starry.greenstash.utils.setAppTheme
+import com.starry.greenstash.utils.visible
 import java.util.concurrent.Executor
 
 class MainActivity : AppCompatActivity() {
@@ -55,7 +55,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var executor: Executor
     private lateinit var biometricPrompt: BiometricPrompt
     private lateinit var promptInfo: BiometricPrompt.PromptInfo
-    private val authenticators = BIOMETRIC_STRONG or DEVICE_CREDENTIAL
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,7 +72,7 @@ class MainActivity : AppCompatActivity() {
         val lockStatus = settingPerf.getBoolean("app_lock", false)
         if (lockStatus) {
             // hide app contents until auth is successful.
-            binding.root.visibility = View.INVISIBLE
+            binding.root.invisible()
             executor = ContextCompat.getMainExecutor(this)
             biometricPrompt = BiometricPrompt(this, executor,
                 object : BiometricPrompt.AuthenticationCallback() {
@@ -89,14 +88,14 @@ class MainActivity : AppCompatActivity() {
                             CuteToast.HAPPY, true
                         ).show()
                         // make app contents visible after successful authentication.
-                        binding.root.visibility = View.VISIBLE
+                        binding.root.visible()
                     }
                 })
 
             promptInfo = BiometricPrompt.PromptInfo.Builder()
-                .setTitle("Biometric login for my app")
-                .setSubtitle("Log in using your biometric credential")
-                .setAllowedAuthenticators(authenticators)
+                .setTitle(getString(R.string.bio_lock_title))
+                .setSubtitle(getString(R.string.bio_lock_subtitle))
+                .setAllowedAuthenticators(AppConstants.AUTHENTICATORS)
                 .build()
 
             biometricPrompt.authenticate(promptInfo)

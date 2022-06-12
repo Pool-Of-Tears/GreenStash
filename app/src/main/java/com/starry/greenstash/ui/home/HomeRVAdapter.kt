@@ -33,10 +33,12 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.starry.greenstash.R
 import com.starry.greenstash.database.Item
+import com.starry.greenstash.utils.AppConstants
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -46,6 +48,7 @@ class HomeRVAdapter(private val context: Context, private val listener: ClickLis
     RecyclerView.Adapter<HomeRVAdapter.HomeRecycleViewHolder>() {
 
     private val allItems = ArrayList<Item>()
+    private val settingPerf = PreferenceManager.getDefaultSharedPreferences(context)
 
     inner class HomeRecycleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val itemImage: ImageView = itemView.findViewById(R.id.itemImage)
@@ -88,10 +91,11 @@ class HomeRVAdapter(private val context: Context, private val listener: ClickLis
         // set goal progress.
         holder.progressBar.setProgress(progressPercent, true)
         // set goal title.
-        holder.title.setText(currentItem.title)
+        holder.title.text = currentItem.title
         // set goal secondary text
-        holder.secondaryText.setText(buildGreetingText(progressPercent))
-
+        holder.secondaryText.text = buildGreetingText(progressPercent)
+        // set goal description text.
+        holder.description.text = buildDescriptionText(currentItem)
     }
 
     override fun getItemCount(): Int {
@@ -121,20 +125,32 @@ class HomeRVAdapter(private val context: Context, private val listener: ClickLis
     }
 
     // supporting text message
-    fun buildDescriptionText(item: Item) {
-        val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("d/M/u")
-        val startDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"))
+    fun buildDescriptionText(item: Item): String {
+        val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern(AppConstants.DATE_FORMAT)
+        val startDate = LocalDateTime.now().format(dateFormatter)
         // calculate remaining days between today and endDate (deadline).
         val startDateValue: LocalDate = LocalDate.parse(startDate, dateFormatter)
         val endDateValue: LocalDate = LocalDate.parse(item.deadline, dateFormatter)
         val days: Long = ChronoUnit.DAYS.between(startDateValue, endDateValue)
         // build description string.
         val remainingAmount = item.totalAmount - item.currentAmount
-        var text: String = "You have until ${item.deadline} ($days) days left."
+        val defCurrency = settingPerf.getString("currency", "")
+        var text = "You have until ${item.deadline} ($days) days left."
         // TODO: finish this func.
         if (days > 2) {
-            text += "\nYou need to save around ${remainingAmount / days}/day."
+            text += "\nYou need to save around $defCurrency${remainingAmount / days}/day."
         }
+        if (days > 14) {
+            val weeks = days / 7
+            text = text.dropLast(1) // remove full stop
+            text +=  ", $defCurrency${remainingAmount / weeks}/week."
+        }
+        if (days > 60) {
+            val months = days / 30
+            text = text.dropLast(1) // remove full stop
+            text +=  ", $defCurrency${remainingAmount / months}/month."
+        }
+        return text
     }
 
     fun updateItemsList(newList: List<Item>) {

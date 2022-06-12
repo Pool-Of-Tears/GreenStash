@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!-- MIT License
+<!--
+MIT License
 
 Copyright (c) 2022 Stɑrry Shivɑm // This file is part of GreenStash.
 
@@ -47,7 +48,7 @@ SOFTWARE. -->
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        app:tint="@color/white"
+        android:contentDescription="@string/add_fab_button_description"
         app:backgroundTint="?attr/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -55,6 +56,7 @@ SOFTWARE. -->
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.962"
-        app:srcCompat="@drawable/ic_fab_add_24" />
+        app:srcCompat="@drawable/ic_fab_add_24"
+        app:tint="@color/white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

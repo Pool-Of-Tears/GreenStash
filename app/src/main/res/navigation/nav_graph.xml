@@ -30,5 +30,5 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.starry.greenstash.ui.settings.SettingsFragment"
-        android:label="SettingsFragment" />
+        android:label="@string/settings_fragment_label" />
 </navigation>
