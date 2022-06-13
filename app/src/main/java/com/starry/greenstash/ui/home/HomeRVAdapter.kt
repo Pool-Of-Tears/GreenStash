@@ -25,7 +25,6 @@ SOFTWARE.
 package com.starry.greenstash.ui.home
 
 import android.content.Context
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,6 +38,7 @@ import com.google.android.material.button.MaterialButton
 import com.starry.greenstash.R
 import com.starry.greenstash.database.Item
 import com.starry.greenstash.utils.AppConstants
+import com.starry.greenstash.utils.roundFloat
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -86,7 +86,7 @@ class HomeRVAdapter(private val context: Context, private val listener: ClickLis
         val progressPercent = ((currentItem.currentAmount / currentItem.totalAmount) * 100).toInt()
         // set goal image.
         if (currentItem.itemImage != null) {
-            holder.itemImage.setImageURI(Uri.parse(currentItem.itemImage))
+            holder.itemImage.setImageBitmap(currentItem.itemImage)
         }
         // set goal progress.
         holder.progressBar.setProgress(progressPercent, true)
@@ -125,32 +125,37 @@ class HomeRVAdapter(private val context: Context, private val listener: ClickLis
     }
 
     // supporting text message
-    fun buildDescriptionText(item: Item): String {
+    private fun buildDescriptionText(item: Item): String {
         val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern(AppConstants.DATE_FORMAT)
         val startDate = LocalDateTime.now().format(dateFormatter)
         // calculate remaining days between today and endDate (deadline).
         val startDateValue: LocalDate = LocalDate.parse(startDate, dateFormatter)
         val endDateValue: LocalDate = LocalDate.parse(item.deadline, dateFormatter)
         val days: Long = ChronoUnit.DAYS.between(startDateValue, endDateValue)
-        // build description string.
-        val remainingAmount = item.totalAmount - item.currentAmount
+        val remainingAmount = (item.totalAmount - item.currentAmount)
         val defCurrency = settingPerf.getString("currency", "")
-        var text = "You have until ${item.deadline} ($days) days left."
-        // TODO: finish this func.
-        if (days > 2) {
-            text += "\nYou need to save around $defCurrency${remainingAmount / days}/day."
+        // build description string.
+        if (remainingAmount.toInt() != 0) {
+            var text = "You have until ${item.deadline} ($days) days left."
+            if (days > 2) {
+                text += "\nYou need to save around $defCurrency${roundFloat(remainingAmount / days)}/day."
+                if (days > 14) {
+                    val weeks = days / 7
+                    text = text.dropLast(1) // remove full stop
+                    text += ", $defCurrency${roundFloat(remainingAmount / weeks)}/week."
+                    if (days > 60) {
+                        val months = days / 30
+                        text = text.dropLast(1) // remove full stop
+                        text += ", $defCurrency${roundFloat(remainingAmount / months)}/month."
+                    }
+                }
+            }
+            return text
+        } else {
+            return context.getString(R.string.goal_achived_desc)
         }
-        if (days > 14) {
-            val weeks = days / 7
-            text = text.dropLast(1) // remove full stop
-            text +=  ", $defCurrency${remainingAmount / weeks}/week."
-        }
-        if (days > 60) {
-            val months = days / 30
-            text = text.dropLast(1) // remove full stop
-            text +=  ", $defCurrency${remainingAmount / months}/month."
-        }
-        return text
+
+
     }
 
     fun updateItemsList(newList: List<Item>) {

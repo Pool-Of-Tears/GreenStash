@@ -24,6 +24,7 @@ SOFTWARE.
 
 package com.starry.greenstash.database
 
+import android.graphics.Bitmap
 import androidx.lifecycle.LiveData
 
 class ItemRepository(private val itemDao: ItemDao) {
@@ -53,7 +54,7 @@ class ItemRepository(private val itemDao: ItemDao) {
         itemDao.updateDeadline(id, deadline)
     }
 
-    suspend fun updateItemImage(id: Int, itemImage: String) {
+    suspend fun updateItemImage(id: Int, itemImage: Bitmap) {
         itemDao.updateItemImage(id, itemImage)
     }
 }

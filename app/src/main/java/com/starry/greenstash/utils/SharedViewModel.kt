@@ -1,7 +1,7 @@
 /*
 MIT License
 
-Copyright (c) 2022 Stɑrry Shivɑm // This file is part of GreenStash.
+Copyright (c) 2022 Stɑrry Shivɑm
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -21,21 +21,16 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
+package com.starry.greenstash.utils
 
-package com.starry.greenstash.database
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 
-import android.graphics.Bitmap
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-
-@Entity(tableName = "greenstash")
-data class Item(
-    val title: String,
-    val totalAmount: Float,
-    val currentAmount: Float = 0f,
-    val itemImage: Bitmap?,
-    val deadline: String
-){
-    @PrimaryKey(autoGenerate = true)
-    var id: Int = 0
+class SharedViewModel(application: Application) : AndroidViewModel(application){
+    /*
+    storing app lock status to avoid asking for authentication
+    when activity restarts like when changing app or device
+    theme or when changing device orientation.
+    */
+    var appUnlocked = false
 }

@@ -131,7 +131,7 @@ SOFTWARE. -->
                     android:layout_marginStart="88dp"
                     android:background="@android:color/transparent"
                     android:contentDescription="@string/edit_btn_description"
-                    android:src="@drawable/ic_baseline_edit_24" />
+                    android:src="@drawable/ic_item_card_edit_24" />
 
 
                 <ImageButton
@@ -142,7 +142,7 @@ SOFTWARE. -->
                     android:layout_marginStart="14dp"
                     android:background="@android:color/transparent"
                     android:contentDescription="@string/delete_btn_description"
-                    android:src="@drawable/ic_baseline_delete_24" />
+                    android:src="@drawable/ic_item_card_delete_24" />
 
             </LinearLayout>
 

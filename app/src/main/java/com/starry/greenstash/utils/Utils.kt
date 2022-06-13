@@ -24,8 +24,14 @@ SOFTWARE.
 
 package com.starry.greenstash.utils
 
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
+import java.math.RoundingMode
+import java.text.DecimalFormat
 
 
 fun View.visible() {
@@ -39,6 +45,20 @@ fun View.gone() {
 fun View.invisible() {
     visibility = View.INVISIBLE
 }
+
+// round decimal (float) to 2 digits
+fun roundFloat(number: Float): Float {
+    val df = DecimalFormat("#.##")
+    df.roundingMode = RoundingMode.FLOOR
+    return df.format(number).toFloat()
+}
+
+// get bitmap from image Uri.
+fun uriToBitmap(uri: Uri, context: Context): Bitmap {
+    val stream = context.contentResolver.openInputStream(uri)
+    return BitmapFactory.decodeStream(stream)
+}
+
 // change app theme globally.
 fun setAppTheme(mode: String) {
     when (mode) {

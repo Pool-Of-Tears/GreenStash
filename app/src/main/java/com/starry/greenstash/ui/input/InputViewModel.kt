@@ -26,7 +26,7 @@ package com.starry.greenstash.ui.input
 
 import android.app.Application
 import android.content.Context
-import android.content.Intent
+import android.graphics.Bitmap
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.rejowan.cutetoast.CuteToast
@@ -46,7 +46,7 @@ class InputViewModel(application: Application) : AndroidViewModel(application) {
         repository = ItemRepository(dao)
     }
 
-    fun insertItem(binding: FragmentInputBinding, imageData: Intent?, ctx: Context): Boolean {
+    fun insertItem(binding: FragmentInputBinding, imageData: Bitmap?, ctx: Context): Boolean {
         val title = binding.inputTitle.text
         val amount = binding.inputAmount.text
         val deadline = binding.inputDeadline.text
@@ -77,7 +77,7 @@ class InputViewModel(application: Application) : AndroidViewModel(application) {
                 Item(
                     title.toString(),
                     totalAmount = amount.toString().toFloat(),
-                    itemImage = imageData.data.toString(),
+                    itemImage = imageData,
                     deadline = deadline.toString(),
                 )
             } else {

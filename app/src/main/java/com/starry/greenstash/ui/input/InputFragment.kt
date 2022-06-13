@@ -27,7 +27,7 @@ package com.starry.greenstash.ui.input
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Context
-import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -43,6 +43,7 @@ import com.rejowan.cutetoast.CuteToast
 import com.starry.greenstash.R
 import com.starry.greenstash.databinding.FragmentInputBinding
 import com.starry.greenstash.utils.AppConstants
+import com.starry.greenstash.utils.uriToBitmap
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -59,7 +60,7 @@ class InputFragment : Fragment() {
     private var cal = Calendar.getInstance()
 
     // storing image picker result
-    private var imagePickerResult: Intent? = null
+    private var imagePickerResult: Bitmap? = null
 
     // Input fragment's view model class.
     private lateinit var viewModel: InputViewModel
@@ -77,7 +78,7 @@ class InputFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // setup date listener variable.
+        // listener variable of deadline result.
         val dateSetListener =
             DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                 cal.set(Calendar.YEAR, year)
@@ -86,6 +87,7 @@ class InputFragment : Fragment() {
                 updateDateInView()
             }
 
+        // deadline click listener.
         binding.inputDeadline.setOnClickListener {
             val datePickerDialog = DatePickerDialog(
                 requireContext(),
@@ -100,6 +102,7 @@ class InputFragment : Fragment() {
             datePickerDialog.show()
         }
 
+        // image picker button click listener.
         binding.imagePickerButton.setOnClickListener {
             ImagePicker.with(this)
                 .compress(1024) //Final image size will be less than 1 MB
@@ -112,6 +115,7 @@ class InputFragment : Fragment() {
                 }
         }
 
+        // save goal button click listener
         binding.inputSaveButton.setOnClickListener {
             val status = viewModel.insertItem(binding, imagePickerResult, requireContext())
             // data has been successfully validated and saved.
@@ -123,6 +127,7 @@ class InputFragment : Fragment() {
         }
     }
 
+    // listener variable of image picker result
     private val startForProfileImageResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             val resultCode = result.resultCode
@@ -130,8 +135,8 @@ class InputFragment : Fragment() {
             when (resultCode) {
                 Activity.RESULT_OK -> {
                     //Image Uri will not be null for RESULT_OK
-                    imagePickerResult = data!!
-                    binding.imagePicker.setImageURI(data.data)
+                    imagePickerResult = uriToBitmap(data!!.data!!, requireContext())
+                    binding.imagePicker.setImageBitmap(imagePickerResult)
                 }
                 ImagePicker.RESULT_ERROR -> {
                     CuteToast.ct(

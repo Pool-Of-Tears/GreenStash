@@ -56,7 +56,7 @@ SOFTWARE. -->
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.962"
-        app:srcCompat="@drawable/ic_fab_add_24"
+        app:srcCompat="@drawable/ic_home_fab_add_24"
         app:tint="@color/white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

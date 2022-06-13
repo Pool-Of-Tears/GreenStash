@@ -24,6 +24,7 @@ SOFTWARE.
 
 package com.starry.greenstash.database
 
+import android.graphics.Bitmap
 import androidx.lifecycle.LiveData
 import androidx.room.*
 
@@ -51,7 +52,7 @@ interface ItemDao {
     @Query("UPDATE greenstash SET deadline = :deadline WHERE id = :id" )
     suspend fun updateDeadline(id: Int, deadline: String)
 
-    @Query("UPDATE greenstash SET itemImage= :itemImage WHERE id = :id" )
-    suspend fun updateItemImage(id: Int, itemImage: String)
+    @Query("UPDATE greenstash SET itemImage = :itemImage WHERE id = :id" )
+    suspend fun updateItemImage(id: Int, itemImage: Bitmap)
 
 }

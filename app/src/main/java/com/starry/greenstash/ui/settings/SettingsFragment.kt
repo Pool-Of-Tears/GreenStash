@@ -28,12 +28,14 @@ import android.os.Bundle
 import android.view.Menu
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
 import com.rejowan.cutetoast.CuteToast
 import com.starry.greenstash.R
 import com.starry.greenstash.utils.AppConstants
+import com.starry.greenstash.utils.SharedViewModel
 import com.starry.greenstash.utils.setAppTheme
 import java.util.concurrent.Executor
 
@@ -43,10 +45,14 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private lateinit var executor: Executor
     private lateinit var biometricPrompt: BiometricPrompt
     private lateinit var promptInfo: BiometricPrompt.PromptInfo
+    private lateinit var sharedViewModel: SharedViewModel
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.root_preferences, rootKey)
         setHasOptionsMenu(true)
+
+        // attach shared view model.
+        sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
 
         val displayPerf: Preference? = findPreference("display")
         displayPerf!!.setOnPreferenceChangeListener { _, newValue ->
@@ -90,6 +96,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                                 CuteToast.HAPPY, true
                             )
                                 .show()
+                            sharedViewModel.appUnlocked = true
                         }
 
                         override fun onAuthenticationFailed() {

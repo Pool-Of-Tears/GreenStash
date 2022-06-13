@@ -31,6 +31,8 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -40,10 +42,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.preference.PreferenceManager
 import com.rejowan.cutetoast.CuteToast
 import com.starry.greenstash.databinding.ActivityMainBinding
-import com.starry.greenstash.utils.AppConstants
-import com.starry.greenstash.utils.invisible
-import com.starry.greenstash.utils.setAppTheme
-import com.starry.greenstash.utils.visible
+import com.starry.greenstash.utils.*
 import java.util.concurrent.Executor
 
 class MainActivity : AppCompatActivity() {
@@ -55,9 +54,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var executor: Executor
     private lateinit var biometricPrompt: BiometricPrompt
     private lateinit var promptInfo: BiometricPrompt.PromptInfo
+    private lateinit var sharedViewModel: AndroidViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // attach shared view model.
+        sharedViewModel = ViewModelProvider(this).get(SharedViewModel::class.java)
 
         // Setup app theme.
         settingPerf = PreferenceManager.getDefaultSharedPreferences(this)
@@ -70,7 +73,7 @@ class MainActivity : AppCompatActivity() {
 
         // Check if app lock is set.
         val lockStatus = settingPerf.getBoolean("app_lock", false)
-        if (lockStatus) {
+        if (lockStatus && !(sharedViewModel as SharedViewModel).appUnlocked) {
             // hide app contents until auth is successful.
             binding.root.invisible()
             executor = ContextCompat.getMainExecutor(this)
@@ -89,6 +92,23 @@ class MainActivity : AppCompatActivity() {
                         ).show()
                         // make app contents visible after successful authentication.
                         binding.root.visible()
+                        (sharedViewModel as SharedViewModel).appUnlocked = true
+                    }
+
+                    override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
+                        super.onAuthenticationError(errorCode, errString)
+                        /*
+                        on auth error make app contents visible amd disable
+                        app lock, auth error can happen when fingerprint or
+                        password becomes unavailable or removed, contents will
+                        stay hidden in that case making user unable to access
+                        their data.
+                        */
+                        binding.root.visible()
+                        (sharedViewModel as SharedViewModel).appUnlocked = true
+                        val perfEditor = settingPerf.edit()
+                        perfEditor.putBoolean("app_lock", false)
+                        perfEditor.apply()
                     }
                 })
 
@@ -101,7 +121,6 @@ class MainActivity : AppCompatActivity() {
             biometricPrompt.authenticate(promptInfo)
 
         }
-
 
         // setup navigation controller.
         navController = findNavController(R.id.nav_host_fragment_content_main)

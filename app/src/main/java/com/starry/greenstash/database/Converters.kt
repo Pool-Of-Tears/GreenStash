@@ -2,7 +2,6 @@
 MIT License
 
 Copyright (c) 2022 Stɑrry Shivɑm // This file is part of GreenStash.
-
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -24,38 +23,29 @@ SOFTWARE.
 
 package com.starry.greenstash.database
 
-import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import androidx.room.TypeConverter
+import java.io.ByteArrayOutputStream
 
-@Database(entities = [Item::class], version = 1, exportSchema = false)
-@TypeConverters(Converters::class)
-abstract class ItemDatabase : RoomDatabase() {
+class Converters {
 
-    abstract fun getItemDao(): ItemDao
-
-    companion object {
-
-        @Volatile
-        private var INSTANCE: ItemDatabase? = null
-
-        fun getDatabase(context: Context): ItemDatabase {
-            // if the INSTANCE is not null, then return it,
-            // if it is, then create the database and save
-            // in instance variable then return it.
-            return INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    ItemDatabase::class.java,
-                    "item_database"
-                ).build()
-                INSTANCE = instance
-                // return instance
-                instance
-            }
+    @TypeConverter
+    fun fromBitmap(bitmap: Bitmap?): ByteArray? {
+        if (bitmap != null) {
+            val outputStream = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+            return outputStream.toByteArray()
         }
+        return null
+    }
+
+    @TypeConverter
+    fun toBitmap(byteArray: ByteArray?): Bitmap? {
+        if (byteArray != null) {
+            return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+        }
+        return null
     }
 
 }

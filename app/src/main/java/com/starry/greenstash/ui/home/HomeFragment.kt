@@ -33,6 +33,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.starry.greenstash.R
 import com.starry.greenstash.database.Item
 import com.starry.greenstash.databinding.FragmentHomeBinding
@@ -45,7 +46,9 @@ class HomeFragment : Fragment(), ClickListenerIF {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    // home fragments view model.
     private lateinit var viewModel: HomeViewModel
+    // home recycle view adapter.
     private lateinit var adapter: HomeRVAdapter
 
 
@@ -75,6 +78,27 @@ class HomeFragment : Fragment(), ClickListenerIF {
                 adapter.updateItemsList(it)
             }
         }
+        // hide fab button on scrolling.
+        binding.mainRecyclerView.addOnScrollListener(
+            object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+
+                    if (dy > 0) {
+                        // Scroll Down
+                        if (binding.fab.isShown) {
+                            binding.fab.hide()
+                        }
+                    }
+                    else if (dy < 0) {
+                        // Scroll Up
+                        if (!binding.fab.isShown) {
+                            binding.fab.show()
+                        }
+                    }
+                }
+            }
+        )
     }
 
     override fun onDestroyView() {
