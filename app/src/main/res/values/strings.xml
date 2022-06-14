@@ -15,13 +15,15 @@
     <string name="withdraw_btn">withdraw</string>
     <string name="delete_btn_description">Delete this goal.</string>
     <string name="edit_btn_description">Edit this goal.</string>
+    <string name="info_btn_description">Goal information.</string>
+    <string name="add_fab_button_title">New goal</string>
     <string name="add_fab_button_description">Add new saving goal.</string>
     <string name="progress_greet1">You’re off to great start!</string>
     <string name="progress_greet2">Keep on keeping on!</string>
     <string name="progress_greet3">If you think you can do it, you can.</string>
     <string name="progress_greet4">Almost there, You got this!</string>
     <string name="progress_greet5">Congratulations &#x1F389;</string>
-    <string name="goal_achived_desc">It’s time to celebrate all the hard work that led to this joyful occasion.</string>
+    <string name="goal_achieved_desc">It’s time to celebrate all the hard work that led to this joyful occasion.</string>
     <!-- Strings used for fragments for input screen -->
     <string name="inputTextTitle">Enter title</string>
     <string name="title_empty_err">Woops! title is empty.</string>
@@ -30,8 +32,9 @@
     <string name="image_picker_input">Pick an image</string>
     <string name="input_deadline">Enter deadline</string>
     <string name="deadline_empty_err">Please enter deadline for this goal!</string>
-    <string name="input_save_btn">set saving goal</string>
-    <string name="data_saved_success">Great job! saving goal saved.</string>
+    <string name="input_save_btn">Set new saving goal</string>
+    <string name="input_page_quote">You don’t have to see the whole staircase, just take the first step. – Martin Luther King, Jr.  </string>
+    <string name="data_saved_success">Great job! saving goal set.</string>
     <!-- biometric lock title -->
     <string name="bio_lock_title">Unlock Greenstash</string>
     <string name="bio_lock_subtitle">Confirm your screen lock, PIN or password.</string>

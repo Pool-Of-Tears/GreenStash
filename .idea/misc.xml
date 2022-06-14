@@ -12,6 +12,11 @@
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/drawable/ic_baseline_inrdfrfertg4fo_24.xml" value="0.1005" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/drawable/ic_fab_add_24.xml" value="0.108" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/drawable/ic_fab_camera_alt_24.xml" value="0.108" />
+        <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/drawable/ic_home_fab_add_24.xml" value="0.1" />
+        <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/drawable/ic_input_fab_camera_24.xml" value="0.108" />
+        <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/drawable/ic_item_card_delete_24.xml" value="0.108" />
+        <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/drawable/ic_item_card_edit_24.xml" value="0.108" />
+        <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/drawable/ic_item_card_info_24.xml" value="0.108" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/drawable/ic_launcher_background.xml" value="0.108" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/drawable/ic_perf_about_info_24.xml" value="0.108" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/drawable/ic_perf_about_license_24.xml" value="0.1005" />
@@ -26,7 +31,7 @@
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/layout/fragment_home.xml" value="0.2171875" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/layout/fragment_input.xml" value="0.25" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/layout/fragment_second.xml" value="0.2171875" />
-        <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/layout/items_cardview.xml" value="0.25" />
+        <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/layout/items_cardview.xml" value="0.45" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/menu/menu_main.xml" value="0.2171875" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/xml/root_preferences.xml" value="0.25" />
       </map>

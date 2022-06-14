@@ -86,14 +86,14 @@ class HomeFragment : Fragment(), ClickListenerIF {
 
                     if (dy > 0) {
                         // Scroll Down
-                        if (binding.fab.isShown) {
-                            binding.fab.hide()
+                        if (binding.fab.isExtended) {
+                            binding.fab.shrink()
                         }
                     }
                     else if (dy < 0) {
                         // Scroll Up
-                        if (!binding.fab.isShown) {
-                            binding.fab.show()
+                        if (!binding.fab.isExtended) {
+                            binding.fab.extend()
                         }
                     }
                 }

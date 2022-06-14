@@ -152,7 +152,7 @@ class HomeRVAdapter(private val context: Context, private val listener: ClickLis
             }
             return text
         } else {
-            return context.getString(R.string.goal_achived_desc)
+            return context.getString(R.string.goal_achieved_desc)
         }
 
 

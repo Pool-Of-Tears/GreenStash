@@ -35,8 +35,9 @@ SOFTWARE. -->
         android:layout_height="wrap_content"
         android:layout_marginStart="0dp"
         android:layout_marginTop="-12dp"
+        android:layout_marginBottom="-8dp"
         android:layout_marginEnd="0dp"
-        app:cardBackgroundColor="@color/white"
+        app:cardBackgroundColor="?attr/cardBackgroundColor"
         app:cardCornerRadius="12dp"
         app:cardElevation="16dp"
         app:cardMaxElevation="12dp"
@@ -113,7 +114,8 @@ SOFTWARE. -->
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="2dp"
                     android:text="@string/deposit_btn"
-                    android:textColor="?attr/colorSecondary" />
+                    android:textAllCaps="true"
+                    android:textColor="?attr/fabAndButtonIconColor" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/withdrawButton"
@@ -121,16 +123,33 @@ SOFTWARE. -->
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/withdraw_btn"
-                    android:textColor="?attr/colorSecondary" />
+                    android:textAllCaps="true"
+                    android:textColor="?attr/fabAndButtonIconColor" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+                <ImageButton
+                    android:id="@+id/infoButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical|end"
+                    android:background="@android:color/transparent"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/edit_btn_description"
+                    android:src="@drawable/ic_item_card_info_24" />
 
                 <ImageButton
                     android:id="@+id/editButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal|center_vertical"
-                    android:layout_marginStart="88dp"
+                    android:layout_marginStart="14dp"
+                    android:layout_gravity="center_horizontal|center_vertical|end"
                     android:background="@android:color/transparent"
-                    android:contentDescription="@string/edit_btn_description"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/info_btn_description"
                     android:src="@drawable/ic_item_card_edit_24" />
 
 
@@ -140,7 +159,9 @@ SOFTWARE. -->
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:layout_marginStart="14dp"
+                    android:layout_marginEnd="12dp"
                     android:background="@android:color/transparent"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/delete_btn_description"
                     android:src="@drawable/ic_item_card_delete_24" />
 

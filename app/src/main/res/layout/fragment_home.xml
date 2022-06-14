@@ -43,20 +43,20 @@ SOFTWARE. -->
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:contentDescription="@string/add_fab_button_description"
-        app:backgroundTint="?attr/colorPrimary"
+        app:backgroundTint="?attr/fabBackgroundColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.929"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.962"
-        app:srcCompat="@drawable/ic_home_fab_add_24"
-        app:tint="@color/white" />
+        android:text="@string/add_fab_button_title"
+        app:icon="@drawable/ic_home_fab_add_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

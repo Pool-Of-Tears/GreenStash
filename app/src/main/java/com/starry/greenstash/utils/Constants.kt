@@ -24,10 +24,17 @@ SOFTWARE.
 
 package com.starry.greenstash.utils
 
-import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG
-import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
+import android.os.Build
+import androidx.biometric.BiometricManager.Authenticators.*
 
 object AppConstants {
     const val DATE_FORMAT = "dd/MM/yyyy"
-    const val AUTHENTICATORS =  BIOMETRIC_STRONG or DEVICE_CREDENTIAL
+    /*
+    https://developer.android.com/reference/androidx/biometric/BiometricPrompt.PromptInfo.Builder#setAllowedAuthenticators(int)
+     */
+    val AUTHENTICATORS = if (Build.VERSION.SDK_INT == 28 || Build.VERSION.SDK_INT == 29) {
+        BIOMETRIC_WEAK or DEVICE_CREDENTIAL
+    } else {
+        BIOMETRIC_STRONG or DEVICE_CREDENTIAL
+    }
 }

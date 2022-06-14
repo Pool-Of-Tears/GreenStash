@@ -1,18 +1,19 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="Theme.GreenStash" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.GreenStash" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/green_1</item>
-        <item name="colorPrimaryVariant">@color/green_3</item>
+        <item name="colorPrimary">@color/color_primary_dark</item>
+        <item name="colorPrimaryVariant">@color/color_primary_dark</item>
         <item name="colorOnPrimary">@color/black</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/green_1</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorSecondary">@color/color_secondary</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" >?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
         <item name="iconPreferenceColor">@color/light_gray</item>
+        <item name="fabAndButtonIconColor">@color/white</item>
+        <item name="cardBackgroundColor">@color/dark_gray</item>
+        <item name="fabBackgroundColor">@color/fab_bg_dark</item>
+        <item name="switchStyle">@style/Widget.App.Switch</item>
     </style>
 
     <!-- Toolbar options menu color. -->
@@ -23,4 +24,14 @@
 
     <!-- Settings icon color. -->
     <item name="iconPreferenceColor" type="color">@color/light_gray</item>
+
+    <style name="Widget.App.Switch" parent="Widget.MaterialComponents.CompoundButton.Switch">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Switch</item>
+    </style>
+
+    <style name="ThemeOverlay.App.Switch" parent="">
+        <item name="colorOnSurface">@color/dark_green</item>
+        <item name="colorSecondary">@color/color_secondary</item>
+    </style>
+
 </resources>
