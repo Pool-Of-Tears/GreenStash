@@ -31,6 +31,8 @@ interface ClickListenerIF {
 
     fun onWithdrawClicked(item: Item)
 
+    fun onInfoClicked(item: Item)
+
     fun onEditClicked(item: Item)
 
     fun onDeleteClicked(item: Item)

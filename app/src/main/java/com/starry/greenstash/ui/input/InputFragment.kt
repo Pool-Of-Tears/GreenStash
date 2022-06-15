@@ -43,6 +43,8 @@ import com.rejowan.cutetoast.CuteToast
 import com.starry.greenstash.R
 import com.starry.greenstash.databinding.FragmentInputBinding
 import com.starry.greenstash.utils.AppConstants
+import com.starry.greenstash.utils.ItemEditData
+import com.starry.greenstash.utils.SharedViewModel
 import com.starry.greenstash.utils.uriToBitmap
 import java.text.SimpleDateFormat
 import java.util.*
@@ -65,11 +67,15 @@ class InputFragment : Fragment() {
     // Input fragment's view model class.
     private lateinit var viewModel: InputViewModel
 
+    // Shared view model class.
+    private lateinit var sharedViewModel: SharedViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         viewModel = ViewModelProvider(this).get(InputViewModel::class.java)
+        sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
         _binding = FragmentInputBinding.inflate(inflater, container, false)
         return binding.root
 
@@ -78,13 +84,18 @@ class InputFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val editData = sharedViewModel.getEditData()
+        if (editData != null) {
+            updateInputView(editData)
+        }
+
         // listener variable of deadline result.
         val dateSetListener =
             DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                 cal.set(Calendar.YEAR, year)
                 cal.set(Calendar.MONTH, monthOfYear)
                 cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                updateDateInView()
+                updateDateView()
             }
 
         // deadline click listener.
@@ -117,7 +128,11 @@ class InputFragment : Fragment() {
 
         // save goal button click listener
         binding.inputSaveButton.setOnClickListener {
-            val status = viewModel.insertItem(binding, imagePickerResult, requireContext())
+            val status = if (editData != null) {
+                viewModel.insertItem(binding, imagePickerResult, requireContext(), editData)
+            } else {
+                viewModel.insertItem(binding, imagePickerResult, requireContext())
+            }
             // data has been successfully validated and saved.
             if (status) {
                 val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -162,8 +177,18 @@ class InputFragment : Fragment() {
         _binding = null
     }
 
-    private fun updateDateInView() {
+    private fun updateDateView() {
         val sdf = SimpleDateFormat(AppConstants.DATE_FORMAT, Locale.US)
-        binding.inputDeadline.setText(sdf.format(cal.getTime()))
+        binding.inputDeadline.setText(sdf.format(cal.time))
     }
+
+   private fun updateInputView(itemData: ItemEditData) {
+       if (itemData.image != null) {
+           binding.imagePicker.setImageBitmap(itemData.image)
+           imagePickerResult = itemData.image
+       }
+       binding.inputTitle.setText(itemData.title)
+       binding.inputAmount.setText(itemData.amount)
+       binding.inputDeadline.setText(itemData.date)
+   }
 }

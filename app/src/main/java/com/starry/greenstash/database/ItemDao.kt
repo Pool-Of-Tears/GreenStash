@@ -43,6 +43,9 @@ interface ItemDao {
     @Delete
     suspend fun delete(item: Item)
 
+    @Query("UPDATE greenstash SET title = :title WHERE id = :id")
+    suspend fun updateTitle(id: Int, title: String)
+
     @Query("UPDATE greenstash SET totalAmount = :amount WHERE id = :id" )
     suspend fun  updateTotalAmount(id: Int, amount: Float)
 

@@ -28,16 +28,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.rejowan.cutetoast.CuteToast
 import com.starry.greenstash.R
 import com.starry.greenstash.database.Item
 import com.starry.greenstash.databinding.FragmentHomeBinding
-
+import com.starry.greenstash.utils.ItemEditData
+import com.starry.greenstash.utils.SharedViewModel
 
 class HomeFragment : Fragment(), ClickListenerIF {
 
@@ -46,17 +50,22 @@ class HomeFragment : Fragment(), ClickListenerIF {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
     // home fragments view model.
     private lateinit var viewModel: HomeViewModel
+
+    // Shared view model class.
+    private lateinit var sharedViewModel: SharedViewModel
+
     // home recycle view adapter.
     private lateinit var adapter: HomeRVAdapter
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
 
@@ -86,14 +95,13 @@ class HomeFragment : Fragment(), ClickListenerIF {
 
                     if (dy > 0) {
                         // Scroll Down
-                        if (binding.fab.isExtended) {
-                            binding.fab.shrink()
+                        if (binding.fab.isShown) {
+                            binding.fab.hide()
                         }
-                    }
-                    else if (dy < 0) {
+                    } else if (dy < 0) {
                         // Scroll Up
-                        if (!binding.fab.isExtended) {
-                            binding.fab.extend()
+                        if (!binding.fab.isShown) {
+                            binding.fab.show()
                         }
                     }
                 }
@@ -101,24 +109,142 @@ class HomeFragment : Fragment(), ClickListenerIF {
         )
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
     override fun onDepositClicked(item: Item) {
-        Toast.makeText(requireContext(), "deposit", Toast.LENGTH_SHORT).show()
+        if (item.currentAmount >= item.totalAmount) {
+            CuteToast.ct(
+                requireContext(),
+                requireContext().getString(R.string.goal_already_achieved),
+                CuteToast.LENGTH_SHORT,
+                CuteToast.SUCCESS, true
+            ).show()
+        } else {
+            val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dw_dialog, null)
+            val amountEditText = dialogView.findViewById<EditText>(R.id.alertDialogDW)
+            // build alert dialog.
+            val alertDialog = MaterialAlertDialogBuilder(requireContext())
+            alertDialog.setTitle(requireContext().getString(R.string.deposit_dialog_title))
+            alertDialog.setView(dialogView)
+            alertDialog.setCancelable(false)
+            // set negative button.
+            alertDialog.setNegativeButton("Cancel") { _, _ ->
+            }
+            // set positive button.
+            alertDialog.setPositiveButton("Done") { _, _ ->
+                if (!(amountEditText.text.isBlank() || amountEditText.text.isEmpty())) {
+                    val newAmount = amountEditText.text.toString().toFloat()
+                    val newCurrentAmount = item.currentAmount + newAmount
+                    viewModel.updateCurrentAmount(item.id, newCurrentAmount)
+                    CuteToast.ct(
+                        requireContext(),
+                        requireContext().getString(R.string.deposit_successful),
+                        CuteToast.LENGTH_SHORT,
+                        CuteToast.HAPPY, true
+                    ).show()
+                } else {
+                    CuteToast.ct(
+                        requireContext(),
+                        requireContext().getString(R.string.amount_empty_err),
+                        CuteToast.LENGTH_SHORT,
+                        CuteToast.SAD, true
+                    ).show()
+                }
+            }
+            alertDialog.create().show()
+        }
+
     }
 
     override fun onWithdrawClicked(item: Item) {
-        Toast.makeText(requireContext(), "withdraw", Toast.LENGTH_SHORT).show()
+        if (item.currentAmount == 0f) {
+            CuteToast.ct(
+                requireContext(),
+                requireContext().getString(R.string.withdraw_btn_error),
+                CuteToast.LENGTH_SHORT,
+                CuteToast.SAD, true
+            ).show()
+        } else {
+            val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dw_dialog, null)
+            val amountEditText = dialogView.findViewById<EditText>(R.id.alertDialogDW)
+            // build alert dialog.
+            val alertDialog = MaterialAlertDialogBuilder(requireContext())
+            alertDialog.setTitle(requireContext().getString(R.string.withdraw_dialog_title))
+            alertDialog.setView(dialogView)
+            alertDialog.setCancelable(false)
+            // set negative button.
+            alertDialog.setNegativeButton("Cancel") { _, _ ->
+            }
+            // set positive button.
+            alertDialog.setPositiveButton("Done") { _, _ ->
+                if (!(amountEditText.text.isBlank() || amountEditText.text.isEmpty())) {
+                    val newAmount = amountEditText.text.toString().toFloat()
+                    if (newAmount > item.currentAmount) {
+                        CuteToast.ct(
+                            requireContext(),
+                            requireContext().getString(R.string.withdraw_overflow_error),
+                            CuteToast.LENGTH_SHORT,
+                            CuteToast.ERROR, true
+                        ).show()
+                    } else {
+                        val newCurrentAmount = item.currentAmount - newAmount
+                        viewModel.updateCurrentAmount(item.id, newCurrentAmount)
+                        CuteToast.ct(
+                            requireContext(),
+                            requireContext().getString(R.string.withdraw_successful),
+                            CuteToast.LENGTH_SHORT,
+                            CuteToast.SUCCESS, true
+                        ).show()
+                    }
+
+                } else {
+                    CuteToast.ct(
+                        requireContext(),
+                        requireContext().getString(R.string.amount_empty_err),
+                        CuteToast.LENGTH_SHORT,
+                        CuteToast.SAD, true
+                    ).show()
+                }
+            }
+            alertDialog.create().show()
+        }
+    }
+
+    override fun onInfoClicked(item: Item) {
+        Toast.makeText(requireContext(), "info", Toast.LENGTH_SHORT).show()
     }
 
     override fun onEditClicked(item: Item) {
-        Toast.makeText(requireContext(), "edit", Toast.LENGTH_SHORT).show()
+        val editData = ItemEditData(
+            item.id,
+            item.title,
+            item.totalAmount.toString(),
+            item.deadline,
+            item.itemImage
+        )
+        sharedViewModel.setEditData(editData)
+        findNavController().navigate(R.id.action_HomeFragment_to_InputFragment)
     }
 
     override fun onDeleteClicked(item: Item) {
-        Toast.makeText(requireContext(), "delete", Toast.LENGTH_SHORT).show()
+        val alertDialog = MaterialAlertDialogBuilder(requireContext())
+        alertDialog.setTitle(requireContext().getString(R.string.goal_delete_confirmation))
+        alertDialog.setCancelable(false)
+        // set negative button.
+        alertDialog.setNegativeButton("Cancel") { _, _ ->
+        }
+        alertDialog.setPositiveButton("Done") { _, _ ->
+            viewModel.deleteItem(item)
+            CuteToast.ct(
+                requireContext(),
+                requireContext().getString(R.string.goal_delete_success),
+                CuteToast.LENGTH_SHORT,
+                CuteToast.SUCCESS, true
+            )
+        }
+        alertDialog.create().show()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

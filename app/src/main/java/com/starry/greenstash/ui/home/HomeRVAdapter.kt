@@ -58,6 +58,7 @@ class HomeRVAdapter(private val context: Context, private val listener: ClickLis
         val description: TextView = itemView.findViewById(R.id.itemDescriptionText)
         val depositButton: MaterialButton = itemView.findViewById(R.id.depositButton)
         val withdrawButton: MaterialButton = itemView.findViewById(R.id.withdrawButton)
+        val infoButton: ImageButton = itemView.findViewById(R.id.infoButton)
         val editButton: ImageButton = itemView.findViewById(R.id.editButton)
         val deleteButton: ImageButton = itemView.findViewById(R.id.deleteButton)
     }
@@ -71,6 +72,9 @@ class HomeRVAdapter(private val context: Context, private val listener: ClickLis
         }
         viewHolder.withdrawButton.setOnClickListener {
             listener.onWithdrawClicked(allItems[viewHolder.adapterPosition])
+        }
+        viewHolder.infoButton.setOnClickListener {
+            listener.onInfoClicked(allItems[viewHolder.adapterPosition])
         }
         viewHolder.editButton.setOnClickListener {
             listener.onEditClicked(allItems[viewHolder.adapterPosition])
@@ -135,7 +139,7 @@ class HomeRVAdapter(private val context: Context, private val listener: ClickLis
         val remainingAmount = (item.totalAmount - item.currentAmount)
         val defCurrency = settingPerf.getString("currency", "")
         // build description string.
-        if (remainingAmount.toInt() != 0) {
+        if (remainingAmount > 0f) {
             var text = "You have until ${item.deadline} ($days) days left."
             if (days > 2) {
                 text += "\nYou need to save around $defCurrency${roundFloat(remainingAmount / days)}/day."

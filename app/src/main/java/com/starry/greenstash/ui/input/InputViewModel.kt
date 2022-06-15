@@ -35,6 +35,7 @@ import com.starry.greenstash.database.Item
 import com.starry.greenstash.database.ItemDatabase
 import com.starry.greenstash.database.ItemRepository
 import com.starry.greenstash.databinding.FragmentInputBinding
+import com.starry.greenstash.utils.ItemEditData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -46,11 +47,17 @@ class InputViewModel(application: Application) : AndroidViewModel(application) {
         repository = ItemRepository(dao)
     }
 
-    fun insertItem(binding: FragmentInputBinding, imageData: Bitmap?, ctx: Context): Boolean {
+    fun insertItem(
+        binding: FragmentInputBinding,
+        imageData: Bitmap?,
+        ctx: Context,
+        editData: ItemEditData? = null
+    ): Boolean {
         val title = binding.inputTitle.text
         val amount = binding.inputAmount.text
         val deadline = binding.inputDeadline.text
 
+        // validate user input.
         if (title.isEmpty() || title.isBlank()) {
             CuteToast.ct(
                 ctx, ctx.getString(R.string.title_empty_err),
@@ -58,7 +65,7 @@ class InputViewModel(application: Application) : AndroidViewModel(application) {
                 CuteToast.SAD, true
             ).show()
             return false
-        } else if (amount.isEmpty() || amount.isBlank()) {
+        } else if (amount.isEmpty() || amount.isBlank() || amount.toString().toFloat() == 0f) {
             CuteToast.ct(
                 ctx, ctx.getString(R.string.amount_empty_err),
                 CuteToast.LENGTH_SHORT,
@@ -72,30 +79,42 @@ class InputViewModel(application: Application) : AndroidViewModel(application) {
                 CuteToast.SAD, true
             ).show()
             return false
+        // Insert or update the item.
         } else {
-            val item = if (imageData != null) {
-                Item(
-                    title.toString(),
-                    totalAmount = amount.toString().toFloat(),
-                    itemImage = imageData,
-                    deadline = deadline.toString(),
-                )
+            if (editData == null) {
+                val item = if (imageData != null) {
+                    Item(
+                        title.toString(),
+                        totalAmount = amount.toString().toFloat(),
+                        itemImage = imageData,
+                        deadline = deadline.toString(),
+                    )
+                } else {
+                    Item(
+                        title.toString(),
+                        totalAmount = amount.toString().toFloat(),
+                        itemImage = null,
+                        deadline = deadline.toString(),
+                    )
+                }
+                viewModelScope.launch(Dispatchers.IO) {
+                    repository.insertItem(item)
+                }
+                CuteToast.ct(
+                    ctx, ctx.getString(R.string.data_saved_success),
+                    CuteToast.LENGTH_SHORT,
+                    CuteToast.SUCCESS, true
+                ).show()
             } else {
-                Item(
-                    title.toString(),
-                    totalAmount = amount.toString().toFloat(),
-                    itemImage = null,
-                    deadline = deadline.toString(),
-                )
+                viewModelScope.launch(Dispatchers.IO) {
+                    if (imageData != null) {
+                        repository.updateItemImage(editData.id, imageData)
+                    }
+                    repository.updateTitle(editData.id, title.toString())
+                    repository.updateTotalAmount(editData.id, amount.toString().toFloat())
+                    repository.updateDeadline(editData.id, deadline.toString())
+                }
             }
-            viewModelScope.launch(Dispatchers.IO) {
-                repository.insertItem(item)
-            }
-            CuteToast.ct(
-                ctx, ctx.getString(R.string.data_saved_success),
-                CuteToast.LENGTH_SHORT,
-                CuteToast.SUCCESS, true
-            ).show()
             return true
         }
     }
