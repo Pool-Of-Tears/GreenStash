@@ -42,6 +42,7 @@
     <string name="input_deadline">Enter deadline</string>
     <string name="deadline_empty_err">Please enter deadline for this goal!</string>
     <string name="input_save_btn">Set new saving goal</string>
+    <string name="input_edit_save_button">Edit saving goal</string>
     <string name="input_page_quote">You don’t have to see the whole staircase, just take the first step. – Martin Luther King, Jr.  </string>
     <string name="data_saved_success">Great job! saving goal set.</string>
     <!-- biometric lock title -->

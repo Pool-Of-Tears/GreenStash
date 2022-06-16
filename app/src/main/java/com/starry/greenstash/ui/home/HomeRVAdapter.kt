@@ -97,7 +97,8 @@ class HomeRVAdapter(private val context: Context, private val listener: ClickLis
         // set goal title.
         holder.title.text = currentItem.title
         // set goal secondary text
-        holder.secondaryText.text = buildGreetingText(progressPercent)
+        holder.secondaryText.text =
+            buildGreetingText(progressPercent, currentItem.currentAmount, currentItem.totalAmount)
         // set goal description text.
         holder.description.text = buildDescriptionText(currentItem)
     }
@@ -107,8 +108,12 @@ class HomeRVAdapter(private val context: Context, private val listener: ClickLis
     }
 
     // Secondary text message
-    private fun buildGreetingText(progressPercent: Int): String {
-        val text: String = when {
+    private fun buildGreetingText(
+        progressPercent: Int,
+        currentAmount: Float,
+        totalAmount: Float
+    ): String {
+        var text: String = when {
             progressPercent <= 25 -> {
                 context.getString(R.string.progress_greet1)
             }
@@ -125,6 +130,13 @@ class HomeRVAdapter(private val context: Context, private val listener: ClickLis
                 context.getString(R.string.progress_greet5)
             }
         }
+        val defCurrency = settingPerf.getString("currency", "")
+        text += if (progressPercent < 100) {
+            "\nCurrently saved "
+        } else {
+            "\nYou've saved "
+        }
+        text += "$defCurrency$currentAmount out of $defCurrency${totalAmount}."
         return text
     }
 
@@ -163,8 +175,23 @@ class HomeRVAdapter(private val context: Context, private val listener: ClickLis
     }
 
     fun updateItemsList(newList: List<Item>) {
-        allItems.clear()
-        allItems.addAll(newList)
-        notifyDataSetChanged()
+        /*
+        if element was removed find index of removed element and
+        call notifyItemRemoved() instead of because calling
+        notifyDataSetChanged() will disable item removed animation
+        resulting in bad UX.
+         */
+        if (newList.size < allItems.size) {
+            val itemRemoved = allItems.minus(newList)
+            val itemRemovedIndex = allItems.indexOf(itemRemoved[0])
+            allItems.clear()
+            allItems.addAll(newList)
+            notifyItemRemoved(itemRemovedIndex)
+        } else {
+            allItems.clear()
+            allItems.addAll(newList)
+            notifyDataSetChanged()
+        }
+
     }
 }

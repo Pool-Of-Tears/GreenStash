@@ -25,10 +25,13 @@ SOFTWARE.
 package com.starry.greenstash.utils
 
 import android.content.Context
+import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.Button
 import androidx.appcompat.app.AppCompatDelegate
 import java.math.RoundingMode
 import java.text.DecimalFormat
@@ -44,6 +47,12 @@ fun View.gone() {
 
 fun View.invisible() {
     visibility = View.INVISIBLE
+}
+
+fun Button.dismissKeyboard() {
+    val imm: InputMethodManager? =
+        context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+    imm?.hideSoftInputFromWindow(windowToken, 0)
 }
 
 // round decimal (float) to 2 digits
@@ -65,5 +74,15 @@ fun setAppTheme(mode: String) {
         "dark" ->  AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         "light" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         "system" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+    }
+}
+
+fun isDarkModeOn(ctx: Context): Boolean {
+    return when (ctx.resources.configuration.uiMode and
+            Configuration.UI_MODE_NIGHT_MASK) {
+        Configuration.UI_MODE_NIGHT_YES -> true
+        Configuration.UI_MODE_NIGHT_NO -> false
+        Configuration.UI_MODE_NIGHT_UNDEFINED -> false
+        else -> false
     }
 }

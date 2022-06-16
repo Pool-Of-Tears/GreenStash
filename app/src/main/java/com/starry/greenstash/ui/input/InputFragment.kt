@@ -26,26 +26,23 @@ package com.starry.greenstash.ui.input
 
 import android.app.Activity
 import android.app.DatePickerDialog
-import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.rejowan.cutetoast.CuteToast
 import com.starry.greenstash.R
 import com.starry.greenstash.databinding.FragmentInputBinding
-import com.starry.greenstash.utils.AppConstants
-import com.starry.greenstash.utils.ItemEditData
-import com.starry.greenstash.utils.SharedViewModel
-import com.starry.greenstash.utils.uriToBitmap
+import com.starry.greenstash.utils.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -70,6 +67,9 @@ class InputFragment : Fragment() {
     // Shared view model class.
     private lateinit var sharedViewModel: SharedViewModel
 
+    // nav options for adding animations when switching between fragments.
+    private lateinit var navOptionsBuilder: NavOptions.Builder
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -84,6 +84,13 @@ class InputFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // build navigation options.
+        navOptionsBuilder = NavOptions.Builder()
+        navOptionsBuilder.setEnterAnim(R.anim.slide_in).setExitAnim(R.anim.fade_out)
+            .setPopEnterAnim(R.anim.fade_in).setPopExitAnim(R.anim.fade_out)
+
+        // check if fragment was started bu clicking edit button
+        // editData won't be null in that case.
         val editData = sharedViewModel.getEditData()
         if (editData != null) {
             updateInputView(editData)
@@ -111,6 +118,18 @@ class InputFragment : Fragment() {
             // sets today's date as minimum date and disable past dates.
             datePickerDialog.datePicker.minDate = System.currentTimeMillis() - 10000
             datePickerDialog.show()
+            // set positive and negative button color according to theme.
+            if (isDarkModeOn(requireContext())) {
+                datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE)
+                    .setTextColor(Color.WHITE)
+                datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE)
+                    .setTextColor(Color.WHITE)
+            } else {
+                datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE)
+                    .setTextColor(Color.BLACK)
+                datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE)
+                    .setTextColor(Color.BLACK)
+            }
         }
 
         // image picker button click listener.
@@ -135,9 +154,12 @@ class InputFragment : Fragment() {
             }
             // data has been successfully validated and saved.
             if (status) {
-                val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(binding.inputSaveButton.windowToken, 0)
-                findNavController().navigate(R.id.action_InputFragment_to_HomeFragment)
+                binding.inputSaveButton.dismissKeyboard()
+                findNavController().navigate(
+                    R.id.action_InputFragment_to_HomeFragment,
+                    null,
+                    navOptionsBuilder.build()
+                )
             }
         }
     }
@@ -182,13 +204,14 @@ class InputFragment : Fragment() {
         binding.inputDeadline.setText(sdf.format(cal.time))
     }
 
-   private fun updateInputView(itemData: ItemEditData) {
-       if (itemData.image != null) {
-           binding.imagePicker.setImageBitmap(itemData.image)
-           imagePickerResult = itemData.image
-       }
-       binding.inputTitle.setText(itemData.title)
-       binding.inputAmount.setText(itemData.amount)
-       binding.inputDeadline.setText(itemData.date)
-   }
+    private fun updateInputView(itemData: ItemEditData) {
+        if (itemData.image != null) {
+            binding.imagePicker.setImageBitmap(itemData.image)
+            imagePickerResult = itemData.image
+        }
+        binding.inputTitle.setText(itemData.title)
+        binding.inputAmount.setText(itemData.amount)
+        binding.inputDeadline.setText(itemData.date)
+        binding.inputSaveButton.text = requireContext().getString(R.string.input_edit_save_button)
+    }
 }

@@ -14,6 +14,7 @@
         <item name="cardBackgroundColor">@color/dark_gray</item>
         <item name="fabBackgroundColor">@color/fab_bg_dark</item>
         <item name="switchStyle">@style/Widget.App.Switch</item>
+        <item name="materialAlertDialogTheme">@style/AlertDialogTheme</item>
     </style>
 
     <!-- Toolbar options menu color. -->
@@ -22,9 +23,7 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
-    <!-- Settings icon color. -->
-    <item name="iconPreferenceColor" type="color">@color/light_gray</item>
-
+    <!-- Switch color. -->
     <style name="Widget.App.Switch" parent="Widget.MaterialComponents.CompoundButton.Switch">
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.Switch</item>
     </style>
@@ -33,5 +32,20 @@
         <item name="colorOnSurface">@color/dark_green</item>
         <item name="colorSecondary">@color/color_secondary</item>
     </style>
+
+    <!-- alert dialog color. -->
+    <style name="AlertDialogTheme" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
+    </style>
+
+    <style name="NegativeButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/light_gray</item>
+    </style>
+
+    <style name="PositiveButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/light_gray</item>
+    </style>
+
 
 </resources>

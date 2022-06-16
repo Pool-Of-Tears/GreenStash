@@ -34,10 +34,10 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.preference.PreferenceManager
 import com.rejowan.cutetoast.CuteToast
@@ -55,9 +55,15 @@ class MainActivity : AppCompatActivity() {
     private lateinit var biometricPrompt: BiometricPrompt
     private lateinit var promptInfo: BiometricPrompt.PromptInfo
     private lateinit var sharedViewModel: AndroidViewModel
+    private lateinit var navOptionsBuilder: NavOptions.Builder
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // build navigation options.
+        navOptionsBuilder = NavOptions.Builder()
+        navOptionsBuilder.setEnterAnim(R.anim.slide_in).setExitAnim(R.anim.fade_out)
+            .setPopEnterAnim(R.anim.fade_in).setPopExitAnim(R.anim.fade_out)
 
         // attach shared view model.
         sharedViewModel = ViewModelProvider(this).get(SharedViewModel::class.java)
@@ -98,7 +104,7 @@ class MainActivity : AppCompatActivity() {
                     override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
                         super.onAuthenticationError(errorCode, errString)
                         /*
-                        on auth error make app contents visible amd disable
+                        on auth error make app contents visible and disable
                         app lock, auth error can happen when fingerprint or
                         password becomes unavailable or removed, contents will
                         stay hidden in that case making user unable to access
@@ -135,8 +141,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (navController.graph.findNode(item.itemId) != null) {
+            navController.navigate(item.itemId, null, navOptionsBuilder.build())
+        }
+        return super.onOptionsItemSelected(item)
+
         // Handle action bar item clicks here.
-        return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
+        // return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
     }
 
     override fun onSupportNavigateUp(): Boolean {

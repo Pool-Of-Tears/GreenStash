@@ -32,6 +32,7 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
+    <!-- Switch color. -->
     <style name="Widget.App.Switch" parent="Widget.MaterialComponents.CompoundButton.Switch">
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.Switch</item>
     </style>
@@ -41,6 +42,7 @@
         <item name="colorSecondary">@color/color_secondary</item>
     </style>
 
+    <!-- alert dialog color. -->
     <style name="AlertDialogTheme" parent="ThemeOverlay.Material3.MaterialAlertDialog">
         <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
         <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>

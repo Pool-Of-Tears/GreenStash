@@ -32,6 +32,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -42,6 +43,7 @@ import com.starry.greenstash.database.Item
 import com.starry.greenstash.databinding.FragmentHomeBinding
 import com.starry.greenstash.utils.ItemEditData
 import com.starry.greenstash.utils.SharedViewModel
+
 
 class HomeFragment : Fragment(), ClickListenerIF {
 
@@ -60,6 +62,9 @@ class HomeFragment : Fragment(), ClickListenerIF {
     // home recycle view adapter.
     private lateinit var adapter: HomeRVAdapter
 
+    // nav options for adding animations when switching between fragments.
+    private lateinit var navOptionsBuilder: NavOptions.Builder
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -73,9 +78,17 @@ class HomeFragment : Fragment(), ClickListenerIF {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // build navigation options.
+        navOptionsBuilder = NavOptions.Builder()
+        navOptionsBuilder.setEnterAnim(R.anim.slide_in).setExitAnim(R.anim.fade_out)
+            .setPopEnterAnim(R.anim.fade_in).setPopExitAnim(R.anim.fade_out)
         // set click listener on add goal fab button.
         binding.fab.setOnClickListener {
-            findNavController().navigate(R.id.action_HomeFragment_to_InputFragment)
+            findNavController().navigate(
+                R.id.action_HomeFragment_to_InputFragment,
+                null,
+                navOptionsBuilder.build()
+            )
         }
         // attach adapter to recycler view.
         adapter = HomeRVAdapter(requireContext(), this)
@@ -221,7 +234,11 @@ class HomeFragment : Fragment(), ClickListenerIF {
             item.itemImage
         )
         sharedViewModel.setEditData(editData)
-        findNavController().navigate(R.id.action_HomeFragment_to_InputFragment)
+        findNavController().navigate(
+            R.id.action_HomeFragment_to_InputFragment,
+            null,
+            navOptionsBuilder.build()
+        )
     }
 
     override fun onDeleteClicked(item: Item) {
