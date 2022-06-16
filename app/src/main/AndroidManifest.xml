@@ -15,7 +15,7 @@
             android:name=".MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustPan"
-            android:theme="@style/Theme.GreenStash.NoActionBar">
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

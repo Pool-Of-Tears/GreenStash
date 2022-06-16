@@ -58,7 +58,7 @@ class HomeRVAdapter(private val context: Context, private val listener: ClickLis
         val description: TextView = itemView.findViewById(R.id.itemDescriptionText)
         val depositButton: MaterialButton = itemView.findViewById(R.id.depositButton)
         val withdrawButton: MaterialButton = itemView.findViewById(R.id.withdrawButton)
-        val infoButton: ImageButton = itemView.findViewById(R.id.infoButton)
+        val shareButton: ImageButton = itemView.findViewById(R.id.shareButton)
         val editButton: ImageButton = itemView.findViewById(R.id.editButton)
         val deleteButton: ImageButton = itemView.findViewById(R.id.deleteButton)
     }
@@ -73,8 +73,8 @@ class HomeRVAdapter(private val context: Context, private val listener: ClickLis
         viewHolder.withdrawButton.setOnClickListener {
             listener.onWithdrawClicked(allItems[viewHolder.adapterPosition])
         }
-        viewHolder.infoButton.setOnClickListener {
-            listener.onInfoClicked(allItems[viewHolder.adapterPosition])
+        viewHolder.shareButton.setOnClickListener {
+            listener.onShareClicked(allItems[viewHolder.adapterPosition])
         }
         viewHolder.editButton.setOnClickListener {
             listener.onEditClicked(allItems[viewHolder.adapterPosition])
@@ -176,10 +176,10 @@ class HomeRVAdapter(private val context: Context, private val listener: ClickLis
 
     fun updateItemsList(newList: List<Item>) {
         /*
-        if element was removed find index of removed element and
-        call notifyItemRemoved() instead of because calling
-        notifyDataSetChanged() will disable item removed animation
-        resulting in bad UX.
+        if element was removed, find index of removed element and
+        call notifyItemRemoved() instead of notifyDataSetChanged()
+        because calling notifyDataSetChanged() will disable item
+        removed animation resulting in bad UX.
          */
         if (newList.size < allItems.size) {
             val itemRemoved = allItems.minus(newList)

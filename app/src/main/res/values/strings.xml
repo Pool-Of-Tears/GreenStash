@@ -24,7 +24,7 @@
     <string name="goal_delete_confirmation">You sure?</string>
     <string name="goal_delete_success">Deleted Successfully.</string>
     <string name="edit_btn_description">Edit this goal.</string>
-    <string name="info_btn_description">Goal information.</string>
+    <string name="share_btn_description">Share this goal.</string>
     <string name="add_fab_button_title">New goal</string>
     <string name="add_fab_button_description">Add new saving goal.</string>
     <string name="progress_greet1">You’re off to great start!</string>

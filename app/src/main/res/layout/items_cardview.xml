@@ -34,12 +34,12 @@ SOFTWARE. -->
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="-12dp"
+        android:layout_marginTop="-6dp"
         android:layout_marginBottom="-6dp"
         android:layout_marginEnd="0dp"
         app:cardBackgroundColor="?attr/cardBackgroundColor"
         app:cardCornerRadius="12dp"
-        app:cardElevation="8dp"
+        app:cardElevation="10dp"
         app:cardMaxElevation="12dp"
         app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="true">
@@ -133,14 +133,14 @@ SOFTWARE. -->
                     android:layout_weight="1"/>
 
                 <ImageButton
-                    android:id="@+id/infoButton"
+                    android:id="@+id/shareButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal|center_vertical|end"
                     android:background="@android:color/transparent"
                     android:foreground="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/edit_btn_description"
-                    android:src="@drawable/ic_item_card_info_24" />
+                    android:src="@drawable/ic_item_card_share_24" />
 
                 <ImageButton
                     android:id="@+id/editButton"
@@ -150,7 +150,7 @@ SOFTWARE. -->
                     android:layout_gravity="center_horizontal|center_vertical|end"
                     android:background="@android:color/transparent"
                     android:foreground="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/info_btn_description"
+                    android:contentDescription="@string/share_btn_description"
                     android:src="@drawable/ic_item_card_edit_24" />
 
 

@@ -60,6 +60,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // Change from splash theme to app theme.
+        setTheme(R.style.Theme_GreenStash)
+
         // build navigation options.
         navOptionsBuilder = NavOptions.Builder()
         navOptionsBuilder.setEnterAnim(R.anim.slide_in).setExitAnim(R.anim.fade_out)

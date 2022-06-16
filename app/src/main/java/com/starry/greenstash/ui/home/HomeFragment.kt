@@ -221,8 +221,8 @@ class HomeFragment : Fragment(), ClickListenerIF {
         }
     }
 
-    override fun onInfoClicked(item: Item) {
-        Toast.makeText(requireContext(), "info", Toast.LENGTH_SHORT).show()
+    override fun onShareClicked(item: Item) {
+        Toast.makeText(requireContext(), "share", Toast.LENGTH_SHORT).show()
     }
 
     override fun onEditClicked(item: Item) {
