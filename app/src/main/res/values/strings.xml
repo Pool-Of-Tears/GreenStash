@@ -68,6 +68,4 @@
     <string name="license_perf_summary">Show open source license information.</string>
     <string name="about_perf_title">App information</string>
     <string name="about_perf_summary">Show app version and developer information.</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

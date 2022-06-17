@@ -140,6 +140,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
             findNavController().navigate(R.id.OSLFragment, null, navOptions)
             true
         }
+
+        val aboutPerf: Preference? = findPreference("about")
+        aboutPerf!!.setOnPreferenceClickListener {
+            findNavController().navigate(R.id.AboutFragment, null, navOptions)
+            true
+        }
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {

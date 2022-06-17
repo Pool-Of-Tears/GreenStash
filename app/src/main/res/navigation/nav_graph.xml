@@ -37,4 +37,9 @@
         android:name="com.starry.greenstash.ui.settings.OSLFragment"
         android:label="@string/license_perf_title" />
 
+    <fragment
+        android:id="@+id/AboutFragment"
+        android:name="com.starry.greenstash.ui.settings.AboutFragment"
+        android:label="@string/about_perf_title" />
+
 </navigation>

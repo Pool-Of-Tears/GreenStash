@@ -241,7 +241,7 @@ class HomeFragment : Fragment(), ClickListenerIF {
         val editData = ItemEditData(
             item.id,
             item.title,
-            item.totalAmount.toString(),
+            item.totalAmount.toInt().toString(),
             item.deadline,
             item.itemImage
         )
