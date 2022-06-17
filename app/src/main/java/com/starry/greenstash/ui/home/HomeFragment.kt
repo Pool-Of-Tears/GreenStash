@@ -259,7 +259,7 @@ class HomeFragment : Fragment(), ClickListenerIF {
         // set negative button.
         alertDialog.setNegativeButton("Cancel") { _, _ ->
         }
-        alertDialog.setPositiveButton("Done") { _, _ ->
+        alertDialog.setPositiveButton("Yes") { _, _ ->
             viewModel.deleteItem(item)
             CuteToast.ct(
                 requireContext(),

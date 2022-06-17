@@ -53,20 +53,20 @@ SOFTWARE. -->
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="200dp"
             android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_marginTop="200dp"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_baseline_face_24" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
             android:layout_marginStart="65dp"
             android:layout_marginEnd="65dp"
-            android:layout_gravity="center_horizontal|center_vertical"
             android:text="@string/no_goals_set"
             android:textColor="?attr/iconPreferenceColor"
-            android:fontFamily="sans-serif-light"/>
+            android:textStyle="italic" />
 
     </LinearLayout>
 
