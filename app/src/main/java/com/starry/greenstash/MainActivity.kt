@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var biometricPrompt: BiometricPrompt
     private lateinit var promptInfo: BiometricPrompt.PromptInfo
     private lateinit var sharedViewModel: AndroidViewModel
-    private lateinit var navOptionsBuilder: NavOptions.Builder
+    private lateinit var navOptions: NavOptions
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,9 +64,10 @@ class MainActivity : AppCompatActivity() {
         setTheme(R.style.Theme_GreenStash)
 
         // build navigation options.
-        navOptionsBuilder = NavOptions.Builder()
+        val navOptionsBuilder = NavOptions.Builder()
         navOptionsBuilder.setEnterAnim(R.anim.slide_in).setExitAnim(R.anim.fade_out)
             .setPopEnterAnim(R.anim.fade_in).setPopExitAnim(R.anim.fade_out)
+        navOptions = navOptionsBuilder.build()
 
         // attach shared view model.
         sharedViewModel = ViewModelProvider(this).get(SharedViewModel::class.java)
@@ -145,7 +146,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (navController.graph.findNode(item.itemId) != null) {
-            navController.navigate(item.itemId, null, navOptionsBuilder.build())
+            navController.navigate(item.itemId, null, navOptions)
         }
         return super.onOptionsItemSelected(item)
 

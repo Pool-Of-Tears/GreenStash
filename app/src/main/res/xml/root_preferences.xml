@@ -33,10 +33,12 @@
     <PreferenceCategory app:title="@string/about_pref_header">
         <Preference
             app:icon="@drawable/ic_perf_about_license_24"
+            app:key="license"
             app:title="@string/license_perf_title"
             app:summary="@string/license_perf_summary"/>
         <Preference
             app:icon="@drawable/ic_perf_about_info_24"
+            app:key="about"
             app:title="@string/about_perf_title"
             app:summary="@string/about_perf_summary"/>
 

@@ -31,4 +31,10 @@
         android:id="@+id/settingsFragment"
         android:name="com.starry.greenstash.ui.settings.SettingsFragment"
         android:label="@string/settings_fragment_label" />
+
+    <fragment
+        android:id="@+id/OSLFragment"
+        android:name="com.starry.greenstash.ui.settings.OSLFragment"
+        android:label="@string/license_perf_title" />
+
 </navigation>

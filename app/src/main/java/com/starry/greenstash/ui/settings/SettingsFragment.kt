@@ -29,6 +29,8 @@ import android.view.Menu
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
@@ -46,6 +48,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private lateinit var biometricPrompt: BiometricPrompt
     private lateinit var promptInfo: BiometricPrompt.PromptInfo
     private lateinit var sharedViewModel: SharedViewModel
+    private lateinit var navOptions: NavOptions
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.root_preferences, rootKey)
@@ -53,6 +56,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         // attach shared view model.
         sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
+
+        // build navigation options.
+        val navOptionsBuilder = NavOptions.Builder()
+        navOptionsBuilder.setEnterAnim(R.anim.slide_in).setExitAnim(R.anim.fade_out)
+            .setPopEnterAnim(R.anim.fade_in).setPopExitAnim(R.anim.fade_out)
+        navOptions = navOptionsBuilder.build()
 
         val displayPerf: Preference? = findPreference("display")
         displayPerf!!.setOnPreferenceChangeListener { _, newValue ->
@@ -124,6 +133,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
             }
 
             true // return status.
+        }
+
+        val licensePerf: Preference? = findPreference("license")
+        licensePerf!!.setOnPreferenceClickListener {
+            findNavController().navigate(R.id.OSLFragment, null, navOptions)
+            true
         }
     }
 

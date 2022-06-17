@@ -43,6 +43,10 @@ import com.rejowan.cutetoast.CuteToast
 import com.starry.greenstash.R
 import com.starry.greenstash.databinding.FragmentInputBinding
 import com.starry.greenstash.utils.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -68,7 +72,7 @@ class InputFragment : Fragment() {
     private lateinit var sharedViewModel: SharedViewModel
 
     // nav options for adding animations when switching between fragments.
-    private lateinit var navOptionsBuilder: NavOptions.Builder
+    private lateinit var navOptions: NavOptions
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -85,9 +89,10 @@ class InputFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // build navigation options.
-        navOptionsBuilder = NavOptions.Builder()
+        val navOptionsBuilder = NavOptions.Builder()
         navOptionsBuilder.setEnterAnim(R.anim.slide_in).setExitAnim(R.anim.fade_out)
             .setPopEnterAnim(R.anim.fade_in).setPopExitAnim(R.anim.fade_out)
+        navOptions = navOptionsBuilder.build()
 
         // check if fragment was started bu clicking edit button
         // editData won't be null in that case.
@@ -157,8 +162,7 @@ class InputFragment : Fragment() {
                 binding.inputSaveButton.dismissKeyboard()
                 findNavController().navigate(
                     R.id.action_InputFragment_to_HomeFragment,
-                    null,
-                    navOptionsBuilder.build()
+                    null, navOptions
                 )
             }
         }
@@ -171,9 +175,14 @@ class InputFragment : Fragment() {
             val data = result.data
             when (resultCode) {
                 Activity.RESULT_OK -> {
-                    //Image Uri will not be null for RESULT_OK
-                    imagePickerResult = uriToBitmap(data!!.data!!, requireContext())
-                    binding.imagePicker.setImageBitmap(imagePickerResult)
+                    // launch image fetching process in coroutine.
+                    MainScope().launch {
+                        withContext(Dispatchers.Default) {
+                            //Image Uri will not be null for RESULT_OK
+                            imagePickerResult = uriToBitmap(data!!.data!!, requireContext())
+                        }
+                        binding.imagePicker.setImageBitmap(imagePickerResult)
+                    }
                 }
                 ImagePicker.RESULT_ERROR -> {
                     CuteToast.ct(

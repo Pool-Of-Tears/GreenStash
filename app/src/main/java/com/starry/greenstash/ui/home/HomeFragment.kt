@@ -24,12 +24,12 @@ SOFTWARE.
 
 package com.starry.greenstash.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavOptions
@@ -41,8 +41,7 @@ import com.rejowan.cutetoast.CuteToast
 import com.starry.greenstash.R
 import com.starry.greenstash.database.Item
 import com.starry.greenstash.databinding.FragmentHomeBinding
-import com.starry.greenstash.utils.ItemEditData
-import com.starry.greenstash.utils.SharedViewModel
+import com.starry.greenstash.utils.*
 
 
 class HomeFragment : Fragment(), ClickListenerIF {
@@ -63,7 +62,7 @@ class HomeFragment : Fragment(), ClickListenerIF {
     private lateinit var adapter: HomeRVAdapter
 
     // nav options for adding animations when switching between fragments.
-    private lateinit var navOptionsBuilder: NavOptions.Builder
+    private lateinit var navOptions: NavOptions
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -79,15 +78,15 @@ class HomeFragment : Fragment(), ClickListenerIF {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // build navigation options.
-        navOptionsBuilder = NavOptions.Builder()
+        val navOptionsBuilder = NavOptions.Builder()
         navOptionsBuilder.setEnterAnim(R.anim.slide_in).setExitAnim(R.anim.fade_out)
             .setPopEnterAnim(R.anim.fade_in).setPopExitAnim(R.anim.fade_out)
+        navOptions = navOptionsBuilder.build()
         // set click listener on add goal fab button.
         binding.fab.setOnClickListener {
             findNavController().navigate(
                 R.id.action_HomeFragment_to_InputFragment,
-                null,
-                navOptionsBuilder.build()
+                null, navOptions
             )
         }
         // attach adapter to recycler view.
@@ -98,6 +97,7 @@ class HomeFragment : Fragment(), ClickListenerIF {
         viewModel.allItems.observe(viewLifecycleOwner) { itemList ->
             itemList.let {
                 adapter.updateItemsList(it)
+                checkDataset()
             }
         }
         // hide fab button on scrolling.
@@ -222,7 +222,19 @@ class HomeFragment : Fragment(), ClickListenerIF {
     }
 
     override fun onShareClicked(item: Item) {
-        Toast.makeText(requireContext(), "share", Toast.LENGTH_SHORT).show()
+        val intent = Intent(Intent.ACTION_SEND)
+        intent.type = "text/plain"
+        intent.putExtra(
+            Intent.EXTRA_TEXT,
+            requireContext().getString(R.string.share_activity_string)
+                .format(item.title, AppConstants.REPO_URL)
+        )
+        val chooser = Intent.createChooser(
+            intent,
+            requireContext().getString(R.string.share_activity_chooser)
+        )
+        startActivity(chooser)
+
     }
 
     override fun onEditClicked(item: Item) {
@@ -236,8 +248,7 @@ class HomeFragment : Fragment(), ClickListenerIF {
         sharedViewModel.setEditData(editData)
         findNavController().navigate(
             R.id.action_HomeFragment_to_InputFragment,
-            null,
-            navOptionsBuilder.build()
+            null, navOptions
         )
     }
 
@@ -258,6 +269,16 @@ class HomeFragment : Fragment(), ClickListenerIF {
             )
         }
         alertDialog.create().show()
+    }
+
+    private fun checkDataset() {
+        if (viewModel.allItems.value?.isEmpty() == true) {
+            binding.mainRecyclerView.gone()
+            binding.homeEmptyView.visible()
+        } else {
+            binding.homeEmptyView.gone()
+            binding.mainRecyclerView.visible()
+        }
     }
 
     override fun onDestroyView() {

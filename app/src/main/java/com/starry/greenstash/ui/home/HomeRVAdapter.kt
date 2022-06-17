@@ -187,6 +187,7 @@ class HomeRVAdapter(private val context: Context, private val listener: ClickLis
             allItems.clear()
             allItems.addAll(newList)
             notifyItemRemoved(itemRemovedIndex)
+            notifyItemRangeChanged(itemRemovedIndex, itemCount)
         } else {
             allItems.clear()
             allItems.addAll(newList)

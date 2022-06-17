@@ -9,6 +9,7 @@
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.108" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/drawable/ic_baseline_delete_outline_24.xml" value="0.108" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/drawable/ic_baseline_edit_24.xml" value="0.108" />
+        <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/drawable/ic_baseline_face_24.xml" value="0.108" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/drawable/ic_baseline_inrdfrfertg4fo_24.xml" value="0.1005" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/drawable/ic_fab_add_24.xml" value="0.108" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/drawable/ic_fab_camera_alt_24.xml" value="0.108" />
@@ -33,8 +34,9 @@
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/layout/content_main.xml" value="0.2171875" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/layout/dw_dialog.xml" value="0.25" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/layout/fragment_first.xml" value="0.2171875" />
-        <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/layout/fragment_home.xml" value="0.2171875" />
+        <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/layout/fragment_home.xml" value="0.25" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/layout/fragment_input.xml" value="0.25" />
+        <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/layout/fragment_o_s_l.xml" value="0.335" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/layout/fragment_second.xml" value="0.2171875" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/layout/items_cardview.xml" value="0.25" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/menu/menu_main.xml" value="0.2171875" />

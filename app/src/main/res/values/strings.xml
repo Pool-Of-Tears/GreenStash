@@ -7,6 +7,7 @@
     <string name="settings_fragment_label">Settings</string>
     <string name="cancel">Task Cancelled!</string>
     <!-- Strings used for dashboard cards -->
+    <string name="no_goals_set">Nothing to show here, click on \"New goal\" icon below to set a new goal and start saving!</string>
     <string name="content_description_media">items information card</string>
     <string name="item_title">Item Title</string>
     <string name="secondary_text">Secondary text</string>
@@ -25,6 +26,8 @@
     <string name="goal_delete_success">Deleted Successfully.</string>
     <string name="edit_btn_description">Edit this goal.</string>
     <string name="share_btn_description">Share this goal.</string>
+    <string name="share_activity_chooser">Share this using…</string>
+    <string name="share_activity_string">I\'ve been saving for my %s with the help of GreenStash! check it out %s</string>
     <string name="add_fab_button_title">New goal</string>
     <string name="add_fab_button_description">Add new saving goal.</string>
     <string name="progress_greet1">You’re off to great start!</string>
@@ -65,4 +68,6 @@
     <string name="license_perf_summary">Show open source license information.</string>
     <string name="about_perf_title">App information</string>
     <string name="about_perf_summary">Show app version and developer information.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
