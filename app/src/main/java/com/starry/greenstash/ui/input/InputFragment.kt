@@ -29,9 +29,7 @@ import android.app.DatePickerDialog
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
@@ -78,6 +76,7 @@ class InputFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        setHasOptionsMenu(true)
         viewModel = ViewModelProvider(this).get(InputViewModel::class.java)
         sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
         _binding = FragmentInputBinding.inflate(inflater, container, false)
@@ -202,6 +201,11 @@ class InputFragment : Fragment() {
                 }
             }
         }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        // remove search icon in input screen.
+        menu.removeItem(R.id.actionSearch)
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

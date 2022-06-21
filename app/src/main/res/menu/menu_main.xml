@@ -6,6 +6,13 @@
         android:id="@+id/settingsFragment"
         android:orderInCategory="100"
         android:title="@string/action_settings"
-        app:showAsAction="never"
-        />
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/actionSearch"
+        android:title="@string/action_search"
+        android:icon="@drawable/ic_menu_search_24"
+        app:iconTint="@color/searchIconColor"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="ifRoom|collapseActionView"/>
 </menu>

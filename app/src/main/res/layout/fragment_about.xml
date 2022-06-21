@@ -10,9 +10,10 @@
     <ImageView
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_gravity="center_horizontal|center_vertical"
+        android:layout_gravity="center"
         android:layout_marginTop="30dp"
-        android:src="@mipmap/ic_launcher_round" />
+        android:src="@drawable/ic_piggy_bank"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -21,14 +22,16 @@
         android:layout_marginTop="4dp"
         android:text="Greenstash"
         android:textSize="30sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|center_vertical"
         android:layout_marginTop="4dp"
-        android:text="&lt;/&gt; with &#10084; by shivam" />
+        android:text="&lt;/&gt; with &#10084; by shivam"
+        tools:ignore="HardcodedText" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -43,7 +46,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
             android:backgroundTint="@android:color/transparent"
-            android:src="@drawable/ic_icon_twitter_30" />
+            android:src="@drawable/ic_icon_twitter_30"
+            tools:ignore="ContentDescription" />
 
 
         <ImageButton
@@ -52,7 +56,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
             android:backgroundTint="@android:color/transparent"
-            android:src="@drawable/ic_icon_github_30" />
+            android:src="@drawable/ic_icon_github_30"
+            tools:ignore="ContentDescription" />
 
         <ImageButton
             android:id="@+id/telegramButton"
@@ -60,22 +65,25 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
             android:backgroundTint="@android:color/transparent"
-            android:src="@drawable/ic_icon_telegram_30" />
+            android:src="@drawable/ic_icon_telegram_30"
+            tools:ignore="ContentDescription" />
 
     </LinearLayout>
 
     <View
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        tools:ignore="InefficientWeight" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|center_vertical|bottom"
         android:layout_marginBottom="10dp"
-        android:text="Version 1.0 "
-        android:textStyle="bold" />
+        android:text="Version 1.1 "
+        android:textStyle="bold"
+        tools:ignore="HardcodedText" />
 
 
     <TextView
@@ -84,7 +92,8 @@
         android:layout_gravity="center_horizontal|center_vertical|bottom"
         android:layout_marginBottom="29dp"
         android:text="Copyright (c) 2022 Stɑrry Shivɑm "
-        android:textStyle="italic" />
+        android:textStyle="italic"
+        tools:ignore="HardcodedText" />
 
 
 </LinearLayout>

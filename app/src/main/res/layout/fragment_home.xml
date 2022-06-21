@@ -43,32 +43,38 @@ SOFTWARE. -->
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/homeEmptyView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:visibility="gone">
 
-        <ImageButton
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|center_vertical"
-            android:layout_marginTop="200dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_baseline_face_24" />
+            android:orientation="vertical"
+            android:layout_centerInParent="true">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|center_vertical"
-            android:layout_marginStart="65dp"
-            android:layout_marginEnd="65dp"
-            android:text="@string/no_goals_set"
-            android:textColor="?attr/iconPreferenceColor"
-            android:textStyle="italic" />
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_baseline_face_24" />
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="65dp"
+                android:layout_marginEnd="65dp"
+                android:text="@string/no_goals_set"
+                android:textColor="?attr/iconPreferenceColor"
+                android:textStyle="italic" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/fab"

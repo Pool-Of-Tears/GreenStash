@@ -56,6 +56,9 @@
         <item name="android:textColor">@color/dark_gray</item>
     </style>
 
+    <!-- Toolbar search icon color.-->
+    <item name="searchIconColor" type="color">@color/dark_gray</item>
+
     <!-- Splash screen theme -->
     <style name="SplashTheme" parent="Theme.Material3.Light.NoActionBar">
         <item name="android:windowBackground">@drawable/splash_image</item>

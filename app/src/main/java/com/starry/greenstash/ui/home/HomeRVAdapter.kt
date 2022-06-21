@@ -182,12 +182,14 @@ class HomeRVAdapter(private val context: Context, private val listener: ClickLis
         removed animation resulting in bad UX.
          */
         if (newList.size < allItems.size) {
-            val itemRemoved = allItems.minus(newList)
-            val itemRemovedIndex = allItems.indexOf(itemRemoved[0])
+            val itemsRemoved = allItems.minus(newList)
+            for (item in itemsRemoved) {
+                val itemRemovedIndex = allItems.indexOf(item)
+                notifyItemRemoved(itemRemovedIndex)
+                notifyItemRangeChanged(itemRemovedIndex, itemCount)
+            }
             allItems.clear()
             allItems.addAll(newList)
-            notifyItemRemoved(itemRemovedIndex)
-            notifyItemRangeChanged(itemRemovedIndex, itemCount)
         } else {
             allItems.clear()
             allItems.addAll(newList)

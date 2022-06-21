@@ -1,10 +1,12 @@
 <resources>
     <string name="app_name">GreenStash</string>
     <string name="action_settings">Settings</string>
+    <string name="action_search">Search</string>
     <!-- Strings used for fragments for navigation -->
     <string name="home_fragment_label">Savings Dashboard</string>
     <string name="input_fragment_label">It\'s time to save!</string>
     <string name="settings_fragment_label">Settings</string>
+    <string name="item_not_found">Sorry, this goal doesn\'t exist.</string>
     <string name="cancel">Task Cancelled!</string>
     <!-- Strings used for dashboard cards -->
     <string name="no_goals_set">Nothing to show here, click on \"New goal\" icon below to set a new goal and start saving!</string>

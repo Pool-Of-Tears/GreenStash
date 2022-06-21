@@ -47,5 +47,8 @@
         <item name="android:textColor">@color/light_gray</item>
     </style>
 
+    <!-- Toolbar search icon color.-->
+    <item name="searchIconColor" type="color">@color/light_gray</item>
+
 
 </resources>

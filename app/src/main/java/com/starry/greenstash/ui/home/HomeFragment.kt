@@ -26,10 +26,9 @@ package com.starry.greenstash.ui.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.EditText
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavOptions
@@ -42,6 +41,7 @@ import com.starry.greenstash.R
 import com.starry.greenstash.database.Item
 import com.starry.greenstash.databinding.FragmentHomeBinding
 import com.starry.greenstash.utils.*
+import java.util.*
 
 
 class HomeFragment : Fragment(), ClickListenerIF {
@@ -68,6 +68,7 @@ class HomeFragment : Fragment(), ClickListenerIF {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        setHasOptionsMenu(true)
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
@@ -270,6 +271,46 @@ class HomeFragment : Fragment(), ClickListenerIF {
         }
         alertDialog.create().show()
     }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        val searchMenu = menu.findItem(R.id.actionSearch).actionView
+        (searchMenu as SearchView).setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                filter(newText!!)
+                return false
+            }
+        })
+    }
+
+    private fun filter(text: String) {
+        // create a new array list to filter goals.
+        val filteredList: ArrayList<Item> = ArrayList()
+
+        // running a for loop to compare elements.
+        for (item in viewModel.allItems.value!!) {
+            // check if the entered string matched with any item in recycler view.
+            if (item.title.lowercase(Locale.getDefault())
+                    .contains(text.lowercase(Locale.getDefault()))
+            ) {
+                filteredList.add(item)
+            }
+        }
+        if (viewModel.allItems.value!!.isNotEmpty() && filteredList.isEmpty()) {
+            CuteToast.ct(
+                requireContext(),
+                requireContext().getString(R.string.item_not_found),
+                CuteToast.LENGTH_SHORT,
+                CuteToast.SAD, true
+            ).show()
+        } else {
+            adapter.updateItemsList(filteredList)
+        }
+    }
+
 
     private fun checkDataset() {
         if (viewModel.allItems.value?.isEmpty() == true) {
