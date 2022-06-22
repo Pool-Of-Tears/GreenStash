@@ -115,7 +115,7 @@ class InputFragment : Fragment() {
             }
 
         // deadline click listener.
-        binding.inputDeadline.setOnClickListener {
+        binding.inputDeadline.editText?.setOnClickListener {
             val datePickerDialog = DatePickerDialog(
                 requireContext(),
                 dateSetListener,
@@ -144,11 +144,10 @@ class InputFragment : Fragment() {
         // image picker button click listener.
         binding.imagePickerButton.setOnClickListener {
             ImagePicker.with(this)
-                .compress(1024) //Final image size will be less than 1 MB
-                .maxResultSize(
-                    1080,
-                    1080
-                ) // Final image resolution will be less than 1080 x 1080
+                //Final image size will be less than 1 MB
+                .compress(1024)
+                // Final image resolution will be less than 1080 x 1080
+                .maxResultSize(1080, 1080)
                 .createIntent { intent ->
                     mProgressDialog.show()
                     startForProfileImageResult.launch(intent)
@@ -216,7 +215,7 @@ class InputFragment : Fragment() {
 
     private fun updateDateView() {
         val sdf = SimpleDateFormat(AppConstants.DATE_FORMAT, Locale.US)
-        binding.inputDeadline.setText(sdf.format(cal.time))
+        binding.inputDeadline.editText?.setText(sdf.format(cal.time))
     }
 
     private fun updateInputView(itemData: ItemEditData) {
@@ -224,9 +223,9 @@ class InputFragment : Fragment() {
             binding.imagePicker.setImageBitmap(itemData.image)
             imagePickerResult = itemData.image
         }
-        binding.inputTitle.setText(itemData.title)
-        binding.inputAmount.setText(itemData.amount)
-        binding.inputDeadline.setText(itemData.date)
+        binding.inputTitle.editText?.setText(itemData.title)
+        binding.inputAmount.editText?.setText(itemData.amount)
+        binding.inputDeadline.editText?.setText(itemData.date)
         binding.inputSaveButton.text = requireContext().getString(R.string.input_edit_save_button)
     }
 }

@@ -23,10 +23,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
 
-<ScrollView
-    android:layout_height="wrap_content"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -78,31 +77,44 @@ SOFTWARE. -->
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/inputTitle"
-            android:layout_width="370dp"
-            android:layout_height="68dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="22dp"
-            android:hint="@string/input_text_title"
-            android:importantForAutofill="no"
-            android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imagePickerText" />
+            app:layout_constraintTop_toBottomOf="@+id/imagePickerText"
+            app:startIconDrawable="@drawable/ic_baseline_tag_faces_24">
 
-        <EditText
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="360dp"
+                android:layout_height="68dp"
+                android:hint="@string/input_text_title"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/inputAmount"
-            android:layout_width="370dp"
-            android:layout_height="68dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="22dp"
-            android:hint="@string/input_text_amount"
-            android:importantForAutofill="no"
-            android:inputType="number"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/inputTitle" />
+            app:layout_constraintTop_toBottomOf="@+id/inputTitle"
+            app:startIconDrawable="@drawable/ic_perf_locale_currency_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="360dp"
+                android:layout_height="68dp"
+                android:hint="@string/input_text_amount"
+                android:importantForAutofill="no"
+                android:inputType="number" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/imagePickerText"
@@ -115,25 +127,32 @@ SOFTWARE. -->
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/inputDeadline"
-            android:layout_width="370dp"
-            android:layout_height="68dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="22dp"
-            android:focusable="false"
-            android:hint="@string/input_deadline"
-            android:importantForAutofill="no"
-            android:inputType="date"
-            android:longClickable="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/inputAmount" />
+            app:layout_constraintTop_toBottomOf="@+id/inputAmount"
+            app:startIconDrawable="@drawable/ic_baseline_date_range_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="360dp"
+                android:layout_height="68dp"
+                android:focusable="false"
+                android:hint="@string/input_deadline"
+                android:importantForAutofill="no"
+                android:inputType="date"
+                android:longClickable="false" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/inputSaveButton"
-            android:layout_width="370dp"
-            android:layout_height="60dp"
+            android:layout_width="360dp"
+            android:layout_height="68dp"
             android:layout_marginTop="24dp"
             android:background="@drawable/round_button"
             android:text="@string/input_save_btn"
@@ -149,10 +168,10 @@ SOFTWARE. -->
             android:id="@+id/quoteText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="35dp"
-            android:paddingBottom="35dp"
             android:paddingStart="30dp"
+            android:paddingTop="35dp"
             android:paddingEnd="30dp"
+            android:paddingBottom="35dp"
             android:text="@string/input_page_quote"
             android:textStyle="italic"
             app:layout_constraintBottom_toBottomOf="parent"

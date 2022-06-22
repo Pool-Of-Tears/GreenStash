@@ -54,9 +54,9 @@ class InputViewModel(application: Application) : AndroidViewModel(application) {
         ctx: Context,
         editData: ItemEditData? = null
     ): Boolean {
-        val title = binding.inputTitle.text
-        val amount = binding.inputAmount.text
-        val deadline = binding.inputDeadline.text
+        val title = binding.inputTitle.editText?.text!!
+        val amount = binding.inputAmount.editText?.text!!
+        val deadline = binding.inputDeadline.editText?.text!!
 
         // validate user input.
         if (!validateInputs(ctx, title, amount, deadline)) {

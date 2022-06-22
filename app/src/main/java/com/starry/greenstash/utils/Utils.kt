@@ -98,7 +98,6 @@ class IndeterminateProgressDialog(context: Context) : AlertDialog(context) {
         val view = LayoutInflater.from(context).inflate(R.layout.progress_dialog, null)
         messageTextView = view.findViewById(R.id.message)
         setView(view)
-        //window?.setLayout(140, 100)
     }
 
     override fun setMessage(message: CharSequence?) {
