@@ -8,6 +8,7 @@
     <string name="settings_fragment_label">Settings</string>
     <string name="item_not_found">Sorry, this goal doesn\'t exist.</string>
     <string name="cancel">Task Cancelled!</string>
+    <string name="progress_dialog_msg">Please wait…</string>
     <!-- Strings used for dashboard cards -->
     <string name="no_goals_set">Nothing to show here, click on \"New goal\" icon below to set a new goal and start saving!</string>
     <string name="content_description_media">items information card</string>

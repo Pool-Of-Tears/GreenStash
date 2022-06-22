@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.108" />
+        <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/drawable/dialog_rounded_background.xml" value="0.108" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.108" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/drawable/ic_baseline_camera_alt_24.xml" value="0.108" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.108" />
@@ -45,6 +46,7 @@
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/layout/fragment_o_s_l.xml" value="0.1" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/layout/fragment_second.xml" value="0.2171875" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/layout/items_cardview.xml" value="0.25" />
+        <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/layout/progress_dialog.xml" value="0.2171875" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/menu-v26/menu_main.xml" value="0.45" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/menu/menu_main.xml" value="0.375" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/xml/root_preferences.xml" value="0.25" />

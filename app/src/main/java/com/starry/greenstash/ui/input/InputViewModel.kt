@@ -27,6 +27,7 @@ package com.starry.greenstash.ui.input
 import android.app.Application
 import android.content.Context
 import android.graphics.Bitmap
+import android.text.Editable
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.rejowan.cutetoast.CuteToast
@@ -58,26 +59,7 @@ class InputViewModel(application: Application) : AndroidViewModel(application) {
         val deadline = binding.inputDeadline.text
 
         // validate user input.
-        if (title.isEmpty() || title.isBlank()) {
-            CuteToast.ct(
-                ctx, ctx.getString(R.string.title_empty_err),
-                CuteToast.LENGTH_SHORT,
-                CuteToast.SAD, true
-            ).show()
-            return false
-        } else if (amount.isEmpty() || amount.isBlank() || amount.toString().toFloat() == 0f) {
-            CuteToast.ct(
-                ctx, ctx.getString(R.string.amount_empty_err),
-                CuteToast.LENGTH_SHORT,
-                CuteToast.SAD, true
-            ).show()
-            return false
-        } else if (deadline.isEmpty() || deadline.isBlank()) {
-            CuteToast.ct(
-                ctx, ctx.getString(R.string.deadline_empty_err),
-                CuteToast.LENGTH_SHORT,
-                CuteToast.SAD, true
-            ).show()
+        if (!validateInputs(ctx, title, amount, deadline)) {
             return false
         // Insert or update the item.
         } else {
@@ -115,6 +97,39 @@ class InputViewModel(application: Application) : AndroidViewModel(application) {
                     repository.updateDeadline(editData.id, deadline.toString())
                 }
             }
+            return true
+        }
+    }
+
+    private fun validateInputs(
+        ctx: Context,
+        title: Editable,
+        amount: Editable,
+        deadline: Editable
+    ): Boolean {
+        // validate user input.
+        if (title.isEmpty() || title.isBlank()) {
+            CuteToast.ct(
+                ctx, ctx.getString(R.string.title_empty_err),
+                CuteToast.LENGTH_SHORT,
+                CuteToast.SAD, true
+            ).show()
+            return false
+        } else if (amount.isEmpty() || amount.isBlank() || amount.toString().toFloat() == 0f) {
+            CuteToast.ct(
+                ctx, ctx.getString(R.string.amount_empty_err),
+                CuteToast.LENGTH_SHORT,
+                CuteToast.SAD, true
+            ).show()
+            return false
+        } else if (deadline.isEmpty() || deadline.isBlank()) {
+            CuteToast.ct(
+                ctx, ctx.getString(R.string.deadline_empty_err),
+                CuteToast.LENGTH_SHORT,
+                CuteToast.SAD, true
+            ).show()
+            return false
+        } else {
             return true
         }
     }

@@ -41,10 +41,6 @@ import com.rejowan.cutetoast.CuteToast
 import com.starry.greenstash.R
 import com.starry.greenstash.databinding.FragmentInputBinding
 import com.starry.greenstash.utils.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -72,6 +68,9 @@ class InputFragment : Fragment() {
     // nav options for adding animations when switching between fragments.
     private lateinit var navOptions: NavOptions
 
+    // Progress dialog to show when compressing large images.
+    private lateinit var mProgressDialog: IndeterminateProgressDialog
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -92,6 +91,12 @@ class InputFragment : Fragment() {
         navOptionsBuilder.setEnterAnim(R.anim.slide_in).setExitAnim(R.anim.fade_out)
             .setPopEnterAnim(R.anim.fade_in).setPopExitAnim(R.anim.fade_out)
         navOptions = navOptionsBuilder.build()
+
+        // build progress dialog.
+        mProgressDialog = IndeterminateProgressDialog(requireContext())
+        mProgressDialog.setMessage(requireContext().getString(R.string.progress_dialog_msg))
+        mProgressDialog.setCanceledOnTouchOutside(false)
+        mProgressDialog.setCancelable(false)
 
         // check if fragment was started bu clicking edit button
         // editData won't be null in that case.
@@ -145,6 +150,7 @@ class InputFragment : Fragment() {
                     1080
                 ) // Final image resolution will be less than 1080 x 1080
                 .createIntent { intent ->
+                    mProgressDialog.show()
                     startForProfileImageResult.launch(intent)
                 }
         }
@@ -172,16 +178,12 @@ class InputFragment : Fragment() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             val resultCode = result.resultCode
             val data = result.data
+            mProgressDialog.hide()
+
             when (resultCode) {
                 Activity.RESULT_OK -> {
-                    // launch image fetching process in coroutine.
-                    MainScope().launch {
-                        withContext(Dispatchers.Default) {
-                            //Image Uri will not be null for RESULT_OK
-                            imagePickerResult = uriToBitmap(data!!.data!!, requireContext())
-                        }
-                        binding.imagePicker.setImageBitmap(imagePickerResult)
-                    }
+                    imagePickerResult = uriToBitmap(data!!.data!!, requireContext())
+                    binding.imagePicker.setImageBitmap(imagePickerResult)
                 }
                 ImagePicker.RESULT_ERROR -> {
                     CuteToast.ct(

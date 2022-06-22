@@ -29,10 +29,14 @@ import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
+import com.starry.greenstash.R
 import java.math.RoundingMode
 import java.text.DecimalFormat
 
@@ -84,5 +88,20 @@ fun isDarkModeOn(ctx: Context): Boolean {
         Configuration.UI_MODE_NIGHT_NO -> false
         Configuration.UI_MODE_NIGHT_UNDEFINED -> false
         else -> false
+    }
+}
+
+class IndeterminateProgressDialog(context: Context) : AlertDialog(context) {
+    private val messageTextView: TextView
+
+    init {
+        val view = LayoutInflater.from(context).inflate(R.layout.progress_dialog, null)
+        messageTextView = view.findViewById(R.id.message)
+        setView(view)
+        //window?.setLayout(140, 100)
+    }
+
+    override fun setMessage(message: CharSequence?) {
+        this.messageTextView.text = message.toString()
     }
 }
