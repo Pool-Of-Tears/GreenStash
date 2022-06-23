@@ -28,6 +28,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.widget.EditText
+import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -35,6 +37,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.rejowan.cutetoast.CuteToast
 import com.starry.greenstash.R
@@ -280,13 +283,59 @@ class HomeFragment : Fragment(), ClickListenerIF {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                filter(newText!!)
+                searchItem(newText!!)
                 return false
             }
         })
+
+        val filterMenu = menu.findItem(R.id.actionFilter)
+        filterMenu.setOnMenuItemClickListener {
+            showFilterDialog(); true
+        }
     }
 
-    private fun filter(text: String) {
+    private fun showFilterDialog() {
+        val bottomSheetDialog = BottomSheetDialog(requireContext())
+        bottomSheetDialog.setContentView(R.layout.filter_menu)
+
+        val filterAll = bottomSheetDialog.findViewById<LinearLayout>(R.id.filterAll)
+        val filterOngoing = bottomSheetDialog.findViewById<LinearLayout>(R.id.filterOngoing)
+        val filterCompleted = bottomSheetDialog.findViewById<LinearLayout>(R.id.filterCompleted)
+
+        filterAll!!.setOnClickListener {
+            filterItem("all")
+            Toast.makeText(requireContext(), "Showing all goals.", Toast.LENGTH_SHORT).show()
+            bottomSheetDialog.hide()
+        }
+        filterOngoing!!.setOnClickListener {
+            filterItem("ongoing")
+            Toast.makeText(requireContext(), "Showing ongoing goals.", Toast.LENGTH_SHORT).show()
+            bottomSheetDialog.hide()
+        }
+        filterCompleted!!.setOnClickListener {
+            filterItem("completed")
+            Toast.makeText(requireContext(), "Showing completed goals.", Toast.LENGTH_SHORT).show()
+            bottomSheetDialog.hide()
+        }
+        bottomSheetDialog.show()
+    }
+
+    private fun filterItem(category: String) {
+        val itemList = viewModel.allItems.value!!
+        when (category) {
+            "completed" -> {
+                adapter.updateItemsList(itemList.filter { it.currentAmount >= it.totalAmount })
+            }
+            "ongoing" -> {
+                adapter.updateItemsList(itemList.filter { it.currentAmount < it.totalAmount })
+            }
+            else -> {
+                adapter.updateItemsList(itemList)
+            }
+        }
+    }
+
+    private fun searchItem(text: String) {
         // create a new array list to filter goals.
         val filteredList: ArrayList<Item> = ArrayList()
 
