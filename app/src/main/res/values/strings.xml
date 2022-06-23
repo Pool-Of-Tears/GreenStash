@@ -4,6 +4,7 @@
     <string name="action_search">Search</string>
     <string name="action_filter">Filter</string>
     <!-- Filter menu-->
+    <string name="filter_header">Filter your saving goals</string>
     <string name="filter_all">Show All Goals</string>
     <string name="filter_ongoing">Show Ongoing</string>
     <string name="filter_completed">Show Completed</string>

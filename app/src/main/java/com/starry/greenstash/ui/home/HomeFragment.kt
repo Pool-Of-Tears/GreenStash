@@ -295,6 +295,7 @@ class HomeFragment : Fragment(), ClickListenerIF {
     }
 
     private fun showFilterDialog() {
+        val itemList: List<Item> = viewModel.allItems.value!!
         val bottomSheetDialog = BottomSheetDialog(requireContext())
         bottomSheetDialog.setContentView(R.layout.filter_menu)
 
@@ -303,36 +304,21 @@ class HomeFragment : Fragment(), ClickListenerIF {
         val filterCompleted = bottomSheetDialog.findViewById<LinearLayout>(R.id.filterCompleted)
 
         filterAll!!.setOnClickListener {
-            filterItem("all")
+            adapter.updateItemsList(itemList)
             Toast.makeText(requireContext(), "Showing all goals.", Toast.LENGTH_SHORT).show()
             bottomSheetDialog.hide()
         }
         filterOngoing!!.setOnClickListener {
-            filterItem("ongoing")
+            adapter.updateItemsList(itemList.filter { it.currentAmount < it.totalAmount })
             Toast.makeText(requireContext(), "Showing ongoing goals.", Toast.LENGTH_SHORT).show()
             bottomSheetDialog.hide()
         }
         filterCompleted!!.setOnClickListener {
-            filterItem("completed")
+            adapter.updateItemsList(itemList.filter { it.currentAmount >= it.totalAmount })
             Toast.makeText(requireContext(), "Showing completed goals.", Toast.LENGTH_SHORT).show()
             bottomSheetDialog.hide()
         }
         bottomSheetDialog.show()
-    }
-
-    private fun filterItem(category: String) {
-        val itemList = viewModel.allItems.value!!
-        when (category) {
-            "completed" -> {
-                adapter.updateItemsList(itemList.filter { it.currentAmount >= it.totalAmount })
-            }
-            "ongoing" -> {
-                adapter.updateItemsList(itemList.filter { it.currentAmount < it.totalAmount })
-            }
-            else -> {
-                adapter.updateItemsList(itemList)
-            }
-        }
     }
 
     private fun searchItem(text: String) {

@@ -12,4 +12,9 @@
     <color name="light_gray">#D8D8D8</color>
     <color name="dark_gray">#2B2B2B</color>
     <color name="splash_bg">#1F2D47</color>
+
+    <!-- Image picker dialog color -->
+    <color name="dialog_choose_icon_color">#989797</color>
+    <color name="dialog_choose_text_color">#989797</color>
+
 </resources>

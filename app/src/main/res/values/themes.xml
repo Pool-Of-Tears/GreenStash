@@ -17,6 +17,7 @@
         <item name="switchStyle">@style/Widget.App.Switch</item>
         <item name="materialAlertDialogTheme">@style/AlertDialogTheme</item>
         <item name="alertDialogTheme">@style/AlertDialogTheme</item>
+        <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>
     </style>
 
     <style name="Theme.GreenStash.NoActionBar">
@@ -64,6 +65,24 @@
 
     <!-- Toolbar search icon color.-->
     <item name="searchIconColor" type="color">@color/dark_gray</item>
+
+    <!-- TextInputLayout style -->
+    <style name="Widget.App.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.TextInputLayout</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.App.SmallComponent</item>
+        <!--<item name="hintTextColor">?attr/colorOnSurface</item>-->
+    </style>
+
+    <style name="ThemeOverlay.App.TextInputLayout" parent="">
+        <item name="colorPrimary">@color/color_secondary</item>
+        <item name="editTextStyle">@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox</item>
+    </style>
+
+    <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+
 
     <!-- Splash screen theme -->
     <style name="SplashTheme" parent="Theme.Material3.Light.NoActionBar">

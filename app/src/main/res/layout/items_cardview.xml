@@ -33,14 +33,9 @@ SOFTWARE. -->
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="-6dp"
-        android:layout_marginBottom="-6dp"
-        android:layout_marginEnd="0dp"
         app:cardBackgroundColor="?attr/cardBackgroundColor"
         app:cardCornerRadius="12dp"
-        app:cardElevation="10dp"
-        app:cardMaxElevation="12dp"
+        app:cardElevation="8dp"
         app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="true">
 

@@ -6,12 +6,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:padding="10dp"
+        android:textStyle="bold"
+        android:text="@string/filter_header"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:id="@+id/filterAll"
-        android:background="?android:attr/selectableItemBackground"
+        android:foreground="?android:attr/selectableItemBackground"
         android:padding="8dp">
 
         <ImageView
@@ -34,7 +42,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:id="@+id/filterOngoing"
-        android:background="?android:attr/selectableItemBackground"
+        android:foreground="?android:attr/selectableItemBackground"
         android:padding="8dp">
 
         <ImageView
@@ -57,14 +65,15 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:id="@+id/filterCompleted"
-        android:background="?android:attr/selectableItemBackground"
+        android:foreground="?android:attr/selectableItemBackground"
         android:padding="8dp">
 
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/ic_filter_completed_24"
-            android:layout_margin="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             tools:ignore="ContentDescription" />
 
         <TextView
@@ -72,7 +81,8 @@
             android:layout_height="wrap_content"
             android:text="@string/filter_completed"
             android:layout_gravity="center_vertical"
-            android:padding="8dp"/>
+            android:padding="8dp"
+            android:layout_marginBottom="10dp"/>
     </LinearLayout>
 
 </LinearLayout>
