@@ -33,6 +33,7 @@ import android.view.*
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
@@ -41,10 +42,12 @@ import com.rejowan.cutetoast.CuteToast
 import com.starry.greenstash.R
 import com.starry.greenstash.databinding.FragmentInputBinding
 import com.starry.greenstash.utils.*
+import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.*
 
 
+@AndroidEntryPoint
 class InputFragment : Fragment() {
 
     private var _binding: FragmentInputBinding? = null
@@ -60,7 +63,7 @@ class InputFragment : Fragment() {
     private var imagePickerResult: Bitmap? = null
 
     // Input fragment's view model class.
-    private lateinit var viewModel: InputViewModel
+    private val viewModel: InputViewModel by viewModels()
 
     // Shared view model class.
     private lateinit var sharedViewModel: SharedViewModel
@@ -76,7 +79,6 @@ class InputFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         setHasOptionsMenu(true)
-        viewModel = ViewModelProvider(this).get(InputViewModel::class.java)
         sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
         _binding = FragmentInputBinding.inflate(inflater, container, false)
         return binding.root

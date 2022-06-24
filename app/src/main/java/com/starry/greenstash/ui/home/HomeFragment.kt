@@ -32,6 +32,7 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
@@ -44,9 +45,11 @@ import com.starry.greenstash.R
 import com.starry.greenstash.database.Item
 import com.starry.greenstash.databinding.FragmentHomeBinding
 import com.starry.greenstash.utils.*
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
 
+@AndroidEntryPoint
 class HomeFragment : Fragment(), ClickListenerIF {
 
     private var _binding: FragmentHomeBinding? = null
@@ -56,7 +59,7 @@ class HomeFragment : Fragment(), ClickListenerIF {
     private val binding get() = _binding!!
 
     // home fragments view model.
-    private lateinit var viewModel: HomeViewModel
+    private val viewModel:  HomeViewModel by viewModels()
 
     // Shared view model class.
     private lateinit var sharedViewModel: SharedViewModel
@@ -72,7 +75,6 @@ class HomeFragment : Fragment(), ClickListenerIF {
         savedInstanceState: Bundle?
     ): View {
         setHasOptionsMenu(true)
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
@@ -149,14 +151,7 @@ class HomeFragment : Fragment(), ClickListenerIF {
             alertDialog.setPositiveButton("Done") { _, _ ->
                 if (!(amountEditText.text.isBlank() || amountEditText.text.isEmpty())) {
                     val newAmount = amountEditText.text.toString().toFloat()
-                    val newCurrentAmount = item.currentAmount + roundFloat(newAmount)
-                    viewModel.updateCurrentAmount(item.id, newCurrentAmount)
-                    CuteToast.ct(
-                        requireContext(),
-                        requireContext().getString(R.string.deposit_successful),
-                        CuteToast.LENGTH_SHORT,
-                        CuteToast.HAPPY, true
-                    ).show()
+                    viewModel.deposit(newAmount, item, requireContext())
                 } else {
                     CuteToast.ct(
                         requireContext(),
@@ -194,23 +189,7 @@ class HomeFragment : Fragment(), ClickListenerIF {
             alertDialog.setPositiveButton("Done") { _, _ ->
                 if (!(amountEditText.text.isBlank() || amountEditText.text.isEmpty())) {
                     val newAmount = amountEditText.text.toString().toFloat()
-                    if (newAmount > item.currentAmount) {
-                        CuteToast.ct(
-                            requireContext(),
-                            requireContext().getString(R.string.withdraw_overflow_error),
-                            CuteToast.LENGTH_SHORT,
-                            CuteToast.ERROR, true
-                        ).show()
-                    } else {
-                        val newCurrentAmount = item.currentAmount - newAmount
-                        viewModel.updateCurrentAmount(item.id, newCurrentAmount)
-                        CuteToast.ct(
-                            requireContext(),
-                            requireContext().getString(R.string.withdraw_successful),
-                            CuteToast.LENGTH_SHORT,
-                            CuteToast.SUCCESS, true
-                        ).show()
-                    }
+                    viewModel.withdraw(newAmount, item, requireContext())
 
                 } else {
                     CuteToast.ct(

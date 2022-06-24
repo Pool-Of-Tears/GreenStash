@@ -1,7 +1,7 @@
 /*
 MIT License
 
-Copyright (c) 2022 Stɑrry Shivɑm // This file is part of GreenStash.
+Copyright (c) 2022 Stɑrry Shivɑm
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -22,43 +22,31 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
 
-package com.starry.greenstash.database
+package com.starry.greenstash.di
 
-import android.graphics.Bitmap
-import androidx.lifecycle.LiveData
+import android.content.Context
+import com.starry.greenstash.database.ItemDao
+import com.starry.greenstash.database.ItemDatabase
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
-class ItemRepository(private val itemDao: ItemDao) {
-    val allItems: LiveData<List<Item>> = itemDao.getAllItems()
+@InstallIn(SingletonComponent::class)
+@Module
+class DatabaseModule {
 
-    suspend fun getItem(id: Int) {
-        itemDao.getItem(id)
+    @Singleton
+    @Provides
+    fun provideItemDatabase(@ApplicationContext context: Context): ItemDatabase {
+        return ItemDatabase.getInstance(context)
     }
 
-    suspend fun insertItem(item: Item) {
-        itemDao.insert(item)
+    @Provides
+    fun provideItemDao(itemDatabase: ItemDatabase): ItemDao {
+        return itemDatabase.getItemDao()
     }
 
-    suspend fun deleteItem(item: Item) {
-        itemDao.delete(item)
-    }
-
-    suspend fun updateTitle(id: Int, title: String) {
-        itemDao.updateTitle(id, title)
-    }
-
-    suspend fun  updateTotalAmount(id: Int, amount: Float) {
-        itemDao.updateTotalAmount(id, amount)
-    }
-
-    suspend fun  updateCurrentAmount(id: Int, amount: Float) {
-        itemDao.updateCurrentAmount(id, amount)
-    }
-
-    suspend fun updateDeadline(id: Int, deadline: String) {
-        itemDao.updateDeadline(id, deadline)
-    }
-
-    suspend fun updateItemImage(id: Int, itemImage: Bitmap) {
-        itemDao.updateItemImage(id, itemImage)
-    }
 }

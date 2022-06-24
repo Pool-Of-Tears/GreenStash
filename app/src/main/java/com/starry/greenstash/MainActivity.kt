@@ -43,8 +43,10 @@ import androidx.preference.PreferenceManager
 import com.rejowan.cutetoast.CuteToast
 import com.starry.greenstash.databinding.ActivityMainBinding
 import com.starry.greenstash.utils.*
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.Executor
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration

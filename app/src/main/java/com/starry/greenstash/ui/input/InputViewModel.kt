@@ -24,30 +24,25 @@ SOFTWARE.
 
 package com.starry.greenstash.ui.input
 
-import android.app.Application
 import android.content.Context
 import android.graphics.Bitmap
 import android.text.Editable
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rejowan.cutetoast.CuteToast
 import com.starry.greenstash.R
 import com.starry.greenstash.database.Item
-import com.starry.greenstash.database.ItemDatabase
-import com.starry.greenstash.database.ItemRepository
+import com.starry.greenstash.database.ItemDao
 import com.starry.greenstash.databinding.FragmentInputBinding
 import com.starry.greenstash.utils.ItemEditData
 import com.starry.greenstash.utils.roundFloat
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class InputViewModel(application: Application) : AndroidViewModel(application) {
-    private val repository: ItemRepository
-
-    init {
-        val dao = ItemDatabase.getDatabase(application).getItemDao()
-        repository = ItemRepository(dao)
-    }
+@HiltViewModel
+class InputViewModel @Inject constructor(private val itemDao: ItemDao) : ViewModel() {
 
     fun insertItem(
         binding: FragmentInputBinding,
@@ -81,7 +76,7 @@ class InputViewModel(application: Application) : AndroidViewModel(application) {
                     )
                 }
                 viewModelScope.launch(Dispatchers.IO) {
-                    repository.insertItem(item)
+                    itemDao.insert(item)
                 }
                 CuteToast.ct(
                     ctx, ctx.getString(R.string.data_saved_success),
@@ -91,14 +86,14 @@ class InputViewModel(application: Application) : AndroidViewModel(application) {
             } else {
                 viewModelScope.launch(Dispatchers.IO) {
                     if (imageData != null) {
-                        repository.updateItemImage(editData.id, imageData)
+                        itemDao.updateItemImage(editData.id, imageData)
                     }
-                    repository.updateTitle(editData.id, title.toString())
-                    repository.updateTotalAmount(
+                    itemDao.updateTitle(editData.id, title.toString())
+                    itemDao.updateTotalAmount(
                         editData.id,
                         roundFloat(amount.toString().toFloat())
                     )
-                    repository.updateDeadline(editData.id, deadline.toString())
+                    itemDao.updateDeadline(editData.id, deadline.toString())
                 }
             }
             return true

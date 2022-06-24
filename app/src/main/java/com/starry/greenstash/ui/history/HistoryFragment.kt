@@ -1,7 +1,7 @@
 /*
 MIT License
 
-Copyright (c) 2022 Stɑrry Shivɑm // This file is part of GreenStash.
+Copyright (c) 2022 Stɑrry Shivɑm
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -22,32 +22,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
 
-package com.starry.greenstash.ui.settings
+package com.starry.greenstash.ui.history
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.starry.greenstash.R
 
 
-class OSLFragment : Fragment() {
+class HistoryFragment : Fragment() {
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        setHasOptionsMenu(true)
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_o_s_l, container, false)
-    }
-
-    override fun onPrepareOptionsMenu(menu: Menu) {
-        super.onPrepareOptionsMenu(menu)
-        menu.clear()
-
-
+        return inflater.inflate(R.layout.fragment_history, container, false)
     }
 }

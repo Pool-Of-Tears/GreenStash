@@ -24,36 +24,60 @@ SOFTWARE.
 
 package com.starry.greenstash.ui.home
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import android.content.Context
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.rejowan.cutetoast.CuteToast
+import com.starry.greenstash.R
 import com.starry.greenstash.database.Item
-import com.starry.greenstash.database.ItemDatabase
-import com.starry.greenstash.database.ItemRepository
+import com.starry.greenstash.database.ItemDao
+import com.starry.greenstash.utils.roundFloat
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HomeViewModel(application: Application) : AndroidViewModel(application){
-    private val repository: ItemRepository
-    val allItems: LiveData<List<Item>>
+@HiltViewModel
+class HomeViewModel @Inject constructor(private val itemDao: ItemDao) : ViewModel() {
 
-    init {
-        val dao = ItemDatabase.getDatabase(application).getItemDao()
-        repository = ItemRepository(dao)
-        allItems = repository.allItems
-    }
+    val allItems: LiveData<List<Item>> = itemDao.getAllItems()
 
     fun deleteItem(item: Item) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.deleteItem(item)
+            itemDao.delete(item)
         }
     }
 
-    fun updateCurrentAmount(id: Int, amount: Float) {
+    fun deposit(newAmount: Float, item: Item, context: Context) {
+        val newCurrentAmount = item.currentAmount + roundFloat(newAmount)
         viewModelScope.launch(Dispatchers.IO) {
-            repository.updateCurrentAmount(id, amount)
+            itemDao.updateCurrentAmount(item.id, newCurrentAmount)
         }
+        CuteToast.ct(
+            context, context.getString(R.string.deposit_successful),
+            CuteToast.LENGTH_SHORT,
+            CuteToast.HAPPY, true
+        ).show()
     }
 
+    fun withdraw(newAmount: Float, item: Item, context: Context) {
+        if (newAmount > item.currentAmount) {
+            CuteToast.ct(
+                context, context.getString(R.string.withdraw_overflow_error),
+                CuteToast.LENGTH_SHORT,
+                CuteToast.ERROR, true
+            ).show()
+        } else {
+            val newCurrentAmount = roundFloat(item.currentAmount - newAmount)
+            viewModelScope.launch(Dispatchers.IO) {
+                itemDao.updateCurrentAmount(item.id, newCurrentAmount)
+            }
+            CuteToast.ct(
+                context, context.getString(R.string.withdraw_successful),
+                CuteToast.LENGTH_SHORT,
+                CuteToast.SUCCESS, true
+            ).show()
+        }
+    }
 }

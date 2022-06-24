@@ -41,7 +41,7 @@ abstract class ItemDatabase : RoomDatabase() {
         @Volatile
         private var INSTANCE: ItemDatabase? = null
 
-        fun getDatabase(context: Context): ItemDatabase {
+        fun getInstance(context: Context): ItemDatabase {
             // if the INSTANCE is not null, then return it,
             // if it is, then create the database and save
             // in instance variable then return it.

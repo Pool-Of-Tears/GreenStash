@@ -12,9 +12,11 @@
     <string name="home_fragment_label">Savings Dashboard</string>
     <string name="input_fragment_label">It\'s time to save!</string>
     <string name="settings_fragment_label">Settings</string>
+    <string name="history_fragment_label">History</string>
     <string name="item_not_found">Sorry, this goal doesn\'t exist.</string>
     <string name="cancel">Task Cancelled!</string>
     <string name="progress_dialog_msg">Please wait…</string>
+    <string name="transactions">Transactions</string>
     <!-- Strings used for dashboard cards -->
     <string name="no_goals_set">Nothing to show here, click on \"New goal\" icon below to set a new goal and start saving!</string>
     <string name="content_description_media">items information card</string>
