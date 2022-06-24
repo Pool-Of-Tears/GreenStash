@@ -204,8 +204,9 @@ class InputFragment : Fragment() {
         }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        // remove search icon in input screen.
+        // remove search & filter icon in input screen.
         menu.removeItem(R.id.actionSearch)
+        menu.removeItem(R.id.actionFilter)
     }
 
     override fun onDestroyView() {

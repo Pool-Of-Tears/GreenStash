@@ -149,7 +149,7 @@ class HomeFragment : Fragment(), ClickListenerIF {
             alertDialog.setPositiveButton("Done") { _, _ ->
                 if (!(amountEditText.text.isBlank() || amountEditText.text.isEmpty())) {
                     val newAmount = amountEditText.text.toString().toFloat()
-                    val newCurrentAmount = item.currentAmount + newAmount
+                    val newCurrentAmount = item.currentAmount + roundFloat(newAmount)
                     viewModel.updateCurrentAmount(item.id, newCurrentAmount)
                     CuteToast.ct(
                         requireContext(),

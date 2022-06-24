@@ -12,6 +12,6 @@
         android:importantForAutofill="no"
         android:padding="20dp"
         android:layout_margin="10dp"
-        android:inputType="number" />
+        android:inputType="numberDecimal" />
 
 </LinearLayout>

@@ -112,7 +112,7 @@ SOFTWARE. -->
                 android:layout_height="68dp"
                 android:hint="@string/input_text_amount"
                 android:importantForAutofill="no"
-                android:inputType="number" />
+                android:inputType="numberDecimal" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

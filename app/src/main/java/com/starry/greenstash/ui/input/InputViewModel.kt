@@ -37,6 +37,7 @@ import com.starry.greenstash.database.ItemDatabase
 import com.starry.greenstash.database.ItemRepository
 import com.starry.greenstash.databinding.FragmentInputBinding
 import com.starry.greenstash.utils.ItemEditData
+import com.starry.greenstash.utils.roundFloat
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -61,7 +62,7 @@ class InputViewModel(application: Application) : AndroidViewModel(application) {
         // validate user input.
         if (!validateInputs(ctx, title, amount, deadline)) {
             return false
-        // Insert or update the item.
+            // Insert or update the item.
         } else {
             if (editData == null) {
                 val item = if (imageData != null) {
@@ -74,7 +75,7 @@ class InputViewModel(application: Application) : AndroidViewModel(application) {
                 } else {
                     Item(
                         title.toString(),
-                        totalAmount = amount.toString().toFloat(),
+                        totalAmount = roundFloat(amount.toString().toFloat()),
                         itemImage = null,
                         deadline = deadline.toString(),
                     )
@@ -93,7 +94,10 @@ class InputViewModel(application: Application) : AndroidViewModel(application) {
                         repository.updateItemImage(editData.id, imageData)
                     }
                     repository.updateTitle(editData.id, title.toString())
-                    repository.updateTotalAmount(editData.id, amount.toString().toFloat())
+                    repository.updateTotalAmount(
+                        editData.id,
+                        roundFloat(amount.toString().toFloat())
+                    )
                     repository.updateDeadline(editData.id, deadline.toString())
                 }
             }

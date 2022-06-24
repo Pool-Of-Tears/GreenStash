@@ -28,14 +28,15 @@ SOFTWARE. -->
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    tools:background="@color/white"
     tools:context=".MainActivity">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardBackgroundColor="?attr/cardBackgroundColor"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="8dp"
+        app:cardCornerRadius="14dp"
+        app:cardElevation="10dp"
         app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="true">
 
@@ -48,7 +49,7 @@ SOFTWARE. -->
             <ImageView
                 android:id="@+id/itemImage"
                 android:layout_width="match_parent"
-                android:layout_height="194dp"
+                android:layout_height="210dp"
                 android:contentDescription="@string/content_description_media"
                 android:scaleType="centerCrop"
                 app:srcCompat="@drawable/default_image" />
@@ -63,7 +64,7 @@ SOFTWARE. -->
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="6dp">
+                android:padding="10dp">
 
                 <!-- Title, secondary and supporting text -->
                 <TextView
@@ -100,7 +101,7 @@ SOFTWARE. -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="2dp"
+                android:layout_margin="3dp"
                 android:orientation="horizontal">
 
                 <com.google.android.material.button.MaterialButton

@@ -136,7 +136,7 @@ class HomeRVAdapter(private val context: Context, private val listener: ClickLis
         } else {
             "\nYou've saved "
         }
-        text += "$defCurrency${currentAmount.toInt()} out of $defCurrency${totalAmount.toInt()}."
+        text += "$defCurrency$currentAmount out of $defCurrency$totalAmount."
         return text
     }
 
