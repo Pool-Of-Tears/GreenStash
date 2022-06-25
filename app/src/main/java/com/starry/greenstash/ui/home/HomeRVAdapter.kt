@@ -38,6 +38,7 @@ import com.google.android.material.button.MaterialButton
 import com.starry.greenstash.R
 import com.starry.greenstash.database.Item
 import com.starry.greenstash.utils.AppConstants
+import com.starry.greenstash.utils.formatCurrency
 import com.starry.greenstash.utils.roundFloat
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -58,7 +59,7 @@ class HomeRVAdapter(private val context: Context, private val listener: ClickLis
         val description: TextView = itemView.findViewById(R.id.itemDescriptionText)
         val depositButton: MaterialButton = itemView.findViewById(R.id.depositButton)
         val withdrawButton: MaterialButton = itemView.findViewById(R.id.withdrawButton)
-        val shareButton: ImageButton = itemView.findViewById(R.id.shareButton)
+        val infoButton: ImageButton = itemView.findViewById(R.id.infoButton)
         val editButton: ImageButton = itemView.findViewById(R.id.editButton)
         val deleteButton: ImageButton = itemView.findViewById(R.id.deleteButton)
     }
@@ -73,8 +74,8 @@ class HomeRVAdapter(private val context: Context, private val listener: ClickLis
         viewHolder.withdrawButton.setOnClickListener {
             listener.onWithdrawClicked(allItems[viewHolder.adapterPosition])
         }
-        viewHolder.shareButton.setOnClickListener {
-            listener.onShareClicked(allItems[viewHolder.adapterPosition])
+        viewHolder.infoButton.setOnClickListener {
+            listener.onInfoClicked(allItems[viewHolder.adapterPosition])
         }
         viewHolder.editButton.setOnClickListener {
             listener.onEditClicked(allItems[viewHolder.adapterPosition])
@@ -136,7 +137,11 @@ class HomeRVAdapter(private val context: Context, private val listener: ClickLis
         } else {
             "\nYou've saved "
         }
-        text += "$defCurrency$currentAmount out of $defCurrency$totalAmount."
+        text += "$defCurrency${formatCurrency(currentAmount)} out of $defCurrency${
+            formatCurrency(
+                totalAmount
+            )
+        }."
         return text
     }
 
@@ -154,15 +159,21 @@ class HomeRVAdapter(private val context: Context, private val listener: ClickLis
         if (remainingAmount > 0f) {
             var text = "You have until ${item.deadline} ($days) days left."
             if (days > 2) {
-                text += "\nYou need to save around $defCurrency${roundFloat(remainingAmount / days)}/day."
+                text += "\nYou need to save around $defCurrency${
+                    formatCurrency(
+                        roundFloat(
+                            remainingAmount / days
+                        )
+                    )
+                }/day."
                 if (days > 14) {
                     val weeks = days / 7
                     text = text.dropLast(1) // remove full stop
-                    text += ", $defCurrency${roundFloat(remainingAmount / weeks)}/week."
+                    text += ", $defCurrency${formatCurrency(roundFloat(remainingAmount / weeks))}/week."
                     if (days > 60) {
                         val months = days / 30
                         text = text.dropLast(1) // remove full stop
-                        text += ", $defCurrency${roundFloat(remainingAmount / months)}/month."
+                        text += ", $defCurrency${formatCurrency(roundFloat(remainingAmount / months))}/month."
                     }
                 }
             }

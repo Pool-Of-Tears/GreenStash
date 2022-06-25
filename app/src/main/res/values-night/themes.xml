@@ -56,4 +56,7 @@
     <!-- Toolbar search icon color.-->
     <item name="searchIconColor" type="color">@color/light_gray</item>
 
+    <!-- item info card color-->
+    <item name="InfoCardColor" type="color">@color/dark_gray</item>
+
 </resources>

@@ -24,7 +24,6 @@ SOFTWARE.
 
 package com.starry.greenstash.ui.home
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.widget.EditText
@@ -44,7 +43,10 @@ import com.rejowan.cutetoast.CuteToast
 import com.starry.greenstash.R
 import com.starry.greenstash.database.Item
 import com.starry.greenstash.databinding.FragmentHomeBinding
-import com.starry.greenstash.utils.*
+import com.starry.greenstash.utils.ItemEditData
+import com.starry.greenstash.utils.SharedViewModel
+import com.starry.greenstash.utils.gone
+import com.starry.greenstash.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
@@ -59,7 +61,7 @@ class HomeFragment : Fragment(), ClickListenerIF {
     private val binding get() = _binding!!
 
     // home fragments view model.
-    private val viewModel:  HomeViewModel by viewModels()
+    private val viewModel: HomeViewModel by viewModels()
 
     // Shared view model class.
     private lateinit var sharedViewModel: SharedViewModel
@@ -204,21 +206,14 @@ class HomeFragment : Fragment(), ClickListenerIF {
         }
     }
 
-    override fun onShareClicked(item: Item) {
-        val intent = Intent(Intent.ACTION_SEND)
-        intent.type = "text/plain"
-        intent.putExtra(
-            Intent.EXTRA_TEXT,
-            requireContext().getString(R.string.share_activity_string)
-                .format(item.title, AppConstants.REPO_URL)
+    override fun onInfoClicked(item: Item) {
+        sharedViewModel.setInfoItem(item)
+        findNavController().navigate(
+            R.id.action_HomeFragment_to_InfoFragment,
+            null, navOptions
         )
-        val chooser = Intent.createChooser(
-            intent,
-            requireContext().getString(R.string.share_activity_chooser)
-        )
-        startActivity(chooser)
-
     }
+
 
     override fun onEditClicked(item: Item) {
         val editData = ItemEditData(

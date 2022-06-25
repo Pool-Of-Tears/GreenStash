@@ -83,6 +83,8 @@
         <item name="cornerSize">8dp</item>
     </style>
 
+    <!-- item info card color-->
+    <item name="InfoCardColor" type="color">#EAF3EC</item>
 
     <!-- Splash screen theme -->
     <style name="SplashTheme" parent="Theme.Material3.Light.NoActionBar">

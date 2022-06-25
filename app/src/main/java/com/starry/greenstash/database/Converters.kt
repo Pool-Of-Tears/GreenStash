@@ -26,9 +26,12 @@ package com.starry.greenstash.database
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.room.TypeConverter
+import com.google.gson.Gson
 import java.io.ByteArrayOutputStream
 
 class Converters {
+
+    private val gson = Gson()
 
     @TypeConverter
     fun fromBitmap(bitmap: Bitmap?): ByteArray? {
@@ -48,4 +51,19 @@ class Converters {
         return null
     }
 
+    @TypeConverter
+    fun transactionToJson(value: List<Transaction>?): String? {
+        if (value != null) {
+           return gson.toJson(value)
+        }
+        return null
+    }
+
+    @TypeConverter
+    fun transactionToList(value: String?): List<Transaction>? {
+        if (value != null && value != "null") {
+           return gson.fromJson(value, Array<Transaction>::class.java).toList()
+        }
+        return null
+    }
 }

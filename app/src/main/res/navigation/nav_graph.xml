@@ -14,6 +14,11 @@
         <action
             android:id="@+id/action_HomeFragment_to_InputFragment"
             app:destination="@id/InputFragment" />
+
+        <action
+            android:id="@+id/action_HomeFragment_to_InfoFragment"
+            app:destination="@id/InfoFragment"/>
+
     </fragment>
 
     <fragment
@@ -25,6 +30,16 @@
         <action
             android:id="@+id/action_InputFragment_to_HomeFragment"
             app:destination="@id/HomeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/InfoFragment"
+        android:name="com.starry.greenstash.ui.info.InfoFragment"
+        android:label="@string/info_fragment_label">
+
+        <action
+            android:id="@+id/action_InfoFragment_to_HomeFragment"
+            app:destination="@id/HomeFragment"/>
     </fragment>
 
     <fragment

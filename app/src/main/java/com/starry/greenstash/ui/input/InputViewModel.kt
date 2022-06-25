@@ -66,6 +66,7 @@ class InputViewModel @Inject constructor(private val itemDao: ItemDao) : ViewMod
                         totalAmount = amount.toString().toFloat(),
                         itemImage = imageData,
                         deadline = deadline.toString(),
+                        transactions = null
                     )
                 } else {
                     Item(
@@ -73,6 +74,7 @@ class InputViewModel @Inject constructor(private val itemDao: ItemDao) : ViewMod
                         totalAmount = roundFloat(amount.toString().toFloat()),
                         itemImage = null,
                         deadline = deadline.toString(),
+                        transactions = null
                     )
                 }
                 viewModelScope.launch(Dispatchers.IO) {

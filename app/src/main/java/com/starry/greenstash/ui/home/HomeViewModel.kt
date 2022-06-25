@@ -32,10 +32,14 @@ import com.rejowan.cutetoast.CuteToast
 import com.starry.greenstash.R
 import com.starry.greenstash.database.Item
 import com.starry.greenstash.database.ItemDao
+import com.starry.greenstash.database.Transaction
+import com.starry.greenstash.utils.AppConstants
 import com.starry.greenstash.utils.roundFloat
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 @HiltViewModel
@@ -50,9 +54,11 @@ class HomeViewModel @Inject constructor(private val itemDao: ItemDao) : ViewMode
     }
 
     fun deposit(newAmount: Float, item: Item, context: Context) {
-        val newCurrentAmount = item.currentAmount + roundFloat(newAmount)
+        val newAmountRounded = roundFloat(newAmount)
+        val newCurrentAmount = item.currentAmount + newAmountRounded
         viewModelScope.launch(Dispatchers.IO) {
             itemDao.updateCurrentAmount(item.id, newCurrentAmount)
+            addTransaction(item, newAmountRounded, AppConstants.TRANSACTION_DEPOSIT)
         }
         CuteToast.ct(
             context, context.getString(R.string.deposit_successful),
@@ -69,9 +75,11 @@ class HomeViewModel @Inject constructor(private val itemDao: ItemDao) : ViewMode
                 CuteToast.ERROR, true
             ).show()
         } else {
-            val newCurrentAmount = roundFloat(item.currentAmount - newAmount)
+            val newAmountRounded = roundFloat(newAmount)
+            val newCurrentAmount = item.currentAmount - newAmountRounded
             viewModelScope.launch(Dispatchers.IO) {
                 itemDao.updateCurrentAmount(item.id, newCurrentAmount)
+                addTransaction(item, newAmountRounded, AppConstants.TRANSACTION_WITHDRAW)
             }
             CuteToast.ct(
                 context, context.getString(R.string.withdraw_successful),
@@ -80,4 +88,20 @@ class HomeViewModel @Inject constructor(private val itemDao: ItemDao) : ViewMode
             ).show()
         }
     }
+
+    private suspend fun addTransaction(item: Item, amount: Float, transactionType: String) {
+        val currentDate =
+            LocalDateTime.now().format(DateTimeFormatter.ofPattern(AppConstants.DATE_FORMAT))
+        // build new transaction object
+        val newTransaction = Transaction(transactionType, currentDate, amount)
+        // insert new transaction in database
+        val transactions: List<Transaction> = if (item.transactions == null) {
+            listOf(newTransaction)
+        } else {
+            item.transactions.plus(newTransaction)
+        }
+        itemDao.updateTransactions(item.id, transactions)
+    }
+
+
 }

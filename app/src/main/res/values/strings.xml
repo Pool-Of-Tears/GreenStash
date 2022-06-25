@@ -12,11 +12,10 @@
     <string name="home_fragment_label">Savings Dashboard</string>
     <string name="input_fragment_label">It\'s time to save!</string>
     <string name="settings_fragment_label">Settings</string>
-    <string name="history_fragment_label">History</string>
+    <string name="info_fragment_label">Goal Information</string>
     <string name="item_not_found">Sorry, this goal doesn\'t exist.</string>
     <string name="cancel">Task Cancelled!</string>
     <string name="progress_dialog_msg">Please wait…</string>
-    <string name="transactions">Transactions</string>
     <!-- Strings used for dashboard cards -->
     <string name="no_goals_set">Nothing to show here, click on \"New goal\" icon below to set a new goal and start saving!</string>
     <string name="content_description_media">items information card</string>
@@ -36,9 +35,7 @@
     <string name="goal_delete_confirmation">You sure?</string>
     <string name="goal_delete_success">Deleted Successfully.</string>
     <string name="edit_btn_description">Edit this goal.</string>
-    <string name="share_btn_description">Share this goal.</string>
-    <string name="share_activity_chooser">Share this using…</string>
-    <string name="share_activity_string">I\'ve been saving for my %s with the help of GreenStash! check it out %s</string>
+    <string name="info_btn_description">View goal information.</string>
     <string name="add_fab_button_title">New goal</string>
     <string name="add_fab_button_description">Add new saving goal.</string>
     <string name="progress_greet1">You’re off to great start!</string>
@@ -57,8 +54,14 @@
     <string name="deadline_empty_err">Please enter deadline for this goal!</string>
     <string name="input_save_btn">Set new saving goal</string>
     <string name="input_edit_save_button">Edit saving goal</string>
-    <string name="input_page_quote">You don’t have to see the whole staircase, just take the first step. – Martin Luther King, Jr.  </string>
     <string name="data_saved_success">Great job! saving goal set.</string>
+    <string name="input_page_quote">You don’t have to see the whole staircase, just take the first step. – Martin Luther King, Jr.  </string>
+    <!-- info screen -->
+    <string name="info_end_date">End date</string>
+    <string name="info_total_amount">Target Amount</string>
+    <string name="info_current_amount">Currently Saved</string>
+    <string name="info_remaining_amount">Remaining Amount</string>
+    <string name="transactions">Transactions</string>
     <!-- biometric lock title -->
     <string name="bio_lock_title">Unlock Greenstash</string>
     <string name="bio_lock_subtitle">Confirm your screen lock, PIN or password.</string>

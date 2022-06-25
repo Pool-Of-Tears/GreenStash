@@ -25,12 +25,15 @@ SOFTWARE.
 package com.starry.greenstash.database
 
 import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
+import androidx.room.*
+import com.starry.greenstash.utils.AppConstants
 
-@Database(entities = [Item::class], version = 1, exportSchema = false)
+@Database(
+    entities = [Item::class],
+    version = 2,
+    exportSchema = true,
+    autoMigrations = [AutoMigration(from = 1, to = 2)]
+)
 @TypeConverters(Converters::class)
 abstract class ItemDatabase : RoomDatabase() {
 
@@ -49,7 +52,7 @@ abstract class ItemDatabase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     ItemDatabase::class.java,
-                    "item_database"
+                    AppConstants.DATABASE_NAME
                 ).build()
                 INSTANCE = instance
                 // return instance

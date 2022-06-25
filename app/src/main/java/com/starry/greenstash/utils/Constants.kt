@@ -29,6 +29,9 @@ import androidx.biometric.BiometricManager.Authenticators.*
 
 object AppConstants {
     const val DATE_FORMAT = "dd/MM/yyyy"
+    const val DATABASE_NAME = "item_database"
+    const val TRANSACTION_DEPOSIT = "deposit"
+    const val TRANSACTION_WITHDRAW = "withdraw"
     const val REPO_URL = "https://github.com/Pool-Of-Tears/GreenStash"
     /*
     https://developer.android.com/reference/androidx/biometric/BiometricPrompt.PromptInfo.Builder#setAllowedAuthenticators(int)

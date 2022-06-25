@@ -58,4 +58,7 @@ interface ItemDao {
     @Query("UPDATE greenstash SET itemImage = :itemImage WHERE id = :id" )
     suspend fun updateItemImage(id: Int, itemImage: Bitmap)
 
+    @Query("UPDATE greenstash SET transactions = :transactions WHERE id = :id" )
+    suspend fun updateTransactions(id: Int, transactions: List<Transaction>)
+
 }

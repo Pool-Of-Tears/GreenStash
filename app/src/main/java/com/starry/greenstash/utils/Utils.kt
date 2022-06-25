@@ -66,6 +66,12 @@ fun roundFloat(number: Float): Float {
     return df.format(number).toFloat()
 }
 
+// convert float into currency format
+fun formatCurrency(number: Float): String {
+    val df = DecimalFormat("#,###.00")
+    return df.format(number)
+}
+
 // get bitmap from image Uri.
 fun uriToBitmap(uri: Uri, context: Context): Bitmap {
     val stream = context.contentResolver.openInputStream(uri)

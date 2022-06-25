@@ -25,8 +25,16 @@ SOFTWARE.
 package com.starry.greenstash.database
 
 import android.graphics.Bitmap
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+
+data class Transaction(
+    // deposit | withdraw
+    val transactionType: String,
+    val date: String,
+    val amount: Float,
+)
 
 @Entity(tableName = "greenstash")
 data class Item(
@@ -34,7 +42,8 @@ data class Item(
     val totalAmount: Float,
     val currentAmount: Float = 0f,
     val itemImage: Bitmap?,
-    val deadline: String
+    val deadline: String,
+    val transactions: List<Transaction>?
 ){
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0

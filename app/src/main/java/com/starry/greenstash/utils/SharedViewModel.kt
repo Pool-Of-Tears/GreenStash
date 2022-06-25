@@ -26,6 +26,7 @@ package com.starry.greenstash.utils
 import android.app.Application
 import android.graphics.Bitmap
 import androidx.lifecycle.AndroidViewModel
+import com.starry.greenstash.database.Item
 
 data class ItemEditData(
     val id: Int,
@@ -47,8 +48,19 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
     */
     var appUnlocked = false
 
+    // Used to share item from home fragment to info fragment.
+    private var infoItemData: Item? = null
+
     // used to share item's data to input fragment when user clicks on edit button.
     private var itemEditData: ItemEditData? = null
+
+    fun setInfoItem(item: Item) {
+        infoItemData = item
+    }
+
+    fun getInfoItem(): Item {
+        return infoItemData!!
+    }
 
     fun getEditData(): ItemEditData? {
         return if (itemEditData != null) {
