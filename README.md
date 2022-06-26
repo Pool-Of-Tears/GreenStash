@@ -9,13 +9,13 @@
 
 **GreenStash** is a simple [FOSS](https://en.m.wikipedia.org/wiki/Free_and_open-source_software) android app to help you plan and manage your savings goals easily and establish the habit of saving money.
 
-### 🤙 Screenshots
-![logo](https://telegra.ph/file/d54e533e2e4755d81df13.jpg)
+![logo](https://telegra.ph/file/eca75adff2f2dff81b4dd.jpg)
 
 ### ✨ Features
 - Clean & beautiful UI based on Google's [material design three](https://m3.material.io/) guidelines.
 - Add images to your saving goals to keep you motivated!
 - View how much you need to save daily/weekly/monthly to achieve your goal before deadline.
+- View detailed transaction (withdraw/deposit) history.
 - Supports around 100+ local currency symbols.
 - Inbuilt biometric app lock to keep your financial data safe and secure.
 - Fully offline, greenstash doens't require internet permission to work.
@@ -29,7 +29,8 @@
   - [LiveData](https://developer.android.com/topic/libraries/architecture/livedata) - Data objects that notify views when the underlying database changes.
   - [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) - Stores UI-related data that isn't destroyed on UI changes.
   - [ViewBinding](https://developer.android.com/topic/libraries/view-binding) - Generates a binding class for each XML layout file present in that module and allows you to more easily write code that interacts with views.
-  - [Navigation](https://developer.android.com/guide/navigation) - Navigation component helps you implement navigation, from simple button clicks to more complex patterns, such as app bars and the navigation drawer.
+  - [Jetpack navigation](https://developer.android.com/guide/navigation) - Navigation component helps you implement navigation, from simple button clicks to more complex patterns, such as app bars and the navigation drawer.
+- [Dagger-Hilt](https://dagger.dev/hilt/) For [Dependency injection (DI)](https://developer.android.com/training/dependency-injection)
 - [Room database](https://developer.android.com/jetpack/androidx/releases/room) - Persistence library provides an abstraction layer over SQLite to allow for more robust database access while harnessing the full power of SQLite.
 - [Material Components for Android](https://github.com/material-components/material-components-android) - Modular and customizable Material Design UI components for Android.
 - [CuteToast](https://github.com/ahmmedrejowan/CuteToast) - Material Design Custom Toast for Android.
