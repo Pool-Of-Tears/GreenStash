@@ -105,7 +105,7 @@ SOFTWARE. -->
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/inputTitle"
-            app:startIconDrawable="@drawable/ic_perf_locale_currency_24">
+            app:startIconDrawable="@drawable/ic_money_bag">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="360dp"
