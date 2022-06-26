@@ -43,6 +43,9 @@ class LVAdapter(private val context: Context, private val transactions: List<Tra
     BaseAdapter() {
 
     private val settingPerf = PreferenceManager.getDefaultSharedPreferences(context)
+    private val isDarkModeOn = isDarkModeOn(context)
+    private val withdrawDark = ContextCompat.getColor(context,  R.color.red_dark)
+    private val withdrawLight = ContextCompat.getColor(context,  R.color.red_light)
 
     override fun getCount(): Int {
         return transactions.size
@@ -67,37 +70,12 @@ class LVAdapter(private val context: Context, private val transactions: List<Tra
         // set transaction text and card color
         if (transaction.transactionType == AppConstants.TRANSACTION_DEPOSIT) {
             transactionText.text = "Deposited | $defCurrency${formatCurrency(transaction.amount)}"
-            if (isDarkModeOn(context)) {
-                transactionCard.setBackgroundColor(
-                    ContextCompat.getColor(
-                        context,
-                        R.color.color_primary_dark
-                    )
-                )
-            } else {
-                transactionCard.setBackgroundColor(
-                    ContextCompat.getColor(
-                        context,
-                        R.color.color_primary_light
-                    )
-                )
-            }
         } else {
             transactionText.text = "Withdrawn | $defCurrency${formatCurrency(transaction.amount)}"
-            if (isDarkModeOn(context)) {
-                transactionCard.setBackgroundColor(
-                    ContextCompat.getColor(
-                        context,
-                        R.color.red_dark
-                    )
-                )
+            if (isDarkModeOn) {
+                transactionCard.setCardBackgroundColor(withdrawDark)
             } else {
-                transactionCard.setBackgroundColor(
-                    ContextCompat.getColor(
-                        context,
-                        R.color.red_light
-                    )
-                )
+                transactionCard.setCardBackgroundColor(withdrawLight)
             }
         }
         transactionDate.text = transaction.date

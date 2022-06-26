@@ -31,6 +31,7 @@ SOFTWARE. -->
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card"
+        style="?attr/materialCardViewElevatedStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
@@ -199,7 +200,8 @@ SOFTWARE. -->
             android:id="@+id/transactionHistoryLV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:divider="@null" />
+            android:divider="@null"
+            android:listSelector="@android:color/transparent" />
 
 
     </LinearLayout>

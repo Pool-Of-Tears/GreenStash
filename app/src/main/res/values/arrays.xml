@@ -1,5 +1,5 @@
 <resources>
-    <!-- Reply Preference -->
+    <!-- Currency Preference -->
     <string-array name="currency_entries">
         <item>US Dollar ($)</item>
         <item>Canadian Dollar (CA$)</item>
@@ -247,7 +247,7 @@
     <string-array name="theme_entry">
         <item>Light</item>
         <item>Dark</item>
-        <item>System default</item>
+        <item>Follow System</item>
     </string-array>
 
     <string-array name="theme_values">

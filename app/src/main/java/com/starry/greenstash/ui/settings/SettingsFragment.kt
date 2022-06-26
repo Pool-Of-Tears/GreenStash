@@ -138,13 +138,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val licensePerf: Preference? = findPreference("license")
         licensePerf!!.setOnPreferenceClickListener {
             findNavController().navigate(R.id.OSLFragment, null, navOptions)
-            true
+            true // return status.
         }
 
         val aboutPerf: Preference? = findPreference("about")
         aboutPerf!!.setOnPreferenceClickListener {
             findNavController().navigate(R.id.AboutFragment, null, navOptions)
-            true
+            true // return status.
         }
     }
 

@@ -40,6 +40,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.preference.PreferenceManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.rejowan.cutetoast.CuteToast
 import com.starry.greenstash.databinding.ActivityMainBinding
 import com.starry.greenstash.utils.*
@@ -58,6 +59,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var promptInfo: BiometricPrompt.PromptInfo
     private lateinit var sharedViewModel: AndroidViewModel
     private lateinit var navOptions: NavOptions
+    private val FIRST_START = "first_start"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -138,6 +140,11 @@ class MainActivity : AppCompatActivity() {
         navController = findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
+
+        // ask user to setup preferred currency when opening app for first time
+        if (settingPerf.getBoolean(FIRST_START, true)) {
+            showCurrencyDialog()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -159,5 +166,33 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    private fun showCurrencyDialog() {
+        val currEntries = resources.getStringArray(R.array.currency_entries)
+        val currValues = resources.getStringArray(R.array.currency_values)
+        val builder = MaterialAlertDialogBuilder(this)
+        val perfEditor = settingPerf.edit()
+        // currency symbol.
+        val defaultChoiceIndex = 48
+        var choice = currValues[defaultChoiceIndex]
+        // build currency chooser dialog.
+        builder.setCancelable(false)
+        builder.setTitle(getString(R.string.setup_currency))
+        builder.setSingleChoiceItems(currEntries, defaultChoiceIndex) { _, which ->
+            choice = currValues[which]
+        }
+        builder.setPositiveButton("OK") { _, _ ->
+            perfEditor.putString("currency", choice)
+            perfEditor.putBoolean(FIRST_START, false)
+            perfEditor.apply()
+        }
+        builder.setNegativeButton("Later") { _, _ ->
+            perfEditor.putBoolean(FIRST_START, false)
+            perfEditor.apply()
+        }
+        // create and show the alert dialog
+        val dialog = builder.create()
+        dialog.show()
     }
 }
