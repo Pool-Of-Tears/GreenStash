@@ -1,0 +1,1 @@
+- Added missing currency symbol in goal info card in goal information section.

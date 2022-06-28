@@ -24,6 +24,7 @@ SOFTWARE.
 
 package com.starry.greenstash.ui.info
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -31,6 +32,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.preference.PreferenceManager
 import com.starry.greenstash.databinding.FragmentInfoBinding
 import com.starry.greenstash.utils.SharedViewModel
 import com.starry.greenstash.utils.formatCurrency
@@ -41,8 +43,8 @@ class InfoFragment : Fragment() {
 
     // Shared view model class.
     private lateinit var sharedViewModel: SharedViewModel
-
     private lateinit var binding: FragmentInfoBinding
+    private lateinit var settingPerf: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,6 +53,7 @@ class InfoFragment : Fragment() {
     ): View {
         setHasOptionsMenu(true)
         sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
+        settingPerf = PreferenceManager.getDefaultSharedPreferences(requireContext())
         binding = FragmentInfoBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -58,15 +61,17 @@ class InfoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val defCurrency = settingPerf.getString("currency", "")
         val infoItem = sharedViewModel.getInfoItem()
         val progress = ((infoItem.currentAmount / infoItem.totalAmount) * 100).toInt()
+
         binding.infoProgressBar.setProgress(progress, true)
         binding.infoTitle.text = infoItem.title
         binding.infoEndDate.text = infoItem.deadline
-        binding.infoTotalAmount.text = formatCurrency(infoItem.totalAmount)
-        binding.infoCurrentAmount.text = formatCurrency(infoItem.currentAmount)
+        binding.infoTotalAmount.text = "$defCurrency${formatCurrency(infoItem.totalAmount)}"
+        binding.infoCurrentAmount.text = "$defCurrency${formatCurrency(infoItem.currentAmount)}"
         val remainingAmount = infoItem.totalAmount - infoItem.currentAmount
-        binding.infoRemainingAmount.text = formatCurrency(remainingAmount)
+        binding.infoRemainingAmount.text = "$defCurrency${formatCurrency(remainingAmount)}"
 
         if (infoItem.transactions == null) {
             binding.transactionView.gone()
