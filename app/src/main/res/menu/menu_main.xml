@@ -10,7 +10,8 @@
 
     <item
         android:id="@+id/actionBackup"
-        android:title="@string/actiom_backup"
+        android:title="@string/action_backup"
+        android:orderInCategory="200"
         app:showAsAction="never" />
 
     <item

@@ -50,6 +50,7 @@ import com.starry.greenstash.databinding.ActivityMainBinding
 import com.starry.greenstash.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import de.raphaelebner.roomdatabasebackup.core.RoomBackup
+import java.lang.NullPointerException
 import java.util.concurrent.Executor
 import javax.inject.Inject
 
@@ -169,10 +170,10 @@ class MainActivity : AppCompatActivity() {
                             MainActivity::class.java
                         )
                     ) else CuteToast.ct(
-                        this, message,
-                        CuteToast.LENGTH_SHORT,
+                        this@MainActivity,
+                        message, CuteToast.LENGTH_SHORT,
                         CuteToast.ERROR, true
-                    )
+                    ).show()
                 }
             }
     }
@@ -210,10 +211,18 @@ class MainActivity : AppCompatActivity() {
         val restoreView = bottomSheetDialog.findViewById<LinearLayout>(R.id.restoreData)
 
         backupView!!.setOnClickListener {
-            roomBackup.backup()
+            try {
+                roomBackup.backup()
+            } catch (exc: NullPointerException) {
+                exc.printStackTrace()
+            }
         }
         restoreView!!.setOnClickListener {
-            roomBackup.restore()
+            try {
+                roomBackup.restore()
+            } catch (exc: NullPointerException) {
+                exc.printStackTrace()
+            }
         }
         bottomSheetDialog.show()
     }
@@ -224,7 +233,7 @@ class MainActivity : AppCompatActivity() {
         val builder = MaterialAlertDialogBuilder(this)
         val perfEditor = settingPerf.edit()
         // currency symbol.
-        val defaultChoiceIndex = 48
+        val defaultChoiceIndex = 0 // US Dollar.
         var choice = currValues[defaultChoiceIndex]
         // build currency chooser dialog.
         builder.setCancelable(false)

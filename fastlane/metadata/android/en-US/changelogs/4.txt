@@ -1,0 +1,3 @@
+- Added ability to backup and restore app data to and from local storage.
+- Fixed crashes in few samsung devices.
+- Fixed currency symbol of Norwegian krone.
