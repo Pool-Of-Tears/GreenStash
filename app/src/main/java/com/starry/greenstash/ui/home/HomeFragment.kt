@@ -145,14 +145,13 @@ class HomeFragment : Fragment(), ClickListenerIF {
             val alertDialog = MaterialAlertDialogBuilder(requireContext())
             alertDialog.setTitle(requireContext().getString(R.string.deposit_dialog_title))
             alertDialog.setView(dialogView)
-            alertDialog.setCancelable(false)
             // set negative button.
             alertDialog.setNegativeButton("Cancel") { _, _ ->
             }
             // set positive button.
             alertDialog.setPositiveButton("Done") { _, _ ->
                 if (!(amountEditText.text.isBlank() || amountEditText.text.isEmpty())) {
-                    val newAmount = amountEditText.text.toString().toFloat()
+                    val newAmount = amountEditText.text.toString().replace(',', '.').toFloat()
                     viewModel.deposit(newAmount, item, requireContext())
                 } else {
                     CuteToast.ct(
@@ -183,14 +182,13 @@ class HomeFragment : Fragment(), ClickListenerIF {
             val alertDialog = MaterialAlertDialogBuilder(requireContext())
             alertDialog.setTitle(requireContext().getString(R.string.withdraw_dialog_title))
             alertDialog.setView(dialogView)
-            alertDialog.setCancelable(false)
             // set negative button.
             alertDialog.setNegativeButton("Cancel") { _, _ ->
             }
             // set positive button.
             alertDialog.setPositiveButton("Done") { _, _ ->
                 if (!(amountEditText.text.isBlank() || amountEditText.text.isEmpty())) {
-                    val newAmount = amountEditText.text.toString().toFloat()
+                    val newAmount = amountEditText.text.toString().replace(',', '.').toFloat()
                     viewModel.withdraw(newAmount, item, requireContext())
 
                 } else {
@@ -219,7 +217,7 @@ class HomeFragment : Fragment(), ClickListenerIF {
         val editData = ItemEditData(
             item.id,
             item.title,
-            item.totalAmount.toInt().toString(),
+            item.totalAmount.toString(),
             item.deadline,
             item.itemImage
         )

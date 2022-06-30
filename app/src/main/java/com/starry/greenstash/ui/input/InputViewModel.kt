@@ -59,11 +59,12 @@ class InputViewModel @Inject constructor(private val itemDao: ItemDao) : ViewMod
             return false
             // Insert or update the item.
         } else {
+            val newAmount = roundFloat(amount.toString().replace(',', '.').toFloat())
             if (editData == null) {
                 val item = if (imageData != null) {
                     Item(
                         title.toString(),
-                        totalAmount = amount.toString().toFloat(),
+                        totalAmount = newAmount,
                         itemImage = imageData,
                         deadline = deadline.toString(),
                         transactions = null
@@ -71,7 +72,7 @@ class InputViewModel @Inject constructor(private val itemDao: ItemDao) : ViewMod
                 } else {
                     Item(
                         title.toString(),
-                        totalAmount = roundFloat(amount.toString().toFloat()),
+                        totalAmount = newAmount,
                         itemImage = null,
                         deadline = deadline.toString(),
                         transactions = null
@@ -91,10 +92,7 @@ class InputViewModel @Inject constructor(private val itemDao: ItemDao) : ViewMod
                         itemDao.updateItemImage(editData.id, imageData)
                     }
                     itemDao.updateTitle(editData.id, title.toString())
-                    itemDao.updateTotalAmount(
-                        editData.id,
-                        roundFloat(amount.toString().toFloat())
-                    )
+                    itemDao.updateTotalAmount(editData.id, newAmount)
                     itemDao.updateDeadline(editData.id, deadline.toString())
                 }
             }
@@ -116,7 +114,9 @@ class InputViewModel @Inject constructor(private val itemDao: ItemDao) : ViewMod
                 CuteToast.SAD, true
             ).show()
             return false
-        } else if (amount.isEmpty() || amount.isBlank() || amount.toString().toFloat() == 0f) {
+        } else if (amount.isEmpty() || amount.isBlank() || amount.toString().replace(',', '.')
+                .toFloat() == 0f
+        ) {
             CuteToast.ct(
                 ctx, ctx.getString(R.string.amount_empty_err),
                 CuteToast.LENGTH_SHORT,

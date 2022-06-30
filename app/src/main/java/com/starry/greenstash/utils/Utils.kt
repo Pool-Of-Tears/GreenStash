@@ -62,7 +62,7 @@ fun Button.dismissKeyboard() {
 // round decimal (float) to 2 digits
 fun roundFloat(number: Float): Float {
     val df = DecimalFormat("#.##")
-    df.roundingMode = RoundingMode.FLOOR
+    df.roundingMode = RoundingMode.CEILING
     return df.format(number).toFloat()
 }
 
