@@ -73,6 +73,8 @@ dependencies {
     androidTestImplementation "androidx.room:room-testing:2.4.2"
     // Gson json library
     implementation 'com.google.code.gson:gson:2.9.0'
+    // Room database backup library.
+    implementation 'de.raphaelebner:roomdatabasebackup:1.0.0-beta10'
     //Dagger - Hilt
     implementation "com.google.dagger:hilt-android:2.31-alpha"
     kapt "com.google.dagger:hilt-android-compiler:2.31-alpha"

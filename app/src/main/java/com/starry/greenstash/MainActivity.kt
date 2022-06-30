@@ -24,10 +24,12 @@ SOFTWARE.
 
 package com.starry.greenstash
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
@@ -40,12 +42,16 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.preference.PreferenceManager
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.rejowan.cutetoast.CuteToast
+import com.starry.greenstash.database.ItemDatabase
 import com.starry.greenstash.databinding.ActivityMainBinding
 import com.starry.greenstash.utils.*
 import dagger.hilt.android.AndroidEntryPoint
+import de.raphaelebner.roomdatabasebackup.core.RoomBackup
 import java.util.concurrent.Executor
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -59,7 +65,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var promptInfo: BiometricPrompt.PromptInfo
     private lateinit var sharedViewModel: AndroidViewModel
     private lateinit var navOptions: NavOptions
-    private val FIRST_START = "first_start"
+    private lateinit var roomBackup: RoomBackup
+    private val firstRun = "first_start"
+
+    @Inject // inject item database instance.
+    lateinit var itemDatabase: ItemDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -142,9 +152,29 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         // ask user to setup preferred currency when opening app for first time
-        if (settingPerf.getBoolean(FIRST_START, true)) {
+        if (settingPerf.getBoolean(firstRun, true)) {
             showCurrencyDialog()
         }
+        //  initialize & setup room backup instance
+        roomBackup = RoomBackup(this)
+            .database(itemDatabase)
+            .enableLogDebug(true)
+            .backupLocation(RoomBackup.BACKUP_FILE_LOCATION_CUSTOM_DIALOG)
+            .customBackupFileName("GreenStash-${System.currentTimeMillis()}.backup")
+            .apply {
+                onCompleteListener { success, message, _ ->
+                    if (success) restartApp(
+                        Intent(
+                            this@MainActivity,
+                            MainActivity::class.java
+                        )
+                    ) else CuteToast.ct(
+                        this, message,
+                        CuteToast.LENGTH_SHORT,
+                        CuteToast.ERROR, true
+                    )
+                }
+            }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -156,6 +186,10 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (navController.graph.findNode(item.itemId) != null) {
             navController.navigate(item.itemId, null, navOptions)
+        } else {
+            when (item.itemId) {
+                R.id.actionBackup -> showBackupDialog()
+            }
         }
         return super.onOptionsItemSelected(item)
 
@@ -166,6 +200,22 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    private fun showBackupDialog() {
+        val bottomSheetDialog = BottomSheetDialog(this)
+        bottomSheetDialog.setContentView(R.layout.backup_menu)
+
+        val backupView = bottomSheetDialog.findViewById<LinearLayout>(R.id.backupData)
+        val restoreView = bottomSheetDialog.findViewById<LinearLayout>(R.id.restoreData)
+
+        backupView!!.setOnClickListener {
+            roomBackup.backup()
+        }
+        restoreView!!.setOnClickListener {
+            roomBackup.restore()
+        }
+        bottomSheetDialog.show()
     }
 
     private fun showCurrencyDialog() {
@@ -184,11 +234,11 @@ class MainActivity : AppCompatActivity() {
         }
         builder.setPositiveButton("OK") { _, _ ->
             perfEditor.putString("currency", choice)
-            perfEditor.putBoolean(FIRST_START, false)
+            perfEditor.putBoolean(firstRun, false)
             perfEditor.apply()
         }
         builder.setNegativeButton("Later") { _, _ ->
-            perfEditor.putBoolean(FIRST_START, false)
+            perfEditor.putBoolean(firstRun, false)
             perfEditor.apply()
         }
         // create and show the alert dialog

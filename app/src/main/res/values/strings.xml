@@ -3,12 +3,18 @@
     <string name="action_settings">Settings</string>
     <string name="action_search">Search</string>
     <string name="action_filter">Filter</string>
+    <string name="actiom_backup">Backups</string>
     <string name="setup_currency">Welcome! Please set your preferred currency to get started.</string>
     <!-- Filter menu-->
     <string name="filter_header">Filter your saving goals</string>
     <string name="filter_all">Show All Goals</string>
     <string name="filter_ongoing">Show Ongoing</string>
     <string name="filter_completed">Show Completed</string>
+    <!-- Backup and restore -->
+    <string name="backup_title">Backup app data</string>
+    <string name="backup_desc">Backups your data in local storage which can be restored later.</string>
+    <string name="restore_title">Restore Backup</string>
+    <string name="restore_desc">Restore previously backed up app data from your local storage.</string>
     <!-- Strings used for fragments for navigation -->
     <string name="home_fragment_label">Savings Dashboard</string>
     <string name="input_fragment_label">It\'s time to save!</string>

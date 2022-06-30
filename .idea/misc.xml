@@ -6,6 +6,7 @@
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.108" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/drawable/dialog_rounded_background.xml" value="0.108" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/drawable/ic_add_circle_24.xml" value="0.108" />
+        <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/drawable/ic_backup_24.xml" value="0.1" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.108" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/drawable/ic_baseline_camera_alt_24.xml" value="0.108" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/drawable/ic_baseline_date_range_24.xml" value="0.108" />
@@ -43,9 +44,11 @@
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/drawable/ic_piggy_bank.xml" value="0.1" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/drawable/ic_piggy_bank__2_.xml" value="0.1" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/drawable/ic_remove_circle_24.xml" value="0.108" />
+        <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/drawable/ic_restore_24.xml" value="0.108" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/drawable/round_button.xml" value="0.108" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/drawable/splash_image.xml" value="0.1" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/layout/activity_main.xml" value="0.45" />
+        <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/layout/backup_menu.xml" value="0.375" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/layout/content_main.xml" value="0.2171875" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/layout/dw_dialog.xml" value="0.25" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/layout/filter_menu.xml" value="0.375" />
