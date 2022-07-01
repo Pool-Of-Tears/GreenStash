@@ -10,10 +10,12 @@
     <string name="filter_all">Show All Goals</string>
     <string name="filter_ongoing">Show Ongoing</string>
     <string name="filter_completed">Show Completed</string>
+    <string name="no_completed_goals">No completed goals yet.</string>
+    <string name="no_ongoing_goals">No ongoing goals to show.</string>
     <!-- Backup and restore -->
     <string name="backup_title">Backup app data</string>
     <string name="backup_desc">Backups your data in local storage which can be restored later.</string>
-    <string name="restore_title">Restore Backup</string>
+    <string name="restore_title">Restore app data</string>
     <string name="restore_desc">Restore previously backed up app data from your local storage.</string>
     <!-- Strings used for fragments for navigation -->
     <string name="home_fragment_label">Savings Dashboard</string>

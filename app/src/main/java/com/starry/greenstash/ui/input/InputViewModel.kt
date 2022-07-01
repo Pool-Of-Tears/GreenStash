@@ -36,6 +36,7 @@ import com.starry.greenstash.database.ItemDao
 import com.starry.greenstash.databinding.FragmentInputBinding
 import com.starry.greenstash.utils.ItemEditData
 import com.starry.greenstash.utils.roundFloat
+import com.starry.greenstash.utils.validateAmount
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -114,9 +115,7 @@ class InputViewModel @Inject constructor(private val itemDao: ItemDao) : ViewMod
                 CuteToast.SAD, true
             ).show()
             return false
-        } else if (amount.isEmpty() || amount.isBlank() || amount.toString().replace(',', '.')
-                .toFloat() == 0f
-        ) {
+        } else if (!(amount.validateAmount())) {
             CuteToast.ct(
                 ctx, ctx.getString(R.string.amount_empty_err),
                 CuteToast.LENGTH_SHORT,

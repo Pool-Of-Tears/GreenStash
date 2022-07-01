@@ -29,6 +29,7 @@ import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -59,6 +60,11 @@ fun Button.dismissKeyboard() {
     imm?.hideSoftInputFromWindow(windowToken, 0)
 }
 
+fun Editable.validateAmount(): Boolean {
+    return !(isEmpty() || isBlank() || toString().replace(',', '.') == "."
+            || toString().replace(',', '.').toFloat() == 0f)
+}
+
 // round decimal (float) to 2 digits
 fun roundFloat(number: Float): Float {
     val df = DecimalFormat("#.##")
@@ -81,7 +87,7 @@ fun uriToBitmap(uri: Uri, context: Context): Bitmap {
 // change app theme globally.
 fun setAppTheme(mode: String) {
     when (mode) {
-        "dark" ->  AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        "dark" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         "light" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         "system" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
     }

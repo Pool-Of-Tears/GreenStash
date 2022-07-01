@@ -43,10 +43,7 @@ import com.rejowan.cutetoast.CuteToast
 import com.starry.greenstash.R
 import com.starry.greenstash.database.Item
 import com.starry.greenstash.databinding.FragmentHomeBinding
-import com.starry.greenstash.utils.ItemEditData
-import com.starry.greenstash.utils.SharedViewModel
-import com.starry.greenstash.utils.gone
-import com.starry.greenstash.utils.visible
+import com.starry.greenstash.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
@@ -150,7 +147,7 @@ class HomeFragment : Fragment(), ClickListenerIF {
             }
             // set positive button.
             alertDialog.setPositiveButton("Done") { _, _ ->
-                if (!(amountEditText.text.isBlank() || amountEditText.text.isEmpty())) {
+                if (amountEditText.text.validateAmount()) {
                     val newAmount = amountEditText.text.toString().replace(',', '.').toFloat()
                     viewModel.deposit(newAmount, item, requireContext())
                 } else {
@@ -187,7 +184,7 @@ class HomeFragment : Fragment(), ClickListenerIF {
             }
             // set positive button.
             alertDialog.setPositiveButton("Done") { _, _ ->
-                if (!(amountEditText.text.isBlank() || amountEditText.text.isEmpty())) {
+                if (amountEditText.text.validateAmount()) {
                     val newAmount = amountEditText.text.toString().replace(',', '.').toFloat()
                     viewModel.withdraw(newAmount, item, requireContext())
 
@@ -277,17 +274,32 @@ class HomeFragment : Fragment(), ClickListenerIF {
 
         filterAll!!.setOnClickListener {
             adapter.updateItemsList(itemList)
-            Toast.makeText(requireContext(), "Showing all goals.", Toast.LENGTH_SHORT).show()
             bottomSheetDialog.hide()
         }
         filterOngoing!!.setOnClickListener {
-            adapter.updateItemsList(itemList.filter { it.currentAmount < it.totalAmount })
-            Toast.makeText(requireContext(), "Showing ongoing goals.", Toast.LENGTH_SHORT).show()
+            val newList = itemList.filter { it.currentAmount < it.totalAmount }
+            if (newList.isNotEmpty()) {
+                adapter.updateItemsList(newList)
+            } else {
+                Toast.makeText(
+                    requireContext(),
+                    requireContext().getString(R.string.no_ongoing_goals),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
             bottomSheetDialog.hide()
         }
         filterCompleted!!.setOnClickListener {
-            adapter.updateItemsList(itemList.filter { it.currentAmount >= it.totalAmount })
-            Toast.makeText(requireContext(), "Showing completed goals.", Toast.LENGTH_SHORT).show()
+            val newList = itemList.filter { it.currentAmount >= it.totalAmount }
+            if (newList.isNotEmpty()) {
+                adapter.updateItemsList(newList)
+            } else {
+                Toast.makeText(
+                    requireContext(),
+                    requireContext().getString(R.string.no_completed_goals),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
             bottomSheetDialog.hide()
         }
         bottomSheetDialog.show()

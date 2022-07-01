@@ -1,3 +1,6 @@
 - Added ability to backup and restore app data to and from local storage.
+- Changed icons of filter and search menu
+- Few UI related improvements.
 - Fixed crashes in few samsung devices.
+- Fixed an edge case where app used to crash if user inputs only "." in amount
 - Fixed currency symbol of Norwegian krone.
