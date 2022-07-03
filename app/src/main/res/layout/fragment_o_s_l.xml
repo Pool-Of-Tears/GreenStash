@@ -3,150 +3,194 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".MainActivity">
 
     <LinearLayout
-        android:layout_margin="16dp"
-        android:paddingBottom="16dp"
-        android:scrollbars="vertical"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:orientation="vertical"
+        android:paddingBottom="16dp"
+        android:scrollbars="vertical">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:padding="12dp">
 
             <TextView
-                android:textStyle="bold"
-                android:text="App Icon"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="App Icon"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
 
             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="By: Irfansusanto20"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                tools:ignore="HardcodedText" />
 
             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:autoLink="web"
                 android:text="https://www.flaticon.com/authors/irfansusanto20"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                tools:ignore="HardcodedText" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:padding="12dp">
 
             <TextView
-                android:textStyle="bold"
-                android:text="Material Components"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="Material Components"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
 
             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="By: Google Inc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                tools:ignore="HardcodedText" />
 
             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:autoLink="web"
                 android:text="https://www.apache.org/licenses/LICENSE-2.0"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                tools:ignore="HardcodedText" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:padding="12dp">
 
             <TextView
-                android:textStyle="bold"
-                android:text="CuteToast"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="CuteToast"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
 
             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="By: K M Rejowan Ahmmed"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                tools:ignore="HardcodedText" />
 
             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:autoLink="web"
                 android:text="https://www.apache.org/licenses/LICENSE-2.0"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                tools:ignore="HardcodedText" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:padding="12dp">
 
             <TextView
-                android:textStyle="bold"
-                android:text="ImagePicker"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="ImagePicker"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
 
             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="By: Dhaval Patel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                tools:ignore="HardcodedText" />
 
             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:autoLink="web"
                 android:text="https://www.apache.org/licenses/LICENSE-2.0"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                tools:ignore="HardcodedText" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:padding="12dp">
 
             <TextView
-                android:textStyle="bold"
-                android:text="Vector icons"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="Vector icons"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
 
             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="By: Icons8"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                tools:ignore="HardcodedText" />
 
             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:autoLink="web"
                 android:text="https://icons8.com"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                tools:ignore="HardcodedText" />
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Android-Room-Database-Backup"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="By: Raphael Ebner "
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:autoLink="web"
+                android:text="https://opensource.org/licenses/MIT"
+                tools:ignore="HardcodedText" />
         </LinearLayout>
 
     </LinearLayout>

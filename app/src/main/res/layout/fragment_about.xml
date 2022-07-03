@@ -81,7 +81,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|center_vertical|bottom"
         android:layout_marginBottom="10dp"
-        android:text="Version 1.3 "
+        android:text="Version 1.4"
         android:textStyle="bold"
         tools:ignore="HardcodedText" />
 

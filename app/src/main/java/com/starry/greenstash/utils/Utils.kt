@@ -40,6 +40,8 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.starry.greenstash.R
 import java.math.RoundingMode
 import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
+import java.util.*
 
 
 fun View.visible() {
@@ -67,7 +69,8 @@ fun Editable.validateAmount(): Boolean {
 
 // round decimal (float) to 2 digits
 fun roundFloat(number: Float): Float {
-    val df = DecimalFormat("#.##")
+    val locale = DecimalFormatSymbols(Locale.US)
+    val df = DecimalFormat("#.##", locale)
     df.roundingMode = RoundingMode.CEILING
     return df.format(number).toFloat()
 }
