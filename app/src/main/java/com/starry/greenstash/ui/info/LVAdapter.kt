@@ -44,8 +44,10 @@ class LVAdapter(private val context: Context, private val transactions: List<Tra
 
     private val settingPerf = PreferenceManager.getDefaultSharedPreferences(context)
     private val isDarkModeOn = isDarkModeOn(context)
-    private val withdrawDark = ContextCompat.getColor(context,  R.color.red_dark)
-    private val withdrawLight = ContextCompat.getColor(context,  R.color.red_light)
+    // withdraw card color for dark mode.
+    private val withdrawDark = ContextCompat.getColor(context,  R.color.red_light)
+    // withdraw card color for light mode.
+    private val withdrawLight = ContextCompat.getColor(context,  R.color.red_dark)
 
     override fun getCount(): Int {
         return transactions.size

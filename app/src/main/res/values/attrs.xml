@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <attr name="iconPreferenceColor" format="reference|color" />
-    <attr name="fabAndButtonIconColor" format="reference|color"/>
-    <attr name="fabBackgroundColor" format="reference|color"/>
+    <attr name="cardButtonIconColor" format="reference|color"/>
+    <attr name="fabBackgroundColor" format="reference|color" />
+    <attr name="fabIconColor" format="reference|color" />
+    <attr name="transactionRowBackground" format="reference|color" />
 </resources>

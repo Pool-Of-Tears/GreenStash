@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.starry.greenstash">
 
-    <uses-permission android:name="android.permission.USE_BIOMETRIC"/>
+    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
 
     <application
         android:name=".MainApplication"
@@ -13,16 +13,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GreenStash">
         <activity
-            android:name=".MainActivity"
+            android:name=".SplashActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustPan"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.GreenStash"
+            android:windowSoftInputMode="adjustPan"/>
     </application>
 
 </manifest>

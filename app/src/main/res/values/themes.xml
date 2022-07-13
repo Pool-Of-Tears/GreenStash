@@ -3,17 +3,21 @@
     <style name="Theme.GreenStash" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/color_primary_light</item>
-        <item name="colorPrimaryVariant">@color/color_primary_light</item>
         <item name="colorOnPrimary">@color/white</item>
         <item name="colorSecondary">@color/color_secondary</item>
+        <item name="colorPrimaryContainer">@color/card_bg_light</item>
+        <item name="colorOnPrimaryContainer">@color/black</item>
+        <item name="backgroundColor">@color/white</item>
+        <item name="android:windowBackground">?attr/backgroundColor</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
-        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:statusBarColor">?attr/colorPrimary</item>
         <!-- Customize your theme here. -->
-        <item name="iconPreferenceColor">@color/dark_gray</item>
-        <item name="fabAndButtonIconColor">@color/black</item>
-        <item name="cardBackgroundColor">@color/card_bg_light</item>
-        <item name="fabBackgroundColor">@color/fab_bg_light</item>
+        <item name="iconPreferenceColor">?attr/colorOnPrimaryContainer</item>
+        <item name="cardButtonIconColor">?attr/colorOnPrimaryContainer</item>
+        <item name="cardBackgroundColor">?attr/colorPrimaryContainer</item>
+        <item name="transactionRowBackground">@color/color_primary_light</item>
+        <item name="fabBackgroundColor">?attr/colorPrimary</item>
+        <item name="fabIconColor">?attr/colorOnPrimary</item>
         <item name="switchStyle">@style/Widget.App.Switch</item>
         <item name="materialAlertDialogTheme">@style/AlertDialogTheme</item>
         <item name="alertDialogTheme">@style/AlertDialogTheme</item>
@@ -27,6 +31,12 @@
 
     <style name="Theme.GreenStash.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="Theme.GreenStash.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!-- toolbar style -->
+    <style name="ToolBarStyle" parent="ThemeOverlay.AppCompat.DayNight">
+        <item name="android:textColorPrimary">?attr/colorOnPrimary</item>
+        <item name="android:textColorSecondary">?attr/colorOnPrimary</item>
+    </style>
 
     <!-- Toolbar options menu color. -->
     <style name="ToolbarPopupStyle" parent="ThemeOverlay.AppCompat.Light">
@@ -52,19 +62,16 @@
     </style>
 
     <style name="NegativeButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
-        <item name="android:textColor">@color/dark_gray</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
     </style>
 
     <style name="PositiveButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
-        <item name="android:textColor">@color/dark_gray</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
     </style>
 
     <style name="NeutralButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
-        <item name="android:textColor">@color/dark_gray</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
     </style>
-
-    <!-- Toolbar search icon color.-->
-    <item name="searchIconColor" type="color">@color/dark_gray</item>
 
     <!-- TextInputLayout style -->
     <style name="Widget.App.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -76,9 +83,6 @@
         <item name="colorPrimary">@color/color_secondary</item>
         <item name="editTextStyle">@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox</item>
     </style>
-
-    <!-- item info card color-->
-    <item name="InfoCardColor" type="color">#EAF3EC</item>
 
     <!-- Splash screen theme -->
     <style name="SplashTheme" parent="Theme.Material3.Light.NoActionBar">

@@ -3,7 +3,7 @@
     android:height="24dp"
     android:viewportWidth="24"
     android:viewportHeight="24"
-    android:tint="?attr/fabAndButtonIconColor">
+    android:tint="?attr/cardButtonIconColor">
   <path
       android:fillColor="@android:color/white"
       android:pathData="M12,12m-3.2,0a3.2,3.2 0,1 1,6.4 0a3.2,3.2 0,1 1,-6.4 0"/>

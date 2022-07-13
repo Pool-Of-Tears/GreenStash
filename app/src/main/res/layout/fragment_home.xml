@@ -61,7 +61,8 @@ SOFTWARE. -->
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:background="@android:color/transparent"
-                android:src="@drawable/ic_baseline_face_24" />
+                android:src="@drawable/ic_baseline_face_24"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -83,6 +84,8 @@ SOFTWARE. -->
         android:layout_gravity="bottom|end"
         android:contentDescription="@string/add_fab_button_description"
         android:text="@string/add_fab_button_title"
+        android:textColor="?attr/colorOnPrimary"
+        app:iconTint="?fabIconColor"
         app:backgroundTint="?attr/fabBackgroundColor"
         app:icon="@drawable/ic_home_fab_add_24"
         app:layout_constraintBottom_toBottomOf="parent"

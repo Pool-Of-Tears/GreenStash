@@ -43,6 +43,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.preference.PreferenceManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.color.DynamicColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.rejowan.cutetoast.CuteToast
 import com.starry.greenstash.database.ItemDatabase
@@ -50,7 +51,6 @@ import com.starry.greenstash.databinding.ActivityMainBinding
 import com.starry.greenstash.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import de.raphaelebner.roomdatabasebackup.core.RoomBackup
-import java.lang.NullPointerException
 import java.util.concurrent.Executor
 import javax.inject.Inject
 
@@ -75,8 +75,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Change from splash theme to app theme.
-        setTheme(R.style.Theme_GreenStash)
+        DynamicColors.applyToActivityIfAvailable(this)
 
         // build navigation options.
         val navOptionsBuilder = NavOptions.Builder()

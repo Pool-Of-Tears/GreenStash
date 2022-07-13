@@ -112,7 +112,7 @@ SOFTWARE. -->
                     android:layout_marginEnd="2dp"
                     android:text="@string/deposit_btn"
                     android:textAllCaps="true"
-                    android:textColor="?attr/fabAndButtonIconColor" />
+                    android:textColor="?attr/cardButtonIconColor" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/withdrawButton"
@@ -121,7 +121,7 @@ SOFTWARE. -->
                     android:layout_height="wrap_content"
                     android:text="@string/withdraw_btn"
                     android:textAllCaps="true"
-                    android:textColor="?attr/fabAndButtonIconColor" />
+                    android:textColor="?attr/cardButtonIconColor" />
 
                 <View
                     android:layout_width="0dp"

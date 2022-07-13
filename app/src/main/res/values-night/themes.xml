@@ -3,16 +3,22 @@
     <style name="Theme.GreenStash" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/color_primary_dark</item>
-        <item name="colorPrimaryVariant">@color/color_primary_dark</item>
         <item name="colorOnPrimary">@color/black</item>
         <item name="colorSecondary">@color/color_secondary</item>
+        <item name="colorPrimaryContainer">@color/dark_gray</item>
+        <item name="colorOnPrimaryContainer">@color/white</item>
+        <item name="backgroundColor">@color/black</item>
+        <item name="android:windowBackground">?attr/backgroundColor</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" >?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" >?attr/colorPrimary</item>
+        <item name="android:windowLightStatusBar">true</item>
         <!-- Customize your theme here. -->
-        <item name="iconPreferenceColor">@color/light_gray</item>
-        <item name="fabAndButtonIconColor">@color/white</item>
-        <item name="cardBackgroundColor">@color/dark_gray</item>
-        <item name="fabBackgroundColor">@color/fab_bg_dark</item>
+        <item name="iconPreferenceColor">?attr/colorOnPrimaryContainer</item>
+        <item name="cardButtonIconColor">?attr/colorOnPrimaryContainer</item>
+        <item name="cardBackgroundColor">?attr/colorPrimaryContainer</item>
+        <item name="transactionRowBackground">@color/color_primary_dark</item>
+        <item name="fabBackgroundColor">?attr/colorPrimary</item>
+        <item name="fabIconColor">?attr/colorOnPrimary</item>
         <item name="switchStyle">@style/Widget.App.Switch</item>
         <item name="materialAlertDialogTheme">@style/AlertDialogTheme</item>
         <item name="alertDialogTheme">@style/AlertDialogTheme</item>
@@ -42,21 +48,15 @@
     </style>
 
     <style name="NegativeButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
-        <item name="android:textColor">@color/light_gray</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
     </style>
 
     <style name="PositiveButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
-        <item name="android:textColor">@color/light_gray</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
     </style>
 
     <style name="NeutralButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
-        <item name="android:textColor">@color/light_gray</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
     </style>
-
-    <!-- Toolbar search icon color.-->
-    <item name="searchIconColor" type="color">@color/light_gray</item>
-
-    <!-- item info card color-->
-    <item name="InfoCardColor" type="color">@color/dark_gray</item>
 
 </resources>

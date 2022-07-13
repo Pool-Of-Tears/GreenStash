@@ -35,7 +35,7 @@ SOFTWARE. -->
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        app:cardBackgroundColor="@color/InfoCardColor">
+        app:cardBackgroundColor="?attr/colorPrimaryContainer">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -86,7 +86,7 @@ SOFTWARE. -->
                         android:layout_marginTop="12dp"
                         android:text="@string/info_end_date"
                         android:textAppearance="?attr/textAppearanceBodyMedium"
-                        android:textColor="?attr/fabAndButtonIconColor"
+                        android:textColor="?attr/cardButtonIconColor"
                         tools:ignore="RelativeOverlap"
                         tools:text="10/12/24" />
 
@@ -114,7 +114,7 @@ SOFTWARE. -->
                         android:layout_marginTop="4dp"
                         android:text="@string/info_end_date"
                         android:textAppearance="?attr/textAppearanceBodyMedium"
-                        android:textColor="?attr/fabAndButtonIconColor"
+                        android:textColor="?attr/cardButtonIconColor"
                         tools:ignore="RelativeOverlap"
                         tools:text="$20,000" />
 
@@ -142,7 +142,7 @@ SOFTWARE. -->
                         android:layout_marginTop="4dp"
                         android:text="@string/info_end_date"
                         android:textAppearance="?attr/textAppearanceBodyMedium"
-                        android:textColor="?attr/fabAndButtonIconColor"
+                        android:textColor="?attr/cardButtonIconColor"
                         tools:ignore="RelativeOverlap"
                         tools:text="$10,000" />
 
@@ -170,7 +170,7 @@ SOFTWARE. -->
                         android:layout_marginTop="4dp"
                         android:text="@string/info_end_date"
                         android:textAppearance="?attr/textAppearanceBodyMedium"
-                        android:textColor="?attr/fabAndButtonIconColor"
+                        android:textColor="?attr/cardButtonIconColor"
                         tools:ignore="RelativeOverlap"
                         tools:text="$10,000" />
 
