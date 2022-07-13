@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="color_primary_light">#388E3C</color>
-    <color name="color_primary_dark">#C8E6C9</color>
-    <color name="card_bg_light">#E8F1E8</color>
+    <color name="color_primary_dark">#1DB954</color>
     <color name="color_secondary">#4CAF50</color>
+    <color name="card_bg_light">#E8F1E8</color>
     <color name="white">#FFFFFFFF</color>
     <color name="black">#000000</color>
     <color name="dark_green">#084C0C</color>

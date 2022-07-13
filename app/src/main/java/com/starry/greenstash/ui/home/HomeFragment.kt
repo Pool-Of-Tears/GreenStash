@@ -39,7 +39,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.rejowan.cutetoast.CuteToast
+import com.google.android.material.snackbar.Snackbar
 import com.starry.greenstash.R
 import com.starry.greenstash.database.Item
 import com.starry.greenstash.databinding.FragmentHomeBinding
@@ -129,11 +129,10 @@ class HomeFragment : Fragment(), ClickListenerIF {
 
     override fun onDepositClicked(item: Item) {
         if (item.currentAmount >= item.totalAmount) {
-            CuteToast.ct(
-                requireContext(),
+            Snackbar.make(
+                binding.root,
                 requireContext().getString(R.string.goal_already_achieved),
-                CuteToast.LENGTH_SHORT,
-                CuteToast.SUCCESS, true
+                Snackbar.LENGTH_SHORT
             ).show()
         } else {
             val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dw_dialog, null)
@@ -149,13 +148,12 @@ class HomeFragment : Fragment(), ClickListenerIF {
             alertDialog.setPositiveButton("Done") { _, _ ->
                 if (amountEditText.text.validateAmount()) {
                     val newAmount = amountEditText.text.toString().replace(',', '.').toFloat()
-                    viewModel.deposit(newAmount, item, requireContext())
+                    viewModel.deposit(newAmount, item, requireContext(), binding.root)
                 } else {
-                    CuteToast.ct(
-                        requireContext(),
+                    Snackbar.make(
+                        binding.root,
                         requireContext().getString(R.string.amount_empty_err),
-                        CuteToast.LENGTH_SHORT,
-                        CuteToast.SAD, true
+                        Snackbar.LENGTH_SHORT
                     ).show()
                 }
             }
@@ -166,11 +164,10 @@ class HomeFragment : Fragment(), ClickListenerIF {
 
     override fun onWithdrawClicked(item: Item) {
         if (item.currentAmount == 0f) {
-            CuteToast.ct(
-                requireContext(),
+            Snackbar.make(
+                binding.root,
                 requireContext().getString(R.string.withdraw_btn_error),
-                CuteToast.LENGTH_SHORT,
-                CuteToast.SAD, true
+                Snackbar.LENGTH_SHORT
             ).show()
         } else {
             val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dw_dialog, null)
@@ -186,14 +183,13 @@ class HomeFragment : Fragment(), ClickListenerIF {
             alertDialog.setPositiveButton("Done") { _, _ ->
                 if (amountEditText.text.validateAmount()) {
                     val newAmount = amountEditText.text.toString().replace(',', '.').toFloat()
-                    viewModel.withdraw(newAmount, item, requireContext())
+                    viewModel.withdraw(newAmount, item, requireContext(), binding.root)
 
                 } else {
-                    CuteToast.ct(
-                        requireContext(),
+                    Snackbar.make(
+                        binding.root,
                         requireContext().getString(R.string.amount_empty_err),
-                        CuteToast.LENGTH_SHORT,
-                        CuteToast.SAD, true
+                        Snackbar.LENGTH_SHORT
                     ).show()
                 }
             }
@@ -234,12 +230,11 @@ class HomeFragment : Fragment(), ClickListenerIF {
         }
         alertDialog.setPositiveButton("Yes") { _, _ ->
             viewModel.deleteItem(item)
-            CuteToast.ct(
-                requireContext(),
+            Snackbar.make(
+                binding.root,
                 requireContext().getString(R.string.goal_delete_success),
-                CuteToast.LENGTH_SHORT,
-                CuteToast.SUCCESS, true
-            )
+                Snackbar.LENGTH_SHORT
+            ).show()
         }
         alertDialog.create().show()
     }
@@ -319,11 +314,10 @@ class HomeFragment : Fragment(), ClickListenerIF {
             }
         }
         if (viewModel.allItems.value!!.isNotEmpty() && filteredList.isEmpty()) {
-            CuteToast.ct(
-                requireContext(),
+            Snackbar.make(
+                binding.root,
                 requireContext().getString(R.string.item_not_found),
-                CuteToast.LENGTH_SHORT,
-                CuteToast.SAD, true
+                Snackbar.LENGTH_SHORT
             ).show()
         } else {
             adapter.updateItemsList(filteredList)

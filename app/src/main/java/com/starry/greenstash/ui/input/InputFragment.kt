@@ -29,7 +29,10 @@ import android.app.DatePickerDialog
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.View
+import android.view.ViewGroup
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
@@ -38,7 +41,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.github.dhaval2404.imagepicker.ImagePicker
-import com.rejowan.cutetoast.CuteToast
+import com.google.android.material.snackbar.Snackbar
 import com.starry.greenstash.R
 import com.starry.greenstash.databinding.FragmentInputBinding
 import com.starry.greenstash.utils.*
@@ -187,19 +190,15 @@ class InputFragment : Fragment() {
                     binding.imagePicker.setImageBitmap(imagePickerResult)
                 }
                 ImagePicker.RESULT_ERROR -> {
-                    CuteToast.ct(
-                        requireContext(),
-                        ImagePicker.getError(data),
-                        CuteToast.LENGTH_SHORT,
-                        CuteToast.SAD, true
+                    Snackbar.make(
+                        binding.root,
+                        ImagePicker.getError(data), Snackbar.LENGTH_SHORT
                     ).show()
                 }
                 else -> {
-                    CuteToast.ct(
-                        requireContext(),
-                        getString(R.string.cancel),
-                        CuteToast.LENGTH_SHORT,
-                        CuteToast.ERROR, true
+                    Snackbar.make(
+                        binding.root,
+                        getString(R.string.cancel), Snackbar.LENGTH_SHORT
                     ).show()
                 }
             }

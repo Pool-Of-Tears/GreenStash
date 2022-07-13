@@ -35,7 +35,7 @@ SOFTWARE. -->
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        app:cardBackgroundColor="?attr/colorPrimaryContainer">
+        app:cardBackgroundColor="?attr/cardBackgroundColor">
 
         <LinearLayout
             android:layout_width="match_parent"

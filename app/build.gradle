@@ -64,8 +64,6 @@ dependencies {
     // preference APi library
     implementation 'androidx.preference:preference:1.2.0'
     implementation 'androidx.preference:preference-ktx:1.2.0'
-    // custom cute toasts.
-    implementation 'com.github.ahmmedrejowan.CuteToast:CuteToast:1.2'
     // image picker components
     implementation 'com.github.dhaval2404:imagepicker:2.1'
     // room database components.

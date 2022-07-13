@@ -24,8 +24,10 @@ SOFTWARE.
 
 package com.starry.greenstash.ui.settings
 
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
+import android.widget.Toast
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
@@ -34,7 +36,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
-import com.rejowan.cutetoast.CuteToast
+import com.google.android.material.color.DynamicColors
 import com.starry.greenstash.R
 import com.starry.greenstash.utils.AppConstants
 import com.starry.greenstash.utils.SharedViewModel
@@ -69,6 +71,28 @@ class SettingsFragment : PreferenceFragmentCompat() {
             true // return status.
         }
 
+        val materialYouPerf: Preference? = findPreference("material_you")
+        // disable material you switch on android version < 12
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
+            materialYouPerf!!.isEnabled = false
+        }
+        materialYouPerf!!.setOnPreferenceChangeListener { _, newValue ->
+            if (newValue.toString().toBoolean() && !DynamicColors.isDynamicColorAvailable()) {
+                Toast.makeText(
+                    requireContext(),
+                    requireContext().getString(R.string.material_you_unavailable),
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.relaunch_app),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            true // return status
+        }
+
         val appLockPerf: Preference? = findPreference("app_lock")
         appLockPerf!!.setOnPreferenceChangeListener { preference, newValue ->
             val isChecked: Boolean = newValue.toString().toBoolean()
@@ -83,13 +107,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
                             errString: CharSequence
                         ) {
                             super.onAuthenticationError(errorCode, errString)
-                            CuteToast.ct(
+                            Toast.makeText(
                                 requireContext(),
                                 "Authentication error: $errString",
-                                CuteToast.LENGTH_SHORT,
-                                CuteToast.ERROR, true
-                            )
-                                .show()
+                                Toast.LENGTH_SHORT
+                            ).show()
                             // disable preference switch manually on auth error.
                             (preference as SwitchPreferenceCompat).isChecked = false
                         }
@@ -98,25 +120,21 @@ class SettingsFragment : PreferenceFragmentCompat() {
                             result: BiometricPrompt.AuthenticationResult
                         ) {
                             super.onAuthenticationSucceeded(result)
-                            CuteToast.ct(
+                            Toast.makeText(
                                 requireContext(),
-                                "Authentication succeeded!",
-                                CuteToast.LENGTH_SHORT,
-                                CuteToast.HAPPY, true
-                            )
-                                .show()
+                                getString(R.string.auth_successful),
+                                Toast.LENGTH_SHORT
+                            ).show()
                             sharedViewModel.appUnlocked = true
                         }
 
                         override fun onAuthenticationFailed() {
                             super.onAuthenticationFailed()
-                            CuteToast.ct(
+                            Toast.makeText(
                                 requireContext(),
-                                "Authentication failed!",
-                                CuteToast.LENGTH_SHORT,
-                                CuteToast.SAD, true
-                            )
-                                .show()
+                                getString(R.string.auth_failed),
+                                Toast.LENGTH_SHORT
+                            ).show()
                             // disable preference switch manually on auth fail.
                             (preference as SwitchPreferenceCompat).isChecked = false
                         }

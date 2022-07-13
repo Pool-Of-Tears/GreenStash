@@ -169,7 +169,7 @@ SOFTWARE. -->
             android:layout_marginTop="24dp"
             android:background="@drawable/round_button"
             android:text="@string/input_save_btn"
-            android:textColor="?attr/cardButtonIconColor"
+            android:textColor="?attr/colorOnPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

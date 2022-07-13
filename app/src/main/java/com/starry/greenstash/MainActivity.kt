@@ -30,6 +30,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
@@ -45,7 +46,6 @@ import androidx.preference.PreferenceManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.color.DynamicColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.rejowan.cutetoast.CuteToast
 import com.starry.greenstash.database.ItemDatabase
 import com.starry.greenstash.databinding.ActivityMainBinding
 import com.starry.greenstash.utils.*
@@ -75,8 +75,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        DynamicColors.applyToActivityIfAvailable(this)
-
         // build navigation options.
         val navOptionsBuilder = NavOptions.Builder()
         navOptionsBuilder.setEnterAnim(R.anim.slide_in).setExitAnim(R.anim.fade_out)
@@ -86,9 +84,12 @@ class MainActivity : AppCompatActivity() {
         // attach shared view model.
         sharedViewModel = ViewModelProvider(this).get(SharedViewModel::class.java)
 
-        // Setup app theme.
         settingPerf = PreferenceManager.getDefaultSharedPreferences(this)
+        // Setup app theme.
         settingPerf.getString("display", "system")?.let { setAppTheme(it) }
+        // set dynamic colors.
+        settingPerf.getBoolean("material_you", false)
+            .let { if (it) DynamicColors.applyToActivityIfAvailable(this) }
 
         // inflate main activity layout.
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -108,11 +109,10 @@ class MainActivity : AppCompatActivity() {
                         result: BiometricPrompt.AuthenticationResult
                     ) {
                         super.onAuthenticationSucceeded(result)
-                        CuteToast.ct(
+                        Toast.makeText(
                             this@MainActivity,
-                            "Authentication Successful!",
-                            CuteToast.LENGTH_SHORT,
-                            CuteToast.HAPPY, true
+                            getString(R.string.auth_successful),
+                            Toast.LENGTH_SHORT
                         ).show()
                         // make app contents visible after successful authentication.
                         binding.root.visible()
@@ -168,10 +168,9 @@ class MainActivity : AppCompatActivity() {
                             this@MainActivity,
                             MainActivity::class.java
                         )
-                    ) else CuteToast.ct(
+                    ) else Toast.makeText(
                         this@MainActivity,
-                        message, CuteToast.LENGTH_SHORT,
-                        CuteToast.ERROR, true
+                        message, Toast.LENGTH_SHORT,
                     ).show()
                 }
             }

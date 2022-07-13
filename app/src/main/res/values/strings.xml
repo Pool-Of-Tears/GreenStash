@@ -5,6 +5,9 @@
     <string name="action_filter">Filter</string>
     <string name="action_backup">Backups</string>
     <string name="setup_currency">Welcome! Please set your preferred currency to get started.</string>
+    <string name="relaunch_app">Please restart the app to apply changes.</string>
+    <string name="auth_successful">Authentication succeeded!</string>
+    <string name="auth_failed">Authentication failed!</string>
     <!-- Filter menu-->
     <string name="filter_header">Filter your saving goals</string>
     <string name="filter_all">Show All Goals</string>
@@ -72,7 +75,7 @@
     <string name="info_remaining_amount">Remaining Amount</string>
     <string name="transactions">Transactions</string>
     <!-- biometric lock title -->
-    <string name="bio_lock_title">Unlock Greenstash</string>
+    <string name="bio_lock_title">Unlock GreenStash</string>
     <string name="bio_lock_subtitle">Confirm your screen lock, PIN or password.</string>
     <!-- Preference Titles -->
     <string name="display_pref_header">Display</string>
@@ -81,14 +84,17 @@
     <string name="about_pref_header">About</string>
     <!--  Display Preferences -->
     <string name="display_pref_title">Default Theme</string>
+    <string name="material_you_perf_title">Enable Material You</string>
+    <string name="material_you_perf_summary">Change app theme according to your wallpaper (Android 12 or later)</string>
+    <string name="material_you_unavailable">Sorry, looks like material you is not supported on your device or android version.</string>
     <!-- Locale Preferences -->
-    <string name="currency_pref_title">Default currency</string>
+    <string name="currency_pref_title">Default Currency</string>
     <!-- Security Preferences -->
-    <string name="app_lock_perf_title">Enable app lock</string>
+    <string name="app_lock_perf_title">Enable App Lock</string>
     <string name="app_lock_perf_summary">Use your fingerprint or screen lock password to unlock GreenStash.</string>
     <!-- About Preferences -->
     <string name="license_perf_title">License &amp; Acknowledgements</string>
     <string name="license_perf_summary">Show open source license information.</string>
-    <string name="about_perf_title">App information</string>
+    <string name="about_perf_title">App Information</string>
     <string name="about_perf_summary">Show app version and developer information.</string>
 </resources>

@@ -5,7 +5,7 @@
         <item name="colorPrimary">@color/color_primary_light</item>
         <item name="colorOnPrimary">@color/white</item>
         <item name="colorSecondary">@color/color_secondary</item>
-        <item name="colorPrimaryContainer">@color/card_bg_light</item>
+        <item name="colorSurface">@color/card_bg_light</item>
         <item name="colorOnPrimaryContainer">@color/black</item>
         <item name="backgroundColor">@color/white</item>
         <item name="android:windowBackground">?attr/backgroundColor</item>
@@ -14,7 +14,7 @@
         <!-- Customize your theme here. -->
         <item name="iconPreferenceColor">?attr/colorOnPrimaryContainer</item>
         <item name="cardButtonIconColor">?attr/colorOnPrimaryContainer</item>
-        <item name="cardBackgroundColor">?attr/colorPrimaryContainer</item>
+        <item name="cardBackgroundColor">?attr/colorSurface</item>
         <item name="transactionRowBackground">@color/color_primary_light</item>
         <item name="fabBackgroundColor">?attr/colorPrimary</item>
         <item name="fabIconColor">?attr/colorOnPrimary</item>
@@ -62,15 +62,15 @@
     </style>
 
     <style name="NegativeButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
-        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
     </style>
 
     <style name="PositiveButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
-        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
     </style>
 
     <style name="NeutralButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
-        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
     </style>
 
     <!-- TextInputLayout style -->

@@ -2,21 +2,28 @@
 
     <PreferenceCategory app:title="@string/display_pref_header">
         <ListPreference
-            app:icon="@drawable/ic_perf_display_theme_6_24"
             app:defaultValue="system"
             app:entries="@array/theme_entry"
             app:entryValues="@array/theme_values"
+            app:icon="@drawable/ic_perf_display_theme_6_24"
             app:key="display"
             app:title="@string/display_pref_title"
             app:useSimpleSummaryProvider="true" />
+
+        <SwitchPreferenceCompat
+            app:icon="@drawable/ic_perf_security_lock_24"
+            app:key="material_you"
+            app:summary="@string/material_you_perf_summary"
+            app:title="@string/material_you_perf_title" />
+
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/locale_pref_header">
         <ListPreference
-            app:icon="@drawable/ic_money_bag"
             app:defaultValue="₹"
             app:entries="@array/currency_entries"
             app:entryValues="@array/currency_values"
+            app:icon="@drawable/ic_money_bag"
             app:key="currency"
             app:title="@string/currency_pref_title"
             app:useSimpleSummaryProvider="true" />
@@ -26,21 +33,21 @@
         <SwitchPreferenceCompat
             app:icon="@drawable/ic_perf_security_lock_24"
             app:key="app_lock"
-            app:title="@string/app_lock_perf_title"
-            app:summary="@string/app_lock_perf_summary"/>
+            app:summary="@string/app_lock_perf_summary"
+            app:title="@string/app_lock_perf_title" />
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/about_pref_header">
         <Preference
             app:icon="@drawable/ic_perf_about_license_24"
             app:key="license"
-            app:title="@string/license_perf_title"
-            app:summary="@string/license_perf_summary"/>
+            app:summary="@string/license_perf_summary"
+            app:title="@string/license_perf_title" />
         <Preference
             app:icon="@drawable/ic_perf_about_info_24"
             app:key="about"
-            app:title="@string/about_perf_title"
-            app:summary="@string/about_perf_summary"/>
+            app:summary="@string/about_perf_summary"
+            app:title="@string/about_perf_title" />
 
     </PreferenceCategory>
 
