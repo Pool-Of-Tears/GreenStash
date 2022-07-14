@@ -11,7 +11,7 @@
             app:useSimpleSummaryProvider="true" />
 
         <SwitchPreferenceCompat
-            app:icon="@drawable/ic_perf_security_lock_24"
+            app:icon="@drawable/ic_perf_color_24"
             app:key="material_you"
             app:summary="@string/material_you_perf_summary"
             app:title="@string/material_you_perf_title" />

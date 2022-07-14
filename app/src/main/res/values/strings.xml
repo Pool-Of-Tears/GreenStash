@@ -85,7 +85,7 @@
     <!--  Display Preferences -->
     <string name="display_pref_title">Default Theme</string>
     <string name="material_you_perf_title">Enable Material You</string>
-    <string name="material_you_perf_summary">Change app theme according to your wallpaper (Android 12 or later)</string>
+    <string name="material_you_perf_summary">Switch theme according to your wallpaper. (Requires Android 12 or later)</string>
     <string name="material_you_unavailable">Sorry, looks like material you is not supported on your device or android version.</string>
     <!-- Locale Preferences -->
     <string name="currency_pref_title">Default Currency</string>

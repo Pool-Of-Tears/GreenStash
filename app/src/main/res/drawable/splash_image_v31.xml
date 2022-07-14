@@ -3,8 +3,8 @@
     <item android:drawable="@color/splash_bg" />
 
     <item
-        android:width="200dp"
-        android:height="200dp"
+        android:width="108dp"
+        android:height="108dp"
         android:drawable="@drawable/ic_piggy_bank"
         android:gravity="center" />
 

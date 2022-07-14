@@ -2,10 +2,11 @@ package com.starry.greenstash
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import androidx.appcompat.app.AppCompatActivity
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
@@ -14,10 +15,15 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        Handler(Looper.getMainLooper()).postDelayed({
-            intent = Intent(applicationContext, MainActivity::class.java)
-            launch(intent)
-        }, LAUNCH_DELAY)
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
+            Handler(Looper.getMainLooper()).postDelayed({
+                intent = Intent(applicationContext, MainActivity::class.java)
+                launch(intent)
+            }, LAUNCH_DELAY)
+        } else {
+            launch(Intent(applicationContext, MainActivity::class.java))
+        }
+
     }
 
     private fun launch(intent: Intent) {
