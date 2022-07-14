@@ -48,6 +48,7 @@
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/drawable/ic_remove_circle_24.xml" value="0.108" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/drawable/ic_restore_24.xml" value="0.108" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/drawable/round_button.xml" value="0.108" />
+        <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/drawable/round_image_button.xml" value="0.108" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/drawable/splash_image.xml" value="0.1" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/drawable/splash_image_v31.xml" value="0.1" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/layout/activity_main.xml" value="0.45" />
@@ -63,7 +64,7 @@
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/layout/fragment_input.xml" value="0.165" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/layout/fragment_o_s_l.xml" value="0.335" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/layout/fragment_second.xml" value="0.2171875" />
-        <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/layout/items_cardview.xml" value="0.165" />
+        <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/layout/items_cardview.xml" value="0.25" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/layout/progress_dialog.xml" value="0.2171875" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/layout/transaction_row.xml" value="0.48302469135802467" />
         <entry key="..\:/Users/starr/AndroidStudioProjects/GreenStash/app/src/main/res/menu-v26/menu_main.xml" value="0.45" />

@@ -16,6 +16,7 @@
         <item name="cardButtonIconColor">?attr/colorOnPrimaryContainer</item>
         <item name="cardBackgroundColor">?attr/colorSurface</item>
         <item name="transactionRowBackground">@color/color_primary_light</item>
+        <item name="transactionRowTextColor">@color/white</item>
         <item name="fabBackgroundColor">?attr/colorPrimary</item>
         <item name="fabIconColor">?attr/colorOnPrimary</item>
         <item name="switchStyle">@style/Widget.App.Switch</item>
