@@ -25,6 +25,7 @@
 - Inbuilt biometric app lock to keep your financial data safe and secure.
 - Fully offline, greenstash doens't require internet permission to work.
 - Compatible with Android 7.0 and above (API 24+)
+- Supports [Material You](https://www.androidpolice.com/everything-we-love-about-material-you/amp/) theming in devices running on Android 12+
 - Comes in both light and dark mode.
 
 ### 🛠️ Built with
@@ -38,7 +39,6 @@
 - [Dagger-Hilt](https://dagger.dev/hilt/) For [Dependency injection (DI)](https://developer.android.com/training/dependency-injection)
 - [Room database](https://developer.android.com/jetpack/androidx/releases/room) - Persistence library provides an abstraction layer over SQLite to allow for more robust database access while harnessing the full power of SQLite.
 - [Material Components for Android](https://github.com/material-components/material-components-android) - Modular and customizable Material Design UI components for Android.
-- [CuteToast](https://github.com/ahmmedrejowan/CuteToast) - Material Design Custom Toast for Android.
 - [ImagePicker](https://github.com/Dhaval2404/ImagePicker) - Image Picker for Android, Pick an image from Gallery or Capture a new image with Camera.
 
 ### 🤝 Thanks
