@@ -1,0 +1,6 @@
+- Added full support for Material You theming for devices running on Android 12+
+- Fixed double splash screen in android 12 and improved splash screen for lower APIs.
+- Refactored App icon and improved logos in about section.
+- Added round ripple animation when clicking on card buttons.
+- change switch style in settings to follow material design 3
+- Some other minor improvements here and there.

@@ -10,4 +10,5 @@ Features
 - Inbuilt biometric app lock to keep your financial data safe and secure.
 - Fully offline, greenstash doens't require internet permission to work.
 - Compatible with Android 7.0 and above (API 24+)
+- Supports Material You theming in devices running on Android 12+
 - Comes in both light and dark mode.
