@@ -14,7 +14,17 @@
 [<img src="https://github.com/machiav3lli/oandbackupx/blob/034b226cea5c1b30eb4f6a6f313e4dadcbb0ece4/badge_github.png" alt="Get it on GitHub" height="65">](https://github.com/Pool-Of-Tears/GreenStash/releases/latest)
 
 ### 📸 Screenshots
-![logo](https://telegra.ph/file/eca75adff2f2dff81b4dd.jpg)
+<details>
+  <summary><b>Click Here</b></summary>
+
+<p align="middle">
+  <img src="https://telegra.ph/file/23bf1b50ffeee129fba74.jpg" width="200" />
+  <img src="https://telegra.ph/file/116939944f37f70640192.jpg" width="200" /> 
+  <img src="https://telegra.ph/file/9be767c2afea4e3cd3985.jpg" width="200" />
+  <img src="https://telegra.ph/file/2dc80bec4734cec65b3e9.jpg" width="200"/>
+</p>
+</details>
+
 
 ### ✨ Features
 - Clean & beautiful UI based on Google's [material design three](https://m3.material.io/) guidelines.
@@ -45,7 +55,6 @@
 - [Irfansusanto20](https://www.flaticon.com/authors/irfansusanto20) for this awesome app icon.
 - [Sarvesh](https://t.me/NoisYboii) for testing and finding bunch of bugs.
 - [Radcolor](https://github.com/radcolor) for helping me in solving few problems and understanding some concepts.
-- [Pin-069](https://twitter.com/pin_069) for screenshot template design.
 - [Icons8](https://icons8.com/) for vector icons used in about section.
 
 ### ♥️ Donations
