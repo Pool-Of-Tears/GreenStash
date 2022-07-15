@@ -19,7 +19,7 @@
         <item name="transactionRowTextColor">@color/white</item>
         <item name="fabBackgroundColor">?attr/colorPrimary</item>
         <item name="fabIconColor">?attr/colorOnPrimary</item>
-        <item name="switchStyle">@style/Widget.App.Switch</item>
+        <item name="switchStyle">@style/SwitchStyle</item>
         <item name="materialAlertDialogTheme">@style/AlertDialogTheme</item>
         <item name="alertDialogTheme">@style/AlertDialogTheme</item>
         <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>
@@ -46,14 +46,11 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
-    <!-- Switch color. -->
-    <style name="Widget.App.Switch" parent="Widget.MaterialComponents.CompoundButton.Switch">
-        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Switch</item>
-    </style>
-
-    <style name="ThemeOverlay.App.Switch" parent="">
-        <item name="colorOnSurface">@color/color_primary_light</item>
-        <item name="colorSecondary">@color/color_secondary</item>
+    <!-- Switch style. -->
+    <style name="SwitchStyle" parent="Widget.Material3.CompoundButton.Switch">
+        <item name="track">@drawable/switch_track</item>
+        <item name="android:thumb">@drawable/switch_thumb</item>
+        <item name="trackTint">@color/light_gray</item>
     </style>
 
     <!-- alert dialog color. -->

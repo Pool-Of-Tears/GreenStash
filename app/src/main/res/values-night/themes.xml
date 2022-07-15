@@ -10,7 +10,7 @@
         <item name="backgroundColor">@color/black</item>
         <item name="android:windowBackground">?attr/backgroundColor</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" >?attr/colorPrimary</item>
+        <item name="android:statusBarColor">?attr/colorPrimary</item>
         <item name="android:windowLightStatusBar">true</item>
         <!-- Customize your theme here. -->
         <item name="iconPreferenceColor">?attr/colorOnPrimaryContainer</item>
@@ -20,7 +20,7 @@
         <item name="transactionRowTextColor">@color/black</item>
         <item name="fabBackgroundColor">?attr/colorPrimary</item>
         <item name="fabIconColor">?attr/colorOnPrimary</item>
-        <item name="switchStyle">@style/Widget.App.Switch</item>
+        <item name="switchStyle">@style/SwitchStyle</item>
         <item name="materialAlertDialogTheme">@style/AlertDialogTheme</item>
         <item name="alertDialogTheme">@style/AlertDialogTheme</item>
         <item name="autoCompleteTextViewStyle">@style/SearchAutoCompleteTextView</item>
@@ -33,13 +33,10 @@
     </style>
 
     <!-- Switch color. -->
-    <style name="Widget.App.Switch" parent="Widget.MaterialComponents.CompoundButton.Switch">
-        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Switch</item>
-    </style>
-
-    <style name="ThemeOverlay.App.Switch" parent="">
-        <item name="colorOnSurface">@color/dark_green</item>
-        <item name="colorSecondary">@color/color_secondary</item>
+    <style name="SwitchStyle" parent="Widget.Material3.CompoundButton.Switch">
+        <item name="track">@drawable/switch_track</item>
+        <item name="android:thumb">@drawable/switch_thumb</item>
+        <item name="trackTint">@color/dark_gray</item>
     </style>
 
     <!-- alert dialog color. -->
