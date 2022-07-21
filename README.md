@@ -10,8 +10,11 @@
 **GreenStash** is a simple [FOSS](https://en.m.wikipedia.org/wiki/Free_and_open-source_software) android app to help you plan and manage your savings goals easily and establish the habit of saving money.
 
 ### 👇 Downloads
+<a href="https://f-droid.org/en/packages/com.starry.greenstash"><img alt="Get it on F-Droid" height="65" src="https://f-droid.org/badge/get-it-on.png" /></a>
 <a href='https://apt.izzysoft.de/fdroid/index/apk/com.starry.greenstash'><img alt='Get it on IzzyOnDroid' src='https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png' height='65'/></a>
 [<img src="https://github.com/machiav3lli/oandbackupx/blob/034b226cea5c1b30eb4f6a6f313e4dadcbb0ece4/badge_github.png" alt="Get it on GitHub" height="65">](https://github.com/Pool-Of-Tears/GreenStash/releases/latest)
+
+Please keep in mind that you cannot update F-droid builds over any other builds due to signature mismatch. (F-droid builds are signed by F-droid's own keys while others are signed with my own private key) if you wish to migrate over F-droid releases you can take backup of app data and restore it after installing F-droid version. 
 
 ### 📸 Screenshots
 <details>
