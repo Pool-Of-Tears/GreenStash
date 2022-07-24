@@ -61,10 +61,11 @@ Please keep in mind that you cannot update F-droid builds over any other builds 
 - [Icons8](https://icons8.com/) for vector icons used in about section.
 
 ### ♥️ Donations
-If this project helped you a little bit, please consider donating to support further development. You can do that either via crypto currency or via kofi, liberapay or UPI in sponsor tab.
+If this project helped you a little bit, please consider donating a small amount to support further development and ofcourse boosting morale :)
 
 [![Bitcoin](https://img.shields.io/badge/Bitcoin-000?style=for-the-badge&logo=bitcoin&logoColor=white)](https://www.blockchain.com/btc/address/bc1q82qh9hw5xupwlf0f3ddfud63sek53lavk6cf0k)
 [![Ethereum](https://img.shields.io/badge/Ethereum-3C3C3D?style=for-the-badge&logo=Ethereum&logoColor=white)](https://www.blockchain.com/eth/address/0x9ef20ad6FBf1985e6eF6ea6337ad800Cb8126eD3)
+![](https://img.shields.io/badge/starry%40airtel-UPI-red?style=for-the-badge)
 
 ### ©️ License
 ```
