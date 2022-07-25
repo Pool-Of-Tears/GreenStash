@@ -1,0 +1,100 @@
+<resources>
+    <string name="app_name">GreenStash</string>
+    <string name="action_settings">Configuracion</string>
+    <string name="action_search">Buscar</string>
+    <string name="action_filter">Filtro</string>
+    <string name="action_backup">Respaldo</string>
+    <string name="setup_currency">Bienvenido! Por favor elija su moneda preferida para empezar.</string>
+    <string name="relaunch_app">Por favor reinicie la aplicación para aplicar los cambios.</string>
+    <string name="auth_successful">Autenticación exitosa!</string>
+    <string name="auth_failed">Autenticación fallida!</string>
+    <!-- Filter menu-->
+    <string name="filter_header">Filtrar tus metas de ahorro</string>
+    <string name="filter_all">Mostrar Todas Las Metas</string>
+    <string name="filter_ongoing"> Mostrar En Curso</string>
+    <string name="filter_completed"> Mostrar Completo</string>
+    <string name="no_completed_goals">Ninguna meta completada.</string>
+    <string name="no_ongoing_goals">No metas en curso para mostrar.</string>
+    <!-- Backup and restore -->
+    <string name="backup_title">Respaldar Datos.</string>
+    <string name="backup_desc">Respalda tus datos en almacenimiento local que pueden ser restaurados despues.</string>
+    <string name="restore_title">Restaurar Datos</string>
+    <string name="restore_desc">Restaura datos respaldados previamente en el almacenamiento local.</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="home_fragment_label">Panel De Ahorros</string>
+    <string name="input_fragment_label">Es tiempo de ahorrar!</string>
+    <string name="settings_fragment_label">Configuracion</string>
+    <string name="info_fragment_label">Informacion De Meta</string>
+    <string name="item_not_found">Perdon, esta meta no existe.</string>
+    <string name="cancel">Tarea Cancelada!</string>
+    <string name="progress_dialog_msg">Porfavor espere…</string>
+    <!-- Strings used for dashboard cards -->
+    <string name="no_goals_set">Nada que mostrar aquí, haga click abajo en el icono \"Nueva Meta\" para agregar una meta y empezar ahorrando!</string>
+    <string name="content_description_media">Carta de informacion de objetos</string>
+    <string name="item_title">Titulo de objeto</string>
+    <string name="secondary_text">Texto secundario</string>
+    <string name="supporting_text">Texto soportando</string>
+    <string name="deposit_btn">Deposito</string>
+    <string name="deposit_dialog_title">Increible! entre la cantidad</string>
+    <string name="deposit_successful">Deposito Exitoso!</string>
+    <string name="goal_already_achieved">Ya has obtenido esta meta.</string>
+    <string name="withdraw_btn">Retiro</string>
+    <string name="withdraw_dialog_title">Cool! entre la cantidad</string>
+    <string name="withdraw_btn_error">Todavía no has depositado niguna cantidad.</string>
+    <string name="withdraw_overflow_error">La cantidad es mas que la cantidad depositada!</string>
+    <string name="withdraw_successful">Retiro Exitoso!</string>
+    <string name="delete_btn_description">Borrar esta meta.</string>
+    <string name="goal_delete_confirmation">Estas seguro?</string>
+    <string name="goal_delete_success">Borrado Exitosamente.</string>
+    <string name="edit_btn_description">Modificar esta meta.</string>
+    <string name="info_btn_description">Ver información de meta.</string>
+    <string name="add_fab_button_title">Nueva Meta</string>
+    <string name="add_fab_button_description">Agrega nueva meta de ahorro.</string>
+    <string name="progress_greet1">Has tenido un gran comienzo!</string>
+    <string name="progress_greet2">Continua Continuando!</string>
+    <string name="progress_greet3">Si tu piensas que puedes, si puedes.</string>
+    <string name="progress_greet4">Casi ahí, lo tienes!</string>
+    <string name="progress_greet5">Felicidades! &#x1F389;</string>
+    <string name="goal_achieved_desc">Es tiempo de celebrar todo el trabajo que dirigió a esta alegre ocasión.</string>
+    <!-- Strings used for fragments for input screen -->
+    <string name="input_text_title">Entrar titulo</string>
+    <string name="title_empty_err">Woops! Titulo esta vacío.</string>
+    <string name="input_text_amount">Entrar cantidad</string>
+    <string name="amount_empty_err">Woops! Cantidad esta vacío.</string>
+    <string name="image_picker_input">Selecciona una imagen</string>
+    <string name="input_deadline">Entre fecha</string>
+    <string name="deadline_empty_err">Por favor entre fecha para esta meta!</string>
+    <string name="input_save_btn">Establece nueva meta de ahorro.</string>
+    <string name="input_edit_save_button">Modificar meta de ahorro.</string>
+    <string name="data_saved_success">Buen Trabajo! meta establecida.</string>
+    <string name="input_page_quote">No es necesario que veas el camino completo. Solo da el primer paso. – Martin Luther King, Jr.  </string>
+    <!-- info screen -->
+    <string name="info_end_date">Fecha Final</string>
+    <string name="info_total_amount">Cantidad de la meta</string>
+    <string name="info_current_amount">Ahorros Actuales</string>
+    <string name="info_remaining_amount">Cantidad Restante</string>
+    <string name="transactions">Transacciónes</string>
+    <!-- biometric lock title -->
+    <string name="bio_lock_title">Desbloquear GreenStash</string>
+    <string name="bio_lock_subtitle">Confirma tu bloqueo de pantalla, PIN or contraseña.</string>
+    <!-- Preference Titles -->
+    <string name="display_pref_header">Pantalla</string>
+    <string name="locale_pref_header">Locales</string>
+    <string name="security_pref_header">Seguridad</string>
+    <string name="about_pref_header">Sobre</string>
+    <!--  Display Preferences -->
+    <string name="display_pref_title">Tema Predeterminado</string>
+    <string name="material_you_perf_title">Habilitar Material You</string>
+    <string name="material_you_perf_summary">Cambia tema de acuerdo a tu fondo de pantalla (Requiere Android 12+).</string>
+    <string name="material_you_unavailable">Perdon, parece que Material You no esta soportado en su dispositivo o version de android.</string>
+    <!-- Locale Preferences -->
+    <string name="currency_pref_title">Moneda Predeterminada</string>
+    <!-- Security Preferences -->
+    <string name="app_lock_perf_title">Activar bloqueo de aplicación </string>
+    <string name="app_lock_perf_summary">Usa tu biométrica o contraseña de pantalla para desbloquear GreenStash.</string>
+    <!-- About Preferences -->
+    <string name="license_perf_title">Licensia &amp; Agradecimientos</string>
+    <string name="license_perf_summary">Ver informacion sobre licencia de codigo abierto.</string>
+    <string name="about_perf_title">Informacion de la Aplicación</string>
+    <string name="about_perf_summary">Mostrar versión de la aplicacion y informacion del desarrollador.</string>
+</resources>
