@@ -4,7 +4,7 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/color_primary_dark</item>
         <item name="colorOnPrimary">@color/black</item>
-        <item name="colorSecondary">@color/color_secondary</item>
+        <item name="colorSecondary">@color/color_secondary_dark</item>
         <item name="colorSurface">@color/dark_gray</item>
         <item name="colorOnPrimaryContainer">@color/white</item>
         <item name="backgroundColor">@color/black</item>

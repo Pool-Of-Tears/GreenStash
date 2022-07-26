@@ -44,8 +44,8 @@
             android:id="@+id/twitterButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:backgroundTint="@android:color/transparent"
+            android:padding="12dp"
+            android:background="@drawable/round_image_button"
             android:src="@drawable/ic_icon_twitter_30"
             tools:ignore="ContentDescription" />
 
@@ -54,8 +54,8 @@
             android:id="@+id/githubButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:backgroundTint="@android:color/transparent"
+            android:padding="12dp"
+            android:background="@drawable/round_image_button"
             android:src="@drawable/ic_icon_github_30"
             tools:ignore="ContentDescription" />
 
@@ -63,8 +63,8 @@
             android:id="@+id/telegramButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:backgroundTint="@android:color/transparent"
+            android:padding="12dp"
+            android:background="@drawable/round_image_button"
             android:src="@drawable/ic_icon_telegram_30"
             tools:ignore="ContentDescription" />
 
@@ -81,7 +81,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|center_vertical|bottom"
         android:layout_marginBottom="10dp"
-        android:text="Version 1.5"
+        android:text="Version 1.6"
         android:textStyle="bold"
         tools:ignore="HardcodedText" />
 
@@ -92,7 +92,6 @@
         android:layout_gravity="center_horizontal|center_vertical|bottom"
         android:layout_marginBottom="29dp"
         android:text="Copyright (c) 2022 Stɑrry Shivɑm "
-        android:textStyle="italic"
         tools:ignore="HardcodedText" />
 
 

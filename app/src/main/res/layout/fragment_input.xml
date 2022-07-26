@@ -94,7 +94,7 @@ SOFTWARE. -->
             app:startIconDrawable="@drawable/ic_baseline_tag_faces_24">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="360dp"
+                android:layout_width="325dp"
                 android:layout_height="68dp"
                 android:hint="@string/input_text_title"
                 android:importantForAutofill="no"
@@ -117,7 +117,7 @@ SOFTWARE. -->
             app:startIconDrawable="@drawable/ic_money_bag">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="360dp"
+                android:layout_width="325dp"
                 android:layout_height="68dp"
                 android:hint="@string/input_text_amount"
                 android:importantForAutofill="no"
@@ -152,7 +152,7 @@ SOFTWARE. -->
             app:startIconDrawable="@drawable/ic_baseline_date_range_24">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="360dp"
+                android:layout_width="325dp"
                 android:layout_height="68dp"
                 android:focusable="false"
                 android:hint="@string/input_deadline"
@@ -164,7 +164,7 @@ SOFTWARE. -->
 
         <Button
             android:id="@+id/inputSaveButton"
-            android:layout_width="360dp"
+            android:layout_width="325dp"
             android:layout_height="68dp"
             android:layout_marginTop="24dp"
             android:background="@drawable/round_button"
@@ -181,12 +181,11 @@ SOFTWARE. -->
             android:id="@+id/quoteText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="30dp"
+            android:paddingStart="42dp"
             android:paddingTop="35dp"
-            android:paddingEnd="30dp"
+            android:paddingEnd="42dp"
             android:paddingBottom="35dp"
             android:text="@string/input_page_quote"
-            android:textStyle="italic"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

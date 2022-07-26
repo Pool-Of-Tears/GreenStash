@@ -37,6 +37,12 @@ import com.starry.greenstash.databinding.FragmentAboutBinding
 
 class AboutFragment : Fragment() {
 
+    // social links
+    private val telegramURL = "https://t.me/starryboi"
+    private val githubURL = "https://github.com/starry69"
+    private val twitterURL = "https://twitter.com/starry_shivam"
+
+    // layout binding.
     private lateinit var binding: FragmentAboutBinding
 
     override fun onCreateView(
@@ -51,25 +57,13 @@ class AboutFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.telegramButton.setOnClickListener { openTG() }
-        binding.githubButton.setOnClickListener { openGH() }
-        binding.twitterButton.setOnClickListener { openTW() }
+        binding.telegramButton.setOnClickListener { startUrlActivity(telegramURL) }
+        binding.githubButton.setOnClickListener { startUrlActivity(githubURL) }
+        binding.twitterButton.setOnClickListener { startUrlActivity(twitterURL) }
     }
 
-    private fun openTG() {
-        val uri: Uri = Uri.parse("https://t.me/starryboi")
-        val intent = Intent(Intent.ACTION_VIEW, uri)
-        startActivity(intent)
-    }
-
-    private fun openGH() {
-        val uri: Uri = Uri.parse("https://github.com/starry69")
-        val intent = Intent(Intent.ACTION_VIEW, uri)
-        startActivity(intent)
-    }
-
-    private fun openTW() {
-        val uri: Uri = Uri.parse("https://twitter.com/starry_shivam")
+    private fun startUrlActivity(url: String) {
+        val uri: Uri = Uri.parse(url)
         val intent = Intent(Intent.ACTION_VIEW, uri)
         startActivity(intent)
     }

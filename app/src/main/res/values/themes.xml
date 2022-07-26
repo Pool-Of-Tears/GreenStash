@@ -4,7 +4,7 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/color_primary_light</item>
         <item name="colorOnPrimary">@color/white</item>
-        <item name="colorSecondary">@color/color_secondary</item>
+        <item name="colorSecondary">@color/color_secondary_light</item>
         <item name="colorSurface">@color/card_bg_light</item>
         <item name="colorOnPrimaryContainer">@color/black</item>
         <item name="backgroundColor">@color/white</item>

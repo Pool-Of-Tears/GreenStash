@@ -74,7 +74,7 @@ class HomeFragment : Fragment(), ClickListenerIF {
         savedInstanceState: Bundle?
     ): View {
         setHasOptionsMenu(true)
-        sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
+        sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
 
@@ -317,9 +317,8 @@ class HomeFragment : Fragment(), ClickListenerIF {
                 requireContext().getString(R.string.item_not_found),
                 Snackbar.LENGTH_SHORT
             ).show()
-        } else {
-            adapter.updateItemsList(filteredList)
         }
+        adapter.updateItemsList(filteredList)
     }
 
 
