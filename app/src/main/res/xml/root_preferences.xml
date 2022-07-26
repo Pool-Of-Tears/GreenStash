@@ -20,7 +20,7 @@
 
     <PreferenceCategory app:title="@string/locale_pref_header">
         <ListPreference
-            app:defaultValue="₹"
+            app:defaultValue="$"
             app:entries="@array/currency_entries"
             app:entryValues="@array/currency_values"
             app:icon="@drawable/ic_money_bag"
