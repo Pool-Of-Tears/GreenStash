@@ -8,6 +8,13 @@
     <string name="relaunch_app">Please restart the app to apply changes.</string>
     <string name="auth_successful">Authentication succeeded!</string>
     <string name="auth_failed">Authentication failed!</string>
+    <!-- dialog buttons -->
+    <string name="dialog_positive_btn1">Done</string>
+    <string name="dialog_positive_btn2">Yes</string>
+    <string name="dialog_negative_btn1">Cancel</string>
+    <string name="dialog_negative_btn2">No</string>
+    <string name="currency_popup_dialog_positive_btn">OK</string>
+    <string name="currency_popup_dialog_negative_btn">Later</string>
     <!-- Filter menu-->
     <string name="filter_header">Filter your saving goals</string>
     <string name="filter_all">Show All Goals</string>
@@ -55,6 +62,15 @@
     <string name="progress_greet3">If you think you can do it, you can.</string>
     <string name="progress_greet4">Almost there, You got this!</string>
     <string name="progress_greet5">Congratulations &#x1F389;</string>
+    <string name="currently_saved_incomplete">Currently saved %s out of %s.</string>
+    <string name="currently_saved_complete">You\'ve saved %s out of %s.</string>
+    <!-- Eg: You have until 25/12/2022 (152) days left. -->
+    <string name="goal_days_left">You have until %s (%s) days left.</string>
+    <!-- Eg: You need to save around $2/day, $20/week, $200/month. -->
+    <string name="goal_approx_saving">You need to save around %s/</string>
+    <string name="goal_approx_saving_day">day.</string>
+    <string name="goal_approx_saving_week">week.</string>
+    <string name="goal_approx_saving_month">month.</string>
     <string name="goal_achieved_desc">It’s time to celebrate all the hard work that led to this joyful occasion.</string>
     <!-- Strings used for fragments for input screen -->
     <string name="input_text_title">Enter title</string>
@@ -74,6 +90,8 @@
     <string name="info_current_amount">Currently Saved</string>
     <string name="info_remaining_amount">Remaining Amount</string>
     <string name="transactions">Transactions</string>
+    <string name="info_deposited">Deposited</string>
+    <string name="info_withdrawn">Withdrawn</string>
     <!-- biometric lock title -->
     <string name="bio_lock_title">Unlock GreenStash</string>
     <string name="bio_lock_subtitle">Confirm your screen lock, PIN or password.</string>

@@ -239,12 +239,12 @@ class MainActivity : AppCompatActivity() {
         builder.setSingleChoiceItems(currEntries, defaultChoiceIndex) { _, which ->
             choice = currValues[which]
         }
-        builder.setPositiveButton("OK") { _, _ ->
+        builder.setPositiveButton(getString(R.string.currency_popup_dialog_positive_btn)) { _, _ ->
             perfEditor.putString("currency", choice)
             perfEditor.putBoolean(firstRun, false)
             perfEditor.apply()
         }
-        builder.setNegativeButton("Later") { _, _ ->
+        builder.setNegativeButton(getString(R.string.currency_popup_dialog_negative_btn)) { _, _ ->
             perfEditor.putBoolean(firstRun, false)
             perfEditor.apply()
         }

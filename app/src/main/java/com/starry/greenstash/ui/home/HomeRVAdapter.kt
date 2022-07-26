@@ -133,15 +133,14 @@ class HomeRVAdapter(private val context: Context, private val listener: ClickLis
         }
         val defCurrency = settingPerf.getString("currency", "")
         text += if (progressPercent < 100) {
-            "\nCurrently saved "
+            "\n" + context.getString(R.string.currently_saved_incomplete)
         } else {
-            "\nYou've saved "
+            "\n" + context.getString(R.string.currently_saved_complete)
         }
-        text += "$defCurrency${formatCurrency(currentAmount)} out of $defCurrency${
-            formatCurrency(
-                totalAmount
-            )
-        }."
+        text = text.format(
+            "$defCurrency${formatCurrency(currentAmount)}",
+            "$defCurrency${formatCurrency(totalAmount)}"
+        )
         return text
     }
 
@@ -157,23 +156,34 @@ class HomeRVAdapter(private val context: Context, private val listener: ClickLis
         val defCurrency = settingPerf.getString("currency", "")
         // build description string.
         if (remainingAmount > 0f) {
-            var text = "You have until ${item.deadline} ($days) days left."
+            var text = context.getString(R.string.goal_days_left).format(item.deadline, days) + "\n"
             if (days > 2) {
-                text += "\nYou need to save around $defCurrency${
-                    formatCurrency(
-                        roundFloat(
-                            remainingAmount / days
+                text += context.getString(R.string.goal_approx_saving).format(
+                    "$defCurrency${
+                        formatCurrency(
+                            roundFloat(
+                                remainingAmount / days
+                            )
                         )
-                    )
-                }/day."
+                    }"
+                )
+                text += context.getString(R.string.goal_approx_saving_day)
                 if (days > 14) {
                     val weeks = days / 7
                     text = text.dropLast(1) // remove full stop
-                    text += ", $defCurrency${formatCurrency(roundFloat(remainingAmount / weeks))}/week."
+                    text += ", $defCurrency${formatCurrency(roundFloat(remainingAmount / weeks))}/${
+                        context.getString(
+                            R.string.goal_approx_saving_week
+                        )
+                    }"
                     if (days > 60) {
                         val months = days / 30
                         text = text.dropLast(1) // remove full stop
-                        text += ", $defCurrency${formatCurrency(roundFloat(remainingAmount / months))}/month."
+                        text += ", $defCurrency${formatCurrency(roundFloat(remainingAmount / months))}/${
+                            context.getString(
+                                R.string.goal_approx_saving_month
+                            )
+                        }"
                     }
                 }
             }

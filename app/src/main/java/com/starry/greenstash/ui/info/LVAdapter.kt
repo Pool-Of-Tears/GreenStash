@@ -44,10 +44,12 @@ class LVAdapter(private val context: Context, private val transactions: List<Tra
 
     private val settingPerf = PreferenceManager.getDefaultSharedPreferences(context)
     private val isDarkModeOn = isDarkModeOn(context)
+
     // withdraw card color for dark mode.
-    private val withdrawDark = ContextCompat.getColor(context,  R.color.red_light)
+    private val withdrawDark = ContextCompat.getColor(context, R.color.red_light)
+
     // withdraw card color for light mode.
-    private val withdrawLight = ContextCompat.getColor(context,  R.color.red_dark)
+    private val withdrawLight = ContextCompat.getColor(context, R.color.red_dark)
 
     override fun getCount(): Int {
         return transactions.size
@@ -71,9 +73,13 @@ class LVAdapter(private val context: Context, private val transactions: List<Tra
         val transactionDate = transactionView.findViewById<TextView>(R.id.transactionDate)
         // set transaction text and card color
         if (transaction.transactionType == AppConstants.TRANSACTION_DEPOSIT) {
-            transactionText.text = "Deposited | $defCurrency${formatCurrency(transaction.amount)}"
+            transactionText.text = "${context.getString(R.string.info_deposited)} | $defCurrency${
+                formatCurrency(transaction.amount)
+            }"
         } else {
-            transactionText.text = "Withdrawn | $defCurrency${formatCurrency(transaction.amount)}"
+            transactionText.text = "${context.getString(R.string.info_withdrawn)} | $defCurrency${
+                formatCurrency(transaction.amount)
+            }"
             if (isDarkModeOn) {
                 transactionCard.setCardBackgroundColor(withdrawDark)
             } else {

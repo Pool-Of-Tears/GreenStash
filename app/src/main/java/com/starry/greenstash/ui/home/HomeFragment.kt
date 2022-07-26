@@ -142,10 +142,9 @@ class HomeFragment : Fragment(), ClickListenerIF {
             alertDialog.setTitle(requireContext().getString(R.string.deposit_dialog_title))
             alertDialog.setView(dialogView)
             // set negative button.
-            alertDialog.setNegativeButton("Cancel") { _, _ ->
-            }
+            alertDialog.setNegativeButton(getString(R.string.dialog_negative_btn1), null)
             // set positive button.
-            alertDialog.setPositiveButton("Done") { _, _ ->
+            alertDialog.setPositiveButton(getString(R.string.dialog_positive_btn1)) { _, _ ->
                 if (amountEditText.text.validateAmount()) {
                     val newAmount = amountEditText.text.toString().replace(',', '.').toFloat()
                     viewModel.deposit(newAmount, item, requireContext(), binding.root)
@@ -177,10 +176,9 @@ class HomeFragment : Fragment(), ClickListenerIF {
             alertDialog.setTitle(requireContext().getString(R.string.withdraw_dialog_title))
             alertDialog.setView(dialogView)
             // set negative button.
-            alertDialog.setNegativeButton("Cancel") { _, _ ->
-            }
+            alertDialog.setNegativeButton(getString(R.string.dialog_negative_btn1), null)
             // set positive button.
-            alertDialog.setPositiveButton("Done") { _, _ ->
+            alertDialog.setPositiveButton(getString(R.string.dialog_positive_btn1)) { _, _ ->
                 if (amountEditText.text.validateAmount()) {
                     val newAmount = amountEditText.text.toString().replace(',', '.').toFloat()
                     viewModel.withdraw(newAmount, item, requireContext(), binding.root)
@@ -228,7 +226,7 @@ class HomeFragment : Fragment(), ClickListenerIF {
         // set negative button.
         alertDialog.setNegativeButton("Cancel") { _, _ ->
         }
-        alertDialog.setPositiveButton("Yes") { _, _ ->
+        alertDialog.setPositiveButton(getString(R.string.dialog_positive_btn2)) { _, _ ->
             viewModel.deleteItem(item)
             Snackbar.make(
                 binding.root,
