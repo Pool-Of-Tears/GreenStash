@@ -106,7 +106,7 @@
     <string name="material_you_perf_summary">Cambia tema de acuerdo a tu fondo de pantalla (Requiere Android 12+).</string>
     <string name="material_you_unavailable">Perdon, parece que Material You no esta soportado en su dispositivo o version de android.</string>
     <!-- Locale Preferences -->
-    <string name="currency_pref_title">Moneda Predeterminada</string>`
+    <string name="currency_pref_title">Moneda Predeterminada</string>
     <!-- Security Preferences -->
     <string name="app_lock_perf_title">Activar bloqueo de aplicación </string>
     <string name="app_lock_perf_summary">Usa tu biométrica o contraseña de pantalla para desbloquear GreenStash.</string>
