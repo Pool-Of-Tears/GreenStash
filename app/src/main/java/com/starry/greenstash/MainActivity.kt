@@ -32,6 +32,7 @@ import android.view.MenuItem
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
@@ -122,17 +123,21 @@ class MainActivity : AppCompatActivity() {
                     override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
                         super.onAuthenticationError(errorCode, errString)
                         /*
-                        on auth error make app contents visible and disable
-                        app lock, auth error can happen when fingerprint or
-                        password becomes unavailable or removed, contents will
-                        stay hidden in that case making user unable to access
-                        their data.
+                        On auth error check if user can still authenticate or no, i.e. make sure
+                        that user has not removed authentication from the device and fingerprint
+                        hardware is available. if not then make app contents visible and disable
+                        app lock to avoid user from becoming unable to access their data.
                         */
-                        binding.root.visible()
-                        (sharedViewModel as SharedViewModel).appUnlocked = true
-                        val perfEditor = settingPerf.edit()
-                        perfEditor.putBoolean("app_lock", false)
-                        perfEditor.apply()
+                        val biometricManager = BiometricManager.from(this@MainActivity)
+                        if (biometricManager.canAuthenticate(AppConstants.AUTHENTICATORS) != BiometricManager.BIOMETRIC_SUCCESS) {
+                            binding.root.visible()
+                            (sharedViewModel as SharedViewModel).appUnlocked = true
+                            val perfEditor = settingPerf.edit()
+                            perfEditor.putBoolean("app_lock", false)
+                            perfEditor.apply()
+                        } else {
+                            finish() // close the app.
+                        }
                     }
                 })
 
