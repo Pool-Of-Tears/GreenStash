@@ -8,6 +8,13 @@
     <string name="relaunch_app">Por favor reinicie la aplicación para aplicar los cambios.</string>
     <string name="auth_successful">Autenticación exitosa!</string>
     <string name="auth_failed">Autenticación fallida!</string>
+    <!-- dialog buttons -->
+    <string name="dialog_positive_btn1">Listo</string>
+    <string name="dialog_positive_btn2">Si</string>
+    <string name="dialog_negative_btn1">Cancelar</string>
+    <string name="dialog_negative_btn2">No</string>
+    <string name="currency_popup_dialog_positive_btn">OK</string>
+    <string name="currency_popup_dialog_negative_btn">Después</string>
     <!-- Filter menu-->
     <string name="filter_header">Filtrar tus metas de ahorro</string>
     <string name="filter_all">Mostrar Todas Las Metas</string>
@@ -55,6 +62,15 @@
     <string name="progress_greet3">Si tu piensas que puedes, si puedes.</string>
     <string name="progress_greet4">Casi ahí, lo tienes!</string>
     <string name="progress_greet5">Felicidades! &#x1F389;</string>
+    <string name="currently_saved_incomplete">Has ahorrado  %s de  %s.</string>
+    <string name="currently_saved_complete">Ahorrastes %s de %s.</string>
+    <!-- Eg: You have until 25/12/2022 (152) days left. -->
+    <string name="goal_days_left">Tienes hasta %s (%s) dias restante.</string>
+    <!-- Eg: You need to save around $2/day, $20/week, $200/month. -->
+    <string name="goal_approx_saving">Necesitas guardar alrededor de %s/</string>
+    <string name="goal_approx_saving_day">dia.</string>
+    <string name="goal_approx_saving_week">semana.</string>
+    <string name="goal_approx_saving_month">mes.</string>
     <string name="goal_achieved_desc">Es tiempo de celebrar todo el trabajo que dirigió a esta alegre ocasión.</string>
     <!-- Strings used for fragments for input screen -->
     <string name="input_text_title">Entrar titulo</string>
@@ -74,6 +90,8 @@
     <string name="info_current_amount">Ahorros Actuales</string>
     <string name="info_remaining_amount">Cantidad Restante</string>
     <string name="transactions">Transacciónes</string>
+      <string name="info_deposited">Depositado</string>
+    <string name="info_withdrawn">Retirado</string>
     <!-- biometric lock title -->
     <string name="bio_lock_title">Desbloquear GreenStash</string>
     <string name="bio_lock_subtitle">Confirma tu bloqueo de pantalla, PIN or contraseña.</string>
@@ -88,7 +106,7 @@
     <string name="material_you_perf_summary">Cambia tema de acuerdo a tu fondo de pantalla (Requiere Android 12+).</string>
     <string name="material_you_unavailable">Perdon, parece que Material You no esta soportado en su dispositivo o version de android.</string>
     <!-- Locale Preferences -->
-    <string name="currency_pref_title">Moneda Predeterminada</string>
+    <string name="currency_pref_title">Moneda Predeterminada</string>`
     <!-- Security Preferences -->
     <string name="app_lock_perf_title">Activar bloqueo de aplicación </string>
     <string name="app_lock_perf_summary">Usa tu biométrica o contraseña de pantalla para desbloquear GreenStash.</string>
