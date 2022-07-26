@@ -41,6 +41,9 @@ Please keep in mind that you cannot update F-droid builds over any other builds 
 - Supports [Material You](https://www.androidpolice.com/everything-we-love-about-material-you/amp/) theming in devices running on Android 12+
 - Comes in both light and dark mode.
 
+### 🙌 Translations
+If you want to make app available in your language, you're very much much welcome to join us at [POEditor](https://poeditor.com/join/project/e4D68BKjBR) project for the app and get started with your translations!
+
 ### 🛠️ Built with
 - [Kotlin](https://kotlinlang.org/) - First class and official programming language for Android development.
 - [Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html) - To improve performance and overall user experience.
