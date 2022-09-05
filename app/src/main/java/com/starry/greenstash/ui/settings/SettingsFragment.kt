@@ -41,16 +41,21 @@ import com.starry.greenstash.R
 import com.starry.greenstash.utils.AppConstants
 import com.starry.greenstash.utils.SharedViewModel
 import com.starry.greenstash.utils.setAppTheme
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.Executor
+import javax.inject.Inject
 
 
+@AndroidEntryPoint
 class SettingsFragment : PreferenceFragmentCompat() {
 
     private lateinit var executor: Executor
     private lateinit var biometricPrompt: BiometricPrompt
     private lateinit var promptInfo: BiometricPrompt.PromptInfo
     private lateinit var sharedViewModel: SharedViewModel
-    private lateinit var navOptions: NavOptions
+
+    @Inject
+    lateinit var navOptions: NavOptions
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.root_preferences, rootKey)
@@ -58,12 +63,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         // attach shared view model.
         sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
-
-        // build navigation options.
-        val navOptionsBuilder = NavOptions.Builder()
-        navOptionsBuilder.setEnterAnim(R.anim.slide_in).setExitAnim(R.anim.fade_out)
-            .setPopEnterAnim(R.anim.fade_in).setPopExitAnim(R.anim.fade_out)
-        navOptions = navOptionsBuilder.build()
 
         val displayPerf: Preference? = findPreference("display")
         displayPerf!!.setOnPreferenceChangeListener { _, newValue ->
@@ -75,6 +74,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         // disable material you switch on android version < 12
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
             materialYouPerf!!.isEnabled = false
+            (materialYouPerf as SwitchPreferenceCompat).isChecked = false
         }
         materialYouPerf!!.setOnPreferenceChangeListener { _, newValue ->
             if (newValue.toString().toBoolean() && !DynamicColors.isDynamicColorAvailable()) {

@@ -48,6 +48,7 @@ import com.starry.greenstash.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -55,26 +56,28 @@ class InputFragment : Fragment() {
 
     private var _binding: FragmentInputBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+    /** This property is only valid between onCreateView and
+    onDestroyView. */
     private val binding get() = _binding!!
 
-    // storing calender instance.
+    /** Storing calender instance. */
     private var cal = Calendar.getInstance()
 
-    // storing image picker result
+    /** Storing image picker result */
     private var imagePickerResult: Bitmap? = null
 
-    // Input fragment's view model class.
+    /** Input fragment's view model class. */
     private val viewModel: InputViewModel by viewModels()
 
-    // Shared view model class.
+    /** Shared view model class. */
     private lateinit var sharedViewModel: SharedViewModel
 
-    // nav options for adding animations when switching between fragments.
-    private lateinit var navOptions: NavOptions
+    /** Navigation options for adding animations when
+     * navigating between fragments. */
+    @Inject
+    lateinit var navOptions: NavOptions
 
-    // Progress dialog to show when compressing large images.
+    /** Progress dialog to show when compressing large images. */
     private lateinit var mProgressDialog: IndeterminateProgressDialog
 
     override fun onCreateView(
@@ -90,13 +93,6 @@ class InputFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        // build navigation options.
-        val navOptionsBuilder = NavOptions.Builder()
-        navOptionsBuilder.setEnterAnim(R.anim.slide_in).setExitAnim(R.anim.fade_out)
-            .setPopEnterAnim(R.anim.fade_in).setPopExitAnim(R.anim.fade_out)
-        navOptions = navOptionsBuilder.build()
-
         // build progress dialog.
         mProgressDialog = IndeterminateProgressDialog(requireContext())
         mProgressDialog.setMessage(requireContext().getString(R.string.progress_dialog_msg))
@@ -149,7 +145,7 @@ class InputFragment : Fragment() {
         // image picker button click listener.
         binding.imagePickerButton.setOnClickListener {
             ImagePicker.with(this)
-                //Final image size will be less than 1 MB
+                // Final image size will be less than 1 MB
                 .compress(1024)
                 // Final image resolution will be less than 1080 x 1080
                 .maxResultSize(1080, 1080)
@@ -169,10 +165,12 @@ class InputFragment : Fragment() {
             // data has been successfully validated and saved.
             if (status) {
                 binding.inputSaveButton.dismissKeyboard()
-                findNavController().navigate(
-                    R.id.action_InputFragment_to_HomeFragment,
-                    null, navOptions
-                )
+                /*
+                Remove all previous fragments till destination fragments from
+                backstack before navigating back to hme screen.
+                 */
+                findNavController().popBackStack(R.id.HomeFragment, true)
+                findNavController().navigate(R.id.HomeFragment, null, navOptions)
             }
         }
     }

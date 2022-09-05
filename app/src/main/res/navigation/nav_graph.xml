@@ -26,10 +26,6 @@
         android:name="com.starry.greenstash.ui.input.InputFragment"
         android:label="@string/input_fragment_label"
         tools:layout="@layout/fragment_input">
-
-        <action
-            android:id="@+id/action_InputFragment_to_HomeFragment"
-            app:destination="@id/HomeFragment" />
     </fragment>
 
     <fragment

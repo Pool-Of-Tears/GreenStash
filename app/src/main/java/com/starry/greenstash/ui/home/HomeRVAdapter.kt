@@ -33,6 +33,8 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.preference.PreferenceManager
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.starry.greenstash.R
@@ -48,8 +50,23 @@ import java.time.temporal.ChronoUnit
 class HomeRVAdapter(private val context: Context, private val listener: ClickListenerIF) :
     RecyclerView.Adapter<HomeRVAdapter.HomeRecycleViewHolder>() {
 
-    private val allItems = ArrayList<Item>()
+    private val diffCallback = object : DiffUtil.ItemCallback<Item>() {
+        override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: Item, newItem: Item): Boolean {
+            return oldItem.hashCode() == newItem.hashCode()
+        }
+    }
+
+    private val differ = AsyncListDiffer(this, diffCallback)
     private val settingPerf = PreferenceManager.getDefaultSharedPreferences(context)
+
+    var allItems: List<Item>
+        get() = differ.currentList
+        set(value) = differ.submitList(value)
+
 
     inner class HomeRecycleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val itemImage: ImageView = itemView.findViewById(R.id.itemImage)
@@ -190,31 +207,6 @@ class HomeRVAdapter(private val context: Context, private val listener: ClickLis
             return text
         } else {
             return context.getString(R.string.goal_achieved_desc)
-        }
-
-
-    }
-
-    fun updateItemsList(newList: List<Item>) {
-        /*
-        if element was removed, find index of removed element and
-        call notifyItemRemoved() instead of notifyDataSetChanged()
-        because calling notifyDataSetChanged() will disable item
-        removed animation resulting in bad UX.
-         */
-        if (newList.size < allItems.size) {
-            val itemsRemoved = allItems.minus(newList)
-            for (item in itemsRemoved) {
-                val itemRemovedIndex = allItems.indexOf(item)
-                notifyItemRemoved(itemRemovedIndex)
-                notifyItemRangeChanged(itemRemovedIndex, itemCount)
-            }
-            allItems.clear()
-            allItems.addAll(newList)
-        } else {
-            allItems.clear()
-            allItems.addAll(newList)
-            notifyDataSetChanged()
         }
 
     }

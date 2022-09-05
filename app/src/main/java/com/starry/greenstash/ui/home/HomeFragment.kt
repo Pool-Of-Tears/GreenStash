@@ -46,6 +46,7 @@ import com.starry.greenstash.databinding.FragmentHomeBinding
 import com.starry.greenstash.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -53,21 +54,23 @@ class HomeFragment : Fragment(), ClickListenerIF {
 
     private var _binding: FragmentHomeBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+    /** This property is only valid between onCreateView and
+    onDestroyView. */
     private val binding get() = _binding!!
 
-    // home fragments view model.
+    /** Home fragments view model. */
     private val viewModel: HomeViewModel by viewModels()
 
-    // Shared view model class.
+    /** Shared view model class. */
     private lateinit var sharedViewModel: SharedViewModel
 
-    // home recycle view adapter.
+    /** Home recycle view adapter. */
     private lateinit var adapter: HomeRVAdapter
 
-    // nav options for adding animations when switching between fragments.
-    private lateinit var navOptions: NavOptions
+    /** Navigation options for adding animations when
+     * navigating between fragments. */
+    @Inject
+    lateinit var navOptions: NavOptions
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -82,11 +85,6 @@ class HomeFragment : Fragment(), ClickListenerIF {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // build navigation options.
-        val navOptionsBuilder = NavOptions.Builder()
-        navOptionsBuilder.setEnterAnim(R.anim.slide_in).setExitAnim(R.anim.fade_out)
-            .setPopEnterAnim(R.anim.fade_in).setPopExitAnim(R.anim.fade_out)
-        navOptions = navOptionsBuilder.build()
         // set click listener on add goal fab button.
         binding.fab.setOnClickListener {
             findNavController().navigate(
@@ -101,7 +99,7 @@ class HomeFragment : Fragment(), ClickListenerIF {
         // observe changes in items array and update homepage accordingly.
         viewModel.allItems.observe(viewLifecycleOwner) { itemList ->
             itemList.let {
-                adapter.updateItemsList(it)
+                adapter.allItems = it
                 checkDataset()
             }
         }
@@ -266,13 +264,13 @@ class HomeFragment : Fragment(), ClickListenerIF {
         val filterCompleted = bottomSheetDialog.findViewById<LinearLayout>(R.id.filterCompleted)
 
         filterAll!!.setOnClickListener {
-            adapter.updateItemsList(itemList)
+            adapter.allItems = itemList
             bottomSheetDialog.hide()
         }
         filterOngoing!!.setOnClickListener {
             val newList = itemList.filter { it.currentAmount < it.totalAmount }
             if (newList.isNotEmpty()) {
-                adapter.updateItemsList(newList)
+                adapter.allItems = newList
             } else {
                 Toast.makeText(
                     requireContext(),
@@ -285,7 +283,7 @@ class HomeFragment : Fragment(), ClickListenerIF {
         filterCompleted!!.setOnClickListener {
             val newList = itemList.filter { it.currentAmount >= it.totalAmount }
             if (newList.isNotEmpty()) {
-                adapter.updateItemsList(newList)
+                adapter.allItems = newList
             } else {
                 Toast.makeText(
                     requireContext(),
@@ -318,7 +316,7 @@ class HomeFragment : Fragment(), ClickListenerIF {
                 Snackbar.LENGTH_SHORT
             ).show()
         }
-        adapter.updateItemsList(filteredList)
+        adapter.allItems = filteredList
     }
 
 
