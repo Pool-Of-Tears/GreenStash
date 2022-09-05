@@ -46,6 +46,13 @@ If you want to make app available in your language, you're very welcome to creat
 The string resources can be found under `/app/src/main/res/values/strings.xml`. It is easiest to make a translation using the Android Studio XML editor, but you can always go with your favorite XML-text editor instead.
 Checkout this guide to learn more about translation strings from [Helpshift](https://developers.helpshift.com/android/i18n/) for Android.
 
+### ♥️ Donations
+If this project helped you a little bit, please consider donating a small amount to support further development and ofcourse boosting morale :)
+
+[![Bitcoin](https://img.shields.io/badge/Bitcoin-000?style=for-the-badge&logo=bitcoin&logoColor=white)](https://www.blockchain.com/btc/address/bc1q82qh9hw5xupwlf0f3ddfud63sek53lavk6cf0k)
+[![Ethereum](https://img.shields.io/badge/Ethereum-3C3C3D?style=for-the-badge&logo=Ethereum&logoColor=white)](https://www.blockchain.com/eth/address/0x9ef20ad6FBf1985e6eF6ea6337ad800Cb8126eD3)
+![](https://img.shields.io/badge/starry%40airtel-UPI-red?style=for-the-badge)
+
 ### 🛠️ Built with
 <details>
    <summary><b>Click Here</b></summary>
@@ -64,43 +71,9 @@ Checkout this guide to learn more about translation strings from [Helpshift](htt
 
 </details>
 
-### 🤝 Thanks
-- [Irfansusanto20](https://www.flaticon.com/authors/irfansusanto20) for this awesome app icon.
-- [Sarvesh](https://t.me/NoisYboii) for testing and finding bunch of bugs.
-- [Radcolor](https://github.com/radcolor) for helping me in solving few problems and understanding some concepts.
-- [Icons8](https://icons8.com/) for vector icons used in about section.
 
-### ♥️ Donations
-If this project helped you a little bit, please consider donating a small amount to support further development and ofcourse boosting morale :)
+### ©️ Licence 
+[MIT][license] © [Stɑrry Shivɑm][github]
 
-[![Bitcoin](https://img.shields.io/badge/Bitcoin-000?style=for-the-badge&logo=bitcoin&logoColor=white)](https://www.blockchain.com/btc/address/bc1q82qh9hw5xupwlf0f3ddfud63sek53lavk6cf0k)
-[![Ethereum](https://img.shields.io/badge/Ethereum-3C3C3D?style=for-the-badge&logo=Ethereum&logoColor=white)](https://www.blockchain.com/eth/address/0x9ef20ad6FBf1985e6eF6ea6337ad800Cb8126eD3)
-![](https://img.shields.io/badge/starry%40airtel-UPI-red?style=for-the-badge)
-
-### ©️ License
-```
-MIT License
-
-Copyright (c) 2022 Stɑrry Shivɑm
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-```
-
-Have any suggestions? found a bug? Feel free to create an [issue](https://github.com/Pool-Of-Tears/GreenStash/issues/new) with detailed description.
-<p align="center">Made with ❤ by <a href="https://github.com/starry69">Shivam</a></p>
+[license]: /LICENSE
+[github]: https://github.com/starry69
