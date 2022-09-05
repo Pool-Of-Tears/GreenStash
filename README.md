@@ -42,9 +42,14 @@ Please keep in mind that you cannot update F-droid builds over any other builds 
 - Comes in both light and dark mode.
 
 ### 🙌 Translations
-If you want to make app available in your language, you're very much much welcome to join us at [POEditor](https://poeditor.com/join/project/e4D68BKjBR) project for the app and get started with your translations!
+If you want to make app available in your language, you're very welcome to create a [pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests) with your translation file.
+The string resources can be found under `/app/src/main/res/values/strings.xml`. It is easiest to make a translation using the Android Studio XML editor, but you can always go with your favorite XML-text editor instead.
+Checkout this guide to learn more about translation strings from [Helpshift](https://developers.helpshift.com/android/i18n/) for Android.
 
 ### 🛠️ Built with
+<details>
+   <summary><b>Click Here</b></summary>
+
 - [Kotlin](https://kotlinlang.org/) - First class and official programming language for Android development.
 - [Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html) - To improve performance and overall user experience.
 - [Android Architecture Components](https://developer.android.com/topic/libraries/architecture) - Collection of libraries that help you design robust, testable, and maintainable apps.
@@ -56,6 +61,8 @@ If you want to make app available in your language, you're very much much welcom
 - [Room database](https://developer.android.com/jetpack/androidx/releases/room) - Persistence library provides an abstraction layer over SQLite to allow for more robust database access while harnessing the full power of SQLite.
 - [Material Components for Android](https://github.com/material-components/material-components-android) - Modular and customizable Material Design UI components for Android.
 - [ImagePicker](https://github.com/Dhaval2404/ImagePicker) - Image Picker for Android, Pick an image from Gallery or Capture a new image with Camera.
+
+</details>
 
 ### 🤝 Thanks
 - [Irfansusanto20](https://www.flaticon.com/authors/irfansusanto20) for this awesome app icon.
