@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
 
-package com.starry.greenstash.ui.input
+package com.starry.greenstash.ui.fragments
 
 import android.app.Activity
 import android.app.DatePickerDialog
@@ -44,6 +44,9 @@ import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.snackbar.Snackbar
 import com.starry.greenstash.R
 import com.starry.greenstash.databinding.FragmentInputBinding
+import com.starry.greenstash.ui.viewmodels.InputViewModel
+import com.starry.greenstash.ui.viewmodels.ItemEditData
+import com.starry.greenstash.ui.viewmodels.SharedViewModel
 import com.starry.greenstash.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat

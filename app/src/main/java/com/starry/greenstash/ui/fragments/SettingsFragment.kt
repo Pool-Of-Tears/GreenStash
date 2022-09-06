@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
 
-package com.starry.greenstash.ui.settings
+package com.starry.greenstash.ui.fragments
 
 import android.os.Build
 import android.os.Bundle
@@ -39,7 +39,7 @@ import androidx.preference.SwitchPreferenceCompat
 import com.google.android.material.color.DynamicColors
 import com.starry.greenstash.R
 import com.starry.greenstash.utils.AppConstants
-import com.starry.greenstash.utils.SharedViewModel
+import com.starry.greenstash.ui.viewmodels.SharedViewModel
 import com.starry.greenstash.utils.setAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.Executor

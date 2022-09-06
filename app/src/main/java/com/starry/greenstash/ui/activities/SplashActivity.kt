@@ -1,4 +1,4 @@
-package com.starry.greenstash
+package com.starry.greenstash.ui.activities
 
 import android.annotation.SuppressLint
 import android.content.Intent

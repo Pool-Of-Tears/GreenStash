@@ -22,55 +22,32 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
 
-package com.starry.greenstash.ui.settings
+package com.starry.greenstash.ui.fragments
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.starry.greenstash.databinding.FragmentAboutBinding
+import com.starry.greenstash.R
 
 
-class AboutFragment : Fragment() {
-
-    // social links
-    private val telegramURL = "https://t.me/starryboi"
-    private val githubURL = "https://github.com/starry69"
-    private val twitterURL = "https://twitter.com/starry_shivam"
-
-    // layout binding.
-    private lateinit var binding: FragmentAboutBinding
+class OSLFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         setHasOptionsMenu(true)
         // Inflate the layout for this fragment
-        binding = FragmentAboutBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.telegramButton.setOnClickListener { startUrlActivity(telegramURL) }
-        binding.githubButton.setOnClickListener { startUrlActivity(githubURL) }
-        binding.twitterButton.setOnClickListener { startUrlActivity(twitterURL) }
-    }
-
-    private fun startUrlActivity(url: String) {
-        val uri: Uri = Uri.parse(url)
-        val intent = Intent(Intent.ACTION_VIEW, uri)
-        startActivity(intent)
+        return inflater.inflate(R.layout.fragment_o_s_l, container, false)
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {
         super.onPrepareOptionsMenu(menu)
         menu.clear()
-    }
 
+
+    }
 }

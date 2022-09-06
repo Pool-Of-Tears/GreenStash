@@ -32,7 +32,9 @@ object AppConstants {
     const val DATABASE_NAME = "item_database"
     const val TRANSACTION_DEPOSIT = "deposit"
     const val TRANSACTION_WITHDRAW = "withdraw"
+    const val FIRST_RUN = "first_start"
     const val REPO_URL = "https://github.com/Pool-Of-Tears/GreenStash"
+
     /*
     https://developer.android.com/reference/androidx/biometric/BiometricPrompt.PromptInfo.Builder#setAllowedAuthenticators(int)
      */

@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
 
-package com.starry.greenstash.ui.input
+package com.starry.greenstash.ui.viewmodels
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -34,7 +34,6 @@ import com.starry.greenstash.R
 import com.starry.greenstash.database.Item
 import com.starry.greenstash.database.ItemDao
 import com.starry.greenstash.databinding.FragmentInputBinding
-import com.starry.greenstash.utils.ItemEditData
 import com.starry.greenstash.utils.roundFloat
 import com.starry.greenstash.utils.validateAmount
 import dagger.hilt.android.lifecycle.HiltViewModel

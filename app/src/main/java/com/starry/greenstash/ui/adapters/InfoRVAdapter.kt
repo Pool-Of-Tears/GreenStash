@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
 
-package com.starry.greenstash.ui.info
+package com.starry.greenstash.ui.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -33,13 +33,14 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.preference.PreferenceManager
+import androidx.recyclerview.widget.RecyclerView
 import com.starry.greenstash.R
 import com.starry.greenstash.database.Transaction
 import com.starry.greenstash.utils.AppConstants
 import com.starry.greenstash.utils.formatCurrency
 import com.starry.greenstash.utils.isDarkModeOn
 
-class LVAdapter(private val context: Context, private val transactions: List<Transaction>) :
+class InfoRVAdapter(private val context: Context, private val transactions: List<Transaction>) :
     BaseAdapter() {
 
     private val settingPerf = PreferenceManager.getDefaultSharedPreferences(context)

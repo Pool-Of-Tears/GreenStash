@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
 
-package com.starry.greenstash.ui.home
+package com.starry.greenstash.ui.fragments
 
 import android.os.Bundle
 import android.view.*
@@ -43,6 +43,11 @@ import com.google.android.material.snackbar.Snackbar
 import com.starry.greenstash.R
 import com.starry.greenstash.database.Item
 import com.starry.greenstash.databinding.FragmentHomeBinding
+import com.starry.greenstash.ui.listeners.GoalClickListener
+import com.starry.greenstash.ui.adapters.HomeRVAdapter
+import com.starry.greenstash.ui.viewmodels.HomeViewModel
+import com.starry.greenstash.ui.viewmodels.ItemEditData
+import com.starry.greenstash.ui.viewmodels.SharedViewModel
 import com.starry.greenstash.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -50,7 +55,7 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class HomeFragment : Fragment(), ClickListenerIF {
+class HomeFragment : Fragment(), GoalClickListener {
 
     private var _binding: FragmentHomeBinding? = null
 

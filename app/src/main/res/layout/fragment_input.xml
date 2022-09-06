@@ -24,59 +24,61 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".ui.input.InputFragment">
+        tools:context=".ui.fragments.InputFragment">
 
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardView"
-            android:layout_width="185dp"
+            android:id="@+id/imageCardView"
+            android:layout_width="325dp"
             android:layout_height="185dp"
             android:layout_marginTop="24dp"
-            app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="250dp"
+            app:cardBackgroundColor="?attr/colorPrimary"
+            app:cardCornerRadius="14dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:layout_editor_absoluteY="7dp">
 
             <androidx.cardview.widget.CardView
-                android:layout_width="180dp"
+                android:layout_width="320dp"
                 android:layout_height="180dp"
                 android:layout_gravity="center"
-                app:cardCornerRadius="250dp">
+                app:cardCornerRadius="14dp">
 
                 <ImageView
                     android:id="@+id/imagePicker"
-                    android:layout_width="181dp"
-                    android:layout_height="180dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:contentDescription="@null"
                     android:scaleType="centerCrop"
                     android:src="@drawable/default_image" />
+
             </androidx.cardview.widget.CardView>
 
         </androidx.cardview.widget.CardView>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/imagePickerButton"
+        <TextView
+            android:layout_marginTop="44dp"
+            android:id="@+id/quoteText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="120dp"
-            android:layout_marginTop="100dp"
-            android:contentDescription="@string/image_picker_input"
-            android:src="@drawable/ic_input_fab_camera_24"
-            app:tint="?attr/fabIconColor"
-            app:backgroundTint="?attr/fabBackgroundColor"
-            app:layout_constraintBottom_toBottomOf="@+id/imagePickerText"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:paddingStart="42dp"
+            android:paddingEnd="42dp"
+            android:text="@string/input_page_quote"
+            app:layout_constraintBottom_toTopOf="@id/inputTitle"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/imageCardView" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/inputTitle"
@@ -90,7 +92,7 @@ SOFTWARE. -->
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imagePickerText"
+            app:layout_constraintTop_toBottomOf="@id/quoteText"
             app:startIconDrawable="@drawable/ic_baseline_tag_faces_24">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -125,17 +127,6 @@ SOFTWARE. -->
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/imagePickerText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/image_picker_input"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardView" />
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/inputDeadline"
             android:layout_width="wrap_content"
@@ -166,7 +157,7 @@ SOFTWARE. -->
             android:id="@+id/inputSaveButton"
             android:layout_width="325dp"
             android:layout_height="68dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="28dp"
             android:background="@drawable/round_button"
             android:text="@string/input_save_btn"
             android:textColor="?attr/colorOnPrimary"
@@ -177,20 +168,22 @@ SOFTWARE. -->
             app:layout_constraintTop_toBottomOf="@+id/inputDeadline"
             app:layout_constraintVertical_bias="0.12" />
 
-        <TextView
-            android:id="@+id/quoteText"
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/imagePickerButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="42dp"
-            android:paddingTop="35dp"
-            android:paddingEnd="42dp"
-            android:paddingBottom="35dp"
-            android:text="@string/input_page_quote"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
+            android:text="@string/goal_image"
+            android:textColor="?attr/fabIconColor"
+            app:backgroundTint="?attr/fabBackgroundColor"
+            app:icon="@drawable/ic_input_fab_camera_24"
+            app:iconTint="?attr/fabIconColor"
+            app:layout_constraintBottom_toTopOf="@+id/quoteText"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_bias="0.9"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/inputSaveButton" />
+            app:layout_constraintTop_toTopOf="@+id/imageCardView"
+            app:layout_constraintVertical_bias="0.86" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

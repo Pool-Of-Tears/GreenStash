@@ -22,11 +22,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
 
-package com.starry.greenstash.ui.home
+package com.starry.greenstash.ui.listeners
 
 import com.starry.greenstash.database.Item
 
-interface ClickListenerIF {
+interface GoalClickListener {
     fun onDepositClicked(item: Item)
 
     fun onWithdrawClicked(item: Item)

@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
 
-package com.starry.greenstash
+package com.starry.greenstash.ui.activities
 
 import android.content.Intent
 import android.content.SharedPreferences
@@ -47,8 +47,10 @@ import androidx.preference.PreferenceManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.color.DynamicColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.starry.greenstash.R
 import com.starry.greenstash.database.ItemDatabase
 import com.starry.greenstash.databinding.ActivityMainBinding
+import com.starry.greenstash.ui.viewmodels.SharedViewModel
 import com.starry.greenstash.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import de.raphaelebner.roomdatabasebackup.core.RoomBackup
@@ -66,22 +68,17 @@ class MainActivity : AppCompatActivity() {
     private lateinit var biometricPrompt: BiometricPrompt
     private lateinit var promptInfo: BiometricPrompt.PromptInfo
     private lateinit var sharedViewModel: AndroidViewModel
-    private lateinit var navOptions: NavOptions
     private lateinit var roomBackup: RoomBackup
     private val firstRun = "first_start"
 
-    @Inject // inject item database instance.
+    @Inject // Inject nav options.
+    lateinit var navOptions: NavOptions
+
+    @Inject // Inject item database instance.
     lateinit var itemDatabase: ItemDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // build navigation options.
-        val navOptionsBuilder = NavOptions.Builder()
-        navOptionsBuilder.setEnterAnim(R.anim.slide_in).setExitAnim(R.anim.fade_out)
-            .setPopEnterAnim(R.anim.fade_in).setPopExitAnim(R.anim.fade_out)
-        navOptions = navOptionsBuilder.build()
-
         // attach shared view model.
         sharedViewModel = ViewModelProvider(this).get(SharedViewModel::class.java)
 

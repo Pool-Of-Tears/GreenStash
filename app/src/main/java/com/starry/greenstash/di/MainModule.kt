@@ -36,17 +36,20 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+
 @InstallIn(SingletonComponent::class)
 @Module
-class DatabaseModule {
+class MainModule {
 
+    @Singleton
     @Provides
     fun provideNavOptions() = NavOptions.Builder()
         .setEnterAnim(R.anim.slide_in)
         .setExitAnim(R.anim.fade_out)
         .setPopEnterAnim(R.anim.fade_in)
-        .setPopExitAnim(R.anim.fade_out)
+        .setPopExitAnim(R.anim.slide_out)
         .build()
+
 
     @Singleton
     @Provides

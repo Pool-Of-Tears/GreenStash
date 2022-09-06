@@ -73,11 +73,11 @@
     <string name="goal_approx_saving_month">mes.</string>
     <string name="goal_achieved_desc">Es tiempo de celebrar todo el trabajo que dirigió a esta alegre ocasión.</string>
     <!-- Strings used for fragments for input screen -->
+    <string name="goal_image">Goal Image</string>
     <string name="input_text_title">Entrar titulo</string>
     <string name="title_empty_err">Woops! Titulo esta vacío.</string>
     <string name="input_text_amount">Entrar cantidad</string>
     <string name="amount_empty_err">Woops! Cantidad esta vacío.</string>
-    <string name="image_picker_input">Selecciona una imagen</string>
     <string name="input_deadline">Entre fecha</string>
     <string name="deadline_empty_err">Por favor entre fecha para esta meta!</string>
     <string name="input_save_btn">Establece nueva meta de ahorro.</string>

@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
 
-package com.starry.greenstash.ui.info
+package com.starry.greenstash.ui.fragments
 
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -34,7 +34,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import com.starry.greenstash.databinding.FragmentInfoBinding
-import com.starry.greenstash.utils.SharedViewModel
+import com.starry.greenstash.ui.adapters.InfoRVAdapter
+import com.starry.greenstash.ui.viewmodels.SharedViewModel
 import com.starry.greenstash.utils.formatCurrency
 import com.starry.greenstash.utils.gone
 
@@ -76,7 +77,7 @@ class InfoFragment : Fragment() {
         if (infoItem.transactions == null) {
             binding.transactionView.gone()
         } else {
-            val adapter = LVAdapter(requireContext(), infoItem.transactions)
+            val adapter = InfoRVAdapter(requireContext(), infoItem.transactions)
             binding.transactionHistoryLV.adapter = adapter
         }
 

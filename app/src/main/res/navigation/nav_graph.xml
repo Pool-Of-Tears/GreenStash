@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/HomeFragment"
-        android:name="com.starry.greenstash.ui.home.HomeFragment"
+        android:name="com.starry.greenstash.ui.fragments.HomeFragment"
         android:label="@string/home_fragment_label"
         tools:layout="@layout/fragment_home">
 
@@ -23,14 +23,14 @@
 
     <fragment
         android:id="@+id/InputFragment"
-        android:name="com.starry.greenstash.ui.input.InputFragment"
+        android:name="com.starry.greenstash.ui.fragments.InputFragment"
         android:label="@string/input_fragment_label"
         tools:layout="@layout/fragment_input">
     </fragment>
 
     <fragment
         android:id="@+id/InfoFragment"
-        android:name="com.starry.greenstash.ui.info.InfoFragment"
+        android:name="com.starry.greenstash.ui.fragments.InfoFragment"
         android:label="@string/info_fragment_label">
 
         <action
@@ -40,17 +40,17 @@
 
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.starry.greenstash.ui.settings.SettingsFragment"
+        android:name="com.starry.greenstash.ui.fragments.SettingsFragment"
         android:label="@string/settings_fragment_label" />
 
     <fragment
         android:id="@+id/OSLFragment"
-        android:name="com.starry.greenstash.ui.settings.OSLFragment"
+        android:name="com.starry.greenstash.ui.fragments.OSLFragment"
         android:label="@string/license_perf_title" />
 
     <fragment
         android:id="@+id/AboutFragment"
-        android:name="com.starry.greenstash.ui.settings.AboutFragment"
+        android:name="com.starry.greenstash.ui.fragments.AboutFragment"
         android:label="@string/about_perf_title" />
 
 </navigation>

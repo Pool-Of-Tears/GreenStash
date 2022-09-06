@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
 
-package com.starry.greenstash.ui.home
+package com.starry.greenstash.ui.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -39,6 +39,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.starry.greenstash.R
 import com.starry.greenstash.database.Item
+import com.starry.greenstash.ui.listeners.GoalClickListener
 import com.starry.greenstash.utils.AppConstants
 import com.starry.greenstash.utils.formatCurrency
 import com.starry.greenstash.utils.roundFloat
@@ -47,7 +48,7 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 
-class HomeRVAdapter(private val context: Context, private val listener: ClickListenerIF) :
+class HomeRVAdapter(private val context: Context, private val listener: GoalClickListener) :
     RecyclerView.Adapter<HomeRVAdapter.HomeRecycleViewHolder>() {
 
     private val diffCallback = object : DiffUtil.ItemCallback<Item>() {
