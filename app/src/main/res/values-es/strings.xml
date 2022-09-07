@@ -13,7 +13,7 @@
     <string name="dialog_positive_btn2">Sí</string>
     <string name="dialog_negative_btn1">Cancelar</string>
     <string name="dialog_negative_btn2">No</string>
-    <string name="currency_popup_dialog_positive_btn">Vale</string>
+    <string name="currency_popup_dialog_positive_btn">De acuerdo</string>
     <string name="currency_popup_dialog_negative_btn">Después</string>
     <!-- Filter menu-->
     <string name="filter_header">Filtrar tus metas de ahorro</string>
@@ -21,12 +21,12 @@
     <string name="filter_ongoing"> Mostrar en curso</string>
     <string name="filter_completed"> Mostrar completadas</string>
     <string name="no_completed_goals">Ninguna meta completada.</string>
-    <string name="no_ongoing_goals">No metas en curso para mostrar.</string>
+    <string name="no_ongoing_goals">No hay metas en curso para mostrar.</string>
     <!-- Backup and restore -->
     <string name="backup_title">Respaldar datos.</string>
-    <string name="backup_desc">Respaldar tus datos en el almacenamiento local para que puedan ser restaurados después.</string>
+    <string name="backup_desc">Respaldar sus datos en el almacenamiento local para que puedan ser restaurados después.</string>
     <string name="restore_title">Restaurar datos</string>
-    <string name="restore_desc">Restaurar tus datos respaldados previamente en el almacenamiento local.</string>
+    <string name="restore_desc">Restaurar sus datos respaldados previamente en el almacenamiento local.</string>
     <!-- Strings used for fragments for navigation -->
     <string name="home_fragment_label">Panel de ahorros</string>
     <string name="input_fragment_label">¡Es tiempo de ahorrar!</string>
@@ -44,14 +44,14 @@
     <string name="deposit_btn">Depósito</string>
     <string name="deposit_dialog_title">¡Increíble! Ingrese la cantidad</string>
     <string name="deposit_successful">¡Deposito exitoso!</string>
-    <string name="goal_already_achieved">Ya has obtenido esta meta.</string>
+    <string name="goal_already_achieved">Ya ha obtenido esta meta.</string>
     <string name="withdraw_btn">Retiro</string>
     <string name="withdraw_dialog_title">¡Genial! Ingrese la cantidad</string>
-    <string name="withdraw_btn_error">Todavía no has depositado ninguna cantidad.</string>
+    <string name="withdraw_btn_error">Todavía no ha depositado ninguna cantidad.</string>
     <string name="withdraw_overflow_error">¡La cantidad actual es mayor que la cantidad depositada!</string>
     <string name="withdraw_successful">¡Retiro exitoso!</string>
     <string name="delete_btn_description">Borrar esta meta.</string>
-    <string name="goal_delete_confirmation">¿Estás seguro?</string>
+    <string name="goal_delete_confirmation">¿Está seguro?</string>
     <string name="goal_delete_success">Borrado exitosamente.</string>
     <string name="edit_btn_description">Modificar esta meta.</string>
     <string name="info_btn_description">Ver información de meta.</string>
@@ -60,14 +60,14 @@
     <string name="progress_greet1">¡Has tenido un gran comienzo!</string>
     <string name="progress_greet2">¡Sigue así!</string>
     <string name="progress_greet3">Si tú piensas que puedes, sí puedes.</string>
-    <string name="progress_greet4">¡Casi lo tienes!</string>
+    <string name="progress_greet4">¡Casi lo tiene!</string>
     <string name="progress_greet5">¡Felicidades! &#x1F389;</string>
-    <string name="currently_saved_incomplete">Has ahorrado %s de %s.</string>
-    <string name="currently_saved_complete">Ahorrastes %s de %s.</string>
+    <string name="currently_saved_incomplete">Ha ahorrado %s de %s.</string>
+    <string name="currently_saved_complete">Ahorró %s de %s.</string>
     <!-- Eg: You have until 25/12/2022 (152) days left. -->
     <string name="goal_days_left">Tienes hasta %s (%s) día(s) restante(s).</string>
     <!-- Eg: You need to save around $2/day, $20/week, $200/month. -->
-    <string name="goal_approx_saving">Necesitas guardar alrededor de %s/</string>
+    <string name="goal_approx_saving">Necesita guardar alrededor de %s/</string>
     <string name="goal_approx_saving_day">día.</string>
     <string name="goal_approx_saving_week">semana.</string>
     <string name="goal_approx_saving_month">mes.</string>
@@ -77,7 +77,7 @@
     <string name="input_text_title">Añadir titulo</string>
     <string name="title_empty_err">¡Ups! El titulo está vacío.</string>
     <string name="input_text_amount">Añadir cantidad</string>
-    <string name="amount_empty_err">¡Ups! No se ha aañadido la cantidad.</string>
+    <string name="amount_empty_err">¡Ups! No se ha añadido la cantidad.</string>
     <string name="input_deadline">Especificar fecha</string>
     <string name="deadline_empty_err">¡Por favor, añada la fecha para esta meta!</string>
     <string name="input_save_btn">Establezca nueva meta de ahorro.</string>
@@ -112,7 +112,7 @@
     <string name="app_lock_perf_summary">Use su biométrica o contraseña para desbloquear GreenStash.</string>
     <!-- About Preferences -->
     <string name="license_perf_title">Licencia &amp; Agradecimientos</string>
-    <string name="license_perf_summary">Ver informacin sobre licencia de software libre y de código abierto.</string>
+    <string name="license_perf_summary">Ver información sobre licencia de software libre y de código abierto.</string>
     <string name="about_perf_title">Información de la aplicación</string>
     <string name="about_perf_summary">Mostrar versión de la aplicación e información del desarrollador.</string>
 </resources>
