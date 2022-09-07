@@ -13,20 +13,20 @@
     <string name="dialog_positive_btn2">Sí</string>
     <string name="dialog_negative_btn1">Cancelar</string>
     <string name="dialog_negative_btn2">No</string>
-    <string name="currency_popup_dialog_positive_btn">De acuerdo</string>
+    <string name="currency_popup_dialog_positive_btn">Vale</string>
     <string name="currency_popup_dialog_negative_btn">Después</string>
     <!-- Filter menu-->
     <string name="filter_header">Filtrar tus metas de ahorro</string>
-    <string name="filter_all">Mostrar Todas las Metas</string>
+    <string name="filter_all">Mostrar todas las metas</string>
     <string name="filter_ongoing"> Mostrar en curso</string>
-    <string name="filter_completed"> Mostrar completo</string>
+    <string name="filter_completed"> Mostrar completadas</string>
     <string name="no_completed_goals">Ninguna meta completada.</string>
     <string name="no_ongoing_goals">No metas en curso para mostrar.</string>
     <!-- Backup and restore -->
     <string name="backup_title">Respaldar datos.</string>
-    <string name="backup_desc">Respalda tus datos en almacenimiento local que pueden ser restaurados después.</string>
+    <string name="backup_desc">Respaldar tus datos en el almacenamiento local para que puedan ser restaurados después.</string>
     <string name="restore_title">Restaurar datos</string>
-    <string name="restore_desc">Restaura datos respaldados previamente en el almacenamiento local.</string>
+    <string name="restore_desc">Restaurar tus datos respaldados previamente en el almacenamiento local.</string>
     <!-- Strings used for fragments for navigation -->
     <string name="home_fragment_label">Panel de ahorros</string>
     <string name="input_fragment_label">¡Es tiempo de ahorrar!</string>
@@ -41,14 +41,14 @@
     <string name="item_title">Titulo de objeto</string>
     <string name="secondary_text">Texto secundario</string>
     <string name="supporting_text">Texto soportando</string>
-    <string name="deposit_btn">Deposito</string>
-    <string name="deposit_dialog_title">¡Increible! Ingrese la cantidad</string>
+    <string name="deposit_btn">Depósito</string>
+    <string name="deposit_dialog_title">¡Increíble! Ingrese la cantidad</string>
     <string name="deposit_successful">¡Deposito exitoso!</string>
     <string name="goal_already_achieved">Ya has obtenido esta meta.</string>
     <string name="withdraw_btn">Retiro</string>
     <string name="withdraw_dialog_title">¡Genial! Ingrese la cantidad</string>
     <string name="withdraw_btn_error">Todavía no has depositado ninguna cantidad.</string>
-    <string name="withdraw_overflow_error">La cantidad es mas que la cantidad depositada!</string>
+    <string name="withdraw_overflow_error">¡La cantidad actual es mayor que la cantidad depositada!</string>
     <string name="withdraw_successful">¡Retiro exitoso!</string>
     <string name="delete_btn_description">Borrar esta meta.</string>
     <string name="goal_delete_confirmation">¿Estás seguro?</string>
@@ -62,7 +62,7 @@
     <string name="progress_greet3">Si tú piensas que puedes, sí puedes.</string>
     <string name="progress_greet4">¡Casi lo tienes!</string>
     <string name="progress_greet5">¡Felicidades! &#x1F389;</string>
-    <string name="currently_saved_incomplete">Has ahorrado  %s de  %s.</string>
+    <string name="currently_saved_incomplete">Has ahorrado %s de %s.</string>
     <string name="currently_saved_complete">Ahorrastes %s de %s.</string>
     <!-- Eg: You have until 25/12/2022 (152) days left. -->
     <string name="goal_days_left">Tienes hasta %s (%s) día(s) restante(s).</string>
@@ -73,46 +73,46 @@
     <string name="goal_approx_saving_month">mes.</string>
     <string name="goal_achieved_desc">Es tiempo de celebrar todo el trabajo que invirtió a esta alegre ocasión.</string>
     <!-- Strings used for fragments for input screen -->
-    <string name="goal_image">Imágen de meta</string>
+    <string name="goal_image">Foto de la meta</string>
     <string name="input_text_title">Añadir titulo</string>
     <string name="title_empty_err">¡Ups! El titulo está vacío.</string>
     <string name="input_text_amount">Añadir cantidad</string>
     <string name="amount_empty_err">¡Ups! No se ha aañadido la cantidad.</string>
-    <string name="input_deadline">ESpecificar fecha</string>
+    <string name="input_deadline">Especificar fecha</string>
     <string name="deadline_empty_err">¡Por favor, añada la fecha para esta meta!</string>
     <string name="input_save_btn">Establezca nueva meta de ahorro.</string>
     <string name="input_edit_save_button">Modificar meta de ahorro.</string>
     <string name="data_saved_success">¡Buen trabajo! Meta establecida.</string>
-    <string name="input_page_quote">«No es necesario que veas el camino completo. Solo da el primer paso». - Martin Luther King Jr.  </string>
+    <string name="input_page_quote">«No es necesario que veas el camino completo. Sólo da el primer paso». - Martin Luther King Jr.  </string>
     <!-- info screen -->
-    <string name="info_end_date">Fecha Final</string>
-    <string name="info_total_amount">Cantidad de la meta</string>
-    <string name="info_current_amount">Ahorros Actuales</string>
-    <string name="info_remaining_amount">Cantidad Restante</string>
-    <string name="transactions">Transacciónes</string>
+    <string name="info_end_date">Fecha límite</string>
+    <string name="info_total_amount">Cantidad para la meta</string>
+    <string name="info_current_amount">Ahorros actuales</string>
+    <string name="info_remaining_amount">Cantidad restante</string>
+    <string name="transactions">Transacciones</string>
       <string name="info_deposited">Depositado</string>
     <string name="info_withdrawn">Retirado</string>
     <!-- biometric lock title -->
     <string name="bio_lock_title">Desbloquear GreenStash</string>
-    <string name="bio_lock_subtitle">Confirma tu bloqueo de pantalla, PIN or contraseña.</string>
+    <string name="bio_lock_subtitle">Confirme su bloqueo de pantalla, PIN o contraseña.</string>
     <!-- Preference Titles -->
     <string name="display_pref_header">Pantalla</string>
-    <string name="locale_pref_header">Locales</string>
+    <string name="locale_pref_header">Idioma</string>
     <string name="security_pref_header">Seguridad</string>
-    <string name="about_pref_header">Sobre</string>
+    <string name="about_pref_header">Acerca de GreenStash</string>
     <!--  Display Preferences -->
-    <string name="display_pref_title">Tema Predeterminado</string>
+    <string name="display_pref_title">Tema predeterminado</string>
     <string name="material_you_perf_title">Habilitar Material You</string>
-    <string name="material_you_perf_summary">Cambia tema de acuerdo a tu fondo de pantalla (Requiere Android 12+).</string>
-    <string name="material_you_unavailable">Perdon, parece que Material You no esta soportado en su dispositivo o version de android.</string>
+    <string name="material_you_perf_summary">Cambiar tema en base a los colores de tu fondo de pantalla (Requiere Android 12+).</string>
+    <string name="material_you_unavailable">Perdón, parece que Material You no está soportado en su dispositivo o versión de Android.</string>
     <!-- Locale Preferences -->
-    <string name="currency_pref_title">Moneda Predeterminada</string>
+    <string name="currency_pref_title">Moneda predeterminada</string>
     <!-- Security Preferences -->
     <string name="app_lock_perf_title">Activar bloqueo de aplicación </string>
-    <string name="app_lock_perf_summary">Usa tu biométrica o contraseña de pantalla para desbloquear GreenStash.</string>
+    <string name="app_lock_perf_summary">Use su biométrica o contraseña para desbloquear GreenStash.</string>
     <!-- About Preferences -->
-    <string name="license_perf_title">Licensia &amp; Agradecimientos</string>
-    <string name="license_perf_summary">Ver informacion sobre licencia de codigo abierto.</string>
-    <string name="about_perf_title">Informacion de la Aplicación</string>
-    <string name="about_perf_summary">Mostrar versión de la aplicacion y informacion del desarrollador.</string>
+    <string name="license_perf_title">Licencia &amp; Agradecimientos</string>
+    <string name="license_perf_summary">Ver informacin sobre licencia de software libre y de código abierto.</string>
+    <string name="about_perf_title">Información de la aplicación</string>
+    <string name="about_perf_summary">Mostrar versión de la aplicación e información del desarrollador.</string>
 </resources>
