@@ -34,7 +34,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import com.starry.greenstash.databinding.FragmentInfoBinding
-import com.starry.greenstash.ui.adapters.InfoRVAdapter
+import com.starry.greenstash.ui.adapters.InfoLVAdapter
 import com.starry.greenstash.ui.viewmodels.SharedViewModel
 import com.starry.greenstash.utils.formatCurrency
 import com.starry.greenstash.utils.gone
@@ -77,7 +77,7 @@ class InfoFragment : Fragment() {
         if (infoItem.transactions == null) {
             binding.transactionView.gone()
         } else {
-            val adapter = InfoRVAdapter(requireContext(), infoItem.transactions)
+            val adapter = InfoLVAdapter(requireContext(), infoItem.transactions)
             binding.transactionHistoryLV.adapter = adapter
         }
 

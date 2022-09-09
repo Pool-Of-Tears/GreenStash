@@ -43,12 +43,14 @@ import com.google.android.material.snackbar.Snackbar
 import com.starry.greenstash.R
 import com.starry.greenstash.database.Item
 import com.starry.greenstash.databinding.FragmentHomeBinding
-import com.starry.greenstash.ui.listeners.GoalClickListener
 import com.starry.greenstash.ui.adapters.HomeRVAdapter
+import com.starry.greenstash.ui.listeners.GoalClickListener
 import com.starry.greenstash.ui.viewmodels.HomeViewModel
 import com.starry.greenstash.ui.viewmodels.ItemEditData
 import com.starry.greenstash.ui.viewmodels.SharedViewModel
-import com.starry.greenstash.utils.*
+import com.starry.greenstash.utils.gone
+import com.starry.greenstash.utils.validateAmount
+import com.starry.greenstash.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 import javax.inject.Inject
@@ -150,7 +152,7 @@ class HomeFragment : Fragment(), GoalClickListener {
             alertDialog.setPositiveButton(getString(R.string.dialog_positive_btn1)) { _, _ ->
                 if (amountEditText.text.validateAmount()) {
                     val newAmount = amountEditText.text.toString().replace(',', '.').toFloat()
-                    viewModel.deposit(newAmount, item, requireContext(), binding.root)
+                    viewModel.deposit(newAmount, item, requireContext())
                 } else {
                     Snackbar.make(
                         binding.root,
@@ -184,7 +186,7 @@ class HomeFragment : Fragment(), GoalClickListener {
             alertDialog.setPositiveButton(getString(R.string.dialog_positive_btn1)) { _, _ ->
                 if (amountEditText.text.validateAmount()) {
                     val newAmount = amountEditText.text.toString().replace(',', '.').toFloat()
-                    viewModel.withdraw(newAmount, item, requireContext(), binding.root)
+                    viewModel.withdraw(newAmount, item, requireContext())
 
                 } else {
                     Snackbar.make(

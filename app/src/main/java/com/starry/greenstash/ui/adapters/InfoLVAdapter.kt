@@ -40,7 +40,7 @@ import com.starry.greenstash.utils.AppConstants
 import com.starry.greenstash.utils.formatCurrency
 import com.starry.greenstash.utils.isDarkModeOn
 
-class InfoRVAdapter(private val context: Context, private val transactions: List<Transaction>) :
+class InfoLVAdapter(private val context: Context, private val transactions: List<Transaction>) :
     BaseAdapter() {
 
     private val settingPerf = PreferenceManager.getDefaultSharedPreferences(context)

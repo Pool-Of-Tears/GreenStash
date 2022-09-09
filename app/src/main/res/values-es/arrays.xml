@@ -244,7 +244,7 @@
         <item>ZWL$</item>
     </string-array>
 
-    <string-array name="theme_entry">
+    <string-array name="theme_entries">
         <item>Claro</item>
         <item>Oscuro</item>
         <item>Seguir Sistema</item>
@@ -255,4 +255,27 @@
         <item>dark</item>
         <item>system</item>
     </string-array>
+
+    <string-array name="sort_entries">
+        <item>Alphabetical - A to Z</item>
+        <item>Alphabetical - Z to A</item>
+        <item>Goal Amount - Ascending</item>
+        <item>Goal Amount - Descending</item>
+        <item>Amount Saved - Ascending</item>
+        <item>Amount Saved - Descending</item>
+        <item>Due Date - Ascending</item>
+        <item>Due Date - Descending</item>
+    </string-array>
+
+    <string-array name="sort_values">
+        <item>alphabetical_AtoZ</item>
+        <item>alphabetical_ZtoA</item>
+        <item>goalAmount_ascending</item>
+        <item>goalAmount_descending</item>
+        <item>amountSaved_ascending</item>
+        <item>amountSaved_descending</item>
+        <item>dueDate_ascending</item>
+        <item>dueDate_descending</item>
+    </string-array>
+
 </resources>

@@ -84,7 +84,7 @@ class HomeRVAdapter(private val context: Context, private val listener: GoalClic
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeRecycleViewHolder {
         val viewHolder = HomeRecycleViewHolder(
-            LayoutInflater.from(context).inflate(R.layout.items_cardview, parent, false)
+            LayoutInflater.from(context).inflate(R.layout.item_goal_card, parent, false)
         )
         viewHolder.depositButton.setOnClickListener {
             listener.onDepositClicked(allItems[viewHolder.adapterPosition])

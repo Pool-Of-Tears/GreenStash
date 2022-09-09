@@ -59,7 +59,7 @@ SOFTWARE. -->
                     android:layout_height="match_parent"
                     android:contentDescription="@null"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/default_image" />
+                    android:src="@drawable/default_goal_image" />
 
             </androidx.cardview.widget.CardView>
 
@@ -93,7 +93,7 @@ SOFTWARE. -->
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/quoteText"
-            app:startIconDrawable="@drawable/ic_baseline_tag_faces_24">
+            app:startIconDrawable="@drawable/ic_input_title">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="325dp"
@@ -116,7 +116,7 @@ SOFTWARE. -->
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/inputTitle"
-            app:startIconDrawable="@drawable/ic_money_bag">
+            app:startIconDrawable="@drawable/ic_input_amount">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="325dp"
@@ -140,7 +140,7 @@ SOFTWARE. -->
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/inputAmount"
-            app:startIconDrawable="@drawable/ic_baseline_date_range_24">
+            app:startIconDrawable="@drawable/ic_input_deadline">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="325dp"
@@ -176,7 +176,7 @@ SOFTWARE. -->
             android:text="@string/goal_image"
             android:textColor="?attr/fabIconColor"
             app:backgroundTint="?attr/fabBackgroundColor"
-            app:icon="@drawable/ic_input_fab_camera_24"
+            app:icon="@drawable/ic_input_image"
             app:iconTint="?attr/fabIconColor"
             app:layout_constraintBottom_toTopOf="@+id/quoteText"
             app:layout_constraintEnd_toEndOf="parent"

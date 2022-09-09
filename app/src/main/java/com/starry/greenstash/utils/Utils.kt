@@ -35,6 +35,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
 import com.starry.greenstash.R
@@ -60,6 +61,10 @@ fun Button.dismissKeyboard() {
     val imm: InputMethodManager? =
         context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
     imm?.hideSoftInputFromWindow(windowToken, 0)
+}
+
+fun String.toToast(context: Context) {
+    Toast.makeText(context, this, Toast.LENGTH_SHORT)
 }
 
 fun Editable.validateAmount(): Boolean {

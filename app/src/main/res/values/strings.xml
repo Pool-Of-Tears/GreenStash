@@ -16,13 +16,14 @@
     <string name="currency_popup_dialog_positive_btn">OK</string>
     <string name="currency_popup_dialog_negative_btn">Later</string>
     <!-- Filter menu-->
-    <string name="filter_header">Filter your saving goals</string>
+    <string name="filter_header">Filter Goals</string>
     <string name="filter_all">Show All Goals</string>
     <string name="filter_ongoing">Show Ongoing</string>
     <string name="filter_completed">Show Completed</string>
     <string name="no_completed_goals">No completed goals yet.</string>
     <string name="no_ongoing_goals">No ongoing goals to show.</string>
     <!-- Backup and restore -->
+    <string name="backup_menu_header">Backup &amp; Restore</string>
     <string name="backup_title">Backup app data</string>
     <string name="backup_desc">Backups your data in local storage which can be restored later.</string>
     <string name="restore_title">Restore app data</string>
@@ -102,8 +103,9 @@
     <string name="about_pref_header">About</string>
     <!--  Display Preferences -->
     <string name="display_pref_title">Default Theme</string>
-    <string name="material_you_perf_title">Enable Material You</string>
-    <string name="material_you_perf_summary">Switch theme according to your wallpaper. (Requires Android 12 or later)</string>
+    <string name="material_you_perf_title">Material You</string>
+    <string name="sort_order_perf_title">Sort Goals</string>
+    <string name="material_you_perf_summary">Switch theme according to your wallpaper. (Android 12 or later)</string>
     <string name="material_you_unavailable">Sorry, looks like material you is not supported on your device or android version.</string>
     <!-- Locale Preferences -->
     <string name="currency_pref_title">Default Currency</string>

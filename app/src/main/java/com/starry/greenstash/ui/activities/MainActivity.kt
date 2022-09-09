@@ -81,7 +81,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         // attach shared view model.
         sharedViewModel = ViewModelProvider(this).get(SharedViewModel::class.java)
-
+        // setup default setting values
+        PreferenceManager.setDefaultValues(this, R.xml.settings, false)
         settingPerf = PreferenceManager.getDefaultSharedPreferences(this)
         // Setup app theme.
         settingPerf.getString("display", "system")?.let { setAppTheme(it) }

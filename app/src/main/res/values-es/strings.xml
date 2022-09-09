@@ -23,6 +23,7 @@
     <string name="no_completed_goals">Ninguna meta completada.</string>
     <string name="no_ongoing_goals">No metas en curso para mostrar.</string>
     <!-- Backup and restore -->
+    <string name="backup_menu_header">Backup &amp; Restore</string>
     <string name="backup_title">Respaldar Datos.</string>
     <string name="backup_desc">Respalda tus datos en almacenimiento local que pueden ser restaurados despues.</string>
     <string name="restore_title">Restaurar Datos</string>
@@ -103,6 +104,7 @@
     <!--  Display Preferences -->
     <string name="display_pref_title">Tema Predeterminado</string>
     <string name="material_you_perf_title">Habilitar Material You</string>
+    <string name="sort_order_perf_title">Sort Goals</string>
     <string name="material_you_perf_summary">Cambia tema de acuerdo a tu fondo de pantalla (Requiere Android 12+).</string>
     <string name="material_you_unavailable">Perdon, parece que Material You no esta soportado en su dispositivo o version de android.</string>
     <!-- Locale Preferences -->

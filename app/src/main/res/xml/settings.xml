@@ -1,17 +1,27 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory app:title="@string/display_pref_header">
         <ListPreference
             app:defaultValue="system"
-            app:entries="@array/theme_entry"
+            app:entries="@array/theme_entries"
             app:entryValues="@array/theme_values"
-            app:icon="@drawable/ic_perf_display_theme_6_24"
+            app:icon="@drawable/ic_perf_display_theme_24"
             app:key="display"
             app:title="@string/display_pref_title"
             app:useSimpleSummaryProvider="true" />
 
+        <ListPreference
+            app:defaultValue="alphabetical_AtoZ"
+            app:entries="@array/sort_entries"
+            android:entryValues="@array/sort_values"
+            app:icon="@drawable/ic_perf_display_sort_order_24"
+            app:key="sorting_order"
+            app:title="@string/sort_order_perf_title"
+            app:useSimpleSummaryProvider="true" />
+
         <SwitchPreferenceCompat
-            app:icon="@drawable/ic_perf_color_24"
+            app:icon="@drawable/ic_perf_display_material_you_24"
             app:key="material_you"
             app:defaultValue="true"
             app:summary="@string/material_you_perf_summary"
@@ -24,7 +34,7 @@
             app:defaultValue="$"
             app:entries="@array/currency_entries"
             app:entryValues="@array/currency_values"
-            app:icon="@drawable/ic_money_bag"
+            app:icon="@drawable/ic_perf_locales_currency_24"
             app:key="currency"
             app:title="@string/currency_pref_title"
             app:useSimpleSummaryProvider="true" />

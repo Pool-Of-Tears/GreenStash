@@ -58,7 +58,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
     lateinit var navOptions: NavOptions
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        setPreferencesFromResource(R.xml.root_preferences, rootKey)
+        setPreferencesFromResource(R.xml.settings, rootKey)
         setHasOptionsMenu(true)
 
         // attach shared view model.
