@@ -64,7 +64,7 @@ fun Button.dismissKeyboard() {
 }
 
 fun String.toToast(context: Context) {
-    Toast.makeText(context, this, Toast.LENGTH_SHORT)
+    Toast.makeText(context, this, Toast.LENGTH_SHORT).show()
 }
 
 fun Editable.validateAmount(): Boolean {

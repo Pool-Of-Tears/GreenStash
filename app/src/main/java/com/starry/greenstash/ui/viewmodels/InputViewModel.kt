@@ -29,12 +29,12 @@ import android.graphics.Bitmap
 import android.text.Editable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.android.material.snackbar.Snackbar
 import com.starry.greenstash.R
 import com.starry.greenstash.database.Item
 import com.starry.greenstash.database.ItemDao
 import com.starry.greenstash.databinding.FragmentInputBinding
 import com.starry.greenstash.utils.roundFloat
+import com.starry.greenstash.utils.toToast
 import com.starry.greenstash.utils.validateAmount
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -55,7 +55,7 @@ class InputViewModel @Inject constructor(private val itemDao: ItemDao) : ViewMod
         val deadline = binding.inputDeadline.editText?.text!!
 
         // validate user input.
-        if (!validateInputs(ctx, title, amount, deadline, binding)) {
+        if (!validateInputs(ctx, title, amount)) {
             return false
             // Insert or update the item.
         } else {
@@ -81,11 +81,7 @@ class InputViewModel @Inject constructor(private val itemDao: ItemDao) : ViewMod
                 viewModelScope.launch(Dispatchers.IO) {
                     itemDao.insert(item)
                 }
-                Snackbar.make(
-                    binding.root,
-                    ctx.getString(R.string.data_saved_success),
-                    Snackbar.LENGTH_SHORT
-                ).show()
+                ctx.getString(R.string.data_saved_success).toToast(ctx)
             } else {
                 viewModelScope.launch(Dispatchers.IO) {
                     if (imageData != null) {
@@ -104,33 +100,16 @@ class InputViewModel @Inject constructor(private val itemDao: ItemDao) : ViewMod
         ctx: Context,
         title: Editable,
         amount: Editable,
-        deadline: Editable,
-        binding: FragmentInputBinding
     ): Boolean {
         // validate user input.
-        if (title.isEmpty() || title.isBlank()) {
-            Snackbar.make(
-                binding.root,
-                ctx.getString(R.string.title_empty_err),
-                Snackbar.LENGTH_SHORT
-            ).show()
-            return false
+        return if (title.isEmpty() || title.isBlank()) {
+            ctx.getString(R.string.title_empty_err).toToast(ctx)
+            false
         } else if (!(amount.validateAmount())) {
-            Snackbar.make(
-                binding.root,
-                ctx.getString(R.string.amount_empty_err),
-                Snackbar.LENGTH_SHORT
-            ).show()
-            return false
-        } else if (deadline.isEmpty() || deadline.isBlank()) {
-            Snackbar.make(
-                binding.root,
-                ctx.getString(R.string.deadline_empty_err),
-                Snackbar.LENGTH_SHORT
-            ).show()
-            return false
+            ctx.getString(R.string.amount_empty_err).toToast(ctx)
+            false
         } else {
-            return true
+            true
         }
     }
 }

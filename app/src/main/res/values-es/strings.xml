@@ -72,6 +72,7 @@
     <string name="goal_approx_saving_day">dia.</string>
     <string name="goal_approx_saving_week">semana.</string>
     <string name="goal_approx_saving_month">mes.</string>
+    <string name="no_goal_deadline_set">As you\'ve not specified any deadline, you got all the time in the world!</string>
     <string name="goal_achieved_desc">Es tiempo de celebrar todo el trabajo que dirigió a esta alegre ocasión.</string>
     <!-- Strings used for fragments for input screen -->
     <string name="goal_image">Goal Image</string>
@@ -80,7 +81,6 @@
     <string name="input_text_amount">Entrar cantidad</string>
     <string name="amount_empty_err">Woops! Cantidad esta vacío.</string>
     <string name="input_deadline">Entre fecha</string>
-    <string name="deadline_empty_err">Por favor entre fecha para esta meta!</string>
     <string name="input_save_btn">Establece nueva meta de ahorro.</string>
     <string name="input_edit_save_button">Modificar meta de ahorro.</string>
     <string name="data_saved_success">Buen Trabajo! meta establecida.</string>
