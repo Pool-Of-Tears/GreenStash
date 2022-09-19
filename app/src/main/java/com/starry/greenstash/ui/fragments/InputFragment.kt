@@ -41,7 +41,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.github.dhaval2404.imagepicker.ImagePicker
-import com.google.android.material.snackbar.Snackbar
 import com.starry.greenstash.R
 import com.starry.greenstash.databinding.FragmentInputBinding
 import com.starry.greenstash.ui.viewmodels.InputViewModel
@@ -191,16 +190,10 @@ class InputFragment : Fragment() {
                     binding.imagePicker.setImageBitmap(imagePickerResult)
                 }
                 ImagePicker.RESULT_ERROR -> {
-                    Snackbar.make(
-                        binding.root,
-                        ImagePicker.getError(data), Snackbar.LENGTH_SHORT
-                    ).show()
+                    ImagePicker.getError(data).toToast(requireContext())
                 }
                 else -> {
-                    Snackbar.make(
-                        binding.root,
-                        getString(R.string.cancel), Snackbar.LENGTH_SHORT
-                    ).show()
+                    getString(R.string.cancel).toToast(requireContext())
                 }
             }
         }

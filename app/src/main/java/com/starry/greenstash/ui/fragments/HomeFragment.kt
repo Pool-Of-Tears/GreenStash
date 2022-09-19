@@ -48,9 +48,7 @@ import com.starry.greenstash.ui.listeners.GoalClickListener
 import com.starry.greenstash.ui.viewmodels.HomeViewModel
 import com.starry.greenstash.ui.viewmodels.ItemEditData
 import com.starry.greenstash.ui.viewmodels.SharedViewModel
-import com.starry.greenstash.utils.gone
-import com.starry.greenstash.utils.validateAmount
-import com.starry.greenstash.utils.visible
+import com.starry.greenstash.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 import javax.inject.Inject
@@ -134,11 +132,7 @@ class HomeFragment : Fragment(), GoalClickListener {
 
     override fun onDepositClicked(item: Item) {
         if (item.currentAmount >= item.totalAmount) {
-            Snackbar.make(
-                binding.root,
-                requireContext().getString(R.string.goal_already_achieved),
-                Snackbar.LENGTH_SHORT
-            ).show()
+            getString(R.string.goal_already_achieved).toSnackbar(binding.root)
         } else {
             val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dw_dialog, null)
             val amountEditText = dialogView.findViewById<EditText>(R.id.alertDialogDW)
@@ -154,11 +148,7 @@ class HomeFragment : Fragment(), GoalClickListener {
                     val newAmount = amountEditText.text.toString().replace(',', '.').toFloat()
                     viewModel.deposit(newAmount, item, requireContext())
                 } else {
-                    Snackbar.make(
-                        binding.root,
-                        requireContext().getString(R.string.amount_empty_err),
-                        Snackbar.LENGTH_SHORT
-                    ).show()
+                    getString(R.string.amount_empty_err).toSnackbar(binding.root)
                 }
             }
             alertDialog.create().show()
@@ -168,11 +158,7 @@ class HomeFragment : Fragment(), GoalClickListener {
 
     override fun onWithdrawClicked(item: Item) {
         if (item.currentAmount == 0f) {
-            Snackbar.make(
-                binding.root,
-                requireContext().getString(R.string.withdraw_btn_error),
-                Snackbar.LENGTH_SHORT
-            ).show()
+            getString(R.string.withdraw_btn_error).toSnackbar(binding.root)
         } else {
             val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dw_dialog, null)
             val amountEditText = dialogView.findViewById<EditText>(R.id.alertDialogDW)
@@ -189,11 +175,7 @@ class HomeFragment : Fragment(), GoalClickListener {
                     viewModel.withdraw(newAmount, item, requireContext())
 
                 } else {
-                    Snackbar.make(
-                        binding.root,
-                        requireContext().getString(R.string.amount_empty_err),
-                        Snackbar.LENGTH_SHORT
-                    ).show()
+                    getString(R.string.amount_empty_err).toSnackbar(binding.root)
                 }
             }
             alertDialog.create().show()
@@ -233,11 +215,7 @@ class HomeFragment : Fragment(), GoalClickListener {
         }
         alertDialog.setPositiveButton(getString(R.string.dialog_positive_btn2)) { _, _ ->
             viewModel.deleteItem(item)
-            Snackbar.make(
-                binding.root,
-                requireContext().getString(R.string.goal_delete_success),
-                Snackbar.LENGTH_SHORT
-            ).show()
+            getString(R.string.goal_delete_success).toSnackbar(binding.root)
         }
         alertDialog.create().show()
     }
@@ -279,11 +257,7 @@ class HomeFragment : Fragment(), GoalClickListener {
             if (newList.isNotEmpty()) {
                 adapter.allItems = newList
             } else {
-                Toast.makeText(
-                    requireContext(),
-                    requireContext().getString(R.string.no_ongoing_goals),
-                    Toast.LENGTH_SHORT
-                ).show()
+                getString(R.string.no_ongoing_goals).toSnackbar(binding.root)
             }
             bottomSheetDialog.hide()
         }
@@ -292,11 +266,7 @@ class HomeFragment : Fragment(), GoalClickListener {
             if (newList.isNotEmpty()) {
                 adapter.allItems = newList
             } else {
-                Toast.makeText(
-                    requireContext(),
-                    requireContext().getString(R.string.no_completed_goals),
-                    Toast.LENGTH_SHORT
-                ).show()
+                getString(R.string.no_completed_goals).toSnackbar(binding.root)
             }
             bottomSheetDialog.hide()
         }
@@ -317,11 +287,7 @@ class HomeFragment : Fragment(), GoalClickListener {
             }
         }
         if (viewModel.allItems.value!!.isNotEmpty() && filteredList.isEmpty()) {
-            Snackbar.make(
-                binding.root,
-                requireContext().getString(R.string.item_not_found),
-                Snackbar.LENGTH_SHORT
-            ).show()
+            getString(R.string.item_not_found).toToast(requireContext())
         }
         adapter.allItems = filteredList
     }

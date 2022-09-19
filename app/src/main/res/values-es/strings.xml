@@ -1,9 +1,11 @@
 <resources>
     <string name="app_name">GreenStash</string>
+    <string name="welcome">Welcome!</string>
     <string name="action_settings">Configuracion</string>
     <string name="action_search">Buscar</string>
     <string name="action_filter">Filtro</string>
     <string name="action_backup">Respaldo</string>
+    <string name="chooser_dialog_title">Please Select</string>
     <string name="setup_currency">Bienvenido! Por favor elija su moneda preferida para empezar.</string>
     <string name="relaunch_app">Por favor reinicie la aplicación para aplicar los cambios.</string>
     <string name="auth_successful">Autenticación exitosa!</string>

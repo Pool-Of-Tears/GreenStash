@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <ImageView
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="23dp"
+        android:src="@drawable/money_bag_colored"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/welcome"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:text="@string/setup_currency"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <Spinner
+        android:layout_marginTop="12dp"
+        android:id="@+id/currencyChooserSpinner"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSetupCurrency"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="12dp"
+        android:text="@string/dialog_positive_btn1"
+        android:textAllCaps="true"
+        android:textColor="?attr/colorControlNormal"
+        app:cornerRadius="14dp"
+        app:strokeColor="@android:color/darker_gray" />
+</LinearLayout>

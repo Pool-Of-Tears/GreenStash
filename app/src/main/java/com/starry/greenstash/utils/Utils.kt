@@ -38,12 +38,14 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
+import com.google.android.material.snackbar.Snackbar
 import com.starry.greenstash.R
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.util.*
 
+/* ========================================= Extensions ======================================== */
 
 fun View.visible() {
     visibility = View.VISIBLE
@@ -67,10 +69,16 @@ fun String.toToast(context: Context) {
     Toast.makeText(context, this, Toast.LENGTH_SHORT).show()
 }
 
+fun String.toSnackbar(view: View) {
+    Snackbar.make(view, this, Snackbar.LENGTH_SHORT).show()
+}
+
 fun Editable.validateAmount(): Boolean {
     return !(isEmpty() || isBlank() || toString().replace(',', '.') == "."
             || toString().replace(',', '.').toFloat() == 0f)
 }
+
+/* ======================================== Other utils ======================================== */
 
 // round decimal (float) to 2 digits
 fun roundFloat(number: Float): Float {
