@@ -32,6 +32,7 @@ import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.starry.greenstash.BuildConfig
 import com.starry.greenstash.databinding.FragmentAboutBinding
 
 
@@ -57,6 +58,7 @@ class AboutFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.tvAppVersion.text = "Version ${BuildConfig.VERSION_NAME}"
         binding.telegramButton.setOnClickListener { startUrlActivity(telegramURL) }
         binding.githubButton.setOnClickListener { startUrlActivity(githubURL) }
         binding.twitterButton.setOnClickListener { startUrlActivity(twitterURL) }

@@ -77,13 +77,13 @@
         tools:ignore="InefficientWeight" />
 
     <TextView
+        android:id="@+id/tvAppVersion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|center_vertical|bottom"
         android:layout_marginBottom="10dp"
-        android:text="Version 1.6"
-        android:textStyle="bold"
-        tools:ignore="HardcodedText" />
+        tools:text="Version 1.0"
+        android:textStyle="bold" />
 
 
     <TextView
