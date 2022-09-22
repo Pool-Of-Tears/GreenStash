@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">GreenStash</string>
     <string name="welcome">Welcome!</string>
     <string name="action_settings">Settings</string>
@@ -78,13 +78,14 @@
     <string name="goal_achieved_desc">It’s time to celebrate all the hard work that led to this joyful occasion.</string>
     <!-- Strings used for fragments for input screen -->
     <string name="goal_image">Goal Image</string>
-    <string name="input_text_title">Enter title</string>
+    <string name="input_text_title">Goal Title</string>
     <string name="title_empty_err">Woops! title is empty.</string>
-    <string name="input_text_amount">Enter amount</string>
+    <string name="input_text_amount">Target Amount</string>
     <string name="amount_empty_err">Woops! amount is empty.</string>
-    <string name="input_deadline">Enter deadline</string>
-    <string name="input_save_btn">Set new saving goal</string>
-    <string name="input_edit_save_button">Edit saving goal</string>
+    <string name="input_deadline">Deadline (Optional)</string>
+    <string name="input_additional_notes">Additional Notes (Optional)</string>
+    <string name="input_save_btn">Set New Saving Goal</string>
+    <string name="input_edit_save_button">Edit Saving Goal</string>
     <string name="data_saved_success">Great job! saving goal set.</string>
     <string name="input_page_quote">You don’t have to see the whole staircase, just take the first step. – Martin Luther King, Jr.  </string>
     <!-- info screen -->
@@ -92,6 +93,7 @@
     <string name="info_total_amount">Target Amount</string>
     <string name="info_current_amount">Currently Saved</string>
     <string name="info_remaining_amount">Remaining Amount</string>
+    <string name="info_additional_notes_header">Additional Notes</string>
     <string name="transactions">Transactions</string>
     <string name="info_deposited">Deposited</string>
     <string name="info_withdrawn">Withdrawn</string>
@@ -119,4 +121,7 @@
     <string name="license_perf_summary">Show open source license information.</string>
     <string name="about_perf_title">App Information</string>
     <string name="about_perf_summary">Show app version and developer information.</string>
+
+    <!-- Don't translate this, for sample use only -->
+    <string name="lorem_ipsum" tools:ignore="MissingTranslation">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
 </resources>

@@ -74,10 +74,18 @@ class InfoFragment : Fragment() {
         val remainingAmount = infoItem.totalAmount - infoItem.currentAmount
         binding.infoRemainingAmount.text = "$defCurrency${formatCurrency(remainingAmount)}"
 
+        if (infoItem.additionalNotes.isEmpty()) {
+            binding.additionalNotesCard.gone()
+        } else {
+            binding.additionalNotesText.text = infoItem.additionalNotes
+        }
+
         if (infoItem.transactions == null) {
             binding.transactionView.gone()
         } else {
             val adapter = InfoLVAdapter(requireContext(), infoItem.transactions)
+            binding.transactionHistoryLV.isEnabled = false
+            binding.transactionHistoryLV.isExpanded = true
             binding.transactionHistoryLV.adapter = adapter
         }
 

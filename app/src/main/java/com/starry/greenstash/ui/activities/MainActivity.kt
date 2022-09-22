@@ -228,17 +228,19 @@ class MainActivity : AppCompatActivity() {
         bottomSheetDialog.setContentView(R.layout.currency_chooser_menu)
         bottomSheetDialog.setCancelable(false)
 
-        val currencySpinner = bottomSheetDialog.findViewById<Spinner>(R.id.currencyChooserSpinner)
+        val currencyDropDownMenu =
+            bottomSheetDialog.findViewById<AutoCompleteTextView>(R.id.currencyDropDownMenu)
         val currencySaveBtn = bottomSheetDialog.findViewById<Button>(R.id.btnSetupCurrency)
 
         val currEntries = resources.getStringArray(R.array.currency_entries)
         val currValues = resources.getStringArray(R.array.currency_values)
-        val spinArrayAdp =
-            ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, currEntries)
-        currencySpinner!!.adapter = spinArrayAdp
+
+        val dropDownAdp = ArrayAdapter(this, R.layout.currency_chooser_item, currEntries)
+        currencyDropDownMenu!!.setAdapter(dropDownAdp)
+        currencyDropDownMenu.setText(currEntries.first(), false)
 
         currencySaveBtn!!.setOnClickListener {
-            val choice = currValues[currEntries.indexOf(currencySpinner.selectedItem.toString())]
+            val choice = currValues[currEntries.indexOf(currencyDropDownMenu.text.toString())]
             val perfEditor = settingPerf.edit()
             perfEditor.putString("currency", choice)
             perfEditor.putBoolean(AppConstants.FIRST_RUN, false)

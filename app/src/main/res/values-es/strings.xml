@@ -83,6 +83,7 @@
     <string name="input_text_amount">Entrar cantidad</string>
     <string name="amount_empty_err">Woops! Cantidad esta vacío.</string>
     <string name="input_deadline">Entre fecha</string>
+    <string name="input_additional_notes">Additional Notes (Optional)</string>
     <string name="input_save_btn">Establece nueva meta de ahorro.</string>
     <string name="input_edit_save_button">Modificar meta de ahorro.</string>
     <string name="data_saved_success">Buen Trabajo! meta establecida.</string>
@@ -92,6 +93,7 @@
     <string name="info_total_amount">Cantidad de la meta</string>
     <string name="info_current_amount">Ahorros Actuales</string>
     <string name="info_remaining_amount">Cantidad Restante</string>
+    <string name="info_additional_notes_header">Additional Notes</string>
     <string name="transactions">Transacciónes</string>
       <string name="info_deposited">Depositado</string>
     <string name="info_withdrawn">Retirado</string>

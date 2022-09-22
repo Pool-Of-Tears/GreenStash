@@ -15,7 +15,6 @@
         <item name="cardButtonIconColor">?attr/colorOnPrimaryContainer</item>
         <item name="cardBackgroundColor">?attr/colorSurface</item>
         <item name="transactionRowBackground">@color/transaction_row_night</item>
-        <item name="transactionRowTextColor">@color/black</item>
         <item name="fabBackgroundColor">?attr/colorPrimary</item>
         <item name="fabIconColor">?attr/colorOnPrimary</item>
         <item name="switchStyle">@style/SwitchStyle</item>

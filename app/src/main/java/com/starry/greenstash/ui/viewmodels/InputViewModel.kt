@@ -48,11 +48,12 @@ class InputViewModel @Inject constructor(private val itemDao: ItemDao) : ViewMod
         binding: FragmentInputBinding,
         imageData: Bitmap?,
         ctx: Context,
-        editData: ItemEditData? = null
+        editData: Item? = null
     ): Boolean {
         val title = binding.inputTitle.editText?.text!!
         val amount = binding.inputAmount.editText?.text!!
         val deadline = binding.inputDeadline.editText?.text!!
+        val additionalNotes = binding.inputAdditionalNotes.editText?.text!!
 
         // validate user input.
         if (!validateInputs(ctx, title, amount)) {
@@ -63,18 +64,20 @@ class InputViewModel @Inject constructor(private val itemDao: ItemDao) : ViewMod
             if (editData == null) {
                 val item = if (imageData != null) {
                     Item(
-                        title.toString(),
+                        title = title.toString(),
                         totalAmount = newAmount,
                         itemImage = imageData,
                         deadline = deadline.toString(),
+                        additionalNotes = additionalNotes.toString(),
                         transactions = null
                     )
                 } else {
                     Item(
-                        title.toString(),
+                        title = title.toString(),
                         totalAmount = newAmount,
                         itemImage = null,
                         deadline = deadline.toString(),
+                        additionalNotes = additionalNotes.toString(),
                         transactions = null
                     )
                 }
@@ -90,6 +93,7 @@ class InputViewModel @Inject constructor(private val itemDao: ItemDao) : ViewMod
                     itemDao.updateTitle(editData.id, title.toString())
                     itemDao.updateTotalAmount(editData.id, newAmount)
                     itemDao.updateDeadline(editData.id, deadline.toString())
+                    itemDao.updateAdditionalNotes(editData.id, additionalNotes.toString())
                 }
             }
             return true

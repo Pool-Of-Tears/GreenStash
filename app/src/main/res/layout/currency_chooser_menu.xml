@@ -24,23 +24,39 @@
         android:textStyle="bold" />
 
     <TextView
-        android:paddingTop="2dp"
-        android:paddingBottom="2dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:paddingStart="20dp"
+        android:paddingTop="2dp"
         android:paddingEnd="20dp"
+        android:paddingBottom="2dp"
         android:text="@string/setup_currency"
+        android:textAlignment="center"
         android:textSize="14sp"
         android:textStyle="bold" />
 
-    <Spinner
-        android:layout_marginTop="12dp"
-        android:id="@+id/currencyChooserSpinner"
-        android:layout_width="250dp"
-        android:layout_height="40dp"
-        android:layout_gravity="center_horizontal"/>
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="12dp"
+        app:boxCornerRadiusBottomEnd="14dp"
+        app:boxCornerRadiusBottomStart="14dp"
+        app:boxCornerRadiusTopEnd="14dp"
+        app:boxCornerRadiusTopStart="14dp"
+        app:startIconDrawable="@drawable/ic_input_deadline">
+
+        <AutoCompleteTextView
+            android:id="@+id/currencyDropDownMenu"
+            android:layout_width="250dp"
+            android:layout_height="60dp"
+            android:inputType="none"
+            tools:ignore="LabelFor" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnSetupCurrency"

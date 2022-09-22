@@ -28,7 +28,6 @@ import android.os.Bundle
 import android.view.*
 import android.widget.EditText
 import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -39,14 +38,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.snackbar.Snackbar
 import com.starry.greenstash.R
 import com.starry.greenstash.database.Item
 import com.starry.greenstash.databinding.FragmentHomeBinding
 import com.starry.greenstash.ui.adapters.HomeRVAdapter
 import com.starry.greenstash.ui.listeners.GoalClickListener
 import com.starry.greenstash.ui.viewmodels.HomeViewModel
-import com.starry.greenstash.ui.viewmodels.ItemEditData
 import com.starry.greenstash.ui.viewmodels.SharedViewModel
 import com.starry.greenstash.utils.*
 import dagger.hilt.android.AndroidEntryPoint
@@ -192,14 +189,7 @@ class HomeFragment : Fragment(), GoalClickListener {
 
 
     override fun onEditClicked(item: Item) {
-        val editData = ItemEditData(
-            item.id,
-            item.title,
-            item.totalAmount.toString(),
-            item.deadline,
-            item.itemImage
-        )
-        sharedViewModel.setEditData(editData)
+        sharedViewModel.setEditData(item)
         findNavController().navigate(
             R.id.action_HomeFragment_to_InputFragment,
             null, navOptions

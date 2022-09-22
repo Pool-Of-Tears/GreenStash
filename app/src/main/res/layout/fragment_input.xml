@@ -66,10 +66,10 @@ SOFTWARE. -->
         </androidx.cardview.widget.CardView>
 
         <TextView
-            android:layout_marginTop="44dp"
             android:id="@+id/quoteText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="44dp"
             android:paddingStart="42dp"
             android:paddingEnd="42dp"
             android:text="@string/input_page_quote"
@@ -145,6 +145,7 @@ SOFTWARE. -->
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="325dp"
                 android:layout_height="68dp"
+                android:cursorVisible="false"
                 android:focusable="false"
                 android:hint="@string/input_deadline"
                 android:importantForAutofill="no"
@@ -153,11 +154,35 @@ SOFTWARE. -->
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputAdditionalNotes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            app:boxCornerRadiusBottomEnd="14dp"
+            app:boxCornerRadiusBottomStart="14dp"
+            app:boxCornerRadiusTopEnd="14dp"
+            app:boxCornerRadiusTopStart="14dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inputDeadline"
+            app:startIconDrawable="@drawable/ic_input_additional_notes">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="325dp"
+                android:layout_height="68dp"
+                android:hint="@string/input_additional_notes"
+                android:inputType="textPersonName|textMultiLine" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
         <Button
             android:id="@+id/inputSaveButton"
             android:layout_width="325dp"
             android:layout_height="68dp"
             android:layout_marginTop="28dp"
+            android:layout_marginBottom="28dp"
             android:background="@drawable/round_button"
             android:text="@string/input_save_btn"
             android:textColor="?attr/colorOnPrimary"
@@ -165,7 +190,7 @@ SOFTWARE. -->
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/inputDeadline"
+            app:layout_constraintTop_toBottomOf="@+id/inputAdditionalNotes"
             app:layout_constraintVertical_bias="0.12" />
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
