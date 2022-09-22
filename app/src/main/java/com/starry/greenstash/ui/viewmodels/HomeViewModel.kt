@@ -25,17 +25,17 @@ SOFTWARE.
 package com.starry.greenstash.ui.viewmodels
 
 import android.content.Context
-import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.android.material.snackbar.Snackbar
+import androidx.preference.PreferenceManager
 import com.starry.greenstash.R
 import com.starry.greenstash.database.Item
 import com.starry.greenstash.database.ItemDao
 import com.starry.greenstash.database.Transaction
 import com.starry.greenstash.utils.AppConstants
 import com.starry.greenstash.utils.roundFloat
+import com.starry.greenstash.utils.toToast
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -44,9 +44,12 @@ import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val itemDao: ItemDao) : ViewModel() {
+class HomeViewModel @Inject constructor(
+    private val itemDao: ItemDao,
+    private val context: Context
+) : ViewModel() {
 
-    val allItems: LiveData<List<Item>> = itemDao.getAllItems()
+    var allItems: LiveData<List<Item>> = getSortedItems()
 
     fun deleteItem(item: Item) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -54,26 +57,19 @@ class HomeViewModel @Inject constructor(private val itemDao: ItemDao) : ViewMode
         }
     }
 
-    fun deposit(newAmount: Float, item: Item, context: Context, view: View) {
+    fun deposit(newAmount: Float, item: Item, context: Context) {
         val newAmountRounded = roundFloat(newAmount)
         val newCurrentAmount = item.currentAmount + newAmountRounded
         viewModelScope.launch(Dispatchers.IO) {
             itemDao.updateCurrentAmount(item.id, newCurrentAmount)
             addTransaction(item, newAmountRounded, AppConstants.TRANSACTION_DEPOSIT)
         }
-        Snackbar.make(
-            view, context.getString(R.string.deposit_successful),
-            Snackbar.LENGTH_SHORT
-        ).show()
+        context.getString(R.string.deposit_successful).toToast(context)
     }
 
-    fun withdraw(newAmount: Float, item: Item, context: Context, view: View) {
+    fun withdraw(newAmount: Float, item: Item, context: Context) {
         if (newAmount > item.currentAmount) {
-            Snackbar.make(
-                view,
-                context.getString(R.string.withdraw_overflow_error),
-                Snackbar.LENGTH_SHORT
-            ).show()
+            context.getString(R.string.withdraw_overflow_error).toToast(context)
         } else {
             val newAmountRounded = roundFloat(newAmount)
             val newCurrentAmount = item.currentAmount - newAmountRounded
@@ -81,11 +77,7 @@ class HomeViewModel @Inject constructor(private val itemDao: ItemDao) : ViewMode
                 itemDao.updateCurrentAmount(item.id, newCurrentAmount)
                 addTransaction(item, newAmountRounded, AppConstants.TRANSACTION_WITHDRAW)
             }
-            Snackbar.make(
-                view,
-                context.getString(R.string.withdraw_successful),
-                Snackbar.LENGTH_SHORT
-            ).show()
+            context.getString(R.string.withdraw_successful).toToast(context)
         }
     }
 
@@ -101,6 +93,22 @@ class HomeViewModel @Inject constructor(private val itemDao: ItemDao) : ViewMode
             item.transactions.plus(newTransaction)
         }
         itemDao.updateTransactions(item.id, transactions)
+    }
+
+    private fun getSortedItems(): LiveData<List<Item>> {
+        val settingPerf = PreferenceManager.getDefaultSharedPreferences(context)
+        // get sorted array according to preference
+        return when(settingPerf.getString("sorting_order", "alphabetical_AtoZ")) {
+            "alphabetical_AtoZ" -> itemDao.getItemsByAlphabeticalAsc()
+            "alphabetical_ZtoA" -> itemDao.getItemsByAlphabeticalDesc()
+            "goalAmount_ascending" -> itemDao.getItemsByAmountAsc()
+            "goalAmount_descending" -> itemDao.getItemsByAmountDesc()
+            "amountSaved_ascending" -> itemDao.getItemsByAmountSavedAsc()
+            "amountSaved_descending" -> itemDao.getItemsByAmountSavedDesc()
+            "dueDate_ascending" -> itemDao.getItemsByDueDateAsc()
+            "dueDate_descending" -> itemDao.getItemsByDueDateDesc()
+            else -> itemDao.getAllItems()
+        }
     }
 
 

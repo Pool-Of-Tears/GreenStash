@@ -84,7 +84,7 @@ class HomeRVAdapter(private val context: Context, private val listener: GoalClic
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeRecycleViewHolder {
         val viewHolder = HomeRecycleViewHolder(
-            LayoutInflater.from(context).inflate(R.layout.items_cardview, parent, false)
+            LayoutInflater.from(context).inflate(R.layout.item_goal_card, parent, false)
         )
         viewHolder.depositButton.setOnClickListener {
             listener.onDepositClicked(allItems[viewHolder.adapterPosition])
@@ -164,48 +164,54 @@ class HomeRVAdapter(private val context: Context, private val listener: GoalClic
 
     // supporting text message
     private fun buildDescriptionText(item: Item): String {
-        val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern(AppConstants.DATE_FORMAT)
-        val startDate = LocalDateTime.now().format(dateFormatter)
-        // calculate remaining days between today and endDate (deadline).
-        val startDateValue: LocalDate = LocalDate.parse(startDate, dateFormatter)
-        val endDateValue: LocalDate = LocalDate.parse(item.deadline, dateFormatter)
-        val days: Long = ChronoUnit.DAYS.between(startDateValue, endDateValue)
         val remainingAmount = (item.totalAmount - item.currentAmount)
-        val defCurrency = settingPerf.getString("currency", "")
-        // build description string.
-        if (remainingAmount > 0f) {
-            var text = context.getString(R.string.goal_days_left).format(item.deadline, days) + "\n"
-            if (days > 2) {
-                text += context.getString(R.string.goal_approx_saving).format(
-                    "$defCurrency${
-                        formatCurrency(
-                            roundFloat(
-                                remainingAmount / days
-                            )
-                        )
-                    }"
-                )
-                text += context.getString(R.string.goal_approx_saving_day)
-                if (days > 14) {
-                    val weeks = days / 7
-                    text = text.dropLast(1) // remove full stop
-                    text += ", $defCurrency${formatCurrency(roundFloat(remainingAmount / weeks))}/${
-                        context.getString(
-                            R.string.goal_approx_saving_week
-                        )
-                    }"
-                    if (days > 60) {
-                        val months = days / 30
-                        text = text.dropLast(1) // remove full stop
-                        text += ", $defCurrency${formatCurrency(roundFloat(remainingAmount / months))}/${
-                            context.getString(
-                                R.string.goal_approx_saving_month
+        if ((remainingAmount > 0f)) {
+            if (item.deadline.isNotEmpty() && item.deadline.isNotBlank()) {
+                val dateFormatter: DateTimeFormatter =
+                    DateTimeFormatter.ofPattern(AppConstants.DATE_FORMAT)
+                val startDate = LocalDateTime.now().format(dateFormatter)
+                // calculate remaining days between today and endDate (deadline).
+                val startDateValue: LocalDate = LocalDate.parse(startDate, dateFormatter)
+                val endDateValue: LocalDate = LocalDate.parse(item.deadline, dateFormatter)
+                val days: Long = ChronoUnit.DAYS.between(startDateValue, endDateValue)
+                val defCurrency = settingPerf.getString("currency", "")
+                // build description string.
+                var text =
+                    context.getString(R.string.goal_days_left).format(item.deadline, days) + "\n"
+                if (days > 2) {
+                    text += context.getString(R.string.goal_approx_saving).format(
+                        "$defCurrency${
+                            formatCurrency(
+                                roundFloat(
+                                    remainingAmount / days
+                                )
                             )
                         }"
+                    )
+                    text += context.getString(R.string.goal_approx_saving_day)
+                    if (days > 14) {
+                        val weeks = days / 7
+                        text = text.dropLast(1) // remove full stop
+                        text += ", $defCurrency${formatCurrency(roundFloat(remainingAmount / weeks))}/${
+                            context.getString(
+                                R.string.goal_approx_saving_week
+                            )
+                        }"
+                        if (days > 60) {
+                            val months = days / 30
+                            text = text.dropLast(1) // remove full stop
+                            text += ", $defCurrency${formatCurrency(roundFloat(remainingAmount / months))}/${
+                                context.getString(
+                                    R.string.goal_approx_saving_month
+                                )
+                            }"
+                        }
                     }
                 }
+                return text
+            } else {
+                return context.getString(R.string.no_goal_deadline_set)
             }
-            return text
         } else {
             return context.getString(R.string.goal_achieved_desc)
         }

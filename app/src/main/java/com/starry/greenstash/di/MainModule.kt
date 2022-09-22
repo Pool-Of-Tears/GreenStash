@@ -27,7 +27,6 @@ package com.starry.greenstash.di
 import android.content.Context
 import androidx.navigation.NavOptions
 import com.starry.greenstash.R
-import com.starry.greenstash.database.ItemDao
 import com.starry.greenstash.database.ItemDatabase
 import dagger.Module
 import dagger.Provides
@@ -41,6 +40,17 @@ import javax.inject.Singleton
 @Module
 class MainModule {
 
+    @Provides
+    fun provideAppContext(@ApplicationContext context: Context) = context
+
+    @Singleton
+    @Provides
+    fun provideItemDatabase(@ApplicationContext context: Context) =
+        ItemDatabase.getInstance(context)
+
+    @Provides
+    fun provideItemDao(itemDatabase: ItemDatabase) = itemDatabase.getItemDao()
+
     @Singleton
     @Provides
     fun provideNavOptions() = NavOptions.Builder()
@@ -49,17 +59,5 @@ class MainModule {
         .setPopEnterAnim(R.anim.fade_in)
         .setPopExitAnim(R.anim.slide_out)
         .build()
-
-
-    @Singleton
-    @Provides
-    fun provideItemDatabase(@ApplicationContext context: Context): ItemDatabase {
-        return ItemDatabase.getInstance(context)
-    }
-
-    @Provides
-    fun provideItemDao(itemDatabase: ItemDatabase): ItemDao {
-        return itemDatabase.getItemDao()
-    }
 
 }

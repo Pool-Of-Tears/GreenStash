@@ -1,11 +1,13 @@
 <resources>
     <string name="app_name">GreenStash</string>
+    <string name="welcome">¡Bienvenido!</string>
     <string name="action_settings">Configuración</string>
     <string name="action_search">Buscar</string>
     <string name="action_filter">Filtro</string>
     <string name="action_backup">Respaldo</string>
-    <string name="setup_currency">¡Bienvenido! Por favor, elija su moneda preferida para empezar.</string>
-    <string name="relaunch_app">Por favor, reinicie la aplicación para aplicar los cambios.</string>
+    <string name="chooser_dialog_title">Por favor, seleccione</string>
+    <string name="setup_currency">¡Bienvenido! Por favor elija su moneda preferida para empezar.</string>
+    <string name="relaunch_app">Por favor reinicie la aplicación para aplicar los cambios.</string>
     <string name="auth_successful">¡Autenticación exitosa!</string>
     <string name="auth_failed">¡Autenticación fallida!</string>
     <!-- dialog buttons -->
@@ -23,10 +25,11 @@
     <string name="no_completed_goals">Ninguna meta completada.</string>
     <string name="no_ongoing_goals">No hay metas en curso para mostrar.</string>
     <!-- Backup and restore -->
+    <string name="backup_menu_header">Copia de seguridad y restauración</string>
     <string name="backup_title">Respaldar datos.</string>
-    <string name="backup_desc">Respaldar sus datos en el almacenamiento local para que puedan ser restaurados después.</string>
+    <string name="backup_desc">Respaldar datos en el almacenamiento local para que puedan ser restaurados después.</string>
     <string name="restore_title">Restaurar datos</string>
-    <string name="restore_desc">Restaurar sus datos respaldados previamente en el almacenamiento local.</string>
+    <string name="restore_desc">Restaurar datos respaldados previamente en el almacenamiento local.</string>
     <!-- Strings used for fragments for navigation -->
     <string name="home_fragment_label">Panel de ahorros</string>
     <string name="input_fragment_label">¡Es tiempo de ahorrar!</string>
@@ -71,16 +74,17 @@
     <string name="goal_approx_saving_day">día.</string>
     <string name="goal_approx_saving_week">semana.</string>
     <string name="goal_approx_saving_month">mes.</string>
+    <string name="no_goal_deadline_set"> ¡Como no se especificó ningún plazo, posee todo el tiempo del mundo!</string>
     <string name="goal_achieved_desc">Es tiempo de celebrar todo el trabajo que invirtió a esta alegre ocasión.</string>
     <!-- Strings used for fragments for input screen -->
     <string name="goal_image">Foto de la meta</string>
     <string name="input_text_title">Añadir titulo</string>
-    <string name="title_empty_err">¡Ups! El titulo está vacío.</string>
+    <string name="title_empty_err">¡Ups! El titulo esta vacío.</string>
     <string name="input_text_amount">Añadir cantidad</string>
     <string name="amount_empty_err">¡Ups! No se ha añadido la cantidad.</string>
     <string name="input_deadline">Especificar fecha</string>
-    <string name="deadline_empty_err">¡Por favor, añada la fecha para esta meta!</string>
-    <string name="input_save_btn">Establezca nueva meta de ahorro.</string>
+    <string name="input_additional_notes">Notas adicionales (opcional)</string>
+    <string name="input_save_btn">Establezca una nueva meta de ahorro.</string>
     <string name="input_edit_save_button">Modificar meta de ahorro.</string>
     <string name="data_saved_success">¡Buen trabajo! Meta establecida.</string>
     <string name="input_page_quote">«No es necesario que veas el camino completo. Sólo da el primer paso». - Martin Luther King Jr.  </string>
@@ -89,6 +93,7 @@
     <string name="info_total_amount">Cantidad para la meta</string>
     <string name="info_current_amount">Ahorros actuales</string>
     <string name="info_remaining_amount">Cantidad restante</string>
+    <string name="info_additional_notes_header">Notas adicionales</string>
     <string name="transactions">Transacciones</string>
       <string name="info_deposited">Depositado</string>
     <string name="info_withdrawn">Retirado</string>
@@ -103,8 +108,9 @@
     <!--  Display Preferences -->
     <string name="display_pref_title">Tema predeterminado</string>
     <string name="material_you_perf_title">Habilitar Material You</string>
-    <string name="material_you_perf_summary">Cambiar tema en base a los colores de tu fondo de pantalla (Requiere Android 12+).</string>
-    <string name="material_you_unavailable">Perdón, parece que Material You no está soportado en su dispositivo o versión de Android.</string>
+    <string name="sort_order_perf_title">Ordenar los objetivos</string>
+    <string name="material_you_perf_summary">Cambiar tema en base a los colores del fondo de pantalla (Requiere Android 12+).</string>
+    <string name="material_you_unavailable">Perdone, pero parece que Material You no está soportado en su dispositivo o versión de Android.</string>
     <!-- Locale Preferences -->
     <string name="currency_pref_title">Moneda predeterminada</string>
     <!-- Security Preferences -->

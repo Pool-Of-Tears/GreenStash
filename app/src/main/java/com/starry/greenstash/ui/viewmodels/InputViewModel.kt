@@ -29,12 +29,12 @@ import android.graphics.Bitmap
 import android.text.Editable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.android.material.snackbar.Snackbar
 import com.starry.greenstash.R
 import com.starry.greenstash.database.Item
 import com.starry.greenstash.database.ItemDao
 import com.starry.greenstash.databinding.FragmentInputBinding
 import com.starry.greenstash.utils.roundFloat
+import com.starry.greenstash.utils.toToast
 import com.starry.greenstash.utils.validateAmount
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -48,14 +48,15 @@ class InputViewModel @Inject constructor(private val itemDao: ItemDao) : ViewMod
         binding: FragmentInputBinding,
         imageData: Bitmap?,
         ctx: Context,
-        editData: ItemEditData? = null
+        editData: Item? = null
     ): Boolean {
         val title = binding.inputTitle.editText?.text!!
         val amount = binding.inputAmount.editText?.text!!
         val deadline = binding.inputDeadline.editText?.text!!
+        val additionalNotes = binding.inputAdditionalNotes.editText?.text!!
 
         // validate user input.
-        if (!validateInputs(ctx, title, amount, deadline, binding)) {
+        if (!validateInputs(ctx, title, amount)) {
             return false
             // Insert or update the item.
         } else {
@@ -63,29 +64,27 @@ class InputViewModel @Inject constructor(private val itemDao: ItemDao) : ViewMod
             if (editData == null) {
                 val item = if (imageData != null) {
                     Item(
-                        title.toString(),
+                        title = title.toString(),
                         totalAmount = newAmount,
                         itemImage = imageData,
                         deadline = deadline.toString(),
+                        additionalNotes = additionalNotes.toString(),
                         transactions = null
                     )
                 } else {
                     Item(
-                        title.toString(),
+                        title = title.toString(),
                         totalAmount = newAmount,
                         itemImage = null,
                         deadline = deadline.toString(),
+                        additionalNotes = additionalNotes.toString(),
                         transactions = null
                     )
                 }
                 viewModelScope.launch(Dispatchers.IO) {
                     itemDao.insert(item)
                 }
-                Snackbar.make(
-                    binding.root,
-                    ctx.getString(R.string.data_saved_success),
-                    Snackbar.LENGTH_SHORT
-                ).show()
+                ctx.getString(R.string.data_saved_success).toToast(ctx)
             } else {
                 viewModelScope.launch(Dispatchers.IO) {
                     if (imageData != null) {
@@ -94,6 +93,7 @@ class InputViewModel @Inject constructor(private val itemDao: ItemDao) : ViewMod
                     itemDao.updateTitle(editData.id, title.toString())
                     itemDao.updateTotalAmount(editData.id, newAmount)
                     itemDao.updateDeadline(editData.id, deadline.toString())
+                    itemDao.updateAdditionalNotes(editData.id, additionalNotes.toString())
                 }
             }
             return true
@@ -104,33 +104,16 @@ class InputViewModel @Inject constructor(private val itemDao: ItemDao) : ViewMod
         ctx: Context,
         title: Editable,
         amount: Editable,
-        deadline: Editable,
-        binding: FragmentInputBinding
     ): Boolean {
         // validate user input.
-        if (title.isEmpty() || title.isBlank()) {
-            Snackbar.make(
-                binding.root,
-                ctx.getString(R.string.title_empty_err),
-                Snackbar.LENGTH_SHORT
-            ).show()
-            return false
+        return if (title.isEmpty() || title.isBlank()) {
+            ctx.getString(R.string.title_empty_err).toToast(ctx)
+            false
         } else if (!(amount.validateAmount())) {
-            Snackbar.make(
-                binding.root,
-                ctx.getString(R.string.amount_empty_err),
-                Snackbar.LENGTH_SHORT
-            ).show()
-            return false
-        } else if (deadline.isEmpty() || deadline.isBlank()) {
-            Snackbar.make(
-                binding.root,
-                ctx.getString(R.string.deadline_empty_err),
-                Snackbar.LENGTH_SHORT
-            ).show()
-            return false
+            ctx.getString(R.string.amount_empty_err).toToast(ctx)
+            false
         } else {
-            return true
+            true
         }
     }
 }

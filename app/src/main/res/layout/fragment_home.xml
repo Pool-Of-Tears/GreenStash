@@ -71,7 +71,7 @@ SOFTWARE. -->
                 android:layout_marginEnd="65dp"
                 android:text="@string/no_goals_set"
                 android:textColor="?attr/iconPreferenceColor"
-                android:textStyle="italic" />
+                android:textStyle="bold" />
 
         </LinearLayout>
 

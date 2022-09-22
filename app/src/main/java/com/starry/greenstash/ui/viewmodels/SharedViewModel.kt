@@ -24,17 +24,8 @@ SOFTWARE.
 package com.starry.greenstash.ui.viewmodels
 
 import android.app.Application
-import android.graphics.Bitmap
 import androidx.lifecycle.AndroidViewModel
 import com.starry.greenstash.database.Item
-
-data class ItemEditData(
-    val id: Int,
-    val title: String,
-    val amount: String,
-    val date: String,
-    val image: Bitmap?
-)
 
 /*
 A [SharedViewModel] class used to share data across different fragments and activities.
@@ -52,7 +43,7 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
     private var infoItemData: Item? = null
 
     // used to share item's data to input fragment when user clicks on edit button.
-    private var itemEditData: ItemEditData? = null
+    private var itemEditData: Item? = null
 
     fun setInfoItem(item: Item) {
         infoItemData = item
@@ -62,7 +53,7 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         return infoItemData!!
     }
 
-    fun getEditData(): ItemEditData? {
+    fun getEditData(): Item? {
         return if (itemEditData != null) {
             val toReturn = itemEditData
             itemEditData = null
@@ -72,7 +63,7 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
-    fun setEditData(editData: ItemEditData) {
+    fun setEditData(editData: Item) {
         itemEditData = editData
     }
 

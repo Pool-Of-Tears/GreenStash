@@ -5,5 +5,4 @@
     <attr name="fabBackgroundColor" format="reference|color" />
     <attr name="fabIconColor" format="reference|color" />
     <attr name="transactionRowBackground" format="reference|color" />
-    <attr name="transactionRowTextColor" format="reference|color" />
 </resources>

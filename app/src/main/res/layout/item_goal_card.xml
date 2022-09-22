@@ -31,13 +31,14 @@ SOFTWARE. -->
     tools:background="@color/white"
     tools:context=".ui.activities.MainActivity">
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
+        style="?attr/materialCardViewElevatedStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:elevation="0dp"
         app:cardBackgroundColor="?attr/cardBackgroundColor"
         app:cardCornerRadius="14dp"
-        app:cardElevation="10dp"
-        app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="true">
 
         <LinearLayout
@@ -52,7 +53,7 @@ SOFTWARE. -->
                 android:layout_height="210dp"
                 android:contentDescription="@string/content_description_media"
                 android:scaleType="centerCrop"
-                app:srcCompat="@drawable/default_image" />
+                app:srcCompat="@drawable/default_goal_image" />
 
             <com.google.android.material.progressindicator.LinearProgressIndicator
                 android:id="@+id/goalProgressBar"
@@ -83,7 +84,7 @@ SOFTWARE. -->
                     android:layout_marginTop="6dp"
                     android:text="@string/secondary_text"
                     android:textAppearance="?attr/textAppearanceBody2"
-                    android:textColor="?android:attr/textColorSecondary" />
+                    android:textColor="?android:attr/textColorPrimary" />
 
                 <TextView
                     android:id="@+id/itemDescriptionText"
@@ -93,7 +94,7 @@ SOFTWARE. -->
                     android:layout_marginTop="8dp"
                     android:text="@string/supporting_text"
                     android:textAppearance="?attr/textAppearanceBody2"
-                    android:textColor="?android:attr/textColorSecondary" />
+                    android:textColor="?android:attr/textColorPrimary" />
 
             </LinearLayout>
 
@@ -163,6 +164,6 @@ SOFTWARE. -->
 
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
 </RelativeLayout>

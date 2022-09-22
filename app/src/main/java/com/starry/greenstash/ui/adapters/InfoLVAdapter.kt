@@ -30,27 +30,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
-import androidx.cardview.widget.CardView
-import androidx.core.content.ContextCompat
 import androidx.preference.PreferenceManager
-import androidx.recyclerview.widget.RecyclerView
 import com.starry.greenstash.R
 import com.starry.greenstash.database.Transaction
 import com.starry.greenstash.utils.AppConstants
 import com.starry.greenstash.utils.formatCurrency
-import com.starry.greenstash.utils.isDarkModeOn
 
-class InfoRVAdapter(private val context: Context, private val transactions: List<Transaction>) :
+class InfoLVAdapter(private val context: Context, private val transactions: List<Transaction>) :
     BaseAdapter() {
 
     private val settingPerf = PreferenceManager.getDefaultSharedPreferences(context)
-    private val isDarkModeOn = isDarkModeOn(context)
-
-    // withdraw card color for dark mode.
-    private val withdrawDark = ContextCompat.getColor(context, R.color.red_light)
-
-    // withdraw card color for light mode.
-    private val withdrawLight = ContextCompat.getColor(context, R.color.red_dark)
 
     override fun getCount(): Int {
         return transactions.size
@@ -69,7 +58,6 @@ class InfoRVAdapter(private val context: Context, private val transactions: List
         val transaction = transactions[position]
         val transactionView =
             LayoutInflater.from(context).inflate(R.layout.transaction_row, parent, false)
-        val transactionCard = transactionView.findViewById<CardView>(R.id.transactionCard)
         val transactionText = transactionView.findViewById<TextView>(R.id.transactionText)
         val transactionDate = transactionView.findViewById<TextView>(R.id.transactionDate)
         // set transaction text and card color
@@ -81,11 +69,6 @@ class InfoRVAdapter(private val context: Context, private val transactions: List
             transactionText.text = "${context.getString(R.string.info_withdrawn)} | $defCurrency${
                 formatCurrency(transaction.amount)
             }"
-            if (isDarkModeOn) {
-                transactionCard.setCardBackgroundColor(withdrawDark)
-            } else {
-                transactionCard.setCardBackgroundColor(withdrawLight)
-            }
         }
         transactionDate.text = transaction.date
         return transactionView

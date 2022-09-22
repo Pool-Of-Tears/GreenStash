@@ -27,10 +27,11 @@ package com.starry.greenstash.ui.activities
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.LinearLayout
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
@@ -46,7 +47,6 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.preference.PreferenceManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.color.DynamicColors
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.starry.greenstash.R
 import com.starry.greenstash.database.ItemDatabase
 import com.starry.greenstash.databinding.ActivityMainBinding
@@ -69,7 +69,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var promptInfo: BiometricPrompt.PromptInfo
     private lateinit var sharedViewModel: AndroidViewModel
     private lateinit var roomBackup: RoomBackup
-    private val firstRun = "first_start"
 
     @Inject // Inject nav options.
     lateinit var navOptions: NavOptions
@@ -81,7 +80,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         // attach shared view model.
         sharedViewModel = ViewModelProvider(this).get(SharedViewModel::class.java)
-
+        // setup default setting values
+        PreferenceManager.setDefaultValues(this, R.xml.settings, false)
         settingPerf = PreferenceManager.getDefaultSharedPreferences(this)
         // Setup app theme.
         settingPerf.getString("display", "system")?.let { setAppTheme(it) }
@@ -107,11 +107,7 @@ class MainActivity : AppCompatActivity() {
                         result: BiometricPrompt.AuthenticationResult
                     ) {
                         super.onAuthenticationSucceeded(result)
-                        Toast.makeText(
-                            this@MainActivity,
-                            getString(R.string.auth_successful),
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        getString(R.string.auth_successful).toToast(this@MainActivity)
                         // make app contents visible after successful authentication.
                         binding.root.visible()
                         (sharedViewModel as SharedViewModel).appUnlocked = true
@@ -154,7 +150,7 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         // ask user to setup preferred currency when opening app for first time
-        if (settingPerf.getBoolean(firstRun, true)) {
+        if (settingPerf.getBoolean(AppConstants.FIRST_RUN, true)) {
             showCurrencyDialog()
         }
         //  initialize & setup room backup instance
@@ -228,30 +224,35 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showCurrencyDialog() {
+        val bottomSheetDialog = BottomSheetDialog(this)
+        bottomSheetDialog.setContentView(R.layout.currency_chooser_menu)
+        bottomSheetDialog.setCancelable(false)
+
+        val currencyDropDownMenu =
+            bottomSheetDialog.findViewById<AutoCompleteTextView>(R.id.currencyDropDownMenu)
+        val currencySaveBtn = bottomSheetDialog.findViewById<Button>(R.id.btnSetupCurrency)
+
         val currEntries = resources.getStringArray(R.array.currency_entries)
         val currValues = resources.getStringArray(R.array.currency_values)
-        val builder = MaterialAlertDialogBuilder(this)
-        val perfEditor = settingPerf.edit()
-        // currency symbol.
-        val defaultChoiceIndex = 0 // US Dollar.
-        var choice = currValues[defaultChoiceIndex]
-        // build currency chooser dialog.
-        builder.setCancelable(false)
-        builder.setTitle(getString(R.string.setup_currency))
-        builder.setSingleChoiceItems(currEntries, defaultChoiceIndex) { _, which ->
-            choice = currValues[which]
-        }
-        builder.setPositiveButton(getString(R.string.currency_popup_dialog_positive_btn)) { _, _ ->
+
+        val dropDownAdp = ArrayAdapter(this, R.layout.currency_chooser_item, currEntries)
+        currencyDropDownMenu!!.setAdapter(dropDownAdp)
+        currencyDropDownMenu.setText(currEntries.first(), false)
+
+        currencySaveBtn!!.setOnClickListener {
+            val choice = currValues[currEntries.indexOf(currencyDropDownMenu.text.toString())]
+            val perfEditor = settingPerf.edit()
             perfEditor.putString("currency", choice)
-            perfEditor.putBoolean(firstRun, false)
+            perfEditor.putBoolean(AppConstants.FIRST_RUN, false)
             perfEditor.apply()
+
+            Handler(Looper.getMainLooper()).postDelayed(
+                {
+                    bottomSheetDialog.hide()
+                }, 250
+            )
         }
-        builder.setNegativeButton(getString(R.string.currency_popup_dialog_negative_btn)) { _, _ ->
-            perfEditor.putBoolean(firstRun, false)
-            perfEditor.apply()
-        }
-        // create and show the alert dialog
-        val dialog = builder.create()
-        dialog.show()
+
+        bottomSheetDialog.show()
     }
 }

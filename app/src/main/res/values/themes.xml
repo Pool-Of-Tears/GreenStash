@@ -7,8 +7,6 @@
         <item name="colorSecondary">@color/color_secondary_light</item>
         <item name="colorSurface">@color/card_bg_light</item>
         <item name="colorOnPrimaryContainer">@color/black</item>
-        <item name="backgroundColor">@color/white</item>
-        <item name="android:windowBackground">?attr/backgroundColor</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimary</item>
         <!-- Customize your theme here. -->
@@ -16,13 +14,13 @@
         <item name="cardButtonIconColor">?attr/colorOnPrimaryContainer</item>
         <item name="cardBackgroundColor">?attr/colorSurface</item>
         <item name="transactionRowBackground">@color/color_primary_light</item>
-        <item name="transactionRowTextColor">@color/white</item>
         <item name="fabBackgroundColor">?attr/colorPrimary</item>
         <item name="fabIconColor">?attr/colorOnPrimary</item>
         <item name="switchStyle">@style/SwitchStyle</item>
         <item name="materialAlertDialogTheme">@style/AlertDialogTheme</item>
         <item name="alertDialogTheme">@style/AlertDialogTheme</item>
         <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>
+        <item name="bottomSheetDialogTheme">@style/BottomSheetDialog</item>
         <item name="autoCompleteTextViewStyle">@style/SearchAutoCompleteTextView</item>
     </style>
 
@@ -42,8 +40,7 @@
 
     <!-- Toolbar options menu color. -->
     <style name="ToolbarPopupStyle" parent="ThemeOverlay.AppCompat.Light">
-        <item name="android:colorBackground">?attr/colorOnPrimary</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:backgroundTint">@color/white</item>
     </style>
 
     <!-- Switch style. -->
@@ -86,6 +83,14 @@
     <style name="SearchAutoCompleteTextView" parent="Widget.AppCompat.Light.AutoCompleteTextView">
         <item name="android:textColor">?attr/colorOnPrimary</item>
         <item name="android:textColorHint">?attr/colorOnPrimary</item>
+    </style>
+
+    <style name="BottomSheetDialog" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheetModal</item>
+    </style>
+
+    <style name="BottomSheetModal" parent="Widget.MaterialComponents.BottomSheet.Modal">
+        <item name="backgroundTint">@android:color/background_light</item>
     </style>
 
     <!-- Splash screen theme -->

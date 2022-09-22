@@ -28,7 +28,6 @@ import android.os.Bundle
 import android.view.*
 import android.widget.EditText
 import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -39,14 +38,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.snackbar.Snackbar
 import com.starry.greenstash.R
 import com.starry.greenstash.database.Item
 import com.starry.greenstash.databinding.FragmentHomeBinding
-import com.starry.greenstash.ui.listeners.GoalClickListener
 import com.starry.greenstash.ui.adapters.HomeRVAdapter
+import com.starry.greenstash.ui.listeners.GoalClickListener
 import com.starry.greenstash.ui.viewmodels.HomeViewModel
-import com.starry.greenstash.ui.viewmodels.ItemEditData
 import com.starry.greenstash.ui.viewmodels.SharedViewModel
 import com.starry.greenstash.utils.*
 import dagger.hilt.android.AndroidEntryPoint
@@ -132,11 +129,7 @@ class HomeFragment : Fragment(), GoalClickListener {
 
     override fun onDepositClicked(item: Item) {
         if (item.currentAmount >= item.totalAmount) {
-            Snackbar.make(
-                binding.root,
-                requireContext().getString(R.string.goal_already_achieved),
-                Snackbar.LENGTH_SHORT
-            ).show()
+            getString(R.string.goal_already_achieved).toSnackbar(binding.root)
         } else {
             val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dw_dialog, null)
             val amountEditText = dialogView.findViewById<EditText>(R.id.alertDialogDW)
@@ -150,13 +143,9 @@ class HomeFragment : Fragment(), GoalClickListener {
             alertDialog.setPositiveButton(getString(R.string.dialog_positive_btn1)) { _, _ ->
                 if (amountEditText.text.validateAmount()) {
                     val newAmount = amountEditText.text.toString().replace(',', '.').toFloat()
-                    viewModel.deposit(newAmount, item, requireContext(), binding.root)
+                    viewModel.deposit(newAmount, item, requireContext())
                 } else {
-                    Snackbar.make(
-                        binding.root,
-                        requireContext().getString(R.string.amount_empty_err),
-                        Snackbar.LENGTH_SHORT
-                    ).show()
+                    getString(R.string.amount_empty_err).toSnackbar(binding.root)
                 }
             }
             alertDialog.create().show()
@@ -166,11 +155,7 @@ class HomeFragment : Fragment(), GoalClickListener {
 
     override fun onWithdrawClicked(item: Item) {
         if (item.currentAmount == 0f) {
-            Snackbar.make(
-                binding.root,
-                requireContext().getString(R.string.withdraw_btn_error),
-                Snackbar.LENGTH_SHORT
-            ).show()
+            getString(R.string.withdraw_btn_error).toSnackbar(binding.root)
         } else {
             val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dw_dialog, null)
             val amountEditText = dialogView.findViewById<EditText>(R.id.alertDialogDW)
@@ -184,14 +169,10 @@ class HomeFragment : Fragment(), GoalClickListener {
             alertDialog.setPositiveButton(getString(R.string.dialog_positive_btn1)) { _, _ ->
                 if (amountEditText.text.validateAmount()) {
                     val newAmount = amountEditText.text.toString().replace(',', '.').toFloat()
-                    viewModel.withdraw(newAmount, item, requireContext(), binding.root)
+                    viewModel.withdraw(newAmount, item, requireContext())
 
                 } else {
-                    Snackbar.make(
-                        binding.root,
-                        requireContext().getString(R.string.amount_empty_err),
-                        Snackbar.LENGTH_SHORT
-                    ).show()
+                    getString(R.string.amount_empty_err).toSnackbar(binding.root)
                 }
             }
             alertDialog.create().show()
@@ -208,14 +189,7 @@ class HomeFragment : Fragment(), GoalClickListener {
 
 
     override fun onEditClicked(item: Item) {
-        val editData = ItemEditData(
-            item.id,
-            item.title,
-            item.totalAmount.toString(),
-            item.deadline,
-            item.itemImage
-        )
-        sharedViewModel.setEditData(editData)
+        sharedViewModel.setEditData(item)
         findNavController().navigate(
             R.id.action_HomeFragment_to_InputFragment,
             null, navOptions
@@ -231,11 +205,7 @@ class HomeFragment : Fragment(), GoalClickListener {
         }
         alertDialog.setPositiveButton(getString(R.string.dialog_positive_btn2)) { _, _ ->
             viewModel.deleteItem(item)
-            Snackbar.make(
-                binding.root,
-                requireContext().getString(R.string.goal_delete_success),
-                Snackbar.LENGTH_SHORT
-            ).show()
+            getString(R.string.goal_delete_success).toSnackbar(binding.root)
         }
         alertDialog.create().show()
     }
@@ -277,11 +247,7 @@ class HomeFragment : Fragment(), GoalClickListener {
             if (newList.isNotEmpty()) {
                 adapter.allItems = newList
             } else {
-                Toast.makeText(
-                    requireContext(),
-                    requireContext().getString(R.string.no_ongoing_goals),
-                    Toast.LENGTH_SHORT
-                ).show()
+                getString(R.string.no_ongoing_goals).toSnackbar(binding.root)
             }
             bottomSheetDialog.hide()
         }
@@ -290,11 +256,7 @@ class HomeFragment : Fragment(), GoalClickListener {
             if (newList.isNotEmpty()) {
                 adapter.allItems = newList
             } else {
-                Toast.makeText(
-                    requireContext(),
-                    requireContext().getString(R.string.no_completed_goals),
-                    Toast.LENGTH_SHORT
-                ).show()
+                getString(R.string.no_completed_goals).toSnackbar(binding.root)
             }
             bottomSheetDialog.hide()
         }
@@ -315,11 +277,7 @@ class HomeFragment : Fragment(), GoalClickListener {
             }
         }
         if (viewModel.allItems.value!!.isNotEmpty() && filteredList.isEmpty()) {
-            Snackbar.make(
-                binding.root,
-                requireContext().getString(R.string.item_not_found),
-                Snackbar.LENGTH_SHORT
-            ).show()
+            getString(R.string.item_not_found).toToast(requireContext())
         }
         adapter.allItems = filteredList
     }

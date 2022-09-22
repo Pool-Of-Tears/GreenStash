@@ -25,6 +25,7 @@ SOFTWARE.
 package com.starry.greenstash.database
 
 import android.graphics.Bitmap
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -42,8 +43,9 @@ data class Item(
     val currentAmount: Float = 0f,
     val itemImage: Bitmap?,
     val deadline: String,
-    val transactions: List<Transaction>?
-){
+    val transactions: List<Transaction>?,
+    @ColumnInfo(defaultValue = "") val additionalNotes: String,
+) {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
 }

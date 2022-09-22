@@ -26,6 +26,7 @@ package com.starry.greenstash.ui.fragments
 
 import android.app.Activity
 import android.app.DatePickerDialog
+import com.starry.greenstash.database.Item
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
@@ -41,11 +42,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.github.dhaval2404.imagepicker.ImagePicker
-import com.google.android.material.snackbar.Snackbar
 import com.starry.greenstash.R
 import com.starry.greenstash.databinding.FragmentInputBinding
 import com.starry.greenstash.ui.viewmodels.InputViewModel
-import com.starry.greenstash.ui.viewmodels.ItemEditData
 import com.starry.greenstash.ui.viewmodels.SharedViewModel
 import com.starry.greenstash.utils.*
 import dagger.hilt.android.AndroidEntryPoint
@@ -191,16 +190,10 @@ class InputFragment : Fragment() {
                     binding.imagePicker.setImageBitmap(imagePickerResult)
                 }
                 ImagePicker.RESULT_ERROR -> {
-                    Snackbar.make(
-                        binding.root,
-                        ImagePicker.getError(data), Snackbar.LENGTH_SHORT
-                    ).show()
+                    ImagePicker.getError(data).toToast(requireContext())
                 }
                 else -> {
-                    Snackbar.make(
-                        binding.root,
-                        getString(R.string.cancel), Snackbar.LENGTH_SHORT
-                    ).show()
+                    getString(R.string.cancel).toToast(requireContext())
                 }
             }
         }
@@ -220,14 +213,15 @@ class InputFragment : Fragment() {
         binding.inputDeadline.editText?.setText(sdf.format(cal.time))
     }
 
-    private fun updateInputView(itemData: ItemEditData) {
-        if (itemData.image != null) {
-            binding.imagePicker.setImageBitmap(itemData.image)
-            imagePickerResult = itemData.image
+    private fun updateInputView(itemData: Item) {
+        if (itemData.itemImage != null) {
+            binding.imagePicker.setImageBitmap(itemData.itemImage)
+            imagePickerResult = itemData.itemImage
         }
         binding.inputTitle.editText?.setText(itemData.title)
-        binding.inputAmount.editText?.setText(itemData.amount)
-        binding.inputDeadline.editText?.setText(itemData.date)
-        binding.inputSaveButton.text = requireContext().getString(R.string.input_edit_save_button)
+        binding.inputAmount.editText?.setText(itemData.totalAmount.toString())
+        binding.inputDeadline.editText?.setText(itemData.deadline)
+        binding.inputAdditionalNotes.editText?.setText(itemData.additionalNotes)
+        binding.inputSaveButton.text = getString(R.string.input_edit_save_button)
     }
 }

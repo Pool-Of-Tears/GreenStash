@@ -41,6 +41,7 @@ import com.starry.greenstash.R
 import com.starry.greenstash.utils.AppConstants
 import com.starry.greenstash.ui.viewmodels.SharedViewModel
 import com.starry.greenstash.utils.setAppTheme
+import com.starry.greenstash.utils.toToast
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.Executor
 import javax.inject.Inject
@@ -58,7 +59,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
     lateinit var navOptions: NavOptions
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        setPreferencesFromResource(R.xml.root_preferences, rootKey)
+        setPreferencesFromResource(R.xml.settings, rootKey)
         setHasOptionsMenu(true)
 
         // attach shared view model.
@@ -70,6 +71,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
             true // return status.
         }
 
+        val sortOrderPerf: Preference? = findPreference("sorting_order")
+        sortOrderPerf!!.setOnPreferenceChangeListener { _, _ ->
+            getString(R.string.relaunch_app).toToast(requireContext()); true
+        }
+
         val materialYouPerf: Preference? = findPreference("material_you")
         // disable material you switch on android version < 12
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
@@ -78,17 +84,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
         materialYouPerf!!.setOnPreferenceChangeListener { _, newValue ->
             if (newValue.toString().toBoolean() && !DynamicColors.isDynamicColorAvailable()) {
-                Toast.makeText(
-                    requireContext(),
-                    requireContext().getString(R.string.material_you_unavailable),
-                    Toast.LENGTH_SHORT
-                ).show()
+                getString(R.string.material_you_unavailable).toToast(requireContext())
             } else {
-                Toast.makeText(
-                    requireContext(),
-                    getString(R.string.relaunch_app),
-                    Toast.LENGTH_SHORT
-                ).show()
+                getString(R.string.relaunch_app).toToast(requireContext())
             }
             true // return status
         }
@@ -120,21 +118,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
                             result: BiometricPrompt.AuthenticationResult
                         ) {
                             super.onAuthenticationSucceeded(result)
-                            Toast.makeText(
-                                requireContext(),
-                                getString(R.string.auth_successful),
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            getString(R.string.auth_successful).toToast(requireContext())
                             sharedViewModel.appUnlocked = true
                         }
 
                         override fun onAuthenticationFailed() {
                             super.onAuthenticationFailed()
-                            Toast.makeText(
-                                requireContext(),
-                                getString(R.string.auth_failed),
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            getString(R.string.auth_failed).toToast(requireContext())
                             // disable preference switch manually on auth fail.
                             (preference as SwitchPreferenceCompat).isChecked = false
                         }
