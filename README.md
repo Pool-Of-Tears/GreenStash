@@ -17,17 +17,9 @@
 Please keep in mind that you cannot update F-droid builds over any other builds due to signature mismatch. (F-droid builds are signed by F-droid's own keys while others are signed with my own private key) if you wish to migrate over F-droid releases you can take backup of app data and restore it after installing F-droid version. 
 
 ### 📸 Screenshots
-<details>
-  <summary><b>Click Here</b></summary>
-
-<p align="middle">
-  <img src="https://telegra.ph/file/23bf1b50ffeee129fba74.jpg" width="200" />
-  <img src="https://telegra.ph/file/116939944f37f70640192.jpg" width="200" /> 
-  <img src="https://telegra.ph/file/9be767c2afea4e3cd3985.jpg" width="200" />
-  <img src="https://telegra.ph/file/2dc80bec4734cec65b3e9.jpg" width="200"/>
-</p>
-</details>
-
+| ![](https://telegra.ph/file/5639878ff67f6aedc103d.png) | ![](https://telegra.ph/file/66ff44ea0c6678d81acff.png) | ![](https://telegra.ph/file/77d146c3d1450ab0214a2.png) | ![](https://telegra.ph/file/0eca162e0a15324b8bd64.png) |
+|--------------------------------------------------------|--------------------------------------------------------|--------------------------------------------------------|--------------------------------------------------------|
+| ![](https://telegra.ph/file/4866da8a08c88f095d3c7.png) | ![](https://telegra.ph/file/1119d0f22b510167818eb.png) | ![](https://telegra.ph/file/aae688eaee7f130230750.png) | ![](https://telegra.ph/file/6230df331b84e09332117.png) |
 
 ### ✨ Features
 - Clean & beautiful UI based on Google's [material design three](https://m3.material.io/) guidelines.
@@ -54,9 +46,6 @@ If this project helped you a little bit, please consider donating a small amount
 ![](https://img.shields.io/badge/starry%40airtel-UPI-red?style=for-the-badge)
 
 ### 🛠️ Built with
-<details>
-   <summary><b>Click Here</b></summary>
-
 - [Kotlin](https://kotlinlang.org/) - First class and official programming language for Android development.
 - [Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html) - To improve performance and overall user experience.
 - [Android Architecture Components](https://developer.android.com/topic/libraries/architecture) - Collection of libraries that help you design robust, testable, and maintainable apps.
@@ -69,11 +58,31 @@ If this project helped you a little bit, please consider donating a small amount
 - [Material Components for Android](https://github.com/material-components/material-components-android) - Modular and customizable Material Design UI components for Android.
 - [ImagePicker](https://github.com/Dhaval2404/ImagePicker) - Image Picker for Android, Pick an image from Gallery or Capture a new image with Camera.
 
-</details>
-
-
 ### ©️ Licence 
 [MIT][license] © [Stɑrry Shivɑm][github]
 
 [license]: /LICENSE
 [github]: https://github.com/starry69
+```
+MIT License
+
+Copyright (c) 2022 Stɑrry Shivɑm
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
