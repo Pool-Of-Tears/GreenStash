@@ -30,6 +30,7 @@
     </style>
 
     <style name="Theme.GreenStash.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
     <style name="Theme.GreenStash.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <!-- toolbar style -->
@@ -76,7 +77,8 @@
     </style>
 
     <style name="ThemeOverlay.App.TextInputLayout" parent="">
-        <item name="editTextStyle">@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox</item>
+        <item name="editTextStyle">@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox
+        </item>
     </style>
 
     <!-- SearchView text color -->

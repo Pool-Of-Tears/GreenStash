@@ -26,8 +26,8 @@ package com.starry.greenstash.ui.fragments
 
 import android.os.Bundle
 import android.view.*
-import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -38,6 +38,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.textfield.TextInputEditText
 import com.starry.greenstash.R
 import com.starry.greenstash.database.Item
 import com.starry.greenstash.databinding.FragmentHomeBinding
@@ -131,19 +132,24 @@ class HomeFragment : Fragment(), GoalClickListener {
         if (item.currentAmount >= item.totalAmount) {
             getString(R.string.goal_already_achieved).toSnackbar(binding.root)
         } else {
-            val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dw_dialog, null)
-            val amountEditText = dialogView.findViewById<EditText>(R.id.alertDialogDW)
+            val dialogView =
+                LayoutInflater.from(requireContext()).inflate(R.layout.transaction_dialog, null)
+            val amountEditText =
+                dialogView.findViewById<TextInputEditText>(R.id.transactionInputAmount)
+            val notesEditText =
+                dialogView.findViewById<TextInputEditText>(R.id.transactionInputNotes)
+            val dialogTitle = dialogView.findViewById<TextView>(R.id.transactionDialogTitle)
+            dialogTitle.text = getString(R.string.deposit_dialog_title)
             // build alert dialog.
             val alertDialog = MaterialAlertDialogBuilder(requireContext())
-            alertDialog.setTitle(requireContext().getString(R.string.deposit_dialog_title))
             alertDialog.setView(dialogView)
             // set negative button.
             alertDialog.setNegativeButton(getString(R.string.dialog_negative_btn1), null)
             // set positive button.
             alertDialog.setPositiveButton(getString(R.string.dialog_positive_btn1)) { _, _ ->
-                if (amountEditText.text.validateAmount()) {
+                if (amountEditText.text!!.validateAmount()) {
                     val newAmount = amountEditText.text.toString().replace(',', '.').toFloat()
-                    viewModel.deposit(newAmount, item, requireContext())
+                    viewModel.deposit(newAmount, notesEditText.text!!, item, requireContext())
                 } else {
                     getString(R.string.amount_empty_err).toSnackbar(binding.root)
                 }
@@ -157,19 +163,24 @@ class HomeFragment : Fragment(), GoalClickListener {
         if (item.currentAmount == 0f) {
             getString(R.string.withdraw_btn_error).toSnackbar(binding.root)
         } else {
-            val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dw_dialog, null)
-            val amountEditText = dialogView.findViewById<EditText>(R.id.alertDialogDW)
+            val dialogView =
+                LayoutInflater.from(requireContext()).inflate(R.layout.transaction_dialog, null)
+            val amountEditText =
+                dialogView.findViewById<TextInputEditText>(R.id.transactionInputAmount)
+            val notesEditText =
+                dialogView.findViewById<TextInputEditText>(R.id.transactionInputNotes)
+            val dialogTitle = dialogView.findViewById<TextView>(R.id.transactionDialogTitle)
+            dialogTitle.text = getString(R.string.withdraw_dialog_title)
             // build alert dialog.
             val alertDialog = MaterialAlertDialogBuilder(requireContext())
-            alertDialog.setTitle(requireContext().getString(R.string.withdraw_dialog_title))
             alertDialog.setView(dialogView)
             // set negative button.
             alertDialog.setNegativeButton(getString(R.string.dialog_negative_btn1), null)
             // set positive button.
             alertDialog.setPositiveButton(getString(R.string.dialog_positive_btn1)) { _, _ ->
-                if (amountEditText.text.validateAmount()) {
+                if (amountEditText.text!!.validateAmount()) {
                     val newAmount = amountEditText.text.toString().replace(',', '.').toFloat()
-                    viewModel.withdraw(newAmount, item, requireContext())
+                    viewModel.withdraw(newAmount, notesEditText.text!!, item, requireContext())
 
                 } else {
                     getString(R.string.amount_empty_err).toSnackbar(binding.root)

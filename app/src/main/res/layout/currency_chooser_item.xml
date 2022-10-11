@@ -1,7 +1,7 @@
-<TextView android:id="@+id/currencyChooserItem"
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/currencyChooserItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:text="TextView"
     android:padding="14dp"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" />
+    tools:text="TextView" />

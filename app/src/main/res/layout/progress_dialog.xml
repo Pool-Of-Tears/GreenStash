@@ -1,23 +1,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:padding="20dp">
 
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="0dp"
-        android:layout_weight="1"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"/>
+        android:layout_weight="1" />
 
     <TextView
-        android:layout_width="0dp"
-        android:layout_weight="4"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal|center_vertical|start"
         android:id="@+id/message"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="4"
+        android:gravity="center_horizontal|center_vertical|start"
         tools:text="Hold on..." />
 </LinearLayout>

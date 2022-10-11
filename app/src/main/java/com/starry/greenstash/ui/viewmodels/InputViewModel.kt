@@ -87,13 +87,11 @@ class InputViewModel @Inject constructor(private val itemDao: ItemDao) : ViewMod
                 ctx.getString(R.string.data_saved_success).toToast(ctx)
             } else {
                 viewModelScope.launch(Dispatchers.IO) {
-                    if (imageData != null) {
-                        itemDao.updateItemImage(editData.id, imageData)
-                    }
                     itemDao.updateTitle(editData.id, title.toString())
                     itemDao.updateTotalAmount(editData.id, newAmount)
                     itemDao.updateDeadline(editData.id, deadline.toString())
                     itemDao.updateAdditionalNotes(editData.id, additionalNotes.toString())
+                    imageData?.let { itemDao.updateItemImage(editData.id, it) }
                 }
             }
             return true

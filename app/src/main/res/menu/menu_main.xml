@@ -10,22 +10,22 @@
 
     <item
         android:id="@+id/actionBackup"
-        android:title="@string/action_backup"
         android:orderInCategory="200"
+        android:title="@string/action_backup"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/actionFilter"
-        android:title="@string/action_filter"
         android:icon="@drawable/ic_menu_filter_24"
+        android:title="@string/action_filter"
         app:iconTint="?attr/colorOnPrimary"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/actionSearch"
-        android:title="@string/action_search"
         android:icon="@drawable/ic_menu_search_24"
-        app:iconTint="?attr/colorOnPrimary"
+        android:title="@string/action_search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
-        app:showAsAction="ifRoom|collapseActionView"/>
+        app:iconTint="?attr/colorOnPrimary"
+        app:showAsAction="ifRoom|collapseActionView" />
 </menu>

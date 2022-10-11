@@ -1,5 +1,5 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory app:title="@string/display_pref_header">
         <ListPreference
@@ -12,18 +12,18 @@
             app:useSimpleSummaryProvider="true" />
 
         <ListPreference
+            android:entryValues="@array/sort_values"
             app:defaultValue="alphabetical_AtoZ"
             app:entries="@array/sort_entries"
-            android:entryValues="@array/sort_values"
             app:icon="@drawable/ic_perf_display_sort_order_24"
             app:key="sorting_order"
             app:title="@string/sort_order_perf_title"
             app:useSimpleSummaryProvider="true" />
 
         <SwitchPreferenceCompat
+            app:defaultValue="true"
             app:icon="@drawable/ic_perf_display_material_you_24"
             app:key="material_you"
-            app:defaultValue="true"
             app:summary="@string/material_you_perf_summary"
             app:title="@string/material_you_perf_title" />
 

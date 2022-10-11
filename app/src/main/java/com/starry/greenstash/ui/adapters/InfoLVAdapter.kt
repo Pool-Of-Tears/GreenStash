@@ -35,6 +35,7 @@ import com.starry.greenstash.R
 import com.starry.greenstash.database.Transaction
 import com.starry.greenstash.utils.AppConstants
 import com.starry.greenstash.utils.formatCurrency
+import com.starry.greenstash.utils.visible
 
 class InfoLVAdapter(private val context: Context, private val transactions: List<Transaction>) :
     BaseAdapter() {
@@ -60,7 +61,8 @@ class InfoLVAdapter(private val context: Context, private val transactions: List
             LayoutInflater.from(context).inflate(R.layout.transaction_row, parent, false)
         val transactionText = transactionView.findViewById<TextView>(R.id.transactionText)
         val transactionDate = transactionView.findViewById<TextView>(R.id.transactionDate)
-        // set transaction text and card color
+        val transactionNotes = transactionView.findViewById<TextView>(R.id.transactionNotes)
+        // set transaction details and notes (if available)
         if (transaction.transactionType == AppConstants.TRANSACTION_DEPOSIT) {
             transactionText.text = "${context.getString(R.string.info_deposited)} | $defCurrency${
                 formatCurrency(transaction.amount)
@@ -69,6 +71,10 @@ class InfoLVAdapter(private val context: Context, private val transactions: List
             transactionText.text = "${context.getString(R.string.info_withdrawn)} | $defCurrency${
                 formatCurrency(transaction.amount)
             }"
+        }
+        if (!transaction.notes.isNullOrEmpty()) {
+            transactionNotes.text = transaction.notes
+            transactionNotes.visible()
         }
         transactionDate.text = transaction.date
         return transactionView

@@ -38,6 +38,9 @@
     <string name="item_not_found">Perdón, esta meta no existe.</string>
     <string name="cancel">¡Tarea cancelada!</string>
     <string name="progress_dialog_msg">Por favor, espere…</string>
+    <!--Transaction Dialog -->
+    <string name="transaction_amount">Enter Amount</string>
+    <string name="transaction_notes">Notes (Optional)</string>
     <!-- Strings used for dashboard cards -->
     <string name="no_goals_set">Nada que mostrar aquí. ¡Haga clic abajo en el icono \"Nueva Meta\" para agregar una meta y empezar a ahorrar!</string>
     <string name="content_description_media">Carta de información de objetos</string>
@@ -95,7 +98,7 @@
     <string name="info_remaining_amount">Cantidad restante</string>
     <string name="info_additional_notes_header">Notas adicionales</string>
     <string name="transactions">Transacciones</string>
-      <string name="info_deposited">Depositado</string>
+    <string name="info_deposited">Depositado</string>
     <string name="info_withdrawn">Retirado</string>
     <!-- biometric lock title -->
     <string name="bio_lock_title">Desbloquear GreenStash</string>

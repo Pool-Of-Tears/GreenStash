@@ -52,16 +52,20 @@ interface ItemDao {
     @Query("SELECT * FROM greenstash ORDER BY currentAmount DESC")
     fun getItemsByAmountSavedDesc(): LiveData<List<Item>>
 
-    @Query("SELECT * FROM greenstash ORDER BY " +
-            "substr(deadline, 7, 4) || '/' || " +
-            "substr(deadline, 4, 2) || '/' || " +
-            "substr(deadline, 1, 2) ASC")
+    @Query(
+        "SELECT * FROM greenstash ORDER BY " +
+                "substr(deadline, 7, 4) || '/' || " +
+                "substr(deadline, 4, 2) || '/' || " +
+                "substr(deadline, 1, 2) ASC"
+    )
     fun getItemsByDueDateAsc(): LiveData<List<Item>>
 
-    @Query("SELECT * FROM greenstash ORDER BY " +
-            "substr(deadline, 7, 4) || '/' || " +
-            "substr(deadline, 4, 2) || '/' || " +
-            "substr(deadline, 1, 2) DESC")
+    @Query(
+        "SELECT * FROM greenstash ORDER BY " +
+                "substr(deadline, 7, 4) || '/' || " +
+                "substr(deadline, 4, 2) || '/' || " +
+                "substr(deadline, 1, 2) DESC"
+    )
     fun getItemsByDueDateDesc(): LiveData<List<Item>>
 
     @Query("SELECT * FROM greenstash WHERE id = :id")
@@ -86,7 +90,7 @@ interface ItemDao {
     suspend fun updateDeadline(id: Int, deadline: String)
 
     @Query("UPDATE greenstash SET additionalNotes = :additionalNotes WHERE id = :id")
-    suspend fun updateAdditionalNotes(id: Int,additionalNotes: String)
+    suspend fun updateAdditionalNotes(id: Int, additionalNotes: String)
 
     @Query("UPDATE greenstash SET itemImage = :itemImage WHERE id = :id")
     suspend fun updateItemImage(id: Int, itemImage: Bitmap)

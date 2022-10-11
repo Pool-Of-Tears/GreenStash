@@ -26,6 +26,10 @@ public class ExpandableListView extends ListView {
         return expanded;
     }
 
+    public void setExpanded(boolean expanded) {
+        this.expanded = expanded;
+    }
+
     @Override
     public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         // HACK! TAKE THAT ANDROID!
@@ -41,9 +45,5 @@ public class ExpandableListView extends ListView {
         } else {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         }
-    }
-
-    public void setExpanded(boolean expanded) {
-        this.expanded = expanded;
     }
 }

@@ -3,28 +3,54 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:padding="6dp">
 
-    <TextView
-        android:id="@+id/transactionText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:padding="8dp"
-        android:textColor="?android:attr/textColorPrimary"
-        tools:text="Deposited | $24,500" />
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <View
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+        <TextView
+            android:id="@+id/transactionText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:textColor="?android:attr/textColorPrimary"
+            tools:text="Deposited | $24,500" />
 
-    <TextView
-        android:id="@+id/transactionDate"
-        android:layout_width="wrap_content"
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/transactionDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:textColor="?android:attr/textColorPrimary"
+            tools:text="24/08/2001" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/transactionNotesContainer"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:textColor="?android:attr/textColorPrimary"
-        tools:text="24/08/2001" />
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/transactionNotes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="12dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="12dp"
+            android:paddingBottom="8dp"
+            android:textColor="?android:attr/textColorPrimary"
+            android:visibility="gone"
+            tools:text="Some Important Notes" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </LinearLayout>

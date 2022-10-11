@@ -17,7 +17,7 @@
 
         <action
             android:id="@+id/action_HomeFragment_to_InfoFragment"
-            app:destination="@id/InfoFragment"/>
+            app:destination="@id/InfoFragment" />
 
     </fragment>
 
@@ -25,8 +25,7 @@
         android:id="@+id/InputFragment"
         android:name="com.starry.greenstash.ui.fragments.InputFragment"
         android:label="@string/input_fragment_label"
-        tools:layout="@layout/fragment_input">
-    </fragment>
+        tools:layout="@layout/fragment_input"></fragment>
 
     <fragment
         android:id="@+id/InfoFragment"
@@ -35,7 +34,7 @@
 
         <action
             android:id="@+id/action_InfoFragment_to_HomeFragment"
-            app:destination="@id/HomeFragment"/>
+            app:destination="@id/HomeFragment" />
     </fragment>
 
     <fragment

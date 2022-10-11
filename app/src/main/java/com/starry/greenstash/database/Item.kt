@@ -34,6 +34,9 @@ data class Transaction(
     val transactionType: String,
     val date: String,
     val amount: Float,
+    // nullable with a default value
+    // for backwards compatibility.
+    val notes: String? = null,
 )
 
 @Entity(tableName = "greenstash")

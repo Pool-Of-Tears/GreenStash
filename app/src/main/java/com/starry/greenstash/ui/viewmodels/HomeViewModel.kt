@@ -24,7 +24,9 @@ SOFTWARE.
 
 package com.starry.greenstash.ui.viewmodels
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.text.Editable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -43,6 +45,7 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
+@SuppressLint("StaticFieldLeak")
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val itemDao: ItemDao,
@@ -57,17 +60,17 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun deposit(newAmount: Float, item: Item, context: Context) {
+    fun deposit(newAmount: Float, notesText: Editable, item: Item, context: Context) {
         val newAmountRounded = roundFloat(newAmount)
         val newCurrentAmount = item.currentAmount + newAmountRounded
         viewModelScope.launch(Dispatchers.IO) {
             itemDao.updateCurrentAmount(item.id, newCurrentAmount)
-            addTransaction(item, newAmountRounded, AppConstants.TRANSACTION_DEPOSIT)
+            addTransaction(item, newAmountRounded, notesText, AppConstants.TRANSACTION_DEPOSIT)
         }
         context.getString(R.string.deposit_successful).toToast(context)
     }
 
-    fun withdraw(newAmount: Float, item: Item, context: Context) {
+    fun withdraw(newAmount: Float, notesText: Editable, item: Item, context: Context) {
         if (newAmount > item.currentAmount) {
             context.getString(R.string.withdraw_overflow_error).toToast(context)
         } else {
@@ -75,17 +78,26 @@ class HomeViewModel @Inject constructor(
             val newCurrentAmount = item.currentAmount - newAmountRounded
             viewModelScope.launch(Dispatchers.IO) {
                 itemDao.updateCurrentAmount(item.id, newCurrentAmount)
-                addTransaction(item, newAmountRounded, AppConstants.TRANSACTION_WITHDRAW)
+                addTransaction(item, newAmountRounded, notesText, AppConstants.TRANSACTION_WITHDRAW)
             }
             context.getString(R.string.withdraw_successful).toToast(context)
         }
     }
 
-    private suspend fun addTransaction(item: Item, amount: Float, transactionType: String) {
+    private suspend fun addTransaction(
+        item: Item,
+        amount: Float,
+        notesText: Editable,
+        transactionType: String
+    ) {
         val currentDate =
             LocalDateTime.now().format(DateTimeFormatter.ofPattern(AppConstants.DATE_FORMAT))
         // build new transaction object
-        val newTransaction = Transaction(transactionType, currentDate, amount)
+        val newTransaction: Transaction = if (notesText.isNotEmpty() && notesText.isNotBlank()) {
+            Transaction(transactionType, currentDate, amount, notesText.toString())
+        } else {
+            Transaction(transactionType, currentDate, amount)
+        }
         // insert new transaction in database
         val transactions: List<Transaction> = if (item.transactions == null) {
             listOf(newTransaction)
@@ -98,7 +110,7 @@ class HomeViewModel @Inject constructor(
     private fun getSortedItems(): LiveData<List<Item>> {
         val settingPerf = PreferenceManager.getDefaultSharedPreferences(context)
         // get sorted array according to preference
-        return when(settingPerf.getString("sorting_order", "alphabetical_AtoZ")) {
+        return when (settingPerf.getString("sorting_order", "alphabetical_AtoZ")) {
             "alphabetical_AtoZ" -> itemDao.getItemsByAlphabeticalAsc()
             "alphabetical_ZtoA" -> itemDao.getItemsByAlphabeticalDesc()
             "goalAmount_ascending" -> itemDao.getItemsByAmountAsc()

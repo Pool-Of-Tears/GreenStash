@@ -54,10 +54,13 @@ class MainModule {
     @Singleton
     @Provides
     fun provideNavOptions() = NavOptions.Builder()
-        .setEnterAnim(R.anim.slide_in)
-        .setExitAnim(R.anim.fade_out)
-        .setPopEnterAnim(R.anim.fade_in)
-        .setPopExitAnim(R.anim.slide_out)
+        .setLaunchSingleTop(true)
+        .setEnterAnim(R.anim.fragment_enter)
+        .setExitAnim(R.anim.fragment_extt)
+        .setPopEnterAnim(R.anim.fragment_pop_enter)
+        .setPopExitAnim(R.anim.fragment_pop_exit)
+        .setPopUpTo(R.id.HomeFragment, false)
         .build()
+
 
 }

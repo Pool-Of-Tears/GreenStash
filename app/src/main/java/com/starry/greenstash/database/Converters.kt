@@ -54,7 +54,7 @@ class Converters {
     @TypeConverter
     fun transactionToJson(value: List<Transaction>?): String? {
         if (value != null) {
-           return gson.toJson(value)
+            return gson.toJson(value)
         }
         return null
     }
@@ -62,7 +62,7 @@ class Converters {
     @TypeConverter
     fun transactionToList(value: String?): List<Transaction>? {
         if (value != null && value != "null") {
-           return gson.fromJson(value, Array<Transaction>::class.java).toList()
+            return gson.fromJson(value, Array<Transaction>::class.java).toList()
         }
         return null
     }

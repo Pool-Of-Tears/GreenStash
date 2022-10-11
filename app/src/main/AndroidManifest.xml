@@ -25,7 +25,7 @@
             android:name=".ui.activities.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.GreenStash"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
     </application>
 
 </manifest>
