@@ -1,0 +1,5 @@
+- Added an option to add transactional notes in deposit/withdraw transactions.
+- Improved UI of deposit withdraw dialogs.
+- Fixed a bug where user can't edit additional notes of saved goal if it had custom image set.
+- Improved additional notes field, of new/edit goal screen, now it'll automatically resize as you type.
+- Improved animations and some other minor stuffs.
