@@ -237,7 +237,7 @@ SOFTWARE. -->
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
-                <com.starry.greenstash.utils.ExpandableListView
+                <com.starry.greenstash.others.ExpandableListView
                     android:id="@+id/transactionHistoryLV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

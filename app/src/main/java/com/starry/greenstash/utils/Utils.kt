@@ -29,56 +29,11 @@ import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
-import android.text.Editable
-import android.view.LayoutInflater
-import android.view.View
-import android.view.inputmethod.InputMethodManager
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
-import com.google.android.material.snackbar.Snackbar
-import com.starry.greenstash.R
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.util.*
-
-/* ========================================= Extensions ======================================== */
-
-fun View.visible() {
-    visibility = View.VISIBLE
-}
-
-fun View.gone() {
-    visibility = View.GONE
-}
-
-fun View.invisible() {
-    visibility = View.INVISIBLE
-}
-
-fun Button.dismissKeyboard() {
-    val imm: InputMethodManager? =
-        context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
-    imm?.hideSoftInputFromWindow(windowToken, 0)
-}
-
-fun String.toToast(context: Context) {
-    Toast.makeText(context, this, Toast.LENGTH_SHORT).show()
-}
-
-fun String.toSnackbar(view: View) {
-    Snackbar.make(view, this, Snackbar.LENGTH_SHORT).show()
-}
-
-fun Editable.validateAmount(): Boolean {
-    return !(isEmpty() || isBlank() || toString().replace(',', '.') == "."
-            || toString().replace(',', '.').toFloat() == 0f)
-}
-
-/* ======================================== Other utils ======================================== */
 
 // round decimal (float) to 2 digits
 fun roundFloat(number: Float): Float {
@@ -116,19 +71,5 @@ fun isDarkModeOn(ctx: Context): Boolean {
         Configuration.UI_MODE_NIGHT_NO -> false
         Configuration.UI_MODE_NIGHT_UNDEFINED -> false
         else -> false
-    }
-}
-
-class IndeterminateProgressDialog(context: Context) : AlertDialog(context) {
-    private val messageTextView: TextView
-
-    init {
-        val view = LayoutInflater.from(context).inflate(R.layout.progress_dialog, null)
-        messageTextView = view.findViewById(R.id.message)
-        setView(view)
-    }
-
-    override fun setMessage(message: CharSequence?) {
-        this.messageTextView.text = message.toString()
     }
 }

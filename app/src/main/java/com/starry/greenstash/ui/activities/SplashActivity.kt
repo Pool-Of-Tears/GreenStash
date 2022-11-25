@@ -10,7 +10,10 @@ import androidx.appcompat.app.AppCompatActivity
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
-    private val LAUNCH_DELAY: Long = 250
+
+    companion object SplashConstants {
+        private const val LAUNCH_DELAY: Long = 250
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
