@@ -1,92 +1,63 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'kotlin-kapt'
-    id 'dagger.hilt.android.plugin'
 }
 
 android {
-    compileSdk 32
+    namespace 'com.starry.greenstash'
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.starry.greenstash"
         minSdk 24
-        targetSdk 32
-        versionCode 10
-        versionName "1.9"
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments += ["room.schemaLocation":
-                                      "$projectDir/schemas".toString()]
-            }
+        vectorDrawables {
+            useSupportLibrary true
         }
     }
 
     buildTypes {
         release {
-            minifyEnabled true
-            shrinkResources true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-    }
-    
-    lintOptions {
-        abortOnError false   
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
-        coreLibraryDesugaringEnabled true
     }
     kotlinOptions {
         jvmTarget = '1.8'
     }
     buildFeatures {
-        viewBinding true
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.2.0'
+    }
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
     }
 }
 
 dependencies {
-    // androidx and kotlin components.
-    implementation 'androidx.core:core-ktx:1.8.0'
-    implementation 'androidx.appcompat:appcompat:1.4.2'
-    implementation "androidx.activity:activity-ktx:1.4.0"
-    implementation "androidx.fragment:fragment-ktx:1.4.1"
-    // tests related stuffs.
+
+    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
+    implementation 'androidx.activity:activity-compose:1.3.1'
+    implementation "androidx.compose.ui:ui:$compose_version"
+    implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
+    implementation 'androidx.compose.material3:material3:1.0.0-alpha11'
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-    // android material components.
-    implementation 'com.google.android.material:material:1.6.1'
-    // layout components.
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    // navigation components.
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.4.2'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.4.2'
-    // preference APi library
-    implementation 'androidx.preference:preference:1.2.0'
-    implementation 'androidx.preference:preference-ktx:1.2.0'
-    // image picker components
-    implementation 'com.github.dhaval2404:imagepicker:2.1'
-    // room database components.
-    implementation "androidx.room:room-ktx:2.4.2"
-    kapt "androidx.room:room-compiler:2.4.2"
-    androidTestImplementation "androidx.room:room-testing:2.4.2"
-    // Gson json library
-    implementation 'com.google.code.gson:gson:2.9.0'
-    // Room database backup library.
-    implementation 'de.raphaelebner:roomdatabasebackup:1.0.0-beta10'
-    //Dagger - Hilt
-    implementation "com.google.dagger:hilt-android:2.31-alpha"
-    kapt "com.google.dagger:hilt-android-compiler:2.31-alpha"
-    implementation "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03"
-    annotationProcessor "androidx.hilt:hilt-compiler:1.0.0"
-    // Activity KTX for viewModels()
-    implementation "androidx.activity:activity-ktx:1.4.0"
-    // biometric authentication components.
-    implementation "androidx.biometric:biometric:1.1.0"
-    // for using pie back ports for API 24 (N)
-    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
+    debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
+    debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
 }

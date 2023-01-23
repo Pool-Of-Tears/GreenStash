@@ -1,3 +1,0 @@
-- Fixed a security related bug where one could bypass the biometric lock by tapping outside the area.
-- Added Spanish translations.
-- Some minor UI/UX Improvements.

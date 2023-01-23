@@ -1,3 +1,0 @@
-- Some under the hood improvements & fixes.
-- Updated few dependencies.
-- We now have a telegram group! Join us at https://t.me/PotApps
