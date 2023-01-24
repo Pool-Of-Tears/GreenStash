@@ -11,7 +11,7 @@
 
 ------
 
-<b>⚠️ Importand Note:</b> <i>The app is currently being rewritten in jetpack compose, the next release (v2.0) may not be compatible with older releases (i.e you will need to uninstall older version to install this one) as I'm planning to do a few things differently the way they were before. For source code of last and previous releases please checkout <code>master-old</code> branch instead.</i>.
+<b>⚠️ Importand Note:</b> The app is currently being rewritten in jetpack compose, the next release (v2.0) may not be compatible with older releases (i.e you will need to uninstall older version to install this one) as I'm planning to do a few things differently the way they were before. For source code of last and previous releases please checkout <code><a href="https://github.com/Pool-Of-Tears/GreenStash/tree/master-old">master-old</a></code> branch instead.
 
 ------
 
