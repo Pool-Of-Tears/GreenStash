@@ -2,6 +2,7 @@ package com.starry.greenstash.ui.screens.home.composables
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
@@ -11,13 +12,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.starry.greenstash.R
 import com.starry.greenstash.ui.navigation.DrawerScreens
+import com.starry.greenstash.ui.theme.poppinsFont
 import kotlinx.coroutines.launch
 
 @ExperimentalMaterial3Api
@@ -42,7 +46,7 @@ fun HomeScreen(navController: NavController) {
                                 contentDescription = null
                             )
                         },
-                        label = { Text(item.name) },
+                        label = { Text(item.name, fontFamily = poppinsFont) },
                         selected = item == selectedItem.value,
                         onClick = {
                             scope.launch { drawerState.close() }
@@ -60,9 +64,10 @@ fun HomeScreen(navController: NavController) {
                 CenterAlignedTopAppBar(
                     title = {
                         Text(
-                            "Centered TopAppBar",
+                            stringResource(id = R.string.home_screen_header),
                             maxLines = 1,
-                            overflow = TextOverflow.Ellipsis
+                            overflow = TextOverflow.Ellipsis,
+                            fontFamily = poppinsFont
                         )
                     },
                     navigationIcon = {
@@ -89,7 +94,17 @@ fun HomeScreen(navController: NavController) {
                     onClick = { /* do something */ },
                     elevation = FloatingActionButtonDefaults.elevation(8.dp)
                 ) {
-                    Text(text = "Extended FAB")
+                    Row {
+                        Icon(
+                            imageVector = Icons.Filled.Add,
+                            contentDescription = null
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            text = stringResource(id = R.string.new_goal_fab),
+                            modifier = Modifier.padding(top = 2.dp)
+                        )
+                    }
                 }
             }
         ) {

@@ -12,6 +12,7 @@ import androidx.navigation.NavHostController
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.starry.greenstash.ui.screens.home.composables.HomeScreen
+import com.starry.greenstash.ui.screens.settings.composables.SettingsScreen
 
 @ExperimentalMaterial3Api
 @ExperimentalAnimationApi
@@ -30,6 +31,13 @@ fun NavGraph(navController: NavHostController, paddingValues: PaddingValues) {
             route = DrawerScreens.Home.route,
         ) {
             HomeScreen(navController)
+        }
+
+        /** Settings Screen */
+        composable(
+            route = DrawerScreens.Settings.route
+        ) {
+            SettingsScreen(navController)
         }
 
     }

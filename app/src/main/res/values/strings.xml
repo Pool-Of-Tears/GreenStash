@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">GreenStash</string>
+    <string name="dialog_confirm_button">Confirm</string>
+    <string name="cancel">Cancel</string>
+
+    <!-- Home Screen -->
+    <string name="home_screen_header">Saving Goals</string>
+    <string name="new_goal_fab">New Goal</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_screen_header">Settings</string>
+    <string name="display_settings_title">Display</string>
+    <string name="theme_setting">Default Theme</string>
+    <string name="theme_dialog_title">Change Theme</string>
+    <string name="theme_dialog_apply_button">Apply</string>
+    <string name="material_you_setting" translatable="false">Material You</string>
+    <string name="material_you_setting_desc">Switch theme according to your wallpaper (A12+ Only)</string>
+    <string name="material_you_error">This feature is only for devices running Android 12 or above.</string>
 </resources>
