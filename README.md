@@ -1,5 +1,5 @@
 <p align="center">
-  <a href=""><img width="200" height="200" src="https://github.com/Pool-Of-Tears/GreenStash/blob/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png"></a>
+  <a href=""><img width="200" height="200" src="https://github.com/Pool-Of-Tears/GreenStash/blob/master-old/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png"></a>
 </p>
 <p align="center" style="font-size:18px"><b>GreenStash</b></p>
 
