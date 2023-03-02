@@ -7,6 +7,38 @@
     <string name="home_screen_header">Saving Goals</string>
     <string name="new_goal_fab">New Goal</string>
 
+    <!-- Strings used for dashboard saving goals cards -->
+    <string name="no_goals_set">Nothing to show here, click on the \"New goal\" button below to set a new goal and start saving!</string>
+    <string name="deposit_btn">Deposit</string>
+    <string name="deposit_dialog_title">Awesome! enter amount</string>
+    <string name="deposit_successful">Deposited Successfully!</string>
+    <string name="goal_already_achieved">You\'ve already achieved this goal.</string>
+    <string name="withdraw_btn">withdraw</string>
+    <string name="withdraw_dialog_title">Cool! enter amount</string>
+    <string name="withdraw_btn_error">You haven\'t deposited any amount yet.</string>
+    <string name="withdraw_overflow_error">Amount is more than current deposited amount!</string>
+    <string name="withdraw_successful">Withdrawn Successfully!</string>
+    <string name="goal_delete_confirmation">You sure?</string>
+    <string name="goal_delete_success">Deleted Successfully.</string>
+    <string name="info_btn_description">View goal information.</string>
+    <string name="add_fab_button_title">New goal</string>
+    <string name="progress_greet1">You’re off to great start!</string>
+    <string name="progress_greet2">Keep on keeping on!</string>
+    <string name="progress_greet3">If you think you can do it, you can.</string>
+    <string name="progress_greet4">Almost there, You got this!</string>
+    <string name="progress_greet5">Congratulations &#x1F389;</string>
+    <string name="currently_saved_incomplete">Currently saved %s out of %s.</string>
+    <string name="currently_saved_complete">You\'ve saved %s out of %s.</string>
+    <!-- Eg: You have until 25/12/2022 (152) days left. -->
+    <string name="goal_days_left">You have until %s (%s) days left.</string>
+    <!-- Eg: You need to save around $2/day, $20/week, $200/month. -->
+    <string name="goal_approx_saving">You need to save around %s/</string>
+    <string name="goal_approx_saving_day">day.</string>
+    <string name="goal_approx_saving_week">week.</string>
+    <string name="goal_approx_saving_month">month.</string>
+    <string name="no_goal_deadline_set">As you\'ve not specified any deadline, you got all the time in the world!</string>
+    <string name="goal_achieved_desc">It’s time to celebrate all the hard work that led to this joyful occasion.</string>
+
     <!-- Settings Screen -->
     <string name="settings_screen_header">Settings</string>
     <string name="display_settings_title">Display</string>
