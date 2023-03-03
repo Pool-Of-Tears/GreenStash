@@ -29,7 +29,7 @@ class Converters {
     fun fromTransactionType(value: TransactionType) = value.ordinal
 
     @TypeConverter
-    fun totransactiontype(value: Int) = when (value) {
+    fun toTransactionType(value: Int) = when (value) {
         TransactionType.Deposit.ordinal -> TransactionType.Deposit
         TransactionType.Withdraw.ordinal -> TransactionType.Withdraw
         else -> TransactionType.Invalid

@@ -9,9 +9,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.starry.greenstash.ui.screens.home.composables.HomeScreen
+import com.starry.greenstash.ui.screens.input.composables.InputScreen
 import com.starry.greenstash.ui.screens.settings.composables.SettingsScreen
 
 @ExperimentalMaterial3Api
@@ -31,6 +34,19 @@ fun NavGraph(navController: NavHostController, paddingValues: PaddingValues) {
             route = DrawerScreens.Home.route,
         ) {
             HomeScreen(navController)
+        }
+
+        /** Input Screen */
+        composable(
+            route = Screens.InputScreen.route,
+            arguments = listOf(navArgument(EDIT_GOAL_ARG_KEY) {
+                nullable = true
+                defaultValue = null
+                type = NavType.StringType
+            })
+        ) { backStackEntry ->
+            val editGoalId = backStackEntry.arguments!!.getString(EDIT_GOAL_ARG_KEY)
+            InputScreen(editGoalId, navController)
         }
 
         /** Settings Screen */

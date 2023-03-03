@@ -21,6 +21,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.starry.greenstash.R
 import com.starry.greenstash.ui.navigation.DrawerScreens
+import com.starry.greenstash.ui.navigation.Screens
 import com.starry.greenstash.ui.theme.poppinsFont
 import kotlinx.coroutines.launch
 
@@ -88,10 +89,11 @@ fun HomeScreen(navController: NavController) {
                     }
                 )
             },
+
             floatingActionButton = {
                 ExtendedFloatingActionButton(
                     modifier = Modifier.padding(end = 10.dp, bottom = 12.dp),
-                    onClick = { /* do something */ },
+                    onClick = { navController.navigate(Screens.InputScreen.route) },
                     elevation = FloatingActionButtonDefaults.elevation(8.dp)
                 ) {
                     Row {
@@ -107,6 +109,7 @@ fun HomeScreen(navController: NavController) {
                     }
                 }
             }
+
         ) {
             Column(
                 modifier = Modifier
