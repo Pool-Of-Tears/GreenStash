@@ -20,7 +20,6 @@ import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.starry.greenstash.R
-import com.starry.greenstash.ui.theme.poppinsFont
 
 @Composable
 fun GoalItem(
@@ -71,7 +70,6 @@ fun GoalItem(
                 Text(
                     text = title,
                     modifier = Modifier.padding(start = 8.dp),
-                    fontFamily = poppinsFont,
                     fontWeight = FontWeight.Medium,
                     lineHeight = 1.2f.em,
                     fontSize = 18.sp,
@@ -80,7 +78,6 @@ fun GoalItem(
                 Text(
                     text = primaryText,
                     modifier = Modifier.padding(start = 8.dp, top = 6.dp),
-                    fontFamily = poppinsFont,
                     lineHeight = 1.2f.em,
                     fontSize = 14.sp,
                     color = MaterialTheme.colorScheme.onSurface
@@ -88,7 +85,6 @@ fun GoalItem(
                 Text(
                     text = secondaryText,
                     modifier = Modifier.padding(start = 8.dp, top = 8.dp),
-                    fontFamily = poppinsFont,
                     lineHeight = 1.1f.em,
                     fontSize = 14.sp,
                     color = MaterialTheme.colorScheme.onSurface
@@ -104,7 +100,6 @@ fun GoalItem(
                 ) {
                     Text(
                         text = stringResource(id = R.string.deposit_btn).uppercase(),
-                        fontFamily = poppinsFont,
                         fontWeight = FontWeight.SemiBold,
                         color = MaterialTheme.colorScheme.onSurface
                     )
@@ -114,7 +109,6 @@ fun GoalItem(
                 ) {
                     Text(
                         text = stringResource(id = R.string.withdraw_btn).uppercase(),
-                        fontFamily = poppinsFont,
                         fontWeight = FontWeight.SemiBold,
                         color = MaterialTheme.colorScheme.onSurface
                     )

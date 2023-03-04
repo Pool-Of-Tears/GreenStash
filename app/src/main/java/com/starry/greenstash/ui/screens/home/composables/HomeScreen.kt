@@ -22,7 +22,6 @@ import androidx.navigation.compose.rememberNavController
 import com.starry.greenstash.R
 import com.starry.greenstash.ui.navigation.DrawerScreens
 import com.starry.greenstash.ui.navigation.Screens
-import com.starry.greenstash.ui.theme.poppinsFont
 import kotlinx.coroutines.launch
 
 @ExperimentalMaterial3Api
@@ -47,7 +46,7 @@ fun HomeScreen(navController: NavController) {
                                 contentDescription = null
                             )
                         },
-                        label = { Text(item.name, fontFamily = poppinsFont) },
+                        label = { Text(item.name) },
                         selected = item == selectedItem.value,
                         onClick = {
                             scope.launch { drawerState.close() }
@@ -68,7 +67,6 @@ fun HomeScreen(navController: NavController) {
                             stringResource(id = R.string.home_screen_header),
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis,
-                            fontFamily = poppinsFont
                         )
                     },
                     navigationIcon = {

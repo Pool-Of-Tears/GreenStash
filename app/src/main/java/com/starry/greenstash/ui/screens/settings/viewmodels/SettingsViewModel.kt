@@ -11,7 +11,12 @@ enum class ThemeMode {
     Light, Dark, Auto
 }
 
-class SettingsViewModel: ViewModel() {
+sealed class DateStyle(val pattern: String) {
+    object DateMonthYear : DateStyle("dd/MM/yyyy")
+    object YearMonthDate : DateStyle("yyyy/MM/dd")
+}
+
+class SettingsViewModel : ViewModel() {
     private val _theme = MutableLiveData(ThemeMode.Auto)
     private val _materialYou = MutableLiveData(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
 

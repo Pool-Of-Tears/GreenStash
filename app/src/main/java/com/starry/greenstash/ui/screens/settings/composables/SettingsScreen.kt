@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -28,14 +29,14 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.starry.greenstash.MainActivity
 import com.starry.greenstash.R
-import com.starry.greenstash.ui.screens.settings.common.SettingsItem
+import com.starry.greenstash.ui.screens.settings.viewmodels.DateStyle
 import com.starry.greenstash.ui.screens.settings.viewmodels.ThemeMode
-import com.starry.greenstash.ui.theme.poppinsFont
 import com.starry.greenstash.utils.PreferenceUtils
 import com.starry.greenstash.utils.getActivity
 import com.starry.greenstash.utils.toToast
 
 
+@ExperimentalComposeUiApi
 @ExperimentalAnimationApi
 @ExperimentalMaterial3Api
 @Composable
@@ -66,16 +67,18 @@ fun SettingsScreen(navController: NavController) {
         LazyColumn(modifier = Modifier.padding(it)) {
             /** Display Settings */
             item {
-                val displayValue = when (PreferenceUtils.getInt(
+                val themeValue = when (PreferenceUtils.getInt(
                     PreferenceUtils.APP_THEME, ThemeMode.Auto.ordinal
                 )) {
                     ThemeMode.Light.ordinal -> "Light"
                     ThemeMode.Dark.ordinal -> "Dark"
                     else -> "System"
                 }
-                val displayDialog = remember { mutableStateOf(false) }
-                val radioOptions = listOf("Light", "Dark", "System")
-                val (selectedOption, onOptionSelected) = remember { mutableStateOf(displayValue) }
+                val themeDialog = remember { mutableStateOf(false) }
+                val themeRadioOptions = listOf("Light", "Dark", "System")
+                val (selectedThemeOption, onThemeOptionSelected) = remember {
+                    mutableStateOf(themeValue)
+                }
 
                 val materialYouSwitch = remember {
                     mutableStateOf(
@@ -91,7 +94,6 @@ fun SettingsScreen(navController: NavController) {
                 ) {
                     Text(
                         text = stringResource(id = R.string.display_settings_title),
-                        fontFamily = poppinsFont,
                         color = MaterialTheme.colorScheme.onBackground,
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Bold,
@@ -100,9 +102,9 @@ fun SettingsScreen(navController: NavController) {
                             .padding(horizontal = 14.dp)
                     )
                     SettingsItem(title = stringResource(id = R.string.theme_setting),
-                        description = displayValue,
+                        description = themeValue,
                         icon = ImageVector.vectorResource(id = R.drawable.ic_settings_theme),
-                        onClick = { displayDialog.value = true })
+                        onClick = { themeDialog.value = true })
 
                     SettingsItem(
                         title = stringResource(id = R.string.material_you_setting),
@@ -127,9 +129,9 @@ fun SettingsScreen(navController: NavController) {
                     }
 
 
-                    if (displayDialog.value) {
+                    if (themeDialog.value) {
                         AlertDialog(onDismissRequest = {
-                            displayDialog.value = false
+                            themeDialog.value = false
                         }, title = {
                             Text(
                                 text = stringResource(id = R.string.theme_dialog_title),
@@ -140,20 +142,20 @@ fun SettingsScreen(navController: NavController) {
                                 modifier = Modifier.selectableGroup(),
                                 verticalArrangement = Arrangement.Center,
                             ) {
-                                radioOptions.forEach { text ->
+                                themeRadioOptions.forEach { text ->
                                     Row(
                                         modifier = Modifier
                                             .fillMaxWidth()
                                             .height(46.dp)
                                             .selectable(
-                                                selected = (text == selectedOption),
-                                                onClick = { onOptionSelected(text) },
+                                                selected = (text == selectedThemeOption),
+                                                onClick = { onThemeOptionSelected(text) },
                                                 role = Role.RadioButton,
                                             ),
                                         verticalAlignment = Alignment.CenterVertically,
                                     ) {
                                         RadioButton(
-                                            selected = (text == selectedOption),
+                                            selected = (text == selectedThemeOption),
                                             onClick = null,
                                             colors = RadioButtonDefaults.colors(
                                                 selectedColor = MaterialTheme.colorScheme.primary,
@@ -166,16 +168,15 @@ fun SettingsScreen(navController: NavController) {
                                             text = text,
                                             modifier = Modifier.padding(start = 16.dp),
                                             color = MaterialTheme.colorScheme.onSurface,
-                                            fontFamily = poppinsFont
                                         )
                                     }
                                 }
                             }
                         }, confirmButton = {
                             TextButton(onClick = {
-                                displayDialog.value = false
+                                themeDialog.value = false
 
-                                when (selectedOption) {
+                                when (selectedThemeOption) {
                                     "Light" -> {
                                         viewModel.setTheme(
                                             ThemeMode.Light
@@ -206,7 +207,119 @@ fun SettingsScreen(navController: NavController) {
                             }
                         }, dismissButton = {
                             TextButton(onClick = {
-                                displayDialog.value = false
+                                themeDialog.value = false
+                            }) {
+                                Text(stringResource(id = R.string.cancel))
+                            }
+                        })
+                    }
+                }
+            }
+
+            /** Locales Setting */
+            item {
+
+                val dateValue = if (PreferenceUtils.getString(
+                        PreferenceUtils.DATE_FORMAT,
+                        DateStyle.DateMonthYear.pattern
+                    ) == DateStyle.YearMonthDate.pattern
+                ) {
+                    "YYYY/MM/DD"
+                } else {
+                    "DD/MM/YYYY"
+                }
+
+                val dateDialog = remember { mutableStateOf(false) }
+                val dateRadioOptions = listOf("DD/MM/YYYY", "YYYY/MM/DD")
+                val (selectedDateOption, onDateOptionSelected) = remember {
+                    mutableStateOf(dateValue)
+                }
+
+                Column(
+                    modifier = Modifier.padding(top = 10.dp)
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.locales_setting_title),
+                        color = MaterialTheme.colorScheme.onBackground,
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier
+                            .padding(vertical = 8.dp)
+                            .padding(horizontal = 14.dp)
+                    )
+
+                    SettingsItem(title = stringResource(id = R.string.date_format_setting),
+                        description = dateValue,
+                        icon = ImageVector.vectorResource(id = R.drawable.ic_settings_calender),
+                        onClick = { dateDialog.value = true })
+
+                    if (dateDialog.value) {
+                        AlertDialog(onDismissRequest = {
+                            dateDialog.value = false
+                        }, title = {
+                            Text(
+                                text = stringResource(id = R.string.date_format_dialog_title),
+                                color = MaterialTheme.colorScheme.onSurface,
+                            )
+                        }, text = {
+                            Column(
+                                modifier = Modifier.selectableGroup(),
+                                verticalArrangement = Arrangement.Center,
+                            ) {
+                                dateRadioOptions.forEach { text ->
+                                    Row(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .height(46.dp)
+                                            .selectable(
+                                                selected = (text == selectedDateOption),
+                                                onClick = { onDateOptionSelected(text) },
+                                                role = Role.RadioButton,
+                                            ),
+                                        verticalAlignment = Alignment.CenterVertically,
+                                    ) {
+                                        RadioButton(
+                                            selected = (text == selectedDateOption),
+                                            onClick = null,
+                                            colors = RadioButtonDefaults.colors(
+                                                selectedColor = MaterialTheme.colorScheme.primary,
+                                                unselectedColor = MaterialTheme.colorScheme.inversePrimary,
+                                                disabledSelectedColor = Color.Black,
+                                                disabledUnselectedColor = Color.Black
+                                            ),
+                                        )
+                                        Text(
+                                            text = text,
+                                            modifier = Modifier.padding(start = 16.dp),
+                                            color = MaterialTheme.colorScheme.onSurface,
+                                        )
+                                    }
+                                }
+                            }
+                        }, confirmButton = {
+                            TextButton(onClick = {
+                                dateDialog.value = false
+
+                                when (selectedDateOption) {
+                                    "DD/MM/YYYY" -> {
+                                        PreferenceUtils.putString(
+                                            PreferenceUtils.DATE_FORMAT,
+                                            DateStyle.DateMonthYear.pattern
+                                        )
+                                    }
+                                    "YYYY/MM/DD" -> {
+                                        PreferenceUtils.putString(
+                                            PreferenceUtils.DATE_FORMAT,
+                                            DateStyle.YearMonthDate.pattern
+                                        )
+                                    }
+                                }
+                            }) {
+                                Text(stringResource(id = R.string.dialog_confirm_button))
+                            }
+                        }, dismissButton = {
+                            TextButton(onClick = {
+                                dateDialog.value = false
                             }) {
                                 Text(stringResource(id = R.string.cancel))
                             }

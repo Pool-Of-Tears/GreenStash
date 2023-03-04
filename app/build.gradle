@@ -38,6 +38,7 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+        coreLibraryDesugaringEnabled true
     }
     kotlinOptions {
         jvmTarget = '1.8'
@@ -46,7 +47,7 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion '1.3.2'
+        kotlinCompilerExtensionVersion '1.4.0'
     }
     packagingOptions {
         resources {
@@ -65,13 +66,13 @@ dependencies {
     // Jetpack compose.
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
-    implementation "androidx.compose.material3:material3:1.1.0-alpha04"
+    implementation "androidx.compose.material3:material3:1.1.0-alpha07"
     implementation "androidx.compose.animation:animation:$compose_version"
     implementation "com.google.accompanist:accompanist-navigation-animation:0.29.0-alpha"
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1"
     implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
     // Material theme for main activity.
-    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'com.google.android.material:material:1.8.0'
     // Room database
     implementation "androidx.room:room-ktx:2.5.0"
     kapt "androidx.room:room-compiler:2.5.0"
@@ -83,6 +84,11 @@ dependencies {
     kapt "androidx.hilt:hilt-compiler:1.0.0"
     // Coil Image loading library.
     implementation "io.coil-kt:coil-compose:2.2.2"
+    // Material 3 calender / Date picker.
+    implementation 'com.maxkeppeler.sheets-compose-dialogs:core:1.1.0'
+    implementation 'com.maxkeppeler.sheets-compose-dialogs:calendar:1.1.0'
+    // Oreo back-ports for API 24 (N)
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.2'
     // Testing components.
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

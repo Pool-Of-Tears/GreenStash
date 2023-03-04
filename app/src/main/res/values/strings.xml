@@ -42,6 +42,16 @@
     <!-- Input (New/Edit Goal) Screen -->
     <string name="input_screen_header">It\'s time to save!</string>
     <string name="input_pick_image">Goal Image</string>
+    <string name="input_page_quote" translatable="false">You don’t have to see the whole staircase, just take the first step. – Martin Luther King, Jr.  </string>
+    <string name="input_text_title">Goal Title</string>
+    <string name="title_empty_err">Woops! title is empty.</string>
+    <string name="input_text_amount">Target Amount</string>
+    <string name="amount_empty_err">Woops! amount is empty.</string>
+    <string name="input_deadline">Deadline (Optional)</string>
+    <string name="input_additional_notes">Notes (Optional)</string>
+    <string name="input_save_btn">Set New Saving Goal</string>
+    <string name="input_edit_save_button">Edit Saving Goal</string>
+    <string name="data_saved_success">Great job! saving goal set.</string>
 
     <!-- Settings Screen -->
     <string name="settings_screen_header">Settings</string>
@@ -52,4 +62,7 @@
     <string name="material_you_setting" translatable="false">Material You</string>
     <string name="material_you_setting_desc">Switch theme according to your wallpaper (A12+ Only)</string>
     <string name="material_you_error">This feature is only for devices running Android 12 or above.</string>
+    <string name="locales_setting_title">Locales</string>
+    <string name="date_format_setting">Date Format</string>
+    <string name="date_format_dialog_title">Change Date Format</string>
 </resources>

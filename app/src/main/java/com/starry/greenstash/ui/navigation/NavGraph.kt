@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -17,6 +18,7 @@ import com.starry.greenstash.ui.screens.home.composables.HomeScreen
 import com.starry.greenstash.ui.screens.input.composables.InputScreen
 import com.starry.greenstash.ui.screens.settings.composables.SettingsScreen
 
+@ExperimentalComposeUiApi
 @ExperimentalMaterial3Api
 @ExperimentalAnimationApi
 @Composable

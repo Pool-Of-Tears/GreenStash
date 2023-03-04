@@ -11,6 +11,7 @@ object PreferenceUtils {
     const val APP_THEME = "theme_settings"
     const val MATERIAL_YOU = "material_you"
     const val DEFAULT_CURRENCY = "default_currency"
+    const val DATE_FORMAT = "date_format"
 
     fun initialize(context: Context) {
         prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
@@ -40,15 +41,15 @@ object PreferenceUtils {
         prefsEditor.apply()
     }
 
-    fun getString(key: String, value: String): String? {
-        return prefs.getString(key, value)
+    fun getString(key: String, defValue: String): String? {
+        return prefs.getString(key, defValue)
     }
 
-    fun getInt(key: String, value: Int): Int {
-        return prefs.getInt(key, value)
+    fun getInt(key: String, defValue: Int): Int {
+        return prefs.getInt(key, defValue)
     }
 
-    fun getBoolean(key: String, value: Boolean): Boolean {
-        return prefs.getBoolean(key, value)
+    fun getBoolean(key: String, defValue: Boolean): Boolean {
+        return prefs.getBoolean(key, defValue)
     }
 }

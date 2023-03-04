@@ -5,12 +5,14 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.ExperimentalComposeUiApi
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.starry.greenstash.ui.navigation.NavGraph
 import com.starry.greenstash.ui.screens.settings.viewmodels.SettingsViewModel
 import com.starry.greenstash.ui.screens.settings.viewmodels.ThemeMode
 
+@ExperimentalComposeUiApi
 @ExperimentalMaterial3Api
 @ExperimentalAnimationApi
 @Composable

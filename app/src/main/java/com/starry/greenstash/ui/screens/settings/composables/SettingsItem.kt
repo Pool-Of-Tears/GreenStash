@@ -1,4 +1,4 @@
-package com.starry.greenstash.ui.screens.settings.common
+package com.starry.greenstash.ui.screens.settings.composables
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -25,8 +25,8 @@ fun SettingsItem(title: String, description: String, icon: ImageVector, onClick:
                 imageVector = icon,
                 contentDescription = null,
                 modifier = Modifier
-                    .padding(start = 8.dp, end = 16.dp)
-                    .size(24.dp),
+                    .padding(start = 14.dp, end = 16.dp)
+                    .size(26.dp),
                 tint = MaterialTheme.colorScheme.secondary
             )
             Column(
@@ -43,7 +43,7 @@ fun SettingsItem(title: String, description: String, icon: ImageVector, onClick:
                 Text(
                     text = description,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    maxLines = 1,
+                    maxLines = 2,
                     style = MaterialTheme.typography.bodyMedium,
                 )
             }
@@ -68,8 +68,8 @@ fun SettingsItem(
             imageVector = icon,
             contentDescription = null,
             modifier = Modifier
-                .padding(start = 8.dp, end = 16.dp)
-                .size(24.dp),
+                .padding(start = 14.dp, end = 16.dp)
+                .size(26.dp),
             tint = MaterialTheme.colorScheme.secondary
         )
         Column(
@@ -86,14 +86,14 @@ fun SettingsItem(
             Text(
                 text = description,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
-                maxLines = 1,
+                maxLines = 2,
                 style = MaterialTheme.typography.bodyMedium,
             )
         }
         Switch(
             checked = switchState.value,
             onCheckedChange = { switchState.value = it },
-            modifier = Modifier.padding(start = 12.dp, end = 8.dp)
+            modifier = Modifier.padding(start = 12.dp, end = 12.dp)
         )
     }
 }
