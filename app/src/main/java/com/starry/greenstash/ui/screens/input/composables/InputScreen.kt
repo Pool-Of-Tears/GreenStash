@@ -27,6 +27,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
@@ -37,9 +38,13 @@ import com.maxkeppeler.sheets.calendar.models.CalendarConfig
 import com.maxkeppeler.sheets.calendar.models.CalendarSelection
 import com.maxkeppeler.sheets.calendar.models.CalendarTimeline
 import com.starry.greenstash.R
+import com.starry.greenstash.ui.navigation.DrawerScreens
+import com.starry.greenstash.ui.screens.input.viewmodels.InputViewModel
 import com.starry.greenstash.ui.screens.settings.viewmodels.DateStyle
 import com.starry.greenstash.utils.PreferenceUtils
 import com.starry.greenstash.utils.Utils
+import com.starry.greenstash.utils.toToast
+import com.starry.greenstash.utils.validateAmount
 import java.time.format.DateTimeFormatter
 
 @ExperimentalComposeUiApi
@@ -47,14 +52,10 @@ import java.time.format.DateTimeFormatter
 @Composable
 fun InputScreen(editGoalId: String?, navController: NavController) {
     val context = LocalContext.current
+    val viewModel: InputViewModel = hiltViewModel()
 
     var imageUri: Any? by remember { mutableStateOf(R.drawable.default_goal_image) }
-    var goalTitleText by remember { mutableStateOf("") }
-    var targetAmount by remember { mutableStateOf("") }
-    var deadline by remember { mutableStateOf("") }
-    var additionalNotes by remember { mutableStateOf("") }
-
-    val calabderState = rememberSheetState()
+    val calenderState = rememberSheetState()
 
     if (editGoalId != null) {
         // TODO
@@ -68,15 +69,18 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
     ) {
         if (it != null) {
             imageUri = it
+            viewModel.state = viewModel.state.copy(goalImageUri = it)
         }
     }
 
     CalendarDialog(
-        state = calabderState, selection = CalendarSelection.Date { date ->
-            deadline = date.format(
-                DateTimeFormatter.ofPattern(
-                    PreferenceUtils.getString(
-                        PreferenceUtils.DATE_FORMAT, DateStyle.DateMonthYear.pattern
+        state = calenderState, selection = CalendarSelection.Date { date ->
+            viewModel.state = viewModel.state.copy(
+                deadline = date.format(
+                    DateTimeFormatter.ofPattern(
+                        PreferenceUtils.getString(
+                            PreferenceUtils.DATE_FORMAT, DateStyle.DateMonthYear.pattern
+                        )
                     )
                 )
             )
@@ -152,16 +156,19 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                         )
                     },
                     elevation = FloatingActionButtonDefaults.elevation(4.dp),
+                    containerColor = MaterialTheme.colorScheme.primary
                 ) {
                     Row {
                         Icon(
                             imageVector = ImageVector.vectorResource(id = R.drawable.ic_input_image),
-                            contentDescription = null
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.onPrimary
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
                             text = stringResource(id = R.string.input_pick_image),
-                            modifier = Modifier.padding(top = 2.dp)
+                            modifier = Modifier.padding(top = 2.dp),
+                            color = MaterialTheme.colorScheme.onPrimary
                         )
                     }
                 }
@@ -181,8 +188,10 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 OutlinedTextField(
-                    value = goalTitleText,
-                    onValueChange = { newText -> goalTitleText = newText },
+                    value = viewModel.state.goalTitleText,
+                    onValueChange = { newText ->
+                        viewModel.state = viewModel.state.copy(goalTitleText = newText)
+                    },
                     modifier = Modifier.fillMaxWidth(0.8f),
                     label = {
                         Text(text = stringResource(id = R.string.input_text_title))
@@ -204,8 +213,11 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                 Spacer(modifier = Modifier.height(18.dp))
 
                 OutlinedTextField(
-                    value = targetAmount,
-                    onValueChange = { newText -> targetAmount = Utils.getValidatedNumber(newText) },
+                    value = viewModel.state.targetAmount,
+                    onValueChange = { newText ->
+                        viewModel.state =
+                            viewModel.state.copy(targetAmount = Utils.getValidatedNumber(newText))
+                    },
                     modifier = Modifier.fillMaxWidth(0.8f),
                     label = {
                         Text(text = stringResource(id = R.string.input_text_amount))
@@ -230,13 +242,15 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                 val interactionSource = remember { MutableInteractionSource() }
 
                 OutlinedTextField(
-                    value = deadline,
-                    onValueChange = { newText -> deadline = newText },
+                    value = viewModel.state.deadline,
+                    onValueChange = { newText ->
+                        viewModel.state = viewModel.state.copy(deadline = newText)
+                    },
                     modifier = Modifier
                         .fillMaxWidth(0.8f)
                         .clickable(
                             onClick = {
-                                calabderState.show()
+                                calenderState.show()
                             }, interactionSource = interactionSource, indication = null
                         ),
                     label = {
@@ -265,8 +279,10 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                 Spacer(modifier = Modifier.height(18.dp))
 
                 OutlinedTextField(
-                    value = additionalNotes,
-                    onValueChange = { newText -> additionalNotes = newText },
+                    value = viewModel.state.additionalNotes,
+                    onValueChange = { newText ->
+                        viewModel.state = viewModel.state.copy(additionalNotes = newText)
+                    },
                     modifier = Modifier.fillMaxWidth(0.8f),
                     label = {
                         Text(text = stringResource(id = R.string.input_additional_notes))
@@ -288,16 +304,25 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                 Spacer(modifier = Modifier.height(24.dp))
 
                 Button(
-                    onClick = { /*TODO*/ },
+                    onClick = {
+                        if (viewModel.state.goalTitleText.isEmpty() || viewModel.state.goalTitleText.isBlank()) {
+                            context.getString(R.string.title_empty_err).toToast(context)
+                        } else if (!viewModel.state.targetAmount.validateAmount()) {
+                            context.getString(R.string.amount_empty_err).toToast(context)
+                        } else {
+                            viewModel.addSavingGoal(context)
+                            navController.popBackStack(DrawerScreens.Home.route, true)
+                            navController.navigate(DrawerScreens.Home.route)
+                        }
+                    },
                     modifier = Modifier
                         .fillMaxWidth(0.8f)
                         .height(55.dp),
                     shape = RoundedCornerShape(14.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
                 ) {
                     Text(
                         text = stringResource(id = R.string.input_save_btn),
-                        color = MaterialTheme.colorScheme.onPrimaryContainer
+                        color = MaterialTheme.colorScheme.onPrimary
                     )
                 }
 

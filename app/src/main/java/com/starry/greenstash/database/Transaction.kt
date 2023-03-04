@@ -20,10 +20,12 @@ enum class TransactionType {
     ]
 )
 data class Transaction(
-    @PrimaryKey(autoGenerate = true) val transactionId: Long,
     @ColumnInfo(index = true) val ownerGoalId: Long,
     val type: TransactionType,
     val timeStamp: Long,
     val amount: Double,
     val notes: String,
-)
+) {
+    @PrimaryKey(autoGenerate = true)
+    var transactionId: Long = 0L
+}

@@ -17,7 +17,9 @@ import com.starry.greenstash.ui.screens.settings.viewmodels.SettingsViewModel
 import com.starry.greenstash.ui.screens.settings.viewmodels.ThemeMode
 import com.starry.greenstash.ui.theme.GreenStashTheme
 import com.starry.greenstash.utils.PreferenceUtils
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 @ExperimentalComposeUiApi
 @ExperimentalAnimationApi
 @ExperimentalMaterial3Api

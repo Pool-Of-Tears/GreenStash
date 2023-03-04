@@ -1,7 +1,17 @@
 package com.starry.greenstash.utils
 
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
+import java.math.RoundingMode
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
+import java.util.*
+
 object Utils {
 
+    /** Validate number from text field. */
     fun getValidatedNumber(text: String): String {
         val filteredChars = text.filterIndexed { index, c ->
             c.isDigit()
@@ -16,4 +26,26 @@ object Utils {
             filteredChars
         }
     }
+
+
+    /** Round decimal (double) to 2 digits */
+    fun roundDecimal(number: Double): Double {
+        val locale = DecimalFormatSymbols(Locale.US)
+        val df = DecimalFormat("#.##", locale)
+        df.roundingMode = RoundingMode.CEILING
+        return df.format(number).toDouble()
+    }
+
+    /** Convert double into currency format */
+    fun formatCurrency(number: Double): String {
+        val df = DecimalFormat("#,###.00")
+        return df.format(number)
+    }
+
+    /** Get bitmap from image Uri. */
+    fun uriToBitmap(uri: Uri, context: Context): Bitmap {
+        val stream = context.contentResolver.openInputStream(uri)
+        return BitmapFactory.decodeStream(stream)
+    }
+
 }

@@ -46,7 +46,7 @@
     <string name="input_text_title">Goal Title</string>
     <string name="title_empty_err">Woops! title is empty.</string>
     <string name="input_text_amount">Target Amount</string>
-    <string name="amount_empty_err">Woops! amount is empty.</string>
+    <string name="amount_empty_err">Woops! amount is empty or Invalid.</string>
     <string name="input_deadline">Deadline (Optional)</string>
     <string name="input_additional_notes">Notes (Optional)</string>
     <string name="input_save_btn">Set New Saving Goal</string>

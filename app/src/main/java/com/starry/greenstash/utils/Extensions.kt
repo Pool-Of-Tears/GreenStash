@@ -14,3 +14,7 @@ fun Context.getActivity(): AppCompatActivity? = when (this) {
 fun String.toToast(context: Context, length: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(context, this, length).show()
 }
+
+fun String.validateAmount() =
+    this.isNotEmpty() && this.isNotBlank() && this != "0" && this != "0.0"
+            && !this.startsWith("0.00") && !this.endsWith(".")
