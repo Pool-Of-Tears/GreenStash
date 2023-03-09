@@ -4,8 +4,10 @@ import android.os.Build
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
@@ -235,6 +237,22 @@ fun SettingsScreen(navController: NavController) {
                     mutableStateOf(dateValue)
                 }
 
+                val currencyEntries = context.resources.getStringArray(R.array.currency_entries)
+                val currencyValues = context.resources.getStringArray(R.array.currency_values)
+
+                val currencyValue = currencyEntries[currencyValues.indexOf(
+                    PreferenceUtils.getString(
+                        PreferenceUtils.DEFAULT_CURRENCY,
+                        currencyValues.first()
+                    )
+                )]
+
+                val currencyDialog = remember { mutableStateOf(false) }
+                val (selectedCurrencyOption, onCurrencyOptionSelected) = remember {
+                    mutableStateOf(currencyValue)
+                }
+
+
                 Column(
                     modifier = Modifier.padding(top = 10.dp)
                 ) {
@@ -252,6 +270,11 @@ fun SettingsScreen(navController: NavController) {
                         description = dateValue,
                         icon = ImageVector.vectorResource(id = R.drawable.ic_settings_calender),
                         onClick = { dateDialog.value = true })
+
+                    SettingsItem(title = stringResource(id = R.string.preferred_currency_setting),
+                        description = currencyValue,
+                        icon = ImageVector.vectorResource(id = R.drawable.ic_settings_currency),
+                        onClick = { currencyDialog.value = true })
 
                     if (dateDialog.value) {
                         AlertDialog(onDismissRequest = {
@@ -320,6 +343,71 @@ fun SettingsScreen(navController: NavController) {
                         }, dismissButton = {
                             TextButton(onClick = {
                                 dateDialog.value = false
+                            }) {
+                                Text(stringResource(id = R.string.cancel))
+                            }
+                        })
+                    }
+
+                    if (currencyDialog.value) {
+                        AlertDialog(onDismissRequest = {
+                            currencyDialog.value = false
+                        }, title = {
+                            Text(
+                                text = stringResource(id = R.string.currency_dialog_title),
+                                color = MaterialTheme.colorScheme.onSurface,
+                            )
+                        }, text = {
+                            Column(
+                                modifier = Modifier
+                                    .selectableGroup()
+                                    .verticalScroll(
+                                        rememberScrollState()
+                                    ),
+                                verticalArrangement = Arrangement.Center,
+                            ) {
+                                currencyEntries.forEach { text ->
+                                    Row(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .height(46.dp)
+                                            .selectable(
+                                                selected = (text == selectedCurrencyOption),
+                                                onClick = { onCurrencyOptionSelected(text) },
+                                                role = Role.RadioButton,
+                                            ),
+                                        verticalAlignment = Alignment.CenterVertically,
+                                    ) {
+                                        RadioButton(
+                                            selected = (text == selectedCurrencyOption),
+                                            onClick = null,
+                                            colors = RadioButtonDefaults.colors(
+                                                selectedColor = MaterialTheme.colorScheme.primary,
+                                                unselectedColor = MaterialTheme.colorScheme.inversePrimary,
+                                                disabledSelectedColor = Color.Black,
+                                                disabledUnselectedColor = Color.Black
+                                            ),
+                                        )
+                                        Text(
+                                            text = text,
+                                            modifier = Modifier.padding(start = 16.dp),
+                                            color = MaterialTheme.colorScheme.onSurface,
+                                        )
+                                    }
+                                }
+                            }
+                        }, confirmButton = {
+                            TextButton(onClick = {
+                                currencyDialog.value = false
+                                val choice =
+                                    currencyValues[currencyEntries.indexOf(selectedCurrencyOption)]
+                                PreferenceUtils.putString(PreferenceUtils.DEFAULT_CURRENCY, choice)
+                            }) {
+                                Text(stringResource(id = R.string.dialog_confirm_button))
+                            }
+                        }, dismissButton = {
+                            TextButton(onClick = {
+                                currencyDialog.value = false
                             }) {
                                 Text(stringResource(id = R.string.cancel))
                             }

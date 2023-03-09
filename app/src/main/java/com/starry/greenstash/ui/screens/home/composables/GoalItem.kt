@@ -43,7 +43,7 @@ fun GoalItem(
             .padding(14.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(
-                2.dp
+                4.dp
             )
         ),
         shape = RoundedCornerShape(6.dp)

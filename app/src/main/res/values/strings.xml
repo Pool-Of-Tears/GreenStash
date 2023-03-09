@@ -66,4 +66,6 @@
     <string name="locales_setting_title">Locales</string>
     <string name="date_format_setting">Date Format</string>
     <string name="date_format_dialog_title">Change Date Format</string>
+    <string name="preferred_currency_setting">Preferred Currency</string>
+    <string name="currency_dialog_title">Select Preferred currency</string>
 </resources>

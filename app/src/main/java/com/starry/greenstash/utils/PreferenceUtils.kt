@@ -2,6 +2,7 @@ package com.starry.greenstash.utils
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.starry.greenstash.ui.screens.settings.viewmodels.DateStyle
 
 object PreferenceUtils {
     private lateinit var prefs: SharedPreferences
@@ -15,9 +16,16 @@ object PreferenceUtils {
 
     fun initialize(context: Context) {
         prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        // Pre-populate some preference data with default values
+        if (!keyExists(DEFAULT_CURRENCY)) {
+            putString(DEFAULT_CURRENCY, "$")
+        }
+        if (!keyExists(DATE_FORMAT)) {
+            putString(DATE_FORMAT, DateStyle.DateMonthYear.pattern)
+        }
     }
 
-    fun keyExists(key: String): Boolean {
+    private fun keyExists(key: String): Boolean {
         if (prefs.contains(key))
             return true
         return false
