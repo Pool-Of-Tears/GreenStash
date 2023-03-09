@@ -8,7 +8,7 @@
     <string name="new_goal_fab">New Goal</string>
 
     <!-- Strings used for dashboard saving goals cards -->
-    <string name="no_goals_set">Nothing to show here, click on the \"New goal\" button below to set a new goal and start saving!</string>
+    <string name="no_goal_set">No Saving Goals Set.</string>
     <string name="deposit_btn">Deposit</string>
     <string name="deposit_dialog_title">Awesome! enter amount</string>
     <string name="deposit_successful">Deposited Successfully!</string>
@@ -51,7 +51,8 @@
     <string name="input_additional_notes">Notes (Optional)</string>
     <string name="input_save_btn">Set New Saving Goal</string>
     <string name="input_edit_save_button">Edit Saving Goal</string>
-    <string name="data_saved_success">Great job! saving goal set.</string>
+    <string name="goal_saved_success">Great job! Saving goal set.</string>
+    <string name="goad_edit_success">Saving goal updated.</string>
 
     <!-- Settings Screen -->
     <string name="settings_screen_header">Settings</string>

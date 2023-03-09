@@ -1,9 +1,5 @@
 package com.starry.greenstash.utils
 
-import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.net.Uri
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
@@ -41,11 +37,4 @@ object Utils {
         val df = DecimalFormat("#,###.00")
         return df.format(number)
     }
-
-    /** Get bitmap from image Uri. */
-    fun uriToBitmap(uri: Uri, context: Context): Bitmap {
-        val stream = context.contentResolver.openInputStream(uri)
-        return BitmapFactory.decodeStream(stream)
-    }
-
 }

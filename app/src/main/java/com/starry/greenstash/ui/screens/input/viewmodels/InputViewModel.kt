@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.starry.greenstash.database.Goal
 import com.starry.greenstash.database.GoalDao
+import com.starry.greenstash.utils.ImageUtils
 import com.starry.greenstash.utils.Utils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -33,14 +34,24 @@ class InputViewModel @Inject constructor(private val goalDao: GoalDao) : ViewMod
                 title = state.goalTitleText,
                 targetAmount = Utils.roundDecimal(state.targetAmount.toDouble()),
                 deadline = state.deadline,
-                goalImage = if (state.goalImageUri != null) Utils.uriToBitmap(
-                    state.goalImageUri!!, context
+                goalImage = if (state.goalImageUri != null) ImageUtils.uriToBitmap(
+                    uri = state.goalImageUri!!, context = context, maxSize = 1024
                 ) else null,
                 additionalNotes = state.additionalNotes
             )
             // Add goal into database.
             goalDao.insertGoal(goal)
         }
+    }
+
+    //TODO
+    fun setEditGoalData() {
+
+    }
+
+    //TODO
+    fun editSavingGoal() {
+
     }
 
 }

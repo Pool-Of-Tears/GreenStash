@@ -1,6 +1,8 @@
 package com.starry.greenstash.ui.navigation
 
-import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.*
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
@@ -34,6 +36,21 @@ fun NavGraph(navController: NavHostController, paddingValues: PaddingValues) {
         /** Home Screen */
         composable(
             route = DrawerScreens.Home.route,
+            exitTransition = {
+                slideOutHorizontally(
+                    targetOffsetX = { -300 }, animationSpec = tween(
+                        durationMillis = 300, easing = FastOutSlowInEasing
+                    )
+                ) + fadeOut(animationSpec = tween(300))
+            },
+            popEnterTransition = {
+                slideInHorizontally(
+                    initialOffsetX = { -300 }, animationSpec = tween(
+                        durationMillis = 300, easing = FastOutSlowInEasing
+                    )
+                ) + fadeIn(animationSpec = tween(300))
+
+            },
         ) {
             HomeScreen(navController)
         }
@@ -41,6 +58,36 @@ fun NavGraph(navController: NavHostController, paddingValues: PaddingValues) {
         /** Input Screen */
         composable(
             route = Screens.InputScreen.route,
+            enterTransition = {
+                slideInHorizontally(
+                    initialOffsetX = { 300 }, animationSpec = tween(
+                        durationMillis = 300, easing = FastOutSlowInEasing
+                    )
+                ) + fadeIn(animationSpec = tween(300))
+            },
+            exitTransition = {
+                slideOutHorizontally(
+                    targetOffsetX = { -300 }, animationSpec = tween(
+                        durationMillis = 300, easing = FastOutSlowInEasing
+                    )
+                ) + fadeOut(animationSpec = tween(300))
+
+            },
+            popEnterTransition = {
+                slideInHorizontally(
+                    initialOffsetX = { -300 }, animationSpec = tween(
+                        durationMillis = 300, easing = FastOutSlowInEasing
+                    )
+                ) + fadeIn(animationSpec = tween(300))
+
+            },
+            popExitTransition = {
+                slideOutHorizontally(
+                    targetOffsetX = { 300 }, animationSpec = tween(
+                        durationMillis = 300, easing = FastOutSlowInEasing
+                    )
+                ) + fadeOut(animationSpec = tween(300))
+            },
             arguments = listOf(navArgument(EDIT_GOAL_ARG_KEY) {
                 nullable = true
                 defaultValue = null

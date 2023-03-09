@@ -1,32 +1,41 @@
 package com.starry.greenstash.ui.screens.home.composables
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.airbnb.lottie.compose.*
 import com.starry.greenstash.R
 import com.starry.greenstash.ui.navigation.DrawerScreens
 import com.starry.greenstash.ui.navigation.Screens
+import com.starry.greenstash.ui.screens.home.viewmodels.HomeViewModel
 import kotlinx.coroutines.launch
 
 @ExperimentalMaterial3Api
 @Composable
 fun HomeScreen(navController: NavController) {
+    val viewModel: HomeViewModel = hiltViewModel()
+    val allGoals = viewModel.allGoals.observeAsState(listOf()).value
+
     val drawerState = rememberDrawerState(DrawerValue.Closed)
     val scope = rememberCoroutineScope()
     val items = listOf(DrawerScreens.Home, DrawerScreens.Backups, DrawerScreens.Settings)
@@ -114,7 +123,60 @@ fun HomeScreen(navController: NavController) {
                     .fillMaxSize()
                     .padding(it)
             ) {
+                if (allGoals.isEmpty()) {
+                    Column(
+                        modifier = Modifier.fillMaxSize(),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        val compositionResult: LottieCompositionResult = rememberLottieComposition(
+                            spec = LottieCompositionSpec.RawRes(R.raw.no_goal_set_lottie)
+                        )
+                        val progressAnimation by animateLottieCompositionAsState(
+                            compositionResult.value,
+                            isPlaying = true,
+                            iterations = LottieConstants.IterateForever,
+                            speed = 1f
+                        )
 
+                        Spacer(modifier = Modifier.weight(1f))
+
+                        LottieAnimation(
+                            composition = compositionResult.value,
+                            progress = progressAnimation,
+                            modifier = Modifier.size(320.dp)
+                        )
+
+                        Text(
+                            text = stringResource(id = R.string.no_goal_set),
+                            fontWeight = FontWeight.SemiBold,
+                            fontSize = 20.sp,
+                            modifier = Modifier.padding(start = 12.dp, end = 12.dp)
+                        )
+
+                        Spacer(modifier = Modifier.weight(2f))
+                    }
+                } else {
+                    LazyColumn(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(MaterialTheme.colorScheme.background)
+                    ) {
+                        items(allGoals.size) { idx ->
+                            val item = allGoals[idx]
+                            GoalItem(
+                                title = item.goal.title,
+                                primaryText = "Meow primary",
+                                secondaryText = "meow secondary",
+                                goalProgress = 5f,
+                                goalImage = item.goal.goalImage,
+                                onDepositClicked = { /*TODO*/ },
+                                onWithdrawClicked = { /*TODO*/ },
+                                onInfoClicked = { /*TODO*/ },
+                                onEditClicked = { /*TODO*/ }) {
+                            }
+                        }
+                    }
+                }
             }
         }
     }
