@@ -108,7 +108,10 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                     imageVector = Icons.Filled.ArrowBack, contentDescription = null
                 )
             }
-        })
+        }, colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+            containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(4.dp)
+        )
+        )
     }) {
         if (showGoalAddedDialog) {
             Column(
@@ -153,6 +156,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                     .padding(it)
                     .verticalScroll(rememberScrollState()),
             ) {
+                Spacer(modifier = Modifier.height(12.dp))
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()

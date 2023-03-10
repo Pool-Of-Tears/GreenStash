@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -19,6 +20,7 @@ import com.starry.greenstash.ui.theme.GreenStashTheme
 import com.starry.greenstash.utils.PreferenceUtils
 import dagger.hilt.android.AndroidEntryPoint
 
+@ExperimentalFoundationApi
 @AndroidEntryPoint
 @ExperimentalComposeUiApi
 @ExperimentalAnimationApi

@@ -2,6 +2,7 @@ package com.starry.greenstash.ui.screens.settings.composables
 
 import android.os.Build
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
@@ -38,6 +39,7 @@ import com.starry.greenstash.utils.getActivity
 import com.starry.greenstash.utils.toToast
 
 
+@ExperimentalFoundationApi
 @ExperimentalComposeUiApi
 @ExperimentalAnimationApi
 @ExperimentalMaterial3Api
@@ -50,19 +52,25 @@ fun SettingsScreen(navController: NavController) {
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            LargeTopAppBar(title = {
-                Text(
-                    stringResource(id = R.string.settings_screen_header),
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-            }, navigationIcon = {
-                IconButton(onClick = { navController.navigateUp() }) {
-                    Icon(
-                        imageVector = Icons.Filled.ArrowBack, contentDescription = null
+            LargeTopAppBar(
+                title = {
+                    Text(
+                        stringResource(id = R.string.settings_screen_header),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
                     )
-                }
-            }, scrollBehavior = scrollBehavior
+                }, navigationIcon = {
+                    IconButton(onClick = { navController.navigateUp() }) {
+                        Icon(
+                            imageVector = Icons.Filled.ArrowBack, contentDescription = null
+                        )
+                    }
+                }, scrollBehavior = scrollBehavior,
+                colors = TopAppBarDefaults.largeTopAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(
+                        4.dp
+                    )
+                )
             )
         },
     ) {

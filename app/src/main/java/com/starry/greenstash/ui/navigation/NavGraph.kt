@@ -3,6 +3,7 @@ package com.starry.greenstash.ui.navigation
 import androidx.compose.animation.*
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
@@ -20,6 +21,7 @@ import com.starry.greenstash.ui.screens.home.composables.HomeScreen
 import com.starry.greenstash.ui.screens.input.composables.InputScreen
 import com.starry.greenstash.ui.screens.settings.composables.SettingsScreen
 
+@ExperimentalFoundationApi
 @ExperimentalComposeUiApi
 @ExperimentalMaterial3Api
 @ExperimentalAnimationApi

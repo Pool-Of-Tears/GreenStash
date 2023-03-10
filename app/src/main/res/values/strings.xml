@@ -9,6 +9,7 @@
 
     <!-- Strings used for dashboard saving goals cards -->
     <string name="no_goal_set">No Saving Goals Set.</string>
+    <string name="transaction_dialog_amount_label">Enter Amount</string>
     <string name="deposit_btn">Deposit</string>
     <string name="deposit_dialog_title">Awesome! enter amount</string>
     <string name="deposit_successful">Deposited Successfully!</string>

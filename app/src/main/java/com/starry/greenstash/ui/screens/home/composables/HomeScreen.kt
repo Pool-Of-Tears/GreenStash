@@ -6,6 +6,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Menu
@@ -20,6 +21,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -36,6 +38,7 @@ import com.starry.greenstash.ui.screens.home.viewmodels.HomeViewModel
 import com.starry.greenstash.ui.screens.settings.viewmodels.DateStyle
 import com.starry.greenstash.utils.PreferenceUtils
 import com.starry.greenstash.utils.Utils
+import com.starry.greenstash.utils.validateAmount
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -55,7 +58,11 @@ fun HomeScreen(navController: NavController) {
     val items = listOf(DrawerScreens.Home, DrawerScreens.Backups, DrawerScreens.Settings)
     val selectedItem = remember { mutableStateOf(items[0]) }
 
-    ModalNavigationDrawer(drawerState = drawerState,
+    val snackBarHostState = remember { SnackbarHostState() }
+    val coroutineScope = rememberCoroutineScope()
+
+    ModalNavigationDrawer(
+        drawerState = drawerState,
         gesturesEnabled = drawerState.isOpen,
         drawerContent = {
             ModalDrawerSheet(drawerShape = RoundedCornerShape(4.dp)) {
@@ -81,6 +88,7 @@ fun HomeScreen(navController: NavController) {
             }
         }) {
         Scaffold(modifier = Modifier.fillMaxSize(),
+            snackbarHost = { SnackbarHost(snackBarHostState) },
             topBar = {
                 CenterAlignedTopAppBar(title = {
                     Text(
@@ -100,7 +108,12 @@ fun HomeScreen(navController: NavController) {
                             imageVector = Icons.Filled.Search, contentDescription = null
                         )
                     }
-                })
+                }, colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(
+                        4.dp
+                    )
+                )
+                )
             },
 
             floatingActionButton = {
@@ -162,6 +175,10 @@ fun HomeScreen(navController: NavController) {
                         Spacer(modifier = Modifier.weight(2f))
                     }
                 } else {
+                    val openDeleteDialog = remember { mutableStateOf(false) }
+                    val openDepositDialog = remember { mutableStateOf(false) }
+                    val openWithdrawDialog = remember { mutableStateOf(false) }
+
                     LazyColumn(
                         modifier = Modifier
                             .fillMaxSize()
@@ -175,13 +192,72 @@ fun HomeScreen(navController: NavController) {
                             GoalItem(title = item.goal.title,
                                 primaryText = buildPrimaryText(context, progressPercent, item),
                                 secondaryText = buildSecondaryText(context, item),
-                                goalProgress = 0.5f,
+                                goalProgress = progressPercent.toFloat() / 100,
                                 goalImage = item.goal.goalImage,
-                                onDepositClicked = { /*TODO*/ },
-                                onWithdrawClicked = { /*TODO*/ },
+                                onDepositClicked = {
+                                    if (item.getCurrentAmount() >= item.goal.targetAmount) {
+                                        coroutineScope.launch {
+                                            snackBarHostState.showSnackbar(context.getString(R.string.goal_already_achieved))
+                                        }
+                                    } else {
+                                        openDepositDialog.value = true
+                                    }
+                                },
+                                onWithdrawClicked = {
+                                    if (item.getCurrentAmount() == 0f.toDouble()) {
+                                        coroutineScope.launch {
+                                            snackBarHostState.showSnackbar(context.getString(R.string.withdraw_btn_error))
+                                        }
+                                    } else {
+                                        openWithdrawDialog.value = true
+                                    }
+                                },
                                 onInfoClicked = { /*TODO*/ },
                                 onEditClicked = { /*TODO*/ },
-                                onDeleteClicked = { viewModel.deleteGoal(item.goal) })
+                                onDeleteClicked = { openDeleteDialog.value = true })
+
+                            ActionDialogs(
+                                openDeleteDialog = openDeleteDialog,
+                                openDepositDialog = openDepositDialog,
+                                openWithdrawDialog = openWithdrawDialog,
+                                onDeleteConfirmed = {
+                                    viewModel.deleteGoal(item.goal)
+                                    coroutineScope.launch {
+                                        snackBarHostState.showSnackbar(context.getString(R.string.goal_delete_success))
+                                    }
+                                }, onDepositConfirmed = { amount, notes ->
+                                    if (!amount.validateAmount()) {
+                                        coroutineScope.launch {
+                                            snackBarHostState.showSnackbar(context.getString(R.string.amount_empty_err))
+                                        }
+                                    } else if (item.getCurrentAmount() >= item.goal.targetAmount) {
+                                        coroutineScope.launch {
+                                            snackBarHostState.showSnackbar(context.getString(R.string.goal_already_achieved))
+                                        }
+                                    } else {
+                                        val amountDouble = Utils.roundDecimal(amount.toDouble())
+                                        viewModel.deposit(item.goal, amountDouble, notes)
+                                        coroutineScope.launch {
+                                            snackBarHostState.showSnackbar(context.getString(R.string.deposit_successful))
+                                        }
+                                    }
+                                }, onWithdrawConfirmed = { amount, notes ->
+                                    if (!amount.validateAmount()) {
+                                        coroutineScope.launch {
+                                            snackBarHostState.showSnackbar(context.getString(R.string.amount_empty_err))
+                                        }
+                                    } else {
+                                        val amountDouble = Utils.roundDecimal(amount.toDouble())
+                                        if (amountDouble > item.getCurrentAmount()) {
+                                            coroutineScope.launch {
+                                                snackBarHostState.showSnackbar(context.getString(R.string.withdraw_overflow_error))
+                                            }
+                                        } else {
+                                            viewModel.withdraw(item.goal, amountDouble, notes)
+                                        }
+                                    }
+                                }
+                            )
                         }
                     }
                 }
@@ -191,10 +267,208 @@ fun HomeScreen(navController: NavController) {
 }
 
 
+@ExperimentalMaterial3Api
+@Composable
+fun ActionDialogs(
+    openDeleteDialog: MutableState<Boolean>,
+    openDepositDialog: MutableState<Boolean>,
+    openWithdrawDialog: MutableState<Boolean>,
+    onDeleteConfirmed: () -> Unit,
+    onDepositConfirmed: (amount: String, notes: String) -> Unit,
+    onWithdrawConfirmed: (amount: String, notes: String) -> Unit
+) {
+    if (openDeleteDialog.value) {
+        AlertDialog(onDismissRequest = {
+            openDeleteDialog.value = false
+        }, title = {
+            Text(
+                text = stringResource(id = R.string.goal_delete_confirmation),
+                color = MaterialTheme.colorScheme.onSurface,
+            )
+        }, confirmButton = {
+            TextButton(onClick = {
+                openDeleteDialog.value = false
+                onDeleteConfirmed()
+            }) {
+                Text(stringResource(id = R.string.dialog_confirm_button))
+            }
+        }, dismissButton = {
+            TextButton(onClick = {
+                openDeleteDialog.value = false
+            }) {
+                Text(stringResource(id = R.string.cancel))
+            }
+        })
+    }
+
+    if (openDepositDialog.value) {
+        val depositTextValue = remember { mutableStateOf("") }
+        val transactionNotes = remember { mutableStateOf("") }
+
+        AlertDialog(onDismissRequest = {
+            openDepositDialog.value = false
+        }, title = {
+            Text(
+                text = stringResource(id = R.string.deposit_dialog_title),
+                color = MaterialTheme.colorScheme.onSurface,
+            )
+        }, confirmButton = {
+            TextButton(onClick = {
+                openDepositDialog.value = false
+                onDepositConfirmed(
+                    depositTextValue.value,
+                    transactionNotes.value
+                )
+            }) {
+                Text(stringResource(id = R.string.dialog_confirm_button))
+            }
+        }, dismissButton = {
+            TextButton(onClick = {
+                openDepositDialog.value = false
+            }) {
+                Text(stringResource(id = R.string.cancel))
+            }
+        }, text = {
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                OutlinedTextField(
+                    value = depositTextValue.value,
+                    onValueChange = { newText ->
+                        depositTextValue.value = Utils.getValidatedNumber(newText)
+                    },
+                    modifier = Modifier.fillMaxWidth(0.9f),
+                    label = {
+                        Text(text = stringResource(id = R.string.transaction_dialog_amount_label))
+                    },
+                    leadingIcon = {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(id = R.drawable.ic_input_amount),
+                            contentDescription = null
+                        )
+                    },
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        focusedBorderColor = MaterialTheme.colorScheme.primary,
+                        unfocusedBorderColor = MaterialTheme.colorScheme.onBackground
+                    ),
+                    shape = RoundedCornerShape(14.dp),
+                    singleLine = true,
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                )
+
+                Spacer(modifier = Modifier.height(18.dp))
+
+                OutlinedTextField(
+                    value = transactionNotes.value,
+                    onValueChange = { newText -> transactionNotes.value = newText },
+                    modifier = Modifier.fillMaxWidth(0.9f),
+                    label = {
+                        Text(text = stringResource(id = R.string.input_additional_notes))
+                    },
+                    leadingIcon = {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(id = R.drawable.ic_input_additional_notes),
+                            contentDescription = null
+                        )
+                    },
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        focusedBorderColor = MaterialTheme.colorScheme.primary,
+                        unfocusedBorderColor = MaterialTheme.colorScheme.onBackground
+                    ),
+                    shape = RoundedCornerShape(14.dp),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+                )
+            }
+        })
+    }
+
+    if (openWithdrawDialog.value) {
+        val withdrawTextValue = remember { mutableStateOf("") }
+        val transactionNotes = remember { mutableStateOf("") }
+
+        AlertDialog(onDismissRequest = {
+            openWithdrawDialog.value = false
+        }, title = {
+            Text(
+                text = stringResource(id = R.string.withdraw_dialog_title),
+                color = MaterialTheme.colorScheme.onSurface,
+            )
+        }, confirmButton = {
+            TextButton(onClick = {
+                openWithdrawDialog.value = false
+                onWithdrawConfirmed(
+                    withdrawTextValue.value,
+                    transactionNotes.value
+                )
+            }) {
+                Text(stringResource(id = R.string.dialog_confirm_button))
+            }
+        }, dismissButton = {
+            TextButton(onClick = {
+                openWithdrawDialog.value = false
+            }) {
+                Text(stringResource(id = R.string.cancel))
+            }
+        }, text = {
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                OutlinedTextField(
+                    value = withdrawTextValue.value,
+                    onValueChange = { newText ->
+                        withdrawTextValue.value = Utils.getValidatedNumber(newText)
+                    },
+                    modifier = Modifier.fillMaxWidth(0.9f),
+                    label = {
+                        Text(text = stringResource(id = R.string.transaction_dialog_amount_label))
+                    },
+                    leadingIcon = {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(id = R.drawable.ic_input_amount),
+                            contentDescription = null
+                        )
+                    },
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        focusedBorderColor = MaterialTheme.colorScheme.primary,
+                        unfocusedBorderColor = MaterialTheme.colorScheme.onBackground
+                    ),
+                    shape = RoundedCornerShape(14.dp),
+                    singleLine = true,
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                )
+
+                Spacer(modifier = Modifier.height(18.dp))
+
+                OutlinedTextField(
+                    value = transactionNotes.value,
+                    onValueChange = { newText -> transactionNotes.value = newText },
+                    modifier = Modifier.fillMaxWidth(0.9f),
+                    label = {
+                        Text(text = stringResource(id = R.string.input_additional_notes))
+                    },
+                    leadingIcon = {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(id = R.drawable.ic_input_additional_notes),
+                            contentDescription = null
+                        )
+                    },
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        focusedBorderColor = MaterialTheme.colorScheme.primary,
+                        unfocusedBorderColor = MaterialTheme.colorScheme.onBackground
+                    ),
+                    shape = RoundedCornerShape(14.dp),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+                )
+            }
+        })
+    }
+}
+
+
 private fun buildPrimaryText(
-    context: Context,
-    progressPercent: Int,
-    item: GoalWithTransactions
+    context: Context, progressPercent: Int, item: GoalWithTransactions
 ): String {
     var text: String = when {
         progressPercent <= 25 -> {
@@ -244,26 +518,24 @@ private fun buildSecondaryText(context: Context, item: GoalWithTransactions): St
             val reverseDate: (String) -> String = {
                 item.goal.deadline.split("/").reversed().joinToString(separator = "/")
             }
-            val endDate =
-                if (item.goal.deadline.split("/").first().length == 2
-                    && preferredDateFormat != DateStyle.DateMonthYear.pattern
-                ) {
-                    reverseDate(item.goal.deadline)
-                } else if (item.goal.deadline.split("/").first().length == 4
-                    && preferredDateFormat != DateStyle.YearMonthDate.pattern
-                ) {
-                    reverseDate(item.goal.deadline)
-                } else {
-                    item.goal.deadline
-                }
+            val endDate = if (item.goal.deadline.split("/")
+                    .first().length == 2 && preferredDateFormat != DateStyle.DateMonthYear.pattern
+            ) {
+                reverseDate(item.goal.deadline)
+            } else if (item.goal.deadline.split("/")
+                    .first().length == 4 && preferredDateFormat != DateStyle.YearMonthDate.pattern
+            ) {
+                reverseDate(item.goal.deadline)
+            } else {
+                item.goal.deadline
+            }
 
             val startDateValue: LocalDate = LocalDate.parse(startDate, dateFormatter)
             val endDateValue: LocalDate = LocalDate.parse(endDate, dateFormatter)
             val days: Long = ChronoUnit.DAYS.between(startDateValue, endDateValue)
             val defCurrency = PreferenceUtils.getString(PreferenceUtils.DEFAULT_CURRENCY, "")
             // build description string.
-            var text =
-                context.getString(R.string.goal_days_left).format(endDate, days) + "\n"
+            var text = context.getString(R.string.goal_days_left).format(endDate, days) + "\n"
             if (days > 2) {
                 text += context.getString(R.string.goal_approx_saving).format(
                     "$defCurrency${

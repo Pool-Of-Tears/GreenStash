@@ -11,6 +11,7 @@ import androidx.room.TypeConverters
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun getGoalDao(): GoalDao
+    abstract fun getTransactionDao(): TransactionDao
 
     companion object {
 

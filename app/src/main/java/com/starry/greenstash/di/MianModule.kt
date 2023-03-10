@@ -19,4 +19,7 @@ class MianModule {
 
     @Provides
     fun provideGoalDao(appDatabase: AppDatabase) = appDatabase.getGoalDao()
+
+    @Provides
+    fun provideTransactionDao(appDatabase: AppDatabase) = appDatabase.getTransactionDao()
 }
