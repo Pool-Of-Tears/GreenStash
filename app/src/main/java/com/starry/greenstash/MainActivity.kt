@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        installSplashScreen()
 
         PreferenceUtils.initialize(this)
         settingsViewModel = ViewModelProvider(this)[SettingsViewModel::class.java]
@@ -62,8 +63,6 @@ class MainActivity : AppCompatActivity() {
                 PreferenceUtils.MATERIAL_YOU, Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
             )
         )
-
-        installSplashScreen()
 
         val appLockStatus = PreferenceUtils.getBoolean(PreferenceUtils.APP_LOCK, false)
 
@@ -116,19 +115,18 @@ class MainActivity : AppCompatActivity() {
 
     fun setAppContents() {
         setContent {
-
-            val systemUiController = rememberSystemUiController()
-            systemUiController.setNavigationBarColor(
-                color = MaterialTheme.colorScheme.background,
-                darkIcons = settingsViewModel.getCurrentTheme() == ThemeMode.Light
-            )
-
-            systemUiController.setStatusBarColor(
-                color = MaterialTheme.colorScheme.surfaceColorAtElevation(4.dp),
-                darkIcons = settingsViewModel.getCurrentTheme() == ThemeMode.Light
-            )
-
             GreenStashTheme(settingsViewModel = settingsViewModel) {
+                val systemUiController = rememberSystemUiController()
+                systemUiController.setNavigationBarColor(
+                    color = MaterialTheme.colorScheme.background,
+                    darkIcons = settingsViewModel.getCurrentTheme() == ThemeMode.Light
+                )
+
+                systemUiController.setStatusBarColor(
+                    color = MaterialTheme.colorScheme.surfaceColorAtElevation(4.dp),
+                    darkIcons = settingsViewModel.getCurrentTheme() == ThemeMode.Light
+                )
+
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
