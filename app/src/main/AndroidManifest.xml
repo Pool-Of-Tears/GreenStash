@@ -10,7 +10,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.GreenStash"
+        android:theme="@style/Theme.GreenStash.Splash"
         tools:targetApi="31">
         <activity
             android:name=".MainActivity"

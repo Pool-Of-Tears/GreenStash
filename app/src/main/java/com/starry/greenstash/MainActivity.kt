@@ -17,6 +17,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.ViewModelProvider
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.starry.greenstash.ui.screens.main.MainScreen
@@ -61,6 +62,8 @@ class MainActivity : AppCompatActivity() {
                 PreferenceUtils.MATERIAL_YOU, Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
             )
         )
+
+        installSplashScreen()
 
         val appLockStatus = PreferenceUtils.getBoolean(PreferenceUtils.APP_LOCK, false)
 

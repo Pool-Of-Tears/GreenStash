@@ -12,7 +12,10 @@ object Utils {
     /** Validate number from text field. */
     fun getValidatedNumber(text: String): String {
         val filteredChars = text.filterIndexed { index, c ->
-            c.isDigit() || (c == '.' && index != 0 && text.indexOf('.') == index) || (c == '.' && index != 0 && text.count { it == '.' } <= 1)
+            c.isDigit() || (c == '.' && index != 0
+                    && text.indexOf('.') == index)
+                    || (c == '.' && index != 0
+                    && text.count { it == '.' } <= 1)
         }
         return if (filteredChars.count { it == '.' } == 1) {
             val beforeDecimal = filteredChars.substringBefore('.')
