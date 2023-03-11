@@ -13,6 +13,7 @@ object PreferenceUtils {
     const val MATERIAL_YOU = "material_you"
     const val DEFAULT_CURRENCY = "default_currency"
     const val DATE_FORMAT = "date_format"
+    const val APP_LOCK = "app_lock"
 
     fun initialize(context: Context) {
         prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)

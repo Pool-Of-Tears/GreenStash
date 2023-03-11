@@ -1,6 +1,7 @@
 package com.starry.greenstash.ui.screens.settings.composables
 
 import android.os.Build
+import androidx.biometric.BiometricPrompt
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
@@ -29,14 +30,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import com.starry.greenstash.MainActivity
 import com.starry.greenstash.R
 import com.starry.greenstash.ui.screens.settings.viewmodels.DateStyle
 import com.starry.greenstash.ui.screens.settings.viewmodels.ThemeMode
 import com.starry.greenstash.utils.PreferenceUtils
+import com.starry.greenstash.utils.Utils
 import com.starry.greenstash.utils.getActivity
 import com.starry.greenstash.utils.toToast
+import java.util.concurrent.Executor
 
 
 @ExperimentalFoundationApi
@@ -49,28 +53,30 @@ fun SettingsScreen(navController: NavController) {
     val viewModel = (context.getActivity() as MainActivity).settingsViewModel
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 
+    lateinit var executor: Executor
+    lateinit var biometricPrompt: BiometricPrompt
+    lateinit var promptInfo: BiometricPrompt.PromptInfo
+
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            LargeTopAppBar(
-                title = {
-                    Text(
-                        stringResource(id = R.string.settings_screen_header),
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
-                    )
-                }, navigationIcon = {
-                    IconButton(onClick = { navController.navigateUp() }) {
-                        Icon(
-                            imageVector = Icons.Filled.ArrowBack, contentDescription = null
-                        )
-                    }
-                }, scrollBehavior = scrollBehavior,
-                colors = TopAppBarDefaults.largeTopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(
-                        4.dp
-                    )
+            LargeTopAppBar(title = {
+                Text(
+                    stringResource(id = R.string.settings_screen_header),
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
+            }, navigationIcon = {
+                IconButton(onClick = { navController.navigateUp() }) {
+                    Icon(
+                        imageVector = Icons.Filled.ArrowBack, contentDescription = null
+                    )
+                }
+            }, scrollBehavior = scrollBehavior, colors = TopAppBarDefaults.largeTopAppBarColors(
+                containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(
+                    4.dp
+                )
+            )
             )
         },
     ) {
@@ -122,22 +128,24 @@ fun SettingsScreen(navController: NavController) {
                             id = R.string.material_you_setting_desc
                         ),
                         icon = ImageVector.vectorResource(id = R.drawable.ic_settings_material_you),
-                        switchState = materialYouSwitch
-                    )
+                        switchState = materialYouSwitch,
+                        onCheckChange = { newValue ->
+                            materialYouSwitch.value = newValue
 
-                    if (materialYouSwitch.value) {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                            viewModel.setMaterialYou(true)
-                            PreferenceUtils.putBoolean(PreferenceUtils.MATERIAL_YOU, true)
-                        } else {
-                            materialYouSwitch.value = false
-                            stringResource(id = R.string.material_you_error).toToast(context)
+                            if (newValue) {
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                                    viewModel.setMaterialYou(true)
+                                    PreferenceUtils.putBoolean(PreferenceUtils.MATERIAL_YOU, true)
+                                } else {
+                                    materialYouSwitch.value = false
+                                    context.getString(R.string.material_you_error).toToast(context)
+                                }
+                            } else {
+                                viewModel.setMaterialYou(false)
+                                PreferenceUtils.putBoolean(PreferenceUtils.MATERIAL_YOU, false)
+                            }
                         }
-                    } else {
-                        viewModel.setMaterialYou(false)
-                        PreferenceUtils.putBoolean(PreferenceUtils.MATERIAL_YOU, false)
-                    }
-
+                    )
 
                     if (themeDialog.value) {
                         AlertDialog(onDismissRequest = {
@@ -230,8 +238,7 @@ fun SettingsScreen(navController: NavController) {
             item {
 
                 val dateValue = if (PreferenceUtils.getString(
-                        PreferenceUtils.DATE_FORMAT,
-                        DateStyle.DateMonthYear.pattern
+                        PreferenceUtils.DATE_FORMAT, DateStyle.DateMonthYear.pattern
                     ) == DateStyle.YearMonthDate.pattern
                 ) {
                     "YYYY/MM/DD"
@@ -250,8 +257,7 @@ fun SettingsScreen(navController: NavController) {
 
                 val currencyValue = currencyEntries[currencyValues.indexOf(
                     PreferenceUtils.getString(
-                        PreferenceUtils.DEFAULT_CURRENCY,
-                        currencyValues.first()
+                        PreferenceUtils.DEFAULT_CURRENCY, currencyValues.first()
                     )
                 )]
 
@@ -421,6 +427,87 @@ fun SettingsScreen(navController: NavController) {
                             }
                         })
                     }
+                }
+            }
+
+            /** Security Settings. */
+            item {
+                val appLockSwitch = remember {
+                    mutableStateOf(
+                        PreferenceUtils.getBoolean(
+                            PreferenceUtils.APP_LOCK, false
+                        )
+                    )
+                }
+
+                Column(
+                    modifier = Modifier.padding(top = 10.dp)
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.security_settings_title),
+                        color = MaterialTheme.colorScheme.onBackground,
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier
+                            .padding(vertical = 8.dp)
+                            .padding(horizontal = 14.dp)
+                    )
+
+                    SettingsItem(
+                        title = stringResource(id = R.string.app_lock_setting),
+                        description = stringResource(id = R.string.app_lock_setting_desc),
+                        icon = ImageVector.vectorResource(id = R.drawable.ic_settings_app_lock),
+                        switchState = appLockSwitch,
+                        onCheckChange = { newValue ->
+                            appLockSwitch.value = newValue
+
+                            if (newValue) {
+                                val mainActivity = context.getActivity() as MainActivity
+                                executor = ContextCompat.getMainExecutor(context)
+                                biometricPrompt = BiometricPrompt(mainActivity, executor,
+                                    object : BiometricPrompt.AuthenticationCallback() {
+                                        override fun onAuthenticationError(
+                                            errorCode: Int, errString: CharSequence
+                                        ) {
+                                            super.onAuthenticationError(errorCode, errString)
+                                            context.getString(R.string.auth_error).format(errString)
+                                                .toToast(context)
+                                            // disable preference switch manually on auth error.
+                                            appLockSwitch.value = false
+                                        }
+
+                                        override fun onAuthenticationSucceeded(
+                                            result: BiometricPrompt.AuthenticationResult
+                                        ) {
+                                            super.onAuthenticationSucceeded(result)
+                                            context.getString(R.string.auth_successful)
+                                                .toToast(context)
+                                            mainActivity.mainViewModel.appUnlocked = true
+                                            PreferenceUtils.putBoolean(
+                                                PreferenceUtils.APP_LOCK,
+                                                true
+                                            )
+                                        }
+
+                                        override fun onAuthenticationFailed() {
+                                            super.onAuthenticationFailed()
+                                            context.getString(R.string.auth_failed).toToast(context)
+                                            // disable preference switch manually on auth error.
+                                            appLockSwitch.value = false
+                                        }
+                                    })
+
+                                promptInfo = BiometricPrompt.PromptInfo.Builder()
+                                    .setTitle(context.getString(R.string.bio_lock_title))
+                                    .setSubtitle(context.getString(R.string.bio_lock_subtitle))
+                                    .setAllowedAuthenticators(Utils.getAuthenticators()).build()
+
+                                biometricPrompt.authenticate(promptInfo)
+                            } else {
+                                PreferenceUtils.putBoolean(PreferenceUtils.APP_LOCK, false)
+                            }
+                        }
+                    )
                 }
             }
         }

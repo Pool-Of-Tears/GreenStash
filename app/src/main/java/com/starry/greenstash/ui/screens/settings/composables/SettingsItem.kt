@@ -56,7 +56,8 @@ fun SettingsItem(
     title: String,
     description: String,
     icon: ImageVector,
-    switchState: MutableState<Boolean>
+    switchState: MutableState<Boolean>,
+    onCheckChange: (Boolean) -> Unit,
 ) {
     Row(
         modifier = Modifier
@@ -92,7 +93,7 @@ fun SettingsItem(
         }
         Switch(
             checked = switchState.value,
-            onCheckedChange = { switchState.value = it },
+            onCheckedChange = { onCheckChange(it) },
             modifier = Modifier.padding(start = 12.dp, end = 12.dp)
         )
     }

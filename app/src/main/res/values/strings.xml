@@ -3,6 +3,13 @@
     <string name="dialog_confirm_button">Confirm</string>
     <string name="cancel">Cancel</string>
 
+    <!-- Biometric Lock -->
+    <string name="bio_lock_title">Unlock GreenStash</string>
+    <string name="bio_lock_subtitle">Confirm your screen lock, PIN or password.</string>
+    <string name="auth_successful">Authentication succeeded!</string>
+    <string name="auth_failed">Authentication failed!</string>
+    <string name="auth_error">Authentication error: %s</string>
+
     <!-- Home Screen -->
     <string name="home_screen_header">Saving Goals</string>
     <string name="new_goal_fab">New Goal</string>
@@ -70,4 +77,9 @@
     <string name="date_format_dialog_title">Change Date Format</string>
     <string name="preferred_currency_setting">Preferred Currency</string>
     <string name="currency_dialog_title">Select Preferred currency</string>
+    <string name="security_settings_title">Security</string>
+    <string name="app_lock_setting">Biometric Lock</string>
+    <string name="app_lock_setting_desc">Use your fingerprint or screen lock password to unlock GreenStash</string>
+
+
 </resources>
