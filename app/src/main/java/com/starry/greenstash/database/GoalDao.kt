@@ -7,6 +7,15 @@ import androidx.room.*
 @Dao
 interface GoalDao {
 
+    @Insert
+    suspend fun insertGoal(goal: Goal)
+
+    @Update
+    suspend fun updateGoal(goal: Goal)
+
+    @Query("DELETE FROM saving_goal WHERE goalId = :goalId")
+    suspend fun deleteGoal(goalId: Long)
+
     /*
      explicitly stating because we also have our own
      entity class with the same name.
@@ -15,19 +24,9 @@ interface GoalDao {
     @Query("SELECT * FROM saving_goal")
     fun getAllGoals(): LiveData<List<GoalWithTransactions>>
 
-    @Insert
-    suspend fun insertGoal(goal: Goal)
+    @Query("SELECT * FROM saving_goal WHERE goalId = :goalId")
+    fun getGoalById(goalId: Long): Goal
 
-    @Insert
-    suspend fun insertTransaction(transaction: Transaction)
-
-    @Query("DELETE FROM saving_goal WHERE goalId = :goalId")
-    suspend fun deleteGoal(goalId: Long)
-
-    @Delete
-    suspend fun deleteTransAction(transaction: Transaction)
-
-    @Update
-    suspend fun updateGoal(goal: Goal)
-
+    @Query("SELECT * FROM saving_goal WHERE goalId = :goalId")
+    fun getGoalWithTransactionById(goalId: Long): GoalWithTransactions
 }

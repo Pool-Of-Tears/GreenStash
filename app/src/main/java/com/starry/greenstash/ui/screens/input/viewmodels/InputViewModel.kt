@@ -1,6 +1,7 @@
 package com.starry.greenstash.ui.screens.input.viewmodels
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.net.Uri
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -14,6 +15,7 @@ import com.starry.greenstash.utils.Utils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 data class InputScreenState(
@@ -44,14 +46,37 @@ class InputViewModel @Inject constructor(private val goalDao: GoalDao) : ViewMod
         }
     }
 
-    //TODO
-    fun setEditGoalData() {
-
+    fun setEditGoalData(goalId: Long, onEditDataSet: (Bitmap?) -> Unit) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val goal = goalDao.getGoalById(goalId)
+            withContext(Dispatchers.Main) {
+                state = state.copy(
+                    goalTitleText = goal.title,
+                    targetAmount = goal.targetAmount.toString(),
+                    deadline = goal.deadline,
+                    additionalNotes = goal.additionalNotes
+                )
+                onEditDataSet(goal.goalImage)
+            }
+        }
     }
 
-    //TODO
-    fun editSavingGoal() {
-
+    fun editSavingGoal(goalId: Long, context: Context) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val goal = goalDao.getGoalById(goalId)
+            val editGoal = Goal(
+                title = state.goalTitleText,
+                targetAmount = Utils.roundDecimal(state.targetAmount.toDouble()),
+                deadline = state.deadline,
+                goalImage = if (state.goalImageUri != null) ImageUtils.uriToBitmap(
+                    uri = state.goalImageUri!!, context = context, maxSize = 1024
+                ) else goal.goalImage,
+                additionalNotes = state.additionalNotes
+            )
+            // copy id of already saved goal to update it.
+            editGoal.goalId = goal.goalId
+            goalDao.updateGoal(editGoal)
+        }
     }
 
 }

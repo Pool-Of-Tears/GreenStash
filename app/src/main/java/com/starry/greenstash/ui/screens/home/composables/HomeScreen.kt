@@ -213,7 +213,13 @@ fun HomeScreen(navController: NavController) {
                                     }
                                 },
                                 onInfoClicked = { /*TODO*/ },
-                                onEditClicked = { /*TODO*/ },
+                                onEditClicked = {
+                                    navController.navigate(
+                                        Screens.InputScreen.withGoalToEdit(
+                                            goalId = item.goal.goalId.toString()
+                                        )
+                                    )
+                                },
                                 onDeleteClicked = { openDeleteDialog.value = true })
 
                             ActionDialogs(

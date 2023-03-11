@@ -42,6 +42,7 @@
 
     <!-- Input (New/Edit Goal) Screen -->
     <string name="input_screen_header">It\'s time to save!</string>
+    <string name="input_edit_goal_header">Edit Saving Goal</string>
     <string name="input_pick_image">Goal Image</string>
     <string name="input_page_quote" translatable="false">You don’t have to see the whole staircase, just take the first step. – Martin Luther King, Jr.  </string>
     <string name="input_text_title">Goal Title</string>
@@ -50,8 +51,8 @@
     <string name="amount_empty_err">Woops! amount is empty or Invalid.</string>
     <string name="input_deadline">Deadline (Optional)</string>
     <string name="input_additional_notes">Notes (Optional)</string>
-    <string name="input_save_btn">Set New Saving Goal</string>
-    <string name="input_edit_save_button">Edit Saving Goal</string>
+    <string name="input_add_goal_button">Set New Saving Goal</string>
+    <string name="input_edit_goal_button">Update Saving Goal</string>
     <string name="goal_saved_success">Great job! Saving goal set.</string>
     <string name="goad_edit_success">Saving goal updated.</string>
 

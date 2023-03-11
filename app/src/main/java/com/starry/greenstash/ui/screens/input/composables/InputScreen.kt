@@ -59,14 +59,24 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
     val viewModel: InputViewModel = hiltViewModel()
     val coroutineScope = rememberCoroutineScope()
 
-    var imageUri: Any? by remember { mutableStateOf(R.drawable.default_goal_image) }
+    var imageData: Any? by remember { mutableStateOf(R.drawable.default_goal_image) }
     val calenderState = rememberSheetState()
     var showGoalAddedDialog by remember { mutableStateOf(false) }
 
+    val topBarText: String
+    val buttonText: String
+
     if (editGoalId != null) {
-        // TODO
+        viewModel.setEditGoalData(goalId = editGoalId.toLong(), onEditDataSet = {goalImageBm ->
+            if (goalImageBm != null) {
+                imageData = goalImageBm
+            }
+        })
+        topBarText = stringResource(id = R.string.input_edit_goal_header)
+        buttonText = stringResource(id = R.string.input_edit_goal_button)
     } else {
-        // TODO
+        topBarText = stringResource(id = R.string.input_screen_header)
+        buttonText = stringResource(id = R.string.input_add_goal_button)
     }
 
 
@@ -74,7 +84,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
         contract = ActivityResultContracts.PickVisualMedia()
     ) {
         if (it != null) {
-            imageUri = it
+            imageData = it
             viewModel.state = viewModel.state.copy(goalImageUri = it)
         }
     }
@@ -98,7 +108,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
     Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
         TopAppBar(modifier = Modifier.fillMaxWidth(), title = {
             Text(
-                stringResource(id = R.string.input_screen_header),
+                text = topBarText,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
             )
@@ -180,7 +190,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                                 .clip(RoundedCornerShape(16.dp))
                         ) {
                             AsyncImage(
-                                model = ImageRequest.Builder(context).data(imageUri)
+                                model = ImageRequest.Builder(context).data(imageData)
                                     .crossfade(enable = true).build(),
                                 contentDescription = null,
                                 contentScale = ContentScale.Crop,
@@ -356,7 +366,12 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                             } else if (!viewModel.state.targetAmount.validateAmount()) {
                                 context.getString(R.string.amount_empty_err).toToast(context)
                             } else {
-                                viewModel.addSavingGoal(context)
+                                if (editGoalId != null) {
+                                    viewModel.editSavingGoal(editGoalId.toLong(),context)
+                                } else {
+                                    viewModel.addSavingGoal(context)
+                                }
+
                                 coroutineScope.launch {
                                     showGoalAddedDialog = true
                                     delay(2000)
@@ -371,7 +386,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                         shape = RoundedCornerShape(14.dp),
                     ) {
                         Text(
-                            text = stringResource(id = R.string.input_save_btn),
+                            text = buttonText,
                             color = MaterialTheme.colorScheme.onPrimary
                         )
                     }
