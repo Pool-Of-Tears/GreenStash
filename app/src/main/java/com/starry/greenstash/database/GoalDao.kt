@@ -27,6 +27,7 @@ interface GoalDao {
     @Query("SELECT * FROM saving_goal WHERE goalId = :goalId")
     fun getGoalById(goalId: Long): Goal
 
+    @androidx.room.Transaction
     @Query("SELECT * FROM saving_goal WHERE goalId = :goalId")
     fun getGoalWithTransactionById(goalId: Long): GoalWithTransactions
 }

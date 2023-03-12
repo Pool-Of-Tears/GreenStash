@@ -1,4 +1,4 @@
-package com.starry.greenstash.ui.screens.info.composables
+package com.starry.greenstash.ui.common
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearOutSlowInEasing
@@ -29,9 +29,10 @@ fun ExpandableCard(
     titleFontWeight: FontWeight = FontWeight.Bold,
     shape: Shape = RoundedCornerShape(8.dp),
     padding: Dp = 12.dp,
+    expanded: Boolean = false,
     content: @Composable () -> Unit
 ) {
-    var expandedState by remember { mutableStateOf(false) }
+    var expandedState by remember { mutableStateOf(expanded) }
     val rotationState by animateFloatAsState(
         targetValue = if (expandedState) 180f else 0f
     )
@@ -40,7 +41,7 @@ fun ExpandableCard(
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .padding(start = 14.dp, end = 14.dp, top = 4.dp)
+            .padding(start = 12.dp, end = 12.dp, top = 4.dp)
             .animateContentSize(
                 animationSpec = tween(
                     durationMillis = 300,

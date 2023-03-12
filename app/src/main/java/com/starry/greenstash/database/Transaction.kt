@@ -4,6 +4,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import java.text.DateFormat
+import java.util.*
 
 enum class TransactionType {
     Deposit, Withdraw, Invalid
@@ -28,4 +30,9 @@ data class Transaction(
 ) {
     @PrimaryKey(autoGenerate = true)
     var transactionId: Long = 0L
+
+    fun getTransactionDate(): String {
+        val date = Date(timeStamp)
+        return DateFormat.getDateInstance().format(date)
+    }
 }

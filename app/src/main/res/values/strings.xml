@@ -52,8 +52,10 @@
     <string name="info_card_title">You\'ve Saved</string>
     <string name="info_card_remaining_amount">Out of %s</string>
     <string name="info_card_remaining_days">%s days left.</string>
+    <string name="info_card_no_deadline_set">No deadline set.</string>
     <string name="info_notes_card_title">Notes</string>
     <string name="info_transaction_card_title">Transactions</string>
+    <string name="info_goal_no_transactions">No Transactions Yet.</string>
 
     <!-- Input (New/Edit Goal) Screen -->
     <string name="input_screen_header">It\'s time to save!</string>
