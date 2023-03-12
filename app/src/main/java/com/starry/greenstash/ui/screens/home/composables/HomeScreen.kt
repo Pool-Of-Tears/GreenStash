@@ -140,6 +140,7 @@ fun HomeScreen(navController: NavController) {
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(it)
+                    .background(MaterialTheme.colorScheme.background)
             ) {
                 if (allGoals.isEmpty()) {
                     Column(
@@ -175,19 +176,19 @@ fun HomeScreen(navController: NavController) {
                         Spacer(modifier = Modifier.weight(2f))
                     }
                 } else {
-                    val openDeleteDialog = remember { mutableStateOf(false) }
-                    val openDepositDialog = remember { mutableStateOf(false) }
-                    val openWithdrawDialog = remember { mutableStateOf(false) }
-
                     LazyColumn(
                         modifier = Modifier
                             .fillMaxSize()
                             .background(MaterialTheme.colorScheme.background)
                     ) {
-                        items(allGoals.size, key = { id -> id }) { idx ->
+                        items(allGoals.size) { idx ->
                             val item = allGoals[idx]
                             val progressPercent =
-                                ((item.getCurrentAmount() / item.goal.targetAmount) * 100).toInt()
+                                ((item.getCurrentlySavedAmount() / item.goal.targetAmount) * 100).toInt()
+
+                            val openDeleteDialog = remember { mutableStateOf(false) }
+                            val openDepositDialog = remember { mutableStateOf(false) }
+                            val openWithdrawDialog = remember { mutableStateOf(false) }
 
                             GoalItem(title = item.goal.title,
                                 primaryText = buildPrimaryText(context, progressPercent, item),
@@ -195,7 +196,7 @@ fun HomeScreen(navController: NavController) {
                                 goalProgress = progressPercent.toFloat() / 100,
                                 goalImage = item.goal.goalImage,
                                 onDepositClicked = {
-                                    if (item.getCurrentAmount() >= item.goal.targetAmount) {
+                                    if (item.getCurrentlySavedAmount() >= item.goal.targetAmount) {
                                         coroutineScope.launch {
                                             snackBarHostState.showSnackbar(context.getString(R.string.goal_already_achieved))
                                         }
@@ -204,7 +205,7 @@ fun HomeScreen(navController: NavController) {
                                     }
                                 },
                                 onWithdrawClicked = {
-                                    if (item.getCurrentAmount() == 0f.toDouble()) {
+                                    if (item.getCurrentlySavedAmount() == 0f.toDouble()) {
                                         coroutineScope.launch {
                                             snackBarHostState.showSnackbar(context.getString(R.string.withdraw_btn_error))
                                         }
@@ -212,7 +213,13 @@ fun HomeScreen(navController: NavController) {
                                         openWithdrawDialog.value = true
                                     }
                                 },
-                                onInfoClicked = { /*TODO*/ },
+                                onInfoClicked = {
+                                    navController.navigate(
+                                        Screens.GoalInfoScreen.withGoalId(
+                                            goalId = item.goal.goalId.toString()
+                                        )
+                                    )
+                                },
                                 onEditClicked = {
                                     navController.navigate(
                                         Screens.InputScreen.withGoalToEdit(
@@ -232,11 +239,14 @@ fun HomeScreen(navController: NavController) {
                                         snackBarHostState.showSnackbar(context.getString(R.string.goal_delete_success))
                                     }
                                 }, onDepositConfirmed = { amount, notes ->
+
+                                    println(item.goal.title)
+
                                     if (!amount.validateAmount()) {
                                         coroutineScope.launch {
                                             snackBarHostState.showSnackbar(context.getString(R.string.amount_empty_err))
                                         }
-                                    } else if (item.getCurrentAmount() >= item.goal.targetAmount) {
+                                    } else if (item.getCurrentlySavedAmount() >= item.goal.targetAmount) {
                                         coroutineScope.launch {
                                             snackBarHostState.showSnackbar(context.getString(R.string.goal_already_achieved))
                                         }
@@ -254,7 +264,7 @@ fun HomeScreen(navController: NavController) {
                                         }
                                     } else {
                                         val amountDouble = Utils.roundDecimal(amount.toDouble())
-                                        if (amountDouble > item.getCurrentAmount()) {
+                                        if (amountDouble > item.getCurrentlySavedAmount()) {
                                             coroutineScope.launch {
                                                 snackBarHostState.showSnackbar(context.getString(R.string.withdraw_overflow_error))
                                             }
@@ -500,14 +510,14 @@ private fun buildPrimaryText(
         "\n" + context.getString(R.string.currently_saved_complete)
     }
     text = text.format(
-        "$defCurrency${Utils.formatCurrency(item.getCurrentAmount())}",
+        "$defCurrency${Utils.formatCurrency(item.getCurrentlySavedAmount())}",
         "$defCurrency${Utils.formatCurrency(item.goal.targetAmount)}"
     )
     return text
 }
 
 private fun buildSecondaryText(context: Context, item: GoalWithTransactions): String {
-    val remainingAmount = (item.goal.targetAmount - item.getCurrentAmount())
+    val remainingAmount = (item.goal.targetAmount - item.getCurrentlySavedAmount())
     if ((remainingAmount > 0f)) {
         if (item.goal.deadline.isNotEmpty() && item.goal.deadline.isNotBlank()) {
             // calculate remaining days between today and endDate (deadline).

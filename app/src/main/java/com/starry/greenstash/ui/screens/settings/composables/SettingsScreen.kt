@@ -10,6 +10,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
@@ -43,6 +44,7 @@ import com.starry.greenstash.utils.toToast
 import java.util.concurrent.Executor
 
 
+@ExperimentalMaterialApi
 @ExperimentalFoundationApi
 @ExperimentalComposeUiApi
 @ExperimentalAnimationApi

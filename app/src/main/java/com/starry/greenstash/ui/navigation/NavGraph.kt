@@ -7,6 +7,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -18,9 +19,11 @@ import androidx.navigation.navArgument
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.starry.greenstash.ui.screens.home.composables.HomeScreen
+import com.starry.greenstash.ui.screens.info.composables.GoalInfoScreen
 import com.starry.greenstash.ui.screens.input.composables.InputScreen
 import com.starry.greenstash.ui.screens.settings.composables.SettingsScreen
 
+@ExperimentalMaterialApi
 @ExperimentalFoundationApi
 @ExperimentalComposeUiApi
 @ExperimentalMaterial3Api
@@ -56,6 +59,50 @@ fun NavGraph(navController: NavHostController, paddingValues: PaddingValues) {
         ) {
             HomeScreen(navController)
         }
+
+        /** Goal Info Screen */
+        composable(
+            route = Screens.GoalInfoScreen.route,
+            enterTransition = {
+                slideInHorizontally(
+                    initialOffsetX = { 300 }, animationSpec = tween(
+                        durationMillis = 300, easing = FastOutSlowInEasing
+                    )
+                ) + fadeIn(animationSpec = tween(300))
+            },
+            exitTransition = {
+                slideOutHorizontally(
+                    targetOffsetX = { -300 }, animationSpec = tween(
+                        durationMillis = 300, easing = FastOutSlowInEasing
+                    )
+                ) + fadeOut(animationSpec = tween(300))
+
+            },
+            popEnterTransition = {
+                slideInHorizontally(
+                    initialOffsetX = { -300 }, animationSpec = tween(
+                        durationMillis = 300, easing = FastOutSlowInEasing
+                    )
+                ) + fadeIn(animationSpec = tween(300))
+
+            },
+            popExitTransition = {
+                slideOutHorizontally(
+                    targetOffsetX = { 300 }, animationSpec = tween(
+                        durationMillis = 300, easing = FastOutSlowInEasing
+                    )
+                ) + fadeOut(animationSpec = tween(300))
+            },
+            arguments = listOf(
+                navArgument(GOAL_INFO_ARG_KEY) {
+                    type = NavType.StringType
+                },
+            ),
+        ) { backStackEntry ->
+            val goalId = backStackEntry.arguments!!.getString(GOAL_INFO_ARG_KEY)!!
+            GoalInfoScreen(goalId = goalId, navController)
+        }
+
 
         /** Input Screen */
         composable(
@@ -102,6 +149,7 @@ fun NavGraph(navController: NavHostController, paddingValues: PaddingValues) {
 
         /** Settings Screen */
         composable(
+            route = DrawerScreens.Settings.route,
             enterTransition = {
                 slideInHorizontally(
                     initialOffsetX = { 300 }, animationSpec = tween(
@@ -131,8 +179,7 @@ fun NavGraph(navController: NavHostController, paddingValues: PaddingValues) {
                         durationMillis = 300, easing = FastOutSlowInEasing
                     )
                 ) + fadeOut(animationSpec = tween(300))
-            },
-            route = DrawerScreens.Settings.route
+            }
         ) {
             SettingsScreen(navController)
         }

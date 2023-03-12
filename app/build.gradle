@@ -67,6 +67,7 @@ dependencies {
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
     implementation "androidx.compose.material3:material3:1.1.0-alpha07"
+    implementation "androidx.compose.material:material:$compose_version"
     implementation "androidx.compose.animation:animation:$compose_version"
     implementation "com.google.accompanist:accompanist-navigation-animation:0.29.0-alpha"
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.6.0"

@@ -11,7 +11,7 @@ data class GoalWithTransactions(
     )
     val transactions: List<Transaction>
 ) {
-    fun getCurrentAmount(): Double = transactions.fold(0f.toDouble()) { acc, transaction ->
+    fun getCurrentlySavedAmount(): Double = transactions.fold(0f.toDouble()) { acc, transaction ->
         when (transaction.type) {
             TransactionType.Deposit -> {
                 acc + transaction.amount
