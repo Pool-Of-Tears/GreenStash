@@ -512,6 +512,35 @@ fun SettingsScreen(navController: NavController) {
                     )
                 }
             }
+
+            /** About Setting */
+            item {
+                Column(
+                    modifier = Modifier.padding(top = 10.dp)
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.misc_setting_title),
+                        color = MaterialTheme.colorScheme.onBackground,
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier
+                            .padding(vertical = 8.dp)
+                            .padding(horizontal = 14.dp)
+                    )
+                    SettingsItem(
+                        title = stringResource(id = R.string.license_setting),
+                        description = stringResource(id = R.string.license_setting_desc),
+                        icon = ImageVector.vectorResource(id = R.drawable.ic_settings_osl),
+                        onClick = {}
+                    )
+                    SettingsItem(
+                        title = stringResource(id = R.string.app_info_setting),
+                        description = stringResource(id = R.string.app_info_setting_desc),
+                        icon = ImageVector.vectorResource(id = R.drawable.ic_settings_about),
+                        onClick = {}
+                    )
+                }
+            }
         }
     }
 }

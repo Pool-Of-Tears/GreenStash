@@ -37,7 +37,7 @@ fun SettingsItem(title: String, description: String, icon: ImageVector, onClick:
                 Text(
                     text = title,
                     maxLines = 1,
-                    style = MaterialTheme.typography.titleLarge,
+                    style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onSurface
                 )
                 Text(
@@ -81,7 +81,7 @@ fun SettingsItem(
             Text(
                 text = title,
                 maxLines = 1,
-                style = MaterialTheme.typography.titleLarge,
+                style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onSurface
             )
             Text(

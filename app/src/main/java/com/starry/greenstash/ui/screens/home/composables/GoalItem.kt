@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
@@ -19,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.starry.greenstash.R
 
 @Composable
@@ -53,7 +55,9 @@ fun GoalItem(
                 modifier = Modifier
                     .height(210.dp)
                     .fillMaxWidth(),
-                model = goalImage ?: R.drawable.default_goal_image,
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(goalImage ?: R.drawable.default_goal_image)
+                    .crossfade(true).build(),
                 contentDescription = null,
                 contentScale = ContentScale.Crop
             )

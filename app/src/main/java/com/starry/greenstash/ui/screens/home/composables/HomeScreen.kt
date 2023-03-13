@@ -45,6 +45,7 @@ import com.starry.greenstash.utils.PreferenceUtils
 import com.starry.greenstash.utils.Utils
 import com.starry.greenstash.utils.validateAmount
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -58,7 +59,7 @@ import java.util.*
 fun HomeScreen(navController: NavController) {
     val context = LocalContext.current
     val viewModel: HomeViewModel = hiltViewModel()
-    var allGoals = viewModel.allGoals.observeAsState(listOf()).value
+    val allGoals = viewModel.allGoals.observeAsState(listOf()).value
 
     val drawerState = rememberDrawerState(DrawerValue.Closed)
     val items = listOf(DrawerScreens.Home, DrawerScreens.Backups, DrawerScreens.Settings)
@@ -76,6 +77,22 @@ fun HomeScreen(navController: NavController) {
         drawerContent = {
             ModalDrawerSheet(drawerShape = RoundedCornerShape(4.dp)) {
                 Spacer(Modifier.height(14.dp))
+
+                Text(
+                    text = stringResource(id = R.string.app_name),
+                    modifier = Modifier.padding(start = 16.dp, top = 12.dp),
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Medium,
+                )
+
+                Divider(
+                    thickness = 1.dp,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 16.dp, bottom = 16.dp),
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+
                 items.forEach { item ->
                     NavigationDrawerItem(
                         icon = {
@@ -93,6 +110,7 @@ fun HomeScreen(navController: NavController) {
                         },
                         modifier = Modifier.padding(NavigationDrawerItemDefaults.ItemPadding)
                     )
+                    Spacer(modifier = Modifier.height(4.dp))
                 }
             }
         }) {
@@ -137,38 +155,49 @@ fun HomeScreen(navController: NavController) {
                     .background(MaterialTheme.colorScheme.background)
             ) {
                 if (allGoals.isEmpty()) {
-                    Column(
-                        modifier = Modifier.fillMaxSize(),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        val compositionResult: LottieCompositionResult = rememberLottieComposition(
-                            spec = LottieCompositionSpec.RawRes(R.raw.no_goal_set_lottie)
-                        )
-                        val progressAnimation by animateLottieCompositionAsState(
-                            compositionResult.value,
-                            isPlaying = true,
-                            iterations = LottieConstants.IterateForever,
-                            speed = 1f
-                        )
+                    var showNoGoalsAnimation by remember { mutableStateOf(false) }
 
-                        Spacer(modifier = Modifier.weight(1f))
+                    LaunchedEffect(key1 = true, block = {
+                        delay(200)
+                        showNoGoalsAnimation = true
+                    })
 
-                        LottieAnimation(
-                            composition = compositionResult.value,
-                            progress = progressAnimation,
-                            modifier = Modifier.size(320.dp),
-                            enableMergePaths = true
-                        )
+                    if (showNoGoalsAnimation) {
+                        Column(
+                            modifier = Modifier.fillMaxSize(),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            val compositionResult: LottieCompositionResult =
+                                rememberLottieComposition(
+                                    spec = LottieCompositionSpec.RawRes(R.raw.no_goal_set_lottie)
+                                )
+                            val progressAnimation by animateLottieCompositionAsState(
+                                compositionResult.value,
+                                isPlaying = true,
+                                iterations = LottieConstants.IterateForever,
+                                speed = 1f
+                            )
 
-                        Text(
-                            text = stringResource(id = R.string.no_goal_set),
-                            fontWeight = FontWeight.Medium,
-                            fontSize = 16.sp,
-                            modifier = Modifier.padding(start = 12.dp, end = 12.dp)
-                        )
+                            Spacer(modifier = Modifier.weight(1f))
 
-                        Spacer(modifier = Modifier.weight(2f))
+                            LottieAnimation(
+                                composition = compositionResult.value,
+                                progress = progressAnimation,
+                                modifier = Modifier.size(320.dp),
+                                enableMergePaths = true
+                            )
+
+                            Text(
+                                text = stringResource(id = R.string.no_goal_set),
+                                fontWeight = FontWeight.Medium,
+                                fontSize = 16.sp,
+                                modifier = Modifier.padding(start = 12.dp, end = 12.dp)
+                            )
+
+                            Spacer(modifier = Modifier.weight(2f))
+                        }
                     }
+
                 } else {
 
                     if (searchTextState.isNotEmpty() && searchTextState.isNotBlank()) {

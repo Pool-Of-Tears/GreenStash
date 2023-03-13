@@ -99,6 +99,11 @@
     <string name="security_settings_title">Security</string>
     <string name="app_lock_setting">Biometric Lock</string>
     <string name="app_lock_setting_desc">Use your fingerprint or screen lock password to unlock GreenStash</string>
+    <string name="misc_setting_title">Miscellaneous</string>
+    <string name="license_setting">License &amp; Acknowledgement</string>
+    <string name="license_setting_desc">Show open source license information.</string>
+    <string name="app_info_setting">App Information</string>
+    <string name="app_info_setting_desc">Show app version and useful links.</string>
 
 
 </resources>
