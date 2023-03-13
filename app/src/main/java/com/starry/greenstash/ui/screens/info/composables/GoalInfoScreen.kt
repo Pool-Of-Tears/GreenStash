@@ -121,6 +121,7 @@ fun GoalInfoScreen(goalId: String, navController: NavController) {
                     GoalNotesCard(
                         notesText = state.goalData.goal.additionalNotes
                     )
+                    Spacer(modifier = Modifier.height(6.dp))
                 }
                 if (state.goalData.transactions.isNotEmpty()) {
                     TransactionCard(state.goalData.transactions.reversed(), currencySymbol)
@@ -135,7 +136,7 @@ fun GoalInfoScreen(goalId: String, navController: NavController) {
                         val progressAnimation by animateLottieCompositionAsState(
                             compositionResult.value,
                             isPlaying = true,
-                            iterations = LottieConstants.IterateForever,
+                            iterations = 1,
                             speed = 1f
                         )
 

@@ -13,6 +13,8 @@
     <!-- Home Screen -->
     <string name="home_screen_header">Saving Goals</string>
     <string name="new_goal_fab">New Goal</string>
+    <string name="home_search_label">Search here…</string>
+    <string name="search_goal_not_found">404: Goal not found!</string>
 
     <!-- Strings used for dashboard saving goals cards -->
     <string name="no_goal_set">No Saving Goals Set.</string>

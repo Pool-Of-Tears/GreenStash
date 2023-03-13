@@ -40,10 +40,10 @@ fun GoalItem(
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .padding(14.dp),
+            .padding(12.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(
-                3.dp
+                5.dp
             )
         ),
         shape = RoundedCornerShape(6.dp)
