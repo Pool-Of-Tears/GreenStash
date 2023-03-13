@@ -18,6 +18,7 @@ import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
+import com.starry.greenstash.ui.screens.backups.BackupScreen
 import com.starry.greenstash.ui.screens.home.composables.HomeScreen
 import com.starry.greenstash.ui.screens.info.composables.GoalInfoScreen
 import com.starry.greenstash.ui.screens.input.composables.InputScreen
@@ -145,6 +146,43 @@ fun NavGraph(navController: NavHostController, paddingValues: PaddingValues) {
         ) { backStackEntry ->
             val editGoalId = backStackEntry.arguments!!.getString(EDIT_GOAL_ARG_KEY)
             InputScreen(editGoalId, navController)
+        }
+
+        /** Backup Screen */
+        composable(
+            route = DrawerScreens.Backups.route,
+            enterTransition = {
+                slideInHorizontally(
+                    initialOffsetX = { 300 }, animationSpec = tween(
+                        durationMillis = 300, easing = FastOutSlowInEasing
+                    )
+                ) + fadeIn(animationSpec = tween(300))
+            },
+            exitTransition = {
+                slideOutHorizontally(
+                    targetOffsetX = { -300 }, animationSpec = tween(
+                        durationMillis = 300, easing = FastOutSlowInEasing
+                    )
+                ) + fadeOut(animationSpec = tween(300))
+
+            },
+            popEnterTransition = {
+                slideInHorizontally(
+                    initialOffsetX = { -300 }, animationSpec = tween(
+                        durationMillis = 300, easing = FastOutSlowInEasing
+                    )
+                ) + fadeIn(animationSpec = tween(300))
+
+            },
+            popExitTransition = {
+                slideOutHorizontally(
+                    targetOffsetX = { 300 }, animationSpec = tween(
+                        durationMillis = 300, easing = FastOutSlowInEasing
+                    )
+                ) + fadeOut(animationSpec = tween(300))
+            }
+        ) {
+            BackupScreen(navController)
         }
 
         /** Settings Screen */

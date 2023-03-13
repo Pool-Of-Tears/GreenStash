@@ -80,6 +80,8 @@ dependencies {
     implementation "androidx.room:room-ktx:2.5.0"
     kapt "androidx.room:room-compiler:2.5.0"
     androidTestImplementation "androidx.room:room-testing:2.5.0"
+    // Room database backup library.
+    implementation 'de.raphaelebner:roomdatabasebackup:1.0.0-beta12'
     // Dagger - Hilt.
     implementation "com.google.dagger:hilt-android:$hilt_version"
     implementation "androidx.hilt:hilt-navigation-compose:1.0.0"

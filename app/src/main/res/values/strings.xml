@@ -75,6 +75,13 @@
     <string name="goal_saved_success">Great job! Saving goal set.</string>
     <string name="goad_edit_success">Saving goal updated.</string>
 
+    <!-- Backup Screen -->
+    <string name="backup_screen_header">Backup &amp; Restore</string>
+    <string name="backup_screen_text">Backup app data including all of your saving goals, current progress, transactions etc and easily restore it whenever you want.</string>
+    <string name="backup_screen_sub_text">Note: Backups does not include app settings.</string>
+    <string name="backup_button">Backup Data</string>
+    <string name="restore_button">Restore Data</string>
+
     <!-- Settings Screen -->
     <string name="settings_screen_header">Settings</string>
     <string name="display_settings_title">Display</string>
