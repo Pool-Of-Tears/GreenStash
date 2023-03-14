@@ -1,0 +1,15 @@
+New features
+
+- Added search button on toolbar to search for specific saving goal.
+- Added filter button on toolbar to filter between All/Completed/Ongoing goals.
+- Added brand new goal info section in which you can view detailed information about some specific goal including all transactions (withdraw/deposit) history.
+- App will now show dialog to setup your preferred currency when opening app for first time.
+
+Improvements & fixes
+
+- Lots of UI related improvements and fixes.
+- Fixed app becoming unresponsive for sometime when setting large images, it'll now show progress dialog instead.
+- Improved layout of input screen and added material design icons in input fields.
+- Improved formatting of currency amount ($1000000 -> $100,000.00)
+- Added support for decimal values in currency, i.e app now supports cents aswell instead of whole dollar values.
+- Some cleanups and code quality improvements.

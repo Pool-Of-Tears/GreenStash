@@ -1,0 +1,1 @@
+- Fixed crash after adding a goal when device locale was set to few EU languages
