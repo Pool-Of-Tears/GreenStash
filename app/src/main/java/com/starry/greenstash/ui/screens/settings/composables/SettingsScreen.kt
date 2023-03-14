@@ -110,15 +110,7 @@ fun SettingsScreen(navController: NavController) {
                 Column(
                     modifier = Modifier.padding(top = 10.dp)
                 ) {
-                    Text(
-                        text = stringResource(id = R.string.display_settings_title),
-                        color = MaterialTheme.colorScheme.onBackground,
-                        fontSize = 14.sp,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier
-                            .padding(vertical = 8.dp)
-                            .padding(horizontal = 14.dp)
-                    )
+                    SettingsCategory(title = stringResource(id = R.string.display_settings_title))
                     SettingsItem(title = stringResource(id = R.string.theme_setting),
                         description = themeValue,
                         icon = ImageVector.vectorResource(id = R.drawable.ic_settings_theme),
@@ -272,16 +264,7 @@ fun SettingsScreen(navController: NavController) {
                 Column(
                     modifier = Modifier.padding(top = 10.dp)
                 ) {
-                    Text(
-                        text = stringResource(id = R.string.locales_setting_title),
-                        color = MaterialTheme.colorScheme.onBackground,
-                        fontSize = 14.sp,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier
-                            .padding(vertical = 8.dp)
-                            .padding(horizontal = 14.dp)
-                    )
-
+                    SettingsCategory(title = stringResource(id = R.string.locales_setting_title))
                     SettingsItem(title = stringResource(id = R.string.date_format_setting),
                         description = dateValue,
                         icon = ImageVector.vectorResource(id = R.drawable.ic_settings_calender),
@@ -445,16 +428,7 @@ fun SettingsScreen(navController: NavController) {
                 Column(
                     modifier = Modifier.padding(top = 10.dp)
                 ) {
-                    Text(
-                        text = stringResource(id = R.string.security_settings_title),
-                        color = MaterialTheme.colorScheme.onBackground,
-                        fontSize = 14.sp,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier
-                            .padding(vertical = 8.dp)
-                            .padding(horizontal = 14.dp)
-                    )
-
+                    SettingsCategory(title = stringResource(id = R.string.security_settings_title))
                     SettingsItem(
                         title = stringResource(id = R.string.app_lock_setting),
                         description = stringResource(id = R.string.app_lock_setting_desc),
@@ -518,15 +492,7 @@ fun SettingsScreen(navController: NavController) {
                 Column(
                     modifier = Modifier.padding(top = 10.dp)
                 ) {
-                    Text(
-                        text = stringResource(id = R.string.misc_setting_title),
-                        color = MaterialTheme.colorScheme.onBackground,
-                        fontSize = 14.sp,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier
-                            .padding(vertical = 8.dp)
-                            .padding(horizontal = 14.dp)
-                    )
+                    SettingsCategory(title = stringResource(id = R.string.misc_setting_title))
                     SettingsItem(
                         title = stringResource(id = R.string.license_setting),
                         description = stringResource(id = R.string.license_setting_desc),
@@ -543,4 +509,17 @@ fun SettingsScreen(navController: NavController) {
             }
         }
     }
+}
+
+@Composable
+fun SettingsCategory(title: String) {
+    Text(
+        text = title,
+        color = MaterialTheme.colorScheme.onBackground,
+        fontSize = 14.sp,
+        fontWeight = FontWeight.Bold,
+        modifier = Modifier
+            .padding(vertical = 8.dp)
+            .padding(horizontal = 14.dp)
+    )
 }

@@ -9,7 +9,7 @@ GreenStash is a completely offline application and does not require internet per
 #### Terms of Use
 Thank you so much for using GreenStash. To protect the app and our users we need this user agreement to set rules that are required to use our software.
 GreenStash is a free & open source software, which is totally free to use for non-commercial purposes as long as you agree to our privacy policies.
-If you have found a bug or vulnerability in the GreenStash aoo, there are several ways to report the problem so we can fix it:
+If you have found a bug or vulnerability in the GreenStash app, there are several ways to report the problem so we can fix it:
 
 - Writing us an email with detailed description of the issue you're facing.
 - Contacting us in our [Telegram](https://t.me/PotApps) support group.

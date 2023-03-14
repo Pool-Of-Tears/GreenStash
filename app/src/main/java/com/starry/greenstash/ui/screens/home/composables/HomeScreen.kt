@@ -250,7 +250,10 @@ fun HomeScreen(navController: NavController) {
                                     .fillMaxSize()
                                     .background(MaterialTheme.colorScheme.background)
                             ) {
-                                items(filteredList.size) { idx ->
+                                items(
+                                    filteredList.size,
+                                    key = { k -> k },
+                                    contentType = { 0 }) { idx ->
                                     val item = filteredList[idx]
                                     GoalLazyColumnItem(
                                         context = context,
@@ -270,7 +273,7 @@ fun HomeScreen(navController: NavController) {
                                 .fillMaxSize()
                                 .background(MaterialTheme.colorScheme.background)
                         ) {
-                            items(allGoals.size) { idx ->
+                            items(allGoals.size, key = { k -> k }, contentType = { 0 }) { idx ->
                                 val item = allGoals[idx]
                                 GoalLazyColumnItem(
                                     context = context,
