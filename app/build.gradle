@@ -3,7 +3,10 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'dagger.hilt.android.plugin'
     id 'kotlin-kapt'
+    id "com.mikepenz.aboutlibraries.plugin" version "10.5.2"
 }
+
+apply plugin: 'com.mikepenz.aboutlibraries.plugin'
 
 android {
     namespace 'com.starry.greenstash'
@@ -13,8 +16,8 @@ android {
         applicationId "com.starry.greenstash"
         minSdk 24
         targetSdk 33
-        versionCode 1
-        versionName "1.0"
+        versionCode 20
+        versionName "2.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -57,6 +60,12 @@ android {
     }
 }
 
+aboutLibraries {
+    // Remove the "generated" timestamp to allow for reproducible builds
+    excludeFields = ["generated"]
+}
+
+
 dependencies {
 
     // Android core components.
@@ -97,6 +106,9 @@ dependencies {
     implementation "com.airbnb.android:lottie-compose:4.1.0"
     // Bio-metric authentication.
     implementation "androidx.biometric:biometric:1.1.0"
+    // Open Source Libraries Screen.
+    implementation "com.mikepenz:aboutlibraries-core:10.5.2"
+    implementation "com.mikepenz:aboutlibraries-compose:10.5.2"
     // Oreo back-ports for API 24 (N)
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.2'
     // Testing components.

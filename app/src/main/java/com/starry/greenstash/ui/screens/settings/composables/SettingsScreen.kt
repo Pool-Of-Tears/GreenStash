@@ -35,6 +35,7 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import com.starry.greenstash.MainActivity
 import com.starry.greenstash.R
+import com.starry.greenstash.ui.navigation.Screens
 import com.starry.greenstash.ui.screens.settings.viewmodels.DateStyle
 import com.starry.greenstash.ui.screens.settings.viewmodels.ThemeMode
 import com.starry.greenstash.utils.PreferenceUtils
@@ -497,13 +498,13 @@ fun SettingsScreen(navController: NavController) {
                         title = stringResource(id = R.string.license_setting),
                         description = stringResource(id = R.string.license_setting_desc),
                         icon = ImageVector.vectorResource(id = R.drawable.ic_settings_osl),
-                        onClick = {}
+                        onClick = { navController.navigate(Screens.OSLScreen.route) }
                     )
                     SettingsItem(
                         title = stringResource(id = R.string.app_info_setting),
                         description = stringResource(id = R.string.app_info_setting_desc),
                         icon = ImageVector.vectorResource(id = R.drawable.ic_settings_about),
-                        onClick = {}
+                        onClick = { navController.navigate(Screens.AboutScreen.route) }
                     )
                 }
             }

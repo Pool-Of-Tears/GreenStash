@@ -105,5 +105,21 @@
     <string name="app_info_setting">App Information</string>
     <string name="app_info_setting_desc">Show app version and useful links.</string>
 
+    <!-- OSL Screen -->
+    <string name="osl_screen_header">Open Source Libraries</string>
+
+    <!-- About Screen -->
+    <string name="about_screen_header">About</string>
+    <string name="about_readme_title">README</string>
+    <string name="about_readme_desc">Checkout the Github repository and the app\'s README.</string>
+    <string name="about_privacy_title">Privacy Policy</string>
+    <string name="about_privacy_desc">Read our latest privacy policy and terms of service on Github.</string>
+    <string name="about_gh_issue_title">Github Issues</string>
+    <string name="about_gh_issue_desc">Submit bug reports or feature requests by creating an issue on Github.</string>
+    <string name="about_telegram_title">Telegram Group</string>
+    <string name="about_telegram_desc">Join us at telegram to share your ideas or just to chat!</string>
+    <string name="about_version_title">Version</string>
+    <string name="about_version_desc">Version-%s</string>
+
 
 </resources>

@@ -15,4 +15,7 @@ sealed class Screens(val route: String) {
             return route.replace("{$GOAL_INFO_ARG_KEY}", goalId)
         }
     }
+
+    object AboutScreen : Screens("about_screen")
+    object OSLScreen : Screens("osl_screen")
 }

@@ -22,6 +22,8 @@ import com.starry.greenstash.ui.screens.backups.BackupScreen
 import com.starry.greenstash.ui.screens.home.composables.HomeScreen
 import com.starry.greenstash.ui.screens.info.composables.GoalInfoScreen
 import com.starry.greenstash.ui.screens.input.composables.InputScreen
+import com.starry.greenstash.ui.screens.settings.composables.AboutScreen
+import com.starry.greenstash.ui.screens.settings.composables.OSLScreen
 import com.starry.greenstash.ui.screens.settings.composables.SettingsScreen
 
 @ExperimentalMaterialApi
@@ -220,6 +222,48 @@ fun NavGraph(navController: NavHostController, paddingValues: PaddingValues) {
             }
         ) {
             SettingsScreen(navController)
+        }
+
+        /** Open Source Licenses Screen */
+        composable(
+            route = Screens.OSLScreen.route,
+            enterTransition = {
+                slideInHorizontally(
+                    initialOffsetX = { 300 }, animationSpec = tween(
+                        durationMillis = 300, easing = FastOutSlowInEasing
+                    )
+                ) + fadeIn(animationSpec = tween(300))
+            },
+            popExitTransition = {
+                slideOutHorizontally(
+                    targetOffsetX = { 300 }, animationSpec = tween(
+                        durationMillis = 300, easing = FastOutSlowInEasing
+                    )
+                ) + fadeOut(animationSpec = tween(300))
+            },
+        ) {
+            OSLScreen(navController = navController)
+        }
+
+        /** About Screen */
+        composable(
+            route = Screens.AboutScreen.route,
+            enterTransition = {
+                slideInHorizontally(
+                    initialOffsetX = { 300 }, animationSpec = tween(
+                        durationMillis = 300, easing = FastOutSlowInEasing
+                    )
+                ) + fadeIn(animationSpec = tween(300))
+            },
+            popExitTransition = {
+                slideOutHorizontally(
+                    targetOffsetX = { 300 }, animationSpec = tween(
+                        durationMillis = 300, easing = FastOutSlowInEasing
+                    )
+                ) + fadeOut(animationSpec = tween(300))
+            },
+        ) {
+            AboutScreen(navController = navController)
         }
 
     }

@@ -32,7 +32,7 @@ fun SettingsItem(title: String, description: String, icon: ImageVector, onClick:
             Column(
                 modifier = Modifier
                     .weight(1f)
-                    .padding(start = 12.dp)
+                    .padding(start = 12.dp, end=8.dp)
             ) {
                 Text(
                     text = title,
@@ -43,7 +43,6 @@ fun SettingsItem(title: String, description: String, icon: ImageVector, onClick:
                 Text(
                     text = description,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    maxLines = 2,
                     style = MaterialTheme.typography.bodyMedium,
                 )
             }
@@ -76,7 +75,7 @@ fun SettingsItem(
         Column(
             modifier = Modifier
                 .weight(1f)
-                .padding(start = 12.dp)
+                .padding(start = 12.dp, end = 8.dp)
         ) {
             Text(
                 text = title,
@@ -87,7 +86,6 @@ fun SettingsItem(
             Text(
                 text = description,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
-                maxLines = 2,
                 style = MaterialTheme.typography.bodyMedium,
             )
         }
