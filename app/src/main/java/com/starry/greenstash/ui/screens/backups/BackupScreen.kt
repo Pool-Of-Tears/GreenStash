@@ -58,7 +58,7 @@ fun BackupScreen(navController: NavController) {
             BackupScreenContent(
                 paddingValues = it,
                 onBackupClicked = { activity.backupDatabase() },
-                onRestoreClicked = { activity.restoreDatabs() })
+                onRestoreClicked = { activity.restoreDatabase() })
         })
 }
 

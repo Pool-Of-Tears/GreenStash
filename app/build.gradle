@@ -97,6 +97,8 @@ dependencies {
     implementation "androidx.hilt:hilt-navigation-compose:1.0.0"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
     kapt "androidx.hilt:hilt-compiler:1.0.0"
+    // DataStore Preferences
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
     // Coil Image loading library.
     implementation "io.coil-kt:coil-compose:2.2.2"
     // Material 3 calender / Date picker.

@@ -2,6 +2,7 @@ package com.starry.greenstash.di
 
 import android.content.Context
 import com.starry.greenstash.database.AppDatabase
+import com.starry.greenstash.other.WelcomeDataStore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,4 +23,11 @@ class MianModule {
 
     @Provides
     fun provideTransactionDao(appDatabase: AppDatabase) = appDatabase.getTransactionDao()
+
+    @Provides
+    @Singleton
+    fun provideDataStoreRepository(
+        @ApplicationContext context: Context
+    ) = WelcomeDataStore(context = context)
+
 }

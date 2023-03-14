@@ -18,4 +18,5 @@ sealed class Screens(val route: String) {
 
     object AboutScreen : Screens("about_screen")
     object OSLScreen : Screens("osl_screen")
+    object WelcomeScreen : Screens("welcome_screen")
 }

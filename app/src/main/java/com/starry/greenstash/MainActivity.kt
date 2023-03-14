@@ -16,15 +16,17 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.surfaceColorAtElevation
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.ViewModelProvider
+import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.starry.greenstash.database.AppDatabase
-import com.starry.greenstash.ui.screens.main.MainScreen
+import com.starry.greenstash.ui.navigation.NavGraph
 import com.starry.greenstash.ui.screens.settings.viewmodels.SettingsViewModel
 import com.starry.greenstash.ui.screens.settings.viewmodels.ThemeMode
 import com.starry.greenstash.ui.theme.GreenStashTheme
@@ -58,7 +60,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        installSplashScreen()
 
         PreferenceUtils.initialize(this)
         settingsViewModel = ViewModelProvider(this)[SettingsViewModel::class.java]
@@ -75,6 +76,10 @@ class MainActivity : AppCompatActivity() {
                 PreferenceUtils.MATERIAL_YOU, Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
             )
         )
+
+        installSplashScreen().setKeepOnScreenCondition {
+            mainViewModel.isLoading.value
+        }
 
         val appLockStatus = PreferenceUtils.getBoolean(PreferenceUtils.APP_LOCK, false)
 
@@ -163,7 +168,9 @@ class MainActivity : AppCompatActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MainScreen()
+                    val navController = rememberAnimatedNavController()
+                    val screen by mainViewModel.startDestination
+                    NavGraph(navController = navController, screen)
                 }
             }
         }
@@ -177,7 +184,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun restoreDatabs() {
+    fun restoreDatabase() {
         try {
             roomBackup.restore()
         } catch (exc: NullPointerException) {

@@ -10,6 +10,10 @@
     <string name="auth_failed">Authentication failed!</string>
     <string name="auth_error">Authentication error: %s</string>
 
+    <!-- Welcome Screen. -->
+    <string name="welcome_screen_text">Hello! Please select your preferred currency to get started.</string>
+    <string name="welcome_screen_button">Get Started</string>
+
     <!-- Home Screen -->
     <string name="home_screen_header">Saving Goals</string>
     <string name="new_goal_fab">New Goal</string>
