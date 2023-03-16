@@ -1,0 +1,3 @@
+- App has been completely re-written from scratch.
+
+IMPORTANT: If you were using any previous version before v2.0, please DO NOT UPDATE and do CLEAN INSTALLATION (by uninstalling the <= v1.9 and installing >= v2.0 ) instead. As the app has been completely re-written from scratch in v2.0 release with an entirely new database schema, redesigned UI/UX (in Jetpack Compose) and reworked backend. Hence, this release is not compatible with the older versions.
