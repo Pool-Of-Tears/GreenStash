@@ -1,0 +1,2 @@
+- Optimized some animations.
+- Cleanups & some UI/UX Improvements.
