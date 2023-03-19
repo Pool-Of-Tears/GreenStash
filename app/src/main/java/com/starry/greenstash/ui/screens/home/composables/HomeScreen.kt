@@ -208,7 +208,7 @@ fun HomeScreen(navController: NavController) {
                             LottieAnimation(
                                 composition = compositionResult.value,
                                 progress = progressAnimation,
-                                modifier = Modifier.size(365.dp),
+                                modifier = Modifier.size(335.dp),
                                 enableMergePaths = true
                             )
 

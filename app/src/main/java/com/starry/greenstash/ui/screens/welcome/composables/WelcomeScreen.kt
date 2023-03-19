@@ -44,6 +44,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -76,7 +77,8 @@ fun WelcomeScreen(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background),
+            .background(MaterialTheme.colorScheme.background)
+            .verticalScroll(rememberScrollState()),
     ) {
         val compositionResult: LottieCompositionResult =
             rememberLottieComposition(
@@ -103,21 +105,23 @@ fun WelcomeScreen(navController: NavController) {
             text = stringResource(id = R.string.welcome_screen_text),
             fontWeight = FontWeight.SemiBold,
             fontSize = 18.sp,
-            modifier = Modifier.padding(start = 40.dp, end = 35.dp)
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 40.dp, end = 35.dp)
         )
 
         Column(
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Button(
+            OutlinedButton(
                 onClick = { currencyDialog.value = true },
                 modifier = Modifier
-                    .padding(top = 80.dp, bottom = 16.dp)
+                    .padding(top = 50.dp, bottom = 16.dp)
                     .height(50.dp)
                     .fillMaxWidth(0.8f),
                 shape = RoundedCornerShape(12.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
             ) {
                 Text(
                     text = currencyValue,

@@ -28,6 +28,9 @@ package com.starry.greenstash.ui.screens.backups
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -96,7 +99,8 @@ fun BackupScreenContent(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(paddingValues),
+            .padding(paddingValues)
+            .verticalScroll(rememberScrollState()),
     ) {
         val compositionResult: LottieCompositionResult = rememberLottieComposition(
             spec = LottieCompositionSpec.RawRes(R.raw.backup_lottie)
@@ -119,16 +123,19 @@ fun BackupScreenContent(
             )
         }
 
-        Text(
-            text = stringResource(id = R.string.backup_screen_text),
-            fontWeight = FontWeight.Medium,
-            modifier = Modifier.padding(start = 20.dp, end = 20.dp)
-        )
-
-        Text(
-            text = stringResource(id = R.string.backup_screen_sub_text),
-            modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 8.dp)
-        )
+        Box(contentAlignment = Alignment.Center) {
+            Column {
+                Text(
+                    text = stringResource(id = R.string.backup_screen_text),
+                    fontWeight = FontWeight.Medium,
+                    modifier = Modifier.padding(start = 20.dp, end = 20.dp)
+                )
+                Text(
+                    text = stringResource(id = R.string.backup_screen_sub_text),
+                    modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 8.dp)
+                )
+            }
+        }
 
         Column(
             modifier = Modifier.fillMaxWidth(),
@@ -137,9 +144,10 @@ fun BackupScreenContent(
             Button(
                 onClick = onBackupClicked,
                 modifier = Modifier
-                    .padding(top = 70.dp, bottom = 16.dp)
+                    .padding(top = 50.dp, bottom = 16.dp)
                     .height(50.dp)
-                    .fillMaxWidth(0.75f)
+                    .fillMaxWidth(0.78f),
+                shape = RoundedCornerShape(12.dp),
             ) {
                 Text(
                     text = stringResource(id = R.string.backup_button),
@@ -152,7 +160,8 @@ fun BackupScreenContent(
                 onClick = onRestoreClicked,
                 modifier = Modifier
                     .height(50.dp)
-                    .fillMaxWidth(0.75f)
+                    .fillMaxWidth(0.78f),
+                shape = RoundedCornerShape(12.dp),
             ) {
                 Text(
                     text = stringResource(id = R.string.restore_button),

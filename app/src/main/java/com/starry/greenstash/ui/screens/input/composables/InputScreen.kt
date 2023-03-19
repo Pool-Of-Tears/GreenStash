@@ -92,7 +92,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
     val buttonText: String
 
     if (editGoalId != null) {
-        viewModel.setEditGoalData(goalId = editGoalId.toLong(), onEditDataSet = {goalImageBm ->
+        viewModel.setEditGoalData(goalId = editGoalId.toLong(), onEditDataSet = { goalImageBm ->
             if (goalImageBm != null) {
                 imageData = goalImageBm
             }
@@ -392,7 +392,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                                 context.getString(R.string.amount_empty_err).toToast(context)
                             } else {
                                 if (editGoalId != null) {
-                                    viewModel.editSavingGoal(editGoalId.toLong(),context)
+                                    viewModel.editSavingGoal(editGoalId.toLong(), context)
                                 } else {
                                     viewModel.addSavingGoal(context)
                                 }

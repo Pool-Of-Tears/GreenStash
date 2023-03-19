@@ -55,7 +55,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.airbnb.lottie.compose.*
 import com.starry.greenstash.R
-import com.starry.greenstash.database.Goal
+import com.starry.greenstash.database.GoalWithTransactions
 import com.starry.greenstash.database.Transaction
 import com.starry.greenstash.database.TransactionType
 import com.starry.greenstash.ui.common.ExpandableCard
@@ -104,12 +104,10 @@ fun GoalInfoScreen(goalId: String, navController: NavController) {
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.background)
                 .padding(it)
-                .verticalScroll(rememberScrollState())
         ) {
             if (state.isLoading) {
                 Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
+                    modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
                 ) {
                     val compositionResult: LottieCompositionResult = rememberLottieComposition(
                         spec = LottieCompositionSpec.RawRes(R.raw.transactions_loading_lottie)
@@ -135,53 +133,60 @@ fun GoalInfoScreen(goalId: String, navController: NavController) {
                 val progressPercent =
                     ((state.goalData!!.getCurrentlySavedAmount() / state.goalData.goal.targetAmount) * 100).toInt()
 
-                GoalInfoCard(
-                    currencySymbol,
-                    Utils.formatCurrency(Utils.roundDecimal(state.goalData.goal.targetAmount)),
-                    Utils.formatCurrency(Utils.roundDecimal(state.goalData.getCurrentlySavedAmount())),
-                    daysLeft = getRemainingDaysText(context, state.goalData.goal),
-                    progress = progressPercent.toFloat() / 100
-                )
-                if (state.goalData.goal.additionalNotes.isNotEmpty() && state.goalData.goal.additionalNotes.isNotBlank()) {
-                    GoalNotesCard(
-                        notesText = state.goalData.goal.additionalNotes
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .verticalScroll(rememberScrollState())
+                ) {
+                    GoalInfoCard(
+                        currencySymbol,
+                        Utils.formatCurrency(Utils.roundDecimal(state.goalData.goal.targetAmount)),
+                        Utils.formatCurrency(Utils.roundDecimal(state.goalData.getCurrentlySavedAmount())),
+                        daysLeft = getRemainingDaysText(context, state.goalData),
+                        progress = progressPercent.toFloat() / 100
                     )
-                    Spacer(modifier = Modifier.height(6.dp))
-                }
-                if (state.goalData.transactions.isNotEmpty()) {
-                    TransactionCard(state.goalData.transactions.reversed(), currencySymbol)
-                } else {
-                    Column(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        val compositionResult: LottieCompositionResult = rememberLottieComposition(
-                            spec = LottieCompositionSpec.RawRes(R.raw.no_transactions_lottie)
+                    if (state.goalData.goal.additionalNotes.isNotEmpty() && state.goalData.goal.additionalNotes.isNotBlank()) {
+                        GoalNotesCard(
+                            notesText = state.goalData.goal.additionalNotes
                         )
-                        val progressAnimation by animateLottieCompositionAsState(
-                            compositionResult.value,
-                            isPlaying = true,
-                            iterations = 1,
-                            speed = 1f
-                        )
+                        Spacer(modifier = Modifier.height(6.dp))
+                    }
+                    if (state.goalData.transactions.isNotEmpty()) {
+                        TransactionCard(state.goalData.transactions.reversed(), currencySymbol)
+                    } else {
+                        Column(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            val compositionResult: LottieCompositionResult =
+                                rememberLottieComposition(
+                                    spec = LottieCompositionSpec.RawRes(R.raw.no_transactions_lottie)
+                                )
+                            val progressAnimation by animateLottieCompositionAsState(
+                                compositionResult.value,
+                                isPlaying = true,
+                                iterations = 1,
+                                speed = 1f
+                            )
 
-                        Spacer(modifier = Modifier.weight(1f))
+                            Spacer(modifier = Modifier.weight(1f))
 
-                        LottieAnimation(
-                            composition = compositionResult.value,
-                            progress = progressAnimation,
-                            modifier = Modifier.size(320.dp),
-                            enableMergePaths = true
-                        )
+                            LottieAnimation(
+                                composition = compositionResult.value,
+                                progress = progressAnimation,
+                                modifier = Modifier.size(320.dp),
+                                enableMergePaths = true
+                            )
 
-                        Text(
-                            text = stringResource(id = R.string.info_goal_no_transactions),
-                            fontWeight = FontWeight.SemiBold,
-                            fontSize = 20.sp,
-                            modifier = Modifier.padding(start = 12.dp, end = 12.dp)
-                        )
+                            Text(
+                                text = stringResource(id = R.string.info_goal_no_transactions),
+                                fontWeight = FontWeight.SemiBold,
+                                fontSize = 20.sp,
+                                modifier = Modifier.padding(start = 12.dp, end = 12.dp)
+                            )
 
-                        Spacer(modifier = Modifier.weight(2f))
+                            Spacer(modifier = Modifier.weight(2f))
+                        }
                     }
                 }
             }
@@ -335,40 +340,44 @@ fun TransactionItem(transactionType: TransactionType, amount: String, date: Stri
 }
 
 
-fun getRemainingDaysText(context: Context, goal: Goal): String {
-    if (goal.deadline.isNotEmpty() && goal.deadline.isNotBlank()) {
-        // calculate remaining days between today and endDate (deadline).
-        val preferredDateFormat = PreferenceUtils.getString(
-            PreferenceUtils.DATE_FORMAT, DateStyle.DateMonthYear.pattern
-        )
-        val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern(preferredDateFormat)
-        val startDate = LocalDateTime.now().format(dateFormatter)
-
-        /**
-         * If date format is set as DD/MM/YYYY but date in database is saved
-         * in YYYY/MM/DD format, then reverse the date string before parsing.
-         */
-        val reverseDate: (String) -> String = {
-            goal.deadline.split("/").reversed().joinToString(separator = "/")
-        }
-        val endDate = if (goal.deadline.split("/")
-                .first().length == 2 && preferredDateFormat != DateStyle.DateMonthYear.pattern
-        ) {
-            reverseDate(goal.deadline)
-        } else if (goal.deadline.split("/")
-                .first().length == 4 && preferredDateFormat != DateStyle.YearMonthDate.pattern
-        ) {
-            reverseDate(goal.deadline)
-        } else {
-            goal.deadline
-        }
-
-        val startDateValue: LocalDate = LocalDate.parse(startDate, dateFormatter)
-        val endDateValue: LocalDate = LocalDate.parse(endDate, dateFormatter)
-        val days: Long = ChronoUnit.DAYS.between(startDateValue, endDateValue)
-        return context.getString(R.string.info_card_remaining_days).format(days)
+fun getRemainingDaysText(context: Context, goalItem: GoalWithTransactions): String {
+    if (goalItem.getCurrentlySavedAmount() >= goalItem.goal.targetAmount) {
+        return context.getString(R.string.info_card_goal_achieved)
     } else {
-        return context.getString(R.string.info_card_no_deadline_set)
+        if (goalItem.goal.deadline.isNotEmpty() && goalItem.goal.deadline.isNotBlank()) {
+            // calculate remaining days between today and endDate (deadline).
+            val preferredDateFormat = PreferenceUtils.getString(
+                PreferenceUtils.DATE_FORMAT, DateStyle.DateMonthYear.pattern
+            )
+            val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern(preferredDateFormat)
+            val startDate = LocalDateTime.now().format(dateFormatter)
+
+            /**
+             * If date format is set as DD/MM/YYYY but date in database is saved
+             * in YYYY/MM/DD format, then reverse the date string before parsing.
+             */
+            val reverseDate: (String) -> String = {
+                goalItem.goal.deadline.split("/").reversed().joinToString(separator = "/")
+            }
+            val endDate = if (goalItem.goal.deadline.split("/")
+                    .first().length == 2 && preferredDateFormat != DateStyle.DateMonthYear.pattern
+            ) {
+                reverseDate(goalItem.goal.deadline)
+            } else if (goalItem.goal.deadline.split("/")
+                    .first().length == 4 && preferredDateFormat != DateStyle.YearMonthDate.pattern
+            ) {
+                reverseDate(goalItem.goal.deadline)
+            } else {
+                goalItem.goal.deadline
+            }
+
+            val startDateValue: LocalDate = LocalDate.parse(startDate, dateFormatter)
+            val endDateValue: LocalDate = LocalDate.parse(endDate, dateFormatter)
+            val days: Long = ChronoUnit.DAYS.between(startDateValue, endDateValue)
+            return context.getString(R.string.info_card_remaining_days).format(days)
+        } else {
+            return context.getString(R.string.info_card_no_deadline_set)
+        }
     }
 }
 

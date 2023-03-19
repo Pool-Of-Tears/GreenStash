@@ -59,6 +59,7 @@
     <string name="info_card_remaining_amount">Out of %s</string>
     <string name="info_card_remaining_days">%s days left.</string>
     <string name="info_card_no_deadline_set">No deadline set.</string>
+    <string name="info_card_goal_achieved">Goal achieved. Congrats!</string>
     <string name="info_notes_card_title">Notes</string>
     <string name="info_transaction_card_title">Transactions</string>
     <string name="info_goal_no_transactions">No Transactions Yet.</string>
@@ -83,8 +84,8 @@
     <string name="backup_screen_header">Backup &amp; Restore</string>
     <string name="backup_screen_text">Backup app data including all of your saving goals, current progress, transactions etc and easily restore it whenever you want.</string>
     <string name="backup_screen_sub_text">Note: Backups does not include app settings.</string>
-    <string name="backup_button">Backup Data</string>
-    <string name="restore_button">Restore Data</string>
+    <string name="backup_button">Backup App Data</string>
+    <string name="restore_button">Restore App Data</string>
 
     <!-- Settings Screen -->
     <string name="settings_screen_header">Settings</string>

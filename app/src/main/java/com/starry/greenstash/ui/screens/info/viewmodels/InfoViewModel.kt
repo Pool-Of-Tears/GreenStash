@@ -49,7 +49,7 @@ class InfoViewModel @Inject constructor(private val goalDao: GoalDao) : ViewMode
     fun loadGoalData(goalId: Long) {
         viewModelScope.launch(Dispatchers.IO) {
             val goalWithTransactions = goalDao.getGoalWithTransactionById(goalId)
-            delay(708L)
+            delay(645L)
             state = state.copy(isLoading = false, goalData = goalWithTransactions)
         }
     }

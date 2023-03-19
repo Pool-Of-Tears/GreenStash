@@ -57,7 +57,7 @@ fun SettingsItem(title: String, description: String, icon: ImageVector, onClick:
             Column(
                 modifier = Modifier
                     .weight(1f)
-                    .padding(start = 12.dp, end=8.dp)
+                    .padding(start = 12.dp, end = 8.dp)
             ) {
                 Text(
                     text = title,
