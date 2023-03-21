@@ -27,7 +27,23 @@ package com.starry.greenstash
 
 
 import android.app.Application
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.ui.ExperimentalComposeUiApi
+import cat.ereza.customactivityoncrash.config.CaocConfig
 import dagger.hilt.android.HiltAndroidApp
 
+@ExperimentalMaterial3Api
+@ExperimentalAnimationApi
+@ExperimentalComposeUiApi
+@ExperimentalFoundationApi
+@ExperimentalMaterialApi
 @HiltAndroidApp
-class GreenStashApp : Application()
+class GreenStashApp : Application() {
+    override fun onCreate() {
+        super.onCreate()
+        CaocConfig.Builder.create().restartActivity(MainActivity::class.java).apply()
+    }
+}
