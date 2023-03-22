@@ -297,7 +297,7 @@ fun TransactionCard(transactions: List<Transaction>, currencySymbol: String) {
         transactions.forEach {
             TransactionItem(
                 transactionType = it.type,
-                amount = "$currencySymbol ${Utils.formatCurrency(Utils.roundDecimal(it.amount))}",
+                amount = "$currencySymbol${Utils.formatCurrency(Utils.roundDecimal(it.amount))}",
                 date = it.getTransactionDate()
             )
         }
@@ -309,7 +309,7 @@ fun TransactionItem(transactionType: TransactionType, amount: String, date: Stri
     val iconDrawable: Int = if (transactionType == TransactionType.Deposit) {
         R.drawable.ic_transaction_deposit
     } else {
-        R.drawable.ic_transaction_wirhdraw
+        R.drawable.ic_transaction_withdraw
     }
 
     Column(
@@ -320,7 +320,10 @@ fun TransactionItem(transactionType: TransactionType, amount: String, date: Stri
         Row {
             Icon(
                 imageVector = ImageVector.vectorResource(id = iconDrawable),
-                contentDescription = null
+                modifier = Modifier
+                    .size(22.dp)
+                    .padding(top = 2.dp),
+                contentDescription = null,
             )
             Spacer(modifier = Modifier.width(8.dp))
             Text(text = amount, fontWeight = FontWeight.Medium, fontSize = 16.sp)
