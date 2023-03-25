@@ -33,12 +33,25 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.FloatingActionButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
@@ -78,12 +91,78 @@ import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import java.util.*
 
+@ExperimentalMaterialApi
 @ExperimentalFoundationApi
 @ExperimentalMaterial3Api
 @Composable
 fun HomeScreen(navController: NavController) {
     val context = LocalContext.current
     val viewModel: HomeViewModel = hiltViewModel()
+
+    val bottomSheetScaffoldState = rememberBottomSheetScaffoldState(
+        bottomSheetState = rememberBottomSheetState(BottomSheetValue.Collapsed)
+    )
+
+    BottomSheetScaffold(scaffoldState = bottomSheetScaffoldState,
+        sheetShape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
+        sheetPeekHeight = 0.dp,
+        sheetElevation = 24.dp,
+        sheetBackgroundColor = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp),
+        sheetContent = {
+            Column(
+                modifier = Modifier
+                    .height(400.dp)
+                    .fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                val compositionResult: LottieCompositionResult =
+                    rememberLottieComposition(
+                        spec = LottieCompositionSpec.RawRes(R.raw.congrats_lottie)
+                    )
+                val progressAnimation by animateLottieCompositionAsState(
+                    compositionResult.value,
+                    isPlaying = true,
+                    iterations = LottieConstants.IterateForever,
+                    speed = 1f
+                )
+                LottieAnimation(
+                    composition = compositionResult.value,
+                    progress = progressAnimation,
+                    modifier = Modifier.size(300.dp),
+                    enableMergePaths = true
+                )
+
+                //TODO
+                Text(
+                    text = "placeholder",
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 16.sp,
+                    modifier = Modifier.padding(start = 35.dp, end = 35.dp, bottom = 14.dp)
+                )
+
+            }
+        },
+        content = {
+            HomeScreenContent(
+                context = context,
+                viewModel = viewModel,
+                navController = navController,
+                bottomSheetState = bottomSheetScaffoldState.bottomSheetState
+            )
+        })
+
+}
+
+@ExperimentalMaterialApi
+@ExperimentalFoundationApi
+@ExperimentalMaterial3Api
+@Composable
+fun HomeScreenContent(
+    context: Context,
+    viewModel: HomeViewModel,
+    navController: NavController,
+    bottomSheetState: BottomSheetState
+) {
     val allGoals = viewModel.allGoals.observeAsState(listOf()).value
 
     val drawerState = rememberDrawerState(DrawerValue.Closed)
@@ -286,6 +365,7 @@ fun HomeScreen(navController: NavController) {
                                         item = item,
                                         coroutineScope = coroutineScope,
                                         snackBarHostState = snackBarHostState,
+                                        bottomSheetState = bottomSheetState,
                                         navController = navController
                                     )
                                 }
@@ -306,6 +386,7 @@ fun HomeScreen(navController: NavController) {
                                     item = item,
                                     coroutineScope = coroutineScope,
                                     snackBarHostState = snackBarHostState,
+                                    bottomSheetState = bottomSheetState,
                                     navController = navController
                                 )
                             }
@@ -448,6 +529,7 @@ fun SearchAppBar(
     }
 }
 
+@ExperimentalMaterialApi
 @ExperimentalMaterial3Api
 @Composable
 fun GoalLazyColumnItem(
@@ -456,6 +538,7 @@ fun GoalLazyColumnItem(
     item: GoalWithTransactions,
     coroutineScope: CoroutineScope,
     snackBarHostState: SnackbarHostState,
+    bottomSheetState: BottomSheetState,
     navController: NavController
 ) {
     val progressPercent =
@@ -524,7 +607,13 @@ fun GoalLazyColumnItem(
                 }
             } else {
                 val amountDouble = Utils.roundDecimal(amount.toDouble())
-                viewModel.deposit(item.goal, amountDouble, notes)
+                viewModel.deposit(item.goal, amountDouble, notes, onGoalAchieved = {
+                    coroutineScope.launch {
+                        if (bottomSheetState.isCollapsed) {
+                            bottomSheetState.expand()
+                        }
+                    }
+                })
                 coroutineScope.launch {
                     snackBarHostState.showSnackbar(context.getString(R.string.deposit_successful))
                 }
@@ -867,6 +956,7 @@ private fun buildSecondaryText(context: Context, item: GoalWithTransactions): St
 
 }
 
+@ExperimentalMaterialApi
 @ExperimentalFoundationApi
 @ExperimentalMaterial3Api
 @Composable
