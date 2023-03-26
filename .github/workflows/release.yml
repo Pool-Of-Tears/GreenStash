@@ -15,7 +15,7 @@ jobs:
 
       - name: Get Tag
         id: var
-        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
+        run: echo "tag=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
 
       - name: Build APK
         id: build
@@ -70,9 +70,9 @@ jobs:
         id: create_release
         uses: actions/create-release@v1
         with:
-          # tag_name: ${{ github.ref }}
-          tag_name: "latest"
+          tag_name: ${{ github.ref }}
           release_name: GreenStash v${{ github.ref }}
+          draft: true
           body: ${{ steps.changelog.outputs.changelog }} &#x20;
         env:
           GITHUB_TOKEN: ${{ github.token }}
