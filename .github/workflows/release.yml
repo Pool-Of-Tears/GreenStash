@@ -57,4 +57,6 @@ jobs:
         automatic_release_tag: "latest"
         draft: true
         title: " Dev Release ${{ env.date_now }}"
-        files: ${{steps.sign_app.outputs.signedReleaseFile}}
+        files: |
+          ${{ steps.sign_app.signedReleaseFile0 }}
+          ${{ steps.sign_app.signedReleaseFile1 }}
