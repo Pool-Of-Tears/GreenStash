@@ -35,6 +35,7 @@ import com.starry.greenstash.database.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 enum class SearchWidgetState {
@@ -66,9 +67,19 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) { goalDao.deleteGoal(goal.goalId) }
     }
 
-    fun deposit(goal: Goal, amount: Double, notes: String) {
+    fun deposit(goal: Goal, amount: Double, notes: String, onGoalAchieved: () -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
             addTransaction(goal.goalId, amount, notes, TransactionType.Deposit)
+            /**
+             * check weather goal is achieved or not after inserting the
+             * amount in goal database and call the goal achieved function
+             * to show a congratulations message to the user.
+             */
+            val goalItem = goalDao.getGoalWithTransactionById(goal.goalId)
+            val remainingAmount = (goal.targetAmount - goalItem.getCurrentlySavedAmount())
+            if (remainingAmount <= 0f) {
+                withContext(Dispatchers.Main) { onGoalAchieved() }
+            }
         }
     }
 
