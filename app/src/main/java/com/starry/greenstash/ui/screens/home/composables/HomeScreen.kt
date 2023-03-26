@@ -56,6 +56,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
@@ -64,6 +65,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -107,41 +109,8 @@ fun HomeScreen(navController: NavController) {
         sheetShape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
         sheetPeekHeight = 0.dp,
         sheetElevation = 24.dp,
-        sheetBackgroundColor = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp),
-        sheetContent = {
-            Column(
-                modifier = Modifier
-                    .height(400.dp)
-                    .fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                val compositionResult: LottieCompositionResult =
-                    rememberLottieComposition(
-                        spec = LottieCompositionSpec.RawRes(R.raw.congrats_lottie)
-                    )
-                val progressAnimation by animateLottieCompositionAsState(
-                    compositionResult.value,
-                    isPlaying = true,
-                    iterations = LottieConstants.IterateForever,
-                    speed = 1f
-                )
-                LottieAnimation(
-                    composition = compositionResult.value,
-                    progress = progressAnimation,
-                    modifier = Modifier.size(300.dp),
-                    enableMergePaths = true
-                )
-
-                //TODO
-                Text(
-                    text = "placeholder",
-                    fontWeight = FontWeight.SemiBold,
-                    fontSize = 16.sp,
-                    modifier = Modifier.padding(start = 35.dp, end = 35.dp, bottom = 14.dp)
-                )
-
-            }
-        },
+        sheetBackgroundColor = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp),
+        sheetContent = { GoalAchievedSheetContent() },
         content = {
             HomeScreenContent(
                 context = context,
@@ -837,6 +806,66 @@ fun ActionDialogs(
                  */
             }
         })
+    }
+}
+
+@Composable
+fun GoalAchievedSheetContent() {
+    Column(
+        modifier = Modifier
+            .height(425.dp)
+            .fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        val compositionResult: LottieCompositionResult =
+            rememberLottieComposition(
+                spec = LottieCompositionSpec.RawRes(R.raw.congrats_lottie)
+            )
+        val progressAnimation by animateLottieCompositionAsState(
+            compositionResult.value,
+            isPlaying = true,
+            iterations = LottieConstants.IterateForever,
+            speed = 1f
+        )
+
+        Divider(
+            modifier = Modifier
+                .width(40.dp)
+                .padding(top = 10.dp)
+                .clip(RoundedCornerShape(65.dp)),
+            thickness = 6.dp,
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.69f)
+        )
+
+        LottieAnimation(
+            composition = compositionResult.value,
+            progress = progressAnimation,
+            modifier = Modifier.size(300.dp),
+            enableMergePaths = true
+        )
+
+        Text(
+            text = stringResource(id = R.string.goal_achieved_card_title),
+            fontWeight = FontWeight.Bold,
+            fontSize = 20.sp,
+            textAlign = TextAlign.Center,
+            color = MaterialTheme.colorScheme.onSurface,
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        Spacer(modifier = Modifier.height(4.dp))
+
+        Text(
+            text = stringResource(id = R.string.goal_achieved_card_desc),
+            fontWeight = FontWeight.SemiBold,
+            fontSize = 16.sp,
+            textAlign = TextAlign.Center,
+            color = MaterialTheme.colorScheme.onSurface,
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        Spacer(modifier = Modifier.height(4.dp))
+
     }
 }
 

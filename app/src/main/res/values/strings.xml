@@ -19,6 +19,8 @@
     <string name="new_goal_fab">New Goal</string>
     <string name="home_search_label">Search here…</string>
     <string name="search_goal_not_found">404: Goal not found!</string>>
+    <string name="goal_achieved_card_title">Congratulations 🥳</string>
+    <string name="goal_achieved_card_desc">You\'ve achieved this saving goal!</string>
 
     <!-- Strings used for dashboard saving goals cards -->
     <string name="no_goal_set">No Saving Goals Set.</string>
