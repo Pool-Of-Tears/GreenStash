@@ -1,0 +1,2 @@
+- Added a congratulations message which will be shown when you achieve some saving goal!
+- Some other UI/UX improvements & fixes.
