@@ -37,32 +37,26 @@ jobs:
           alias: ${{ secrets.ALIAS }}
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
           keyPassword: ${{ secrets.KEY_PASSWORD }}
+        env:
+          # override default build-tools version (29.0.3) -- optional
+          BUILD_TOOLS_VERSION: "30.0.2"
+  
           
-      - name: Create GitHub release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Example use of `signedReleaseFile` output -- not needed
+      - uses: actions/upload-artifact@v2
         with:
-          tag_name: latest
-          release_name: GreenStash vXXX
+          name: Signed app bundle
+          path: ${{steps.sign_app.outputs.signedReleaseFiles  
+         
+      - name: Set current date as env variable
+        run: echo "date_now=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+
+      - uses: marvinpinto/action-automatic-releases@latest
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
           draft: true
-          prerelease: false
-
-      - name: Upload APK to release
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: app/build/outputs/apk/release/*.apk
-          asset_content_type: application/vnd.android.package-archive
-
-      - name: Upload AAB to release
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: app/build/outputs/bundle/release/*.aab
-          asset_content_type: application/octet-stream
+          title: " Dev Release ${{ env.date_now }}"
+          files: |
+           ${{ steps.sign_app.signedReleaseFile0 }}
+           ${{ steps.sign_app.signedReleaseFile1 }}
