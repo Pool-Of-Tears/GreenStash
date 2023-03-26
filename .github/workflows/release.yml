@@ -46,7 +46,7 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: Signed app bundle
-        path: ${{steps.sign_app.outputs.signedReleaseFile}}
+        path: ${{steps.sign_app.outputs.signedReleaseFiles}}
 
     - name: Set current date as env variable
       run: echo "date_now=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
