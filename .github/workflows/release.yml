@@ -1,58 +1,98 @@
-name: Release APKs
-
+name: Release Build
 on:
-  push:
-    branches: [ "main" ]
+  #push:
+  #  tags:
+  #    - 'v*'
   pull_request:
     branches: [ "main" ]
-
+    
 jobs:
-  build:
-
+  Build:
+    name: Build/Sign APK
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v3
-    - name: set up JDK 11
-      uses: actions/setup-java@v3
-      with:
-        java-version: '11'
-        distribution: 'temurin'
-        cache: gradle
+      - uses: actions/checkout@v2
 
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
-      
-    - name: Build Release APK
-      run: ./gradlew assembleRelease
-      
-    - name: Build Release AAb  
-      run: ./gradlew bundleRelease
-      
-    - uses: r0adkll/sign-android-release@v1
-      name: Sign app APK
-      # ID used to access action output
-      id: sign_app
-      with:
-        releaseDirectory: app/build/outputs/apk/release
-        bundleDirectory: app/build/outputs/bundle/release
-        signingKeyBase64: ${{ secrets.BASE64KEY }}
-        alias: ${{ secrets.ALIAS }}
-        keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
-        keyPassword: ${{ secrets.KEY_PASSWORD }}
-      env:
-        # override default build-tools version (29.0.3) -- optional
-        BUILD_TOOLS_VERSION: "30.0.2"
+      - name: Get Tag
+        id: var
+        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
 
-    - name: Set current date as env variable
-      run: echo "date_now=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+      - name: Build APK
+        id: build
+        run: bash ./gradlew assembleRelease
 
-    - uses: marvinpinto/action-automatic-releases@latest
-      with:
-        repo_token: "${{ secrets.GITHUB_TOKEN }}"
-        automatic_release_tag: "latest"
-        draft: true
-        title: " Dev Release ${{ env.date_now }}"
-        files: |
-          ${{ steps.sign_app.signedReleaseFile0 }}
-          ${{ steps.sign_app.signedReleaseFile1 }}
+      - name: Sign APK
+        id: sign_apk
+        uses: r0adkll/sign-android-release@v1
+        with:
+          releaseDirectory: app/build/outputs/apk/release
+          signingKeyBase64: ${{ secrets.SIGNINGKEYBASE64 }}
+          alias: ${{ secrets.ALIAS }}
+          keyStorePassword: ${{ secrets.KEYSTOREPASSWORD }}
+          keyPassword: ${{ secrets.KEYPASSWORD }}
+
+      - name: Make artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: app-release-signed
+          path: ${{steps.sign_apk.outputs.signedReleaseFile}}
+
+      - name: Build AAB
+        run: bash ./gradlew bundleRelease
+
+      - name: Sign AAB
+        id: sign_aab
+        uses: r0adkll/sign-android-release@v1
+        with:
+          releaseDirectory: app/build/outputs/bundle/release
+          signingKeyBase64: ${{ secrets.BASE64KEY }}
+          alias: ${{ secrets.ALIAS }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+          
+      - name: Make artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: Signed APP APK
+          path: ${{steps.sign_aab.outputs.signedReleaseFile}}
+
+
+      - name: Build Changelog
+        id: changelog
+        uses: ardalanamini/auto-changelog@v3
+        with:
+          mention-authors: false
+          mention-new-contributors: true
+          include-compare: true
+          semver: false
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        with:
+          # tag_name: ${{ github.ref }}
+          tag_name: "latest"
+          release_name: GreenStash v${{ github.ref }}
+          body: ${{ steps.changelog.outputs.changelog }} &#x20;
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Upload APK
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{steps.sign_apk.outputs.signedReleaseFile}}
+          asset_name: GreenStash-v${{ steps.var.outputs.tag }}.apk
+          asset_content_type: application/zip
+
+      - name: Upload AAB
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{steps.sign_aab.outputs.signedReleaseFile}}
+          asset_name: GreenStash-v${{ steps.var.outputs.tag }}.aab
+          asset_content_type: application/zip
