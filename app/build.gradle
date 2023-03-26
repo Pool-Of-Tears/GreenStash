@@ -37,6 +37,13 @@ android {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            // Rename the output apk file automatically.
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    def name = "GreenStash-v${variant.versionName}.apk"
+                    output.outputFileName = name
+                }
+            }
         }
     }
     compileOptions {
