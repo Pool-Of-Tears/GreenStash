@@ -69,7 +69,7 @@ jobs:
         uses: actions/create-release@v1
         with:
           tag_name: ${{ github.ref }}
-          release_name: GreenStash v${{ github.ref }}
+          release_name: GreenStash ${{ github.ref }}
           draft: true
           body: ${{ steps.changelog.outputs.changelog }} &#x20;
         env:
@@ -82,7 +82,7 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ${{steps.sign_apk.outputs.signedReleaseFile}}
-          asset_name: GreenStash-v${{ steps.var.outputs.tag }}.apk
+          asset_name: GreenStash-${{ steps.var.outputs.tag }}.apk
           asset_content_type: application/zip
 
       - name: Upload AAB
@@ -92,5 +92,5 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ${{steps.sign_aab.outputs.signedReleaseFile}}
-          asset_name: GreenStash-v${{ steps.var.outputs.tag }}.aab
+          asset_name: GreenStash-${{ steps.var.outputs.tag }}.aab
           asset_content_type: application/zip
