@@ -77,26 +77,29 @@ dependencies {
 
     // Android core components.
     implementation 'androidx.core:core-ktx:1.9.0'
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.0'
-    implementation 'androidx.activity:activity-compose:1.6.1'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
+    implementation 'androidx.activity:activity-compose:1.7.0'
     implementation "com.google.accompanist:accompanist-systemuicontroller:0.27.0"
     // Jetpack compose.
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
-    implementation "androidx.compose.material3:material3:1.1.0-alpha07"
+    implementation "androidx.compose.material3:material3:1.1.0-beta01"
     implementation "androidx.compose.material:material:$compose_version"
     implementation "androidx.compose.animation:animation:$compose_version"
     implementation "com.google.accompanist:accompanist-navigation-animation:0.29.0-alpha"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.6.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1"
     implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
+    // For AppWidgets support
+    implementation "androidx.glance:glance-appwidget:1.0.0-alpha05"
     // Material theme for main activity.
     implementation 'com.google.android.material:material:1.8.0'
     // Android 12+ splash API.
     implementation 'androidx.core:core-splashscreen:1.0.0'
     // Room database
-    implementation "androidx.room:room-ktx:2.5.0"
-    kapt "androidx.room:room-compiler:2.5.0"
-    androidTestImplementation "androidx.room:room-testing:2.5.0"
+    implementation "androidx.room:room-ktx:2.5.1"
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    kapt "androidx.room:room-compiler:2.5.1"
+    androidTestImplementation "androidx.room:room-testing:2.5.1"
     // Room database backup library.
     implementation 'de.raphaelebner:roomdatabasebackup:1.0.0-beta12'
     // Dagger - Hilt.
@@ -121,7 +124,7 @@ dependencies {
     // Crash Handler.
     implementation 'cat.ereza:customactivityoncrash:2.4.0'
     // Oreo back-ports for API 24 (N)
-    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.2'
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3'
     // Testing components.
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

@@ -26,7 +26,6 @@
 package com.starry.greenstash
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.compose.setContent
@@ -90,18 +89,10 @@ class MainActivity : AppCompatActivity() {
         settingsViewModel = ViewModelProvider(this)[SettingsViewModel::class.java]
         mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
-        when (PreferenceUtils.getInt(PreferenceUtils.APP_THEME, ThemeMode.Auto.ordinal)) {
-            ThemeMode.Auto.ordinal -> settingsViewModel.setTheme(ThemeMode.Auto)
-            ThemeMode.Dark.ordinal -> settingsViewModel.setTheme(ThemeMode.Dark)
-            ThemeMode.Light.ordinal -> settingsViewModel.setTheme(ThemeMode.Light)
-        }
+        // Setup app theme according to user's settings.
+        settingsViewModel.setUpAppTheme()
 
-        settingsViewModel.setMaterialYou(
-            PreferenceUtils.getBoolean(
-                PreferenceUtils.MATERIAL_YOU, Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
-            )
-        )
-
+        // show splash screen until we figure out start nav destination.
         installSplashScreen().setKeepOnScreenCondition {
             mainViewModel.isLoading.value
         }
