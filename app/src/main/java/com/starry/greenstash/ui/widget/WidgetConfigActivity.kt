@@ -3,6 +3,7 @@ package com.starry.greenstash.ui.widget
 import android.appwidget.AppWidgetManager
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -74,12 +75,13 @@ class WidgetConfigActivity : AppCompatActivity() {
             } else {
                 val glanceAppWidgetManager = GlanceAppWidgetManager(this)
                 val glanceId: GlanceId = glanceAppWidgetManager.getGlanceIdBy(appWidgetId)
-                "APP_ID: $appWidgetId, GL_ID: $glanceId".toToast(this)
+                "APP_ID: $appWidgetId, GL_ID: $glanceId".toToast(this, Toast.LENGTH_LONG)
 
                 val glanceAppWidget: GlanceAppWidget = GoalWidget()
                 LaunchedEffect(key1 = true) {
                     glanceAppWidget.update(this@WidgetConfigActivity, glanceId)
                 }
+
                 val resultIntent = Intent()
                 resultIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
                 setResult(RESULT_OK)

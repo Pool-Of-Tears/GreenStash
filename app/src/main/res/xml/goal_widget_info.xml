@@ -3,8 +3,6 @@
     android:configure="com.starry.greenstash.ui.widget.WidgetConfigActivity"
     android:description="@string/app_name"
     android:minWidth="180dp"
-    android:minHeight="80dp"
+    android:minHeight="100dp"
     android:resizeMode="horizontal|vertical"
-    android:targetCellWidth="3"
-    android:targetCellHeight="1"
     android:widgetCategory="home_screen" />
