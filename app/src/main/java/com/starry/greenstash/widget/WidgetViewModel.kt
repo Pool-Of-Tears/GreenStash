@@ -1,4 +1,4 @@
-package com.starry.greenstash.ui.widget
+package com.starry.greenstash.widget
 
 import androidx.lifecycle.ViewModel
 import com.starry.greenstash.database.GoalDao

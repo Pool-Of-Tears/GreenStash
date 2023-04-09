@@ -1,4 +1,4 @@
-package com.starry.greenstash.ui.widget
+package com.starry.greenstash.widget
 
 import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn

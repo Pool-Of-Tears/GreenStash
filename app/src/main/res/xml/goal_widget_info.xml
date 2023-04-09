@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    android:configure="com.starry.greenstash.ui.widget.WidgetConfigActivity"
+    android:configure="com.starry.greenstash.widget.WidgetConfigActivity"
     android:description="@string/app_name"
-    android:minWidth="180dp"
-    android:minHeight="100dp"
-    android:resizeMode="horizontal|vertical"
+    android:initialKeyguardLayout="@layout/goal_widget"
+    android:minWidth="110dp"
+    android:minHeight="40dp"
+    android:minResizeWidth="40dp"
+    android:resizeMode="vertical|horizontal"
+    android:updatePeriodMillis="3600000"
     android:widgetCategory="home_screen" />

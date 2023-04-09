@@ -15,7 +15,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.GreenStash.Splash"
+            android:theme="@style/Theme.GreenStash"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,23 +24,22 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".ui.widget.WidgetConfigActivity"
-            android:exported="false"
-            android:theme="@style/Theme.GreenStash" />
-
         <receiver
-            android:name=".ui.widget.GoalWidgetReceiver"
-            android:enabled="@bool/glance_appwidget_available"
-            android:exported="false">
+            android:name=".widget.WidgetProvider"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
-
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/goal_widget_info" />
         </receiver>
+
+        <activity
+            android:name=".widget.WidgetConfigActivity"
+            android:exported="false"
+            android:theme="@style/Theme.GreenStash" />
+
     </application>
 
 </manifest>
