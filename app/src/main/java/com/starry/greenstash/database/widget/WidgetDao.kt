@@ -14,4 +14,6 @@ interface WidgetDao {
     @Update
     suspend fun updateWidgetData(widgetData: WidgetData)
 
+    @Query("SELECT * FROM widget_data WHERE appWidgetId = :appWidgetId")
+    suspend fun getWidgetData(appWidgetId: Int): WidgetData?
 }

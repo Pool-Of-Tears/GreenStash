@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WidgetConfigViewModel @Inject constructor(
-    goalDao: GoalDao,
+    private val goalDao: GoalDao,
     private val widgetDao: WidgetDao
 ) : ViewModel() {
     val allGoals: LiveData<List<GoalWithTransactions>> = goalDao.getAllGoals()
@@ -25,11 +25,16 @@ class WidgetConfigViewModel @Inject constructor(
      * Maps widget id with the selected saving goal id
      * and saves it into database.
      */
-    fun setWidgetData(widgetId: Int, goalId: Long, onComplete: () -> Unit) {
+    fun setWidgetData(
+        widgetId: Int,
+        goalId: Long,
+        onComplete: (goalItem: GoalWithTransactions) -> Unit
+    ) {
         viewModelScope.launch(Dispatchers.IO) {
             val widgetData = WidgetData(appWidgetId = widgetId, goalId = goalId)
             widgetDao.insertWidgetData(widgetData)
-            withContext(Dispatchers.Main) { onComplete() }
+            val goalItem = goalDao.getGoalWithTransactionById(goalId)
+            withContext(Dispatchers.Main) { onComplete(goalItem) }
         }
     }
 }
