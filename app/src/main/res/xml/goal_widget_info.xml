@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    android:configure="com.starry.greenstash.widget.WidgetConfigActivity"
+    android:configure="com.starry.greenstash.widget.configuration.WidgetConfigActivity"
     android:description="@string/app_name"
     android:initialKeyguardLayout="@layout/goal_widget"
     android:minWidth="110dp"

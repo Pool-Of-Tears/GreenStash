@@ -15,7 +15,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.GreenStash"
+            android:theme="@style/Theme.GreenStash.Splash"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,7 +36,7 @@
         </receiver>
 
         <activity
-            android:name=".widget.WidgetConfigActivity"
+            android:name=".widget.configuration.WidgetConfigActivity"
             android:exported="false"
             android:theme="@style/Theme.GreenStash" />
 

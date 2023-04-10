@@ -23,41 +23,33 @@
  */
 
 
-package com.starry.greenstash.database
+package com.starry.greenstash.database.core
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
-import java.text.DateFormat
-import java.util.*
+import androidx.room.Embedded
+import androidx.room.Relation
+import com.starry.greenstash.database.goal.Goal
+import com.starry.greenstash.database.transaction.Transaction
+import com.starry.greenstash.database.transaction.TransactionType
 
-enum class TransactionType {
-    Deposit, Withdraw, Invalid
-}
-
-@Entity(
-    tableName = "transaction", foreignKeys = [
-        ForeignKey(
-            entity = Goal::class,
-            parentColumns = arrayOf("goalId"),
-            childColumns = arrayOf("ownerGoalId"),
-            onDelete = ForeignKey.CASCADE
-        )
-    ]
-)
-data class Transaction(
-    @ColumnInfo(index = true) val ownerGoalId: Long,
-    val type: TransactionType,
-    val timeStamp: Long,
-    val amount: Double,
-    val notes: String,
+data class GoalWithTransactions(
+    @Embedded val goal: Goal,
+    @Relation(
+        parentColumn = "goalId",
+        entityColumn = "ownerGoalId"
+    )
+    val transactions: List<Transaction>
 ) {
-    @PrimaryKey(autoGenerate = true)
-    var transactionId: Long = 0L
-
-    fun getTransactionDate(): String {
-        val date = Date(timeStamp)
-        return DateFormat.getDateInstance().format(date)
+    fun getCurrentlySavedAmount(): Double = transactions.fold(0f.toDouble()) { acc, transaction ->
+        when (transaction.type) {
+            TransactionType.Deposit -> {
+                acc + transaction.amount
+            }
+            TransactionType.Withdraw -> {
+                acc - transaction.amount
+            }
+            else -> {
+                acc
+            }
+        }
     }
 }

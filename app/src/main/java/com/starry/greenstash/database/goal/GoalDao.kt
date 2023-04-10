@@ -23,10 +23,11 @@
  */
 
 
-package com.starry.greenstash.database
+package com.starry.greenstash.database.goal
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.starry.greenstash.database.core.GoalWithTransactions
 
 
 @Dao

@@ -23,30 +23,41 @@
  */
 
 
-package com.starry.greenstash.database
+package com.starry.greenstash.database.core
 
-import androidx.room.Embedded
-import androidx.room.Relation
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import androidx.room.TypeConverter
+import com.starry.greenstash.database.transaction.TransactionType
+import java.io.ByteArrayOutputStream
 
-data class GoalWithTransactions(
-    @Embedded val goal: Goal,
-    @Relation(
-        parentColumn = "goalId",
-        entityColumn = "ownerGoalId"
-    )
-    val transactions: List<Transaction>
-) {
-    fun getCurrentlySavedAmount(): Double = transactions.fold(0f.toDouble()) { acc, transaction ->
-        when (transaction.type) {
-            TransactionType.Deposit -> {
-                acc + transaction.amount
-            }
-            TransactionType.Withdraw -> {
-                acc - transaction.amount
-            }
-            else -> {
-                acc
-            }
+class Converters {
+
+    @TypeConverter
+    fun fromBitmap(bitmap: Bitmap?): ByteArray? {
+        if (bitmap != null) {
+            val outputStream = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+            return outputStream.toByteArray()
         }
+        return null
+    }
+
+    @TypeConverter
+    fun toBitmap(byteArray: ByteArray?): Bitmap? {
+        if (byteArray != null) {
+            return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+        }
+        return null
+    }
+
+    @TypeConverter
+    fun fromTransactionType(value: TransactionType) = value.ordinal
+
+    @TypeConverter
+    fun toTransactionType(value: Int) = when (value) {
+        TransactionType.Deposit.ordinal -> TransactionType.Deposit
+        TransactionType.Withdraw.ordinal -> TransactionType.Withdraw
+        else -> TransactionType.Invalid
     }
 }

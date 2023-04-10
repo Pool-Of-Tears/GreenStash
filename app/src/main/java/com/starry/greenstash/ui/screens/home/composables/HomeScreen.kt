@@ -75,7 +75,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.airbnb.lottie.compose.*
 import com.starry.greenstash.R
-import com.starry.greenstash.database.GoalWithTransactions
+import com.starry.greenstash.database.core.GoalWithTransactions
 import com.starry.greenstash.ui.navigation.DrawerScreens
 import com.starry.greenstash.ui.navigation.Screens
 import com.starry.greenstash.ui.screens.home.viewmodels.HomeViewModel

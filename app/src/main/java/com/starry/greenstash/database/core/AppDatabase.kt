@@ -22,20 +22,29 @@
  * SOFTWARE.
  */
 
-package com.starry.greenstash.database
+package com.starry.greenstash.database.core
 
 import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
+import androidx.room.*
+import com.starry.greenstash.database.goal.Goal
+import com.starry.greenstash.database.goal.GoalDao
+import com.starry.greenstash.database.transaction.Transaction
+import com.starry.greenstash.database.transaction.TransactionDao
+import com.starry.greenstash.database.widget.WidgetDao
+import com.starry.greenstash.database.widget.WidgetData
 
-@Database(entities = [Goal::class, Transaction::class], version = 1, exportSchema = true)
+@Database(
+    entities = [Goal::class, Transaction::class, WidgetData::class],
+    version = 2,
+    exportSchema = true,
+    autoMigrations = [AutoMigration(from = 1, to = 2)]
+)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun getGoalDao(): GoalDao
     abstract fun getTransactionDao(): TransactionDao
+    abstract fun getWidgetDao(): WidgetDao
 
     companion object {
 

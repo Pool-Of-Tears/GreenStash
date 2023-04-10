@@ -26,7 +26,7 @@
 package com.starry.greenstash.di
 
 import android.content.Context
-import com.starry.greenstash.database.AppDatabase
+import com.starry.greenstash.database.core.AppDatabase
 import com.starry.greenstash.other.WelcomeDataStore
 import dagger.Module
 import dagger.Provides
@@ -48,6 +48,9 @@ class MianModule {
 
     @Provides
     fun provideTransactionDao(appDatabase: AppDatabase) = appDatabase.getTransactionDao()
+
+    @Provides
+    fun provideWidgetDao(appDatabase: AppDatabase) = appDatabase.getWidgetDao()
 
     @Provides
     @Singleton

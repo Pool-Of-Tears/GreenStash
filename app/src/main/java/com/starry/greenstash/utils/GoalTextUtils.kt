@@ -2,7 +2,7 @@ package com.starry.greenstash.utils
 
 import android.content.Context
 import com.starry.greenstash.R
-import com.starry.greenstash.database.GoalWithTransactions
+import com.starry.greenstash.database.core.GoalWithTransactions
 import com.starry.greenstash.ui.screens.settings.viewmodels.DateStyle
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -51,7 +51,8 @@ object GoalTextUtils {
                 val preferredDateFormat = PreferenceUtils.getString(
                     PreferenceUtils.DATE_FORMAT, DateStyle.DateMonthYear.pattern
                 )
-                val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern(preferredDateFormat)
+                val dateFormatter: DateTimeFormatter =
+                    DateTimeFormatter.ofPattern(preferredDateFormat)
                 val startDate = LocalDateTime.now().format(dateFormatter)
 
                 /**
@@ -93,7 +94,13 @@ object GoalTextUtils {
                     if (days > 14) {
                         val weeks = days / 7
                         text = text.dropLast(1) // remove full stop
-                        text += ", $defCurrency${Utils.formatCurrency(Utils.roundDecimal(remainingAmount / weeks))}/${
+                        text += ", $defCurrency${
+                            Utils.formatCurrency(
+                                Utils.roundDecimal(
+                                    remainingAmount / weeks
+                                )
+                            )
+                        }/${
                             context.getString(
                                 R.string.goal_approx_saving_week
                             )

@@ -23,22 +23,20 @@
  */
 
 
-package com.starry.greenstash.database
+package com.starry.greenstash.database.goal
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Update
+import android.graphics.Bitmap
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-@Dao
-interface TransactionDao {
-
-    @Insert
-    fun insertTransaction(transaction: Transaction)
-
-    @Delete
-    fun deleteTransaction(transaction: Transaction)
-
-    @Update
-    fun updateTransaction(transaction: Transaction)
+@Entity(tableName = "saving_goal")
+data class Goal(
+    val title: String,
+    val targetAmount: Double,
+    val deadline: String,
+    val goalImage: Bitmap?,
+    val additionalNotes: String,
+) {
+    @PrimaryKey(autoGenerate = true)
+    var goalId: Long = 0L
 }

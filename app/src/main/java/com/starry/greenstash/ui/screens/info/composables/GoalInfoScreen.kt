@@ -58,9 +58,9 @@ import androidx.navigation.compose.rememberNavController
 import com.airbnb.lottie.compose.*
 import com.starry.greenstash.MainActivity
 import com.starry.greenstash.R
-import com.starry.greenstash.database.GoalWithTransactions
-import com.starry.greenstash.database.Transaction
-import com.starry.greenstash.database.TransactionType
+import com.starry.greenstash.database.core.GoalWithTransactions
+import com.starry.greenstash.database.transaction.Transaction
+import com.starry.greenstash.database.transaction.TransactionType
 import com.starry.greenstash.ui.common.ExpandableCard
 import com.starry.greenstash.ui.common.ExpandableTextCard
 import com.starry.greenstash.ui.screens.info.viewmodels.InfoViewModel
@@ -313,14 +313,14 @@ fun TransactionItem(transactionType: TransactionType, amount: String, date: Stri
 
     if (transactionType == TransactionType.Deposit) {
         amountPrefix = "+"
-        amountColor = if( activity.settingsViewModel.getCurrentTheme() == ThemeMode.Light) {
+        amountColor = if (activity.settingsViewModel.getCurrentTheme() == ThemeMode.Light) {
             Color(0xFF037d50)
         } else {
             Color(0xFF04df8f)
         }
     } else {
         amountPrefix = "-"
-        amountColor = if( activity.settingsViewModel.getCurrentTheme() == ThemeMode.Light) {
+        amountColor = if (activity.settingsViewModel.getCurrentTheme() == ThemeMode.Light) {
             Color(0xFFd90000)
         } else {
             Color(0xFFff1515)
