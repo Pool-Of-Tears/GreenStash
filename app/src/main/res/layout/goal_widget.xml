@@ -47,22 +47,40 @@
 
             </LinearLayout>
 
+            <!-- Fake image button to add spacing cause empty views are not allowed in widgets -->
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
-                tools:ignore="InefficientWeight,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+                tools:ignore="ContentDescription,InefficientWeight,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
-            <ImageButton
-                android:id="@+id/refreshWidgetBtn"
+            <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:paddingTop="2dp"
-                android:src="@drawable/ic_widget_refresh"
-                app:tint="?android:attr/textColorPrimary"
-                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/widgetUpdateButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:paddingTop="2dp"
+                    android:src="@drawable/ic_widget_refresh"
+                    android:tint="?android:attr/colorPrimary"
+                    tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck,UseAppTint" />
+
+                <ProgressBar
+                    android:id="@+id/widgetUpdateProgress"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignStart="@id/widgetUpdateButton"
+                    android:layout_alignTop="@id/widgetUpdateButton"
+                    android:layout_alignEnd="@id/widgetUpdateButton"
+                    android:layout_alignBottom="@id/widgetUpdateButton"
+                    android:indeterminateTint="?android:attr/colorPrimary"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+            </RelativeLayout>
 
         </LinearLayout>
 
@@ -72,15 +90,17 @@
             android:layout_width="match_parent"
             android:layout_height="8dp"
             android:layout_marginTop="6dp"
-            android:layout_marginBottom="10dp"
-            android:scaleY="1.6"
+            android:layout_marginBottom="8dp"
+            android:progressDrawable="@drawable/progress_bar_rounded_corners"
+            android:scaleY="0.8"
             app:indicatorColor="?android:attr/colorAccent"
             tools:progress="69" />
 
         <LinearLayout
             android:id="@+id/amountDurationGroup"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/widgetAmountDay"
@@ -89,7 +109,9 @@
                 android:layout_marginEnd="3dp"
                 android:background="@drawable/textview_border"
                 android:textColor="?android:attr/textColorPrimary"
-                tools:text="$153.45/day" />
+                android:visibility="gone"
+                tools:text="$153.45/day"
+                tools:visibility="visible" />
 
 
             <TextView
@@ -99,12 +121,31 @@
                 android:layout_marginStart="3dp"
                 android:background="@drawable/textview_border"
                 android:textColor="?android:attr/textColorPrimary"
-                tools:text="$253.45/week" />
-
+                android:visibility="gone"
+                tools:text="$253.45/week"
+                tools:visibility="visible" />
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/widgetNoDeadlineSet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/info_card_no_deadline_set"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="?android:attr/textColorPrimary"
+            android:visibility="gone"
+            tools:visibility="visible" />
 
+        <TextView
+            android:id="@+id/widgetGoalAchieved"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/info_card_goal_achieved"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="?android:attr/textColorPrimary"
+            android:visibility="gone"
+            tools:visibility="visible" />
     </LinearLayout>
 
 

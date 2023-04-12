@@ -3,7 +3,6 @@ package com.starry.greenstash.widget.configuration
 import android.appwidget.AppWidgetManager
 import android.content.Intent
 import android.os.Bundle
-import android.widget.RemoteViews
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -36,7 +35,7 @@ import com.starry.greenstash.ui.screens.settings.viewmodels.SettingsViewModel
 import com.starry.greenstash.ui.screens.settings.viewmodels.ThemeMode
 import com.starry.greenstash.ui.theme.GreenStashTheme
 import com.starry.greenstash.utils.PreferenceUtils
-import com.starry.greenstash.widget.GoalWidgetProvider
+import com.starry.greenstash.widget.GoalWidget
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 
@@ -47,7 +46,6 @@ class WidgetConfigActivity : AppCompatActivity() {
 
     private val viewModel: WidgetConfigViewModel by viewModels()
     private lateinit var settingsViewModel: SettingsViewModel
-    private val appWidgetManager by lazy { AppWidgetManager.getInstance(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -191,16 +189,11 @@ class WidgetConfigActivity : AppCompatActivity() {
                                         goalId = item.goal.goalId,
                                     ) { goalItem ->
                                         // update widget contents for the first time.
-                                        val views = RemoteViews(
-                                            this@WidgetConfigActivity.packageName,
-                                            R.layout.goal_widget
-                                        )
-                                        GoalWidgetProvider().setWidgetContents(
+                                        GoalWidget().updateWidgetContents(
                                             context = this@WidgetConfigActivity,
-                                            views = views,
+                                            appWidgetId = appWidgetId,
                                             goalItem = goalItem
                                         )
-                                        appWidgetManager.updateAppWidget(appWidgetId, views)
                                         // set result and finish the activity.
                                         val resultValue = Intent()
                                         resultValue.putExtra(
