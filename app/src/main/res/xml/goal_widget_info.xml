@@ -5,9 +5,10 @@
     android:initialKeyguardLayout="@layout/goal_widget"
     android:minWidth="110dp"
     android:minHeight="40dp"
+    android:minResizeWidth="40dp"
+    android:previewImage="@drawable/widget_preview"
+    android:resizeMode="vertical|horizontal"
     android:targetCellWidth="3"
     android:targetCellHeight="2"
-    android:minResizeWidth="40dp"
-    android:resizeMode="vertical|horizontal"
     android:updatePeriodMillis="3600000"
     android:widgetCategory="home_screen" />

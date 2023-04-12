@@ -7,7 +7,6 @@ import android.appwidget.AppWidgetProvider
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
@@ -17,7 +16,6 @@ import com.starry.greenstash.database.core.GoalWithTransactions
 import com.starry.greenstash.utils.GoalTextUtils
 import com.starry.greenstash.utils.PreferenceUtils
 import com.starry.greenstash.utils.Utils
-import com.starry.greenstash.utils.toToast
 import dagger.hilt.EntryPoints
 
 
@@ -41,19 +39,6 @@ class GoalWidget : AppWidgetProvider() {
                 updateWidgetContents(context, appWidgetId, goalItem)
             }
         }
-    }
-
-    override fun onAppWidgetOptionsChanged(
-        context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int, newOptions: Bundle
-    ) {
-        //val views = RemoteViews(context.packageName, R.layout.goal_widget)
-        val minWidth: Int = newOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH)
-        val maxWidth: Int = newOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH)
-        val minHeight: Int = newOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT)
-        val maxHeight: Int = newOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT)
-
-        "$minWidth, $maxWidth, $minHeight, $maxHeight".toToast(context)
-        //appWidgetManager.updateAppWidget(appWidgetId, views)
     }
 
     override fun onReceive(context: Context, intent: Intent?) {
