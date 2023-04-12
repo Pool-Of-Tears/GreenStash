@@ -55,7 +55,7 @@ sealed class AboutLinks(val url: String) {
     object PrivacyPolicy :
         AboutLinks("https://github.com/Pool-Of-Tears/GreenStash/blob/main/legal/PRIVACY-POLICY.md")
 
-    object GithubIssues : AboutLinks("https://github.com/Pool-Of-Tears/GreenStash/issues/new")
+    object GithubIssues : AboutLinks("https://github.com/Pool-Of-Tears/GreenStash/issues")
     object Telegram : AboutLinks("https://t.me/PotApps")
 }
 

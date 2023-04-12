@@ -33,6 +33,8 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.navigation.NavController
 import com.starry.greenstash.R
 import com.starry.greenstash.database.core.GoalWithTransactions
@@ -62,6 +64,8 @@ fun GoalLazyColumnItem(
     val openDeleteDialog = remember { mutableStateOf(false) }
     val openDepositDialog = remember { mutableStateOf(false) }
     val openWithdrawDialog = remember { mutableStateOf(false) }
+
+    val hapticFeedback = LocalHapticFeedback.current
 
     GoalItem(title = item.goal.title,
         primaryText = GoalTextUtils.buildPrimaryText(context, progressPercent, item),
@@ -123,6 +127,7 @@ fun GoalLazyColumnItem(
             } else {
                 val amountDouble = Utils.roundDecimal(amount.toDouble())
                 viewModel.deposit(item.goal, amountDouble, notes, onGoalAchieved = {
+                    hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)
                     coroutineScope.launch {
                         if (bottomSheetState.isCollapsed) {
                             bottomSheetState.expand()

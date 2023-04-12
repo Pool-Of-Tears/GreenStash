@@ -64,15 +64,11 @@ import com.starry.greenstash.database.transaction.TransactionType
 import com.starry.greenstash.ui.common.ExpandableCard
 import com.starry.greenstash.ui.common.ExpandableTextCard
 import com.starry.greenstash.ui.screens.info.viewmodels.InfoViewModel
-import com.starry.greenstash.ui.screens.settings.viewmodels.DateStyle
 import com.starry.greenstash.ui.screens.settings.viewmodels.ThemeMode
+import com.starry.greenstash.utils.GoalTextUtils
 import com.starry.greenstash.utils.PreferenceUtils
 import com.starry.greenstash.utils.Utils
 import com.starry.greenstash.utils.getActivity
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import java.time.temporal.ChronoUnit
 
 
 @ExperimentalFoundationApi
@@ -356,42 +352,15 @@ fun TransactionItem(transactionType: TransactionType, amount: String, date: Stri
 
 
 fun getRemainingDaysText(context: Context, goalItem: GoalWithTransactions): String {
-    if (goalItem.getCurrentlySavedAmount() >= goalItem.goal.targetAmount) {
-        return context.getString(R.string.info_card_goal_achieved)
+    return if (goalItem.getCurrentlySavedAmount() >= goalItem.goal.targetAmount) {
+        context.getString(R.string.info_card_goal_achieved)
     } else {
         if (goalItem.goal.deadline.isNotEmpty() && goalItem.goal.deadline.isNotBlank()) {
-            // calculate remaining days between today and endDate (deadline).
-            val preferredDateFormat = PreferenceUtils.getString(
-                PreferenceUtils.DATE_FORMAT, DateStyle.DateMonthYear.pattern
-            )
-            val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern(preferredDateFormat)
-            val startDate = LocalDateTime.now().format(dateFormatter)
-
-            /**
-             * If date format is set as DD/MM/YYYY but date in database is saved
-             * in YYYY/MM/DD format, then reverse the date string before parsing.
-             */
-            val reverseDate: (String) -> String = {
-                goalItem.goal.deadline.split("/").reversed().joinToString(separator = "/")
-            }
-            val endDate = if (goalItem.goal.deadline.split("/")
-                    .first().length == 2 && preferredDateFormat != DateStyle.DateMonthYear.pattern
-            ) {
-                reverseDate(goalItem.goal.deadline)
-            } else if (goalItem.goal.deadline.split("/")
-                    .first().length == 4 && preferredDateFormat != DateStyle.YearMonthDate.pattern
-            ) {
-                reverseDate(goalItem.goal.deadline)
-            } else {
-                goalItem.goal.deadline
-            }
-
-            val startDateValue: LocalDate = LocalDate.parse(startDate, dateFormatter)
-            val endDateValue: LocalDate = LocalDate.parse(endDate, dateFormatter)
-            val days: Long = ChronoUnit.DAYS.between(startDateValue, endDateValue)
-            return context.getString(R.string.info_card_remaining_days).format(days)
+            val calculatedDays = GoalTextUtils.calcRemainingDays(goalItem.goal)
+            context.getString(R.string.info_card_remaining_days)
+                .format(calculatedDays.remainingDays)
         } else {
-            return context.getString(R.string.info_card_no_deadline_set)
+            context.getString(R.string.info_card_no_deadline_set)
         }
     }
 }

@@ -1,0 +1,5 @@
+- Now you can pin goals onto your home-screen using widgets!
+- The "Add goal" floating action button will now disappear when scrolling up.
+- Made amount in transactions colored (red/green) depending on transaction type, for better visibility.
+- Bunch of minor fixes and Improvements.
+- Updated all of the dependencies.

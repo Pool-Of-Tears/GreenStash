@@ -118,7 +118,8 @@ class GoalWidget : AppWidgetProvider() {
                 views.setViewVisibility(R.id.widgetNoDeadlineSet, View.VISIBLE)
             }
         } else {
-            views.setViewVisibility(R.id.amountDurationGroup, View.INVISIBLE)
+            views.setViewVisibility(R.id.amountDurationGroup, View.GONE)
+            views.setViewVisibility(R.id.widgetNoDeadlineSet, View.GONE)
             views.setViewVisibility(R.id.widgetGoalAchieved, View.VISIBLE)
         }
 
