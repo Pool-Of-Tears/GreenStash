@@ -33,8 +33,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.starry.greenstash.database.Goal
-import com.starry.greenstash.database.GoalDao
+import com.starry.greenstash.database.goal.Goal
+import com.starry.greenstash.database.goal.GoalDao
 import com.starry.greenstash.utils.ImageUtils
 import com.starry.greenstash.utils.Utils
 import dagger.hilt.android.lifecycle.HiltViewModel

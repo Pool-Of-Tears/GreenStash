@@ -26,6 +26,8 @@
 package com.starry.greenstash.ui.screens.info.composables
 
 import android.content.Context
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -39,12 +41,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -54,22 +56,24 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.airbnb.lottie.compose.*
+import com.starry.greenstash.MainActivity
 import com.starry.greenstash.R
-import com.starry.greenstash.database.GoalWithTransactions
-import com.starry.greenstash.database.Transaction
-import com.starry.greenstash.database.TransactionType
+import com.starry.greenstash.database.core.GoalWithTransactions
+import com.starry.greenstash.database.transaction.Transaction
+import com.starry.greenstash.database.transaction.TransactionType
 import com.starry.greenstash.ui.common.ExpandableCard
 import com.starry.greenstash.ui.common.ExpandableTextCard
 import com.starry.greenstash.ui.screens.info.viewmodels.InfoViewModel
-import com.starry.greenstash.ui.screens.settings.viewmodels.DateStyle
+import com.starry.greenstash.ui.screens.settings.viewmodels.ThemeMode
+import com.starry.greenstash.utils.GoalTextUtils
 import com.starry.greenstash.utils.PreferenceUtils
 import com.starry.greenstash.utils.Utils
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import java.time.temporal.ChronoUnit
+import com.starry.greenstash.utils.getActivity
 
 
+@ExperimentalFoundationApi
+@ExperimentalComposeUiApi
+@ExperimentalAnimationApi
 @ExperimentalMaterialApi
 @ExperimentalMaterial3Api
 @Composable
@@ -109,23 +113,7 @@ fun GoalInfoScreen(goalId: String, navController: NavController) {
                 Box(
                     modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
                 ) {
-                    val compositionResult: LottieCompositionResult = rememberLottieComposition(
-                        spec = LottieCompositionSpec.RawRes(R.raw.transactions_loading_lottie)
-                    )
-                    val progressAnimation by animateLottieCompositionAsState(
-                        compositionResult.value,
-                        isPlaying = true,
-                        iterations = LottieConstants.IterateForever,
-                        speed = 1f
-                    )
-
-                    LottieAnimation(
-                        composition = compositionResult.value,
-                        progress = progressAnimation,
-                        modifier = Modifier.size(320.dp),
-                        enableMergePaths = true
-                    )
-
+                    CircularProgressIndicator()
                 }
             } else {
                 val currencySymbol =
@@ -288,6 +276,10 @@ fun GoalNotesCard(notesText: String) {
     )
 }
 
+@ExperimentalMaterialApi
+@ExperimentalFoundationApi
+@ExperimentalComposeUiApi
+@ExperimentalAnimationApi
 @ExperimentalMaterial3Api
 @Composable
 fun TransactionCard(transactions: List<Transaction>, currencySymbol: String) {
@@ -304,12 +296,31 @@ fun TransactionCard(transactions: List<Transaction>, currencySymbol: String) {
     }
 }
 
+@ExperimentalMaterial3Api
+@ExperimentalAnimationApi
+@ExperimentalComposeUiApi
+@ExperimentalFoundationApi
+@ExperimentalMaterialApi
 @Composable
 fun TransactionItem(transactionType: TransactionType, amount: String, date: String) {
-    val iconDrawable: Int = if (transactionType == TransactionType.Deposit) {
-        R.drawable.ic_transaction_deposit
+    val amountPrefix: String
+    val amountColor: Color
+    val activity = LocalContext.current.getActivity() as MainActivity
+
+    if (transactionType == TransactionType.Deposit) {
+        amountPrefix = "+"
+        amountColor = if (activity.settingsViewModel.getCurrentTheme() == ThemeMode.Light) {
+            Color(0xFF037d50)
+        } else {
+            Color(0xFF04df8f)
+        }
     } else {
-        R.drawable.ic_transaction_withdraw
+        amountPrefix = "-"
+        amountColor = if (activity.settingsViewModel.getCurrentTheme() == ThemeMode.Light) {
+            Color(0xFFd90000)
+        } else {
+            Color(0xFFff1515)
+        }
     }
 
     Column(
@@ -318,15 +329,12 @@ fun TransactionItem(transactionType: TransactionType, amount: String, date: Stri
             .padding(8.dp)
     ) {
         Row {
-            Icon(
-                imageVector = ImageVector.vectorResource(id = iconDrawable),
-                modifier = Modifier
-                    .size(22.dp)
-                    .padding(top = 2.dp),
-                contentDescription = null,
+            Text(
+                text = "$amountPrefix$amount",
+                fontWeight = FontWeight.Medium,
+                fontSize = 16.sp,
+                color = amountColor
             )
-            Spacer(modifier = Modifier.width(8.dp))
-            Text(text = amount, fontWeight = FontWeight.Medium, fontSize = 16.sp)
             Spacer(modifier = Modifier.weight(1f))
             Text(text = date, fontWeight = FontWeight.Medium, fontSize = 16.sp)
         }
@@ -344,46 +352,22 @@ fun TransactionItem(transactionType: TransactionType, amount: String, date: Stri
 
 
 fun getRemainingDaysText(context: Context, goalItem: GoalWithTransactions): String {
-    if (goalItem.getCurrentlySavedAmount() >= goalItem.goal.targetAmount) {
-        return context.getString(R.string.info_card_goal_achieved)
+    return if (goalItem.getCurrentlySavedAmount() >= goalItem.goal.targetAmount) {
+        context.getString(R.string.info_card_goal_achieved)
     } else {
         if (goalItem.goal.deadline.isNotEmpty() && goalItem.goal.deadline.isNotBlank()) {
-            // calculate remaining days between today and endDate (deadline).
-            val preferredDateFormat = PreferenceUtils.getString(
-                PreferenceUtils.DATE_FORMAT, DateStyle.DateMonthYear.pattern
-            )
-            val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern(preferredDateFormat)
-            val startDate = LocalDateTime.now().format(dateFormatter)
-
-            /**
-             * If date format is set as DD/MM/YYYY but date in database is saved
-             * in YYYY/MM/DD format, then reverse the date string before parsing.
-             */
-            val reverseDate: (String) -> String = {
-                goalItem.goal.deadline.split("/").reversed().joinToString(separator = "/")
-            }
-            val endDate = if (goalItem.goal.deadline.split("/")
-                    .first().length == 2 && preferredDateFormat != DateStyle.DateMonthYear.pattern
-            ) {
-                reverseDate(goalItem.goal.deadline)
-            } else if (goalItem.goal.deadline.split("/")
-                    .first().length == 4 && preferredDateFormat != DateStyle.YearMonthDate.pattern
-            ) {
-                reverseDate(goalItem.goal.deadline)
-            } else {
-                goalItem.goal.deadline
-            }
-
-            val startDateValue: LocalDate = LocalDate.parse(startDate, dateFormatter)
-            val endDateValue: LocalDate = LocalDate.parse(endDate, dateFormatter)
-            val days: Long = ChronoUnit.DAYS.between(startDateValue, endDateValue)
-            return context.getString(R.string.info_card_remaining_days).format(days)
+            val calculatedDays = GoalTextUtils.calcRemainingDays(goalItem.goal)
+            context.getString(R.string.info_card_remaining_days)
+                .format(calculatedDays.remainingDays)
         } else {
-            return context.getString(R.string.info_card_no_deadline_set)
+            context.getString(R.string.info_card_no_deadline_set)
         }
     }
 }
 
+@ExperimentalAnimationApi
+@ExperimentalComposeUiApi
+@ExperimentalFoundationApi
 @ExperimentalMaterial3Api
 @ExperimentalMaterialApi
 @Composable

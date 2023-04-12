@@ -31,6 +31,7 @@ import androidx.compose.runtime.Composable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.starry.greenstash.utils.PreferenceUtils
 
 enum class ThemeMode {
     Light, Dark, Auto
@@ -61,5 +62,18 @@ class SettingsViewModel : ViewModel() {
         return if (theme.value == ThemeMode.Auto) {
             if (isSystemInDarkTheme()) ThemeMode.Dark else ThemeMode.Light
         } else theme.value!!
+    }
+
+    fun setUpAppTheme() {
+        when (PreferenceUtils.getInt(PreferenceUtils.APP_THEME, ThemeMode.Auto.ordinal)) {
+            ThemeMode.Auto.ordinal -> setTheme(ThemeMode.Auto)
+            ThemeMode.Dark.ordinal -> setTheme(ThemeMode.Dark)
+            ThemeMode.Light.ordinal -> setTheme(ThemeMode.Light)
+        }
+        setMaterialYou(
+            PreferenceUtils.getBoolean(
+                PreferenceUtils.MATERIAL_YOU, Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+            )
+        )
     }
 }

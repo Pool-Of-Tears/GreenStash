@@ -31,7 +31,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.starry.greenstash.database.*
+import com.starry.greenstash.database.core.GoalWithTransactions
+import com.starry.greenstash.database.goal.Goal
+import com.starry.greenstash.database.goal.GoalDao
+import com.starry.greenstash.database.transaction.Transaction
+import com.starry.greenstash.database.transaction.TransactionDao
+import com.starry.greenstash.database.transaction.TransactionType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -89,7 +94,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun addTransaction(
+    private suspend fun addTransaction(
         goalId: Long, amount: Double, notes: String, transactionType: TransactionType
     ) {
         val transaction = Transaction(

@@ -23,40 +23,42 @@
  */
 
 
-package com.starry.greenstash.database
+package com.starry.greenstash.database.transaction
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import androidx.room.TypeConverter
-import java.io.ByteArrayOutputStream
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.PrimaryKey
+import com.starry.greenstash.database.goal.Goal
+import java.text.DateFormat
+import java.util.*
 
-class Converters {
+enum class TransactionType {
+    Deposit, Withdraw, Invalid
+}
 
-    @TypeConverter
-    fun fromBitmap(bitmap: Bitmap?): ByteArray? {
-        if (bitmap != null) {
-            val outputStream = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
-            return outputStream.toByteArray()
-        }
-        return null
-    }
+@Entity(
+    tableName = "transaction", foreignKeys = [
+        ForeignKey(
+            entity = Goal::class,
+            parentColumns = arrayOf("goalId"),
+            childColumns = arrayOf("ownerGoalId"),
+            onDelete = ForeignKey.CASCADE
+        )
+    ]
+)
+data class Transaction(
+    @ColumnInfo(index = true) val ownerGoalId: Long,
+    val type: TransactionType,
+    val timeStamp: Long,
+    val amount: Double,
+    val notes: String,
+) {
+    @PrimaryKey(autoGenerate = true)
+    var transactionId: Long = 0L
 
-    @TypeConverter
-    fun toBitmap(byteArray: ByteArray?): Bitmap? {
-        if (byteArray != null) {
-            return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
-        }
-        return null
-    }
-
-    @TypeConverter
-    fun fromTransactionType(value: TransactionType) = value.ordinal
-
-    @TypeConverter
-    fun toTransactionType(value: Int) = when (value) {
-        TransactionType.Deposit.ordinal -> TransactionType.Deposit
-        TransactionType.Withdraw.ordinal -> TransactionType.Withdraw
-        else -> TransactionType.Invalid
+    fun getTransactionDate(): String {
+        val date = Date(timeStamp)
+        return DateFormat.getDateInstance().format(date)
     }
 }

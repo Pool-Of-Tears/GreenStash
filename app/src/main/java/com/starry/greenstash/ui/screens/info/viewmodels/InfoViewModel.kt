@@ -30,8 +30,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.starry.greenstash.database.GoalDao
-import com.starry.greenstash.database.GoalWithTransactions
+import com.starry.greenstash.database.core.GoalWithTransactions
+import com.starry.greenstash.database.goal.GoalDao
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
