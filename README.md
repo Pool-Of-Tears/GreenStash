@@ -53,7 +53,7 @@ Or you could just buy the app from Google Play Store. You'll get constant update
 
 | ![](https://te.legra.ph/file/08eee6d129247057e826b.png) | ![](https://te.legra.ph/file/78b11420184a85186eab2.png) | ![](https://te.legra.ph/file/9e818d2e528789fb55851.png) |
 |-------------------------------------------------------|-------------------------------------------------------|-------------------------------------------------------|
-| ![](https://te.legra.ph/file/24306d0335e94047abee3.png) | ![](https://te.legra.ph/file/1acf4d2cb0a5b02303ebe.png) | ![](https://te.legra.ph/file/d6bb3d9add55808800763.png) |
+| ![](https://te.legra.ph/file/24306d0335e94047abee3.png) | ![](https://te.legra.ph/file/1acf4d2cb0a5b02303ebe.png) | ![](https://te.legra.ph/file/eb17a715e1bbc9941328a.png) |
 
 
 ------
