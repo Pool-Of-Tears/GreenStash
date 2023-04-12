@@ -43,7 +43,7 @@
                     android:maxLines="1"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     android:textColor="?android:attr/textColorPrimary"
-                    tools:text="Saved 2,500/3,600.00" />
+                    tools:text="Saved 2,500 | 3,600.00" />
 
             </LinearLayout>
 
