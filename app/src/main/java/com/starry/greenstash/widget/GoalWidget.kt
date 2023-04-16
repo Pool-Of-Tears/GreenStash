@@ -1,3 +1,28 @@
+/**
+ * MIT License
+ *
+ * Copyright (c) [2022 - Present] Stɑrry Shivɑm
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
 package com.starry.greenstash.widget
 
 
@@ -19,7 +44,7 @@ import com.starry.greenstash.utils.Utils
 import dagger.hilt.EntryPoints
 
 
-const val TYPE_MANUAL_REFRESH = "widget_manual_refresh"
+private const val WIDGET_MANUAL_REFRESH = "widget_manual_refresh"
 
 class GoalWidget : AppWidgetProvider() {
     private lateinit var viewModel: WidgetViewModel
@@ -44,7 +69,7 @@ class GoalWidget : AppWidgetProvider() {
     override fun onReceive(context: Context, intent: Intent?) {
         super.onReceive(context, intent)
         isManualRefresh = if (intent?.type != null) {
-            intent.type.equals(TYPE_MANUAL_REFRESH)
+            intent.type.equals(WIDGET_MANUAL_REFRESH)
         } else {
             false
         }
@@ -83,7 +108,7 @@ class GoalWidget : AppWidgetProvider() {
             .format("$defCurrency${goalItem.getCurrentlySavedAmount()} | $defCurrency${goalItem.goal.targetAmount}")
         views.setCharSequence(R.id.widgetDesc, "setText", widgetDesc)
 
-        // Calculate how much need to save per day, week & month.
+        // Calculate how much need to save per day and week.
         val remainingAmount = (goalItem.goal.targetAmount - goalItem.getCurrentlySavedAmount())
         if (remainingAmount > 0f) {
             if (goalItem.goal.deadline.isNotEmpty() && goalItem.goal.deadline.isNotBlank()) {
@@ -131,7 +156,7 @@ class GoalWidget : AppWidgetProvider() {
         // Set refresh button click action.
         val intent = Intent(context, GoalWidget::class.java)
         intent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
-        intent.type = TYPE_MANUAL_REFRESH
+        intent.type = WIDGET_MANUAL_REFRESH
         val ids = AppWidgetManager.getInstance(context)
             .getAppWidgetIds(ComponentName(context, GoalWidget::class.java))
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
@@ -144,7 +169,7 @@ class GoalWidget : AppWidgetProvider() {
         )
         views.setOnClickPendingIntent(R.id.widgetUpdateButton, pendingIntent)
 
-        // update view contents.
+        // update widget contents.
         if (isManualRefresh) {
             Handler(Looper.getMainLooper()).postDelayed({
                 views.setViewVisibility(R.id.widgetUpdateButton, View.VISIBLE)
