@@ -1,21 +1,28 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">GreenStash</string>
     <string name="dialog_confirm_button">Confirmar</string>
     <string name="cancel">Cancelar</string>
+
+    <!-- Bloqueo de seguridad -->
     <string name="bio_lock_title">Desbloquear GreenStash</string>
     <string name="bio_lock_subtitle">Confirma tú código de bloqueo, PIN o contraseña.</string>
     <string name="auth_successful">¡Autenticación exitosa!</string>
     <string name="auth_failed">¡Autenticación fallida!</string>
     <string name="auth_error">Error de autenticación: %s</string>
+
+    <!-- Pantalla de bienvenida. -->
     <string name="welcome_screen_text">¡Hola! Por favor selecciona tú moneda preferida para iniciar.</string>
     <string name="welcome_screen_button">Comencemos</string>
+
+    <!-- Pantalla inicial -->
     <string name="home_screen_header">Metas de Ahorro</string>
     <string name="new_goal_fab">Nueva Meta</string>
     <string name="home_search_label">Busca aquí…</string>
     <string name="search_goal_not_found">404: ¡Meta no encontrada!</string>
     <string name="goal_achieved_card_title">Felicitaciones 🥳</string>
     <string name="goal_achieved_card_desc">¡Has alcanzado tú meta de ahorro!</string>
+
+    <!-- Texto usado para el tablero de las tarjetas de ahorro -->
     <string name="no_goal_set">No hay metas aún.</string>
     <string name="transaction_dialog_amount_label">Ingresa la cantidad</string>
     <string name="deposit_btn">Depositar</string>
@@ -38,13 +45,17 @@
     <string name="progress_greet5">Felicitaciones &#x1F389;</string>
     <string name="currently_saved_incomplete">Ahorrado actualmente %s de %s.</string>
     <string name="currently_saved_complete">Has ahorrado %s de %s.</string>
+    <!-- Ejemplo: Tienes hasta el 25/12/2022 (1522) días restantes.-->
     <string name="goal_days_left">Tienes hasta el %s (%s) días restantes.</string>
+    <!-- Ejemplo: Necesitas ahorrar alrededor de $2/day, $20/week, $200/month. -->
     <string name="goal_approx_saving">Necesitas ahorrar alrededor de %s/</string>
     <string name="goal_approx_saving_day">día.</string>
     <string name="goal_approx_saving_week">semana.</string>
     <string name="goal_approx_saving_month">mes.</string>
     <string name="no_goal_deadline_set">Como no has configurado una fecha objetivo, ¡Tienes todo el tiempo del mundo!</string>
     <string name="goal_achieved_desc">Es momento de celebrar el trabajo duro que conllevó a este maravilloso momento.</string>
+
+    <!-- Pantalla de información de la meta -->
     <string name="info_screen_header">Información de la meta</string>
     <string name="info_card_title">Has ahorrado</string>
     <string name="info_card_remaining_amount">De %s</string>
@@ -54,9 +65,12 @@
     <string name="info_notes_card_title">Notas</string>
     <string name="info_transaction_card_title">Transacciones</string>
     <string name="info_goal_no_transactions">Sin transacciones aún.</string>
+
+    <!-- Pantalla para editar o agregar meta -->
     <string name="input_screen_header">¡Es momento de ahorrar!</string>
     <string name="input_edit_goal_header">Editar Meta de Ahorro</string>
     <string name="input_pick_image">Imagen de la meta</string>
+
     <string name="input_text_title">Título del Ahorro</string>
     <string name="title_empty_err">¡Oops! el título está vacío.</string>
     <string name="input_text_amount">Meta</string>
@@ -67,16 +81,21 @@
     <string name="input_edit_goal_button">Actualizar Meta</string>
     <string name="goal_saved_success">¡Buen trabajo! Meta agregada.</string>
     <string name="goad_edit_success">Meta actualizada.</string>
+
+    <!-- Pantalla de respaldo y recuperación de datos -->
     <string name="backup_screen_header">Respaldar y recuperar datos</string>
     <string name="backup_screen_text">Haz una copia de seguridad de tus datos incluyendo metas, progreso actual, transacciones, etc para recuperarlos cuando quieras.</string>
     <string name="backup_screen_sub_text">Nota: La copia de seguridad no incluye la configuración de la app.</string>
     <string name="backup_button">Respaldar Datos</string>
     <string name="restore_button">Recuperar Datos</string>
+
+    <!-- Pantalla de configuración -->
     <string name="settings_screen_header">Configuración</string>
     <string name="display_settings_title">Pantalla</string>
     <string name="theme_setting">Tema predeterminado</string>
     <string name="theme_dialog_title">Cambiar tema</string>
     <string name="theme_dialog_apply_button">Aplicar</string>
+
     <string name="material_you_setting_desc">Cambia el tema según tú fondo de pantalla (A12 en adelante)</string>
     <string name="material_you_error">Esta característica es sólo para dispositivos con Android 12 en adelante.</string>
     <string name="locales_setting_title">Configuración regional</string>
@@ -92,7 +111,11 @@
     <string name="license_setting_desc">Mostrar información de la licencia de código abierto.</string>
     <string name="app_info_setting">Información de la aplicación</string>
     <string name="app_info_setting_desc">Muestra la versión de la aplicación y enlaces útiles.</string>
+
+    <!-- Pantalla de código abierto -->
     <string name="osl_screen_header">Librerías de código abierto</string>
+
+    <!-- Pantalla acerca de -->
     <string name="about_screen_header">Acerca de</string>
     <string name="about_readme_title">LÉEME</string>
     <string name="about_readme_desc">Mira el repositorio de Github y el README de la aplicación.</string>
@@ -104,6 +127,8 @@
     <string name="about_telegram_desc">¡Únete a nosotros en telegram para compartir tus ideas o simplemente hablar!</string>
     <string name="about_version_title">Versión</string>
     <string name="about_version_desc">Versión-%s</string>
+
+    <!-- Widget Screen -->
     <string name="widget_config_screen_header">Seleccionar Meta</string>
     <string name="goal_widget_desc">Ahorrado %s</string>
 </resources>

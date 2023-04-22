@@ -128,6 +128,7 @@
     <string name="about_version_title">Version</string>
     <string name="about_version_desc">Version-%s</string>
 
+    <!-- Widget Screen -->
     <string name="widget_config_screen_header">Select Goal</string>
     <string name="goal_widget_desc">Saved %s</string>
 
