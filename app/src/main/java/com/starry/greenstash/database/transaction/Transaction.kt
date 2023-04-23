@@ -31,7 +31,7 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import com.starry.greenstash.database.goal.Goal
 import java.text.DateFormat
-import java.util.*
+import java.util.Date
 
 enum class TransactionType {
     Deposit, Withdraw, Invalid

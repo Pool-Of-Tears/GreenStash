@@ -44,9 +44,11 @@ data class GoalWithTransactions(
             TransactionType.Deposit -> {
                 acc + transaction.amount
             }
+
             TransactionType.Withdraw -> {
                 acc - transaction.amount
             }
+
             else -> {
                 acc
             }
