@@ -1,0 +1,2 @@
+- Added Spanish translation, Credits: Jose Miguel.
+- Few UI/UX and other minor improvements.
