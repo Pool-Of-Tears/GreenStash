@@ -3,6 +3,11 @@
     <string name="dialog_confirm_button">Confirmar</string>
     <string name="cancel">Cancelar</string>
 
+    <!-- Navigation Drawer -->
+    <string name="drawer_home">Inicio</string>
+    <string name="drawer_backups">Respaldo</string>
+    <string name="drawer_settings">Ajustes</string>
+
     <!-- Bloqueo de seguridad -->
     <string name="bio_lock_title">Desbloquear GreenStash</string>
     <string name="bio_lock_subtitle">Confirma tú código de bloqueo, PIN o contraseña.</string>

@@ -3,6 +3,11 @@
     <string name="dialog_confirm_button">Confirm</string>
     <string name="cancel">Cancel</string>
 
+    <!-- Navigation Drawer -->
+    <string name="drawer_home">Home</string>
+    <string name="drawer_backups">Backups</string>
+    <string name="drawer_settings">Settings</string>
+
     <!-- Biometric Lock -->
     <string name="bio_lock_title">Unlock GreenStash</string>
     <string name="bio_lock_subtitle">Confirm your screen lock, PIN or password.</string>
