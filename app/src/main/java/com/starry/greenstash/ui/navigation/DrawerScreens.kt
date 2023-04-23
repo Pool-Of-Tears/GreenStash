@@ -27,10 +27,11 @@ package com.starry.greenstash.ui.navigation
 
 import com.starry.greenstash.R
 
-sealed class DrawerScreens(val route: String, val name: String, val icon: Int) {
-    object Home : DrawerScreens("home", "Home", R.drawable.ic_nav_home)
-    object Settings : DrawerScreens("settings", "Settings", R.drawable.ic_nav_settings)
-    object Backups : DrawerScreens("backups", "Backups", R.drawable.ic_nav_backups)
+sealed class DrawerScreens(val route: String, val nameResId: Int, val iconResId: Int) {
+    object Home : DrawerScreens("home", R.string.drawer_home, R.drawable.ic_nav_home)
+    object Backups : DrawerScreens("backups", R.string.drawer_backups, R.drawable.ic_nav_backups)
+    object Settings :
+        DrawerScreens("settings", R.string.drawer_settings, R.drawable.ic_nav_settings)
 }
 
 

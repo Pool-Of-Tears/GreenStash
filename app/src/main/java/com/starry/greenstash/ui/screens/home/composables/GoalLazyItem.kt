@@ -26,8 +26,8 @@
 package com.starry.greenstash.ui.screens.home.composables
 
 import android.content.Context
-import androidx.compose.material.BottomSheetState
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.ModalBottomSheetState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
@@ -55,7 +55,7 @@ fun GoalLazyColumnItem(
     item: GoalWithTransactions,
     coroutineScope: CoroutineScope,
     snackBarHostState: SnackbarHostState,
-    bottomSheetState: BottomSheetState,
+    bottomSheetState: ModalBottomSheetState,
     navController: NavController
 ) {
     val progressPercent =
@@ -129,8 +129,8 @@ fun GoalLazyColumnItem(
                 viewModel.deposit(item.goal, amountDouble, notes, onGoalAchieved = {
                     hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)
                     coroutineScope.launch {
-                        if (bottomSheetState.isCollapsed) {
-                            bottomSheetState.expand()
+                        if (!bottomSheetState.isVisible) {
+                            bottomSheetState.show()
                         }
                     }
                 })

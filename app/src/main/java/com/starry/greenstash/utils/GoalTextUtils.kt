@@ -49,15 +49,19 @@ object GoalTextUtils {
             progressPercent <= 25 -> {
                 context.getString(R.string.progress_greet1)
             }
+
             progressPercent in 26..50 -> {
                 context.getString(R.string.progress_greet2)
             }
+
             progressPercent in 51..75 -> {
                 context.getString(R.string.progress_greet3)
             }
+
             progressPercent in 76..99 -> {
                 context.getString(R.string.progress_greet4)
             }
+
             else -> {
                 context.getString(R.string.progress_greet5)
             }
