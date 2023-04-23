@@ -45,14 +45,13 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.BottomSheetScaffold
-import androidx.compose.material.BottomSheetState
-import androidx.compose.material.BottomSheetValue
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.ModalBottomSheetLayout
+import androidx.compose.material.ModalBottomSheetState
+import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.rememberBottomSheetScaffoldState
-import androidx.compose.material.rememberBottomSheetState
+import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material3.Divider
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -119,13 +118,12 @@ fun HomeScreen(navController: NavController) {
     val context = LocalContext.current
     val viewModel: HomeViewModel = hiltViewModel()
 
-    val bottomSheetScaffoldState = rememberBottomSheetScaffoldState(
-        bottomSheetState = rememberBottomSheetState(BottomSheetValue.Collapsed)
+    val modalBottomSheetState = rememberModalBottomSheetState(
+        initialValue = ModalBottomSheetValue.Hidden
     )
 
-    BottomSheetScaffold(scaffoldState = bottomSheetScaffoldState,
+    ModalBottomSheetLayout(sheetState = modalBottomSheetState,
         sheetShape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
-        sheetPeekHeight = 0.dp,
         sheetElevation = 24.dp,
         sheetBackgroundColor = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp),
         sheetContent = { GoalAchievedSheetContent() },
@@ -134,7 +132,7 @@ fun HomeScreen(navController: NavController) {
                 context = context,
                 viewModel = viewModel,
                 navController = navController,
-                bottomSheetState = bottomSheetScaffoldState.bottomSheetState
+                bottomSheetState = modalBottomSheetState
             )
         })
 
@@ -148,7 +146,7 @@ fun HomeScreenContent(
     context: Context,
     viewModel: HomeViewModel,
     navController: NavController,
-    bottomSheetState: BottomSheetState
+    bottomSheetState: ModalBottomSheetState
 ) {
     val allGoals = viewModel.allGoals.observeAsState(listOf()).value
 
