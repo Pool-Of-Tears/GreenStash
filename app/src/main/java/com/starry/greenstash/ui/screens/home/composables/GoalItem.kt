@@ -203,10 +203,10 @@ fun GoalItemPV() {
         secondaryText = "You have until 26/05/2023 (85) days left.\nYou need to save around $58.83/day, $416.67/week, $2,500.00/month.",
         goalProgress = 0.6f,
         goalImage = null,
-        onDepositClicked = { /*TODO*/ },
-        onWithdrawClicked = { /*TODO*/ },
-        onInfoClicked = { /*TODO*/ },
-        onEditClicked = { /*TODO*/ }) {
+        onDepositClicked = { },
+        onWithdrawClicked = { },
+        onInfoClicked = { },
+        onEditClicked = { }) {
 
     }
 }

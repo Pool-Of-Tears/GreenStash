@@ -32,6 +32,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -46,6 +47,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Card
@@ -69,6 +71,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -85,6 +88,7 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.starry.greenstash.MainActivity
 import com.starry.greenstash.R
 import com.starry.greenstash.ui.screens.settings.viewmodels.SettingsViewModel
 import com.starry.greenstash.ui.screens.settings.viewmodels.ThemeMode
@@ -94,6 +98,9 @@ import com.starry.greenstash.widget.GoalWidget
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 
+@ExperimentalComposeUiApi
+@ExperimentalFoundationApi
+@ExperimentalMaterialApi
 @AndroidEntryPoint
 @ExperimentalMaterial3Api
 @ExperimentalAnimationApi
@@ -158,7 +165,14 @@ class WidgetConfigActivity : AppCompatActivity() {
                         overflow = TextOverflow.Ellipsis,
                     )
                 }, navigationIcon = {
-                    IconButton(onClick = { }) {
+                    IconButton(onClick = {
+                        // Launch app by calling main activity when user press back button in
+                        // widget configuration screen.
+                        setResult(RESULT_CANCELED)
+                        val appIntent = Intent(this@WidgetConfigActivity, MainActivity::class.java)
+                        startActivity(appIntent)
+                        finish()
+                    }) {
                         Icon(
                             imageVector = Icons.Filled.ArrowBack, contentDescription = null
                         )
