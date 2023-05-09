@@ -67,5 +67,6 @@ fun String.toToast(context: Context, length: Int = Toast.LENGTH_SHORT) {
 }
 
 fun String.validateAmount() =
-    this.isNotEmpty() && this.isNotBlank() && this != "0" && this != "0.0"
-            && !this.startsWith("0.00") && !this.endsWith(".")
+    this.isNotEmpty() && this.isNotBlank()
+            && !this.matches("[0.]+".toRegex())
+            && !this.endsWith(".")

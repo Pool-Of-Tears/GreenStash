@@ -55,6 +55,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
@@ -117,6 +118,8 @@ fun GoalItem(
                     fontWeight = FontWeight.Medium,
                     lineHeight = 1.2f.em,
                     fontSize = 18.sp,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
                     color = MaterialTheme.colorScheme.onSurface
                 )
                 Text(
@@ -203,10 +206,10 @@ fun GoalItemPV() {
         secondaryText = "You have until 26/05/2023 (85) days left.\nYou need to save around $58.83/day, $416.67/week, $2,500.00/month.",
         goalProgress = 0.6f,
         goalImage = null,
-        onDepositClicked = { /*TODO*/ },
-        onWithdrawClicked = { /*TODO*/ },
-        onInfoClicked = { /*TODO*/ },
-        onEditClicked = { /*TODO*/ }) {
+        onDepositClicked = { },
+        onWithdrawClicked = { },
+        onInfoClicked = { },
+        onEditClicked = { }) {
 
     }
 }
