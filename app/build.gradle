@@ -58,7 +58,7 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion '1.4.0'
+        kotlinCompilerExtensionVersion '1.4.7'
     }
     packagingOptions {
         resources {
@@ -76,23 +76,23 @@ aboutLibraries {
 dependencies {
 
     // Android core components.
-    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.core:core-ktx:1.10.0'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
-    implementation 'androidx.activity:activity-compose:1.7.0'
+    implementation 'androidx.activity:activity-compose:1.7.1'
     implementation "com.google.accompanist:accompanist-systemuicontroller:0.27.0"
     // Jetpack compose.
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
-    implementation "androidx.compose.material3:material3:1.1.0-beta01"
+    implementation "androidx.compose.material3:material3:1.1.0-rc01"
     implementation "androidx.compose.material:material:$compose_version"
     implementation "androidx.compose.animation:animation:$compose_version"
     implementation "com.google.accompanist:accompanist-navigation-animation:0.29.0-alpha"
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1"
     implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
     // Material theme for main activity.
-    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'com.google.android.material:material:1.9.0'
     // Android 12+ splash API.
-    implementation 'androidx.core:core-splashscreen:1.0.0'
+    implementation 'androidx.core:core-splashscreen:1.0.1'
     // Room database
     implementation "androidx.room:room-ktx:2.5.1"
     implementation 'androidx.appcompat:appcompat:1.6.1'
