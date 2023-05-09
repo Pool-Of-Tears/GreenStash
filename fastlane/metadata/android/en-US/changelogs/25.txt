@@ -1,0 +1,4 @@
+- Fixed back button not working in widget configuration menu.
+- Goal titles will now be truncated to a single line.
+- Improvements in amount validation logic.
+- Updated all of the dependence and kotlin version.
