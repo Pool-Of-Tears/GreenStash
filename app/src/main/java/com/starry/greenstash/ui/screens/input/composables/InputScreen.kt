@@ -323,6 +323,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                             unfocusedBorderColor = MaterialTheme.colorScheme.onBackground
                         ),
                         shape = RoundedCornerShape(14.dp),
+                        singleLine = true,
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
                     )
 
