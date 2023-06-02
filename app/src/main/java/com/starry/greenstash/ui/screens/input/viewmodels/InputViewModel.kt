@@ -106,7 +106,6 @@ class InputViewModel @Inject constructor(private val goalDao: GoalDao) : ViewMod
 
     fun removeDeadLine() {
         state = state.copy(deadline = "")
-        println("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLL")
     }
 
 }
