@@ -28,9 +28,10 @@ package com.starry.greenstash.ui.screens.input.composables
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -48,6 +49,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
@@ -58,11 +60,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -111,6 +115,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.time.format.DateTimeFormatter
 
+@ExperimentalFoundationApi
 @ExperimentalComposeUiApi
 @ExperimentalMaterial3Api
 @Composable
@@ -121,16 +126,19 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
 
     var imageData: Any? by remember { mutableStateOf(R.drawable.default_goal_image) }
     val calenderState = rememberSheetState()
-    var showGoalAddedDialog by remember { mutableStateOf(false) }
+    val showGoalAddedDialog = remember { mutableStateOf(false) }
+    val showRemoveDeadlineDialog = remember { mutableStateOf(false) }
 
     val topBarText: String
     val buttonText: String
 
     if (editGoalId != null) {
-        viewModel.setEditGoalData(goalId = editGoalId.toLong(), onEditDataSet = { goalImageBm ->
-            if (goalImageBm != null) {
-                imageData = goalImageBm
-            }
+        LaunchedEffect(key1 = true, block = {
+            viewModel.setEditGoalData(goalId = editGoalId.toLong(), onEditDataSet = { goalImageBm ->
+                if (goalImageBm != null) {
+                    imageData = goalImageBm
+                }
+            })
         })
         topBarText = stringResource(id = R.string.input_edit_goal_header)
         buttonText = stringResource(id = R.string.input_edit_goal_button)
@@ -165,6 +173,30 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
         )
     )
 
+    if (showRemoveDeadlineDialog.value) {
+        AlertDialog(onDismissRequest = {
+            showRemoveDeadlineDialog.value = false
+        }, title = {
+            Text(
+                text = stringResource(id = R.string.goal_remove_deadline),
+                color = MaterialTheme.colorScheme.onSurface,
+            )
+        }, confirmButton = {
+            TextButton(onClick = {
+                showRemoveDeadlineDialog.value = false
+                viewModel.removeDeadLine()
+            }) {
+                Text(stringResource(id = R.string.dialog_confirm_button))
+            }
+        }, dismissButton = {
+            TextButton(onClick = {
+                showRemoveDeadlineDialog.value = false
+            }) {
+                Text(stringResource(id = R.string.cancel))
+            }
+        })
+    }
+
     Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
         TopAppBar(modifier = Modifier.fillMaxWidth(), title = {
             Text(
@@ -183,7 +215,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
         )
         )
     }) {
-        if (showGoalAddedDialog) {
+        if (showGoalAddedDialog.value) {
             Column(
                 modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -365,10 +397,11 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                         },
                         modifier = Modifier
                             .fillMaxWidth(0.8f)
-                            .clickable(
-                                onClick = {
-                                    calenderState.show()
-                                }, interactionSource = interactionSource, indication = null
+                            .combinedClickable(
+                                onClick = { calenderState.show() },
+                                onLongClick = { showRemoveDeadlineDialog.value = true },
+                                interactionSource = interactionSource,
+                                indication = null
                             ),
                         label = {
                             Text(text = stringResource(id = R.string.input_deadline))
@@ -434,7 +467,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                                 }
 
                                 coroutineScope.launch {
-                                    showGoalAddedDialog = true
+                                    showGoalAddedDialog.value = true
                                     delay(2000)
                                     navController.popBackStack(DrawerScreens.Home.route, true)
                                     navController.navigate(DrawerScreens.Home.route)
@@ -460,6 +493,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
 }
 
 
+@ExperimentalFoundationApi
 @ExperimentalComposeUiApi
 @ExperimentalMaterial3Api
 @Preview

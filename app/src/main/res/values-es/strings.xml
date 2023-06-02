@@ -85,7 +85,8 @@
     <string name="input_add_goal_button">Agregar Nueva Meta</string>
     <string name="input_edit_goal_button">Actualizar Meta</string>
     <string name="goal_saved_success">¡Buen trabajo! Meta agregada.</string>
-    <string name="goad_edit_success">Meta actualizada.</string>
+    <string name="goad_edit_success">Meta actualizada.</string>\
+    <string name="goal_remove_deadline">Do you want to remove deadline from this goal?</string>
 
     <!-- Pantalla de respaldo y recuperación de datos -->
     <string name="backup_screen_header">Respaldar y recuperar datos</string>
@@ -100,7 +101,6 @@
     <string name="theme_setting">Tema predeterminado</string>
     <string name="theme_dialog_title">Cambiar tema</string>
     <string name="theme_dialog_apply_button">Aplicar</string>
-
     <string name="material_you_setting_desc">Cambia el tema según tú fondo de pantalla (A12 en adelante)</string>
     <string name="material_you_error">Esta característica es sólo para dispositivos con Android 12 en adelante.</string>
     <string name="locales_setting_title">Configuración regional</string>

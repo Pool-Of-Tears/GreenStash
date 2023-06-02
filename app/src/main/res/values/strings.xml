@@ -86,6 +86,7 @@
     <string name="input_edit_goal_button">Update Saving Goal</string>
     <string name="goal_saved_success">Great job! Saving goal set.</string>
     <string name="goad_edit_success">Saving goal updated.</string>
+    <string name="goal_remove_deadline">Do you want to remove deadline from this goal?</string>
 
     <!-- Backup Screen -->
     <string name="backup_screen_header">Backup &amp; Restore</string>
