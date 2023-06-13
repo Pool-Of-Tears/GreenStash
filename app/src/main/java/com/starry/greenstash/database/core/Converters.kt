@@ -28,6 +28,7 @@ package com.starry.greenstash.database.core
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.room.TypeConverter
+import com.starry.greenstash.database.goal.GoalPriority
 import com.starry.greenstash.database.transaction.TransactionType
 import java.io.ByteArrayOutputStream
 
@@ -59,5 +60,15 @@ class Converters {
         TransactionType.Deposit.ordinal -> TransactionType.Deposit
         TransactionType.Withdraw.ordinal -> TransactionType.Withdraw
         else -> TransactionType.Invalid
+    }
+
+    @TypeConverter
+    fun fromGoalPriority(value: GoalPriority) = value.ordinal
+
+    @TypeConverter
+    fun toGoalPriority(value: Int) = when (value) {
+        GoalPriority.High.ordinal -> GoalPriority.High
+        GoalPriority.Low.ordinal -> GoalPriority.Low
+        else -> GoalPriority.Normal
     }
 }

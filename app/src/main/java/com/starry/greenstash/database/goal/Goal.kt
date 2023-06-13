@@ -26,8 +26,11 @@
 package com.starry.greenstash.database.goal
 
 import android.graphics.Bitmap
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+
+enum class GoalPriority { High, Normal, Low }
 
 @Entity(tableName = "saving_goal")
 data class Goal(
@@ -36,6 +39,9 @@ data class Goal(
     val deadline: String,
     val goalImage: Bitmap?,
     val additionalNotes: String,
+    // Added in database schema v3
+    @ColumnInfo(defaultValue = "1")
+    val priority: GoalPriority
 ) {
     @PrimaryKey(autoGenerate = true)
     var goalId: Long = 0L

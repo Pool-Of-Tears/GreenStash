@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
@@ -36,17 +37,17 @@ fun SelectableChipGroup(
     defaultChoice: String = ""
 ) {
     var selected by remember { mutableStateOf(defaultChoice) }
-    Row(
-        modifier = modifier
-    ) {
-        choices.forEach { it ->
-            Chip(
-                title = it,
-                selected = selected,
-                onSelected = {
-                    selected = it
-                }
-            )
+    Box(modifier = modifier, contentAlignment = Alignment.Center) {
+        Row {
+            choices.forEach { it ->
+                Chip(
+                    title = it,
+                    selected = selected,
+                    onSelected = {
+                        selected = it
+                    }
+                )
+            }
         }
     }
 
@@ -63,8 +64,8 @@ fun Chip(
         modifier = Modifier
             .padding(end = 10.dp)
             .height(35.dp)
-            .clip(RoundedCornerShape(24.dp))
-            .background(MaterialTheme.colorScheme.primaryContainer)
+            .clip(RoundedCornerShape(12.dp))
+            .background(MaterialTheme.colorScheme.primary)
             .clickable(
                 onClick = {
                     onSelected(title)
@@ -81,12 +82,13 @@ fun Chip(
                 Icon(
                     imageVector = Icons.Filled.Check,
                     contentDescription = "check",
-                    tint = MaterialTheme.colorScheme.onPrimaryContainer
+                    tint = MaterialTheme.colorScheme.onPrimary,
+                    modifier = Modifier.size(18.dp)
                 )
             }
             Text(
                 text = title,
-                color = MaterialTheme.colorScheme.onPrimaryContainer,
+                color = MaterialTheme.colorScheme.onPrimary,
                 fontSize = 16.sp
             )
 
