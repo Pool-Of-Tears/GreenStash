@@ -50,6 +50,7 @@ data class InputScreenState(
     val targetAmount: String = "",
     val deadline: String = "",
     val additionalNotes: String = "",
+    val goalPriority: String = GoalPriority.Normal.name
 )
 
 @HiltViewModel
@@ -66,9 +67,7 @@ class InputViewModel @Inject constructor(private val goalDao: GoalDao) : ViewMod
                     uri = state.goalImageUri!!, context = context, maxSize = 1024
                 ) else null,
                 additionalNotes = state.additionalNotes,
-                // =====================================
-                // TODO: Placeholder
-                priority = GoalPriority.Normal
+                priority = GoalPriority.values().find { it.name == state.goalPriority }!!
             )
             // Add goal into database.
             goalDao.insertGoal(goal)
@@ -83,7 +82,8 @@ class InputViewModel @Inject constructor(private val goalDao: GoalDao) : ViewMod
                     goalTitleText = goal.title,
                     targetAmount = goal.targetAmount.toString(),
                     deadline = goal.deadline,
-                    additionalNotes = goal.additionalNotes
+                    additionalNotes = goal.additionalNotes,
+                    goalPriority = goal.priority.name
                 )
                 onEditDataSet(goal.goalImage)
             }
@@ -101,9 +101,7 @@ class InputViewModel @Inject constructor(private val goalDao: GoalDao) : ViewMod
                     uri = state.goalImageUri!!, context = context, maxSize = 1024
                 ) else goal.goalImage,
                 additionalNotes = state.additionalNotes,
-                // =====================================
-                // TODO: Placeholder
-                priority = GoalPriority.Normal
+                priority = GoalPriority.values().find { it.name == state.goalPriority }!!
             )
             // copy id of already saved goal to update it.
             editGoal.goalId = goal.goalId

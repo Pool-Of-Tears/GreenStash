@@ -106,6 +106,7 @@ import com.maxkeppeler.sheets.calendar.models.CalendarConfig
 import com.maxkeppeler.sheets.calendar.models.CalendarSelection
 import com.maxkeppeler.sheets.calendar.models.CalendarTimeline
 import com.starry.greenstash.R
+import com.starry.greenstash.database.goal.GoalPriority
 import com.starry.greenstash.ui.common.SelectableChipGroup
 import com.starry.greenstash.ui.navigation.DrawerScreens
 import com.starry.greenstash.ui.screens.input.viewmodels.InputViewModel
@@ -354,13 +355,24 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                                     modifier = Modifier
                                         .fillMaxWidth()
                                         .padding(top = 6.dp),
-                                    text = "Select priority for this goal.",
+                                    text = stringResource(id = R.string.input_goal_priority),
                                     textAlign = TextAlign.Center,
                                     color = MaterialTheme.colorScheme.onPrimaryContainer
                                 )
                                 SelectableChipGroup(
-                                    choices = listOf("High", "Normal", "Low"),
-                                    defaultChoice = "Normal"
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(14.dp),
+                                    choices = listOf(
+                                        GoalPriority.High.name,
+                                        GoalPriority.Normal.name,
+                                        GoalPriority.Low.name
+                                    ),
+                                    selected = viewModel.state.goalPriority,
+                                    onSelected = { newValue ->
+                                        viewModel.state =
+                                            viewModel.state.copy(goalPriority = newValue)
+                                    }
                                 )
                             }
                         }

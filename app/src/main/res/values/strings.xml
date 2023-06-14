@@ -76,6 +76,7 @@
     <string name="input_edit_goal_header">Edit Saving Goal</string>
     <string name="input_pick_image">Goal Image</string>
     <string name="input_page_quote" translatable="false">You don’t have to see the whole staircase, just take the first step. – Martin Luther King, Jr.  </string>
+    <string name="input_goal_priority">Select priority for this goal.</string>
     <string name="input_text_title">Goal Title</string>
     <string name="title_empty_err">Woops! title is empty.</string>
     <string name="input_text_amount">Target Amount</string>

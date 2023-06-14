@@ -25,15 +25,17 @@
 
 package com.starry.greenstash.ui.screens.home.composables
 
+import androidx.compose.animation.Crossfade
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -42,12 +44,15 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -65,21 +70,26 @@ fun MainAppBar(
     onSearchClicked: (String) -> Unit,
     onSearchTriggered: () -> Unit
 ) {
-    when (searchWidgetState) {
-        SearchWidgetState.CLOSED -> {
-            DefaultAppBar(
-                onMenuClicked = onMenuClicked,
-                onSearchClicked = onSearchTriggered
-            )
-        }
+    Crossfade(
+        targetState = searchWidgetState,
+        animationSpec = tween(durationMillis = 300)
+    ) {
+        when (it) {
+            SearchWidgetState.CLOSED -> {
+                DefaultAppBar(
+                    onMenuClicked = onMenuClicked,
+                    onSearchClicked = onSearchTriggered
+                )
+            }
 
-        SearchWidgetState.OPENED -> {
-            SearchAppBar(
-                text = searchTextState,
-                onTextChange = onTextChange,
-                onCloseClicked = onCloseClicked,
-                onSearchClicked = onSearchClicked
-            )
+            SearchWidgetState.OPENED -> {
+                SearchAppBar(
+                    text = searchTextState,
+                    onTextChange = onTextChange,
+                    onCloseClicked = onCloseClicked,
+                    onSearchClicked = onSearchClicked
+                )
+            }
         }
     }
 }
@@ -87,7 +97,7 @@ fun MainAppBar(
 @ExperimentalMaterial3Api
 @Composable
 fun DefaultAppBar(onMenuClicked: () -> Unit, onSearchClicked: () -> Unit) {
-    CenterAlignedTopAppBar(title = {
+    TopAppBar(title = {
         Text(
             stringResource(id = R.string.home_screen_header),
             maxLines = 1,
@@ -100,6 +110,12 @@ fun DefaultAppBar(onMenuClicked: () -> Unit, onSearchClicked: () -> Unit) {
             )
         }
     }, actions = {
+        IconButton(onClick = { onSearchClicked() }) {
+            Icon(
+                imageVector = ImageVector.vectorResource(id = R.drawable.ic_menu_filter),
+                contentDescription = null, modifier = Modifier.size(22.dp)
+            )
+        }
         IconButton(onClick = { onSearchClicked() }) {
             Icon(
                 imageVector = Icons.Filled.Search, contentDescription = null

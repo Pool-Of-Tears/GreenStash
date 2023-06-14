@@ -17,10 +17,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -30,22 +26,18 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun SelectableChipGroup(
-    modifier: Modifier = Modifier
-        .fillMaxWidth()
-        .padding(14.dp),
+    modifier: Modifier,
     choices: List<String>,
-    defaultChoice: String = ""
+    selected: String,
+    onSelected: (String) -> Unit
 ) {
-    var selected by remember { mutableStateOf(defaultChoice) }
     Box(modifier = modifier, contentAlignment = Alignment.Center) {
         Row {
             choices.forEach { it ->
                 Chip(
                     title = it,
                     selected = selected,
-                    onSelected = {
-                        selected = it
-                    }
+                    onSelected = { onSelected(it) }
                 )
             }
         }
@@ -99,7 +91,14 @@ fun Chip(
 @Preview(showBackground = true)
 @Composable
 fun SelectableChipGroupPV() {
-    SelectableChipGroup(choices = listOf("cat", "dog", "snake"), defaultChoice = "dog")
+    SelectableChipGroup(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(14.dp),
+        choices = listOf("High", "Normal", "Low"),
+        selected = "Normal",
+        onSelected = { }
+    )
 }
 
 
