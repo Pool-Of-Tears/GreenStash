@@ -28,10 +28,9 @@ package com.starry.greenstash.ui.screens.home.viewmodels
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.starry.greenstash.database.core.GoalWithTransactions
 import com.starry.greenstash.database.goal.Goal
 import com.starry.greenstash.database.goal.GoalDao
 import com.starry.greenstash.database.transaction.Transaction
@@ -39,19 +38,45 @@ import com.starry.greenstash.database.transaction.TransactionDao
 import com.starry.greenstash.database.transaction.TransactionType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-enum class SearchWidgetState {
-    OPENED, CLOSED
-}
+enum class SearchWidgetState { OPENED, CLOSED }
+enum class BottomSheetType { GOAL_ACHIEVED, FILTER_MENU }
 
+enum class FilterField { TITLE, AMOUNT, PRIORITY }
+enum class FilterSortType(val value: Int) { ASCENDING(1), DESCENDING(2) }
+
+@ExperimentalCoroutinesApi
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val goalDao: GoalDao, private val transactionDao: TransactionDao
 ) : ViewModel() {
-    val allGoals: LiveData<List<GoalWithTransactions>> = goalDao.getAllGoals()
+    private val sortFlow = MutableStateFlow(Pair(FilterField.TITLE, FilterSortType.ASCENDING))
+    private val goalsListFlow = sortFlow
+        .flatMapLatest {
+            when (it.first) {
+                FilterField.TITLE -> {
+                    goalDao.getAllGoalsByTitle(it.second.value)
+                }
+
+                FilterField.AMOUNT -> {
+                    goalDao.getAllGoalsByAmount(it.second.value)
+                }
+
+                FilterField.PRIORITY -> {
+                    when (it.second) {
+                        FilterSortType.ASCENDING -> goalDao.getAllGoalsByPriorityAsc()
+                        FilterSortType.DESCENDING -> goalDao.getAllGoalsByPriorityDesc()
+                    }
+                }
+            }
+        }
+    val goalsList = goalsListFlow.asLiveData()
 
     private val _searchWidgetState: MutableState<SearchWidgetState> =
         mutableStateOf(value = SearchWidgetState.CLOSED)
@@ -66,6 +91,10 @@ class HomeViewModel @Inject constructor(
 
     fun updateSearchTextState(newValue: String) {
         _searchTextState.value = newValue
+    }
+
+    fun updatefilter(filterField: FilterField, filterSortType: FilterSortType) {
+        sortFlow.value = Pair(filterField, filterSortType)
     }
 
     fun deleteGoal(goal: Goal) {

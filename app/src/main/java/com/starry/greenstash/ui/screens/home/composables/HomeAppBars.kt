@@ -62,13 +62,14 @@ import com.starry.greenstash.ui.screens.home.viewmodels.SearchWidgetState
 @ExperimentalMaterial3Api
 @Composable
 fun MainAppBar(
+    onMenuClicked: () -> Unit,
+    onFilterClicked: () -> Unit,
+    onSearchClicked: () -> Unit,
     searchWidgetState: SearchWidgetState,
     searchTextState: String,
-    onTextChange: (String) -> Unit,
-    onMenuClicked: () -> Unit,
-    onCloseClicked: () -> Unit,
-    onSearchClicked: (String) -> Unit,
-    onSearchTriggered: () -> Unit
+    onSearchTextChange: (String) -> Unit,
+    onSearchCloseClicked: () -> Unit,
+    onSearchImeAction: (String) -> Unit,
 ) {
     Crossfade(
         targetState = searchWidgetState,
@@ -78,16 +79,17 @@ fun MainAppBar(
             SearchWidgetState.CLOSED -> {
                 DefaultAppBar(
                     onMenuClicked = onMenuClicked,
-                    onSearchClicked = onSearchTriggered
+                    onFilterClicked = onFilterClicked,
+                    onSearchClicked = onSearchClicked
                 )
             }
 
             SearchWidgetState.OPENED -> {
                 SearchAppBar(
                     text = searchTextState,
-                    onTextChange = onTextChange,
-                    onCloseClicked = onCloseClicked,
-                    onSearchClicked = onSearchClicked
+                    onTextChange = onSearchTextChange,
+                    onCloseClicked = onSearchCloseClicked,
+                    onSearchClicked = onSearchImeAction
                 )
             }
         }
@@ -96,7 +98,11 @@ fun MainAppBar(
 
 @ExperimentalMaterial3Api
 @Composable
-fun DefaultAppBar(onMenuClicked: () -> Unit, onSearchClicked: () -> Unit) {
+fun DefaultAppBar(
+    onMenuClicked: () -> Unit,
+    onFilterClicked: () -> Unit,
+    onSearchClicked: () -> Unit,
+) {
     TopAppBar(title = {
         Text(
             stringResource(id = R.string.home_screen_header),
@@ -110,7 +116,7 @@ fun DefaultAppBar(onMenuClicked: () -> Unit, onSearchClicked: () -> Unit) {
             )
         }
     }, actions = {
-        IconButton(onClick = { onSearchClicked() }) {
+        IconButton(onClick = { onFilterClicked() }) {
             Icon(
                 imageVector = ImageVector.vectorResource(id = R.drawable.ic_menu_filter),
                 contentDescription = null, modifier = Modifier.size(22.dp)

@@ -28,6 +28,7 @@ package com.starry.greenstash.database.goal
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.starry.greenstash.database.core.GoalWithTransactions
+import kotlinx.coroutines.flow.Flow
 
 
 @Dao
@@ -49,6 +50,44 @@ interface GoalDao {
     @androidx.room.Transaction
     @Query("SELECT * FROM saving_goal")
     fun getAllGoals(): LiveData<List<GoalWithTransactions>>
+
+    @Query(
+        "SELECT * FROM saving_goal ORDER BY " +
+                "CASE WHEN :sortOrder = 1 THEN title END ASC, " +
+                "CASE WHEN :sortOrder = 2 THEN title END DESC "
+    )
+    fun getAllGoalsByTitle(sortOrder: Int): Flow<List<GoalWithTransactions>>
+
+    @Query(
+        "SELECT * FROM saving_goal ORDER BY " +
+                "CASE WHEN :sortOrder = 1 THEN targetAmount END ASC, " +
+                "CASE WHEN :sortOrder = 2 THEN targetAmount END DESC "
+    )
+    fun getAllGoalsByAmount(sortOrder: Int): Flow<List<GoalWithTransactions>>
+
+    @Query(
+        "SELECT * FROM saving_goal ORDER BY " +
+                "CASE priority" +
+                "    WHEN 'high' THEN 3" +
+                "    WHEN 'normal' THEN 2" +
+                "    WHEN 'low' THEN 1" +
+                "    ELSE 2 " +
+                "END ASC;"
+    )
+    fun getAllGoalsByPriorityAsc(): Flow<List<GoalWithTransactions>>
+
+    @Query(
+        "SELECT * FROM saving_goal ORDER BY " +
+                "CASE priority" +
+                "    WHEN 'high' THEN 3" +
+                "    WHEN 'normal' THEN 2" +
+                "    WHEN 'low' THEN 1" +
+                "    ELSE 2 " +
+                "END DESC;"
+    )
+    fun getAllGoalsByPriorityDesc(): Flow<List<GoalWithTransactions>>
+
+
 
     @Query("SELECT * FROM saving_goal WHERE goalId = :goalId")
     fun getGoalById(goalId: Long): Goal
