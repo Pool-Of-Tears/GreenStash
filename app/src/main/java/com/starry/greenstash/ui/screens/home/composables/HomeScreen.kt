@@ -33,6 +33,8 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -52,6 +54,8 @@ import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.rememberModalBottomSheetState
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -71,6 +75,7 @@ import androidx.compose.material3.rememberDrawerState
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -80,6 +85,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
@@ -87,6 +93,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -103,13 +110,18 @@ import com.starry.greenstash.R
 import com.starry.greenstash.database.core.GoalWithTransactions
 import com.starry.greenstash.ui.navigation.DrawerScreens
 import com.starry.greenstash.ui.navigation.Screens
+import com.starry.greenstash.ui.screens.home.viewmodels.BottomSheetType
+import com.starry.greenstash.ui.screens.home.viewmodels.FilterField
+import com.starry.greenstash.ui.screens.home.viewmodels.FilterSortType
 import com.starry.greenstash.ui.screens.home.viewmodels.HomeViewModel
 import com.starry.greenstash.ui.screens.home.viewmodels.SearchWidgetState
 import com.starry.greenstash.utils.isScrollingUp
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.Locale
 
+@ExperimentalCoroutinesApi
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
 @ExperimentalMaterial3Api
@@ -121,23 +133,33 @@ fun HomeScreen(navController: NavController) {
     val modalBottomSheetState = rememberModalBottomSheetState(
         initialValue = ModalBottomSheetValue.Hidden
     )
+    val currentBottomSheet = remember { mutableStateOf<BottomSheetType?>(null) }
 
     ModalBottomSheetLayout(sheetState = modalBottomSheetState,
         sheetShape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
         sheetElevation = 24.dp,
         sheetBackgroundColor = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp),
-        sheetContent = { GoalAchievedSheetContent() },
+        sheetContent = {
+            currentBottomSheet.value?.let {
+                SheetLayout(
+                    bottomSheetType = it,
+                    viewModel = viewModel
+                )
+            }
+        },
         content = {
             HomeScreenContent(
                 context = context,
                 viewModel = viewModel,
                 navController = navController,
-                bottomSheetState = modalBottomSheetState
+                bottomSheetState = modalBottomSheetState,
+                bottomSheetType = currentBottomSheet
             )
         })
 
 }
 
+@ExperimentalCoroutinesApi
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
 @ExperimentalMaterial3Api
@@ -146,10 +168,10 @@ fun HomeScreenContent(
     context: Context,
     viewModel: HomeViewModel,
     navController: NavController,
-    bottomSheetState: ModalBottomSheetState
+    bottomSheetState: ModalBottomSheetState,
+    bottomSheetType: MutableState<BottomSheetType?>
 ) {
-    val allGoals = viewModel.allGoals.observeAsState(listOf()).value
-
+    val allGoals = viewModel.goalsList.observeAsState(emptyList()).value
     val drawerState = rememberDrawerState(DrawerValue.Closed)
     val items = listOf(DrawerScreens.Home, DrawerScreens.Backups, DrawerScreens.Settings)
     val selectedItem = remember { mutableStateOf(items[0]) }
@@ -210,13 +232,19 @@ fun HomeScreenContent(
             snackbarHost = { SnackbarHost(snackBarHostState) },
             topBar = {
                 MainAppBar(
+                    onMenuClicked = { coroutineScope.launch { drawerState.open() } },
+                    onFilterClicked = {
+                        bottomSheetType.value = BottomSheetType.FILTER_MENU
+                        coroutineScope.launch {
+                            bottomSheetState.show()
+                        }
+                    },
+                    onSearchClicked = { viewModel.updateSearchWidgetState(newValue = SearchWidgetState.OPENED) },
                     searchWidgetState = searchWidgetState,
                     searchTextState = searchTextState,
-                    onTextChange = { viewModel.updateSearchTextState(newValue = it) },
-                    onMenuClicked = { coroutineScope.launch { drawerState.open() } },
-                    onCloseClicked = { viewModel.updateSearchWidgetState(newValue = SearchWidgetState.CLOSED) },
-                    onSearchClicked = { println("Meow >~<") },
-                    onSearchTriggered = { viewModel.updateSearchWidgetState(newValue = SearchWidgetState.OPENED) }
+                    onSearchTextChange = { viewModel.updateSearchTextState(newValue = it) },
+                    onSearchCloseClicked = { viewModel.updateSearchWidgetState(newValue = SearchWidgetState.CLOSED) },
+                    onSearchImeAction = { println("Meow >~< | $it") },
                 )
             },
 
@@ -364,9 +392,9 @@ fun HomeScreenContent(
                                         context = context,
                                         viewModel = viewModel,
                                         item = item,
-                                        coroutineScope = coroutineScope,
                                         snackBarHostState = snackBarHostState,
                                         bottomSheetState = bottomSheetState,
+                                        bottomSheetType = bottomSheetType,
                                         navController = navController
                                     )
                                 }
@@ -386,9 +414,9 @@ fun HomeScreenContent(
                                     context = context,
                                     viewModel = viewModel,
                                     item = item,
-                                    coroutineScope = coroutineScope,
                                     snackBarHostState = snackBarHostState,
                                     bottomSheetState = bottomSheetState,
+                                    bottomSheetType = bottomSheetType,
                                     navController = navController
                                 )
                             }
@@ -400,8 +428,19 @@ fun HomeScreenContent(
     }
 }
 
+@ExperimentalCoroutinesApi
+@ExperimentalMaterial3Api
 @Composable
-fun GoalAchievedSheetContent() {
+fun SheetLayout(bottomSheetType: BottomSheetType, viewModel: HomeViewModel) {
+    when (bottomSheetType) {
+        BottomSheetType.GOAL_ACHIEVED -> GoalAchievedSheet()
+        BottomSheetType.FILTER_MENU -> FilterMenuSheet(viewModel)
+    }
+
+}
+
+@Composable
+fun GoalAchievedSheet() {
     Column(
         modifier = Modifier
             .height(425.dp)
@@ -460,6 +499,79 @@ fun GoalAchievedSheetContent() {
     }
 }
 
+@ExperimentalCoroutinesApi
+@ExperimentalMaterial3Api
+@Composable
+fun FilterMenuSheet(viewModel: HomeViewModel) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(12.dp)
+    ) {
+        Text(
+            text = stringResource(id = R.string.filter_menu_title),
+            fontWeight = FontWeight.SemiBold,
+            fontSize = 20.sp,
+            modifier = Modifier.padding(start = 8.dp, bottom = 6.dp)
+        )
+        Row(modifier = Modifier.fillMaxWidth()) {
+            Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.Center) {
+                FilterField.values().forEach {
+                    FilterButton(
+                        text = it.name,
+                        isSelected = it == viewModel.filterFlowData.value.filterField,
+                        onClick = { viewModel.updateFilterField(it) })
+                }
+            }
+            Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.Center) {
+                FilterSortType.values().forEach {
+                    FilterButton(
+                        text = it.name,
+                        isSelected = viewModel.filterFlowData.value.sortType.name == it.name,
+                        onClick = { viewModel.updateFilterSort(it) })
+                }
+            }
+        }
+    }
+}
+
+@ExperimentalMaterial3Api
+@Composable
+fun FilterButton(text: String, isSelected: Boolean, onClick: () -> Unit) {
+    val buttonColor: Color
+    val textColor: Color
+    if (isSelected) {
+        buttonColor = MaterialTheme.colorScheme.primary
+        textColor = MaterialTheme.colorScheme.onPrimary
+    } else {
+        buttonColor = MaterialTheme.colorScheme.secondaryContainer
+        textColor = MaterialTheme.colorScheme.onSecondaryContainer
+    }
+
+    Card(
+        modifier = Modifier
+            .height(60.dp)
+            .padding(6.dp),
+        colors = CardDefaults.cardColors(containerColor = buttonColor),
+        shape = RoundedCornerShape(14.dp),
+        onClick = onClick
+    ) {
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            Text(
+                modifier = Modifier.padding(2.dp),
+                text = text,
+                fontSize = 16.sp,
+                fontStyle = MaterialTheme.typography.headlineMedium.fontStyle,
+                fontWeight = FontWeight.SemiBold,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                color = textColor,
+            )
+        }
+    }
+}
+
+@ExperimentalCoroutinesApi
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
 @ExperimentalMaterial3Api

@@ -28,10 +28,9 @@ package com.starry.greenstash.ui.screens.home.viewmodels
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.starry.greenstash.database.core.GoalWithTransactions
 import com.starry.greenstash.database.goal.Goal
 import com.starry.greenstash.database.goal.GoalDao
 import com.starry.greenstash.database.transaction.Transaction
@@ -39,19 +38,51 @@ import com.starry.greenstash.database.transaction.TransactionDao
 import com.starry.greenstash.database.transaction.TransactionType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-enum class SearchWidgetState {
-    OPENED, CLOSED
-}
+enum class SearchWidgetState { OPENED, CLOSED }
+enum class BottomSheetType { GOAL_ACHIEVED, FILTER_MENU }
 
+enum class FilterField { Title, Amount, Priority }
+enum class FilterSortType(val value: Int) { Ascending(1), Descending(2) }
+data class FilterFlowData(val filterField: FilterField, val sortType: FilterSortType)
+
+@ExperimentalCoroutinesApi
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val goalDao: GoalDao, private val transactionDao: TransactionDao
 ) : ViewModel() {
-    val allGoals: LiveData<List<GoalWithTransactions>> = goalDao.getAllGoals()
+
+    private val _filterFlowData: MutableState<FilterFlowData> = mutableStateOf(
+        FilterFlowData(
+            FilterField.Title,
+            FilterSortType.Ascending
+        )
+    )
+    val filterFlowData: State<FilterFlowData> = _filterFlowData
+
+    private val filterFlow = MutableStateFlow(filterFlowData.value)
+    private val goalsListFlow = filterFlow.flatMapLatest {
+        when (it.filterField) {
+            FilterField.Title -> {
+                goalDao.getAllGoalsByTitle(it.sortType.value)
+            }
+
+            FilterField.Amount -> {
+                goalDao.getAllGoalsByAmount(it.sortType.value)
+            }
+
+            FilterField.Priority -> {
+                goalDao.getAllGoalsByPriority(it.sortType.value)
+            }
+        }
+    }
+    val goalsList = goalsListFlow.asLiveData()
 
     private val _searchWidgetState: MutableState<SearchWidgetState> =
         mutableStateOf(value = SearchWidgetState.CLOSED)
@@ -67,6 +98,24 @@ class HomeViewModel @Inject constructor(
     fun updateSearchTextState(newValue: String) {
         _searchTextState.value = newValue
     }
+
+    fun updateFilterField(filterField: FilterField) {
+        /**
+         * For whatever reasons, updating the data of filterFlow i.e. [MutableStateFlow]
+         * doesn't change/update the UI (currently selected filter buttons), so we instead
+         * keep copy of current filter combination in mutable state and update it alongside
+         * filterFlow with same data so we can display current filter combination in our UI.
+         */
+        filterFlow.value = filterFlow.value.copy(filterField = filterField)
+        _filterFlowData.value = _filterFlowData.value.copy(filterField = filterField)
+    }
+
+    fun updateFilterSort(filterSortType: FilterSortType) {
+        // Same comment as above.
+        filterFlow.value = filterFlow.value.copy(sortType = filterSortType)
+        _filterFlowData.value = _filterFlowData.value.copy(sortType = filterSortType)
+    }
+
 
     fun deleteGoal(goal: Goal) {
         viewModelScope.launch(Dispatchers.IO) { goalDao.deleteGoal(goal.goalId) }

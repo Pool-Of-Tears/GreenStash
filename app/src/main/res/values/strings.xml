@@ -22,6 +22,7 @@
     <!-- Home Screen -->
     <string name="home_screen_header">Saving Goals</string>
     <string name="new_goal_fab">New Goal</string>
+    <string name="filter_menu_title">Filter By</string>
     <string name="home_search_label">Search here…</string>
     <string name="search_goal_not_found">404: Goal not found!</string>>
     <string name="goal_achieved_card_title">Congratulations 🥳</string>
@@ -76,6 +77,7 @@
     <string name="input_edit_goal_header">Edit Saving Goal</string>
     <string name="input_pick_image">Goal Image</string>
     <string name="input_page_quote" translatable="false">You don’t have to see the whole staircase, just take the first step. – Martin Luther King, Jr.  </string>
+    <string name="input_goal_priority">Select priority for this goal.</string>
     <string name="input_text_title">Goal Title</string>
     <string name="title_empty_err">Woops! title is empty.</string>
     <string name="input_text_amount">Target Amount</string>

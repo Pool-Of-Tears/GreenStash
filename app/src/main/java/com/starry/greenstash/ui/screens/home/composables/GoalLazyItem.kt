@@ -31,21 +31,25 @@ import androidx.compose.material.ModalBottomSheetState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.navigation.NavController
 import com.starry.greenstash.R
 import com.starry.greenstash.database.core.GoalWithTransactions
 import com.starry.greenstash.ui.navigation.Screens
+import com.starry.greenstash.ui.screens.home.viewmodels.BottomSheetType
 import com.starry.greenstash.ui.screens.home.viewmodels.HomeViewModel
 import com.starry.greenstash.utils.GoalTextUtils
 import com.starry.greenstash.utils.Utils
 import com.starry.greenstash.utils.validateAmount
-import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
+@ExperimentalCoroutinesApi
 @ExperimentalMaterialApi
 @ExperimentalMaterial3Api
 @Composable
@@ -53,11 +57,12 @@ fun GoalLazyColumnItem(
     context: Context,
     viewModel: HomeViewModel,
     item: GoalWithTransactions,
-    coroutineScope: CoroutineScope,
     snackBarHostState: SnackbarHostState,
     bottomSheetState: ModalBottomSheetState,
+    bottomSheetType: MutableState<BottomSheetType?>,
     navController: NavController
 ) {
+    val coroutineScope = rememberCoroutineScope()
     val progressPercent =
         ((item.getCurrentlySavedAmount() / item.goal.targetAmount) * 100).toInt()
 
@@ -127,8 +132,10 @@ fun GoalLazyColumnItem(
             } else {
                 val amountDouble = Utils.roundDecimal(amount.toDouble())
                 viewModel.deposit(item.goal, amountDouble, notes, onGoalAchieved = {
+                    // Show a congratulations message when goal is achieved.
                     hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)
                     coroutineScope.launch {
+                        bottomSheetType.value = BottomSheetType.GOAL_ACHIEVED
                         if (!bottomSheetState.isVisible) {
                             bottomSheetState.show()
                         }
