@@ -67,27 +67,10 @@ interface GoalDao {
 
     @Query(
         "SELECT * FROM saving_goal ORDER BY " +
-                "CASE priority" +
-                "    WHEN 'high' THEN 3" +
-                "    WHEN 'normal' THEN 2" +
-                "    WHEN 'low' THEN 1" +
-                "    ELSE 2 " +
-                "END ASC;"
+                "CASE WHEN :sortOrder = 1 THEN priority END ASC, " +
+                "CASE WHEN :sortOrder = 2 THEN priority END DESC "
     )
-    fun getAllGoalsByPriorityAsc(): Flow<List<GoalWithTransactions>>
-
-    @Query(
-        "SELECT * FROM saving_goal ORDER BY " +
-                "CASE priority" +
-                "    WHEN 'high' THEN 3" +
-                "    WHEN 'normal' THEN 2" +
-                "    WHEN 'low' THEN 1" +
-                "    ELSE 2 " +
-                "END DESC;"
-    )
-    fun getAllGoalsByPriorityDesc(): Flow<List<GoalWithTransactions>>
-
-
+    fun getAllGoalsByPriority(sortOrder: Int): Flow<List<GoalWithTransactions>>
 
     @Query("SELECT * FROM saving_goal WHERE goalId = :goalId")
     fun getGoalById(goalId: Long): Goal

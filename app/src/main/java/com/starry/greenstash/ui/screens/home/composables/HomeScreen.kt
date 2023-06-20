@@ -33,6 +33,7 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -74,6 +75,7 @@ import androidx.compose.material3.rememberDrawerState
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -109,6 +111,8 @@ import com.starry.greenstash.database.core.GoalWithTransactions
 import com.starry.greenstash.ui.navigation.DrawerScreens
 import com.starry.greenstash.ui.navigation.Screens
 import com.starry.greenstash.ui.screens.home.viewmodels.BottomSheetType
+import com.starry.greenstash.ui.screens.home.viewmodels.FilterField
+import com.starry.greenstash.ui.screens.home.viewmodels.FilterSortType
 import com.starry.greenstash.ui.screens.home.viewmodels.HomeViewModel
 import com.starry.greenstash.ui.screens.home.viewmodels.SearchWidgetState
 import com.starry.greenstash.utils.isScrollingUp
@@ -129,22 +133,27 @@ fun HomeScreen(navController: NavController) {
     val modalBottomSheetState = rememberModalBottomSheetState(
         initialValue = ModalBottomSheetValue.Hidden
     )
-
-    var currentBottomSheet: BottomSheetType? by remember {
-        mutableStateOf(null)
-    }
+    val currentBottomSheet = remember { mutableStateOf<BottomSheetType?>(null) }
 
     ModalBottomSheetLayout(sheetState = modalBottomSheetState,
         sheetShape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
         sheetElevation = 24.dp,
         sheetBackgroundColor = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp),
-        sheetContent = { currentBottomSheet?.let { SheetLayout(bottomSheetType = it) } },
+        sheetContent = {
+            currentBottomSheet.value?.let {
+                SheetLayout(
+                    bottomSheetType = it,
+                    viewModel = viewModel
+                )
+            }
+        },
         content = {
             HomeScreenContent(
                 context = context,
                 viewModel = viewModel,
                 navController = navController,
-                bottomSheetState = modalBottomSheetState
+                bottomSheetState = modalBottomSheetState,
+                bottomSheetType = currentBottomSheet
             )
         })
 
@@ -159,9 +168,10 @@ fun HomeScreenContent(
     context: Context,
     viewModel: HomeViewModel,
     navController: NavController,
-    bottomSheetState: ModalBottomSheetState
+    bottomSheetState: ModalBottomSheetState,
+    bottomSheetType: MutableState<BottomSheetType?>
 ) {
-    val allGoals = viewModel.goalsList.observeAsState(emptyList<GoalWithTransactions>()).value
+    val allGoals = viewModel.goalsList.observeAsState(emptyList()).value
     val drawerState = rememberDrawerState(DrawerValue.Closed)
     val items = listOf(DrawerScreens.Home, DrawerScreens.Backups, DrawerScreens.Settings)
     val selectedItem = remember { mutableStateOf(items[0]) }
@@ -223,7 +233,12 @@ fun HomeScreenContent(
             topBar = {
                 MainAppBar(
                     onMenuClicked = { coroutineScope.launch { drawerState.open() } },
-                    onFilterClicked = {/*TODO*/ },
+                    onFilterClicked = {
+                        bottomSheetType.value = BottomSheetType.FILTER_MENU
+                        coroutineScope.launch {
+                            bottomSheetState.show()
+                        }
+                    },
                     onSearchClicked = { viewModel.updateSearchWidgetState(newValue = SearchWidgetState.OPENED) },
                     searchWidgetState = searchWidgetState,
                     searchTextState = searchTextState,
@@ -377,9 +392,9 @@ fun HomeScreenContent(
                                         context = context,
                                         viewModel = viewModel,
                                         item = item,
-                                        coroutineScope = coroutineScope,
                                         snackBarHostState = snackBarHostState,
                                         bottomSheetState = bottomSheetState,
+                                        bottomSheetType = bottomSheetType,
                                         navController = navController
                                     )
                                 }
@@ -399,9 +414,9 @@ fun HomeScreenContent(
                                     context = context,
                                     viewModel = viewModel,
                                     item = item,
-                                    coroutineScope = coroutineScope,
                                     snackBarHostState = snackBarHostState,
                                     bottomSheetState = bottomSheetState,
+                                    bottomSheetType = bottomSheetType,
                                     navController = navController
                                 )
                             }
@@ -413,11 +428,13 @@ fun HomeScreenContent(
     }
 }
 
+@ExperimentalCoroutinesApi
+@ExperimentalMaterial3Api
 @Composable
-fun SheetLayout(bottomSheetType: BottomSheetType) {
+fun SheetLayout(bottomSheetType: BottomSheetType, viewModel: HomeViewModel) {
     when (bottomSheetType) {
         BottomSheetType.GOAL_ACHIEVED -> GoalAchievedSheet()
-        BottomSheetType.FILTER_MENU -> FilterMenuSheet()
+        BottomSheetType.FILTER_MENU -> FilterMenuSheet(viewModel)
     }
 
 }
@@ -482,18 +499,38 @@ fun GoalAchievedSheet() {
     }
 }
 
+@ExperimentalCoroutinesApi
+@ExperimentalMaterial3Api
 @Composable
-fun FilterMenuSheet() {
+fun FilterMenuSheet(viewModel: HomeViewModel) {
     Column(
         modifier = Modifier
-            .height(425.dp)
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .padding(12.dp)
     ) {
-        Row(modifier = Modifier.weight(1f)) {
-
-        }
-        Row(modifier = Modifier.weight(1f)) {
-
+        Text(
+            text = stringResource(id = R.string.filter_menu_title),
+            fontWeight = FontWeight.SemiBold,
+            fontSize = 20.sp,
+            modifier = Modifier.padding(start = 8.dp, bottom = 6.dp)
+        )
+        Row(modifier = Modifier.fillMaxWidth()) {
+            Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.Center) {
+                FilterField.values().forEach {
+                    FilterButton(
+                        text = it.name,
+                        isSelected = it == viewModel.filterFlowData.value.filterField,
+                        onClick = { viewModel.updateFilterField(it) })
+                }
+            }
+            Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.Center) {
+                FilterSortType.values().forEach {
+                    FilterButton(
+                        text = it.name,
+                        isSelected = viewModel.filterFlowData.value.sortType.name == it.name,
+                        onClick = { viewModel.updateFilterSort(it) })
+                }
+            }
         }
     }
 }
@@ -514,7 +551,6 @@ fun FilterButton(text: String, isSelected: Boolean, onClick: () -> Unit) {
     Card(
         modifier = Modifier
             .height(60.dp)
-            .width(70.dp)
             .padding(6.dp),
         colors = CardDefaults.cardColors(containerColor = buttonColor),
         shape = RoundedCornerShape(14.dp),
@@ -524,9 +560,9 @@ fun FilterButton(text: String, isSelected: Boolean, onClick: () -> Unit) {
             Text(
                 modifier = Modifier.padding(2.dp),
                 text = text,
-                fontSize = 18.sp,
+                fontSize = 16.sp,
                 fontStyle = MaterialTheme.typography.headlineMedium.fontStyle,
-                fontWeight = FontWeight.Bold,
+                fontWeight = FontWeight.SemiBold,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 color = textColor,

@@ -48,34 +48,40 @@ import javax.inject.Inject
 enum class SearchWidgetState { OPENED, CLOSED }
 enum class BottomSheetType { GOAL_ACHIEVED, FILTER_MENU }
 
-enum class FilterField { TITLE, AMOUNT, PRIORITY }
-enum class FilterSortType(val value: Int) { ASCENDING(1), DESCENDING(2) }
+enum class FilterField { Title, Amount, Priority }
+enum class FilterSortType(val value: Int) { Ascending(1), Descending(2) }
+data class FilterFlowData(val filterField: FilterField, val sortType: FilterSortType)
 
 @ExperimentalCoroutinesApi
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val goalDao: GoalDao, private val transactionDao: TransactionDao
 ) : ViewModel() {
-    private val sortFlow = MutableStateFlow(Pair(FilterField.TITLE, FilterSortType.ASCENDING))
-    private val goalsListFlow = sortFlow
-        .flatMapLatest {
-            when (it.first) {
-                FilterField.TITLE -> {
-                    goalDao.getAllGoalsByTitle(it.second.value)
-                }
 
-                FilterField.AMOUNT -> {
-                    goalDao.getAllGoalsByAmount(it.second.value)
-                }
+    private val _filterFlowData: MutableState<FilterFlowData> = mutableStateOf(
+        FilterFlowData(
+            FilterField.Title,
+            FilterSortType.Ascending
+        )
+    )
+    val filterFlowData: State<FilterFlowData> = _filterFlowData
 
-                FilterField.PRIORITY -> {
-                    when (it.second) {
-                        FilterSortType.ASCENDING -> goalDao.getAllGoalsByPriorityAsc()
-                        FilterSortType.DESCENDING -> goalDao.getAllGoalsByPriorityDesc()
-                    }
-                }
+    private val filterFlow = MutableStateFlow(filterFlowData.value)
+    private val goalsListFlow = filterFlow.flatMapLatest {
+        when (it.filterField) {
+            FilterField.Title -> {
+                goalDao.getAllGoalsByTitle(it.sortType.value)
+            }
+
+            FilterField.Amount -> {
+                goalDao.getAllGoalsByAmount(it.sortType.value)
+            }
+
+            FilterField.Priority -> {
+                goalDao.getAllGoalsByPriority(it.sortType.value)
             }
         }
+    }
     val goalsList = goalsListFlow.asLiveData()
 
     private val _searchWidgetState: MutableState<SearchWidgetState> =
@@ -93,9 +99,23 @@ class HomeViewModel @Inject constructor(
         _searchTextState.value = newValue
     }
 
-    fun updatefilter(filterField: FilterField, filterSortType: FilterSortType) {
-        sortFlow.value = Pair(filterField, filterSortType)
+    fun updateFilterField(filterField: FilterField) {
+        /**
+         * For whatever reasons, updating the data of filterFlow i.e. [MutableStateFlow]
+         * doesn't change/update the UI (currently selected filter buttons), so we instead
+         * keep copy of current filter combination in mutable state and update it alongside
+         * filterFlow with same data so we can display current filter combination in our UI.
+         */
+        filterFlow.value = filterFlow.value.copy(filterField = filterField)
+        _filterFlowData.value = _filterFlowData.value.copy(filterField = filterField)
     }
+
+    fun updateFilterSort(filterSortType: FilterSortType) {
+        // Same comment as above.
+        filterFlow.value = filterFlow.value.copy(sortType = filterSortType)
+        _filterFlowData.value = _filterFlowData.value.copy(sortType = filterSortType)
+    }
+
 
     fun deleteGoal(goal: Goal) {
         viewModelScope.launch(Dispatchers.IO) { goalDao.deleteGoal(goal.goalId) }

@@ -30,7 +30,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-enum class GoalPriority { High, Normal, Low }
+enum class GoalPriority(val value: Int) { High(3), Normal(2), Low(1) }
 
 @Entity(tableName = "saving_goal")
 data class Goal(
