@@ -112,19 +112,22 @@ fun DefaultAppBar(
     }, navigationIcon = {
         IconButton(onClick = { onMenuClicked() }) {
             Icon(
-                imageVector = Icons.Filled.Menu, contentDescription = null
+                imageVector = Icons.Filled.Menu,
+                contentDescription = stringResource(id = R.string.menu_button_desc)
             )
         }
     }, actions = {
         IconButton(onClick = { onFilterClicked() }) {
             Icon(
                 imageVector = ImageVector.vectorResource(id = R.drawable.ic_menu_filter),
-                contentDescription = null, modifier = Modifier.size(22.dp)
+                contentDescription = stringResource(id = R.string.filter_button_desc),
+                modifier = Modifier.size(22.dp)
             )
         }
         IconButton(onClick = { onSearchClicked() }) {
             Icon(
-                imageVector = Icons.Filled.Search, contentDescription = null
+                imageVector = Icons.Filled.Search,
+                contentDescription = stringResource(id = R.string.search_button_desc)
             )
         }
     }, colors = TopAppBarDefaults.centerAlignedTopAppBarColors(

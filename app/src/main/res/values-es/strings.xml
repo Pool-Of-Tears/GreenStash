@@ -21,6 +21,9 @@
 
     <!-- Home Screen -->
     <string name="home_screen_header">Metas de Ahorro</string>
+    <string name="menu_button_desc">Open side menu</string>
+    <string name="filter_button_desc">Filter your saving goals</string>
+    <string name="search_button_desc">Search for specific saving goal.</string>
     <string name="new_goal_fab">Nueva Meta</string>
     <string name="filter_menu_title">Filter By</string>
     <string name="home_search_label">Busca aquí…</string>
@@ -31,18 +34,20 @@
     <!-- Strings used for dashboard saving goals cards -->
     <string name="no_goal_set">No hay metas aún.</string>
     <string name="transaction_dialog_amount_label">Ingresa la cantidad</string>
-    <string name="deposit_btn">Depositar</string>
+    <string name="deposit_button">Depositar</string>
     <string name="deposit_dialog_title">¡Excelente! Ingresa la cantidad</string>
     <string name="deposit_successful">¡Depósito exitoso!</string>
     <string name="goal_already_achieved">Ya has completado esta meta.</string>
-    <string name="withdraw_btn">Retirar</string>
+    <string name="withdraw_button">Retirar</string>
     <string name="withdraw_dialog_title">¡Bien! Ingresa la cantidad</string>
-    <string name="withdraw_btn_error">No has depositado nada aún.</string>
+    <string name="withdraw_button_error">No has depositado nada aún.</string>
     <string name="withdraw_overflow_error">¡La cantidad supera lo depositado!</string>
     <string name="withdraw_successful">¡Retiro exitoso!</string>
     <string name="goal_delete_confirmation">¿Estás seguro/a?</string>
     <string name="goal_delete_success">Eliminación exitosa.</string>
-    <string name="info_btn_description">Ver información de la meta.</string>
+    <string name="info_button_description">Ver información de la meta.</string>
+    <string name="edit_button_description">Edit this goal</string>
+    <string name="delete_button_description">Delete This Goal</string>
     <string name="add_fab_button_title">Nueva meta</string>
     <string name="progress_greet1">¡Que buén comienzo!</string>
     <string name="progress_greet2">¡Sigue así, sigue así!</string>

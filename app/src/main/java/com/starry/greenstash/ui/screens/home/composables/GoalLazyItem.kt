@@ -89,7 +89,7 @@ fun GoalLazyColumnItem(
         onWithdrawClicked = {
             if (item.getCurrentlySavedAmount() == 0f.toDouble()) {
                 coroutineScope.launch {
-                    snackBarHostState.showSnackbar(context.getString(R.string.withdraw_btn_error))
+                    snackBarHostState.showSnackbar(context.getString(R.string.withdraw_button_error))
                 }
             } else {
                 openWithdrawDialog.value = true
