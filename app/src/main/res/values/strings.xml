@@ -21,6 +21,9 @@
 
     <!-- Home Screen -->
     <string name="home_screen_header">Saving Goals</string>
+    <string name="menu_button_desc">Open side menu</string>
+    <string name="filter_button_desc">Filter your saving goals</string>
+    <string name="search_button_desc">Search for specific saving goal.</string>
     <string name="new_goal_fab">New Goal</string>
     <string name="filter_menu_title">Filter By</string>
     <string name="home_search_label">Search here…</string>
@@ -31,18 +34,20 @@
     <!-- Strings used for dashboard saving goals cards -->
     <string name="no_goal_set">No Saving Goals Set.</string>
     <string name="transaction_dialog_amount_label">Enter Amount</string>
-    <string name="deposit_btn">Deposit</string>
+    <string name="deposit_button">Deposit</string>
     <string name="deposit_dialog_title">Awesome! enter amount</string>
     <string name="deposit_successful">Deposited Successfully!</string>
     <string name="goal_already_achieved">You\'ve already achieved this goal.</string>
-    <string name="withdraw_btn">withdraw</string>
+    <string name="withdraw_button">withdraw</string>
     <string name="withdraw_dialog_title">Cool! enter amount</string>
-    <string name="withdraw_btn_error">You haven\'t deposited any amount yet.</string>
+    <string name="withdraw_button_error">You haven\'t deposited any amount yet.</string>
     <string name="withdraw_overflow_error">Amount is more than current deposited amount!</string>
     <string name="withdraw_successful">Withdrawn Successfully!</string>
     <string name="goal_delete_confirmation">You sure?</string>
     <string name="goal_delete_success">Deleted Successfully.</string>
-    <string name="info_btn_description">View goal information.</string>
+    <string name="info_button_description">View goal information.</string>
+    <string name="edit_button_description">Edit this goal</string>
+    <string name="delete_button_description">Delete This Goal</string>
     <string name="add_fab_button_title">New goal</string>
     <string name="progress_greet1">You’re off to great start!</string>
     <string name="progress_greet2">Keep on keeping on!</string>

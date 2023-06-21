@@ -79,8 +79,10 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
@@ -125,6 +127,7 @@ import java.time.format.DateTimeFormatter
 @Composable
 fun InputScreen(editGoalId: String?, navController: NavController) {
     val context = LocalContext.current
+    val haptic = LocalHapticFeedback.current
     val viewModel: InputViewModel = hiltViewModel()
     val coroutineScope = rememberCoroutineScope()
 
@@ -444,7 +447,12 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                             .fillMaxWidth(0.8f)
                             .combinedClickable(
                                 onClick = { calenderState.show() },
-                                onLongClick = { showRemoveDeadlineDialog.value = true },
+                                onLongClick = {
+                                    haptic.performHapticFeedback(
+                                        HapticFeedbackType.LongPress
+                                    )
+                                    showRemoveDeadlineDialog.value = true
+                                },
                                 interactionSource = interactionSource,
                                 indication = null
                             ),

@@ -146,7 +146,7 @@ fun GoalItem(
                     modifier = Modifier.padding(end = 2.dp)
                 ) {
                     Text(
-                        text = stringResource(id = R.string.deposit_btn).uppercase(),
+                        text = stringResource(id = R.string.deposit_button).uppercase(),
                         fontWeight = FontWeight.SemiBold,
                         color = MaterialTheme.colorScheme.onSurface
                     )
@@ -155,7 +155,7 @@ fun GoalItem(
                     onClick = { onWithdrawClicked() },
                 ) {
                     Text(
-                        text = stringResource(id = R.string.withdraw_btn).uppercase(),
+                        text = stringResource(id = R.string.withdraw_button).uppercase(),
                         fontWeight = FontWeight.SemiBold,
                         color = MaterialTheme.colorScheme.onSurface
                     )
@@ -171,7 +171,7 @@ fun GoalItem(
                     Icon(
                         modifier = Modifier.size(24.dp),
                         imageVector = ImageVector.vectorResource(id = R.drawable.ic_goal_info),
-                        contentDescription = null,
+                        contentDescription = stringResource(id = R.string.info_button_description),
                         tint = MaterialTheme.colorScheme.onSurface
                     )
                 }
@@ -179,7 +179,7 @@ fun GoalItem(
                     Icon(
                         modifier = Modifier.size(24.dp),
                         imageVector = ImageVector.vectorResource(id = R.drawable.ic_goal_edit),
-                        contentDescription = null,
+                        contentDescription = stringResource(id = R.string.edit_button_description),
                         tint = MaterialTheme.colorScheme.onSurface
                     )
                 }
@@ -187,7 +187,7 @@ fun GoalItem(
                     Icon(
                         modifier = Modifier.size(24.dp),
                         imageVector = ImageVector.vectorResource(id = R.drawable.ic_goal_delete),
-                        contentDescription = null,
+                        contentDescription = stringResource(id = R.string.delete_button_description),
                         tint = MaterialTheme.colorScheme.onSurface
                     )
                 }

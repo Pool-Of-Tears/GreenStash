@@ -63,12 +63,12 @@ class Converters {
     }
 
     @TypeConverter
-    fun fromGoalPriority(value: GoalPriority) = value.ordinal
+    fun fromGoalPriority(value: GoalPriority) = value.value
 
     @TypeConverter
     fun toGoalPriority(value: Int) = when (value) {
-        GoalPriority.High.ordinal -> GoalPriority.High
-        GoalPriority.Low.ordinal -> GoalPriority.Low
+        GoalPriority.High.value -> GoalPriority.High
+        GoalPriority.Low.value -> GoalPriority.Low
         else -> GoalPriority.Normal
     }
 }
