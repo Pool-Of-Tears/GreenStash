@@ -38,7 +38,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -320,13 +319,15 @@ fun GoalPriorityCard(goalPriority: GoalPriority) {
                 Normal -> Color.Green
                 Low -> Color.Blue
             }
-            DotIndicator(
-                modifier = Modifier
-                    .size(12.dp)
-                    .padding(start = 4.dp), color = indicatorColor
-            )
-            Spacer(modifier = Modifier.width(12.dp))
+            Box(modifier = Modifier.padding(start = 8.dp)) {
+                DotIndicator(
+                    modifier = Modifier
+                        .size(12.dp)
+                        .padding(start = 4.dp), color = indicatorColor
+                )
+            }
             Text(
+                modifier = Modifier.padding(start = 14.dp),
                 text = stringResource(id = R.string.info_goal_priority).format(goalPriority.name),
                 fontWeight = FontWeight.Medium
             )

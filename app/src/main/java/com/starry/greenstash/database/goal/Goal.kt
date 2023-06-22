@@ -40,7 +40,7 @@ data class Goal(
     val goalImage: Bitmap?,
     val additionalNotes: String,
     // Added in database schema v3
-    @ColumnInfo(defaultValue = "1")
+    @ColumnInfo(defaultValue = "2")
     val priority: GoalPriority
 ) {
     @PrimaryKey(autoGenerate = true)
