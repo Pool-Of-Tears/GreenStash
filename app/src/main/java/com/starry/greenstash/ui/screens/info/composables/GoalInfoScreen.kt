@@ -76,7 +76,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionResult
 import com.airbnb.lottie.compose.LottieCompositionSpec
@@ -85,8 +84,13 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.starry.greenstash.MainActivity
 import com.starry.greenstash.R
 import com.starry.greenstash.database.core.GoalWithTransactions
+import com.starry.greenstash.database.goal.GoalPriority
+import com.starry.greenstash.database.goal.GoalPriority.High
+import com.starry.greenstash.database.goal.GoalPriority.Low
+import com.starry.greenstash.database.goal.GoalPriority.Normal
 import com.starry.greenstash.database.transaction.Transaction
 import com.starry.greenstash.database.transaction.TransactionType
+import com.starry.greenstash.ui.common.DotIndicator
 import com.starry.greenstash.ui.common.ExpandableCard
 import com.starry.greenstash.ui.common.ExpandableTextCard
 import com.starry.greenstash.ui.screens.info.viewmodels.InfoViewModel
@@ -159,6 +163,7 @@ fun GoalInfoScreen(goalId: String, navController: NavController) {
                         daysLeft = getRemainingDaysText(context, state.goalData),
                         progress = progressPercent.toFloat() / 100
                     )
+                    GoalPriorityCard(goalPriority = state.goalData.goal.priority)
                     if (state.goalData.goal.additionalNotes.isNotEmpty() && state.goalData.goal.additionalNotes.isNotBlank()) {
                         GoalNotesCard(
                             notesText = state.goalData.goal.additionalNotes
@@ -221,7 +226,7 @@ fun GoalInfoCard(
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .padding(12.dp),
+            .padding(top = 12.dp, bottom = 4.dp, start = 12.dp, end = 12.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(
                 4.dp
@@ -290,6 +295,42 @@ fun GoalInfoCard(
                     modifier = Modifier.padding(end = 12.dp)
                 )
             }
+        }
+    }
+}
+
+@Composable
+fun GoalPriorityCard(goalPriority: GoalPriority) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentHeight()
+            .padding(bottom = 12.dp, start = 12.dp, end = 12.dp, top = 2.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(
+                4.dp
+            )
+        ),
+        shape = RoundedCornerShape(8.dp)
+    ) {
+        Row(modifier = Modifier.padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
+            val indicatorColor = when (goalPriority) {
+                High -> Color.Red
+                Normal -> Color.Green
+                Low -> Color.Blue
+            }
+            Box(modifier = Modifier.padding(start = 8.dp)) {
+                DotIndicator(
+                    modifier = Modifier
+                        .size(12.dp)
+                        .padding(start = 4.dp), color = indicatorColor
+                )
+            }
+            Text(
+                modifier = Modifier.padding(start = 14.dp),
+                text = stringResource(id = R.string.info_goal_priority).format(goalPriority.name),
+                fontWeight = FontWeight.Medium
+            )
         }
     }
 }
@@ -377,7 +418,7 @@ fun TransactionItem(transactionType: TransactionType, amount: String, date: Stri
 }
 
 
-fun getRemainingDaysText(context: Context, goalItem: GoalWithTransactions): String {
+private fun getRemainingDaysText(context: Context, goalItem: GoalWithTransactions): String {
     return if (goalItem.getCurrentlySavedAmount() >= goalItem.goal.targetAmount) {
         context.getString(R.string.info_card_goal_achieved)
     } else {
@@ -397,7 +438,8 @@ fun getRemainingDaysText(context: Context, goalItem: GoalWithTransactions): Stri
 @ExperimentalMaterial3Api
 @ExperimentalMaterialApi
 @Composable
-@Preview(showBackground = true)
+@Preview
 fun GoalInfoPV() {
-    GoalInfoScreen(goalId = "", navController = rememberNavController())
+    GoalPriorityCard(High)
+    //GoalInfoScreen(goalId = "", navController = rememberNavController())
 }

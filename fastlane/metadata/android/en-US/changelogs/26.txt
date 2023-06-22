@@ -1,0 +1,5 @@
+- Add ability to set importance level/priority to saving goals.
+- Added ability to filter goals by; name, amount & priority.
+- Now you can remove the deadline from an existing goal by long pressing the deadline field in edit-goal screen.
+- Accessible enhancements; added TalkBack strings to menu and goal buttons.
+- Some other minor fixes and improvements.
