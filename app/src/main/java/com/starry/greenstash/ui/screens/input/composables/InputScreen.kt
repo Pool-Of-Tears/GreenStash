@@ -451,7 +451,9 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                                     haptic.performHapticFeedback(
                                         HapticFeedbackType.LongPress
                                     )
-                                    showRemoveDeadlineDialog.value = true
+                                    if (viewModel.state.deadline.isNotEmpty()) {
+                                        showRemoveDeadlineDialog.value = true
+                                    }
                                 },
                                 interactionSource = interactionSource,
                                 indication = null
