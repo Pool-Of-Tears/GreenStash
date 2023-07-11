@@ -143,4 +143,8 @@
     <!-- Widget Screen -->
     <string name="widget_config_screen_header">Seleccionar Meta</string>
     <string name="goal_widget_desc">Ahorrado %s</string>
+
+    <!-- Goal Reminders -->
+    <string name="reminder_notification_desc">The more you save, the quicker you’ll reach your goal! 💰</string>
+
 </resources>

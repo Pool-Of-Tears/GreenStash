@@ -26,6 +26,7 @@
 package com.starry.greenstash
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.compose.setContent
@@ -50,6 +51,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.starry.greenstash.database.core.AppDatabase
+import com.starry.greenstash.reminder.ReminderNotificationSender
 import com.starry.greenstash.ui.navigation.NavGraph
 import com.starry.greenstash.ui.screens.settings.viewmodels.SettingsViewModel
 import com.starry.greenstash.ui.screens.settings.viewmodels.ThemeMode
