@@ -35,7 +35,7 @@ import kotlinx.coroutines.flow.Flow
 interface GoalDao {
 
     @Insert
-    suspend fun insertGoal(goal: Goal)
+    suspend fun insertGoal(goal: Goal): Long
 
     @Update
     suspend fun updateGoal(goal: Goal)

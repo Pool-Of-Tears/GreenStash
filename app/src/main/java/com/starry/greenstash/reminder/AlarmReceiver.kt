@@ -11,6 +11,9 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import com.starry.greenstash.database.goal.GoalDao
 import com.starry.greenstash.database.goal.GoalReminder
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @ExperimentalMaterialApi
@@ -25,21 +28,23 @@ class AlarmReceiver : BroadcastReceiver() {
     lateinit var goalDao: GoalDao
 
     override fun onReceive(context: Context, intent: Intent) {
+        val coroutineScope = CoroutineScope(Dispatchers.IO)
         val notificationSender = ReminderNotificationSender(context)
         val reminderManager = ReminderManager(context)
 
-        val goalItem = goalDao.getGoalWithTransactionById(
-            intent.getLongExtra(ReminderManager.INTENT_EXTRA_GOAL_ID, 0L)
-        )
-        val remainingAmount = (goalItem.goal.targetAmount - goalItem.getCurrentlySavedAmount())
+        coroutineScope.launch {
+            val goalItem = goalDao.getGoalWithTransactionById(
+                intent.getLongExtra(ReminderManager.INTENT_EXTRA_GOAL_ID, 0L)
+            )
+            val remainingAmount = (goalItem.goal.targetAmount - goalItem.getCurrentlySavedAmount())
 
-        if (goalItem.goal.reminder != GoalReminder.None && remainingAmount > 0) {
-            notificationSender.sendNotification(goalItem)
-        } else if (goalItem.goal.reminder == GoalReminder.None
-            && reminderManager.isReminderSet(goalItem.goal.goalId)
-        ) {
-            reminderManager.stopReminder(goalItem.goal.goalId)
+            if (goalItem.goal.reminder != GoalReminder.None && remainingAmount > 0) {
+                notificationSender.sendNotification(goalItem)
+            } else if (goalItem.goal.reminder == GoalReminder.None
+                && reminderManager.isReminderSet(goalItem.goal.goalId)
+            ) {
+                reminderManager.stopReminder(goalItem.goal.goalId)
+            }
         }
-
     }
 }

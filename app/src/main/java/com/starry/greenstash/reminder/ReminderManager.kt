@@ -31,7 +31,10 @@ class ReminderManager(private val context: Context) {
         goalId: Long,
         reminderFreq: GoalReminder
     ) {
-        val reminderIntent = createReminderIntent(goalId, PendingIntent.FLAG_UPDATE_CURRENT)
+        val reminderIntent = createReminderIntent(
+            goalId,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
 
         val (hours, min) = REMINDER_TIME.split(":").map { it.toInt() }
         val calendar: Calendar = Calendar.getInstance(Locale.ENGLISH).apply {
@@ -56,7 +59,10 @@ class ReminderManager(private val context: Context) {
     fun stopReminder(
         goalId: Long
     ) {
-        val reminderIntent = createReminderIntent(goalId, PendingIntent.FLAG_UPDATE_CURRENT)
+        val reminderIntent = createReminderIntent(
+            goalId,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
         alarmManager.cancel(reminderIntent)
     }
 
