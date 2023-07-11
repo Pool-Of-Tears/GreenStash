@@ -36,6 +36,7 @@ import androidx.lifecycle.viewModelScope
 import com.starry.greenstash.database.goal.Goal
 import com.starry.greenstash.database.goal.GoalDao
 import com.starry.greenstash.database.goal.GoalPriority
+import com.starry.greenstash.database.goal.GoalReminder
 import com.starry.greenstash.utils.ImageUtils
 import com.starry.greenstash.utils.Utils
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -67,7 +68,10 @@ class InputViewModel @Inject constructor(private val goalDao: GoalDao) : ViewMod
                     uri = state.goalImageUri!!, context = context, maxSize = 1024
                 ) else null,
                 additionalNotes = state.additionalNotes,
-                priority = GoalPriority.values().find { it.name == state.goalPriority }!!
+                priority = GoalPriority.values().find { it.name == state.goalPriority }!!,
+
+                //TODO: Temporary, for testing
+                reminder = GoalReminder.None
             )
             // Add goal into database.
             goalDao.insertGoal(goal)
@@ -101,7 +105,10 @@ class InputViewModel @Inject constructor(private val goalDao: GoalDao) : ViewMod
                     uri = state.goalImageUri!!, context = context, maxSize = 1024
                 ) else goal.goalImage,
                 additionalNotes = state.additionalNotes,
-                priority = GoalPriority.values().find { it.name == state.goalPriority }!!
+                priority = GoalPriority.values().find { it.name == state.goalPriority }!!,
+
+                //TODO: Temporary, for testing
+                reminder = GoalReminder.None
             )
             // copy id of already saved goal to update it.
             editGoal.goalId = goal.goalId
