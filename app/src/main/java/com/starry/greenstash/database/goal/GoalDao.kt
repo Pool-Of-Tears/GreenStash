@@ -69,9 +69,9 @@ interface GoalDao {
     fun getAllGoalsByPriority(sortOrder: Int): Flow<List<GoalWithTransactions>>
 
     @Query("SELECT * FROM saving_goal WHERE goalId = :goalId")
-    fun getGoalById(goalId: Long): Goal
+    fun getGoalById(goalId: Long): Goal?
 
     @Transaction
     @Query("SELECT * FROM saving_goal WHERE goalId = :goalId")
-    fun getGoalWithTransactionById(goalId: Long): GoalWithTransactions
+    fun getGoalWithTransactionById(goalId: Long): GoalWithTransactions?
 }

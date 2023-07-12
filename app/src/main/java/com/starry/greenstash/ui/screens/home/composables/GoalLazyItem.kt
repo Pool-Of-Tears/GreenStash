@@ -26,6 +26,8 @@
 package com.starry.greenstash.ui.screens.home.composables
 
 import android.content.Context
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetState
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -35,6 +37,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.navigation.NavController
@@ -49,6 +52,9 @@ import com.starry.greenstash.utils.validateAmount
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
+@ExperimentalAnimationApi
+@ExperimentalComposeUiApi
+@ExperimentalFoundationApi
 @ExperimentalCoroutinesApi
 @ExperimentalMaterialApi
 @ExperimentalMaterial3Api
@@ -116,7 +122,7 @@ fun GoalLazyColumnItem(
         openDepositDialog = openDepositDialog,
         openWithdrawDialog = openWithdrawDialog,
         onDeleteConfirmed = {
-            viewModel.deleteGoal(item.goal)
+            viewModel.deleteGoal(item.goal, context)
             coroutineScope.launch {
                 snackBarHostState.showSnackbar(context.getString(R.string.goal_delete_success))
             }

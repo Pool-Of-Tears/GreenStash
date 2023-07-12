@@ -28,14 +28,20 @@ package com.starry.greenstash.ui.screens.input.viewmodels
 import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.starry.greenstash.database.goal.Goal
 import com.starry.greenstash.database.goal.GoalDao
 import com.starry.greenstash.database.goal.GoalPriority
+import com.starry.greenstash.reminder.ReminderManager
 import com.starry.greenstash.utils.ImageUtils
 import com.starry.greenstash.utils.Utils
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -54,10 +60,16 @@ data class InputScreenState(
     val reminder: Boolean = false
 )
 
+@ExperimentalMaterialApi
+@ExperimentalFoundationApi
+@ExperimentalComposeUiApi
+@ExperimentalAnimationApi
+@ExperimentalMaterial3Api
 @HiltViewModel
 class InputViewModel @Inject constructor(private val goalDao: GoalDao) : ViewModel() {
 
     var state by mutableStateOf(InputScreenState())
+
     fun addSavingGoal(context: Context) {
         viewModelScope.launch(Dispatchers.IO) {
             val goal = Goal(
@@ -69,23 +81,30 @@ class InputViewModel @Inject constructor(private val goalDao: GoalDao) : ViewMod
                 ) else null,
                 additionalNotes = state.additionalNotes,
                 priority = GoalPriority.values().find { it.name == state.priority }!!,
-                reminder = false
+                reminder = state.reminder
             )
+
             // Add goal into database.
-            goalDao.insertGoal(goal)
+            val goalId = goalDao.insertGoal(goal)
+            // schedule reminder if it's enabled.
+            if (goal.reminder) {
+                val reminderManager = ReminderManager(context)
+                reminderManager.scheduleReminder(goalId, goal.priority)
+            }
         }
     }
 
     fun setEditGoalData(goalId: Long, onEditDataSet: (Bitmap?) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
-            val goal = goalDao.getGoalById(goalId)
+            val goal = goalDao.getGoalById(goalId)!!
             withContext(Dispatchers.Main) {
                 state = state.copy(
                     goalTitleText = goal.title,
                     targetAmount = goal.targetAmount.toString(),
                     deadline = goal.deadline,
                     additionalNotes = goal.additionalNotes,
-                    priority = goal.priority.name
+                    priority = goal.priority.name,
+                    reminder = goal.reminder
                 )
                 onEditDataSet(goal.goalImage)
             }
@@ -94,8 +113,8 @@ class InputViewModel @Inject constructor(private val goalDao: GoalDao) : ViewMod
 
     fun editSavingGoal(goalId: Long, context: Context) {
         viewModelScope.launch(Dispatchers.IO) {
-            val goal = goalDao.getGoalById(goalId)
-            val editGoal = Goal(
+            val goal = goalDao.getGoalById(goalId)!!
+            val newGoal = Goal(
                 title = state.goalTitleText,
                 targetAmount = Utils.roundDecimal(state.targetAmount.toDouble()),
                 deadline = state.deadline,
@@ -104,11 +123,29 @@ class InputViewModel @Inject constructor(private val goalDao: GoalDao) : ViewMod
                 ) else goal.goalImage,
                 additionalNotes = state.additionalNotes,
                 priority = GoalPriority.values().find { it.name == state.priority }!!,
-                reminder = false
+                reminder = state.reminder
             )
             // copy id of already saved goal to update it.
-            editGoal.goalId = goal.goalId
-            goalDao.updateGoal(editGoal)
+            newGoal.goalId = goal.goalId
+            goalDao.updateGoal(newGoal)
+
+            // Handle possible changes made in reminders.
+            val reminderManager = ReminderManager(context)
+            if (newGoal.reminder) {
+                if (goal.priority != newGoal.priority) {
+                    reminderManager.reScheduleReminder(newGoal.goalId, newGoal.priority)
+                } else {
+                    if (!reminderManager.isReminderSet(newGoal.goalId)) {
+                        reminderManager.scheduleReminder(newGoal.goalId, newGoal.priority)
+                    }
+                }
+            } else {
+                if (reminderManager.isReminderSet(newGoal.goalId)) {
+                    reminderManager.stopReminder(newGoal.goalId)
+                }
+            }
+
+
         }
     }
 

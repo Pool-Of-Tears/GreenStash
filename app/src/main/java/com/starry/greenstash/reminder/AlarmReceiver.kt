@@ -8,6 +8,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.ui.ExperimentalComposeUiApi
+import com.starry.greenstash.database.core.GoalWithTransactions
 import com.starry.greenstash.database.goal.GoalDao
 import com.starry.greenstash.database.goal.GoalPriority
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,20 +31,18 @@ class AlarmReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         val coroutineScope = CoroutineScope(Dispatchers.IO)
         val notificationSender = ReminderNotificationSender(context)
-        val reminderManager = ReminderManager(context)
 
         coroutineScope.launch {
-            val goalItem = goalDao.getGoalWithTransactionById(
+            val goalItem: GoalWithTransactions? = goalDao.getGoalWithTransactionById(
                 intent.getLongExtra(ReminderManager.INTENT_EXTRA_GOAL_ID, 0L)
             )
-            val remainingAmount = (goalItem.goal.targetAmount - goalItem.getCurrentlySavedAmount())
+            goalItem?.let {
+                val remainingAmount =
+                    (goalItem.goal.targetAmount - goalItem.getCurrentlySavedAmount())
 
-            if (goalItem.goal.priority != GoalPriority.Low && remainingAmount > 0) {
-                notificationSender.sendNotification(goalItem)
-            } else if (goalItem.goal.priority == GoalPriority.Low
-                && reminderManager.isReminderSet(goalItem.goal.goalId)
-            ) {
-                reminderManager.stopReminder(goalItem.goal.goalId)
+                if (goalItem.goal.priority != GoalPriority.Low && remainingAmount > 0) {
+                    notificationSender.sendNotification(goalItem)
+                }
             }
         }
     }

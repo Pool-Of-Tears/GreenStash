@@ -28,8 +28,8 @@ class ReminderManager(private val context: Context) {
     private val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
     /**
-     * Schedule daily alarm if goal priority is [GoalPriority.High] or sets
-     * weekly alarm if priority is [GoalPriority.Normal] and sets no alarm
+     * Schedule daily reminder if goal priority is [GoalPriority.High] or sets
+     * weekly reminder if priority is [GoalPriority.Normal] and sets no reminder
      * if priority is [GoalPriority.Low].
      */
     fun scheduleReminder(goalId: Long, priority: GoalPriority) {
@@ -59,6 +59,7 @@ class ReminderManager(private val context: Context) {
         }
     }
 
+    /** Stops reminder for the given goal id */
     fun stopReminder(goalId: Long) {
         val reminderIntent = createReminderIntent(
             goalId = goalId,
@@ -67,12 +68,24 @@ class ReminderManager(private val context: Context) {
         alarmManager.cancel(reminderIntent)
     }
 
+    /** Check if reminder is et for the given goalId.*/
     fun isReminderSet(goalId: Long): Boolean {
         val reminderIntent = createReminderIntent(
             goalId = goalId,
             flags = PendingIntent.FLAG_NO_CREATE or PendingIntent.FLAG_IMMUTABLE
         )
         return reminderIntent != null
+    }
+
+    /**
+     * Stops current reminder and sets new one, used when goal
+     * priority has been changed.
+     */
+    fun reScheduleReminder(goalId: Long, priority: GoalPriority) {
+        if (isReminderSet(goalId)) {
+            stopReminder(goalId)
+        }
+        scheduleReminder(goalId, priority)
     }
 
     private fun createReminderIntent(goalId: Long, flags: Int) =
