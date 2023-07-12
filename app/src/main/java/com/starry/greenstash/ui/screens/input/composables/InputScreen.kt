@@ -28,6 +28,7 @@ package com.starry.greenstash.ui.screens.input.composables
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -48,6 +49,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.AlertDialog
@@ -123,6 +125,8 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.time.format.DateTimeFormatter
 
+@ExperimentalAnimationApi
+@ExperimentalMaterialApi
 @ExperimentalFoundationApi
 @ExperimentalComposeUiApi
 @ExperimentalMaterial3Api
@@ -524,6 +528,11 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
 }
 
 
+@ExperimentalMaterial3Api
+@ExperimentalAnimationApi
+@ExperimentalComposeUiApi
+@ExperimentalFoundationApi
+@ExperimentalMaterialApi
 @Composable
 fun GoalPriorityMenu(viewModel: InputViewModel) {
     Card(
@@ -565,6 +574,11 @@ fun GoalPriorityMenu(viewModel: InputViewModel) {
     }
 }
 
+@ExperimentalMaterial3Api
+@ExperimentalAnimationApi
+@ExperimentalComposeUiApi
+@ExperimentalFoundationApi
+@ExperimentalMaterialApi
 @Composable
 fun GoalReminderMenu(viewModel: InputViewModel) {
     Card(
@@ -592,6 +606,8 @@ fun GoalReminderMenu(viewModel: InputViewModel) {
     }
 }
 
+@ExperimentalMaterialApi
+@ExperimentalAnimationApi
 @ExperimentalFoundationApi
 @ExperimentalComposeUiApi
 @ExperimentalMaterial3Api
