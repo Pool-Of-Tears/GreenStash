@@ -33,6 +33,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -51,6 +52,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
@@ -58,12 +60,12 @@ import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.surfaceColorAtElevation
@@ -343,45 +345,19 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
 
-                    OutlinedCard(
-                        modifier = Modifier.fillMaxWidth(0.8f),
-                        colors = CardDefaults.cardColors(
-                            containerColor = MaterialTheme.colorScheme.primaryContainer
-                        ), shape = RoundedCornerShape(14.dp)
-                    ) {
-                        Box(
-                            modifier = Modifier.fillMaxWidth(),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Column {
-                                Text(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(top = 6.dp),
-                                    text = stringResource(id = R.string.input_goal_priority),
-                                    textAlign = TextAlign.Center,
-                                    color = MaterialTheme.colorScheme.onPrimaryContainer
-                                )
-                                SelectableChipGroup(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(14.dp),
-                                    choices = listOf(
-                                        GoalPriority.High.name,
-                                        GoalPriority.Normal.name,
-                                        GoalPriority.Low.name
-                                    ),
-                                    selected = viewModel.state.goalPriority,
-                                    onSelected = { newValue ->
-                                        viewModel.state =
-                                            viewModel.state.copy(goalPriority = newValue)
-                                    }
-                                )
-                            }
-                        }
-                    }
-
+                    GoalPriorityMenu(viewModel = viewModel)
                     Spacer(modifier = Modifier.height(18.dp))
+                    GoalReminderMenu(viewModel = viewModel)
+                    Spacer(modifier = Modifier.height(18.dp))
+
+                    LaunchedEffect(
+                        key1 = viewModel.state.priority,
+                        key2 = viewModel.state.reminder,
+                        block = {
+                            if (viewModel.state.priority == GoalPriority.Low.name) {
+                                viewModel.state = viewModel.state.copy(reminder = false)
+                            }
+                        })
 
                     OutlinedTextField(
                         value = viewModel.state.goalTitleText,
@@ -398,16 +374,16 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                                 contentDescription = null
                             )
                         },
-                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                        colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = MaterialTheme.colorScheme.primary,
-                            unfocusedBorderColor = MaterialTheme.colorScheme.onBackground
+                            unfocusedBorderColor = MaterialTheme.colorScheme.onBackground,
                         ),
                         shape = RoundedCornerShape(14.dp),
                         singleLine = true,
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
                     )
 
-                    Spacer(modifier = Modifier.height(18.dp))
+                    Spacer(modifier = Modifier.height(16.dp))
 
                     OutlinedTextField(
                         value = viewModel.state.targetAmount,
@@ -425,16 +401,16 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                                 contentDescription = null
                             )
                         },
-                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                        colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = MaterialTheme.colorScheme.primary,
-                            unfocusedBorderColor = MaterialTheme.colorScheme.onBackground
+                            unfocusedBorderColor = MaterialTheme.colorScheme.onBackground,
                         ),
                         shape = RoundedCornerShape(14.dp),
                         singleLine = true,
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     )
 
-                    Spacer(modifier = Modifier.height(18.dp))
+                    Spacer(modifier = Modifier.height(16.dp))
 
                     val interactionSource = remember { MutableInteractionSource() }
 
@@ -467,21 +443,21 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                                 contentDescription = null
                             )
                         },
-                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                        colors = OutlinedTextFieldDefaults.colors(
                             disabledTextColor = MaterialTheme.colorScheme.onSurface,
                             disabledBorderColor = MaterialTheme.colorScheme.onBackground,
-                            disabledPlaceholderColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                            disabledLeadingIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                            disabledTrailingIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
                             disabledLabelColor = MaterialTheme.colorScheme.onSurfaceVariant,
                             //For Icons
-                            disabledLeadingIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                            disabledTrailingIconColor = MaterialTheme.colorScheme.onSurfaceVariant
+                            disabledPlaceholderColor = MaterialTheme.colorScheme.onSurfaceVariant,
                         ),
                         shape = RoundedCornerShape(14.dp),
                         enabled = false,
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
                     )
 
-                    Spacer(modifier = Modifier.height(18.dp))
+                    Spacer(modifier = Modifier.height(16.dp))
 
                     OutlinedTextField(
                         value = viewModel.state.additionalNotes,
@@ -498,15 +474,15 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                                 contentDescription = null
                             )
                         },
-                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                        colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = MaterialTheme.colorScheme.primary,
-                            unfocusedBorderColor = MaterialTheme.colorScheme.onBackground
+                            unfocusedBorderColor = MaterialTheme.colorScheme.onBackground,
                         ),
                         shape = RoundedCornerShape(14.dp),
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
                     )
 
-                    Spacer(modifier = Modifier.height(24.dp))
+                    Spacer(modifier = Modifier.height(22.dp))
 
                     Button(
                         onClick = {
@@ -548,11 +524,79 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
 }
 
 
+@Composable
+fun GoalPriorityMenu(viewModel: InputViewModel) {
+    Card(
+        modifier = Modifier.fillMaxWidth(0.8f),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer
+        ), shape = RoundedCornerShape(14.dp)
+    ) {
+        Box(
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.Center
+        ) {
+            Column {
+                Text(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 6.dp),
+                    text = stringResource(id = R.string.input_goal_priority),
+                    textAlign = TextAlign.Center,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer
+                )
+                SelectableChipGroup(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(14.dp),
+                    choices = listOf(
+                        GoalPriority.High.name,
+                        GoalPriority.Normal.name,
+                        GoalPriority.Low.name
+                    ),
+                    selected = viewModel.state.priority,
+                    onSelected = { newValue ->
+                        viewModel.state =
+                            viewModel.state.copy(priority = newValue)
+                    }
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun GoalReminderMenu(viewModel: InputViewModel) {
+    Card(
+        modifier = Modifier.fillMaxWidth(0.8f),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer
+        ), shape = RoundedCornerShape(14.dp)
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(4.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Text(text = "Saving Reminders", fontSize = 18.sp)
+            Spacer(modifier = Modifier.width(14.dp))
+            Switch(
+                checked = viewModel.state.reminder,
+                onCheckedChange = { newValue ->
+                    viewModel.state = viewModel.state.copy(reminder = newValue)
+                }
+            )
+        }
+    }
+}
+
 @ExperimentalFoundationApi
 @ExperimentalComposeUiApi
 @ExperimentalMaterial3Api
 @Preview
 @Composable
 fun InputScreenPV() {
-    InputScreen(editGoalId = null, rememberNavController())
+    InputScreen(editGoalId = "", navController = rememberNavController())
 }

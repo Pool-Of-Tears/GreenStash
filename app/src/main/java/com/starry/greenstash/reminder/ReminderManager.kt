@@ -9,7 +9,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.ui.ExperimentalComposeUiApi
-import com.starry.greenstash.database.goal.GoalReminder
+import com.starry.greenstash.database.goal.GoalPriority
 import java.util.Calendar
 import java.util.Locale
 
@@ -27,41 +27,42 @@ class ReminderManager(private val context: Context) {
 
     private val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-    fun scheduleReminder(
-        goalId: Long,
-        reminderFreq: GoalReminder
-    ) {
-        val reminderIntent = createReminderIntent(
-            goalId,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-        )
-
+    /**
+     * Schedule daily alarm if goal priority is [GoalPriority.High] or sets
+     * weekly alarm if priority is [GoalPriority.Normal] and sets no alarm
+     * if priority is [GoalPriority.Low].
+     */
+    fun scheduleReminder(goalId: Long, priority: GoalPriority) {
         val (hours, min) = REMINDER_TIME.split(":").map { it.toInt() }
         val calendar: Calendar = Calendar.getInstance(Locale.ENGLISH).apply {
             set(Calendar.HOUR_OF_DAY, hours)
             set(Calendar.MINUTE, min)
         }
 
-        val alarmInterval = if (reminderFreq == GoalReminder.Weekly) {
-            AlarmManager.INTERVAL_DAY * 7
-        } else {
+        val alarmInterval = if (priority == GoalPriority.High) {
             AlarmManager.INTERVAL_DAY
+        } else {
+            AlarmManager.INTERVAL_DAY * 7
         }
 
-        alarmManager.setRepeating(
-            AlarmManager.RTC_WAKEUP,
-            calendar.timeInMillis,
-            alarmInterval,
-            reminderIntent
-        )
+        if (priority != GoalPriority.Low) {
+            val reminderIntent = createReminderIntent(
+                goalId = goalId,
+                flags = PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            )
+            alarmManager.setRepeating(
+                AlarmManager.RTC_WAKEUP,
+                calendar.timeInMillis,
+                alarmInterval,
+                reminderIntent
+            )
+        }
     }
 
-    fun stopReminder(
-        goalId: Long
-    ) {
+    fun stopReminder(goalId: Long) {
         val reminderIntent = createReminderIntent(
-            goalId,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            goalId = goalId,
+            flags = PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
         alarmManager.cancel(reminderIntent)
     }
@@ -69,7 +70,7 @@ class ReminderManager(private val context: Context) {
     fun isReminderSet(goalId: Long): Boolean {
         val reminderIntent = createReminderIntent(
             goalId = goalId,
-            PendingIntent.FLAG_NO_CREATE or PendingIntent.FLAG_IMMUTABLE
+            flags = PendingIntent.FLAG_NO_CREATE or PendingIntent.FLAG_IMMUTABLE
         )
         return reminderIntent != null
     }

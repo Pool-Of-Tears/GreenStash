@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 4,
-    "identityHash": "ad3d15d7ce7182f3688b8078007fcf12",
+    "identityHash": "ac2c383b33ed010c205680d87c925914",
     "entities": [
       {
         "tableName": "saving_goal",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`title` TEXT NOT NULL, `targetAmount` REAL NOT NULL, `deadline` TEXT NOT NULL, `goalImage` BLOB, `additionalNotes` TEXT NOT NULL, `priority` INTEGER NOT NULL DEFAULT 2, `reminder` INTEGER NOT NULL DEFAULT 0, `goalId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`title` TEXT NOT NULL, `targetAmount` REAL NOT NULL, `deadline` TEXT NOT NULL, `goalImage` BLOB, `additionalNotes` TEXT NOT NULL, `priority` INTEGER NOT NULL DEFAULT 2, `reminder` INTEGER NOT NULL DEFAULT false, `goalId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)",
         "fields": [
           {
             "fieldPath": "title",
@@ -50,7 +50,7 @@
             "columnName": "reminder",
             "affinity": "INTEGER",
             "notNull": true,
-            "defaultValue": "0"
+            "defaultValue": "false"
           },
           {
             "fieldPath": "goalId",
@@ -170,7 +170,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ad3d15d7ce7182f3688b8078007fcf12')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ac2c383b33ed010c205680d87c925914')"
     ]
   }
 }

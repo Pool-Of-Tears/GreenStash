@@ -31,7 +31,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 enum class GoalPriority(val value: Int) { High(3), Normal(2), Low(1) }
-enum class GoalReminder(val value: Int) { None(0), Daily(1), Weekly(2) }
 
 @Entity(tableName = "saving_goal")
 data class Goal(
@@ -45,8 +44,8 @@ data class Goal(
     @ColumnInfo(defaultValue = "2")
     val priority: GoalPriority,
     // Added in database schema v4
-    @ColumnInfo(defaultValue = "0")
-    val reminder: GoalReminder
+    @ColumnInfo(defaultValue = "false")
+    val reminder: Boolean
 ) {
     @PrimaryKey(autoGenerate = true)
     var goalId: Long = 0L

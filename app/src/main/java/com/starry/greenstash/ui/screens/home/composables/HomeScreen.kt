@@ -133,19 +133,17 @@ fun HomeScreen(navController: NavController) {
     val modalBottomSheetState = rememberModalBottomSheetState(
         initialValue = ModalBottomSheetValue.Hidden
     )
-    val currentBottomSheet = remember { mutableStateOf<BottomSheetType?>(null) }
+    val currentBottomSheet = remember { mutableStateOf(BottomSheetType.FILTER_MENU) }
 
     ModalBottomSheetLayout(sheetState = modalBottomSheetState,
         sheetShape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
         sheetElevation = 24.dp,
         sheetBackgroundColor = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp),
         sheetContent = {
-            currentBottomSheet.value?.let {
-                SheetLayout(
-                    bottomSheetType = it,
-                    viewModel = viewModel
-                )
-            }
+            SheetLayout(
+                bottomSheetType = currentBottomSheet.value,
+                viewModel = viewModel
+            )
         },
         content = {
             HomeScreenContent(
@@ -169,7 +167,7 @@ fun HomeScreenContent(
     viewModel: HomeViewModel,
     navController: NavController,
     bottomSheetState: ModalBottomSheetState,
-    bottomSheetType: MutableState<BottomSheetType?>
+    bottomSheetType: MutableState<BottomSheetType>
 ) {
     val allGoals = viewModel.goalsList.observeAsState(emptyList()).value
     val drawerState = rememberDrawerState(DrawerValue.Closed)

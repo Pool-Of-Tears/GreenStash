@@ -29,7 +29,6 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.room.TypeConverter
 import com.starry.greenstash.database.goal.GoalPriority
-import com.starry.greenstash.database.goal.GoalReminder
 import com.starry.greenstash.database.transaction.TransactionType
 import java.io.ByteArrayOutputStream
 
@@ -71,15 +70,5 @@ class Converters {
         GoalPriority.High.value -> GoalPriority.High
         GoalPriority.Low.value -> GoalPriority.Low
         else -> GoalPriority.Normal
-    }
-
-    @TypeConverter
-    fun fromGoalReminder(value: GoalReminder) = value.value
-
-    @TypeConverter
-    fun toGoalReminder(value: Int) = when (value) {
-        GoalReminder.Daily.value -> GoalReminder.Daily
-        GoalReminder.Weekly.value -> GoalReminder.Weekly
-        else -> GoalReminder.None
     }
 }

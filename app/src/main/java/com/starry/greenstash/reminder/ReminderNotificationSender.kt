@@ -17,7 +17,7 @@ import androidx.core.content.ContextCompat
 import com.starry.greenstash.MainActivity
 import com.starry.greenstash.R
 import com.starry.greenstash.database.core.GoalWithTransactions
-import com.starry.greenstash.database.goal.GoalReminder
+import com.starry.greenstash.database.goal.GoalPriority
 import com.starry.greenstash.utils.GoalTextUtils
 import com.starry.greenstash.utils.PreferenceUtils
 import com.starry.greenstash.utils.Utils
@@ -48,16 +48,19 @@ class ReminderNotificationSender(private val context: Context) {
             PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
         }
         val depositPendingIntent =
-            Intent(context, ReminderDepositReceiver::class.java).let { intent ->
+            Intent(context, ReminderActionReceiver::class.java).apply {
+                putExtra(ReminderManager.INTENT_EXTRA_GOAL_ID, goal.goalId)
+            }.let { intent ->
                 PendingIntent.getBroadcast(
-                    context, ReminderDepositReceiver.REMINDER_DEPOSIT_INTENT_ID,
+                    context, ReminderActionReceiver.REMINDER_DEPOSIT_INTENT_ID,
                     intent, PendingIntent.FLAG_IMMUTABLE
                 )
             }
 
+        val titlePrefix = if (goal.priority == GoalPriority.High) "Daily" else "Weekly"
         val notification = NotificationCompat.Builder(context, REMINDER_CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_reminder_notification)
-            .setContentTitle("${goal.reminder.name} reminder for ${goal.title}")
+            .setContentTitle("$titlePrefix reminder for ${goal.title}")
             .setContentText(context.getString(R.string.reminder_notification_desc))
             .setStyle(NotificationCompat.BigTextStyle())
             .setContentIntent(activityPendingIntent)
@@ -67,7 +70,7 @@ class ReminderNotificationSender(private val context: Context) {
 
         if (goal.deadline.isNotEmpty() && goal.deadline.isNotBlank()) {
             val calculatedDays = GoalTextUtils.calcRemainingDays(goal)
-            if (goal.reminder == GoalReminder.Daily) {
+            if (goal.priority == GoalPriority.High) {
                 val amountDay = remainingAmount / calculatedDays.remainingDays
                 notification.addAction(
                     R.drawable.ic_notification_deposit,
@@ -87,6 +90,7 @@ class ReminderNotificationSender(private val context: Context) {
                 )
             }
         }
+        //TODO: Add dismiss notification action.
         notificationManager.notify(1, notification.build())
     }
 

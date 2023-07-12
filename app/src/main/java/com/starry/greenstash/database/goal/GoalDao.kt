@@ -43,11 +43,7 @@ interface GoalDao {
     @Query("DELETE FROM saving_goal WHERE goalId = :goalId")
     suspend fun deleteGoal(goalId: Long)
 
-    /*
-     explicitly stating because we also have our own
-     entity class with the same name.
-    */
-    @androidx.room.Transaction
+    @Transaction
     @Query("SELECT * FROM saving_goal")
     fun getAllGoals(): LiveData<List<GoalWithTransactions>>
 
@@ -75,7 +71,7 @@ interface GoalDao {
     @Query("SELECT * FROM saving_goal WHERE goalId = :goalId")
     fun getGoalById(goalId: Long): Goal
 
-    @androidx.room.Transaction
+    @Transaction
     @Query("SELECT * FROM saving_goal WHERE goalId = :goalId")
     fun getGoalWithTransactionById(goalId: Long): GoalWithTransactions
 }

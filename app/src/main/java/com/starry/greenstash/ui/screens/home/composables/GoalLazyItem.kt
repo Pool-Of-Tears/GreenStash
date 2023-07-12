@@ -59,7 +59,7 @@ fun GoalLazyColumnItem(
     item: GoalWithTransactions,
     snackBarHostState: SnackbarHostState,
     bottomSheetState: ModalBottomSheetState,
-    bottomSheetType: MutableState<BottomSheetType?>,
+    bottomSheetType: MutableState<BottomSheetType>,
     navController: NavController
 ) {
     val coroutineScope = rememberCoroutineScope()

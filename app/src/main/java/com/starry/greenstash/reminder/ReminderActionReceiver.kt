@@ -4,13 +4,13 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 
-class ReminderDepositReceiver : BroadcastReceiver() {
+class ReminderActionReceiver : BroadcastReceiver() {
 
     companion object {
         const val REMINDER_DEPOSIT_INTENT_ID = 1230984
     }
 
-    override fun onReceive(context: Context?, intent: Intent?) {
+    override fun onReceive(context: Context, intent: Intent) {
         // Todo
     }
 }
