@@ -35,7 +35,7 @@ class DateTimeChangeReceiver : BroadcastReceiver() {
             coroutineScope.launch {
                 val allGoals = goalDao.getAllGoals()
                 val reminderManager = ReminderManager(context)
-                reminderManager.scheduleReminderForAllGoals(allGoals)
+                reminderManager.checkAndScheduleReminders(allGoals)
             }
         }
     }

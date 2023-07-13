@@ -34,18 +34,18 @@ class AlarmReceiver : BroadcastReceiver() {
 
         val coroutineScope = CoroutineScope(Dispatchers.IO)
         val notificationSender = ReminderNotificationSender(context)
+        val reminderManager = ReminderManager(context)
 
         coroutineScope.launch {
             val goalItem: GoalWithTransactions? = goalDao.getGoalWithTransactionById(
                 intent.getLongExtra(ReminderManager.INTENT_EXTRA_GOAL_ID, 0L)
             )
             goalItem?.let {
-                val remainingAmount =
-                    (goalItem.goal.targetAmount - goalItem.getCurrentlySavedAmount())
-
+                val remainingAmount = (it.goal.targetAmount - it.getCurrentlySavedAmount())
                 if (remainingAmount > 0) {
                     notificationSender.sendNotification(goalItem)
                 }
+                reminderManager.scheduleReminder(it.goal.goalId, it.goal.priority)
             }
         }
     }

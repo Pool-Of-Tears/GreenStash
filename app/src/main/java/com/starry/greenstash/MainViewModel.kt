@@ -25,23 +25,38 @@
 
 package com.starry.greenstash
 
+import android.content.Context
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.starry.greenstash.database.goal.GoalDao
 import com.starry.greenstash.other.WelcomeDataStore
+import com.starry.greenstash.reminder.ReminderManager
 import com.starry.greenstash.ui.navigation.DrawerScreens
 import com.starry.greenstash.ui.navigation.Screens
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@ExperimentalMaterialApi
+@ExperimentalFoundationApi
+@ExperimentalComposeUiApi
+@ExperimentalAnimationApi
+@ExperimentalMaterial3Api
 @HiltViewModel
-class MainViewModel @Inject constructor(private val welcomeDataStore: WelcomeDataStore) :
-    ViewModel() {
-
+class MainViewModel @Inject constructor(
+    private val welcomeDataStore: WelcomeDataStore,
+    private val goalDao: GoalDao
+) : ViewModel() {
     /**
      * Storing app lock status to avoid asking for authentication
      * when activity restarts like when changing app or device
@@ -68,6 +83,13 @@ class MainViewModel @Inject constructor(private val welcomeDataStore: WelcomeDat
                 delay(100)
                 _isLoading.value = false
             }
+        }
+    }
+
+    fun refreshReminders(context: Context) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val reminderManager = ReminderManager(context)
+            reminderManager.checkAndScheduleReminders(goalDao.getAllGoals())
         }
     }
 }

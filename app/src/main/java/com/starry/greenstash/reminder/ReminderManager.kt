@@ -32,21 +32,29 @@ class ReminderManager(private val context: Context) {
     private val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
     /**
-     * Schedule daily reminder if goal priority is [GoalPriority.High] or sets
-     * weekly reminder if priority is [GoalPriority.Normal] and sets no reminder
-     * if priority is [GoalPriority.Low].
+     * Schedules reminder for next day if  priority is [GoalPriority.High] or
+     * sets reminder for next week if priority is [GoalPriority.Normal] and
+     * sets no reminder if priority is [GoalPriority.Low].
      */
     fun scheduleReminder(goalId: Long, priority: GoalPriority) {
         val (hours, min) = REMINDER_TIME.split(":").map { it.toInt() }
-        val calendar: Calendar = Calendar.getInstance(Locale.ENGLISH).apply {
+
+        val calendarNow = Calendar.getInstance(Locale.ENGLISH)
+        val calendarSet = Calendar.getInstance(Locale.ENGLISH).apply {
             set(Calendar.HOUR_OF_DAY, hours)
             set(Calendar.MINUTE, min)
+            set(Calendar.SECOND, 0)
+            set(Calendar.MILLISECOND, 0)
         }
 
-        val alarmInterval = if (priority == GoalPriority.High) {
-            AlarmManager.INTERVAL_DAY
+        if (priority == GoalPriority.High) {
+            // if the time we are setting this alarm for has been
+            // passed already, we'll set alarm for the next day instead.
+            if (calendarSet <= calendarNow) {
+                calendarSet.add(Calendar.DATE, 1)
+            }
         } else {
-            AlarmManager.INTERVAL_DAY * 7
+            calendarSet.add(Calendar.DATE, 7)
         }
 
         if (priority != GoalPriority.Low) {
@@ -54,16 +62,11 @@ class ReminderManager(private val context: Context) {
                 goalId = goalId,
                 flags = PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
             )
-            alarmManager.setRepeating(
-                AlarmManager.RTC_WAKEUP,
-                calendar.timeInMillis,
-                alarmInterval,
-                reminderIntent
-            )
-
-            Log.d(TAG, "Repeating alarm scheduled for ${calendar.time}")
+            alarmManager.set(AlarmManager.RTC_WAKEUP, calendarSet.timeInMillis, reminderIntent)
+            Log.d(TAG, "Scheduled reminder for goalId=$goalId at ${calendarSet.time}")
         }
     }
+
 
     /** Stops reminder for the given goal id */
     fun stopReminder(goalId: Long) {
@@ -99,9 +102,10 @@ class ReminderManager(private val context: Context) {
 
     /**
      * Schedules reminder for goals which have reminder enabled
-     * by calling the [scheduleReminder] function internally.
+     * but reminder for themis not scheduled already, by calling
+     * the [scheduleReminder] function internally.
      */
-    fun scheduleReminderForAllGoals(allGoals: List<GoalWithTransactions>) {
+    fun checkAndScheduleReminders(allGoals: List<GoalWithTransactions>) {
         Log.d(TAG, "Scheduling reminders for goals with reminder.")
         allGoals.forEach { goalItem ->
             val goal = goalItem.goal
