@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:name=".GreenStashApp"
@@ -27,6 +27,15 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".widget.configuration.WidgetConfigActivity"
+            android:exported="false"
+            android:theme="@style/Theme.GreenStash">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+
         <receiver
             android:name=".widget.GoalWidget"
             android:exported="true">
@@ -38,28 +47,29 @@
                 android:resource="@xml/goal_widget_info" />
         </receiver>
 
-        <activity
-            android:name=".widget.configuration.WidgetConfigActivity"
-            android:exported="false"
-            android:theme="@style/Theme.GreenStash">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
-            </intent-filter>
-        </activity>
-
-        <receiver android:name=".reminder.AlarmReceiver"
+        <receiver
+            android:name=".reminder.AlarmReceiver"
             android:enabled="true"
-            android:exported="false"/>
+            android:exported="false" />
 
         <receiver
             android:name=".reminder.BootReceiver"
             android:enabled="true"
             android:exported="false">
-
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
+        </receiver>
 
+        <receiver
+            android:name=".reminder.DateTimeChangeReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.DATE_CHANGED" />
+            </intent-filter>
         </receiver>
 
     </application>

@@ -44,7 +44,7 @@ class WidgetConfigViewModel @Inject constructor(
     private val goalDao: GoalDao,
     private val widgetDao: WidgetDao
 ) : ViewModel() {
-    val allGoals: LiveData<List<GoalWithTransactions>> = goalDao.getAllGoals()
+    val allGoals: LiveData<List<GoalWithTransactions>> = goalDao.getAllGoalsAsLiveData()
 
     /**
      * Maps widget id with the selected saving goal id

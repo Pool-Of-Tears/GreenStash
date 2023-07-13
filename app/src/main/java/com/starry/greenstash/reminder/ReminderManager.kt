@@ -10,9 +10,11 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.ui.ExperimentalComposeUiApi
+import com.starry.greenstash.database.core.GoalWithTransactions
 import com.starry.greenstash.database.goal.GoalPriority
 import java.util.Calendar
 import java.util.Locale
+
 
 @ExperimentalMaterial3Api
 @ExperimentalAnimationApi
@@ -93,6 +95,21 @@ class ReminderManager(private val context: Context) {
         }
         Log.d(TAG, "Rescheduling reminder for goalId=$goalId")
         scheduleReminder(goalId, priority)
+    }
+
+    /**
+     * Schedules reminder for goals which have reminder enabled
+     * by calling the [scheduleReminder] function internally.
+     */
+    fun scheduleReminderForAllGoals(allGoals: List<GoalWithTransactions>) {
+        Log.d(TAG, "Scheduling reminders for goals with reminder.")
+        allGoals.forEach { goalItem ->
+            val goal = goalItem.goal
+            if (goal.reminder && !isReminderSet(goal.goalId)) {
+                scheduleReminder(goal.goalId, goal.priority)
+            }
+        }
+        Log.d(TAG, "Scheduled reminders for goals with reminder.")
     }
 
     private fun createReminderIntent(goalId: Long, flags: Int) =

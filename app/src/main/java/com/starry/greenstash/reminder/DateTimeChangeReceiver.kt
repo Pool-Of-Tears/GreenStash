@@ -21,13 +21,16 @@ import javax.inject.Inject
 @ExperimentalFoundationApi
 @ExperimentalMaterialApi
 @AndroidEntryPoint
-class BootReceiver : BroadcastReceiver() {
+class DateTimeChangeReceiver : BroadcastReceiver() {
 
     @Inject
     lateinit var goalDao: GoalDao
 
     override fun onReceive(context: Context, intent: Intent?) {
-        if (intent?.action == Intent.ACTION_BOOT_COMPLETED) {
+        if (intent?.action == Intent.ACTION_TIME_CHANGED
+            || intent?.action == Intent.ACTION_TIMEZONE_CHANGED
+            || intent?.action == Intent.ACTION_DATE_CHANGED
+        ) {
             val coroutineScope = CoroutineScope(Dispatchers.IO)
             coroutineScope.launch {
                 val allGoals = goalDao.getAllGoals()
