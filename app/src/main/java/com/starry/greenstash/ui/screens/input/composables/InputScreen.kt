@@ -25,6 +25,13 @@
 
 package com.starry.greenstash.ui.screens.input.composables
 
+import android.Manifest
+import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Build
+import android.provider.Settings
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -65,6 +72,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -96,6 +106,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
@@ -111,6 +124,8 @@ import com.maxkeppeler.sheets.calendar.CalendarDialog
 import com.maxkeppeler.sheets.calendar.models.CalendarConfig
 import com.maxkeppeler.sheets.calendar.models.CalendarSelection
 import com.maxkeppeler.sheets.calendar.models.CalendarTimeline
+import com.starry.greenstash.BuildConfig
+import com.starry.greenstash.MainActivity
 import com.starry.greenstash.R
 import com.starry.greenstash.database.goal.GoalPriority
 import com.starry.greenstash.ui.common.SelectableChipGroup
@@ -119,11 +134,14 @@ import com.starry.greenstash.ui.screens.input.viewmodels.InputViewModel
 import com.starry.greenstash.ui.screens.settings.viewmodels.DateStyle
 import com.starry.greenstash.utils.PreferenceUtils
 import com.starry.greenstash.utils.Utils
+import com.starry.greenstash.utils.getActivity
 import com.starry.greenstash.utils.toToast
 import com.starry.greenstash.utils.validateAmount
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.time.format.DateTimeFormatter
+
 
 @ExperimentalAnimationApi
 @ExperimentalMaterialApi
@@ -136,6 +154,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
     val haptic = LocalHapticFeedback.current
     val viewModel: InputViewModel = hiltViewModel()
     val coroutineScope = rememberCoroutineScope()
+    val snackBarHostState = remember { SnackbarHostState() }
 
     var imageData: Any? by remember { mutableStateOf(R.drawable.default_goal_image) }
     val calenderState = rememberSheetState()
@@ -210,24 +229,26 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
         })
     }
 
-    Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
-        TopAppBar(modifier = Modifier.fillMaxWidth(), title = {
-            Text(
-                text = topBarText,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-            )
-        }, navigationIcon = {
-            IconButton(onClick = { navController.navigateUp() }) {
-                Icon(
-                    imageVector = Icons.Filled.ArrowBack, contentDescription = null
+    Scaffold(modifier = Modifier.fillMaxSize(),
+        snackbarHost = { SnackbarHost(snackBarHostState) },
+        topBar = {
+            TopAppBar(modifier = Modifier.fillMaxWidth(), title = {
+                Text(
+                    text = topBarText,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
                 )
-            }
-        }, colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-            containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(4.dp)
-        )
-        )
-    }) {
+            }, navigationIcon = {
+                IconButton(onClick = { navController.navigateUp() }) {
+                    Icon(
+                        imageVector = Icons.Filled.ArrowBack, contentDescription = null
+                    )
+                }
+            }, colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(4.dp)
+            )
+            )
+        }) {
         if (showGoalAddedDialog.value) {
             Column(
                 modifier = Modifier.fillMaxSize(),
@@ -351,7 +372,12 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
 
                     GoalPriorityMenu(viewModel = viewModel)
                     Spacer(modifier = Modifier.height(18.dp))
-                    GoalReminderMenu(viewModel = viewModel)
+                    GoalReminderMenu(
+                        viewModel = viewModel,
+                        context = context,
+                        snackbarHostState = snackBarHostState,
+                        coroutineScope = coroutineScope
+                    )
                     Spacer(modifier = Modifier.height(18.dp))
 
                     LaunchedEffect(
@@ -580,7 +606,53 @@ fun GoalPriorityMenu(viewModel: InputViewModel) {
 @ExperimentalFoundationApi
 @ExperimentalMaterialApi
 @Composable
-fun GoalReminderMenu(viewModel: InputViewModel) {
+fun GoalReminderMenu(
+    context: Context,
+    viewModel: InputViewModel,
+    snackbarHostState: SnackbarHostState,
+    coroutineScope: CoroutineScope
+) {
+    var hasNotificationPermission by remember {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            mutableStateOf(
+                ContextCompat.checkSelfPermission(
+                    context,
+                    Manifest.permission.POST_NOTIFICATIONS
+                ) == PackageManager.PERMISSION_GRANTED
+            )
+        } else mutableStateOf(true)
+    }
+
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission(),
+        onResult = { isGranted ->
+            hasNotificationPermission = isGranted
+            if (!isGranted) {
+                viewModel.state = viewModel.state.copy(reminder = false)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
+                    && ActivityCompat.shouldShowRequestPermissionRationale(
+                        context.getActivity() as MainActivity,
+                        Manifest.permission.POST_NOTIFICATIONS
+                    )
+                ) {
+                    coroutineScope.launch {
+                        val snackBarResult =
+                            snackbarHostState.showSnackbar(
+                                message = context.getString(R.string.notification_permission_error),
+                                actionLabel = "Open Settings"
+                            )
+                        if (snackBarResult == SnackbarResult.ActionPerformed) {
+                            val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                            val uri = Uri.fromParts("package", BuildConfig.APPLICATION_ID, null)
+                            intent.data = uri
+                            startActivity(context, intent, null)
+                        }
+                    }
+                }
+            }
+        }
+    )
+
     Card(
         modifier = Modifier.fillMaxWidth(0.8f),
         colors = CardDefaults.cardColors(
@@ -600,6 +672,13 @@ fun GoalReminderMenu(viewModel: InputViewModel) {
                 checked = viewModel.state.reminder,
                 onCheckedChange = { newValue ->
                     viewModel.state = viewModel.state.copy(reminder = newValue)
+                    // Ask for notification permission if android ver > 13.
+                    if (newValue &&
+                        !hasNotificationPermission &&
+                        Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
+                    ) {
+                        launcher.launch(Manifest.permission.POST_NOTIFICATIONS)
+                    }
                 }
             )
         }

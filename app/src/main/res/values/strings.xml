@@ -147,6 +147,7 @@
     <string name="goal_widget_desc">Saved %s</string>
 
     <!-- Goal Reminders -->
+    <string name="notification_permission_error">Please allow notification permission! 😾</string>
     <string name="reminder_notification_desc">The more you save, the quicker you’ll reach your goal! 💰</string>
 
 </resources>

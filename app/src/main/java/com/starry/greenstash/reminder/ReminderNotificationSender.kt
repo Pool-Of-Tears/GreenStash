@@ -47,15 +47,6 @@ class ReminderNotificationSender(private val context: Context) {
         val activityPendingIntent = Intent(context, MainActivity::class.java).let { intent ->
             PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
         }
-        val depositPendingIntent =
-            Intent(context, ReminderActionReceiver::class.java).apply {
-                putExtra(ReminderManager.INTENT_EXTRA_GOAL_ID, goal.goalId)
-            }.let { intent ->
-                PendingIntent.getBroadcast(
-                    context, ReminderActionReceiver.REMINDER_DEPOSIT_INTENT_ID,
-                    intent, PendingIntent.FLAG_IMMUTABLE
-                )
-            }
 
         val titlePrefix = if (goal.priority == GoalPriority.High) "Daily" else "Weekly"
         val notification = NotificationCompat.Builder(context, REMINDER_CHANNEL_ID)
@@ -77,7 +68,7 @@ class ReminderNotificationSender(private val context: Context) {
                     "${context.getString(R.string.deposit_button).uppercase()} $defCurrency${
                         Utils.formatCurrency(Utils.roundDecimal(amountDay))
                     }",
-                    depositPendingIntent
+                    createDepositIntent(goal.goalId, amountDay)
                 )
             } else {
                 val amountWeek = remainingAmount / (calculatedDays.remainingDays / 7)
@@ -86,12 +77,12 @@ class ReminderNotificationSender(private val context: Context) {
                     "${context.getString(R.string.deposit_button).uppercase()} $defCurrency${
                         Utils.formatCurrency(Utils.roundDecimal(amountWeek))
                     }",
-                    depositPendingIntent
+                    createDepositIntent(goal.goalId, amountWeek)
                 )
             }
         }
         //TODO: Add dismiss notification action.
-        notificationManager.notify(1, notification.build())
+        notificationManager.notify(goal.goalId.toInt(), notification.build())
     }
 
     fun hasNotificationPermission() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -101,4 +92,15 @@ class ReminderNotificationSender(private val context: Context) {
     } else {
         true
     }
+
+    private fun createDepositIntent(goalId: Long, amount: Double) =
+        Intent(context, ReminderActionReceiver::class.java).apply {
+            putExtra(ReminderActionReceiver.REMINDER_DEPOSIT_GOAL_ID, goalId)
+            putExtra(ReminderActionReceiver.REMINDER_DEPOSIT_AMOUNT, amount)
+        }.let { intent ->
+            PendingIntent.getBroadcast(
+                context, goalId.toInt(),
+                intent, PendingIntent.FLAG_IMMUTABLE
+            )
+        }
 }

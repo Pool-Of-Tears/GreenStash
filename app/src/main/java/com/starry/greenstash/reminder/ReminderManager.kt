@@ -4,6 +4,7 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
@@ -21,6 +22,7 @@ import java.util.Locale
 class ReminderManager(private val context: Context) {
 
     companion object {
+        const val TAG = "ReminderManager"
         const val INTENT_EXTRA_GOAL_ID = "reminder_goal_id"
         const val REMINDER_TIME = "09:30" // AM
     }
@@ -56,6 +58,8 @@ class ReminderManager(private val context: Context) {
                 alarmInterval,
                 reminderIntent
             )
+
+            Log.d(TAG, "Repeating alarm scheduled for ${calendar.time}")
         }
     }
 
@@ -65,7 +69,9 @@ class ReminderManager(private val context: Context) {
             goalId = goalId,
             flags = PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
+        Log.d(TAG, "Stopping reminder for goalId=$goalId")
         alarmManager.cancel(reminderIntent)
+        reminderIntent.cancel()
     }
 
     /** Check if reminder is et for the given goalId.*/
@@ -85,6 +91,7 @@ class ReminderManager(private val context: Context) {
         if (isReminderSet(goalId)) {
             stopReminder(goalId)
         }
+        Log.d(TAG, "Rescheduling reminder for goalId=$goalId")
         scheduleReminder(goalId, priority)
     }
 
