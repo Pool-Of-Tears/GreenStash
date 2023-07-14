@@ -325,7 +325,7 @@ fun GoalPriorityCard(goalPriority: GoalPriority) {
                 Low -> Color.Blue
             }
             Box(modifier = Modifier.padding(start = 8.dp)) {
-                DotIndicator(modifier = Modifier.size(8.5f.dp), color = indicatorColor)
+                DotIndicator(modifier = Modifier.size(8.2f.dp), color = indicatorColor)
             }
             Text(
                 modifier = Modifier.padding(start = 14.dp),
