@@ -66,7 +66,10 @@ data class InputScreenState(
 @ExperimentalAnimationApi
 @ExperimentalMaterial3Api
 @HiltViewModel
-class InputViewModel @Inject constructor(private val goalDao: GoalDao) : ViewModel() {
+class InputViewModel @Inject constructor(
+    private val goalDao: GoalDao,
+    private val reminderManager: ReminderManager
+) : ViewModel() {
 
     var state by mutableStateOf(InputScreenState())
 
@@ -88,8 +91,7 @@ class InputViewModel @Inject constructor(private val goalDao: GoalDao) : ViewMod
             val goalId = goalDao.insertGoal(goal)
             // schedule reminder if it's enabled.
             if (goal.reminder) {
-                val reminderManager = ReminderManager(context)
-                reminderManager.scheduleReminder(goalId, goal.priority)
+                reminderManager.scheduleReminder(goalId)
             }
         }
     }
@@ -130,22 +132,12 @@ class InputViewModel @Inject constructor(private val goalDao: GoalDao) : ViewMod
             goalDao.updateGoal(newGoal)
 
             // Handle possible changes made in reminders.
-            val reminderManager = ReminderManager(context)
             if (newGoal.reminder) {
-                if (goal.priority != newGoal.priority) {
-                    reminderManager.reScheduleReminder(newGoal.goalId, newGoal.priority)
-                } else {
-                    if (!reminderManager.isReminderSet(newGoal.goalId)) {
-                        reminderManager.scheduleReminder(newGoal.goalId, newGoal.priority)
-                    }
-                }
+                if (!reminderManager.isReminderSet(goalId))
+                    reminderManager.scheduleReminder(goalId)
             } else {
-                if (reminderManager.isReminderSet(newGoal.goalId)) {
-                    reminderManager.stopReminder(newGoal.goalId)
-                }
+                reminderManager.stopReminder(goalId)
             }
-
-
         }
     }
 

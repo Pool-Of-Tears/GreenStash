@@ -25,7 +25,6 @@
 
 package com.starry.greenstash
 
-import android.content.Context
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
@@ -55,7 +54,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val welcomeDataStore: WelcomeDataStore,
-    private val goalDao: GoalDao
+    private val goalDao: GoalDao,
+    private val reminderManager: ReminderManager
 ) : ViewModel() {
     /**
      * Storing app lock status to avoid asking for authentication
@@ -86,9 +86,8 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun refreshReminders(context: Context) {
+    fun refreshReminders() {
         viewModelScope.launch(Dispatchers.IO) {
-            val reminderManager = ReminderManager(context)
             reminderManager.checkAndScheduleReminders(goalDao.getAllGoals())
         }
     }

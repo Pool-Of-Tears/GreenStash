@@ -28,7 +28,6 @@ package com.starry.greenstash.ui.screens.input.composables
 import android.Manifest
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
@@ -107,7 +106,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -128,6 +126,7 @@ import com.starry.greenstash.BuildConfig
 import com.starry.greenstash.MainActivity
 import com.starry.greenstash.R
 import com.starry.greenstash.database.goal.GoalPriority
+import com.starry.greenstash.reminder.ReminderNotificationSender
 import com.starry.greenstash.ui.common.SelectableChipGroup
 import com.starry.greenstash.ui.navigation.DrawerScreens
 import com.starry.greenstash.ui.screens.input.viewmodels.InputViewModel
@@ -380,15 +379,6 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                     )
                     Spacer(modifier = Modifier.height(18.dp))
 
-                    LaunchedEffect(
-                        key1 = viewModel.state.priority,
-                        key2 = viewModel.state.reminder,
-                        block = {
-                            if (viewModel.state.priority == GoalPriority.Low.name) {
-                                viewModel.state = viewModel.state.copy(reminder = false)
-                            }
-                        })
-
                     OutlinedTextField(
                         value = viewModel.state.goalTitleText,
                         onValueChange = { newText ->
@@ -613,14 +603,7 @@ fun GoalReminderMenu(
     coroutineScope: CoroutineScope
 ) {
     var hasNotificationPermission by remember {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            mutableStateOf(
-                ContextCompat.checkSelfPermission(
-                    context,
-                    Manifest.permission.POST_NOTIFICATIONS
-                ) == PackageManager.PERMISSION_GRANTED
-            )
-        } else mutableStateOf(true)
+        mutableStateOf(ReminderNotificationSender(context).hasNotificationPermission())
     }
 
     val launcher = rememberLauncherForActivityResult(

@@ -53,6 +53,16 @@
             android:exported="false" />
 
         <receiver
+            android:name=".reminder.ReminderDepositReceiver"
+            android:enabled="true"
+            android:exported="false" />
+
+        <receiver
+            android:name=".reminder.ReminderDismissReceiver"
+            android:enabled="true"
+            android:exported="false" />
+
+        <receiver
             android:name=".reminder.BootReceiver"
             android:enabled="true"
             android:exported="false">

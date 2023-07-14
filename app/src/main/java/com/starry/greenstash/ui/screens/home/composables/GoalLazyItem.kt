@@ -122,7 +122,7 @@ fun GoalLazyColumnItem(
         openDepositDialog = openDepositDialog,
         openWithdrawDialog = openWithdrawDialog,
         onDeleteConfirmed = {
-            viewModel.deleteGoal(item.goal, context)
+            viewModel.deleteGoal(item.goal)
             coroutineScope.launch {
                 snackBarHostState.showSnackbar(context.getString(R.string.goal_delete_success))
             }

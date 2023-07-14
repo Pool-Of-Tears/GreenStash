@@ -25,7 +25,6 @@
 
 package com.starry.greenstash.ui.screens.home.viewmodels
 
-import android.content.Context
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
@@ -67,7 +66,9 @@ data class FilterFlowData(val filterField: FilterField, val sortType: FilterSort
 @ExperimentalCoroutinesApi
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val goalDao: GoalDao, private val transactionDao: TransactionDao
+    private val goalDao: GoalDao,
+    private val transactionDao: TransactionDao,
+    private val reminderManager: ReminderManager
 ) : ViewModel() {
 
     private val _filterFlowData: MutableState<FilterFlowData> = mutableStateOf(
@@ -129,10 +130,9 @@ class HomeViewModel @Inject constructor(
     }
 
 
-    fun deleteGoal(goal: Goal, context: Context) {
+    fun deleteGoal(goal: Goal) {
         viewModelScope.launch(Dispatchers.IO) {
             goalDao.deleteGoal(goal.goalId)
-            val reminderManager = ReminderManager(context)
             if (reminderManager.isReminderSet(goal.goalId)) {
                 reminderManager.stopReminder(goal.goalId)
             }

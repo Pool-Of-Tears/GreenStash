@@ -59,7 +59,6 @@ import com.starry.greenstash.utils.Utils
 import com.starry.greenstash.utils.toToast
 import dagger.hilt.android.AndroidEntryPoint
 import de.raphaelebner.roomdatabasebackup.core.RoomBackup
-import java.util.TimeZone
 import java.util.concurrent.Executor
 import javax.inject.Inject
 
@@ -99,7 +98,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         // refresh reminders
-        mainViewModel.refreshReminders(this)
+        mainViewModel.refreshReminders()
 
         val appLockStatus = PreferenceUtils.getBoolean(PreferenceUtils.APP_LOCK, false)
 

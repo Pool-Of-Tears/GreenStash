@@ -11,7 +11,6 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.ui.ExperimentalComposeUiApi
 import com.starry.greenstash.database.core.GoalWithTransactions
-import com.starry.greenstash.database.goal.GoalPriority
 import java.util.Calendar
 import java.util.Locale
 
@@ -27,18 +26,14 @@ class ReminderManager(private val context: Context) {
         const val TAG = "ReminderManager"
         const val INTENT_EXTRA_GOAL_ID = "reminder_goal_id"
         const val REMINDER_TIME = "09:30" // AM
+        private const val INTENT_UNIQUE_CODE = 2456
     }
 
     private val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-    /**
-     * Schedules reminder for next day if  priority is [GoalPriority.High] or
-     * sets reminder for next week if priority is [GoalPriority.Normal] and
-     * sets no reminder if priority is [GoalPriority.Low].
-     */
-    fun scheduleReminder(goalId: Long, priority: GoalPriority) {
+    /** Schedule a reminder for given goal id.*/
+    fun scheduleReminder(goalId: Long) {
         val (hours, min) = REMINDER_TIME.split(":").map { it.toInt() }
-
         val calendarNow = Calendar.getInstance(Locale.ENGLISH)
         val calendarSet = Calendar.getInstance(Locale.ENGLISH).apply {
             set(Calendar.HOUR_OF_DAY, hours)
@@ -46,63 +41,50 @@ class ReminderManager(private val context: Context) {
             set(Calendar.SECOND, 0)
             set(Calendar.MILLISECOND, 0)
         }
-
-        if (priority == GoalPriority.High) {
-            // if the time we are setting this alarm for has been
-            // passed already, we'll set alarm for the next day instead.
-            if (calendarSet <= calendarNow) {
-                calendarSet.add(Calendar.DATE, 1)
-            }
-        } else {
-            calendarSet.add(Calendar.DATE, 7)
+        // if the time we are setting this alarm for has been
+        // passed already, we'll set alarm for the next day instead.
+        if (calendarSet <= calendarNow) {
+            calendarSet.add(Calendar.DATE, 1)
         }
-
-        if (priority != GoalPriority.Low) {
-            val reminderIntent = createReminderIntent(
-                goalId = goalId,
-                flags = PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-            )
-            alarmManager.set(AlarmManager.RTC_WAKEUP, calendarSet.timeInMillis, reminderIntent)
-            Log.d(TAG, "Scheduled reminder for goalId=$goalId at ${calendarSet.time}")
-        }
+        val reminderIntent = createReminderIntent(
+            goalId = goalId,
+            flags = PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+        alarmManager.set(
+            AlarmManager.RTC_WAKEUP,
+            calendarSet.timeInMillis,
+            reminderIntent
+        )
+        Log.d(TAG, "Scheduled reminder for goalId=$goalId at ${calendarSet.time}")
     }
 
 
     /** Stops reminder for the given goal id */
     fun stopReminder(goalId: Long) {
-        val reminderIntent = createReminderIntent(
-            goalId = goalId,
-            flags = PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-        )
-        Log.d(TAG, "Stopping reminder for goalId=$goalId")
-        alarmManager.cancel(reminderIntent)
-        reminderIntent.cancel()
+        if (isReminderSet(goalId)) {
+            val reminderIntent = createReminderIntent(
+                goalId = goalId,
+                flags = PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            )
+            Log.d(TAG, "Stopping reminder for goalId=$goalId")
+            alarmManager.cancel(reminderIntent)
+            reminderIntent.cancel()
+        } else {
+            Log.d(TAG, "Failed to stop reminder for goalId=$goalId, reminder is not set")
+        }
     }
 
     /** Check if reminder is et for the given goalId.*/
     fun isReminderSet(goalId: Long): Boolean {
         val reminderIntent = createReminderIntent(
-            goalId = goalId,
-            flags = PendingIntent.FLAG_NO_CREATE or PendingIntent.FLAG_IMMUTABLE
+            goalId = goalId, flags = PendingIntent.FLAG_NO_CREATE or PendingIntent.FLAG_IMMUTABLE
         )
         return reminderIntent != null
     }
 
     /**
-     * Stops current reminder and sets new one, used when goal
-     * priority has been changed.
-     */
-    fun reScheduleReminder(goalId: Long, priority: GoalPriority) {
-        if (isReminderSet(goalId)) {
-            stopReminder(goalId)
-        }
-        Log.d(TAG, "Rescheduling reminder for goalId=$goalId")
-        scheduleReminder(goalId, priority)
-    }
-
-    /**
      * Schedules reminder for goals which have reminder enabled
-     * but reminder for themis not scheduled already, by calling
+     * but reminder for them is not scheduled already, by calling
      * the [scheduleReminder] function internally.
      */
     fun checkAndScheduleReminders(allGoals: List<GoalWithTransactions>) {
@@ -110,20 +92,19 @@ class ReminderManager(private val context: Context) {
         allGoals.forEach { goalItem ->
             val goal = goalItem.goal
             if (goal.reminder && !isReminderSet(goal.goalId)) {
-                scheduleReminder(goal.goalId, goal.priority)
+                scheduleReminder(goal.goalId)
             }
         }
         Log.d(TAG, "Scheduled reminders for goals with reminder.")
     }
 
     private fun createReminderIntent(goalId: Long, flags: Int) =
-        Intent(context.applicationContext, AlarmReceiver::class.java)
-            .apply { putExtra(INTENT_EXTRA_GOAL_ID, goalId) }
-            .let { intent ->
-                PendingIntent.getBroadcast(
-                    context.applicationContext,
-                    goalId.toInt(),
-                    intent, flags
-                )
-            }
+        Intent(context.applicationContext, AlarmReceiver::class.java).apply {
+            putExtra(INTENT_EXTRA_GOAL_ID, goalId)
+        }.let { intent ->
+            PendingIntent.getBroadcast(
+                context, goalId.toInt() + INTENT_UNIQUE_CODE,
+                intent, flags
+            )
+        }
 }

@@ -1,0 +1,82 @@
+package com.starry.greenstash.reminder
+
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.util.Log
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.ui.ExperimentalComposeUiApi
+import com.starry.greenstash.database.core.GoalWithTransactions
+import com.starry.greenstash.database.goal.GoalDao
+import com.starry.greenstash.database.transaction.Transaction
+import com.starry.greenstash.database.transaction.TransactionDao
+import com.starry.greenstash.database.transaction.TransactionType
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import javax.inject.Inject
+
+@ExperimentalMaterialApi
+@ExperimentalFoundationApi
+@ExperimentalComposeUiApi
+@ExperimentalAnimationApi
+@ExperimentalMaterial3Api
+@AndroidEntryPoint
+class ReminderDepositReceiver : BroadcastReceiver() {
+
+    companion object {
+        const val REMINDER_GOAL_ID = "reminder_deposit_goal_id"
+        const val REMINDER_DEPOSIT_AMOUNT = "reminder_deposit_amount"
+    }
+
+    @Inject
+    lateinit var goalDao: GoalDao
+
+    @Inject
+    lateinit var transactionDao: TransactionDao
+
+    @Inject
+    lateinit var reminderManager: ReminderManager
+
+    @Inject
+    lateinit var reminderNotificationSender: ReminderNotificationSender
+
+    override fun onReceive(context: Context, intent: Intent) {
+        Log.d("ReminderDepositReceiver", "Received deposit action")
+        val coroutineScope = CoroutineScope(Dispatchers.IO)
+
+        coroutineScope.launch {
+            val goalItem: GoalWithTransactions? = goalDao.getGoalWithTransactionById(
+                intent.getLongExtra(REMINDER_GOAL_ID, 0L)
+            )
+            goalItem?.let {
+                val defaultDepositValue = 0
+                val depositAmount =
+                    intent.getDoubleExtra(
+                        REMINDER_DEPOSIT_AMOUNT,
+                        defaultDepositValue.toDouble()
+                    )
+                if (depositAmount > 0) {
+                    transactionDao.insertTransaction(
+                        Transaction(
+                            ownerGoalId = it.goal.goalId,
+                            type = TransactionType.Deposit,
+                            timeStamp = System.currentTimeMillis(),
+                            amount = depositAmount,
+                            notes = ""
+                        )
+                    )
+                    reminderNotificationSender.updateWithDepositNotification(
+                        it.goal.goalId,
+                        depositAmount
+                    )
+                }
+            }
+        }
+
+    }
+}
