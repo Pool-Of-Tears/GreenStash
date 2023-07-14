@@ -23,7 +23,7 @@
  */
 
 
-package com.starry.greenstash.reminder
+package com.starry.greenstash.reminder.receivers
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -37,6 +37,8 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import com.starry.greenstash.database.core.GoalWithTransactions
 import com.starry.greenstash.database.goal.GoalDao
 import com.starry.greenstash.database.goal.GoalPriority
+import com.starry.greenstash.reminder.ReminderManager
+import com.starry.greenstash.reminder.ReminderNotificationSender
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

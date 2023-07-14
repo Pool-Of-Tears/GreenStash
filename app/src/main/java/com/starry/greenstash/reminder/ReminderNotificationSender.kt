@@ -43,6 +43,8 @@ import com.starry.greenstash.MainActivity
 import com.starry.greenstash.R
 import com.starry.greenstash.database.core.GoalWithTransactions
 import com.starry.greenstash.database.goal.GoalPriority
+import com.starry.greenstash.reminder.receivers.ReminderDepositReceiver
+import com.starry.greenstash.reminder.receivers.ReminderDismissReceiver
 import com.starry.greenstash.utils.GoalTextUtils
 import com.starry.greenstash.utils.PreferenceUtils
 import com.starry.greenstash.utils.Utils

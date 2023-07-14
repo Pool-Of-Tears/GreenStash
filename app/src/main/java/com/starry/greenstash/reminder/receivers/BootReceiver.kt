@@ -23,7 +23,7 @@
  */
 
 
-package com.starry.greenstash.reminder
+package com.starry.greenstash.reminder.receivers
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -34,6 +34,7 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.ui.ExperimentalComposeUiApi
 import com.starry.greenstash.database.goal.GoalDao
+import com.starry.greenstash.reminder.ReminderManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -46,16 +47,13 @@ import javax.inject.Inject
 @ExperimentalFoundationApi
 @ExperimentalMaterialApi
 @AndroidEntryPoint
-class DateTimeChangeReceiver : BroadcastReceiver() {
+class BootReceiver : BroadcastReceiver() {
 
     @Inject
     lateinit var goalDao: GoalDao
 
     override fun onReceive(context: Context, intent: Intent?) {
-        if (intent?.action == Intent.ACTION_TIME_CHANGED
-            || intent?.action == Intent.ACTION_TIMEZONE_CHANGED
-            || intent?.action == Intent.ACTION_DATE_CHANGED
-        ) {
+        if (intent?.action == Intent.ACTION_BOOT_COMPLETED) {
             val coroutineScope = CoroutineScope(Dispatchers.IO)
             coroutineScope.launch {
                 val allGoals = goalDao.getAllGoals()

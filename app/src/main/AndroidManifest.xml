@@ -48,22 +48,22 @@
         </receiver>
 
         <receiver
-            android:name=".reminder.AlarmReceiver"
+            android:name=".reminder.receivers.AlarmReceiver"
             android:enabled="true"
             android:exported="false" />
 
         <receiver
-            android:name=".reminder.ReminderDepositReceiver"
+            android:name=".reminder.receivers.ReminderDepositReceiver"
             android:enabled="true"
             android:exported="false" />
 
         <receiver
-            android:name=".reminder.ReminderDismissReceiver"
+            android:name=".reminder.receivers.ReminderDismissReceiver"
             android:enabled="true"
             android:exported="false" />
 
         <receiver
-            android:name=".reminder.BootReceiver"
+            android:name=".reminder.receivers.BootReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
@@ -72,7 +72,7 @@
         </receiver>
 
         <receiver
-            android:name=".reminder.DateTimeChangeReceiver"
+            android:name=".reminder.receivers.DateTimeChangeReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter>

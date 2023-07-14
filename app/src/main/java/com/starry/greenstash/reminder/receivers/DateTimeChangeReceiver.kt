@@ -23,39 +23,46 @@
  */
 
 
-package com.starry.greenstash.reminder
+package com.starry.greenstash.reminder.receivers
 
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.ui.ExperimentalComposeUiApi
+import com.starry.greenstash.database.goal.GoalDao
+import com.starry.greenstash.reminder.ReminderManager
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@ExperimentalMaterialApi
-@ExperimentalFoundationApi
-@ExperimentalComposeUiApi
-@ExperimentalAnimationApi
 @ExperimentalMaterial3Api
+@ExperimentalAnimationApi
+@ExperimentalComposeUiApi
+@ExperimentalFoundationApi
+@ExperimentalMaterialApi
 @AndroidEntryPoint
-class ReminderDismissReceiver : BroadcastReceiver() {
+class DateTimeChangeReceiver : BroadcastReceiver() {
 
     @Inject
-    lateinit var reminderNotificationSender: ReminderNotificationSender
+    lateinit var goalDao: GoalDao
 
-    companion object {
-        const val REMINDER_GOAL_ID = "reminder_dismiss_goal_id"
-    }
-
-    override fun onReceive(context: Context, intent: Intent) {
-        Log.d("ReminderDismissReceiver", "Received dismiss action")
-
-        val goalId = intent.getLongExtra(REMINDER_GOAL_ID, 0L)
-        reminderNotificationSender.dismissNotification(goalId)
+    override fun onReceive(context: Context, intent: Intent?) {
+        if (intent?.action == Intent.ACTION_TIME_CHANGED
+            || intent?.action == Intent.ACTION_TIMEZONE_CHANGED
+            || intent?.action == Intent.ACTION_DATE_CHANGED
+        ) {
+            val coroutineScope = CoroutineScope(Dispatchers.IO)
+            coroutineScope.launch {
+                val allGoals = goalDao.getAllGoals()
+                val reminderManager = ReminderManager(context)
+                reminderManager.checkAndScheduleReminders(allGoals)
+            }
+        }
     }
 }
