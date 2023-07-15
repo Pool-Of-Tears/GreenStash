@@ -97,6 +97,9 @@ class MainActivity : AppCompatActivity() {
             mainViewModel.isLoading.value
         }
 
+        // refresh reminders
+        mainViewModel.refreshReminders()
+
         val appLockStatus = PreferenceUtils.getBoolean(PreferenceUtils.APP_LOCK, false)
 
         if (appLockStatus && !mainViewModel.appUnlocked) {

@@ -23,59 +23,46 @@
  */
 
 
-package com.starry.greenstash.di
+package com.starry.greenstash.reminder.receivers
 
+import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Intent
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.ui.ExperimentalComposeUiApi
-import com.starry.greenstash.database.core.AppDatabase
-import com.starry.greenstash.other.WelcomeDataStore
+import com.starry.greenstash.database.goal.GoalDao
 import com.starry.greenstash.reminder.ReminderManager
-import com.starry.greenstash.reminder.ReminderNotificationSender
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-@ExperimentalMaterialApi
-@ExperimentalFoundationApi
-@ExperimentalComposeUiApi
-@ExperimentalAnimationApi
 @ExperimentalMaterial3Api
-@InstallIn(SingletonComponent::class)
-@Module
-class MianModule {
+@ExperimentalAnimationApi
+@ExperimentalComposeUiApi
+@ExperimentalFoundationApi
+@ExperimentalMaterialApi
+@AndroidEntryPoint
+class DateTimeChangeReceiver : BroadcastReceiver() {
 
-    @Singleton
-    @Provides
-    fun provideAppDatabase(@ApplicationContext context: Context) = AppDatabase.getInstance(context)
+    @Inject
+    lateinit var goalDao: GoalDao
 
-    @Provides
-    fun provideGoalDao(appDatabase: AppDatabase) = appDatabase.getGoalDao()
-
-    @Provides
-    fun provideTransactionDao(appDatabase: AppDatabase) = appDatabase.getTransactionDao()
-
-    @Provides
-    fun provideWidgetDao(appDatabase: AppDatabase) = appDatabase.getWidgetDao()
-
-    @Provides
-    @Singleton
-    fun provideDataStoreRepository(
-        @ApplicationContext context: Context
-    ) = WelcomeDataStore(context = context)
-
-    @Provides
-    @Singleton
-    fun provideReminderManager(@ApplicationContext context: Context) = ReminderManager(context)
-
-    @Provides
-    @Singleton
-    fun provideReminderNotificationSender(@ApplicationContext context: Context) =
-        ReminderNotificationSender(context)
+    override fun onReceive(context: Context, intent: Intent?) {
+        if (intent?.action == Intent.ACTION_TIME_CHANGED
+            || intent?.action == Intent.ACTION_TIMEZONE_CHANGED
+            || intent?.action == Intent.ACTION_DATE_CHANGED
+        ) {
+            val coroutineScope = CoroutineScope(Dispatchers.IO)
+            coroutineScope.launch {
+                val allGoals = goalDao.getAllGoals()
+                val reminderManager = ReminderManager(context)
+                reminderManager.checkAndScheduleReminders(allGoals)
+            }
+        }
+    }
 }

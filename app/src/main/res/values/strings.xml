@@ -146,4 +146,11 @@
     <string name="widget_config_screen_header">Select Goal</string>
     <string name="goal_widget_desc">Saved %s</string>
 
+    <!-- Goal Reminders -->
+    <string name="notification_permission_error">Please allow notification permission! 😾</string>
+    <string name="reminder_notification_desc">The more you save, the quicker you’ll reach your goal! 💰</string>
+    <string name="dismiss_notification_button">Dismiss</string>
+    <string name="notification_deposited_title">Great Work 🎉</string>
+    <string name="notification_deposited_desc">Successfully deposited %s!</string>
+
 </resources>

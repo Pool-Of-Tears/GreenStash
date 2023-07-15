@@ -25,14 +25,22 @@
 
 package com.starry.greenstash.ui.screens.input.composables
 
+import android.Manifest
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
+import android.os.Build
+import android.provider.Settings
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -47,10 +55,12 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
@@ -58,12 +68,15 @@ import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.surfaceColorAtElevation
@@ -92,6 +105,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
@@ -107,20 +122,28 @@ import com.maxkeppeler.sheets.calendar.CalendarDialog
 import com.maxkeppeler.sheets.calendar.models.CalendarConfig
 import com.maxkeppeler.sheets.calendar.models.CalendarSelection
 import com.maxkeppeler.sheets.calendar.models.CalendarTimeline
+import com.starry.greenstash.BuildConfig
+import com.starry.greenstash.MainActivity
 import com.starry.greenstash.R
 import com.starry.greenstash.database.goal.GoalPriority
+import com.starry.greenstash.reminder.ReminderNotificationSender
 import com.starry.greenstash.ui.common.SelectableChipGroup
 import com.starry.greenstash.ui.navigation.DrawerScreens
 import com.starry.greenstash.ui.screens.input.viewmodels.InputViewModel
 import com.starry.greenstash.ui.screens.settings.viewmodels.DateStyle
 import com.starry.greenstash.utils.PreferenceUtils
 import com.starry.greenstash.utils.Utils
+import com.starry.greenstash.utils.getActivity
 import com.starry.greenstash.utils.toToast
 import com.starry.greenstash.utils.validateAmount
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.time.format.DateTimeFormatter
 
+
+@ExperimentalAnimationApi
+@ExperimentalMaterialApi
 @ExperimentalFoundationApi
 @ExperimentalComposeUiApi
 @ExperimentalMaterial3Api
@@ -130,6 +153,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
     val haptic = LocalHapticFeedback.current
     val viewModel: InputViewModel = hiltViewModel()
     val coroutineScope = rememberCoroutineScope()
+    val snackBarHostState = remember { SnackbarHostState() }
 
     var imageData: Any? by remember { mutableStateOf(R.drawable.default_goal_image) }
     val calenderState = rememberSheetState()
@@ -204,24 +228,26 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
         })
     }
 
-    Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
-        TopAppBar(modifier = Modifier.fillMaxWidth(), title = {
-            Text(
-                text = topBarText,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-            )
-        }, navigationIcon = {
-            IconButton(onClick = { navController.navigateUp() }) {
-                Icon(
-                    imageVector = Icons.Filled.ArrowBack, contentDescription = null
+    Scaffold(modifier = Modifier.fillMaxSize(),
+        snackbarHost = { SnackbarHost(snackBarHostState) },
+        topBar = {
+            TopAppBar(modifier = Modifier.fillMaxWidth(), title = {
+                Text(
+                    text = topBarText,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
                 )
-            }
-        }, colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-            containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(4.dp)
-        )
-        )
-    }) {
+            }, navigationIcon = {
+                IconButton(onClick = { navController.navigateUp() }) {
+                    Icon(
+                        imageVector = Icons.Filled.ArrowBack, contentDescription = null
+                    )
+                }
+            }, colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(4.dp)
+            )
+            )
+        }) {
         if (showGoalAddedDialog.value) {
             Column(
                 modifier = Modifier.fillMaxSize(),
@@ -343,44 +369,14 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
 
-                    OutlinedCard(
-                        modifier = Modifier.fillMaxWidth(0.8f),
-                        colors = CardDefaults.cardColors(
-                            containerColor = MaterialTheme.colorScheme.primaryContainer
-                        ), shape = RoundedCornerShape(14.dp)
-                    ) {
-                        Box(
-                            modifier = Modifier.fillMaxWidth(),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Column {
-                                Text(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(top = 6.dp),
-                                    text = stringResource(id = R.string.input_goal_priority),
-                                    textAlign = TextAlign.Center,
-                                    color = MaterialTheme.colorScheme.onPrimaryContainer
-                                )
-                                SelectableChipGroup(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(14.dp),
-                                    choices = listOf(
-                                        GoalPriority.High.name,
-                                        GoalPriority.Normal.name,
-                                        GoalPriority.Low.name
-                                    ),
-                                    selected = viewModel.state.goalPriority,
-                                    onSelected = { newValue ->
-                                        viewModel.state =
-                                            viewModel.state.copy(goalPriority = newValue)
-                                    }
-                                )
-                            }
-                        }
-                    }
-
+                    GoalPriorityMenu(viewModel = viewModel)
+                    Spacer(modifier = Modifier.height(18.dp))
+                    GoalReminderMenu(
+                        viewModel = viewModel,
+                        context = context,
+                        snackbarHostState = snackBarHostState,
+                        coroutineScope = coroutineScope
+                    )
                     Spacer(modifier = Modifier.height(18.dp))
 
                     OutlinedTextField(
@@ -398,16 +394,16 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                                 contentDescription = null
                             )
                         },
-                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                        colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = MaterialTheme.colorScheme.primary,
-                            unfocusedBorderColor = MaterialTheme.colorScheme.onBackground
+                            unfocusedBorderColor = MaterialTheme.colorScheme.onBackground,
                         ),
                         shape = RoundedCornerShape(14.dp),
                         singleLine = true,
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
                     )
 
-                    Spacer(modifier = Modifier.height(18.dp))
+                    Spacer(modifier = Modifier.height(16.dp))
 
                     OutlinedTextField(
                         value = viewModel.state.targetAmount,
@@ -425,16 +421,16 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                                 contentDescription = null
                             )
                         },
-                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                        colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = MaterialTheme.colorScheme.primary,
-                            unfocusedBorderColor = MaterialTheme.colorScheme.onBackground
+                            unfocusedBorderColor = MaterialTheme.colorScheme.onBackground,
                         ),
                         shape = RoundedCornerShape(14.dp),
                         singleLine = true,
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     )
 
-                    Spacer(modifier = Modifier.height(18.dp))
+                    Spacer(modifier = Modifier.height(16.dp))
 
                     val interactionSource = remember { MutableInteractionSource() }
 
@@ -467,21 +463,21 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                                 contentDescription = null
                             )
                         },
-                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                        colors = OutlinedTextFieldDefaults.colors(
                             disabledTextColor = MaterialTheme.colorScheme.onSurface,
                             disabledBorderColor = MaterialTheme.colorScheme.onBackground,
-                            disabledPlaceholderColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                            disabledLeadingIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                            disabledTrailingIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
                             disabledLabelColor = MaterialTheme.colorScheme.onSurfaceVariant,
                             //For Icons
-                            disabledLeadingIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                            disabledTrailingIconColor = MaterialTheme.colorScheme.onSurfaceVariant
+                            disabledPlaceholderColor = MaterialTheme.colorScheme.onSurfaceVariant,
                         ),
                         shape = RoundedCornerShape(14.dp),
                         enabled = false,
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
                     )
 
-                    Spacer(modifier = Modifier.height(18.dp))
+                    Spacer(modifier = Modifier.height(16.dp))
 
                     OutlinedTextField(
                         value = viewModel.state.additionalNotes,
@@ -498,15 +494,15 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                                 contentDescription = null
                             )
                         },
-                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                        colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = MaterialTheme.colorScheme.primary,
-                            unfocusedBorderColor = MaterialTheme.colorScheme.onBackground
+                            unfocusedBorderColor = MaterialTheme.colorScheme.onBackground,
                         ),
                         shape = RoundedCornerShape(14.dp),
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
                     )
 
-                    Spacer(modifier = Modifier.height(24.dp))
+                    Spacer(modifier = Modifier.height(22.dp))
 
                     Button(
                         onClick = {
@@ -548,11 +544,137 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
 }
 
 
+@ExperimentalMaterial3Api
+@ExperimentalAnimationApi
+@ExperimentalComposeUiApi
+@ExperimentalFoundationApi
+@ExperimentalMaterialApi
+@Composable
+fun GoalPriorityMenu(viewModel: InputViewModel) {
+    Card(
+        modifier = Modifier.fillMaxWidth(0.8f),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer
+        ), shape = RoundedCornerShape(14.dp)
+    ) {
+        Box(
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.Center
+        ) {
+            Column {
+                Text(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 6.dp),
+                    text = stringResource(id = R.string.input_goal_priority),
+                    textAlign = TextAlign.Center,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer
+                )
+                SelectableChipGroup(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(14.dp),
+                    choices = listOf(
+                        GoalPriority.High.name,
+                        GoalPriority.Normal.name,
+                        GoalPriority.Low.name
+                    ),
+                    selected = viewModel.state.priority,
+                    onSelected = { newValue ->
+                        viewModel.state =
+                            viewModel.state.copy(priority = newValue)
+                    }
+                )
+            }
+        }
+    }
+}
+
+@ExperimentalMaterial3Api
+@ExperimentalAnimationApi
+@ExperimentalComposeUiApi
+@ExperimentalFoundationApi
+@ExperimentalMaterialApi
+@Composable
+fun GoalReminderMenu(
+    context: Context,
+    viewModel: InputViewModel,
+    snackbarHostState: SnackbarHostState,
+    coroutineScope: CoroutineScope
+) {
+    var hasNotificationPermission by remember {
+        mutableStateOf(ReminderNotificationSender(context).hasNotificationPermission())
+    }
+
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission(),
+        onResult = { isGranted ->
+            hasNotificationPermission = isGranted
+            if (!isGranted) {
+                viewModel.state = viewModel.state.copy(reminder = false)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
+                    && ActivityCompat.shouldShowRequestPermissionRationale(
+                        context.getActivity() as MainActivity,
+                        Manifest.permission.POST_NOTIFICATIONS
+                    )
+                ) {
+                    coroutineScope.launch {
+                        val snackBarResult =
+                            snackbarHostState.showSnackbar(
+                                message = context.getString(R.string.notification_permission_error),
+                                actionLabel = "Open Settings"
+                            )
+                        if (snackBarResult == SnackbarResult.ActionPerformed) {
+                            val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                            val uri = Uri.fromParts("package", BuildConfig.APPLICATION_ID, null)
+                            intent.data = uri
+                            startActivity(context, intent, null)
+                        }
+                    }
+                }
+            }
+        }
+    )
+
+    Card(
+        modifier = Modifier.fillMaxWidth(0.8f),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer
+        ), shape = RoundedCornerShape(14.dp)
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(4.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Text(text = "Saving Reminders", fontSize = 18.sp)
+            Spacer(modifier = Modifier.width(14.dp))
+            Switch(
+                checked = viewModel.state.reminder,
+                onCheckedChange = { newValue ->
+                    viewModel.state = viewModel.state.copy(reminder = newValue)
+                    // Ask for notification permission if android ver > 13.
+                    if (newValue &&
+                        !hasNotificationPermission &&
+                        Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
+                    ) {
+                        launcher.launch(Manifest.permission.POST_NOTIFICATIONS)
+                    }
+                }
+            )
+        }
+    }
+}
+
+@ExperimentalMaterialApi
+@ExperimentalAnimationApi
 @ExperimentalFoundationApi
 @ExperimentalComposeUiApi
 @ExperimentalMaterial3Api
 @Preview
 @Composable
 fun InputScreenPV() {
-    InputScreen(editGoalId = null, rememberNavController())
+    InputScreen(editGoalId = "", navController = rememberNavController())
 }

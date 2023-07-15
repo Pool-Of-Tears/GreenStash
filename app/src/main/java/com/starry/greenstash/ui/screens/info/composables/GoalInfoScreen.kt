@@ -29,6 +29,7 @@ import android.content.Context
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -313,18 +314,18 @@ fun GoalPriorityCard(goalPriority: GoalPriority) {
         ),
         shape = RoundedCornerShape(8.dp)
     ) {
-        Row(modifier = Modifier.padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
+        Row(
+            modifier = Modifier.padding(12.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
             val indicatorColor = when (goalPriority) {
-                High -> Color.Red
+                High -> Color(0xFFFFA200)
                 Normal -> Color.Green
                 Low -> Color.Blue
             }
             Box(modifier = Modifier.padding(start = 8.dp)) {
-                DotIndicator(
-                    modifier = Modifier
-                        .size(12.dp)
-                        .padding(start = 4.dp), color = indicatorColor
-                )
+                DotIndicator(modifier = Modifier.size(8.2f.dp), color = indicatorColor)
             }
             Text(
                 modifier = Modifier.padding(start = 14.dp),

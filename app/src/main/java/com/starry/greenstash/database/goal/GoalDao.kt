@@ -35,7 +35,7 @@ import kotlinx.coroutines.flow.Flow
 interface GoalDao {
 
     @Insert
-    suspend fun insertGoal(goal: Goal)
+    suspend fun insertGoal(goal: Goal): Long
 
     @Update
     suspend fun updateGoal(goal: Goal)
@@ -43,14 +43,22 @@ interface GoalDao {
     @Query("DELETE FROM saving_goal WHERE goalId = :goalId")
     suspend fun deleteGoal(goalId: Long)
 
-    /*
-     explicitly stating because we also have our own
-     entity class with the same name.
-    */
-    @androidx.room.Transaction
+    @Transaction
     @Query("SELECT * FROM saving_goal")
-    fun getAllGoals(): LiveData<List<GoalWithTransactions>>
+    suspend fun getAllGoals(): List<GoalWithTransactions>
 
+    @Transaction
+    @Query("SELECT * FROM saving_goal")
+    fun getAllGoalsAsLiveData(): LiveData<List<GoalWithTransactions>>
+
+    @Query("SELECT * FROM saving_goal WHERE goalId = :goalId")
+    suspend fun getGoalById(goalId: Long): Goal?
+
+    @Transaction
+    @Query("SELECT * FROM saving_goal WHERE goalId = :goalId")
+    suspend fun getGoalWithTransactionById(goalId: Long): GoalWithTransactions?
+
+    @Transaction
     @Query(
         "SELECT * FROM saving_goal ORDER BY " +
                 "CASE WHEN :sortOrder = 1 THEN title END ASC, " +
@@ -58,6 +66,7 @@ interface GoalDao {
     )
     fun getAllGoalsByTitle(sortOrder: Int): Flow<List<GoalWithTransactions>>
 
+    @Transaction
     @Query(
         "SELECT * FROM saving_goal ORDER BY " +
                 "CASE WHEN :sortOrder = 1 THEN targetAmount END ASC, " +
@@ -65,6 +74,7 @@ interface GoalDao {
     )
     fun getAllGoalsByAmount(sortOrder: Int): Flow<List<GoalWithTransactions>>
 
+    @Transaction
     @Query(
         "SELECT * FROM saving_goal ORDER BY " +
                 "CASE WHEN :sortOrder = 1 THEN priority END ASC, " +
@@ -72,10 +82,4 @@ interface GoalDao {
     )
     fun getAllGoalsByPriority(sortOrder: Int): Flow<List<GoalWithTransactions>>
 
-    @Query("SELECT * FROM saving_goal WHERE goalId = :goalId")
-    fun getGoalById(goalId: Long): Goal
-
-    @androidx.room.Transaction
-    @Query("SELECT * FROM saving_goal WHERE goalId = :goalId")
-    fun getGoalWithTransactionById(goalId: Long): GoalWithTransactions
 }

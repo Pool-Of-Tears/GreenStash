@@ -25,9 +25,14 @@
 
 package com.starry.greenstash.ui.screens.home.viewmodels
 
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
@@ -36,6 +41,7 @@ import com.starry.greenstash.database.goal.GoalDao
 import com.starry.greenstash.database.transaction.Transaction
 import com.starry.greenstash.database.transaction.TransactionDao
 import com.starry.greenstash.database.transaction.TransactionType
+import com.starry.greenstash.reminder.ReminderManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -52,10 +58,17 @@ enum class FilterField { Title, Amount, Priority }
 enum class FilterSortType(val value: Int) { Ascending(1), Descending(2) }
 data class FilterFlowData(val filterField: FilterField, val sortType: FilterSortType)
 
+@ExperimentalMaterialApi
+@ExperimentalFoundationApi
+@ExperimentalComposeUiApi
+@ExperimentalAnimationApi
+@ExperimentalMaterial3Api
 @ExperimentalCoroutinesApi
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val goalDao: GoalDao, private val transactionDao: TransactionDao
+    private val goalDao: GoalDao,
+    private val transactionDao: TransactionDao,
+    private val reminderManager: ReminderManager
 ) : ViewModel() {
 
     private val _filterFlowData: MutableState<FilterFlowData> = mutableStateOf(
@@ -118,7 +131,12 @@ class HomeViewModel @Inject constructor(
 
 
     fun deleteGoal(goal: Goal) {
-        viewModelScope.launch(Dispatchers.IO) { goalDao.deleteGoal(goal.goalId) }
+        viewModelScope.launch(Dispatchers.IO) {
+            goalDao.deleteGoal(goal.goalId)
+            if (reminderManager.isReminderSet(goal.goalId)) {
+                reminderManager.stopReminder(goal.goalId)
+            }
+        }
     }
 
     fun deposit(goal: Goal, amount: Double, notes: String, onGoalAchieved: () -> Unit) {
@@ -129,7 +147,7 @@ class HomeViewModel @Inject constructor(
              * amount in goal database and call the goal achieved function
              * to show a congratulations message to the user.
              */
-            val goalItem = goalDao.getGoalWithTransactionById(goal.goalId)
+            val goalItem = goalDao.getGoalWithTransactionById(goal.goalId)!!
             val remainingAmount = (goal.targetAmount - goalItem.getCurrentlySavedAmount())
             if (remainingAmount <= 0f) {
                 withContext(Dispatchers.Main) { onGoalAchieved() }

@@ -27,6 +27,7 @@ package com.starry.greenstash.ui.screens.home.composables
 
 import android.content.Context
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.keyframes
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -83,6 +84,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -121,6 +123,8 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.Locale
 
+@ExperimentalAnimationApi
+@ExperimentalComposeUiApi
 @ExperimentalCoroutinesApi
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
@@ -133,19 +137,17 @@ fun HomeScreen(navController: NavController) {
     val modalBottomSheetState = rememberModalBottomSheetState(
         initialValue = ModalBottomSheetValue.Hidden
     )
-    val currentBottomSheet = remember { mutableStateOf<BottomSheetType?>(null) }
+    val currentBottomSheet = remember { mutableStateOf(BottomSheetType.FILTER_MENU) }
 
     ModalBottomSheetLayout(sheetState = modalBottomSheetState,
         sheetShape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
         sheetElevation = 24.dp,
         sheetBackgroundColor = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp),
         sheetContent = {
-            currentBottomSheet.value?.let {
-                SheetLayout(
-                    bottomSheetType = it,
-                    viewModel = viewModel
-                )
-            }
+            SheetLayout(
+                bottomSheetType = currentBottomSheet.value,
+                viewModel = viewModel
+            )
         },
         content = {
             HomeScreenContent(
@@ -159,6 +161,8 @@ fun HomeScreen(navController: NavController) {
 
 }
 
+@ExperimentalAnimationApi
+@ExperimentalComposeUiApi
 @ExperimentalCoroutinesApi
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
@@ -169,7 +173,7 @@ fun HomeScreenContent(
     viewModel: HomeViewModel,
     navController: NavController,
     bottomSheetState: ModalBottomSheetState,
-    bottomSheetType: MutableState<BottomSheetType?>
+    bottomSheetType: MutableState<BottomSheetType>
 ) {
     val allGoals = viewModel.goalsList.observeAsState(emptyList()).value
     val drawerState = rememberDrawerState(DrawerValue.Closed)
@@ -428,6 +432,10 @@ fun HomeScreenContent(
     }
 }
 
+@ExperimentalAnimationApi
+@ExperimentalComposeUiApi
+@ExperimentalFoundationApi
+@ExperimentalMaterialApi
 @ExperimentalCoroutinesApi
 @ExperimentalMaterial3Api
 @Composable
@@ -499,6 +507,10 @@ fun GoalAchievedSheet() {
     }
 }
 
+@ExperimentalAnimationApi
+@ExperimentalComposeUiApi
+@ExperimentalFoundationApi
+@ExperimentalMaterialApi
 @ExperimentalCoroutinesApi
 @ExperimentalMaterial3Api
 @Composable
@@ -571,6 +583,8 @@ fun FilterButton(text: String, isSelected: Boolean, onClick: () -> Unit) {
     }
 }
 
+@ExperimentalComposeUiApi
+@ExperimentalAnimationApi
 @ExperimentalCoroutinesApi
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi

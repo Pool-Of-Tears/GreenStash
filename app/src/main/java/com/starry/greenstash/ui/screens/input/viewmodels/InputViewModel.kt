@@ -28,14 +28,20 @@ package com.starry.greenstash.ui.screens.input.viewmodels
 import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.starry.greenstash.database.goal.Goal
 import com.starry.greenstash.database.goal.GoalDao
 import com.starry.greenstash.database.goal.GoalPriority
+import com.starry.greenstash.reminder.ReminderManager
 import com.starry.greenstash.utils.ImageUtils
 import com.starry.greenstash.utils.Utils
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -50,13 +56,23 @@ data class InputScreenState(
     val targetAmount: String = "",
     val deadline: String = "",
     val additionalNotes: String = "",
-    val goalPriority: String = GoalPriority.Normal.name
+    val priority: String = GoalPriority.Normal.name,
+    val reminder: Boolean = false
 )
 
+@ExperimentalMaterialApi
+@ExperimentalFoundationApi
+@ExperimentalComposeUiApi
+@ExperimentalAnimationApi
+@ExperimentalMaterial3Api
 @HiltViewModel
-class InputViewModel @Inject constructor(private val goalDao: GoalDao) : ViewModel() {
+class InputViewModel @Inject constructor(
+    private val goalDao: GoalDao,
+    private val reminderManager: ReminderManager
+) : ViewModel() {
 
     var state by mutableStateOf(InputScreenState())
+
     fun addSavingGoal(context: Context) {
         viewModelScope.launch(Dispatchers.IO) {
             val goal = Goal(
@@ -67,23 +83,30 @@ class InputViewModel @Inject constructor(private val goalDao: GoalDao) : ViewMod
                     uri = state.goalImageUri!!, context = context, maxSize = 1024
                 ) else null,
                 additionalNotes = state.additionalNotes,
-                priority = GoalPriority.values().find { it.name == state.goalPriority }!!
+                priority = GoalPriority.values().find { it.name == state.priority }!!,
+                reminder = state.reminder
             )
+
             // Add goal into database.
-            goalDao.insertGoal(goal)
+            val goalId = goalDao.insertGoal(goal)
+            // schedule reminder if it's enabled.
+            if (goal.reminder) {
+                reminderManager.scheduleReminder(goalId)
+            }
         }
     }
 
     fun setEditGoalData(goalId: Long, onEditDataSet: (Bitmap?) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
-            val goal = goalDao.getGoalById(goalId)
+            val goal = goalDao.getGoalById(goalId)!!
             withContext(Dispatchers.Main) {
                 state = state.copy(
                     goalTitleText = goal.title,
                     targetAmount = goal.targetAmount.toString(),
                     deadline = goal.deadline,
                     additionalNotes = goal.additionalNotes,
-                    goalPriority = goal.priority.name
+                    priority = goal.priority.name,
+                    reminder = goal.reminder
                 )
                 onEditDataSet(goal.goalImage)
             }
@@ -92,8 +115,8 @@ class InputViewModel @Inject constructor(private val goalDao: GoalDao) : ViewMod
 
     fun editSavingGoal(goalId: Long, context: Context) {
         viewModelScope.launch(Dispatchers.IO) {
-            val goal = goalDao.getGoalById(goalId)
-            val editGoal = Goal(
+            val goal = goalDao.getGoalById(goalId)!!
+            val newGoal = Goal(
                 title = state.goalTitleText,
                 targetAmount = Utils.roundDecimal(state.targetAmount.toDouble()),
                 deadline = state.deadline,
@@ -101,11 +124,20 @@ class InputViewModel @Inject constructor(private val goalDao: GoalDao) : ViewMod
                     uri = state.goalImageUri!!, context = context, maxSize = 1024
                 ) else goal.goalImage,
                 additionalNotes = state.additionalNotes,
-                priority = GoalPriority.values().find { it.name == state.goalPriority }!!
+                priority = GoalPriority.values().find { it.name == state.priority }!!,
+                reminder = state.reminder
             )
             // copy id of already saved goal to update it.
-            editGoal.goalId = goal.goalId
-            goalDao.updateGoal(editGoal)
+            newGoal.goalId = goal.goalId
+            goalDao.updateGoal(newGoal)
+
+            // Handle possible changes made in reminders.
+            if (newGoal.reminder) {
+                if (!reminderManager.isReminderSet(goalId))
+                    reminderManager.scheduleReminder(goalId)
+            } else {
+                reminderManager.stopReminder(goalId)
+            }
         }
     }
 
