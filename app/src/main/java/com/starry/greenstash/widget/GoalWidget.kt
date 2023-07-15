@@ -105,7 +105,13 @@ class GoalWidget : AppWidgetProvider() {
         // Set Widget description.
         val defCurrency = PreferenceUtils.getString(PreferenceUtils.DEFAULT_CURRENCY, "")
         val widgetDesc = context.getString(R.string.goal_widget_desc)
-            .format("$defCurrency${goalItem.getCurrentlySavedAmount()} | $defCurrency${goalItem.goal.targetAmount}")
+            .format(
+                "$defCurrency${Utils.formatCurrency(goalItem.getCurrentlySavedAmount())} / $defCurrency${
+                    Utils.formatCurrency(
+                        goalItem.goal.targetAmount
+                    )
+                }"
+            )
         views.setCharSequence(R.id.widgetDesc, "setText", widgetDesc)
 
         // Calculate how much need to save per day and week.
