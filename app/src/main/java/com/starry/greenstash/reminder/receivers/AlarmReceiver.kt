@@ -76,6 +76,9 @@ class AlarmReceiver : BroadcastReceiver() {
                 intent.getLongExtra(ReminderManager.INTENT_EXTRA_GOAL_ID, 0L)
             )
             goalItem?.let {
+                // Reschedule reminder for next day.
+                reminderManager.scheduleReminder(it.goal.goalId)
+                // Send notification according to goal priority.
                 val remainingAmount = (it.goal.targetAmount - it.getCurrentlySavedAmount())
                 if (remainingAmount > 0) {
                     when (goalItem.goal.priority) {
@@ -99,8 +102,6 @@ class AlarmReceiver : BroadcastReceiver() {
                         }
                     }
                 }
-                // Reschedule reminder for next day.
-                reminderManager.scheduleReminder(it.goal.goalId)
             }
         }
     }
