@@ -77,6 +77,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionResult
 import com.airbnb.lottie.compose.LottieCompositionSpec
@@ -158,10 +159,10 @@ fun GoalInfoScreen(goalId: String, navController: NavController) {
                         .verticalScroll(rememberScrollState())
                 ) {
                     GoalInfoCard(
-                        currencySymbol,
-                        Utils.formatCurrency(Utils.roundDecimal(state.goalData.goal.targetAmount)),
-                        Utils.formatCurrency(Utils.roundDecimal(state.goalData.getCurrentlySavedAmount())),
-                        daysLeft = getRemainingDaysText(context, state.goalData),
+                        currencySymbol = currencySymbol,
+                        targetAmount = state.goalData.goal.targetAmount,
+                        savedAmount = state.goalData.getCurrentlySavedAmount(),
+                        daysLeftText = getRemainingDaysText(context, state.goalData),
                         progress = progressPercent.toFloat() / 100
                     )
                     GoalPriorityCard(goalPriority = state.goalData.goal.priority)
@@ -218,11 +219,14 @@ fun GoalInfoScreen(goalId: String, navController: NavController) {
 @Composable
 fun GoalInfoCard(
     currencySymbol: String,
-    targetAmount: String,
-    savedAmount: String,
-    daysLeft: String,
+    targetAmount: Double,
+    savedAmount: Double,
+    daysLeftText: String,
     progress: Float
 ) {
+    val formattedTargetAmount = Utils.formatCurrency(Utils.roundDecimal(targetAmount))
+    val formattedSavedAmount = Utils.formatCurrency(Utils.roundDecimal(savedAmount))
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -257,7 +261,7 @@ fun GoalInfoCard(
                     modifier = Modifier.padding(start = 12.dp)
                 )
                 Text(
-                    text = savedAmount,
+                    text = formattedSavedAmount,
                     fontWeight = FontWeight.Bold,
                     fontSize = 38.sp,
                     modifier = Modifier.padding(start = 4.dp)
@@ -267,7 +271,7 @@ fun GoalInfoCard(
             Spacer(modifier = Modifier.height(2.dp))
 
             Text(
-                text = stringResource(id = R.string.info_card_remaining_amount).format("$currencySymbol $targetAmount"),
+                text = stringResource(id = R.string.info_card_remaining_amount).format("$currencySymbol $formattedTargetAmount"),
                 fontSize = 14.sp,
                 fontWeight = FontWeight.SemiBold,
                 modifier = Modifier.padding(start = 12.dp)
@@ -290,7 +294,7 @@ fun GoalInfoCard(
             Row(modifier = Modifier.fillMaxWidth()) {
                 Spacer(modifier = Modifier.weight(1f))
                 Text(
-                    text = daysLeft,
+                    text = "${(progress * 100).toInt()}% | $daysLeftText",
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Medium,
                     modifier = Modifier.padding(end = 12.dp)
@@ -441,6 +445,5 @@ private fun getRemainingDaysText(context: Context, goalItem: GoalWithTransaction
 @Composable
 @Preview
 fun GoalInfoPV() {
-    GoalPriorityCard(High)
-    //GoalInfoScreen(goalId = "", navController = rememberNavController())
+    GoalInfoScreen(goalId = "", navController = rememberNavController())
 }
