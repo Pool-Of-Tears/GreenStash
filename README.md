@@ -51,9 +51,9 @@ Or you could just buy the app from Google Play Store. You'll get constant update
 
 <h2 align="center">Screenshots</h2>
 
-| ![](https://te.legra.ph/file/08eee6d129247057e826b.png) | ![](https://te.legra.ph/file/78b11420184a85186eab2.png) | ![](https://te.legra.ph/file/9e818d2e528789fb55851.png) |
+| ![](https://te.legra.ph/file/62e0a71bfbba51aa64f44.png) | ![](https://te.legra.ph/file/f66ecd29eea7409e3397b.png) | ![](https://te.legra.ph/file/9754841ed1b6f9c4bdb89.png) |
 |-------------------------------------------------------|-------------------------------------------------------|-------------------------------------------------------|
-| ![](https://te.legra.ph/file/24306d0335e94047abee3.png) | ![](https://te.legra.ph/file/1acf4d2cb0a5b02303ebe.png) | ![](https://te.legra.ph/file/eb17a715e1bbc9941328a.png) |
+| ![](https://te.legra.ph/file/9e135107db6a8d3acc758.png) | ![](https://te.legra.ph/file/8fae219ae0dfc8d5ae178.png) | ![](https://te.legra.ph/file/12596309941afd16cf5a6.png) |
 
 
 ------
@@ -64,12 +64,12 @@ Or you could just buy the app from Google Play Store. You'll get constant update
 - Add images to your saving goals to keep you motivated!
 - View how much you need to save daily/weekly/monthly to achieve your goal before deadline.
 - View detailed transaction (withdraw/deposit) history.
+- Get daily, semi-weekly or weekly reminders for your saving goals based on goal priority. 
 - Supports around 100+ local currency symbols.
 - Inbuilt biometric app lock to keep your financial data safe and secure.
 - Fully offline, greenstash doens't require internet permission to work.
 - Compatible with Android 7.0 and above (API 24+)
 - Supports [Material You](https://www.androidpolice.com/everything-we-love-about-material-you/amp/) theming in devices running on Android 12+
-- Comes in both light and dark mode.
 - MAD: UI and logic written with pure Kotlin. Single activity, no fragments, only composable destinations.
 
 ------
