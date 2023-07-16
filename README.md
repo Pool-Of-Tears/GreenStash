@@ -51,8 +51,8 @@ Or you could just buy the app from Google Play Store. You'll get constant update
 
 <h2 align="center">Screenshots</h2>
 
-| ![](https://te.legra.ph/file/62e0a71bfbba51aa64f44.png) | ![](https://te.legra.ph/file/f66ecd29eea7409e3397b.png) | ![](https://te.legra.ph/file/9754841ed1b6f9c4bdb89.png) |
-|-------------------------------------------------------|-------------------------------------------------------|-------------------------------------------------------|
+| ![](https://te.legra.ph/file/62e0a71bfbba51aa64f44.png) | ![](https://te.legra.ph/file/396f07eebc3cacae8da48.png) | ![](https://te.legra.ph/file/9754841ed1b6f9c4bdb89.png) |
+|-------------------------------------------------------|-------|-------------------------------------------------------|
 | ![](https://te.legra.ph/file/9e135107db6a8d3acc758.png) | ![](https://te.legra.ph/file/8fae219ae0dfc8d5ae178.png) | ![](https://te.legra.ph/file/12596309941afd16cf5a6.png) |
 
 

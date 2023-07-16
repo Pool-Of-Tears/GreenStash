@@ -1,0 +1,7 @@
+- Added Saving Reminders! - Now you can get reminders for adding money in your saving goals.
+  Note: frequency of reminders depends on the priority of the goal.
+    - High priority -> Daily reminders
+    - Normal priority -> Semiweekly (Monday & Friday) reminders
+    - Low priority -> Weekly (every Sunday) reminders
+- Added completion percentage in the goal info screen.
+- Performance & UI/UX improvements and bug fixes.
