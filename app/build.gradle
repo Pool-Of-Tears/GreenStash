@@ -83,7 +83,6 @@ dependencies {
     // Android core components.
     implementation 'androidx.core:core-ktx:1.10.1'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
-    implementation "com.google.accompanist:accompanist-systemuicontroller:0.28.0"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.6.1"
     // Jetpack compose.
     implementation "androidx.compose.ui:ui"
@@ -97,6 +96,7 @@ dependencies {
 
     //accompanist
     implementation "com.google.accompanist:accompanist-navigation-animation:0.29.0-alpha"
+    implementation "com.google.accompanist:accompanist-systemuicontroller:0.28.0"
 
     // Material theme for main activity.
     implementation 'com.google.android.material:material:1.9.0'
