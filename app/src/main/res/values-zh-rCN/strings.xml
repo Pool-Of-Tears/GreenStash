@@ -97,7 +97,7 @@
     <string name="goal_remove_deadline">想要删除此目标的截止日期吗？</string>
 
     <!-- Backup Screen -->
-    <string name="backup_screen_header">备份 &amp; 恢复</string>
+    <string name="backup_screen_header">备份与恢复</string>
     <string name="backup_screen_text">备份应用数据——包括您所有的省钱目标、当前进展、收支等等，并且可以随时轻松恢复。</string>
     <string name="backup_screen_sub_text">注意：备份不包括应用设置信息。</string>
     <string name="backup_button">备份应用数据</string>
@@ -121,7 +121,7 @@
     <string name="app_lock_setting">生物锁</string>
     <string name="app_lock_setting_desc">使用您的指纹或锁屏密码来解锁GreenStash</string>
     <string name="misc_setting_title">更多</string>
-    <string name="license_setting">许可协议 &amp; 致谢</string>
+    <string name="license_setting">许可协议与致谢</string>
     <string name="license_setting_desc">显示开源许可协议信息。</string>
     <string name="app_info_setting">应用信息</string>
     <string name="app_info_setting_desc">显示应用版本和有用的链接。</string>
