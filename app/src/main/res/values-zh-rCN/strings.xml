@@ -82,7 +82,7 @@
     <string name="input_screen_header">省钱时间到！</string>
     <string name="input_edit_goal_header">编辑省钱目标</string>
     <string name="input_pick_image">目标图片</string>
-    <string name="input_page_quote" translatable="ture">千里之行，始于足下</string>
+    <string name="input_page_quote">千里之行，始于足下</string>
     <string name="input_goal_priority">为此目标选择优先级。</string>
     <string name="input_text_title">目标标题</string>
     <string name="title_empty_err">哇！尚无标题。</string>
@@ -109,7 +109,7 @@
     <string name="theme_setting">默认主题</string>
     <string name="theme_dialog_title">修改主题</string>
     <string name="theme_dialog_apply_button">应用</string>
-    <string name="material_you_setting" translatable="ture">自适应</string>
+    <string name="material_you_setting">自适应</string>
     <string name="material_you_setting_desc">根据壁纸切换合适的主题（仅Android12+）</string>
     <string name="material_you_error">此功能仅在Android 12或更高版本上有效。</string>
     <string name="locales_setting_title">地区</string>
