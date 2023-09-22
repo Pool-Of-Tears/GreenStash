@@ -203,9 +203,11 @@ fun SearchAppBar(
                     onSearchClicked(text)
                 }
             ),
-            colors = TextFieldDefaults.textFieldColors(
-                containerColor = Color.Transparent,
-                cursorColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f)
+            colors = TextFieldDefaults.colors(
+                focusedContainerColor = Color.Transparent,
+                unfocusedContainerColor = Color.Transparent,
+                disabledContainerColor = Color.Transparent,
+                cursorColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f),
             ))
     }
 }
