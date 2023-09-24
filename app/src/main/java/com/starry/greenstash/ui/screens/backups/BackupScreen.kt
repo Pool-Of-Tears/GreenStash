@@ -25,8 +25,6 @@
 
 package com.starry.greenstash.ui.screens.backups
 
-import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -39,7 +37,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
@@ -55,7 +52,6 @@ import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -70,19 +66,13 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
-import com.starry.greenstash.MainActivity
 import com.starry.greenstash.R
-import com.starry.greenstash.utils.getActivity
+
 
 @ExperimentalMaterial3Api
-@ExperimentalAnimationApi
-@ExperimentalComposeUiApi
-@ExperimentalFoundationApi
-@ExperimentalMaterialApi
 @Composable
 fun BackupScreen(navController: NavController) {
     val context = LocalContext.current
-    val activity = (context.getActivity() as MainActivity)
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -107,8 +97,8 @@ fun BackupScreen(navController: NavController) {
         content = {
             BackupScreenContent(
                 paddingValues = it,
-                onBackupClicked = { activity.backupDatabase() },
-                onRestoreClicked = { activity.restoreDatabase() })
+                onBackupClicked = { /* TODO */ },
+                onRestoreClicked = { /* TODO */ })
         })
 }
 
