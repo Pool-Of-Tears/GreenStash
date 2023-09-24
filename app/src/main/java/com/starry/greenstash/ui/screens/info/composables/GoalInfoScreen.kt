@@ -134,7 +134,7 @@ fun GoalInfoScreen(goalId: String, navController: NavController) {
             containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(4.dp)
         )
         )
-    }, content = {
+    }) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -212,7 +212,7 @@ fun GoalInfoScreen(goalId: String, navController: NavController) {
                 }
             }
         }
-    })
+    }
 }
 
 
