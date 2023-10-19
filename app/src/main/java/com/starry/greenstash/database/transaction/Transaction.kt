@@ -25,6 +25,7 @@
 
 package com.starry.greenstash.database.transaction
 
+import androidx.annotation.Keep
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
@@ -37,6 +38,7 @@ enum class TransactionType {
     Deposit, Withdraw, Invalid
 }
 
+@Keep
 @Entity(
     tableName = "transaction", foreignKeys = [
         ForeignKey(

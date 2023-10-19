@@ -101,8 +101,10 @@ import com.starry.greenstash.utils.GoalTextUtils
 import com.starry.greenstash.utils.PreferenceUtils
 import com.starry.greenstash.utils.Utils
 import com.starry.greenstash.utils.getActivity
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 
+@ExperimentalCoroutinesApi
 @ExperimentalFoundationApi
 @ExperimentalComposeUiApi
 @ExperimentalAnimationApi
@@ -348,6 +350,7 @@ fun GoalNotesCard(notesText: String) {
     )
 }
 
+@ExperimentalCoroutinesApi
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
 @ExperimentalComposeUiApi
@@ -368,6 +371,7 @@ fun TransactionCard(transactions: List<Transaction>, currencySymbol: String) {
     }
 }
 
+@ExperimentalCoroutinesApi
 @ExperimentalMaterial3Api
 @ExperimentalAnimationApi
 @ExperimentalComposeUiApi
@@ -437,6 +441,7 @@ private fun getRemainingDaysText(context: Context, goalItem: GoalWithTransaction
     }
 }
 
+@ExperimentalCoroutinesApi
 @ExperimentalAnimationApi
 @ExperimentalComposeUiApi
 @ExperimentalFoundationApi

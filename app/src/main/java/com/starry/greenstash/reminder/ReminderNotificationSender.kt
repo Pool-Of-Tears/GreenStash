@@ -48,7 +48,9 @@ import com.starry.greenstash.reminder.receivers.ReminderDismissReceiver
 import com.starry.greenstash.utils.GoalTextUtils
 import com.starry.greenstash.utils.PreferenceUtils
 import com.starry.greenstash.utils.Utils
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+@ExperimentalCoroutinesApi
 @ExperimentalMaterial3Api
 @ExperimentalAnimationApi
 @ExperimentalComposeUiApi

@@ -25,12 +25,14 @@
 
 package com.starry.greenstash.database.core
 
+import androidx.annotation.Keep
 import androidx.room.Embedded
 import androidx.room.Relation
 import com.starry.greenstash.database.goal.Goal
 import com.starry.greenstash.database.transaction.Transaction
 import com.starry.greenstash.database.transaction.TransactionType
 
+@Keep
 data class GoalWithTransactions(
     @Embedded val goal: Goal,
     @Relation(

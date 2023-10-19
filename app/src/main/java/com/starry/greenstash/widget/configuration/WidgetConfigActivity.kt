@@ -96,8 +96,10 @@ import com.starry.greenstash.ui.theme.GreenStashTheme
 import com.starry.greenstash.utils.PreferenceUtils
 import com.starry.greenstash.widget.GoalWidget
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 
+@ExperimentalCoroutinesApi
 @ExperimentalComposeUiApi
 @ExperimentalFoundationApi
 @ExperimentalMaterialApi

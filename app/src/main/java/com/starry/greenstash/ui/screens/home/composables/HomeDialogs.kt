@@ -34,9 +34,9 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -132,9 +132,9 @@ fun ActionDialogs(
                             contentDescription = null
                         )
                     },
-                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                    colors = OutlinedTextFieldDefaults.colors(
                         focusedBorderColor = MaterialTheme.colorScheme.primary,
-                        unfocusedBorderColor = MaterialTheme.colorScheme.onBackground
+                        unfocusedBorderColor = MaterialTheme.colorScheme.onBackground,
                     ),
                     shape = RoundedCornerShape(14.dp),
                     singleLine = true,
@@ -216,9 +216,9 @@ fun ActionDialogs(
                             contentDescription = null
                         )
                     },
-                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                    colors = OutlinedTextFieldDefaults.colors(
                         focusedBorderColor = MaterialTheme.colorScheme.primary,
-                        unfocusedBorderColor = MaterialTheme.colorScheme.onBackground
+                        unfocusedBorderColor = MaterialTheme.colorScheme.onBackground,
                     ),
                     shape = RoundedCornerShape(14.dp),
                     singleLine = true,

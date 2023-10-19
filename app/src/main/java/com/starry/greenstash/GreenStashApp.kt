@@ -39,7 +39,9 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import cat.ereza.customactivityoncrash.config.CaocConfig
 import com.starry.greenstash.reminder.ReminderNotificationSender
 import dagger.hilt.android.HiltAndroidApp
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+@ExperimentalCoroutinesApi
 @ExperimentalMaterial3Api
 @ExperimentalAnimationApi
 @ExperimentalComposeUiApi
