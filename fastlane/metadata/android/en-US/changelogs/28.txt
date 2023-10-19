@@ -1,0 +1,5 @@
+- Rewrote backup & restore backend from scratch to be more reliable & stable.
+- Fixed notes field going below the keyboard as the user types.
+- Added Chinese translation.
+- Updated dependencies, gradle & kotlin version.
+- Some other minor fixes & improvements.

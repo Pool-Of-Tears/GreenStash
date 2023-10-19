@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.util.Log
+import androidx.annotation.Keep
 import androidx.core.content.FileProvider
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -34,8 +35,10 @@ class BackupManager(private val context: Context, private val goalDao: GoalDao) 
     companion object {
         /** Backup schema version. */
         const val BACKUP_SCHEMA_VERSION = 1
+
         /** Authority for using file provider API. */
         private const val FILE_PROVIDER_AUTHORITY = "${BuildConfig.APPLICATION_ID}.provider"
+
         /** An ISO-8601 date format for Gson */
         private const val ISO8601_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
     }
@@ -44,6 +47,7 @@ class BackupManager(private val context: Context, private val goalDao: GoalDao) 
      * Model for backup json data, containing current schema version
      * and timestamp when backup was created.
      */
+    @Keep
     data class BackupJsonModel(
         val version: Int = BACKUP_SCHEMA_VERSION,
         val timestamp: Long,
