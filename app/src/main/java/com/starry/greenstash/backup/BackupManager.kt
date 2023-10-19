@@ -110,12 +110,12 @@ class BackupManager(private val context: Context, private val goalDao: GoalDao) 
         val backupData: BackupJsonModel? = try {
             gsonInstance.fromJson(jsonString, BackupJsonModel::class.java)
         } catch (exc: Exception) {
-            log("Failed tp parse backup json file! Err: ${exc.message}")
+            log("Failed to parse backup json file! Err: ${exc.message}")
             exc.printStackTrace()
             null
         }
 
-        if (backupData == null) {
+        if (backupData?.data == null) {
             withContext(Dispatchers.Main) { onFailure() }
             return@withContext
         }
