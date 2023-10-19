@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">GreenStash</string>
+
+    <!-- Other Strings -->
     <string name="dialog_confirm_button">确认</string>
     <string name="cancel">取消</string>
+    <string name="unknown_error">Oops! something went wrong.</string>
 
     <!-- Navigation Drawer -->
     <string name="drawer_home">主页</string>
@@ -102,6 +105,7 @@
     <string name="backup_screen_sub_text">注意：备份不包括应用设置信息。</string>
     <string name="backup_button">备份应用数据</string>
     <string name="restore_button">恢复应用数据</string>
+    <string name="backup_restore_success">Backup restored successfully!</string>
 
     <!-- Settings Screen -->
     <string name="settings_screen_header">设置</string>

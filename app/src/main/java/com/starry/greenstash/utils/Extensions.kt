@@ -33,9 +33,12 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import java.io.File
+import java.io.PrintWriter
 
 fun Context.getActivity(): AppCompatActivity? = when (this) {
     is AppCompatActivity -> this
@@ -45,8 +48,8 @@ fun Context.getActivity(): AppCompatActivity? = when (this) {
 
 @Composable
 fun LazyListState.isScrollingUp(): Boolean {
-    var previousIndex by remember(this) { mutableStateOf(firstVisibleItemIndex) }
-    var previousScrollOffset by remember(this) { mutableStateOf(firstVisibleItemScrollOffset) }
+    var previousIndex by remember(this) { mutableIntStateOf(firstVisibleItemIndex) }
+    var previousScrollOffset by remember(this) { mutableIntStateOf(firstVisibleItemScrollOffset) }
     return remember(this) {
         derivedStateOf {
             if (previousIndex != firstVisibleItemIndex) {
@@ -70,3 +73,15 @@ fun String.validateAmount() =
     this.isNotEmpty() && this.isNotBlank()
             && !this.matches("[0.]+".toRegex())
             && !this.endsWith(".")
+
+fun File.clearText() {
+    PrintWriter(this).also {
+        it.print("")
+        it.close()
+    }
+}
+
+fun File.updateText(content: String) {
+    clearText()
+    appendText(content)
+}

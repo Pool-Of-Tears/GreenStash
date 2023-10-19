@@ -25,9 +25,7 @@
 
 package com.starry.greenstash
 
-import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricManager
@@ -49,7 +47,6 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.ViewModelProvider
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.starry.greenstash.database.core.AppDatabase
 import com.starry.greenstash.ui.navigation.NavGraph
 import com.starry.greenstash.ui.screens.settings.viewmodels.SettingsViewModel
 import com.starry.greenstash.ui.screens.settings.viewmodels.ThemeMode
@@ -58,16 +55,16 @@ import com.starry.greenstash.utils.PreferenceUtils
 import com.starry.greenstash.utils.Utils
 import com.starry.greenstash.utils.toToast
 import dagger.hilt.android.AndroidEntryPoint
-import de.raphaelebner.roomdatabasebackup.core.RoomBackup
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import java.util.concurrent.Executor
-import javax.inject.Inject
 
+@ExperimentalCoroutinesApi
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
-@AndroidEntryPoint
 @ExperimentalComposeUiApi
 @ExperimentalAnimationApi
 @ExperimentalMaterial3Api
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     lateinit var settingsViewModel: SettingsViewModel
@@ -76,11 +73,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var executor: Executor
     private lateinit var biometricPrompt: BiometricPrompt
     private lateinit var promptInfo: BiometricPrompt.PromptInfo
-
-    private lateinit var roomBackup: RoomBackup
-
-    @Inject
-    lateinit var appDatabase: AppDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -147,26 +139,6 @@ class MainActivity : AppCompatActivity() {
         } else {
             setAppContents()
         }
-
-        //  initialize & setup room backup instance
-        roomBackup = RoomBackup(this)
-            .database(appDatabase)
-            .enableLogDebug(true)
-            .backupLocation(RoomBackup.BACKUP_FILE_LOCATION_CUSTOM_DIALOG)
-            .customBackupFileName("GreenStash-${System.currentTimeMillis()}.backup")
-            .apply {
-                onCompleteListener { success, message, _ ->
-                    if (success) restartApp(
-                        Intent(
-                            this@MainActivity,
-                            MainActivity::class.java
-                        )
-                    ) else Toast.makeText(
-                        this@MainActivity,
-                        message, Toast.LENGTH_SHORT,
-                    ).show()
-                }
-            }
     }
 
     fun setAppContents() {
@@ -192,22 +164,6 @@ class MainActivity : AppCompatActivity() {
                     NavGraph(navController = navController, screen)
                 }
             }
-        }
-    }
-
-    fun backupDatabase() {
-        try {
-            roomBackup.backup()
-        } catch (exc: NullPointerException) {
-            exc.printStackTrace()
-        }
-    }
-
-    fun restoreDatabase() {
-        try {
-            roomBackup.restore()
-        } catch (exc: NullPointerException) {
-            exc.printStackTrace()
         }
     }
 }

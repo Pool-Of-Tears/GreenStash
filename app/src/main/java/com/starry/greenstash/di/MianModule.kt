@@ -31,7 +31,9 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.ui.ExperimentalComposeUiApi
+import com.starry.greenstash.backup.BackupManager
 import com.starry.greenstash.database.core.AppDatabase
+import com.starry.greenstash.database.goal.GoalDao
 import com.starry.greenstash.other.WelcomeDataStore
 import com.starry.greenstash.reminder.ReminderManager
 import com.starry.greenstash.reminder.ReminderNotificationSender
@@ -78,4 +80,9 @@ class MianModule {
     @Singleton
     fun provideReminderNotificationSender(@ApplicationContext context: Context) =
         ReminderNotificationSender(context)
+
+    @Provides
+    @Singleton
+    fun providebackupmanager(@ApplicationContext context: Context, goalDao: GoalDao) =
+        BackupManager(context = context, goalDao = goalDao)
 }
