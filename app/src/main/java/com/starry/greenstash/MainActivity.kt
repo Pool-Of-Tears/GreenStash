@@ -61,10 +61,10 @@ import java.util.concurrent.Executor
 @ExperimentalCoroutinesApi
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
-@AndroidEntryPoint
 @ExperimentalComposeUiApi
 @ExperimentalAnimationApi
 @ExperimentalMaterial3Api
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     lateinit var settingsViewModel: SettingsViewModel

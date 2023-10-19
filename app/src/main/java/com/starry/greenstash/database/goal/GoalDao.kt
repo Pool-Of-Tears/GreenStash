@@ -37,6 +37,20 @@ interface GoalDao {
     @Insert
     suspend fun insertGoal(goal: Goal): Long
 
+    @Transaction
+    suspend fun insertGoalWithTransaction(goalsWithTransactions: List<GoalWithTransactions>) {
+        goalsWithTransactions.forEach { goalWithTransactions ->
+            // Set placeholder id.
+            goalWithTransactions.goal.goalId = 0L
+            // insert goal and get actual id from database.
+            val goalId = insertGoal(goalWithTransactions.goal)
+            // map transactions with inserted goal, and insert them into database.
+            val transactionsWithGoalId =
+                goalWithTransactions.transactions.map { it.copy(ownerGoalId = goalId) }
+            insertTransactions(transactionsWithGoalId)
+        }
+    }
+
     @Update
     suspend fun updateGoal(goal: Goal)
 
@@ -82,4 +96,12 @@ interface GoalDao {
     )
     fun getAllGoalsByPriority(sortOrder: Int): Flow<List<GoalWithTransactions>>
 
+    /**
+     * For internal use with insertGoalWithTransaction() method only,
+     * Please use Transaction Dao for transaction related operations.
+     */
+    @Insert
+    suspend fun insertTransactions(
+        transactions: List<com.starry.greenstash.database.transaction.Transaction>
+    )
 }

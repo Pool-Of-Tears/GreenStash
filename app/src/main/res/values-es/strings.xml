@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">GreenStash</string>
+
+    <!-- Other Strings -->
     <string name="dialog_confirm_button">Confirmar</string>
     <string name="cancel">Cancelar</string>
+    <string name="unknown_error">Oops! something went wrong.</string>
 
     <!-- Navigation Drawer -->
     <string name="drawer_home">Inicio</string>
@@ -101,6 +104,7 @@
     <string name="backup_screen_sub_text">Nota: La copia de seguridad no incluye la configuración de la app.</string>
     <string name="backup_button">Respaldar Datos</string>
     <string name="restore_button">Recuperar Datos</string>
+    <string name="backup_restore_success">Backup restored successfully!</string>
 
     <!-- Settings Screen -->
     <string name="settings_screen_header">Configuración</string>

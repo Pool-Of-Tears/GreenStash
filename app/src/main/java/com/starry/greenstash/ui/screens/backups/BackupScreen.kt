@@ -25,6 +25,8 @@
 
 package com.starry.greenstash.ui.screens.backups
 
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -45,12 +47,16 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -59,6 +65,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionResult
@@ -67,15 +74,23 @@ import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.starry.greenstash.R
+import kotlinx.coroutines.launch
+import java.io.InputStreamReader
+import java.io.Reader
+import java.nio.charset.StandardCharsets
 
 
 @ExperimentalMaterial3Api
 @Composable
 fun BackupScreen(navController: NavController) {
     val context = LocalContext.current
+    val viewModel = hiltViewModel<BackupViewModel>()
 
-    Scaffold(
-        modifier = Modifier.fillMaxSize(),
+    val snackBarHostState = remember { SnackbarHostState() }
+    val coroutineScope = rememberCoroutineScope()
+
+    Scaffold(modifier = Modifier.fillMaxSize(),
+        snackbarHost = { SnackbarHost(snackBarHostState) },
         topBar = {
             TopAppBar(modifier = Modifier.fillMaxWidth(), title = {
                 Text(
@@ -93,20 +108,50 @@ fun BackupScreen(navController: NavController) {
                 containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(4.dp)
             )
             )
-        },
-        content = {
-            BackupScreenContent(
-                paddingValues = it,
-                onBackupClicked = { /* TODO */ },
-                onRestoreClicked = { /* TODO */ })
+        }, content = {
+            val backupLauncher =
+                rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
+                    uri?.let { fileUri ->
+                        context.contentResolver.openInputStream(fileUri)?.let { ips ->
+                            // read json content from input stream
+                            val bufferSize = 1024
+                            val buffer = CharArray(bufferSize)
+                            val out = StringBuilder()
+                            val reader: Reader = InputStreamReader(ips, StandardCharsets.UTF_8)
+                            var numRead: Int
+                            while (reader.read(buffer, 0, buffer.size)
+                                    .also { nRead -> numRead = nRead } > 0
+                            ) {
+                                out.appendRange(buffer, 0, numRead)
+                            }
+
+                            viewModel.restoreBackup(jsonString = out.toString(),
+                                onSuccess = {
+                                    coroutineScope.launch {
+                                        snackBarHostState.showSnackbar(context.getString(R.string.backup_restore_success))
+                                    }
+                                },
+                                onFailure = {
+                                    coroutineScope.launch {
+                                        snackBarHostState.showSnackbar(context.getString(R.string.unknown_error))
+                                    }
+                                }
+                            )
+                        }
+                    }
+
+                }
+
+            BackupScreenContent(paddingValues = it,
+                onBackupClicked = { viewModel.takeBackup { intent -> context.startActivity(intent) } },
+                onRestoreClicked = { backupLauncher.launch(arrayOf("application/json")) }
+            )
         })
 }
 
 @Composable
 fun BackupScreenContent(
-    paddingValues: PaddingValues,
-    onBackupClicked: () -> Unit,
-    onRestoreClicked: () -> Unit
+    paddingValues: PaddingValues, onBackupClicked: () -> Unit, onRestoreClicked: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -150,8 +195,7 @@ fun BackupScreenContent(
         }
 
         Column(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally
+            modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Button(
                 onClick = onBackupClicked,
