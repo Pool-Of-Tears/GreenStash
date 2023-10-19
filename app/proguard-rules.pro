@@ -20,7 +20,7 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
-# Keep alldata classes.
+# Keep all data classes.
 #
 # Rule explanation:
 # 1. All data class has component1() method which returns data
