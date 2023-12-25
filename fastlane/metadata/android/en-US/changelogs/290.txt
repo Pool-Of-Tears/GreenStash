@@ -1,0 +1,2 @@
+- Bug fixes and UI/UX improvements
+- Updated dependencies, gradle & kotlin version.
