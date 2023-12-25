@@ -129,14 +129,12 @@ import com.starry.greenstash.BuildConfig
 import com.starry.greenstash.MainActivity
 import com.starry.greenstash.R
 import com.starry.greenstash.database.goal.GoalPriority
-import com.starry.greenstash.reminder.ReminderNotificationSender
 import com.starry.greenstash.ui.common.SelectableChipGroup
 import com.starry.greenstash.ui.navigation.DrawerScreens
 import com.starry.greenstash.ui.screens.input.viewmodels.InputViewModel
-import com.starry.greenstash.ui.screens.settings.viewmodels.DateStyle
-import com.starry.greenstash.utils.PreferenceUtils
 import com.starry.greenstash.utils.Utils
 import com.starry.greenstash.utils.getActivity
+import com.starry.greenstash.utils.hasNotificationPermission
 import com.starry.greenstash.utils.toToast
 import com.starry.greenstash.utils.validateAmount
 import kotlinx.coroutines.CoroutineScope
@@ -196,13 +194,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
     CalendarDialog(
         state = calenderState, selection = CalendarSelection.Date { date ->
             viewModel.state = viewModel.state.copy(
-                deadline = date.format(
-                    DateTimeFormatter.ofPattern(
-                        PreferenceUtils.getString(
-                            PreferenceUtils.DATE_FORMAT, DateStyle.DateMonthYear.pattern
-                        )
-                    )
-                )
+                deadline = date.format(DateTimeFormatter.ofPattern(viewModel.getDateStyleValue()))
             )
         }, config = CalendarConfig(
             monthSelection = true, yearSelection = true, disabledTimeline = CalendarTimeline.PAST
@@ -612,9 +604,7 @@ fun GoalReminderMenu(
     snackbarHostState: SnackbarHostState,
     coroutineScope: CoroutineScope
 ) {
-    var hasNotificationPermission by remember {
-        mutableStateOf(ReminderNotificationSender(context).hasNotificationPermission())
-    }
+    var hasNotificationPermission by remember { mutableStateOf(context.hasNotificationPermission()) }
 
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestPermission(),

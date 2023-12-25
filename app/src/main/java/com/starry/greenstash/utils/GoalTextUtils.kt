@@ -35,7 +35,7 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 
-object GoalTextUtils {
+class GoalTextUtils(private val preferenceUtil: PreferenceUtil) {
 
     data class CalculatedDays(
         val remainingDays: Long,
@@ -66,7 +66,7 @@ object GoalTextUtils {
                 context.getString(R.string.progress_greet5)
             }
         }
-        val defCurrency = PreferenceUtils.getString(PreferenceUtils.DEFAULT_CURRENCY, "")
+        val defCurrency = preferenceUtil.getString(PreferenceUtil.DEFAULT_CURRENCY_STR, "")
         text += if (progressPercent < 100) {
             "\n" + context.getString(R.string.currently_saved_incomplete)
         } else {
@@ -84,7 +84,7 @@ object GoalTextUtils {
         if ((remainingAmount > 0f)) {
             if (item.goal.deadline.isNotEmpty() && item.goal.deadline.isNotBlank()) {
                 val calculatedDays = calcRemainingDays(item.goal)
-                val defCurrency = PreferenceUtils.getString(PreferenceUtils.DEFAULT_CURRENCY, "")
+                val defCurrency = preferenceUtil.getString(PreferenceUtil.DEFAULT_CURRENCY_STR, "")
                 // build description string.
                 var text = context.getString(R.string.goal_days_left)
                     .format(calculatedDays.parsedEndDate, calculatedDays.remainingDays) + "\n"
@@ -140,10 +140,25 @@ object GoalTextUtils {
 
     }
 
+    fun getRemainingDaysText(context: Context, goalItem: GoalWithTransactions): String {
+        return if (goalItem.getCurrentlySavedAmount() >= goalItem.goal.targetAmount) {
+            context.getString(R.string.info_card_goal_achieved)
+        } else {
+            if (goalItem.goal.deadline.isNotEmpty() && goalItem.goal.deadline.isNotBlank()) {
+                val calculatedDays = calcRemainingDays(goalItem.goal)
+                context.getString(R.string.info_card_remaining_days)
+                    .format(calculatedDays.remainingDays)
+            } else {
+                context.getString(R.string.info_card_no_deadline_set)
+            }
+        }
+    }
+
+
     fun calcRemainingDays(goal: Goal): CalculatedDays {
         // calculate remaining days between today and endDate (deadline).
-        val preferredDateFormat = PreferenceUtils.getString(
-            PreferenceUtils.DATE_FORMAT, DateStyle.DateMonthYear.pattern
+        val preferredDateFormat = preferenceUtil.getString(
+            PreferenceUtil.DATE_FORMAT_STR, DateStyle.DateMonthYear.pattern
         )
         val dateFormatter: DateTimeFormatter =
             DateTimeFormatter.ofPattern(preferredDateFormat)
@@ -156,16 +171,17 @@ object GoalTextUtils {
         val reverseDate: (String) -> String = {
             goal.deadline.split("/").reversed().joinToString(separator = "/")
         }
-        val endDate = if (goal.deadline.split("/")
-                .first().length == 2 && preferredDateFormat != DateStyle.DateMonthYear.pattern
-        ) {
-            reverseDate(goal.deadline)
-        } else if (goal.deadline.split("/")
-                .first().length == 4 && preferredDateFormat != DateStyle.YearMonthDate.pattern
-        ) {
-            reverseDate(goal.deadline)
-        } else {
-            goal.deadline
+
+        val endDate = when {
+            goal.deadline.split("/").first().length == 2 &&
+                    preferredDateFormat != DateStyle.DateMonthYear.pattern ->
+                reverseDate(goal.deadline)
+
+            goal.deadline.split("/").first().length == 4 &&
+                    preferredDateFormat != DateStyle.YearMonthDate.pattern ->
+                reverseDate(goal.deadline)
+
+            else -> goal.deadline
         }
 
         val startDateValue: LocalDate = LocalDate.parse(startDate, dateFormatter)

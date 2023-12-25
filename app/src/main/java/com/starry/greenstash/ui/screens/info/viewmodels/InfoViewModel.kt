@@ -32,6 +32,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.starry.greenstash.database.core.GoalWithTransactions
 import com.starry.greenstash.database.goal.GoalDao
+import com.starry.greenstash.utils.GoalTextUtils
+import com.starry.greenstash.utils.PreferenceUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -44,8 +46,14 @@ data class InfoScreenState(
 )
 
 @HiltViewModel
-class InfoViewModel @Inject constructor(private val goalDao: GoalDao) : ViewModel() {
+class InfoViewModel @Inject constructor(
+    private val goalDao: GoalDao,
+    private val preferenceUtil: PreferenceUtil
+) : ViewModel() {
+
+    val goalTextUtils = GoalTextUtils(preferenceUtil)
     var state by mutableStateOf(InfoScreenState())
+
     fun loadGoalData(goalId: Long) {
         viewModelScope.launch(Dispatchers.IO) {
             val goalWithTransactions = goalDao.getGoalWithTransactionById(goalId)
@@ -53,4 +61,8 @@ class InfoViewModel @Inject constructor(private val goalDao: GoalDao) : ViewMode
             state = state.copy(isLoading = false, goalData = goalWithTransactions)
         }
     }
+
+    fun getDefaultCurrencyValue() = preferenceUtil.getString(
+        PreferenceUtil.DEFAULT_CURRENCY_STR, "$"
+    )!!
 }

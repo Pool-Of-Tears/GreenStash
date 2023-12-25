@@ -30,6 +30,8 @@ import androidx.lifecycle.viewModelScope
 import com.starry.greenstash.database.core.GoalWithTransactions
 import com.starry.greenstash.database.goal.GoalDao
 import com.starry.greenstash.database.widget.WidgetDao
+import com.starry.greenstash.utils.GoalTextUtils
+import com.starry.greenstash.utils.PreferenceUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -37,8 +39,11 @@ import javax.inject.Inject
 
 class WidgetViewModel @Inject constructor(
     private val widgetDao: WidgetDao,
-    private val goalDao: GoalDao
+    private val goalDao: GoalDao,
+    private val preferenceUtil: PreferenceUtil
 ) : ViewModel() {
+
+    val goalTextUtils = GoalTextUtils(preferenceUtil)
 
     fun getGoalFromWidgetId(
         appWidgetId: Int,
@@ -50,4 +55,8 @@ class WidgetViewModel @Inject constructor(
             withContext(Dispatchers.Main) { goalItem?.let { callback(it) } }
         }
     }
+
+    fun getDefaultCurrencyValue() = preferenceUtil.getString(
+        PreferenceUtil.DEFAULT_CURRENCY_STR, "$"
+    )
 }

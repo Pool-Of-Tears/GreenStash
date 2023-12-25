@@ -93,7 +93,6 @@ import com.starry.greenstash.R
 import com.starry.greenstash.ui.screens.settings.viewmodels.SettingsViewModel
 import com.starry.greenstash.ui.screens.settings.viewmodels.ThemeMode
 import com.starry.greenstash.ui.theme.GreenStashTheme
-import com.starry.greenstash.utils.PreferenceUtils
 import com.starry.greenstash.widget.GoalWidget
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -114,9 +113,11 @@ class WidgetConfigActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        PreferenceUtils.initialize(this)
         settingsViewModel = ViewModelProvider(this)[SettingsViewModel::class.java]
-        settingsViewModel.setUpAppTheme()
+        // Setup app theme according to user's settings.
+        ThemeMode.entries.find { it.ordinal == settingsViewModel.getThemeValue() }
+            ?.let { settingsViewModel.setTheme(it) }
+        settingsViewModel.setMaterialYou(settingsViewModel.getMaterialYouValue())
 
         setContent {
             GreenStashTheme(settingsViewModel = settingsViewModel) {
@@ -236,8 +237,7 @@ class WidgetConfigActivity : AppCompatActivity() {
                             .fillMaxSize()
                             .padding(top = 4.dp)
                     ) {
-                        val defCurrency =
-                            PreferenceUtils.getString(PreferenceUtils.DEFAULT_CURRENCY, "")
+                        val defCurrency = settingsViewModel.getDefaultCurrencyValue()
 
                         items(allGoals.size) { idx ->
                             val item = allGoals[idx]

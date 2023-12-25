@@ -29,32 +29,34 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.starry.greenstash.ui.screens.settings.viewmodels.DateStyle
 
-object PreferenceUtils {
-    private lateinit var prefs: SharedPreferences
-    private const val PREFS_NAME = "myne_settings"
+class PreferenceUtil(context: Context) {
 
-    // Preference keys
-    const val APP_THEME = "theme_settings"
-    const val MATERIAL_YOU = "material_you"
-    const val DEFAULT_CURRENCY = "default_currency"
-    const val DATE_FORMAT = "date_format"
-    const val APP_LOCK = "app_lock"
+    companion object {
+        private const val PREFS_NAME = "greenstash_settings"
 
-    fun initialize(context: Context) {
+        // Preference keys
+        const val APP_THEME_INT = "theme_settings"
+        const val MATERIAL_YOU_BOOL = "material_you"
+        const val DEFAULT_CURRENCY_STR = "default_currency"
+        const val DATE_FORMAT_STR = "date_format"
+        const val APP_LOCK_BOOL = "app_lock"
+    }
+
+    private var prefs: SharedPreferences
+
+    init {
         prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         // Pre-populate some preference data with default values
-        if (!keyExists(DEFAULT_CURRENCY)) {
-            putString(DEFAULT_CURRENCY, "$")
+        if (!keyExists(DEFAULT_CURRENCY_STR)) {
+            putString(DEFAULT_CURRENCY_STR, "$")
         }
-        if (!keyExists(DATE_FORMAT)) {
-            putString(DATE_FORMAT, DateStyle.DateMonthYear.pattern)
+        if (!keyExists(DATE_FORMAT_STR)) {
+            putString(DATE_FORMAT_STR, DateStyle.DateMonthYear.pattern)
         }
     }
 
     private fun keyExists(key: String): Boolean {
-        if (prefs.contains(key))
-            return true
-        return false
+        return prefs.contains(key)
     }
 
     fun putString(key: String, value: String) {

@@ -42,9 +42,9 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.google.accompanist.navigation.animation.AnimatedNavHost
-import com.google.accompanist.navigation.animation.composable
 import com.starry.greenstash.ui.screens.backups.BackupScreen
 import com.starry.greenstash.ui.screens.home.composables.HomeScreen
 import com.starry.greenstash.ui.screens.info.composables.GoalInfoScreen
@@ -54,6 +54,33 @@ import com.starry.greenstash.ui.screens.settings.composables.OSLScreen
 import com.starry.greenstash.ui.screens.settings.composables.SettingsScreen
 import com.starry.greenstash.ui.screens.welcome.composables.WelcomeScreen
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+
+
+private const val NAVIGATION_ANIM_DURATION = 300
+
+private fun enterTransition() = slideInHorizontally(
+    initialOffsetX = { NAVIGATION_ANIM_DURATION }, animationSpec = tween(
+        durationMillis = NAVIGATION_ANIM_DURATION, easing = FastOutSlowInEasing
+    )
+) + fadeIn(animationSpec = tween(NAVIGATION_ANIM_DURATION))
+
+private fun exitTransition() = slideOutHorizontally(
+    targetOffsetX = { -NAVIGATION_ANIM_DURATION }, animationSpec = tween(
+        durationMillis = NAVIGATION_ANIM_DURATION, easing = FastOutSlowInEasing
+    )
+) + fadeOut(animationSpec = tween(NAVIGATION_ANIM_DURATION))
+
+private fun popEnterTransition() = slideInHorizontally(
+    initialOffsetX = { -NAVIGATION_ANIM_DURATION }, animationSpec = tween(
+        durationMillis = NAVIGATION_ANIM_DURATION, easing = FastOutSlowInEasing
+    )
+) + fadeIn(animationSpec = tween(NAVIGATION_ANIM_DURATION))
+
+private fun popExitTransition() = slideOutHorizontally(
+    targetOffsetX = { NAVIGATION_ANIM_DURATION }, animationSpec = tween(
+        durationMillis = NAVIGATION_ANIM_DURATION, easing = FastOutSlowInEasing
+    )
+) + fadeOut(animationSpec = tween(NAVIGATION_ANIM_DURATION))
 
 @ExperimentalCoroutinesApi
 @ExperimentalMaterialApi
@@ -66,7 +93,7 @@ fun NavGraph(
     navController: NavHostController,
     startDestination: String
 ) {
-    AnimatedNavHost(
+    NavHost(
         navController = navController,
         startDestination = startDestination,
         modifier = Modifier.background(MaterialTheme.colorScheme.background)
@@ -75,21 +102,8 @@ fun NavGraph(
         /** Welcome Screen */
         composable(
             route = Screens.WelcomeScreen.route,
-            exitTransition = {
-                slideOutHorizontally(
-                    targetOffsetX = { -300 }, animationSpec = tween(
-                        durationMillis = 300, easing = FastOutSlowInEasing
-                    )
-                ) + fadeOut(animationSpec = tween(300))
-            },
-            popEnterTransition = {
-                slideInHorizontally(
-                    initialOffsetX = { -300 }, animationSpec = tween(
-                        durationMillis = 300, easing = FastOutSlowInEasing
-                    )
-                ) + fadeIn(animationSpec = tween(300))
-
-            },
+            exitTransition = { exitTransition() },
+            popEnterTransition = { popEnterTransition() },
         ) {
             WelcomeScreen(navController = navController)
         }
@@ -97,21 +111,8 @@ fun NavGraph(
         /** Home Screen */
         composable(
             route = DrawerScreens.Home.route,
-            exitTransition = {
-                slideOutHorizontally(
-                    targetOffsetX = { -300 }, animationSpec = tween(
-                        durationMillis = 300, easing = FastOutSlowInEasing
-                    )
-                ) + fadeOut(animationSpec = tween(300))
-            },
-            popEnterTransition = {
-                slideInHorizontally(
-                    initialOffsetX = { -300 }, animationSpec = tween(
-                        durationMillis = 300, easing = FastOutSlowInEasing
-                    )
-                ) + fadeIn(animationSpec = tween(300))
-
-            },
+            exitTransition = { exitTransition() },
+            popEnterTransition = { popEnterTransition() },
         ) {
             HomeScreen(navController)
         }
@@ -119,36 +120,10 @@ fun NavGraph(
         /** Goal Info Screen */
         composable(
             route = Screens.GoalInfoScreen.route,
-            enterTransition = {
-                slideInHorizontally(
-                    initialOffsetX = { 300 }, animationSpec = tween(
-                        durationMillis = 300, easing = FastOutSlowInEasing
-                    )
-                ) + fadeIn(animationSpec = tween(300))
-            },
-            exitTransition = {
-                slideOutHorizontally(
-                    targetOffsetX = { -300 }, animationSpec = tween(
-                        durationMillis = 300, easing = FastOutSlowInEasing
-                    )
-                ) + fadeOut(animationSpec = tween(300))
-
-            },
-            popEnterTransition = {
-                slideInHorizontally(
-                    initialOffsetX = { -300 }, animationSpec = tween(
-                        durationMillis = 300, easing = FastOutSlowInEasing
-                    )
-                ) + fadeIn(animationSpec = tween(300))
-
-            },
-            popExitTransition = {
-                slideOutHorizontally(
-                    targetOffsetX = { 300 }, animationSpec = tween(
-                        durationMillis = 300, easing = FastOutSlowInEasing
-                    )
-                ) + fadeOut(animationSpec = tween(300))
-            },
+            enterTransition = { enterTransition() },
+            exitTransition = { exitTransition() },
+            popEnterTransition = { popEnterTransition() },
+            popExitTransition = { popExitTransition() },
             arguments = listOf(
                 navArgument(GOAL_INFO_ARG_KEY) {
                     type = NavType.StringType
@@ -159,40 +134,13 @@ fun NavGraph(
             GoalInfoScreen(goalId = goalId, navController)
         }
 
-
         /** Input Screen */
         composable(
             route = Screens.InputScreen.route,
-            enterTransition = {
-                slideInHorizontally(
-                    initialOffsetX = { 300 }, animationSpec = tween(
-                        durationMillis = 300, easing = FastOutSlowInEasing
-                    )
-                ) + fadeIn(animationSpec = tween(300))
-            },
-            exitTransition = {
-                slideOutHorizontally(
-                    targetOffsetX = { -300 }, animationSpec = tween(
-                        durationMillis = 300, easing = FastOutSlowInEasing
-                    )
-                ) + fadeOut(animationSpec = tween(300))
-
-            },
-            popEnterTransition = {
-                slideInHorizontally(
-                    initialOffsetX = { -300 }, animationSpec = tween(
-                        durationMillis = 300, easing = FastOutSlowInEasing
-                    )
-                ) + fadeIn(animationSpec = tween(300))
-
-            },
-            popExitTransition = {
-                slideOutHorizontally(
-                    targetOffsetX = { 300 }, animationSpec = tween(
-                        durationMillis = 300, easing = FastOutSlowInEasing
-                    )
-                ) + fadeOut(animationSpec = tween(300))
-            },
+            enterTransition = { enterTransition() },
+            exitTransition = { exitTransition() },
+            popEnterTransition = { popEnterTransition() },
+            popExitTransition = { popExitTransition() },
             arguments = listOf(navArgument(EDIT_GOAL_ARG_KEY) {
                 nullable = true
                 defaultValue = null
@@ -206,36 +154,10 @@ fun NavGraph(
         /** Backup Screen */
         composable(
             route = DrawerScreens.Backups.route,
-            enterTransition = {
-                slideInHorizontally(
-                    initialOffsetX = { 300 }, animationSpec = tween(
-                        durationMillis = 300, easing = FastOutSlowInEasing
-                    )
-                ) + fadeIn(animationSpec = tween(300))
-            },
-            exitTransition = {
-                slideOutHorizontally(
-                    targetOffsetX = { -300 }, animationSpec = tween(
-                        durationMillis = 300, easing = FastOutSlowInEasing
-                    )
-                ) + fadeOut(animationSpec = tween(300))
-
-            },
-            popEnterTransition = {
-                slideInHorizontally(
-                    initialOffsetX = { -300 }, animationSpec = tween(
-                        durationMillis = 300, easing = FastOutSlowInEasing
-                    )
-                ) + fadeIn(animationSpec = tween(300))
-
-            },
-            popExitTransition = {
-                slideOutHorizontally(
-                    targetOffsetX = { 300 }, animationSpec = tween(
-                        durationMillis = 300, easing = FastOutSlowInEasing
-                    )
-                ) + fadeOut(animationSpec = tween(300))
-            }
+            enterTransition = { enterTransition() },
+            exitTransition = { exitTransition() },
+            popEnterTransition = { popEnterTransition() },
+            popExitTransition = { popExitTransition() },
         ) {
             BackupScreen(navController)
         }
@@ -243,36 +165,10 @@ fun NavGraph(
         /** Settings Screen */
         composable(
             route = DrawerScreens.Settings.route,
-            enterTransition = {
-                slideInHorizontally(
-                    initialOffsetX = { 300 }, animationSpec = tween(
-                        durationMillis = 300, easing = FastOutSlowInEasing
-                    )
-                ) + fadeIn(animationSpec = tween(300))
-            },
-            exitTransition = {
-                slideOutHorizontally(
-                    targetOffsetX = { -300 }, animationSpec = tween(
-                        durationMillis = 300, easing = FastOutSlowInEasing
-                    )
-                ) + fadeOut(animationSpec = tween(300))
-
-            },
-            popEnterTransition = {
-                slideInHorizontally(
-                    initialOffsetX = { -300 }, animationSpec = tween(
-                        durationMillis = 300, easing = FastOutSlowInEasing
-                    )
-                ) + fadeIn(animationSpec = tween(300))
-
-            },
-            popExitTransition = {
-                slideOutHorizontally(
-                    targetOffsetX = { 300 }, animationSpec = tween(
-                        durationMillis = 300, easing = FastOutSlowInEasing
-                    )
-                ) + fadeOut(animationSpec = tween(300))
-            }
+            enterTransition = { enterTransition() },
+            exitTransition = { exitTransition() },
+            popEnterTransition = { popEnterTransition() },
+            popExitTransition = { popExitTransition() },
         ) {
             SettingsScreen(navController)
         }
@@ -280,20 +176,8 @@ fun NavGraph(
         /** Open Source Licenses Screen */
         composable(
             route = Screens.OSLScreen.route,
-            enterTransition = {
-                slideInHorizontally(
-                    initialOffsetX = { 300 }, animationSpec = tween(
-                        durationMillis = 300, easing = FastOutSlowInEasing
-                    )
-                ) + fadeIn(animationSpec = tween(300))
-            },
-            popExitTransition = {
-                slideOutHorizontally(
-                    targetOffsetX = { 300 }, animationSpec = tween(
-                        durationMillis = 300, easing = FastOutSlowInEasing
-                    )
-                ) + fadeOut(animationSpec = tween(300))
-            },
+            enterTransition = { enterTransition() },
+            popExitTransition = { popExitTransition() },
         ) {
             OSLScreen(navController = navController)
         }
@@ -301,20 +185,8 @@ fun NavGraph(
         /** About Screen */
         composable(
             route = Screens.AboutScreen.route,
-            enterTransition = {
-                slideInHorizontally(
-                    initialOffsetX = { 300 }, animationSpec = tween(
-                        durationMillis = 300, easing = FastOutSlowInEasing
-                    )
-                ) + fadeIn(animationSpec = tween(300))
-            },
-            popExitTransition = {
-                slideOutHorizontally(
-                    targetOffsetX = { 300 }, animationSpec = tween(
-                        durationMillis = 300, easing = FastOutSlowInEasing
-                    )
-                ) + fadeOut(animationSpec = tween(300))
-            },
+            enterTransition = { enterTransition() },
+            popExitTransition = { popExitTransition() },
         ) {
             AboutScreen(navController = navController)
         }

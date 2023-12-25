@@ -42,6 +42,8 @@ import com.starry.greenstash.database.transaction.Transaction
 import com.starry.greenstash.database.transaction.TransactionDao
 import com.starry.greenstash.database.transaction.TransactionType
 import com.starry.greenstash.reminder.ReminderManager
+import com.starry.greenstash.utils.GoalTextUtils
+import com.starry.greenstash.utils.PreferenceUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -68,8 +70,11 @@ data class FilterFlowData(val filterField: FilterField, val sortType: FilterSort
 class HomeViewModel @Inject constructor(
     private val goalDao: GoalDao,
     private val transactionDao: TransactionDao,
-    private val reminderManager: ReminderManager
+    private val reminderManager: ReminderManager,
+    private val preferenceUtil: PreferenceUtil
 ) : ViewModel() {
+
+    val goalTextUtil = GoalTextUtils(preferenceUtil)
 
     private val _filterFlowData: MutableState<FilterFlowData> = mutableStateOf(
         FilterFlowData(

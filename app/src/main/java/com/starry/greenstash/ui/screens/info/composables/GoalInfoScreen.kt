@@ -25,7 +25,6 @@
 
 package com.starry.greenstash.ui.screens.info.composables
 
-import android.content.Context
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -85,7 +84,6 @@ import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.starry.greenstash.MainActivity
 import com.starry.greenstash.R
-import com.starry.greenstash.database.core.GoalWithTransactions
 import com.starry.greenstash.database.goal.GoalPriority
 import com.starry.greenstash.database.goal.GoalPriority.High
 import com.starry.greenstash.database.goal.GoalPriority.Low
@@ -97,8 +95,6 @@ import com.starry.greenstash.ui.common.ExpandableCard
 import com.starry.greenstash.ui.common.ExpandableTextCard
 import com.starry.greenstash.ui.screens.info.viewmodels.InfoViewModel
 import com.starry.greenstash.ui.screens.settings.viewmodels.ThemeMode
-import com.starry.greenstash.utils.GoalTextUtils
-import com.starry.greenstash.utils.PreferenceUtils
 import com.starry.greenstash.utils.Utils
 import com.starry.greenstash.utils.getActivity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -150,8 +146,7 @@ fun GoalInfoScreen(goalId: String, navController: NavController) {
                     CircularProgressIndicator()
                 }
             } else {
-                val currencySymbol =
-                    PreferenceUtils.getString(PreferenceUtils.DEFAULT_CURRENCY, "$")!!
+                val currencySymbol = viewModel.getDefaultCurrencyValue()
                 val progressPercent =
                     ((state.goalData!!.getCurrentlySavedAmount() / state.goalData.goal.targetAmount) * 100).toInt()
 
@@ -164,7 +159,9 @@ fun GoalInfoScreen(goalId: String, navController: NavController) {
                         currencySymbol = currencySymbol,
                         targetAmount = state.goalData.goal.targetAmount,
                         savedAmount = state.goalData.getCurrentlySavedAmount(),
-                        daysLeftText = getRemainingDaysText(context, state.goalData),
+                        daysLeftText = viewModel.goalTextUtils.getRemainingDaysText(
+                            context, state.goalData
+                        ),
                         progress = progressPercent.toFloat() / 100
                     )
                     GoalPriorityCard(goalPriority = state.goalData.goal.priority)
@@ -422,22 +419,6 @@ fun TransactionItem(transactionType: TransactionType, amount: String, date: Stri
                 .clip(RoundedCornerShape(50.dp)),
             thickness = 0.8.dp
         )
-    }
-
-}
-
-
-private fun getRemainingDaysText(context: Context, goalItem: GoalWithTransactions): String {
-    return if (goalItem.getCurrentlySavedAmount() >= goalItem.goal.targetAmount) {
-        context.getString(R.string.info_card_goal_achieved)
-    } else {
-        if (goalItem.goal.deadline.isNotEmpty() && goalItem.goal.deadline.isNotBlank()) {
-            val calculatedDays = GoalTextUtils.calcRemainingDays(goalItem.goal)
-            context.getString(R.string.info_card_remaining_days)
-                .format(calculatedDays.remainingDays)
-        } else {
-            context.getString(R.string.info_card_no_deadline_set)
-        }
     }
 }
 
