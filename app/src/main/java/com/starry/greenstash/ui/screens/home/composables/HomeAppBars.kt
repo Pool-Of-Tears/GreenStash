@@ -58,6 +58,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.starry.greenstash.R
 import com.starry.greenstash.ui.screens.home.viewmodels.SearchWidgetState
+import com.starry.greenstash.ui.theme.greenstashFont
 
 @ExperimentalMaterial3Api
 @Composable
@@ -108,6 +109,7 @@ fun DefaultAppBar(
             stringResource(id = R.string.home_screen_header),
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
+            fontFamily = greenstashFont
         )
     }, navigationIcon = {
         IconButton(onClick = { onMenuClicked() }) {

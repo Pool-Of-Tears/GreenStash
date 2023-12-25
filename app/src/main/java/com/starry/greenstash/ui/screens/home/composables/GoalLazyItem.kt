@@ -46,7 +46,6 @@ import com.starry.greenstash.database.core.GoalWithTransactions
 import com.starry.greenstash.ui.navigation.Screens
 import com.starry.greenstash.ui.screens.home.viewmodels.BottomSheetType
 import com.starry.greenstash.ui.screens.home.viewmodels.HomeViewModel
-import com.starry.greenstash.utils.GoalTextUtils
 import com.starry.greenstash.utils.Utils
 import com.starry.greenstash.utils.validateAmount
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -79,8 +78,8 @@ fun GoalLazyColumnItem(
     val hapticFeedback = LocalHapticFeedback.current
 
     GoalItem(title = item.goal.title,
-        primaryText = GoalTextUtils.buildPrimaryText(context, progressPercent, item),
-        secondaryText = GoalTextUtils.buildSecondaryText(context, item),
+        primaryText = viewModel.goalTextUtil.buildPrimaryText(context, progressPercent, item),
+        secondaryText = viewModel.goalTextUtil.buildSecondaryText(context, item),
         goalProgress = progressPercent.toFloat() / 100,
         goalImage = item.goal.goalImage,
         onDepositClicked = {

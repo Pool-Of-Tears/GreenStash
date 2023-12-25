@@ -73,7 +73,6 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.starry.greenstash.R
 import com.starry.greenstash.ui.navigation.DrawerScreens
 import com.starry.greenstash.ui.screens.welcome.viewmodels.WelcomeViewModel
-import com.starry.greenstash.utils.PreferenceUtils
 
 @Composable
 fun WelcomeScreen(navController: NavController) {
@@ -82,12 +81,7 @@ fun WelcomeScreen(navController: NavController) {
 
     val currencyEntries = context.resources.getStringArray(R.array.currency_entries)
     val currencyValues = context.resources.getStringArray(R.array.currency_values)
-
-    val currencyValue = currencyEntries[currencyValues.indexOf(
-        PreferenceUtils.getString(
-            PreferenceUtils.DEFAULT_CURRENCY, currencyValues.first()
-        )
-    )]
+    val currencyValue = currencyEntries[currencyValues.indexOf(viewModel.getDefaultCurrencyValue())]
 
     val currencyDialog = remember { mutableStateOf(false) }
     val (selectedCurrencyOption, onCurrencyOptionSelected) = remember {
@@ -222,9 +216,8 @@ fun WelcomeScreen(navController: NavController) {
             }, confirmButton = {
                 TextButton(onClick = {
                     currencyDialog.value = false
-                    val choice =
-                        currencyValues[currencyEntries.indexOf(selectedCurrencyOption)]
-                    PreferenceUtils.putString(PreferenceUtils.DEFAULT_CURRENCY, choice)
+                    val choice = currencyValues[currencyEntries.indexOf(selectedCurrencyOption)]
+                    viewModel.setDefaultCurrency(choice)
                 }) {
                     Text(stringResource(id = R.string.dialog_confirm_button))
                 }

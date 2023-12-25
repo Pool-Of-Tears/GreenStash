@@ -25,8 +25,11 @@
 
 package com.starry.greenstash.utils
 
+import android.Manifest
 import android.content.Context
 import android.content.ContextWrapper
+import android.content.pm.PackageManager
+import android.os.Build
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.lazy.LazyListState
@@ -36,6 +39,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.core.content.ContextCompat
 import java.io.File
 import java.io.PrintWriter
 
@@ -44,6 +48,15 @@ fun Context.getActivity(): AppCompatActivity? = when (this) {
     is ContextWrapper -> baseContext.getActivity()
     else -> null
 }
+
+fun Context.hasNotificationPermission() =
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        ContextCompat.checkSelfPermission(
+            this, Manifest.permission.POST_NOTIFICATIONS
+        ) == PackageManager.PERMISSION_GRANTED
+    } else {
+        true
+    }
 
 @Composable
 fun LazyListState.isScrollingUp(): Boolean {

@@ -25,20 +25,16 @@
 
 package com.starry.greenstash.reminder
 
-import android.Manifest
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.os.Build
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.core.app.NotificationCompat
-import androidx.core.content.ContextCompat
 import com.starry.greenstash.MainActivity
 import com.starry.greenstash.R
 import com.starry.greenstash.database.core.GoalWithTransactions
@@ -46,9 +42,10 @@ import com.starry.greenstash.database.goal.GoalPriority
 import com.starry.greenstash.reminder.receivers.ReminderDepositReceiver
 import com.starry.greenstash.reminder.receivers.ReminderDismissReceiver
 import com.starry.greenstash.utils.GoalTextUtils
-import com.starry.greenstash.utils.PreferenceUtils
+import com.starry.greenstash.utils.PreferenceUtil
 import com.starry.greenstash.utils.Utils
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+
 
 @ExperimentalCoroutinesApi
 @ExperimentalMaterial3Api
@@ -56,28 +53,18 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @ExperimentalComposeUiApi
 @ExperimentalFoundationApi
 @ExperimentalMaterialApi
-class ReminderNotificationSender(private val context: Context) {
-
+class ReminderNotificationSender(
+    private val context: Context,
+    private val preferenceUtil: PreferenceUtil
+) {
     companion object {
         const val REMINDER_CHANNEL_ID = "reminder_notification_channel"
         const val REMINDER_CHANNEL_NAME = "Goal Reminders"
         private const val INTENT_UNIQUE_CODE = 7546
     }
 
-    init {
-        PreferenceUtils.initialize(context)
-    }
-
     private val notificationManager =
         context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-    fun hasNotificationPermission() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        ContextCompat.checkSelfPermission(
-            context, Manifest.permission.POST_NOTIFICATIONS
-        ) == PackageManager.PERMISSION_GRANTED
-    } else {
-        true
-    }
 
     fun sendNotification(goalItem: GoalWithTransactions) {
         val goal = goalItem.goal
@@ -96,10 +83,10 @@ class ReminderNotificationSender(private val context: Context) {
             .setContentIntent(createActivityIntent())
 
         val remainingAmount = (goal.targetAmount - goalItem.getCurrentlySavedAmount())
-        val defCurrency = PreferenceUtils.getString(PreferenceUtils.DEFAULT_CURRENCY, "")
+        val defCurrency = preferenceUtil.getString(PreferenceUtil.DEFAULT_CURRENCY_STR, "")
 
         if (goal.deadline.isNotEmpty() && goal.deadline.isNotBlank()) {
-            val calculatedDays = GoalTextUtils.calcRemainingDays(goal)
+            val calculatedDays = GoalTextUtils(preferenceUtil).calcRemainingDays(goal)
             when (goal.priority) {
                 GoalPriority.High -> {
                     val amountDay = remainingAmount / calculatedDays.remainingDays
@@ -145,7 +132,7 @@ class ReminderNotificationSender(private val context: Context) {
     }
 
     fun updateWithDepositNotification(goalId: Long, amount: Double) {
-        val defCurrency = PreferenceUtils.getString(PreferenceUtils.DEFAULT_CURRENCY, "")
+        val defCurrency = preferenceUtil.getString(PreferenceUtil.DEFAULT_CURRENCY_STR, "")
         val notification = NotificationCompat.Builder(context, REMINDER_CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_reminder_notification)
             .setContentTitle(context.getString(R.string.notification_deposited_title))

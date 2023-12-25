@@ -32,6 +32,8 @@ import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
+import java.text.SimpleDateFormat
+import java.util.Date
 import java.util.Locale
 
 object Utils {
@@ -75,4 +77,17 @@ object Utils {
     } else {
         BIOMETRIC_STRONG or DEVICE_CREDENTIAL
     }
+
+    fun getGreeting(): String {
+        val currentTime = System.currentTimeMillis()
+        val simpleDateFormat = SimpleDateFormat("HH", Locale.US)
+
+        return when (simpleDateFormat.format(Date(currentTime)).toInt()) {
+            in 0..11 -> "Good Morning!"
+            in 12..16 -> "Good Afternoon!"
+            in 17..20 -> "Good Evening!"
+            else -> "Good Night!"
+        }
+    }
+
 }

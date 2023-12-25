@@ -37,13 +37,16 @@ import com.starry.greenstash.database.goal.GoalDao
 import com.starry.greenstash.other.WelcomeDataStore
 import com.starry.greenstash.reminder.ReminderManager
 import com.starry.greenstash.reminder.ReminderNotificationSender
+import com.starry.greenstash.utils.PreferenceUtil
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Singleton
 
+@ExperimentalCoroutinesApi
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
 @ExperimentalComposeUiApi
@@ -51,7 +54,7 @@ import javax.inject.Singleton
 @ExperimentalMaterial3Api
 @InstallIn(SingletonComponent::class)
 @Module
-class MianModule {
+class MainModule {
 
     @Singleton
     @Provides
@@ -67,6 +70,9 @@ class MianModule {
     fun provideWidgetDao(appDatabase: AppDatabase) = appDatabase.getWidgetDao()
 
     @Provides
+    fun providePreferenceUtil(@ApplicationContext context: Context) = PreferenceUtil(context)
+
+    @Provides
     @Singleton
     fun provideDataStoreRepository(
         @ApplicationContext context: Context
@@ -78,11 +84,14 @@ class MianModule {
 
     @Provides
     @Singleton
-    fun provideReminderNotificationSender(@ApplicationContext context: Context) =
-        ReminderNotificationSender(context)
+    fun provideReminderNotificationSender(
+        @ApplicationContext context: Context,
+        preferenceUtil: PreferenceUtil
+    ) =
+        ReminderNotificationSender(context, preferenceUtil)
 
     @Provides
     @Singleton
-    fun providebackupmanager(@ApplicationContext context: Context, goalDao: GoalDao) =
+    fun provideBackupManager(@ApplicationContext context: Context, goalDao: GoalDao) =
         BackupManager(context = context, goalDao = goalDao)
 }

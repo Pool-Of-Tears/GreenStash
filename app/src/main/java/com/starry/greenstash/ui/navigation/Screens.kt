@@ -29,19 +29,19 @@ const val EDIT_GOAL_ARG_KEY = "editGoal"
 const val GOAL_INFO_ARG_KEY = "goalId"
 
 sealed class Screens(val route: String) {
-    object InputScreen : Screens("input_screen?$EDIT_GOAL_ARG_KEY={$EDIT_GOAL_ARG_KEY}") {
+    data object InputScreen : Screens("input_screen?$EDIT_GOAL_ARG_KEY={$EDIT_GOAL_ARG_KEY}") {
         fun withGoalToEdit(goalId: String): String {
             return route.replace("{$EDIT_GOAL_ARG_KEY}", goalId)
         }
     }
 
-    object GoalInfoScreen : Screens("goal_info_screen/{$GOAL_INFO_ARG_KEY}") {
+    data object GoalInfoScreen : Screens("goal_info_screen/{$GOAL_INFO_ARG_KEY}") {
         fun withGoalId(goalId: String): String {
             return route.replace("{$GOAL_INFO_ARG_KEY}", goalId)
         }
     }
 
-    object AboutScreen : Screens("about_screen")
-    object OSLScreen : Screens("osl_screen")
-    object WelcomeScreen : Screens("welcome_screen")
+    data object AboutScreen : Screens("about_screen")
+    data object OSLScreen : Screens("osl_screen")
+    data object WelcomeScreen : Screens("welcome_screen")
 }

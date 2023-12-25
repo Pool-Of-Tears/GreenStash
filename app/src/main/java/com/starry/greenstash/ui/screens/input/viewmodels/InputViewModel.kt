@@ -42,7 +42,9 @@ import com.starry.greenstash.database.goal.Goal
 import com.starry.greenstash.database.goal.GoalDao
 import com.starry.greenstash.database.goal.GoalPriority
 import com.starry.greenstash.reminder.ReminderManager
+import com.starry.greenstash.ui.screens.settings.viewmodels.DateStyle
 import com.starry.greenstash.utils.ImageUtils
+import com.starry.greenstash.utils.PreferenceUtil
 import com.starry.greenstash.utils.Utils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -68,7 +70,8 @@ data class InputScreenState(
 @HiltViewModel
 class InputViewModel @Inject constructor(
     private val goalDao: GoalDao,
-    private val reminderManager: ReminderManager
+    private val reminderManager: ReminderManager,
+    private val preferenceUtil: PreferenceUtil
 ) : ViewModel() {
 
     var state by mutableStateOf(InputScreenState())
@@ -83,7 +86,7 @@ class InputViewModel @Inject constructor(
                     uri = state.goalImageUri!!, context = context, maxSize = 1024
                 ) else null,
                 additionalNotes = state.additionalNotes,
-                priority = GoalPriority.values().find { it.name == state.priority }!!,
+                priority = GoalPriority.entries.find { it.name == state.priority }!!,
                 reminder = state.reminder
             )
 
@@ -124,7 +127,7 @@ class InputViewModel @Inject constructor(
                     uri = state.goalImageUri!!, context = context, maxSize = 1024
                 ) else goal.goalImage,
                 additionalNotes = state.additionalNotes,
-                priority = GoalPriority.values().find { it.name == state.priority }!!,
+                priority = GoalPriority.entries.find { it.name == state.priority }!!,
                 reminder = state.reminder
             )
             // copy id of already saved goal to update it.
@@ -144,5 +147,9 @@ class InputViewModel @Inject constructor(
     fun removeDeadLine() {
         state = state.copy(deadline = "")
     }
+
+    fun getDateStyleValue() = preferenceUtil.getString(
+        PreferenceUtil.DATE_FORMAT_STR, DateStyle.DateMonthYear.pattern
+    )
 
 }

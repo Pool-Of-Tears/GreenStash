@@ -80,7 +80,7 @@ import com.starry.greenstash.R
 import com.starry.greenstash.ui.navigation.Screens
 import com.starry.greenstash.ui.screens.settings.viewmodels.DateStyle
 import com.starry.greenstash.ui.screens.settings.viewmodels.ThemeMode
-import com.starry.greenstash.utils.PreferenceUtils
+import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.utils.Utils
 import com.starry.greenstash.utils.getActivity
 import com.starry.greenstash.utils.toToast
@@ -111,7 +111,8 @@ fun SettingsScreen(navController: NavController) {
                 Text(
                     stringResource(id = R.string.settings_screen_header),
                     maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
+                    overflow = TextOverflow.Ellipsis,
+                    fontFamily = greenstashFont
                 )
             }, navigationIcon = {
                 IconButton(onClick = { navController.navigateUp() }) {
@@ -130,9 +131,7 @@ fun SettingsScreen(navController: NavController) {
         LazyColumn(modifier = Modifier.padding(it)) {
             /** Display Settings */
             item {
-                val themeValue = when (PreferenceUtils.getInt(
-                    PreferenceUtils.APP_THEME, ThemeMode.Auto.ordinal
-                )) {
+                val themeValue = when (viewModel.getThemeValue()) {
                     ThemeMode.Light.ordinal -> "Light"
                     ThemeMode.Dark.ordinal -> "Dark"
                     else -> "System"
@@ -144,12 +143,7 @@ fun SettingsScreen(navController: NavController) {
                 }
 
                 val materialYouSwitch = remember {
-                    mutableStateOf(
-                        PreferenceUtils.getBoolean(
-                            PreferenceUtils.MATERIAL_YOU,
-                            Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
-                        )
-                    )
+                    mutableStateOf(viewModel.getMaterialYouValue())
                 }
 
                 Column(
@@ -174,14 +168,12 @@ fun SettingsScreen(navController: NavController) {
                             if (newValue) {
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                                     viewModel.setMaterialYou(true)
-                                    PreferenceUtils.putBoolean(PreferenceUtils.MATERIAL_YOU, true)
                                 } else {
                                     materialYouSwitch.value = false
                                     context.getString(R.string.material_you_error).toToast(context)
                                 }
                             } else {
                                 viewModel.setMaterialYou(false)
-                                PreferenceUtils.putBoolean(PreferenceUtils.MATERIAL_YOU, false)
                             }
                         }
                     )
@@ -235,30 +227,15 @@ fun SettingsScreen(navController: NavController) {
 
                                 when (selectedThemeOption) {
                                     "Light" -> {
-                                        viewModel.setTheme(
-                                            ThemeMode.Light
-                                        )
-                                        PreferenceUtils.putInt(
-                                            PreferenceUtils.APP_THEME, ThemeMode.Light.ordinal
-                                        )
+                                        viewModel.setTheme(ThemeMode.Light)
                                     }
 
                                     "Dark" -> {
-                                        viewModel.setTheme(
-                                            ThemeMode.Dark
-                                        )
-                                        PreferenceUtils.putInt(
-                                            PreferenceUtils.APP_THEME, ThemeMode.Dark.ordinal
-                                        )
+                                        viewModel.setTheme(ThemeMode.Dark)
                                     }
 
                                     "System" -> {
-                                        viewModel.setTheme(
-                                            ThemeMode.Auto
-                                        )
-                                        PreferenceUtils.putInt(
-                                            PreferenceUtils.APP_THEME, ThemeMode.Auto.ordinal
-                                        )
+                                        viewModel.setTheme(ThemeMode.Auto)
                                     }
                                 }
                             }) {
@@ -278,9 +255,7 @@ fun SettingsScreen(navController: NavController) {
             /** Locales Setting */
             item {
 
-                val dateValue = if (PreferenceUtils.getString(
-                        PreferenceUtils.DATE_FORMAT, DateStyle.DateMonthYear.pattern
-                    ) == DateStyle.YearMonthDate.pattern
+                val dateValue = if (viewModel.getDateStyleValue() == DateStyle.YearMonthDate.pattern
                 ) {
                     "YYYY/MM/DD"
                 } else {
@@ -296,11 +271,9 @@ fun SettingsScreen(navController: NavController) {
                 val currencyEntries = context.resources.getStringArray(R.array.currency_entries)
                 val currencyValues = context.resources.getStringArray(R.array.currency_values)
 
-                val currencyValue = currencyEntries[currencyValues.indexOf(
-                    PreferenceUtils.getString(
-                        PreferenceUtils.DEFAULT_CURRENCY, currencyValues.first()
-                    )
-                )]
+                val currencyValue = currencyEntries[
+                    currencyValues.indexOf(viewModel.getDefaultCurrencyValue())
+                ]
 
                 val currencyDialog = remember { mutableStateOf(false) }
                 val (selectedCurrencyOption, onCurrencyOptionSelected) = remember {
@@ -371,17 +344,11 @@ fun SettingsScreen(navController: NavController) {
 
                                 when (selectedDateOption) {
                                     "DD/MM/YYYY" -> {
-                                        PreferenceUtils.putString(
-                                            PreferenceUtils.DATE_FORMAT,
-                                            DateStyle.DateMonthYear.pattern
-                                        )
+                                        viewModel.setDateStyle(DateStyle.DateMonthYear.pattern)
                                     }
 
                                     "YYYY/MM/DD" -> {
-                                        PreferenceUtils.putString(
-                                            PreferenceUtils.DATE_FORMAT,
-                                            DateStyle.YearMonthDate.pattern
-                                        )
+                                        viewModel.setDateStyle(DateStyle.YearMonthDate.pattern)
                                     }
                                 }
                             }) {
@@ -448,7 +415,7 @@ fun SettingsScreen(navController: NavController) {
                                 currencyDialog.value = false
                                 val choice =
                                     currencyValues[currencyEntries.indexOf(selectedCurrencyOption)]
-                                PreferenceUtils.putString(PreferenceUtils.DEFAULT_CURRENCY, choice)
+                                viewModel.setDefaultCurrency(choice)
                             }) {
                                 Text(stringResource(id = R.string.dialog_confirm_button))
                             }
@@ -465,13 +432,7 @@ fun SettingsScreen(navController: NavController) {
 
             /** Security Settings. */
             item {
-                val appLockSwitch = remember {
-                    mutableStateOf(
-                        PreferenceUtils.getBoolean(
-                            PreferenceUtils.APP_LOCK, false
-                        )
-                    )
-                }
+                val appLockSwitch = remember { mutableStateOf(viewModel.getAppLockValue()) }
 
                 Column(
                     modifier = Modifier.padding(top = 10.dp)
@@ -507,10 +468,7 @@ fun SettingsScreen(navController: NavController) {
                                             context.getString(R.string.auth_successful)
                                                 .toToast(context)
                                             mainActivity.mainViewModel.appUnlocked = true
-                                            PreferenceUtils.putBoolean(
-                                                PreferenceUtils.APP_LOCK,
-                                                true
-                                            )
+                                            viewModel.setAppLock(true)
                                         }
 
                                         override fun onAuthenticationFailed() {
@@ -528,7 +486,7 @@ fun SettingsScreen(navController: NavController) {
 
                                 biometricPrompt.authenticate(promptInfo)
                             } else {
-                                PreferenceUtils.putBoolean(PreferenceUtils.APP_LOCK, false)
+                                viewModel.setAppLock(false)
                             }
                         }
                     )

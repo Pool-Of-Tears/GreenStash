@@ -31,18 +31,24 @@ import androidx.compose.runtime.Composable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.starry.greenstash.utils.PreferenceUtils
+import com.starry.greenstash.utils.PreferenceUtil
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 enum class ThemeMode {
     Light, Dark, Auto
 }
 
 sealed class DateStyle(val pattern: String) {
-    object DateMonthYear : DateStyle("dd/MM/yyyy")
-    object YearMonthDate : DateStyle("yyyy/MM/dd")
+    data object DateMonthYear : DateStyle("dd/MM/yyyy")
+    data object YearMonthDate : DateStyle("yyyy/MM/dd")
 }
 
-class SettingsViewModel : ViewModel() {
+@HiltViewModel
+class SettingsViewModel @Inject constructor(
+    private val preferenceUtil: PreferenceUtil
+) : ViewModel() {
+
     private val _theme = MutableLiveData(ThemeMode.Auto)
     private val _materialYou = MutableLiveData(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
 
@@ -51,29 +57,50 @@ class SettingsViewModel : ViewModel() {
 
     fun setTheme(newTheme: ThemeMode) {
         _theme.postValue(newTheme)
+        preferenceUtil.putInt(PreferenceUtil.APP_THEME_INT, newTheme.ordinal)
     }
 
     fun setMaterialYou(newValue: Boolean) {
         _materialYou.postValue(newValue)
+        preferenceUtil.putBoolean(PreferenceUtil.MATERIAL_YOU_BOOL, newValue)
     }
+
+    fun setDateStyle(newValue: String) {
+        preferenceUtil.putString(PreferenceUtil.DATE_FORMAT_STR, newValue)
+    }
+
+    fun setDefaultCurrency(newValue: String) {
+        preferenceUtil.putString(PreferenceUtil.DEFAULT_CURRENCY_STR, newValue)
+    }
+
+    fun setAppLock(newValue: Boolean) {
+        preferenceUtil.putBoolean(PreferenceUtil.APP_LOCK_BOOL, newValue)
+    }
+
+    fun getThemeValue() = preferenceUtil.getInt(
+        PreferenceUtil.APP_THEME_INT, ThemeMode.Auto.ordinal
+    )
+
+    fun getMaterialYouValue() = preferenceUtil.getBoolean(
+        PreferenceUtil.MATERIAL_YOU_BOOL, Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+    )
+
+    fun getDateStyleValue() = preferenceUtil.getString(
+        PreferenceUtil.DATE_FORMAT_STR, DateStyle.DateMonthYear.pattern
+    )
+
+    fun getDefaultCurrencyValue() = preferenceUtil.getString(
+        PreferenceUtil.DEFAULT_CURRENCY_STR, "$"
+    )
+
+    fun getAppLockValue() = preferenceUtil.getBoolean(
+        PreferenceUtil.APP_LOCK_BOOL, false
+    )
 
     @Composable
     fun getCurrentTheme(): ThemeMode {
         return if (theme.value == ThemeMode.Auto) {
             if (isSystemInDarkTheme()) ThemeMode.Dark else ThemeMode.Light
         } else theme.value!!
-    }
-
-    fun setUpAppTheme() {
-        when (PreferenceUtils.getInt(PreferenceUtils.APP_THEME, ThemeMode.Auto.ordinal)) {
-            ThemeMode.Auto.ordinal -> setTheme(ThemeMode.Auto)
-            ThemeMode.Dark.ordinal -> setTheme(ThemeMode.Dark)
-            ThemeMode.Light.ordinal -> setTheme(ThemeMode.Light)
-        }
-        setMaterialYou(
-            PreferenceUtils.getBoolean(
-                PreferenceUtils.MATERIAL_YOU, Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
-            )
-        )
     }
 }

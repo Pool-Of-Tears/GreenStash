@@ -39,7 +39,7 @@ import android.widget.RemoteViews
 import com.starry.greenstash.R
 import com.starry.greenstash.database.core.GoalWithTransactions
 import com.starry.greenstash.utils.GoalTextUtils
-import com.starry.greenstash.utils.PreferenceUtils
+import com.starry.greenstash.utils.PreferenceUtil
 import com.starry.greenstash.utils.Utils
 import dagger.hilt.EntryPoints
 
@@ -89,6 +89,8 @@ class GoalWidget : AppWidgetProvider() {
     fun updateWidgetContents(
         context: Context, appWidgetId: Int, goalItem: GoalWithTransactions
     ) {
+        val preferenceUtil = PreferenceUtil(context)
+        val goalTextUtils = GoalTextUtils(preferenceUtil)
         val appWidgetManager = AppWidgetManager.getInstance(context)
         val views = RemoteViews(context.packageName, R.layout.goal_widget)
 
@@ -103,7 +105,7 @@ class GoalWidget : AppWidgetProvider() {
         views.setCharSequence(R.id.widgetTitle, "setText", goalItem.goal.title)
 
         // Set Widget description.
-        val defCurrency = PreferenceUtils.getString(PreferenceUtils.DEFAULT_CURRENCY, "")
+        val defCurrency = preferenceUtil.getString(PreferenceUtil.DEFAULT_CURRENCY_STR, "$")
         val widgetDesc = context.getString(R.string.goal_widget_desc)
             .format(
                 "$defCurrency${Utils.formatCurrency(goalItem.getCurrentlySavedAmount())} / $defCurrency${
@@ -118,7 +120,7 @@ class GoalWidget : AppWidgetProvider() {
         val remainingAmount = (goalItem.goal.targetAmount - goalItem.getCurrentlySavedAmount())
         if (remainingAmount > 0f) {
             if (goalItem.goal.deadline.isNotEmpty() && goalItem.goal.deadline.isNotBlank()) {
-                val calculatedDays = GoalTextUtils.calcRemainingDays(goalItem.goal)
+                val calculatedDays = goalTextUtils.calcRemainingDays(goalItem.goal)
                 if (calculatedDays.remainingDays > 2) {
                     val amountDays = "$defCurrency${
                         Utils.formatCurrency(
@@ -145,6 +147,7 @@ class GoalWidget : AppWidgetProvider() {
                     views.setCharSequence(R.id.widgetAmountWeek, "setText", amountWeeks)
                     views.setViewVisibility(R.id.widgetAmountWeek, View.VISIBLE)
                 }
+                views.setViewVisibility(R.id.widgetNoDeadlineSet, View.GONE)
             } else {
                 views.setViewVisibility(R.id.widgetNoDeadlineSet, View.VISIBLE)
             }
@@ -189,9 +192,9 @@ class GoalWidget : AppWidgetProvider() {
 
     private fun initialiseVm(context: Context) {
         if (!this::viewModel.isInitialized) {
-            viewModel = EntryPoints.get(context.applicationContext, WidgetEntryPoint::class.java)
-                .getViewModel()
-            PreferenceUtils.initialize(context)
+            println("viewmodel not initialised")
+            viewModel = EntryPoints
+                .get(context.applicationContext, WidgetEntryPoint::class.java).getViewModel()
         }
     }
 

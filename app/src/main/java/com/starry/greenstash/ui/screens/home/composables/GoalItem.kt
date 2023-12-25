@@ -63,6 +63,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.starry.greenstash.R
+import com.starry.greenstash.ui.theme.greenstashFont
 
 @Composable
 fun GoalItem(
@@ -148,7 +149,8 @@ fun GoalItem(
                     Text(
                         text = stringResource(id = R.string.deposit_button).uppercase(),
                         fontWeight = FontWeight.SemiBold,
-                        color = MaterialTheme.colorScheme.onSurface
+                        color = MaterialTheme.colorScheme.onSurface,
+                        fontFamily = greenstashFont
                     )
                 }
                 TextButton(
@@ -157,7 +159,8 @@ fun GoalItem(
                     Text(
                         text = stringResource(id = R.string.withdraw_button).uppercase(),
                         fontWeight = FontWeight.SemiBold,
-                        color = MaterialTheme.colorScheme.onSurface
+                        color = MaterialTheme.colorScheme.onSurface,
+                        fontFamily = greenstashFont
                     )
                 }
 

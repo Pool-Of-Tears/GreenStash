@@ -45,13 +45,12 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.ViewModelProvider
-import com.google.accompanist.navigation.animation.rememberAnimatedNavController
+import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.starry.greenstash.ui.navigation.NavGraph
 import com.starry.greenstash.ui.screens.settings.viewmodels.SettingsViewModel
 import com.starry.greenstash.ui.screens.settings.viewmodels.ThemeMode
 import com.starry.greenstash.ui.theme.GreenStashTheme
-import com.starry.greenstash.utils.PreferenceUtils
 import com.starry.greenstash.utils.Utils
 import com.starry.greenstash.utils.toToast
 import dagger.hilt.android.AndroidEntryPoint
@@ -77,12 +76,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        PreferenceUtils.initialize(this)
         settingsViewModel = ViewModelProvider(this)[SettingsViewModel::class.java]
         mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
         // Setup app theme according to user's settings.
-        settingsViewModel.setUpAppTheme()
+        ThemeMode.entries.find { it.ordinal == settingsViewModel.getThemeValue() }
+            ?.let { settingsViewModel.setTheme(it) }
+        settingsViewModel.setMaterialYou(settingsViewModel.getMaterialYouValue())
+
 
         // show splash screen until we figure out start nav destination.
         installSplashScreen().setKeepOnScreenCondition {
@@ -92,7 +93,7 @@ class MainActivity : AppCompatActivity() {
         // refresh reminders
         mainViewModel.refreshReminders()
 
-        val appLockStatus = PreferenceUtils.getBoolean(PreferenceUtils.APP_LOCK, false)
+        val appLockStatus = settingsViewModel.getAppLockValue()
 
         if (appLockStatus && !mainViewModel.appUnlocked) {
             executor = ContextCompat.getMainExecutor(this)
@@ -121,7 +122,7 @@ class MainActivity : AppCompatActivity() {
                         if (biometricManager.canAuthenticate(Utils.getAuthenticators()) != BiometricManager.BIOMETRIC_SUCCESS) {
                             setAppContents()
                             mainViewModel.appUnlocked = true
-                            PreferenceUtils.putBoolean(PreferenceUtils.APP_LOCK, false)
+                            settingsViewModel.setAppLock(false)
                         } else {
                             finish() // close the app.
                         }
@@ -159,7 +160,7 @@ class MainActivity : AppCompatActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    val navController = rememberAnimatedNavController()
+                    val navController = rememberNavController()
                     val screen by mainViewModel.startDestination
                     NavGraph(navController = navController, screen)
                 }
