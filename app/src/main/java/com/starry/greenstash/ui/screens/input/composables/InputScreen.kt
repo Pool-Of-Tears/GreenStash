@@ -132,6 +132,7 @@ import com.starry.greenstash.database.goal.GoalPriority
 import com.starry.greenstash.ui.common.SelectableChipGroup
 import com.starry.greenstash.ui.navigation.DrawerScreens
 import com.starry.greenstash.ui.screens.input.viewmodels.InputViewModel
+import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.utils.Utils
 import com.starry.greenstash.utils.getActivity
 import com.starry.greenstash.utils.hasNotificationPermission
@@ -237,6 +238,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                     text = topBarText,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
+                    fontFamily = greenstashFont
                 )
             }, navigationIcon = {
                 IconButton(onClick = { navController.navigateUp() }) {

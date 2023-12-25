@@ -95,6 +95,7 @@ import com.starry.greenstash.ui.common.ExpandableCard
 import com.starry.greenstash.ui.common.ExpandableTextCard
 import com.starry.greenstash.ui.screens.info.viewmodels.InfoViewModel
 import com.starry.greenstash.ui.screens.settings.viewmodels.ThemeMode
+import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.utils.Utils
 import com.starry.greenstash.utils.getActivity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -121,6 +122,7 @@ fun GoalInfoScreen(goalId: String, navController: NavController) {
                 text = stringResource(id = R.string.info_screen_header),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
+                fontFamily = greenstashFont
             )
         }, navigationIcon = {
             IconButton(onClick = { navController.navigateUp() }) {

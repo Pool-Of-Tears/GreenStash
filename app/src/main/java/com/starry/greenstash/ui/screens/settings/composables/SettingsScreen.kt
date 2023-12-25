@@ -80,6 +80,7 @@ import com.starry.greenstash.R
 import com.starry.greenstash.ui.navigation.Screens
 import com.starry.greenstash.ui.screens.settings.viewmodels.DateStyle
 import com.starry.greenstash.ui.screens.settings.viewmodels.ThemeMode
+import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.utils.Utils
 import com.starry.greenstash.utils.getActivity
 import com.starry.greenstash.utils.toToast
@@ -110,7 +111,8 @@ fun SettingsScreen(navController: NavController) {
                 Text(
                     stringResource(id = R.string.settings_screen_header),
                     maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
+                    overflow = TextOverflow.Ellipsis,
+                    fontFamily = greenstashFont
                 )
             }, navigationIcon = {
                 IconButton(onClick = { navController.navigateUp() }) {

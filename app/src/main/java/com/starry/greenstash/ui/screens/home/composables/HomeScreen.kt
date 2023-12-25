@@ -117,6 +117,7 @@ import com.starry.greenstash.ui.screens.home.viewmodels.FilterField
 import com.starry.greenstash.ui.screens.home.viewmodels.FilterSortType
 import com.starry.greenstash.ui.screens.home.viewmodels.HomeViewModel
 import com.starry.greenstash.ui.screens.home.viewmodels.SearchWidgetState
+import com.starry.greenstash.utils.Utils
 import com.starry.greenstash.utils.isScrollingUp
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
@@ -197,18 +198,19 @@ fun HomeScreenContent(
                 Spacer(Modifier.height(14.dp))
 
                 Text(
-                    text = stringResource(id = R.string.app_name),
+                    text = Utils.getGreeting(),
                     modifier = Modifier.padding(start = 16.dp, top = 12.dp),
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Medium,
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = MaterialTheme.colorScheme.onSurface
                 )
 
                 Divider(
-                    thickness = 1.dp,
+                    thickness = 0.5.dp,
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 16.dp, bottom = 16.dp),
-                    color = MaterialTheme.colorScheme.onSurface
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f)
                 )
 
                 items.forEach { item ->
@@ -528,7 +530,7 @@ fun FilterMenuSheet(viewModel: HomeViewModel) {
         )
         Row(modifier = Modifier.fillMaxWidth()) {
             Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.Center) {
-                FilterField.values().forEach {
+                FilterField.entries.forEach {
                     FilterButton(
                         text = it.name,
                         isSelected = it == viewModel.filterFlowData.value.filterField,
@@ -536,7 +538,7 @@ fun FilterMenuSheet(viewModel: HomeViewModel) {
                 }
             }
             Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.Center) {
-                FilterSortType.values().forEach {
+                FilterSortType.entries.forEach {
                     FilterButton(
                         text = it.name,
                         isSelected = viewModel.filterFlowData.value.sortType.name == it.name,
