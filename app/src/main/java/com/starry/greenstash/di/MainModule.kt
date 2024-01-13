@@ -70,6 +70,7 @@ class MainModule {
     fun provideWidgetDao(appDatabase: AppDatabase) = appDatabase.getWidgetDao()
 
     @Provides
+    @Singleton
     fun providePreferenceUtil(@ApplicationContext context: Context) = PreferenceUtil(context)
 
     @Provides

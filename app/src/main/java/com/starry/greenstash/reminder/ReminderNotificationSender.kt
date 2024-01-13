@@ -83,7 +83,7 @@ class ReminderNotificationSender(
             .setContentIntent(createActivityIntent())
 
         val remainingAmount = (goal.targetAmount - goalItem.getCurrentlySavedAmount())
-        val defCurrency = preferenceUtil.getString(PreferenceUtil.DEFAULT_CURRENCY_STR, "")
+        val defCurrency = preferenceUtil.getString(PreferenceUtil.DEFAULT_CURRENCY_STR, "")!!
 
         if (goal.deadline.isNotEmpty() && goal.deadline.isNotBlank()) {
             val calculatedDays = GoalTextUtils(preferenceUtil).calcRemainingDays(goal)
@@ -92,8 +92,8 @@ class ReminderNotificationSender(
                     val amountDay = remainingAmount / calculatedDays.remainingDays
                     notification.addAction(
                         R.drawable.ic_notification_deposit,
-                        "${context.getString(R.string.deposit_button)} $defCurrency${
-                            Utils.formatCurrency(Utils.roundDecimal(amountDay))
+                        "${context.getString(R.string.deposit_button)} ${
+                            Utils.formatCurrency(Utils.roundDecimal(amountDay), defCurrency)
                         }",
                         createDepositIntent(goal.goalId, amountDay)
                     )
@@ -103,8 +103,8 @@ class ReminderNotificationSender(
                     val amountSemiWeek = remainingAmount / (calculatedDays.remainingDays / 4)
                     notification.addAction(
                         R.drawable.ic_notification_deposit,
-                        "${context.getString(R.string.deposit_button)} $defCurrency${
-                            Utils.formatCurrency(Utils.roundDecimal(amountSemiWeek))
+                        "${context.getString(R.string.deposit_button)} ${
+                            Utils.formatCurrency(Utils.roundDecimal(amountSemiWeek), defCurrency)
                         }",
                         createDepositIntent(goal.goalId, amountSemiWeek)
                     )
@@ -114,8 +114,8 @@ class ReminderNotificationSender(
                     val amountWeek = remainingAmount / (calculatedDays.remainingDays / 7)
                     notification.addAction(
                         R.drawable.ic_notification_deposit,
-                        "${context.getString(R.string.deposit_button)} $defCurrency${
-                            Utils.formatCurrency(Utils.roundDecimal(amountWeek))
+                        "${context.getString(R.string.deposit_button)} ${
+                            Utils.formatCurrency(Utils.roundDecimal(amountWeek), defCurrency)
                         }",
                         createDepositIntent(goal.goalId, amountWeek)
                     )
@@ -138,11 +138,7 @@ class ReminderNotificationSender(
             .setContentTitle(context.getString(R.string.notification_deposited_title))
             .setContentText(
                 context.getString(R.string.notification_deposited_desc)
-                    .format(
-                        "$defCurrency${
-                            Utils.formatCurrency(Utils.roundDecimal(amount))
-                        }"
-                    )
+                    .format(Utils.formatCurrency(Utils.roundDecimal(amount), defCurrency!!))
             )
             .setStyle(NotificationCompat.BigTextStyle())
             .setContentIntent(createActivityIntent())

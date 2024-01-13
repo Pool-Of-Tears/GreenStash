@@ -225,8 +225,10 @@ fun GoalInfoCard(
     daysLeftText: String,
     progress: Float
 ) {
-    val formattedTargetAmount = Utils.formatCurrency(Utils.roundDecimal(targetAmount))
-    val formattedSavedAmount = Utils.formatCurrency(Utils.roundDecimal(savedAmount))
+    val formattedTargetAmount =
+        Utils.formatCurrency(Utils.roundDecimal(targetAmount), currencySymbol)
+    val formattedSavedAmount =
+        Utils.formatCurrency(Utils.roundDecimal(savedAmount), currencySymbol)
 
     Card(
         modifier = Modifier
@@ -254,25 +256,21 @@ fun GoalInfoCard(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            Row {
-                Text(
-                    text = currencySymbol,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 38.sp,
-                    modifier = Modifier.padding(start = 12.dp)
-                )
-                Text(
-                    text = formattedSavedAmount,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 38.sp,
-                    modifier = Modifier.padding(start = 4.dp)
-                )
-            }
+            Text(
+                text = formattedSavedAmount,
+                fontWeight = FontWeight.Bold,
+                fontSize = 38.sp,
+                modifier = Modifier.padding(start = 4.dp)
+            )
+
 
             Spacer(modifier = Modifier.height(2.dp))
 
             Text(
-                text = stringResource(id = R.string.info_card_remaining_amount).format("$currencySymbol $formattedTargetAmount"),
+                text = stringResource(
+                    id = R.string.info_card_remaining_amount,
+                    formattedTargetAmount
+                ),
                 fontSize = 14.sp,
                 fontWeight = FontWeight.SemiBold,
                 modifier = Modifier.padding(start = 12.dp)
@@ -363,7 +361,7 @@ fun TransactionCard(transactions: List<Transaction>, currencySymbol: String) {
         transactions.forEach {
             TransactionItem(
                 transactionType = it.type,
-                amount = "$currencySymbol${Utils.formatCurrency(Utils.roundDecimal(it.amount))}",
+                amount = Utils.formatCurrency(Utils.roundDecimal(it.amount), currencySymbol),
                 date = it.getTransactionDate()
             )
         }
