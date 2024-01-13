@@ -32,7 +32,9 @@ import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
+import java.util.Currency
 import java.util.Date
 import java.util.Locale
 
@@ -64,9 +66,16 @@ object Utils {
     }
 
     /** Convert double into currency format */
-    fun formatCurrency(number: Double): String {
-        val df = DecimalFormat("#,###.00")
-        return df.format(number)
+    fun formatCurrency(amount: Double, currencyCode: String): String {
+        val nf = NumberFormat.getCurrencyInstance().apply {
+            currency = Currency.getInstance(currencyCode)
+            maximumFractionDigits = if (currencyCode in setOf(
+                    "JPY", "DJF", "GNF", "IDR", "KMF", "KRW", "LAK",
+                    "PYG", "RWF", "VND", "VUV", "XAF", "XOF", "XPF"
+                )
+            ) 0 else 2
+        }
+        return nf.format(amount)
     }
 
     /**

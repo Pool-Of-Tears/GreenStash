@@ -37,7 +37,7 @@ class PreferenceUtil(context: Context) {
         // Preference keys
         const val APP_THEME_INT = "theme_settings"
         const val MATERIAL_YOU_BOOL = "material_you"
-        const val DEFAULT_CURRENCY_STR = "default_currency"
+        const val DEFAULT_CURRENCY_STR = "default_currency_code"
         const val DATE_FORMAT_STR = "date_format"
         const val APP_LOCK_BOOL = "app_lock"
     }
@@ -48,7 +48,7 @@ class PreferenceUtil(context: Context) {
         prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         // Pre-populate some preference data with default values
         if (!keyExists(DEFAULT_CURRENCY_STR)) {
-            putString(DEFAULT_CURRENCY_STR, "$")
+            putString(DEFAULT_CURRENCY_STR, "USD")
         }
         if (!keyExists(DATE_FORMAT_STR)) {
             putString(DATE_FORMAT_STR, DateStyle.DateMonthYear.pattern)

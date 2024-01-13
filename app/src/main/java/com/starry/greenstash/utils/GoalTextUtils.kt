@@ -73,8 +73,8 @@ class GoalTextUtils(private val preferenceUtil: PreferenceUtil) {
             "\n" + context.getString(R.string.currently_saved_complete)
         }
         text = text.format(
-            "$defCurrency${Utils.formatCurrency(item.getCurrentlySavedAmount())}",
-            "$defCurrency${Utils.formatCurrency(item.goal.targetAmount)}"
+            Utils.formatCurrency(item.getCurrentlySavedAmount(), defCurrency!!),
+            Utils.formatCurrency(item.goal.targetAmount, defCurrency)
         )
         return text
     }
@@ -84,29 +84,28 @@ class GoalTextUtils(private val preferenceUtil: PreferenceUtil) {
         if ((remainingAmount > 0f)) {
             if (item.goal.deadline.isNotEmpty() && item.goal.deadline.isNotBlank()) {
                 val calculatedDays = calcRemainingDays(item.goal)
-                val defCurrency = preferenceUtil.getString(PreferenceUtil.DEFAULT_CURRENCY_STR, "")
+                val defCurrency =
+                    preferenceUtil.getString(PreferenceUtil.DEFAULT_CURRENCY_STR, "")!!
                 // build description string.
                 var text = context.getString(R.string.goal_days_left)
                     .format(calculatedDays.parsedEndDate, calculatedDays.remainingDays) + "\n"
                 if (calculatedDays.remainingDays > 2) {
                     text += context.getString(R.string.goal_approx_saving).format(
-                        "$defCurrency${
-                            Utils.formatCurrency(
-                                Utils.roundDecimal(
-                                    remainingAmount / calculatedDays.remainingDays
-                                )
-                            )
-                        }"
+                        Utils.formatCurrency(
+                            Utils.roundDecimal(
+                                remainingAmount / calculatedDays.remainingDays
+                            ), defCurrency
+                        )
                     )
                     text += context.getString(R.string.goal_approx_saving_day)
                     if (calculatedDays.remainingDays > 14) {
                         val weeks = calculatedDays.remainingDays / 7
                         text = text.dropLast(1) // remove full stop
-                        text += ", $defCurrency${
+                        text += ", ${
                             Utils.formatCurrency(
                                 Utils.roundDecimal(
                                     remainingAmount / weeks
-                                )
+                                ), defCurrency
                             )
                         }/${
                             context.getString(
@@ -116,11 +115,11 @@ class GoalTextUtils(private val preferenceUtil: PreferenceUtil) {
                         if (calculatedDays.remainingDays > 60) {
                             val months = calculatedDays.remainingDays / 30
                             text = text.dropLast(1) // remove full stop
-                            text += ", $defCurrency${
+                            text += ", ${
                                 Utils.formatCurrency(
                                     Utils.roundDecimal(
                                         remainingAmount / months
-                                    )
+                                    ), defCurrency
                                 )
                             }/${
                                 context.getString(

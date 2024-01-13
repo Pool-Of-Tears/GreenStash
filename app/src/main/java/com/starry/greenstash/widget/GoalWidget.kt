@@ -105,13 +105,16 @@ class GoalWidget : AppWidgetProvider() {
         views.setCharSequence(R.id.widgetTitle, "setText", goalItem.goal.title)
 
         // Set Widget description.
-        val defCurrency = preferenceUtil.getString(PreferenceUtil.DEFAULT_CURRENCY_STR, "$")
+        val defCurrency = preferenceUtil.getString(PreferenceUtil.DEFAULT_CURRENCY_STR, "")!!
         val widgetDesc = context.getString(R.string.goal_widget_desc)
             .format(
-                "$defCurrency${Utils.formatCurrency(goalItem.getCurrentlySavedAmount())} / $defCurrency${
+                "${
                     Utils.formatCurrency(
-                        goalItem.goal.targetAmount
+                        goalItem.getCurrentlySavedAmount(),
+                        defCurrency
                     )
+                } / $defCurrency${
+                    Utils.formatCurrency(goalItem.goal.targetAmount, defCurrency)
                 }"
             )
         views.setCharSequence(R.id.widgetDesc, "setText", widgetDesc)
@@ -122,22 +125,22 @@ class GoalWidget : AppWidgetProvider() {
             if (goalItem.goal.deadline.isNotEmpty() && goalItem.goal.deadline.isNotBlank()) {
                 val calculatedDays = goalTextUtils.calcRemainingDays(goalItem.goal)
                 if (calculatedDays.remainingDays > 2) {
-                    val amountDays = "$defCurrency${
+                    val amountDays = "${
                         Utils.formatCurrency(
                             Utils.roundDecimal(
                                 remainingAmount / calculatedDays.remainingDays
-                            )
+                            ), defCurrency
                         )
                     }/${context.getString(R.string.goal_approx_saving_day)}"
                     views.setCharSequence(R.id.widgetAmountDay, "setText", amountDays)
                     views.setViewVisibility(R.id.widgetAmountDay, View.VISIBLE)
                 }
                 if (calculatedDays.remainingDays > 7) {
-                    val amountWeeks = "$defCurrency${
+                    val amountWeeks = "${
                         Utils.formatCurrency(
                             Utils.roundDecimal(
                                 remainingAmount / (calculatedDays.remainingDays / 7)
-                            )
+                            ), defCurrency
                         )
                     }/${
                         context.getString(

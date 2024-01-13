@@ -29,7 +29,9 @@ import com.starry.greenstash.R
 
 sealed class DrawerScreens(val route: String, val nameResId: Int, val iconResId: Int) {
     data object Home : DrawerScreens("home", R.string.drawer_home, R.drawable.ic_nav_home)
-    data object Backups : DrawerScreens("backups", R.string.drawer_backups, R.drawable.ic_nav_backups)
+    data object Backups :
+        DrawerScreens("backups", R.string.drawer_backups, R.drawable.ic_nav_backups)
+
     data object Settings :
         DrawerScreens("settings", R.string.drawer_settings, R.drawable.ic_nav_settings)
 }
