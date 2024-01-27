@@ -12,7 +12,7 @@
     <string name="drawer_settings">Ayarlar</string>
 
     <!-- Biometric Lock -->
-    <string name="bio_lock_title">GreenStash'ın Kilidini Aç</string>
+    <string name="bio_lock_title">GreenStash'in Kilidini Aç</string>
     <string name="bio_lock_subtitle">Ekran kilidinizi onaylayın, PIN ya da şifre.</string>
     <string name="auth_successful">Doğrulama başarılı!</string>
     <string name="auth_failed">Doğrulama başarısız!</string>
