@@ -12,7 +12,7 @@
     <string name="drawer_settings">Ayarlar</string>
 
     <!-- Biometric Lock -->
-    <string name="bio_lock_title">GreenStash'in Kilidini Aç</string>
+    <string name="bio_lock_title">GreenStash\'in Kilidini Aç</string>
     <string name="bio_lock_subtitle">Ekran kilidinizi onaylayın, PIN ya da şifre.</string>
     <string name="auth_successful">Doğrulama başarılı!</string>
     <string name="auth_failed">Doğrulama başarısız!</string>
@@ -58,7 +58,7 @@
     <string name="progress_greet4">Neredeyse oldu, Halledeceksin!</string>
     <string name="progress_greet5">Tebrikler &#x1F389;</string>
     <string name="currently_saved_incomplete">Biriktirilen: %s hedef: %s.</string>
-    <string name="currently_saved_complete">%s arasından %s biriktirdin .</string>
+    <string name="currently_saved_complete">%s arasından %s biriktirdin.</string>
     <!-- Eg: You have until 25/12/2022 (152) days left. -->
     <string name="goal_days_left">%s tarihine kadar süren var (%s) gün kaldı.</string>
     <!-- Eg: You need to save around $2/day, $20/week, $200/month. -->
@@ -123,7 +123,7 @@
     <string name="currency_dialog_title">Tercih Edilen Para Birimini Seç</string>
     <string name="security_settings_title">Güvenlik</string>
     <string name="app_lock_setting">Biyometrik Kilit</string>
-    <string name="app_lock_setting_desc">GreenStash'in kilidini açmak için parmak izini ya da ekran kilidini kullan</string>
+    <string name="app_lock_setting_desc">GreenStash\'in kilidini açmak için parmak izini ya da ekran kilidini kullan</string>
     <string name="misc_setting_title">Diğer</string>
     <string name="license_setting">Lisans &amp; Sözleşme</string>
     <string name="license_setting_desc">Açık kaynak lisans bilgilerini göster.</string>
@@ -136,13 +136,13 @@
     <!-- About Screen -->
     <string name="about_screen_header">Hakkında</string>
     <string name="about_readme_title">README</string>
-    <string name="about_readme_desc">Github deposuna ve uygulamanın README'sine göz at.</string>
+    <string name="about_readme_desc">Github deposuna ve uygulamanın README\'sine göz at.</string>
     <string name="about_privacy_title">Gizlilik Sözleşmesi</string>
-    <string name="about_privacy_desc">Github'da güncel gizlilik sözleşmemizi ve kullanım koşullarını oku.</string>
+    <string name="about_privacy_desc">Github\'da güncel gizlilik sözleşmemizi ve kullanım koşullarını oku.</string>
     <string name="about_gh_issue_title">Github Sorunları</string>
-    <string name="about_gh_issue_desc">Github'da bir sorun oluşturarak hataları bildirin ya da özellik talep edin.</string>
+    <string name="about_gh_issue_desc">Github\'da bir sorun oluşturarak hataları bildirin ya da özellik talep edin.</string>
     <string name="about_telegram_title">Telegram Grubu</string>
-    <string name="about_telegram_desc">Fikirlerinizi paylaşmak ya da sadece sohbet etmek için Telegram'da bize katılın!</string>
+    <string name="about_telegram_desc">Fikirlerinizi paylaşmak ya da sadece sohbet etmek için Telegram\'da bize katılın!</string>
     <string name="about_version_title">Versiyon</string>
     <string name="about_version_desc">Versiyon-%s</string>
 
