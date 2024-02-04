@@ -78,25 +78,37 @@ class HomeViewModel @Inject constructor(
 
     private val _filterFlowData: MutableState<FilterFlowData> = mutableStateOf(
         FilterFlowData(
-            FilterField.Title,
-            FilterSortType.Ascending
+            FilterField.entries[preferenceUtil.getInt(
+                PreferenceUtil.GOAL_FILTER_FIELD_INT,
+                FilterField.Title.ordinal
+            )],
+            FilterSortType.entries[preferenceUtil.getInt(
+                PreferenceUtil.GOAL_FILTER_SORT_TYPE_INT,
+                FilterSortType.Ascending.ordinal
+            )]
         )
     )
     val filterFlowData: State<FilterFlowData> = _filterFlowData
 
     private val filterFlow = MutableStateFlow(filterFlowData.value)
-    private val goalsListFlow = filterFlow.flatMapLatest {
-        when (it.filterField) {
+    private val goalsListFlow = filterFlow.flatMapLatest { ffData ->
+
+        // Save the current filter combination in shared preferences
+        preferenceUtil.putInt(PreferenceUtil.GOAL_FILTER_FIELD_INT, ffData.filterField.ordinal)
+        preferenceUtil.putInt(PreferenceUtil.GOAL_FILTER_SORT_TYPE_INT, ffData.sortType.ordinal)
+
+        // Fetch the goals list based on the current filter combination
+        when (ffData.filterField) {
             FilterField.Title -> {
-                goalDao.getAllGoalsByTitle(it.sortType.value)
+                goalDao.getAllGoalsByTitle(ffData.sortType.value)
             }
 
             FilterField.Amount -> {
-                goalDao.getAllGoalsByAmount(it.sortType.value)
+                goalDao.getAllGoalsByAmount(ffData.sortType.value)
             }
 
             FilterField.Priority -> {
-                goalDao.getAllGoalsByPriority(it.sortType.value)
+                goalDao.getAllGoalsByPriority(ffData.sortType.value)
             }
         }
     }

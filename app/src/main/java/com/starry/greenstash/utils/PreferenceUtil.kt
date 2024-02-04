@@ -40,6 +40,10 @@ class PreferenceUtil(context: Context) {
         const val DEFAULT_CURRENCY_STR = "default_currency_code"
         const val DATE_FORMAT_STR = "date_format"
         const val APP_LOCK_BOOL = "app_lock"
+
+        // Goal filter preferences
+        const val GOAL_FILTER_FIELD_INT = "goal_filter_field"
+        const val GOAL_FILTER_SORT_TYPE_INT = "goal_filter_sort_type"
     }
 
     private var prefs: SharedPreferences

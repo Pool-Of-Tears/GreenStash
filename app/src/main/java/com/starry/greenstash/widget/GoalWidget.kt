@@ -113,9 +113,7 @@ class GoalWidget : AppWidgetProvider() {
                         goalItem.getCurrentlySavedAmount(),
                         defCurrency
                     )
-                } / $defCurrency${
-                    Utils.formatCurrency(goalItem.goal.targetAmount, defCurrency)
-                }"
+                } / ${Utils.formatCurrency(goalItem.goal.targetAmount, defCurrency)}"
             )
         views.setCharSequence(R.id.widgetDesc, "setText", widgetDesc)
 
