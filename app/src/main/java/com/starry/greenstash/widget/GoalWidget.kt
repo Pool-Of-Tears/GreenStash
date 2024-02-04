@@ -86,19 +86,13 @@ class GoalWidget : AppWidgetProvider() {
         }
     }
 
-    fun updateWidgetContents(
-        context: Context, appWidgetId: Int, goalItem: GoalWithTransactions
-    ) {
+    fun updateWidgetContents(context: Context, appWidgetId: Int, goalItem: GoalWithTransactions) {
         val preferenceUtil = PreferenceUtil(context)
-        val goalTextUtils = GoalTextUtils(preferenceUtil)
         val appWidgetManager = AppWidgetManager.getInstance(context)
         val views = RemoteViews(context.packageName, R.layout.goal_widget)
 
-        // Check if widget was manually refreshed.
         if (isManualRefresh) {
-            views.setViewVisibility(R.id.widgetUpdateButton, View.INVISIBLE)
-            views.setViewVisibility(R.id.widgetUpdateProgress, View.VISIBLE)
-            appWidgetManager.updateAppWidget(appWidgetId, views)
+            handleManualRefresh(views, appWidgetManager, appWidgetId)
         }
 
         // Set widget title.
@@ -117,59 +111,23 @@ class GoalWidget : AppWidgetProvider() {
             )
         views.setCharSequence(R.id.widgetDesc, "setText", widgetDesc)
 
-        // Calculate how much need to save per day and week.
-        val remainingAmount = (goalItem.goal.targetAmount - goalItem.getCurrentlySavedAmount())
-        if (remainingAmount > 0f) {
-            if (goalItem.goal.deadline.isNotEmpty() && goalItem.goal.deadline.isNotBlank()) {
-                val calculatedDays = goalTextUtils.calcRemainingDays(goalItem.goal)
-                if (calculatedDays.remainingDays > 2) {
-                    val amountDays = "${
-                        Utils.formatCurrency(
-                            Utils.roundDecimal(
-                                remainingAmount / calculatedDays.remainingDays
-                            ), defCurrency
-                        )
-                    }/${context.getString(R.string.goal_approx_saving_day)}"
-                    views.setCharSequence(R.id.widgetAmountDay, "setText", amountDays)
-                    views.setViewVisibility(R.id.widgetAmountDay, View.VISIBLE)
-                }
-                if (calculatedDays.remainingDays > 7) {
-                    val amountWeeks = "${
-                        Utils.formatCurrency(
-                            Utils.roundDecimal(
-                                remainingAmount / (calculatedDays.remainingDays / 7)
-                            ), defCurrency
-                        )
-                    }/${
-                        context.getString(
-                            R.string.goal_approx_saving_week
-                        )
-                    }"
-                    views.setCharSequence(R.id.widgetAmountWeek, "setText", amountWeeks)
-                    views.setViewVisibility(R.id.widgetAmountWeek, View.VISIBLE)
-                }
-                views.setViewVisibility(R.id.widgetNoDeadlineSet, View.GONE)
-            } else {
-                views.setViewVisibility(R.id.widgetNoDeadlineSet, View.VISIBLE)
-            }
-        } else {
-            views.setViewVisibility(R.id.amountDurationGroup, View.GONE)
-            views.setViewVisibility(R.id.widgetNoDeadlineSet, View.GONE)
-            views.setViewVisibility(R.id.widgetGoalAchieved, View.VISIBLE)
-        }
+        // Calculate and display savings per day and week if applicable.
+        handleSavingsPerDuration(context, views, goalItem, defCurrency, preferenceUtil)
+
+        // Display appropriate views when the goal is achieved.
+        handleGoalAchieved(views, goalItem)
 
         // Calculate current progress percentage.
-        val progressPercent =
-            ((goalItem.getCurrentlySavedAmount() / goalItem.goal.targetAmount) * 100).toInt()
-        views.setProgressBar(R.id.widgetGoalProgress, 100, progressPercent, false)
+        handleProgress(views, goalItem)
 
         // Set refresh button click action.
-        val intent = Intent(context, GoalWidget::class.java)
-        intent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
-        intent.type = WIDGET_MANUAL_REFRESH
-        val ids = AppWidgetManager.getInstance(context)
-            .getAppWidgetIds(ComponentName(context, GoalWidget::class.java))
-        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
+        val intent = Intent(context, GoalWidget::class.java).apply {
+            action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
+            type = WIDGET_MANUAL_REFRESH
+            val ids = AppWidgetManager.getInstance(context)
+                .getAppWidgetIds(ComponentName(context, GoalWidget::class.java))
+            putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
+        }
 
         val pendingIntent = PendingIntent.getBroadcast(
             context,
@@ -179,17 +137,79 @@ class GoalWidget : AppWidgetProvider() {
         )
         views.setOnClickPendingIntent(R.id.widgetUpdateButton, pendingIntent)
 
-        // update widget contents.
-        if (isManualRefresh) {
-            Handler(Looper.getMainLooper()).postDelayed({
-                views.setViewVisibility(R.id.widgetUpdateButton, View.VISIBLE)
-                views.setViewVisibility(R.id.widgetUpdateProgress, View.GONE)
-                appWidgetManager.updateAppWidget(appWidgetId, views)
-            }, 750)
-        } else {
+        // Update widget contents.
+        appWidgetManager.updateAppWidget(appWidgetId, views)
+    }
+
+    private fun handleManualRefresh(
+        views: RemoteViews,
+        appWidgetManager: AppWidgetManager,
+        appWidgetId: Int
+    ) {
+        views.setViewVisibility(R.id.widgetUpdateButton, View.INVISIBLE)
+        views.setViewVisibility(R.id.widgetUpdateProgress, View.VISIBLE)
+        appWidgetManager.updateAppWidget(appWidgetId, views)
+
+        // Delayed update to show the button again.
+        Handler(Looper.getMainLooper()).postDelayed({
+            views.setViewVisibility(R.id.widgetUpdateButton, View.VISIBLE)
+            views.setViewVisibility(R.id.widgetUpdateProgress, View.GONE)
             appWidgetManager.updateAppWidget(appWidgetId, views)
+        }, 750)
+    }
+
+    private fun handleSavingsPerDuration(
+        context: Context,
+        views: RemoteViews,
+        goalItem: GoalWithTransactions,
+        defCurrency: String,
+        preferenceUtil: PreferenceUtil
+    ) {
+        val remainingAmount = (goalItem.goal.targetAmount - goalItem.getCurrentlySavedAmount())
+
+        if (remainingAmount > 0f && goalItem.goal.deadline.isNotEmpty()) {
+            val calculatedDays = GoalTextUtils(preferenceUtil).calcRemainingDays(goalItem.goal)
+
+            if (calculatedDays.remainingDays > 2) {
+                val amountDays = "${
+                    Utils.formatCurrency(
+                        Utils.roundDecimal(remainingAmount / calculatedDays.remainingDays),
+                        defCurrency
+                    )
+                }/${context.getString(R.string.goal_approx_saving_day)}"
+                views.setCharSequence(R.id.widgetAmountDay, "setText", amountDays)
+                views.setViewVisibility(R.id.widgetAmountDay, View.VISIBLE)
+            }
+
+            if (calculatedDays.remainingDays > 7) {
+                val amountWeeks = "${
+                    Utils.formatCurrency(
+                        Utils.roundDecimal(remainingAmount / (calculatedDays.remainingDays / 7)),
+                        defCurrency
+                    )
+                }/${context.getString(R.string.goal_approx_saving_week)}"
+                views.setCharSequence(R.id.widgetAmountWeek, "setText", amountWeeks)
+                views.setViewVisibility(R.id.widgetAmountWeek, View.VISIBLE)
+            }
+
+            views.setViewVisibility(R.id.amountDurationGroup, View.VISIBLE)
+            views.setViewVisibility(R.id.widgetGoalAchieved, View.GONE)
         }
     }
+
+    private fun handleGoalAchieved(views: RemoteViews, goalItem: GoalWithTransactions) {
+        if (goalItem.getCurrentlySavedAmount() >= goalItem.goal.targetAmount) {
+            views.setViewVisibility(R.id.amountDurationGroup, View.GONE)
+            views.setViewVisibility(R.id.widgetGoalAchieved, View.VISIBLE)
+        }
+    }
+
+    private fun handleProgress(views: RemoteViews, goalItem: GoalWithTransactions) {
+        val progressPercent =
+            ((goalItem.getCurrentlySavedAmount() / goalItem.goal.targetAmount) * 100).toInt()
+        views.setProgressBar(R.id.widgetGoalProgress, 100, progressPercent, false)
+    }
+
 
     private fun initialiseVm(context: Context) {
         if (!this::viewModel.isInitialized) {
