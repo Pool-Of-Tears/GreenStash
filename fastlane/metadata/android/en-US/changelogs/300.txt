@@ -1,0 +1,5 @@
+- Added proper handling for currencies with zero decimal places, like JPY.
+- Remember the last used filter combination on subsequent launches.
+- Removed "No deadline set" text from widget when there is no deadline.
+- Added turkish translation, thanks to Dreamboat8744.
+- Bug fixes and other improvements.
