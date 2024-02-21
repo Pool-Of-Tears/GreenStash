@@ -29,25 +29,19 @@ import android.content.Context
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.ModalBottomSheetState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.compose.ui.hapticfeedback.HapticFeedbackType
-import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.navigation.NavController
 import com.starry.greenstash.R
 import com.starry.greenstash.database.core.GoalWithTransactions
+import com.starry.greenstash.database.transaction.TransactionType
 import com.starry.greenstash.ui.navigation.Screens
-import com.starry.greenstash.ui.screens.home.viewmodels.BottomSheetType
 import com.starry.greenstash.ui.screens.home.viewmodels.HomeViewModel
-import com.starry.greenstash.utils.Utils
-import com.starry.greenstash.utils.validateAmount
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
@@ -63,8 +57,6 @@ fun GoalLazyColumnItem(
     viewModel: HomeViewModel,
     item: GoalWithTransactions,
     snackBarHostState: SnackbarHostState,
-    bottomSheetState: ModalBottomSheetState,
-    bottomSheetType: MutableState<BottomSheetType>,
     navController: NavController
 ) {
     val coroutineScope = rememberCoroutineScope()
@@ -72,10 +64,6 @@ fun GoalLazyColumnItem(
         ((item.getCurrentlySavedAmount() / item.goal.targetAmount) * 100).toInt()
 
     val openDeleteDialog = remember { mutableStateOf(false) }
-    val openDepositDialog = remember { mutableStateOf(false) }
-    val openWithdrawDialog = remember { mutableStateOf(false) }
-
-    val hapticFeedback = LocalHapticFeedback.current
 
     GoalItem(title = item.goal.title,
         primaryText = viewModel.goalTextUtil.buildPrimaryText(context, progressPercent, item),
@@ -88,7 +76,12 @@ fun GoalLazyColumnItem(
                     snackBarHostState.showSnackbar(context.getString(R.string.goal_already_achieved))
                 }
             } else {
-                openDepositDialog.value = true
+                navController.navigate(
+                    Screens.DWScreen.withGoalId(
+                        goalId = item.goal.goalId.toString(),
+                        trasactionType = TransactionType.Deposit.name
+                    )
+                )
             }
         },
         onWithdrawClicked = {
@@ -97,7 +90,12 @@ fun GoalLazyColumnItem(
                     snackBarHostState.showSnackbar(context.getString(R.string.withdraw_button_error))
                 }
             } else {
-                openWithdrawDialog.value = true
+                navController.navigate(
+                    Screens.DWScreen.withGoalId(
+                        goalId = item.goal.goalId.toString(),
+                        trasactionType = TransactionType.Withdraw.name
+                    )
+                )
             }
         },
         onInfoClicked = {
@@ -116,54 +114,12 @@ fun GoalLazyColumnItem(
         },
         onDeleteClicked = { openDeleteDialog.value = true })
 
-    ActionDialogs(
+    HomeDialogs(
         openDeleteDialog = openDeleteDialog,
-        openDepositDialog = openDepositDialog,
-        openWithdrawDialog = openWithdrawDialog,
         onDeleteConfirmed = {
             viewModel.deleteGoal(item.goal)
             coroutineScope.launch {
                 snackBarHostState.showSnackbar(context.getString(R.string.goal_delete_success))
-            }
-        }, onDepositConfirmed = { amount, notes ->
-            if (!amount.validateAmount()) {
-                coroutineScope.launch {
-                    snackBarHostState.showSnackbar(context.getString(R.string.amount_empty_err))
-                }
-            } else if (item.getCurrentlySavedAmount() >= item.goal.targetAmount) {
-                coroutineScope.launch {
-                    snackBarHostState.showSnackbar(context.getString(R.string.goal_already_achieved))
-                }
-            } else {
-                val amountDouble = Utils.roundDecimal(amount.toDouble())
-                viewModel.deposit(item.goal, amountDouble, notes, onGoalAchieved = {
-                    // Show a congratulations message when goal is achieved.
-                    hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)
-                    coroutineScope.launch {
-                        bottomSheetType.value = BottomSheetType.GOAL_ACHIEVED
-                        if (!bottomSheetState.isVisible) {
-                            bottomSheetState.show()
-                        }
-                    }
-                })
-                coroutineScope.launch {
-                    snackBarHostState.showSnackbar(context.getString(R.string.deposit_successful))
-                }
-            }
-        }, onWithdrawConfirmed = { amount, notes ->
-            if (!amount.validateAmount()) {
-                coroutineScope.launch {
-                    snackBarHostState.showSnackbar(context.getString(R.string.amount_empty_err))
-                }
-            } else {
-                val amountDouble = Utils.roundDecimal(amount.toDouble())
-                if (amountDouble > item.getCurrentlySavedAmount()) {
-                    coroutineScope.launch {
-                        snackBarHostState.showSnackbar(context.getString(R.string.withdraw_overflow_error))
-                    }
-                } else {
-                    viewModel.withdraw(item.goal, amountDouble, notes)
-                }
             }
         }
     )

@@ -38,9 +38,6 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.starry.greenstash.database.goal.Goal
 import com.starry.greenstash.database.goal.GoalDao
-import com.starry.greenstash.database.transaction.Transaction
-import com.starry.greenstash.database.transaction.TransactionDao
-import com.starry.greenstash.database.transaction.TransactionType
 import com.starry.greenstash.reminder.ReminderManager
 import com.starry.greenstash.utils.GoalTextUtils
 import com.starry.greenstash.utils.PreferenceUtil
@@ -50,12 +47,9 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 enum class SearchWidgetState { OPENED, CLOSED }
-enum class BottomSheetType { GOAL_ACHIEVED, FILTER_MENU }
-
 enum class FilterField { Title, Amount, Priority }
 enum class FilterSortType(val value: Int) { Ascending(1), Descending(2) }
 data class FilterFlowData(val filterField: FilterField, val sortType: FilterSortType)
@@ -69,7 +63,6 @@ data class FilterFlowData(val filterField: FilterField, val sortType: FilterSort
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val goalDao: GoalDao,
-    private val transactionDao: TransactionDao,
     private val reminderManager: ReminderManager,
     private val preferenceUtil: PreferenceUtil
 ) : ViewModel() {
@@ -154,40 +147,5 @@ class HomeViewModel @Inject constructor(
                 reminderManager.stopReminder(goal.goalId)
             }
         }
-    }
-
-    fun deposit(goal: Goal, amount: Double, notes: String, onGoalAchieved: () -> Unit) {
-        viewModelScope.launch(Dispatchers.IO) {
-            addTransaction(goal.goalId, amount, notes, TransactionType.Deposit)
-            /**
-             * check weather goal is achieved or not after inserting the
-             * amount in goal database and call the goal achieved function
-             * to show a congratulations message to the user.
-             */
-            val goalItem = goalDao.getGoalWithTransactionById(goal.goalId)!!
-            val remainingAmount = (goal.targetAmount - goalItem.getCurrentlySavedAmount())
-            if (remainingAmount <= 0f) {
-                withContext(Dispatchers.Main) { onGoalAchieved() }
-            }
-        }
-    }
-
-    fun withdraw(goal: Goal, amount: Double, notes: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            addTransaction(goal.goalId, amount, notes, TransactionType.Withdraw)
-        }
-    }
-
-    private suspend fun addTransaction(
-        goalId: Long, amount: Double, notes: String, transactionType: TransactionType
-    ) {
-        val transaction = Transaction(
-            ownerGoalId = goalId,
-            type = transactionType,
-            timeStamp = System.currentTimeMillis(),
-            amount = amount,
-            notes = notes
-        )
-        transactionDao.insertTransaction(transaction)
     }
 }

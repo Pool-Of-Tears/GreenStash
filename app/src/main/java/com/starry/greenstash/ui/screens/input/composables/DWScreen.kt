@@ -1,92 +1,159 @@
 package com.starry.greenstash.ui.screens.input.composables
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.Scaffold
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionResult
 import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
+import com.maxkeppeker.sheets.core.models.base.rememberUseCaseState
+import com.maxkeppeler.sheets.date_time.DateTimeDialog
+import com.maxkeppeler.sheets.date_time.models.DateTimeSelection
 import com.starry.greenstash.R
+import com.starry.greenstash.database.transaction.TransactionType
+import com.starry.greenstash.ui.screens.input.viewmodels.DWViewModel
 import com.starry.greenstash.ui.theme.greenstashFont
+import com.starry.greenstash.utils.Utils
+import com.starry.greenstash.utils.validateAmount
+import kotlinx.coroutines.launch
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 @ExperimentalMaterial3Api
 @Composable
-fun DWScreen() {
-    Scaffold(topBar = {
+fun DWScreen(goalId: String, transactionTypeName: String, navController: NavController) {
+    val context = LocalContext.current
+    val viewModel: DWViewModel = hiltViewModel()
 
-        TopAppBar(modifier = Modifier.fillMaxWidth(), title = {
-            Text(
-                text = "Deposit",
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                fontFamily = greenstashFont
-            )
-        }, navigationIcon = {
-            IconButton(onClick = { }) {
-                Icon(
-                    imageVector = Icons.Filled.ArrowBack, contentDescription = null
+    val selectedDateTime = remember {
+        mutableStateOf<LocalDateTime?>(LocalDateTime.now())
+    }
+    val dateTimeDialogState = rememberUseCaseState(visible = false)
+
+    val coroutineScope = rememberCoroutineScope()
+    val snackBarHostState = remember { SnackbarHostState() }
+
+    val transactionType = viewModel.convertTransactionType(transactionTypeName)
+
+    DateTimeDialog(
+        state = dateTimeDialogState,
+        selection = DateTimeSelection.DateTime(
+            selectedDate = selectedDateTime.value!!.toLocalDate(),
+            selectedTime = selectedDateTime.value!!.toLocalTime(),
+        ) { newDateTime ->
+            selectedDateTime.value = newDateTime
+        },
+    )
+
+    Scaffold(
+        snackbarHost = { SnackbarHost(snackBarHostState) },
+        modifier = Modifier
+            .fillMaxSize()
+            .imePadding(),
+        topBar = {
+            TopAppBar(modifier = Modifier.fillMaxWidth(), title = {
+                Text(
+                    text = "Deposit",
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    fontFamily = greenstashFont
                 )
-            }
-        }, colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-            containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(4.dp)
-        )
-        )
+            }, navigationIcon = {
+                IconButton(onClick = { navController.navigateUp() }) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = null
+                    )
+                }
+            }, colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(4.dp)
+            )
+            )
 
-    }) { paddingValues ->
+        }) { paddingValues ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(paddingValues),
+                .padding(paddingValues)
+                .verticalScroll(rememberScrollState(), reverseScrolling = true),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             val compositionResult: LottieCompositionResult = rememberLottieComposition(
-                spec = LottieCompositionSpec.RawRes(R.raw.no_transactions_lottie)
+                spec = LottieCompositionSpec.RawRes(
+                    if (transactionType == TransactionType.Deposit) R.raw.dw_deposit_lottie
+                    else R.raw.no_transactions_lottie
+                )
             )
             val progressAnimation by animateLottieCompositionAsState(
-                compositionResult.value, isPlaying = true, iterations = 1, speed = 1f
+                compositionResult.value,
+                isPlaying = true,
+                iterations = LottieConstants.IterateForever,
+                speed = 1f
             )
 
             LottieAnimation(
                 composition = compositionResult.value,
                 progress = progressAnimation,
-                modifier = Modifier.size(320.dp),
+                modifier = Modifier.size(280.dp),
                 enableMergePaths = true
             )
 
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 8.dp)
+                    .padding(horizontal = 18.dp, vertical = 8.dp)
+                    .clickable { dateTimeDialogState.show() }
             ) {
                 Row(
                     modifier = Modifier
@@ -101,7 +168,11 @@ fun DWScreen() {
                             modifier = Modifier.size(24.dp)
                         )
                         Text(
-                            text = "12/12/2021",
+                            text = selectedDateTime.value!!.format(
+                                DateTimeFormatter.ofPattern(
+                                    viewModel.getDateStyleValue()
+                                )
+                            ),
                             fontFamily = greenstashFont,
                             fontWeight = FontWeight.Medium,
                             modifier = Modifier.padding(start = 8.dp, top = 2.dp)
@@ -117,7 +188,7 @@ fun DWScreen() {
                             modifier = Modifier.size(24.dp)
                         )
                         Text(
-                            text = "12:00 PM",
+                            text = selectedDateTime.value!!.format(DateTimeFormatter.ofPattern("h:mm a")),
                             fontFamily = greenstashFont,
                             fontWeight = FontWeight.Medium,
                             modifier = Modifier.padding(start = 8.dp, top = 2.dp)
@@ -128,6 +199,108 @@ fun DWScreen() {
                 }
             }
 
+            OutlinedTextField(
+                value = viewModel.state.amount,
+                onValueChange = { newText ->
+                    viewModel.state =
+                        viewModel.state.copy(amount = Utils.getValidatedNumber(newText))
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 18.dp, vertical = 12.dp),
+                label = {
+                    Text(text = stringResource(id = R.string.transaction_amount))
+                },
+                leadingIcon = {
+                    Icon(
+                        imageVector = ImageVector.vectorResource(id = R.drawable.ic_input_amount),
+                        contentDescription = null
+                    )
+                },
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedBorderColor = MaterialTheme.colorScheme.primary,
+                    unfocusedBorderColor = MaterialTheme.colorScheme.onBackground,
+                ),
+                shape = RoundedCornerShape(14.dp),
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            )
+
+            OutlinedTextField(
+                value = viewModel.state.notes,
+                onValueChange = { newText ->
+                    viewModel.state = viewModel.state.copy(notes = newText)
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 18.dp, vertical = 2.dp),
+                label = {
+                    Text(text = stringResource(id = R.string.input_additional_notes))
+                },
+                leadingIcon = {
+                    Icon(
+                        imageVector = ImageVector.vectorResource(id = R.drawable.ic_input_additional_notes),
+                        contentDescription = null
+                    )
+                },
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedBorderColor = MaterialTheme.colorScheme.primary,
+                    unfocusedBorderColor = MaterialTheme.colorScheme.onBackground,
+                ),
+                shape = RoundedCornerShape(14.dp),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+            )
+
+            Button(
+                onClick = {
+                    if (!viewModel.state.amount.validateAmount()) {
+                        coroutineScope.launch {
+                            snackBarHostState.showSnackbar(context.getString(R.string.amount_empty_err))
+                        }
+                    } else {
+                        val amountDouble = Utils.roundDecimal(viewModel.state.amount.toDouble())
+                        when (transactionType) {
+                            TransactionType.Deposit -> {
+                                viewModel.deposit(
+                                    goalId = goalId.toLong(),
+                                    dateTime = selectedDateTime.value!!,
+                                    onGoalAchieved = {
+                                        // TODO: Show goal achieved message
+                                    }
+                                )
+                            }
+
+                            TransactionType.Withdraw -> {
+                                viewModel.withdraw(
+                                    goalId = goalId.toLong(),
+                                    dateTime = selectedDateTime.value!!,
+                                    onWithDrawOverflow = {
+                                        coroutineScope.launch {
+                                            snackBarHostState.showSnackbar(
+                                                context.getString(R.string.withdraw_overflow_error)
+                                            )
+                                        }
+                                    }
+                                )
+                            }
+
+                            TransactionType.Invalid -> {
+                                throw IllegalArgumentException("Invalid transaction type")
+                            }
+                        }
+                    }
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 18.dp, vertical = 12.dp),
+                shape = RoundedCornerShape(12.dp),
+            ) {
+                Text(
+                    text = if (transactionType == TransactionType.Deposit)
+                        stringResource(id = R.string.deposit_button)
+                    else stringResource(id = R.string.withdraw_button)
+                )
+            }
 
         }
     }
@@ -137,5 +310,5 @@ fun DWScreen() {
 @Preview
 @Composable
 private fun PV() {
-    DWScreen()
+    DWScreen("", "", rememberNavController())
 }

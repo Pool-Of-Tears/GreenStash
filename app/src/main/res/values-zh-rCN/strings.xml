@@ -34,17 +34,19 @@
     <string name="goal_achieved_card_title">恭喜 🥳</string>
     <string name="goal_achieved_card_desc">您已经实现了省钱目标！</string>
 
+    <!-- Deposit & Withdraw Screen -->
+    <string name="deposit_dialog_title">很棒！存入多少</string>
+    <string name="withdraw_dialog_title">酷！取出多少</string>
+    <string name="deposit_successful">存钱成功！</string>
+    <string name="withdraw_overflow_error">取出金额多于当前存入的金额！</string>
+
     <!-- Strings used for dashboard saving goals cards -->
     <string name="no_goal_set">没有设置省钱目标。</string>
-    <string name="transaction_dialog_amount_label">输入金额</string>
+    <string name="transaction_amount">输入金额</string>
     <string name="deposit_button">存钱</string>
-    <string name="deposit_dialog_title">很棒！存入多少</string>
-    <string name="deposit_successful">存钱成功！</string>
     <string name="goal_already_achieved">您已经实现了此目标。</string>
     <string name="withdraw_button">取钱</string>
-    <string name="withdraw_dialog_title">酷！取出多少</string>
     <string name="withdraw_button_error">您尚未存入任何金额。</string>
-    <string name="withdraw_overflow_error">取出金额多于当前存入的金额！</string>
     <string name="withdraw_successful">取钱成功！</string>
     <string name="goal_delete_confirmation">确定吗？</string>
     <string name="goal_delete_success">删除成功。</string>
