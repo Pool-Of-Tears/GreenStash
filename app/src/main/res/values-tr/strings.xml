@@ -31,14 +31,18 @@
     <string name="filter_menu_title">Filtrele</string>
     <string name="home_search_label">Ara…</string>
     <string name="search_goal_not_found">404: Hedef bulunamadı!</string>>
-    <string name="goal_achieved_card_title">Tebrikler 🥳</string>
-    <string name="goal_achieved_card_desc">Birikim hedefine ulaştın!</string>
 
     <!-- Deposit & Withdraw Screen -->
-    <string name="deposit_dialog_title">Harika! tutar girin</string>
-    <string name="withdraw_dialog_title">İyi! tutar girin</string>
+    <string name="deposit_screen_title">Harika! tutar girin</string>
+    <string name="withdraw_screen_title">İyi! tutar girin</string>
     <string name="deposit_successful">Başarıyla Yatırıldı!</string>
+    <string name="withdraw_successful">Başarıyla Çekildi!</string>
     <string name="withdraw_overflow_error">Tutar, mevcut yatırılan tutardan daha fazla!</string>
+
+    <!-- Congratulations Screen -->
+    <string name="goal_achieved_heading">Tebrikler 🥳</string>
+    <string name="goal_achieved_subtext">Birikim hedefine ulaştın!</string>
+    <string name="goal_achieved_button">Ana Sayfa</string>
 
     <!-- Strings used for dashboard saving goals cards -->
     <string name="no_goal_set">Birikim Hedefi Yok.</string>
@@ -47,7 +51,6 @@
     <string name="goal_already_achieved">Birikim hedefine zaten ulaştın.</string>
     <string name="withdraw_button">çek</string>
     <string name="withdraw_button_error">Henüz herhangi bir tutar yatırmadın.</string>
-    <string name="withdraw_successful">Başarıyla Çekildi!</string>
     <string name="goal_delete_confirmation">Emin misin?</string>
     <string name="goal_delete_success">Başarıyla Silindi.</string>
     <string name="info_button_description">Hedef bilgilerini görüntüle.</string>

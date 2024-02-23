@@ -52,7 +52,6 @@ import com.starry.greenstash.ui.screens.settings.viewmodels.SettingsViewModel
 import com.starry.greenstash.ui.screens.settings.viewmodels.ThemeMode
 import com.starry.greenstash.ui.theme.GreenStashTheme
 import com.starry.greenstash.utils.Utils
-import com.starry.greenstash.utils.toToast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import java.util.concurrent.Executor
@@ -104,7 +103,6 @@ class MainActivity : AppCompatActivity() {
                         result: BiometricPrompt.AuthenticationResult
                     ) {
                         super.onAuthenticationSucceeded(result)
-                        getString(R.string.auth_successful).toToast(this@MainActivity)
                         // make app contents visible after successful authentication.
                         setAppContents()
                         mainViewModel.appUnlocked = true

@@ -31,14 +31,18 @@
     <string name="filter_menu_title">Filter By</string>
     <string name="home_search_label">Busca aquí…</string>
     <string name="search_goal_not_found">404: ¡Meta no encontrada!</string>
-    <string name="goal_achieved_card_title">Felicitaciones 🥳</string>
-    <string name="goal_achieved_card_desc">¡Has alcanzado tú meta de ahorro!</string>
 
     <!-- Deposit & Withdraw Screen -->
-    <string name="deposit_dialog_title">¡Excelente! Ingresa la cantidad</string>
-    <string name="withdraw_dialog_title">¡Bien! Ingresa la cantidad</string>
+    <string name="deposit_screen_title">¡Excelente! Ingresa la cantidad</string>
+    <string name="withdraw_screen_title">¡Bien! Ingresa la cantidad</string>
     <string name="deposit_successful">¡Depósito exitoso!</string>
+    <string name="withdraw_successful">¡Retiro exitoso!</string>
     <string name="withdraw_overflow_error">¡La cantidad supera lo depositado!</string>
+
+    <!-- Congratulations Screen -->
+    <string name="goal_achieved_heading">Felicitaciones 🥳</string>
+    <string name="goal_achieved_subtext">¡Has alcanzado tú meta de ahorro!</string>
+    <string name="goal_achieved_button">Inicio</string>
 
     <!-- Strings used for dashboard saving goals cards -->
     <string name="no_goal_set">No hay metas aún.</string>
@@ -47,7 +51,6 @@
     <string name="goal_already_achieved">Ya has completado esta meta.</string>
     <string name="withdraw_button">Retirar</string>
     <string name="withdraw_button_error">No has depositado nada aún.</string>
-    <string name="withdraw_successful">¡Retiro exitoso!</string>
     <string name="goal_delete_confirmation">¿Estás seguro/a?</string>
     <string name="goal_delete_success">Eliminación exitosa.</string>
     <string name="info_button_description">Ver información de la meta.</string>

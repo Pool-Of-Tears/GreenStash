@@ -49,6 +49,7 @@ import com.starry.greenstash.ui.screens.backups.BackupScreen
 import com.starry.greenstash.ui.screens.home.composables.HomeScreen
 import com.starry.greenstash.ui.screens.info.composables.GoalInfoScreen
 import com.starry.greenstash.ui.screens.input.composables.DWScreen
+import com.starry.greenstash.ui.screens.input.composables.CongratsScreen
 import com.starry.greenstash.ui.screens.input.composables.InputScreen
 import com.starry.greenstash.ui.screens.settings.composables.AboutScreen
 import com.starry.greenstash.ui.screens.settings.composables.OSLScreen
@@ -173,6 +174,17 @@ fun NavGraph(
         ) { backStackEntry ->
             val editGoalId = backStackEntry.arguments!!.getString(EDIT_GOAL_ARG_KEY)
             InputScreen(editGoalId = editGoalId, navController = navController)
+        }
+
+        /** Goal Achieved Screen */
+        composable(
+            route = Screens.CongratsScreen.route,
+            enterTransition = { enterTransition() },
+            exitTransition = { exitTransition() },
+            popEnterTransition = { popEnterTransition() },
+            popExitTransition = { popExitTransition() },
+        ) {
+            CongratsScreen(navController = navController)
         }
 
         /** Backup Screen */

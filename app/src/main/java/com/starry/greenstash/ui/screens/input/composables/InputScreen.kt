@@ -163,7 +163,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
     val selectedDate = remember { mutableStateOf<LocalDate?>(LocalDate.now()) }
     val calenderState = rememberUseCaseState(visible = false, true)
 
-    val showGoalAddedDialog = remember { mutableStateOf(false) }
+    val showGoalAddedAnim = remember { mutableStateOf(false) }
     val showRemoveDeadlineDialog = remember { mutableStateOf(false) }
 
     val topBarText: String
@@ -259,8 +259,8 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                 containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(4.dp)
             )
             )
-        }) {
-        if (showGoalAddedDialog.value) {
+        }) { paddingValues ->
+        if (showGoalAddedAnim.value) {
             Column(
                 modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -300,7 +300,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                 modifier = Modifier
                     .fillMaxSize()
                     .background(MaterialTheme.colorScheme.background)
-                    .padding(it)
+                    .padding(paddingValues)
                     .verticalScroll(rememberScrollState(), reverseScrolling = true),
             ) {
                 Spacer(modifier = Modifier.height(12.dp))
@@ -530,8 +530,8 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                                 }
 
                                 coroutineScope.launch {
-                                    showGoalAddedDialog.value = true
-                                    delay(2000)
+                                    showGoalAddedAnim.value = true
+                                    delay(1050)
                                     navController.popBackStack(DrawerScreens.Home.route, true)
                                     navController.navigate(DrawerScreens.Home.route)
                                 }
