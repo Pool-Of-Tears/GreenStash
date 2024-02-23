@@ -77,6 +77,10 @@ interface GoalDao {
     suspend fun getGoalWithTransactionById(goalId: Long): GoalWithTransactions?
 
     @Transaction
+    @Query("SELECT * FROM saving_goal WHERE goalId = :goalId")
+    fun getGoalWithTransactionByIdAsFlow(goalId: Long): Flow<GoalWithTransactions?>
+
+    @Transaction
     @Query(
         "SELECT * FROM saving_goal ORDER BY " +
                 "CASE WHEN :sortOrder = 1 THEN title END ASC, " +

@@ -44,11 +44,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -61,6 +60,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -68,6 +68,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -91,7 +92,6 @@ import com.starry.greenstash.database.goal.GoalPriority.Normal
 import com.starry.greenstash.database.transaction.Transaction
 import com.starry.greenstash.database.transaction.TransactionType
 import com.starry.greenstash.ui.common.DotIndicator
-import com.starry.greenstash.ui.common.ExpandableCard
 import com.starry.greenstash.ui.common.ExpandableTextCard
 import com.starry.greenstash.ui.screens.info.viewmodels.InfoViewModel
 import com.starry.greenstash.ui.screens.settings.viewmodels.ThemeMode
@@ -99,6 +99,8 @@ import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.utils.Utils
 import com.starry.greenstash.utils.getActivity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import me.saket.swipe.SwipeAction
+import me.saket.swipe.SwipeableActionsBox
 
 
 @ExperimentalCoroutinesApi
@@ -127,7 +129,7 @@ fun GoalInfoScreen(goalId: String, navController: NavController) {
         }, navigationIcon = {
             IconButton(onClick = { navController.navigateUp() }) {
                 Icon(
-                    imageVector = Icons.Filled.ArrowBack, contentDescription = null
+                    imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null
                 )
             }
         }, colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
@@ -141,7 +143,9 @@ fun GoalInfoScreen(goalId: String, navController: NavController) {
                 .background(MaterialTheme.colorScheme.background)
                 .padding(it)
         ) {
-            if (state.isLoading) {
+            val goalData = state.goalData?.collectAsState(initial = null)?.value
+
+            if (goalData == null) {
                 Box(
                     modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
                 ) {
@@ -150,7 +154,7 @@ fun GoalInfoScreen(goalId: String, navController: NavController) {
             } else {
                 val currencySymbol = viewModel.getDefaultCurrencyValue()
                 val progressPercent =
-                    ((state.goalData!!.getCurrentlySavedAmount() / state.goalData.goal.targetAmount) * 100).toInt()
+                    ((goalData.getCurrentlySavedAmount() / goalData.goal.targetAmount) * 100).toInt()
 
                 Column(
                     modifier = Modifier
@@ -159,22 +163,22 @@ fun GoalInfoScreen(goalId: String, navController: NavController) {
                 ) {
                     GoalInfoCard(
                         currencySymbol = currencySymbol,
-                        targetAmount = state.goalData.goal.targetAmount,
-                        savedAmount = state.goalData.getCurrentlySavedAmount(),
+                        targetAmount = goalData.goal.targetAmount,
+                        savedAmount = goalData.getCurrentlySavedAmount(),
                         daysLeftText = viewModel.goalTextUtils.getRemainingDaysText(
-                            context, state.goalData
+                            context, goalData
                         ),
                         progress = progressPercent.toFloat() / 100
                     )
-                    GoalPriorityCard(goalPriority = state.goalData.goal.priority)
-                    if (state.goalData.goal.additionalNotes.isNotEmpty() && state.goalData.goal.additionalNotes.isNotBlank()) {
+                    GoalPriorityCard(goalPriority = goalData.goal.priority)
+                    if (goalData.goal.additionalNotes.isNotEmpty() && goalData.goal.additionalNotes.isNotBlank()) {
                         GoalNotesCard(
-                            notesText = state.goalData.goal.additionalNotes
+                            notesText = goalData.goal.additionalNotes
                         )
                         Spacer(modifier = Modifier.height(6.dp))
                     }
-                    if (state.goalData.transactions.isNotEmpty()) {
-                        TransactionCard(state.goalData.transactions.reversed(), currencySymbol)
+                    if (goalData.transactions.isNotEmpty()) {
+                        TransactionCard(goalData.transactions.reversed(), currencySymbol, viewModel)
                     } else {
                         Column(
                             modifier = Modifier.fillMaxWidth(),
@@ -279,13 +283,13 @@ fun GoalInfoCard(
             Spacer(modifier = Modifier.height(14.dp))
 
             LinearProgressIndicator(
-                progress = progress,
-                color = MaterialTheme.colorScheme.secondary,
+                progress = { progress },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(12.dp)
                     .padding(start = 12.dp, end = 12.dp)
-                    .clip(RoundedCornerShape(40.dp))
+                    .clip(RoundedCornerShape(40.dp)),
+                color = MaterialTheme.colorScheme.secondary,
             )
 
             Spacer(modifier = Modifier.height(12.dp))
@@ -354,18 +358,30 @@ fun GoalNotesCard(notesText: String) {
 @ExperimentalAnimationApi
 @ExperimentalMaterial3Api
 @Composable
-fun TransactionCard(transactions: List<Transaction>, currencySymbol: String) {
-    ExpandableCard(
-        title = stringResource(id = R.string.info_transaction_card_title), expanded = true
-    ) {
-        transactions.forEach {
-            TransactionItem(
-                transactionType = it.type,
-                amount = Utils.formatCurrency(Utils.roundDecimal(it.amount), currencySymbol),
-                date = it.getTransactionDate()
-            )
-        }
+fun TransactionCard(
+    transactions: List<Transaction>,
+    currencySymbol: String,
+    viewModel: InfoViewModel
+) {
+    val settingsVM = (LocalContext.current.getActivity() as MainActivity).settingsViewModel
+    transactions.forEach {
+        val deleteAction = SwipeAction(
+            icon = painterResource(
+                id = if (settingsVM.getCurrentTheme() == ThemeMode.Light)
+                    R.drawable.ic_goal_delete else R.drawable.ic_goal_delete_white
+            ),
+            background = Color.Red,
+            onSwipe = {
+                viewModel.deleteTransaction(it)
+            }
+        )
+        SwipeableActionsBox(
+            endActions = listOf(deleteAction),
+            swipeThreshold = 85.dp,
+            content = { TransactionItem(it, currencySymbol) }
+        )
     }
+
 }
 
 @ExperimentalCoroutinesApi
@@ -375,50 +391,73 @@ fun TransactionCard(transactions: List<Transaction>, currencySymbol: String) {
 @ExperimentalFoundationApi
 @ExperimentalMaterialApi
 @Composable
-fun TransactionItem(transactionType: TransactionType, amount: String, date: String) {
-    val amountPrefix: String
-    val amountColor: Color
-    val activity = LocalContext.current.getActivity() as MainActivity
-
-    if (transactionType == TransactionType.Deposit) {
-        amountPrefix = "+"
-        amountColor = if (activity.settingsViewModel.getCurrentTheme() == ThemeMode.Light) {
-            Color(0xFF037d50)
-        } else {
-            Color(0xFF04df8f)
-        }
-    } else {
-        amountPrefix = "-"
-        amountColor = if (activity.settingsViewModel.getCurrentTheme() == ThemeMode.Light) {
-            Color(0xFFd90000)
-        } else {
-            Color(0xFFff1515)
-        }
-    }
-
-    Column(
+fun TransactionItem(transaction: Transaction, currencySymbol: String) {
+    Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp)
-    ) {
-        Row {
-            Text(
-                text = "$amountPrefix$amount",
-                fontWeight = FontWeight.Medium,
-                fontSize = 16.sp,
-                color = amountColor
+            .padding(start = 12.dp, end = 12.dp, top = 4.dp),
+        shape = RoundedCornerShape(8.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(
+                4.dp
             )
-            Spacer(modifier = Modifier.weight(1f))
-            Text(text = date, fontWeight = FontWeight.Medium, fontSize = 16.sp)
-        }
-        Divider(
-            color = MaterialTheme.colorScheme.onSurface,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 12.dp)
-                .clip(RoundedCornerShape(50.dp)),
-            thickness = 0.8.dp
         )
+    ) {
+        Column(modifier = Modifier.padding(8.dp)) {
+            val amountPrefix: String
+            val amountColor: Color
+            val activity = LocalContext.current.getActivity() as MainActivity
+
+            if (transaction.type == TransactionType.Deposit) {
+                amountPrefix = "+"
+                amountColor = if (activity.settingsViewModel.getCurrentTheme() == ThemeMode.Light) {
+                    Color(0xFF037d50)
+                } else {
+                    Color(0xFF04df8f)
+                }
+            } else {
+                amountPrefix = "-"
+                amountColor = if (activity.settingsViewModel.getCurrentTheme() == ThemeMode.Light) {
+                    Color(0xFFd90000)
+                } else {
+                    Color(0xFFff1515)
+                }
+            }
+
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp)
+            ) {
+                Row {
+                    Text(
+                        text = "$amountPrefix$currencySymbol${transaction.amount}",
+                        fontWeight = FontWeight.Medium,
+                        fontSize = 16.sp,
+                        color = amountColor
+                    )
+                    Spacer(modifier = Modifier.weight(1f))
+                    Text(
+                        text = transaction.getTransactionDate(),
+                        fontWeight = FontWeight.Medium,
+                        fontSize = 16.sp
+                    )
+                }
+
+                if (transaction.notes.isNotBlank()) {
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(
+                        text = transaction.notes,
+                        fontWeight = FontWeight.Medium,
+                        fontSize = 14.sp,
+                        maxLines = 4,
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier.padding(horizontal = 14.dp)
+                    )
+                }
+            }
+        }
+
     }
 }
 

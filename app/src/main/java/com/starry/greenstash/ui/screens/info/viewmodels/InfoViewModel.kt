@@ -32,22 +32,25 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.starry.greenstash.database.core.GoalWithTransactions
 import com.starry.greenstash.database.goal.GoalDao
+import com.starry.greenstash.database.transaction.Transaction
+import com.starry.greenstash.database.transaction.TransactionDao
 import com.starry.greenstash.utils.GoalTextUtils
 import com.starry.greenstash.utils.PreferenceUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 data class InfoScreenState(
-    val isLoading: Boolean = true,
-    val goalData: GoalWithTransactions? = null
+    val goalData: Flow<GoalWithTransactions?>? = null
 )
 
 @HiltViewModel
 class InfoViewModel @Inject constructor(
     private val goalDao: GoalDao,
+    private val transactionDao: TransactionDao,
     private val preferenceUtil: PreferenceUtil
 ) : ViewModel() {
 
@@ -56,9 +59,16 @@ class InfoViewModel @Inject constructor(
 
     fun loadGoalData(goalId: Long) {
         viewModelScope.launch(Dispatchers.IO) {
-            val goalWithTransactions = goalDao.getGoalWithTransactionById(goalId)
+            val goalWithTransactions = goalDao.getGoalWithTransactionByIdAsFlow(goalId)
             delay(450L)
-            state = state.copy(isLoading = false, goalData = goalWithTransactions)
+            state = state.copy(goalData = goalWithTransactions)
+        }
+    }
+
+
+    fun deleteTransaction(transaction: Transaction) {
+        viewModelScope.launch(Dispatchers.IO) {
+            transactionDao.deleteTransaction(transaction)
         }
     }
 

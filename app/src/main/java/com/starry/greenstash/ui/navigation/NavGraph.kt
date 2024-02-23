@@ -48,8 +48,8 @@ import androidx.navigation.navArgument
 import com.starry.greenstash.ui.screens.backups.BackupScreen
 import com.starry.greenstash.ui.screens.home.composables.HomeScreen
 import com.starry.greenstash.ui.screens.info.composables.GoalInfoScreen
-import com.starry.greenstash.ui.screens.input.composables.DWScreen
 import com.starry.greenstash.ui.screens.input.composables.CongratsScreen
+import com.starry.greenstash.ui.screens.input.composables.DWScreen
 import com.starry.greenstash.ui.screens.input.composables.InputScreen
 import com.starry.greenstash.ui.screens.settings.composables.AboutScreen
 import com.starry.greenstash.ui.screens.settings.composables.OSLScreen

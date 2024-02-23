@@ -83,7 +83,6 @@
     <string name="info_card_goal_achieved">Goal achieved. Congrats!</string>
     <string name="info_goal_priority">Goal Priority is %s</string>
     <string name="info_notes_card_title">Notes</string>
-    <string name="info_transaction_card_title">Transactions</string>
     <string name="info_goal_no_transactions">No Transactions Yet.</string>
 
     <!-- Input (New/Edit Goal) Screen -->

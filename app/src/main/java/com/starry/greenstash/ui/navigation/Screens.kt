@@ -52,7 +52,7 @@ sealed class Screens(val route: String) {
         }
     }
 
-    data object CongratsScreen: Screens("goal_achieved_screen")
+    data object CongratsScreen : Screens("goal_achieved_screen")
     data object AboutScreen : Screens("about_screen")
     data object OSLScreen : Screens("osl_screen")
     data object WelcomeScreen : Screens("welcome_screen")

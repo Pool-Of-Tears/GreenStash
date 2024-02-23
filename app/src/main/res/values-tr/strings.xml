@@ -83,7 +83,6 @@
     <string name="info_card_goal_achieved">Hedefe ulaşıldı. Tebrikler!</string>
     <string name="info_goal_priority">Hedef Önceliği: %s</string>
     <string name="info_notes_card_title">Notlar</string>
-    <string name="info_transaction_card_title">İşlemler</string>
     <string name="info_goal_no_transactions">Henüz İşlem Yok.</string>
 
     <!-- Input (New/Edit Goal) Screen -->
