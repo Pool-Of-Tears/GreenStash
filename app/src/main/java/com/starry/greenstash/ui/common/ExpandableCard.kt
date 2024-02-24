@@ -74,7 +74,7 @@ fun ExpandableCard(
 ) {
     var expandedState by remember { mutableStateOf(expanded) }
     val rotationState by animateFloatAsState(
-        targetValue = if (expandedState) 180f else 0f
+        targetValue = if (expandedState) 180f else 0f, label = "expandable card rotation state"
     )
 
     Card(
