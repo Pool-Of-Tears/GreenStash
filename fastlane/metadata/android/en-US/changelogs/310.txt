@@ -1,0 +1,7 @@
+
+- Replaced the deposit/withdraw dialog with a dedicated screen for adding transactions.
+- You can now set custom date and time for each transaction.
+- Added an optional text field to add notes for each transaction.
+- Added ability to delete individual transactions by swiping left on the transaction list.
+- Removed the "Authentication Succeeded" toast message that appeared on every launch.
+- Bunch of other small UI improvements and bug fixes.

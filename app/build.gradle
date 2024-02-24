@@ -16,8 +16,8 @@ android {
         applicationId "com.starry.greenstash"
         minSdk 24
         targetSdk 34
-        versionCode 300
-        versionName "3.0.0"
+        versionCode 310
+        versionName "3.1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -106,9 +106,9 @@ dependencies {
     androidTestImplementation "androidx.room:room-testing:$room_version"
     // Dagger - Hilt.
     implementation "com.google.dagger:hilt-android:$hilt_version"
-    implementation "androidx.hilt:hilt-navigation-compose:1.1.0"
+    implementation "androidx.hilt:hilt-navigation-compose:1.2.0"
     ksp "com.google.dagger:hilt-android-compiler:$hilt_version"
-    ksp "androidx.hilt:hilt-compiler:1.1.0"
+    ksp "androidx.hilt:hilt-compiler:1.2.0"
     // DataStore Preferences.
     implementation("androidx.datastore:datastore-preferences:1.0.0")
     // Gson JSON parser.
