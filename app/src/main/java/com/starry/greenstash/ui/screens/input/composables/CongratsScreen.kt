@@ -1,5 +1,6 @@
 package com.starry.greenstash.ui.screens.input.composables
 
+import android.media.MediaPlayer
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,9 +17,11 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -38,6 +41,15 @@ import com.starry.greenstash.ui.navigation.DrawerScreens
 @Composable
 fun CongratsScreen(navController: NavController) {
     Scaffold(modifier = Modifier.fillMaxSize()) { paddingValues ->
+
+        val context = LocalContext.current
+        LaunchedEffect(key1 = true, block = {
+            val mediaPlayer = MediaPlayer.create(context, R.raw.congrats_sound)
+            mediaPlayer.start()
+            mediaPlayer.setOnCompletionListener {
+                mediaPlayer.release() // release the media player on completion.
+            }
+        })
 
         BackHandler {
             navController.popBackStack(DrawerScreens.Home.route, true)

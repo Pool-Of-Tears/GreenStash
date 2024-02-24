@@ -189,9 +189,12 @@ fun DWScreen(goalId: String, transactionTypeName: String, navController: NavCont
                 LottieAnimation(
                     composition = compositionResult.value,
                     progress = progressAnimation,
-                    modifier = Modifier.size(280.dp),
-                    enableMergePaths = true
-                )
+                    modifier = Modifier
+                        .size(280.dp)
+                        .padding(top = 24.dp),
+                    enableMergePaths = true,
+
+                    )
 
                 Card(
                     modifier = Modifier
