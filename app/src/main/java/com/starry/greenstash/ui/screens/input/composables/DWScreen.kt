@@ -33,6 +33,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -69,6 +70,7 @@ import com.starry.greenstash.ui.screens.input.viewmodels.DWViewModel
 import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.utils.Utils
 import com.starry.greenstash.utils.validateAmount
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -192,9 +194,8 @@ fun DWScreen(goalId: String, transactionTypeName: String, navController: NavCont
                     modifier = Modifier
                         .size(280.dp)
                         .padding(top = 24.dp),
-                    enableMergePaths = true,
-
-                    )
+                    enableMergePaths = true
+                )
 
                 Card(
                     modifier = Modifier
@@ -241,8 +242,6 @@ fun DWScreen(goalId: String, transactionTypeName: String, navController: NavCont
                                 modifier = Modifier.padding(start = 8.dp, top = 2.dp)
                             )
                         }
-
-
                     }
                 }
 
@@ -312,11 +311,14 @@ fun DWScreen(goalId: String, transactionTypeName: String, navController: NavCont
                                         dateTime = selectedDateTime.value!!,
                                         onGoalAchieved = {
                                             coroutineScope.launch {
+                                                showTransactionAddedAnim.value = true
                                                 delay(1100)
                                                 withContext(Dispatchers.Main) {
                                                     navController.navigate(Screens.CongratsScreen.route)
                                                 }
                                             }
+                                        }, onComplete = {
+                                            navigateToHome(navController, coroutineScope, showTransactionAddedAnim)
                                         }
                                     )
                                 }
@@ -331,6 +333,9 @@ fun DWScreen(goalId: String, transactionTypeName: String, navController: NavCont
                                                     context.getString(R.string.withdraw_overflow_error)
                                                 )
                                             }
+                                        },
+                                        onComplete = {
+                                            navigateToHome(navController, coroutineScope, showTransactionAddedAnim)
                                         }
                                     )
                                 }
@@ -338,13 +343,6 @@ fun DWScreen(goalId: String, transactionTypeName: String, navController: NavCont
                                 TransactionType.Invalid -> {
                                     throw IllegalArgumentException("Invalid transaction type")
                                 }
-                            }
-
-                            coroutineScope.launch {
-                                showTransactionAddedAnim.value = true
-                                delay(1100)
-                                navController.popBackStack(DrawerScreens.Home.route, true)
-                                navController.navigate(DrawerScreens.Home.route)
                             }
                         }
 
@@ -364,6 +362,19 @@ fun DWScreen(goalId: String, transactionTypeName: String, navController: NavCont
             }
         }
 
+    }
+}
+
+private fun navigateToHome(
+    navController: NavController,
+    coroutineScope: CoroutineScope,
+    showTransactionAddedAnim: MutableState<Boolean>
+) {
+    coroutineScope.launch {
+        showTransactionAddedAnim.value = true
+        delay(1100)
+        navController.popBackStack(DrawerScreens.Home.route, true)
+        navController.navigate(DrawerScreens.Home.route)
     }
 }
 

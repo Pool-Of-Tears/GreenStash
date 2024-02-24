@@ -51,7 +51,8 @@ class DWViewModel @Inject constructor(
     fun deposit(
         goalId: Long,
         dateTime: LocalDateTime,
-        onGoalAchieved: () -> Unit
+        onGoalAchieved: () -> Unit,
+        onComplete: () -> Unit
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             val goal = getGoalById(goalId)!!
@@ -71,6 +72,8 @@ class DWViewModel @Inject constructor(
             val remainingAmount = (goal.targetAmount - goalItem.getCurrentlySavedAmount())
             if (remainingAmount <= 0f) {
                 withContext(Dispatchers.Main) { onGoalAchieved() }
+            } else {
+                withContext(Dispatchers.Main) { onComplete() }
             }
         }
     }
@@ -78,7 +81,8 @@ class DWViewModel @Inject constructor(
     fun withdraw(
         goalId: Long,
         dateTime: LocalDateTime,
-        onWithDrawOverflow: () -> Unit
+        onWithDrawOverflow: () -> Unit,
+        onComplete: () -> Unit
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             val goal = getGoalById(goalId)!!
@@ -97,6 +101,8 @@ class DWViewModel @Inject constructor(
                 dateTime = dateTime,
                 transactionType = TransactionType.Withdraw
             )
+
+            withContext(Dispatchers.Main) { onComplete() }
         }
     }
 

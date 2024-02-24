@@ -26,6 +26,7 @@
 package com.starry.greenstash.ui.screens.info.composables
 
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -233,6 +234,7 @@ fun GoalInfoCard(
         Utils.formatCurrency(Utils.roundDecimal(targetAmount), currencySymbol)
     val formattedSavedAmount =
         Utils.formatCurrency(Utils.roundDecimal(savedAmount), currencySymbol)
+    val animatedProgress = animateFloatAsState(targetValue = progress, label = "progress")
 
     Card(
         modifier = Modifier
@@ -264,7 +266,8 @@ fun GoalInfoCard(
                 text = formattedSavedAmount,
                 fontWeight = FontWeight.Bold,
                 fontSize = 38.sp,
-                modifier = Modifier.padding(start = 4.dp)
+                modifier = Modifier
+                    .padding(start = 4.dp)
             )
 
 
@@ -283,7 +286,7 @@ fun GoalInfoCard(
             Spacer(modifier = Modifier.height(14.dp))
 
             LinearProgressIndicator(
-                progress = { progress },
+                progress = { animatedProgress.value },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(12.dp)
