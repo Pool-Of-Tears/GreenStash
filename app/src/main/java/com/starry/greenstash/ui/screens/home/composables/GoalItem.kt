@@ -104,11 +104,11 @@ fun GoalItem(
                 contentScale = ContentScale.Crop
             )
             LinearProgressIndicator(
+                progress = { progress },
                 modifier = Modifier
                     .height(4.dp)
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(40.dp)),
-                progress = progress
             )
 
             /** Title, Primary & Secondary text */

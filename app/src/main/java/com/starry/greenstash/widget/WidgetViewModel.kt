@@ -30,7 +30,6 @@ import androidx.lifecycle.viewModelScope
 import com.starry.greenstash.database.core.GoalWithTransactions
 import com.starry.greenstash.database.goal.GoalDao
 import com.starry.greenstash.database.widget.WidgetDao
-import com.starry.greenstash.utils.PreferenceUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -38,8 +37,7 @@ import javax.inject.Inject
 
 class WidgetViewModel @Inject constructor(
     private val widgetDao: WidgetDao,
-    private val goalDao: GoalDao,
-    private val preferenceUtil: PreferenceUtil
+    private val goalDao: GoalDao
 ) : ViewModel() {
 
     fun getGoalFromWidgetId(

@@ -33,7 +33,7 @@ import android.os.Build
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -59,12 +59,12 @@ import com.starry.greenstash.BuildConfig
 import com.starry.greenstash.R
 
 sealed class AboutLinks(val url: String) {
-    object ReadMe : AboutLinks("https://github.com/Pool-Of-Tears/GreenStash")
-    object PrivacyPolicy :
+    data object ReadMe : AboutLinks("https://github.com/Pool-Of-Tears/GreenStash")
+    data object PrivacyPolicy :
         AboutLinks("https://github.com/Pool-Of-Tears/GreenStash/blob/main/legal/PRIVACY-POLICY.md")
 
-    object GithubIssues : AboutLinks("https://github.com/Pool-Of-Tears/GreenStash/issues")
-    object Telegram : AboutLinks("https://t.me/PotApps")
+    data object GithubIssues : AboutLinks("https://github.com/Pool-Of-Tears/GreenStash/issues")
+    data object Telegram : AboutLinks("https://t.me/PotApps")
 }
 
 @ExperimentalMaterial3Api
@@ -85,7 +85,8 @@ fun AboutScreen(navController: NavController) {
             }, navigationIcon = {
                 IconButton(onClick = { navController.navigateUp() }) {
                     Icon(
-                        imageVector = Icons.Filled.ArrowBack, contentDescription = null
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = null
                     )
                 }
             }, scrollBehavior = scrollBehavior, colors = TopAppBarDefaults.largeTopAppBarColors(
