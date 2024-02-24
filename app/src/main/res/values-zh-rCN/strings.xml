@@ -31,21 +31,26 @@
     <string name="filter_menu_title">过滤，按</string>
     <string name="home_search_label">搜索此处…</string>
     <string name="search_goal_not_found">404: 目标未发现！</string>>
-    <string name="goal_achieved_card_title">恭喜 🥳</string>
-    <string name="goal_achieved_card_desc">您已经实现了省钱目标！</string>
+
+    <!-- Deposit & Withdraw Screen -->
+    <string name="deposit_screen_title">很棒！存入多少</string>
+    <string name="withdraw_screen_title">酷！取出多少</string>
+    <string name="deposit_successful">存钱成功！</string>
+    <string name="withdraw_successful">取钱成功！</string>
+    <string name="withdraw_overflow_error">取出金额多于当前存入的金额！</string>
+
+    <!-- Congratulations Screen -->
+    <string name="goal_achieved_heading">恭喜 🥳</string>
+    <string name="goal_achieved_subtext">您已经实现了省钱目标！</string>
+    <string name="goal_achieved_button">主页</string>
 
     <!-- Strings used for dashboard saving goals cards -->
     <string name="no_goal_set">没有设置省钱目标。</string>
-    <string name="transaction_dialog_amount_label">输入金额</string>
+    <string name="transaction_amount">输入金额</string>
     <string name="deposit_button">存钱</string>
-    <string name="deposit_dialog_title">很棒！存入多少</string>
-    <string name="deposit_successful">存钱成功！</string>
     <string name="goal_already_achieved">您已经实现了此目标。</string>
     <string name="withdraw_button">取钱</string>
-    <string name="withdraw_dialog_title">酷！取出多少</string>
     <string name="withdraw_button_error">您尚未存入任何金额。</string>
-    <string name="withdraw_overflow_error">取出金额多于当前存入的金额！</string>
-    <string name="withdraw_successful">取钱成功！</string>
     <string name="goal_delete_confirmation">确定吗？</string>
     <string name="goal_delete_success">删除成功。</string>
     <string name="info_button_description">查看目标信息。</string>
@@ -78,7 +83,6 @@
     <string name="info_card_goal_achieved">目标实现。恭喜！</string>
     <string name="info_goal_priority">目标优先级是%s</string>
     <string name="info_notes_card_title">备注</string>
-    <string name="info_transaction_card_title">收支</string>
     <string name="info_goal_no_transactions">尚无收支。</string>
 
     <!-- Input (New/Edit Goal) Screen -->

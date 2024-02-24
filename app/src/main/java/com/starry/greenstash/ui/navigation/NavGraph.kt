@@ -48,6 +48,8 @@ import androidx.navigation.navArgument
 import com.starry.greenstash.ui.screens.backups.BackupScreen
 import com.starry.greenstash.ui.screens.home.composables.HomeScreen
 import com.starry.greenstash.ui.screens.info.composables.GoalInfoScreen
+import com.starry.greenstash.ui.screens.input.composables.CongratsScreen
+import com.starry.greenstash.ui.screens.input.composables.DWScreen
 import com.starry.greenstash.ui.screens.input.composables.InputScreen
 import com.starry.greenstash.ui.screens.settings.composables.AboutScreen
 import com.starry.greenstash.ui.screens.settings.composables.OSLScreen
@@ -117,6 +119,29 @@ fun NavGraph(
             HomeScreen(navController)
         }
 
+        /** Deposit Withdraw Screen */
+        composable(
+            route = Screens.DWScreen.route,
+            enterTransition = { enterTransition() },
+            exitTransition = { exitTransition() },
+            popEnterTransition = { popEnterTransition() },
+            popExitTransition = { popExitTransition() },
+            arguments = listOf(
+                navArgument(DW_GOAL_ID_ARG_KEY) {
+                    type = NavType.StringType
+                },
+            ),
+        ) { backStackEntry ->
+            val goalId = backStackEntry.arguments!!.getString(DW_GOAL_ID_ARG_KEY)!!
+            val transactionType =
+                backStackEntry.arguments!!.getString(DW_TRANSACTION_TYPE_ARG_KEY)!!
+            DWScreen(
+                goalId = goalId,
+                transactionTypeName = transactionType,
+                navController = navController
+            )
+        }
+
         /** Goal Info Screen */
         composable(
             route = Screens.GoalInfoScreen.route,
@@ -131,7 +156,7 @@ fun NavGraph(
             ),
         ) { backStackEntry ->
             val goalId = backStackEntry.arguments!!.getString(GOAL_INFO_ARG_KEY)!!
-            GoalInfoScreen(goalId = goalId, navController)
+            GoalInfoScreen(goalId = goalId, navController = navController)
         }
 
         /** Input Screen */
@@ -148,7 +173,18 @@ fun NavGraph(
             })
         ) { backStackEntry ->
             val editGoalId = backStackEntry.arguments!!.getString(EDIT_GOAL_ARG_KEY)
-            InputScreen(editGoalId, navController)
+            InputScreen(editGoalId = editGoalId, navController = navController)
+        }
+
+        /** Goal Achieved Screen */
+        composable(
+            route = Screens.CongratsScreen.route,
+            enterTransition = { enterTransition() },
+            exitTransition = { exitTransition() },
+            popEnterTransition = { popEnterTransition() },
+            popExitTransition = { popExitTransition() },
+        ) {
+            CongratsScreen(navController = navController)
         }
 
         /** Backup Screen */
@@ -159,7 +195,7 @@ fun NavGraph(
             popEnterTransition = { popEnterTransition() },
             popExitTransition = { popExitTransition() },
         ) {
-            BackupScreen(navController)
+            BackupScreen(navController = navController)
         }
 
         /** Settings Screen */
@@ -170,7 +206,7 @@ fun NavGraph(
             popEnterTransition = { popEnterTransition() },
             popExitTransition = { popExitTransition() },
         ) {
-            SettingsScreen(navController)
+            SettingsScreen(navController = navController)
         }
 
         /** Open Source Licenses Screen */

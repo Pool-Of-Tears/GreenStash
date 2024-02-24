@@ -78,7 +78,7 @@ fun GoalItem(
     onEditClicked: () -> Unit,
     onDeleteClicked: () -> Unit,
 ) {
-    val progress by animateFloatAsState(targetValue = goalProgress)
+    val progress by animateFloatAsState(targetValue = goalProgress, label = "goal progress")
 
     Card(
         modifier = Modifier

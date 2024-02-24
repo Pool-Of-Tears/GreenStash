@@ -25,41 +25,21 @@
 
 package com.starry.greenstash.ui.screens.home.composables
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.unit.dp
 import com.starry.greenstash.R
-import com.starry.greenstash.utils.Utils
 
 @ExperimentalMaterial3Api
 @Composable
-fun ActionDialogs(
+fun HomeDialogs(
     openDeleteDialog: MutableState<Boolean>,
-    openDepositDialog: MutableState<Boolean>,
-    openWithdrawDialog: MutableState<Boolean>,
     onDeleteConfirmed: () -> Unit,
-    onDepositConfirmed: (amount: String, notes: String) -> Unit,
-    onWithdrawConfirmed: (amount: String, notes: String) -> Unit
 ) {
     if (openDeleteDialog.value) {
         AlertDialog(onDismissRequest = {
@@ -85,171 +65,4 @@ fun ActionDialogs(
         })
     }
 
-    if (openDepositDialog.value) {
-        val depositTextValue = remember { mutableStateOf("") }
-        val transactionNotes = remember { mutableStateOf("") }
-
-        AlertDialog(onDismissRequest = {
-            openDepositDialog.value = false
-        }, title = {
-            Text(
-                text = stringResource(id = R.string.deposit_dialog_title),
-                color = MaterialTheme.colorScheme.onSurface,
-            )
-        }, confirmButton = {
-            TextButton(onClick = {
-                openDepositDialog.value = false
-                onDepositConfirmed(
-                    depositTextValue.value,
-                    transactionNotes.value
-                )
-            }) {
-                Text(stringResource(id = R.string.dialog_confirm_button))
-            }
-        }, dismissButton = {
-            TextButton(onClick = {
-                openDepositDialog.value = false
-            }) {
-                Text(stringResource(id = R.string.cancel))
-            }
-        }, text = {
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                OutlinedTextField(
-                    value = depositTextValue.value,
-                    onValueChange = { newText ->
-                        depositTextValue.value = Utils.getValidatedNumber(newText)
-                    },
-                    modifier = Modifier.fillMaxWidth(0.95f),
-                    label = {
-                        Text(text = stringResource(id = R.string.transaction_dialog_amount_label))
-                    },
-                    leadingIcon = {
-                        Icon(
-                            imageVector = ImageVector.vectorResource(id = R.drawable.ic_input_amount),
-                            contentDescription = null
-                        )
-                    },
-                    colors = OutlinedTextFieldDefaults.colors(
-                        focusedBorderColor = MaterialTheme.colorScheme.primary,
-                        unfocusedBorderColor = MaterialTheme.colorScheme.onBackground,
-                    ),
-                    shape = RoundedCornerShape(14.dp),
-                    singleLine = true,
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                )
-
-                /*
-                Spacer(modifier = Modifier.height(18.dp))
-
-                OutlinedTextField(
-                    value = transactionNotes.value,
-                    onValueChange = { newText -> transactionNotes.value = newText },
-                    modifier = Modifier.fillMaxWidth(0.95f),
-                    label = {
-                        Text(text = stringResource(id = R.string.input_additional_notes))
-                    },
-                    leadingIcon = {
-                        Icon(
-                            imageVector = ImageVector.vectorResource(id = R.drawable.ic_input_additional_notes),
-                            contentDescription = null
-                        )
-                    },
-                    colors = TextFieldDefaults.outlinedTextFieldColors(
-                        focusedBorderColor = MaterialTheme.colorScheme.primary,
-                        unfocusedBorderColor = MaterialTheme.colorScheme.onBackground
-                    ),
-                    shape = RoundedCornerShape(14.dp),
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-                )
-                 */
-            }
-        })
-    }
-
-    if (openWithdrawDialog.value) {
-        val withdrawTextValue = remember { mutableStateOf("") }
-        val transactionNotes = remember { mutableStateOf("") }
-
-        AlertDialog(onDismissRequest = {
-            openWithdrawDialog.value = false
-        }, title = {
-            Text(
-                text = stringResource(id = R.string.withdraw_dialog_title),
-                color = MaterialTheme.colorScheme.onSurface,
-            )
-        }, confirmButton = {
-            TextButton(onClick = {
-                openWithdrawDialog.value = false
-                onWithdrawConfirmed(
-                    withdrawTextValue.value,
-                    transactionNotes.value
-                )
-            }) {
-                Text(stringResource(id = R.string.dialog_confirm_button))
-            }
-        }, dismissButton = {
-            TextButton(onClick = {
-                openWithdrawDialog.value = false
-            }) {
-                Text(stringResource(id = R.string.cancel))
-            }
-        }, text = {
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                OutlinedTextField(
-                    value = withdrawTextValue.value,
-                    onValueChange = { newText ->
-                        withdrawTextValue.value = Utils.getValidatedNumber(newText)
-                    },
-                    modifier = Modifier.fillMaxWidth(0.95f),
-                    label = {
-                        Text(text = stringResource(id = R.string.transaction_dialog_amount_label))
-                    },
-                    leadingIcon = {
-                        Icon(
-                            imageVector = ImageVector.vectorResource(id = R.drawable.ic_input_amount),
-                            contentDescription = null
-                        )
-                    },
-                    colors = OutlinedTextFieldDefaults.colors(
-                        focusedBorderColor = MaterialTheme.colorScheme.primary,
-                        unfocusedBorderColor = MaterialTheme.colorScheme.onBackground,
-                    ),
-                    shape = RoundedCornerShape(14.dp),
-                    singleLine = true,
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                )
-
-                /*
-                Spacer(modifier = Modifier.height(18.dp))
-
-                OutlinedTextField(
-                    value = transactionNotes.value,
-                    onValueChange = { newText -> transactionNotes.value = newText },
-                    modifier = Modifier.fillMaxWidth(0.95f),
-                    label = {
-                        Text(text = stringResource(id = R.string.input_additional_notes))
-                    },
-                    leadingIcon = {
-                        Icon(
-                            imageVector = ImageVector.vectorResource(id = R.drawable.ic_input_additional_notes),
-                            contentDescription = null
-                        )
-                    },
-                    colors = TextFieldDefaults.outlinedTextFieldColors(
-                        focusedBorderColor = MaterialTheme.colorScheme.primary,
-                        unfocusedBorderColor = MaterialTheme.colorScheme.onBackground
-                    ),
-                    shape = RoundedCornerShape(14.dp),
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-                )
-                 */
-            }
-        })
-    }
 }

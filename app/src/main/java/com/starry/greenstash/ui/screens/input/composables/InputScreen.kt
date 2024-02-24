@@ -49,10 +49,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -60,7 +58,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
@@ -120,11 +118,11 @@ import com.airbnb.lottie.compose.LottieCompositionResult
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
-import com.maxkeppeker.sheets.core.models.base.rememberSheetState
+import com.maxkeppeker.sheets.core.models.base.rememberUseCaseState
 import com.maxkeppeler.sheets.calendar.CalendarDialog
 import com.maxkeppeler.sheets.calendar.models.CalendarConfig
 import com.maxkeppeler.sheets.calendar.models.CalendarSelection
-import com.maxkeppeler.sheets.calendar.models.CalendarTimeline
+import com.maxkeppeler.sheets.calendar.models.CalendarStyle
 import com.starry.greenstash.BuildConfig
 import com.starry.greenstash.MainActivity
 import com.starry.greenstash.R
@@ -142,6 +140,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 
@@ -160,8 +159,11 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
     val snackBarHostState = remember { SnackbarHostState() }
 
     var imageData: Any? by remember { mutableStateOf(R.drawable.default_goal_image) }
-    val calenderState = rememberSheetState()
-    val showGoalAddedDialog = remember { mutableStateOf(false) }
+
+    val selectedDate = remember { mutableStateOf<LocalDate?>(LocalDate.now()) }
+    val calenderState = rememberUseCaseState(visible = false, true)
+
+    val showGoalAddedAnim = remember { mutableStateOf(false) }
     val showRemoveDeadlineDialog = remember { mutableStateOf(false) }
 
     val topBarText: String
@@ -193,13 +195,21 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
     }
 
     CalendarDialog(
-        state = calenderState, selection = CalendarSelection.Date { date ->
+        state = calenderState,
+        config = CalendarConfig(
+            yearSelection = true,
+            monthSelection = true,
+            style = CalendarStyle.MONTH,
+            boundary = LocalDate.now()..LocalDate.now().plusYears(100)
+        ),
+        selection = CalendarSelection.Date(
+            selectedDate = selectedDate.value
+        ) { newDate ->
+            selectedDate.value = newDate
             viewModel.state = viewModel.state.copy(
-                deadline = date.format(DateTimeFormatter.ofPattern(viewModel.getDateStyleValue()))
+                deadline = selectedDate.value!!.format(DateTimeFormatter.ofPattern(viewModel.getDateStyleValue()))
             )
-        }, config = CalendarConfig(
-            monthSelection = true, yearSelection = true, disabledTimeline = CalendarTimeline.PAST
-        )
+        },
     )
 
     if (showRemoveDeadlineDialog.value) {
@@ -228,8 +238,6 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
 
     Scaffold(modifier = Modifier
         .fillMaxSize()
-        .statusBarsPadding()
-        .navigationBarsPadding()
         .imePadding(),
         snackbarHost = { SnackbarHost(snackBarHostState) },
         topBar = {
@@ -243,15 +251,16 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
             }, navigationIcon = {
                 IconButton(onClick = { navController.navigateUp() }) {
                     Icon(
-                        imageVector = Icons.Filled.ArrowBack, contentDescription = null
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = null
                     )
                 }
             }, colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                 containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(4.dp)
             )
             )
-        }) {
-        if (showGoalAddedDialog.value) {
+        }) { paddingValues ->
+        if (showGoalAddedAnim.value) {
             Column(
                 modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -291,7 +300,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                 modifier = Modifier
                     .fillMaxSize()
                     .background(MaterialTheme.colorScheme.background)
-                    .padding(it)
+                    .padding(paddingValues)
                     .verticalScroll(rememberScrollState(), reverseScrolling = true),
             ) {
                 Spacer(modifier = Modifier.height(12.dp))
@@ -521,8 +530,8 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                                 }
 
                                 coroutineScope.launch {
-                                    showGoalAddedDialog.value = true
-                                    delay(2000)
+                                    showGoalAddedAnim.value = true
+                                    delay(1050)
                                     navController.popBackStack(DrawerScreens.Home.route, true)
                                     navController.navigate(DrawerScreens.Home.route)
                                 }

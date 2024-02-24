@@ -57,11 +57,11 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Divider
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalDrawerSheet
@@ -76,7 +76,6 @@ import androidx.compose.material3.rememberDrawerState
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -86,7 +85,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
@@ -94,7 +92,6 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -112,7 +109,6 @@ import com.starry.greenstash.R
 import com.starry.greenstash.database.core.GoalWithTransactions
 import com.starry.greenstash.ui.navigation.DrawerScreens
 import com.starry.greenstash.ui.navigation.Screens
-import com.starry.greenstash.ui.screens.home.viewmodels.BottomSheetType
 import com.starry.greenstash.ui.screens.home.viewmodels.FilterField
 import com.starry.greenstash.ui.screens.home.viewmodels.FilterSortType
 import com.starry.greenstash.ui.screens.home.viewmodels.HomeViewModel
@@ -138,17 +134,13 @@ fun HomeScreen(navController: NavController) {
     val modalBottomSheetState = rememberModalBottomSheetState(
         initialValue = ModalBottomSheetValue.Hidden
     )
-    val currentBottomSheet = remember { mutableStateOf(BottomSheetType.FILTER_MENU) }
 
     ModalBottomSheetLayout(sheetState = modalBottomSheetState,
         sheetShape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
         sheetElevation = 24.dp,
         sheetBackgroundColor = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp),
         sheetContent = {
-            SheetLayout(
-                bottomSheetType = currentBottomSheet.value,
-                viewModel = viewModel
-            )
+            FilterMenuSheet(viewModel = viewModel)
         },
         content = {
             HomeScreenContent(
@@ -156,7 +148,6 @@ fun HomeScreen(navController: NavController) {
                 viewModel = viewModel,
                 navController = navController,
                 bottomSheetState = modalBottomSheetState,
-                bottomSheetType = currentBottomSheet
             )
         })
 
@@ -174,7 +165,6 @@ fun HomeScreenContent(
     viewModel: HomeViewModel,
     navController: NavController,
     bottomSheetState: ModalBottomSheetState,
-    bottomSheetType: MutableState<BottomSheetType>
 ) {
     val allGoals = viewModel.goalsList.observeAsState(emptyList()).value
     val drawerState = rememberDrawerState(DrawerValue.Closed)
@@ -205,11 +195,11 @@ fun HomeScreenContent(
                     color = MaterialTheme.colorScheme.onSurface
                 )
 
-                Divider(
-                    thickness = 0.5.dp,
+                HorizontalDivider(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 16.dp, bottom = 16.dp),
+                    thickness = 0.5.dp,
                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f)
                 )
 
@@ -240,10 +230,7 @@ fun HomeScreenContent(
                 MainAppBar(
                     onMenuClicked = { coroutineScope.launch { drawerState.open() } },
                     onFilterClicked = {
-                        bottomSheetType.value = BottomSheetType.FILTER_MENU
-                        coroutineScope.launch {
-                            bottomSheetState.show()
-                        }
+                        coroutineScope.launch { bottomSheetState.show() }
                     },
                     onSearchClicked = { viewModel.updateSearchWidgetState(newValue = SearchWidgetState.OPENED) },
                     searchWidgetState = searchWidgetState,
@@ -336,9 +323,7 @@ fun HomeScreenContent(
                             Spacer(modifier = Modifier.weight(2f))
                         }
                     }
-
                 } else {
-
                     if (searchTextState.isNotEmpty() && searchTextState.isNotBlank()) {
                         val filteredList: ArrayList<GoalWithTransactions> = ArrayList()
                         for (goalItem in allGoals) {
@@ -399,8 +384,6 @@ fun HomeScreenContent(
                                         viewModel = viewModel,
                                         item = item,
                                         snackBarHostState = snackBarHostState,
-                                        bottomSheetState = bottomSheetState,
-                                        bottomSheetType = bottomSheetType,
                                         navController = navController
                                     )
                                 }
@@ -421,8 +404,6 @@ fun HomeScreenContent(
                                     viewModel = viewModel,
                                     item = item,
                                     snackBarHostState = snackBarHostState,
-                                    bottomSheetState = bottomSheetState,
-                                    bottomSheetType = bottomSheetType,
                                     navController = navController
                                 )
                             }
@@ -431,81 +412,6 @@ fun HomeScreenContent(
                 }
             }
         }
-    }
-}
-
-@ExperimentalAnimationApi
-@ExperimentalComposeUiApi
-@ExperimentalFoundationApi
-@ExperimentalMaterialApi
-@ExperimentalCoroutinesApi
-@ExperimentalMaterial3Api
-@Composable
-fun SheetLayout(bottomSheetType: BottomSheetType, viewModel: HomeViewModel) {
-    when (bottomSheetType) {
-        BottomSheetType.GOAL_ACHIEVED -> GoalAchievedSheet()
-        BottomSheetType.FILTER_MENU -> FilterMenuSheet(viewModel)
-    }
-
-}
-
-@Composable
-fun GoalAchievedSheet() {
-    Column(
-        modifier = Modifier
-            .height(425.dp)
-            .fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        val compositionResult: LottieCompositionResult =
-            rememberLottieComposition(
-                spec = LottieCompositionSpec.RawRes(R.raw.congrats_lottie)
-            )
-        val progressAnimation by animateLottieCompositionAsState(
-            compositionResult.value,
-            isPlaying = true,
-            iterations = LottieConstants.IterateForever,
-            speed = 1f
-        )
-
-        Divider(
-            modifier = Modifier
-                .width(40.dp)
-                .padding(top = 10.dp)
-                .clip(RoundedCornerShape(65.dp)),
-            thickness = 6.dp,
-            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.69f)
-        )
-
-        LottieAnimation(
-            composition = compositionResult.value,
-            progress = progressAnimation,
-            modifier = Modifier.size(300.dp),
-            enableMergePaths = true
-        )
-
-        Text(
-            text = stringResource(id = R.string.goal_achieved_card_title),
-            fontWeight = FontWeight.Bold,
-            fontSize = 20.sp,
-            textAlign = TextAlign.Center,
-            color = MaterialTheme.colorScheme.onSurface,
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        Spacer(modifier = Modifier.height(4.dp))
-
-        Text(
-            text = stringResource(id = R.string.goal_achieved_card_desc),
-            fontWeight = FontWeight.SemiBold,
-            fontSize = 16.sp,
-            textAlign = TextAlign.Center,
-            color = MaterialTheme.colorScheme.onSurface,
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        Spacer(modifier = Modifier.height(4.dp))
-
     }
 }
 

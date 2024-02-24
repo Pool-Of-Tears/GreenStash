@@ -74,7 +74,7 @@ fun MainAppBar(
 ) {
     Crossfade(
         targetState = searchWidgetState,
-        animationSpec = tween(durationMillis = 300)
+        animationSpec = tween(durationMillis = 300), label = "searchbar cross-fade"
     ) {
         when (it) {
             SearchWidgetState.CLOSED -> {
