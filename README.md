@@ -20,9 +20,6 @@
 
 **GreenStash** is a simple [FOSS](https://en.m.wikipedia.org/wiki/Free_and_open-source_software) android app to help you plan and manage your savings goals easily and establish the habit of saving money.
 
-**Important Note (Don't ignore);**
-If you were using any previous version before v2.0, please DO NOT UPDATE and do CLEAN INSTALLATION (by uninstalling the <= v1.9 and installing >= v2.0 ) instead. As the app has been completely re-written from scratch in v2.0 release with an entirely new database schema, redesigned UI/UX and reworked backend. Hence, this release is not compatible with the older versions.
-
 ------
 
 <h2 align="center">Donations</h2>
