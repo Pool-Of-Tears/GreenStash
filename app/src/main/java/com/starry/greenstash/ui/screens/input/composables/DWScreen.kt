@@ -318,7 +318,11 @@ fun DWScreen(goalId: String, transactionTypeName: String, navController: NavCont
                                                 }
                                             }
                                         }, onComplete = {
-                                            navigateToHome(navController, coroutineScope, showTransactionAddedAnim)
+                                            navigateToHome(
+                                                navController,
+                                                coroutineScope,
+                                                showTransactionAddedAnim
+                                            )
                                         }
                                     )
                                 }
@@ -335,7 +339,11 @@ fun DWScreen(goalId: String, transactionTypeName: String, navController: NavCont
                                             }
                                         },
                                         onComplete = {
-                                            navigateToHome(navController, coroutineScope, showTransactionAddedAnim)
+                                            navigateToHome(
+                                                navController,
+                                                coroutineScope,
+                                                showTransactionAddedAnim
+                                            )
                                         }
                                     )
                                 }
