@@ -47,7 +47,7 @@ fun DotIndicator(modifier: Modifier = Modifier, color: Color) {
         animationSpec = infiniteRepeatable(
             animation = tween(durationMillis = 1000, easing = FastOutSlowInEasing),
             repeatMode = RepeatMode.Reverse
-        )
+        ), label = "GlowColor"
     )
 
     Canvas(modifier = modifier) {
