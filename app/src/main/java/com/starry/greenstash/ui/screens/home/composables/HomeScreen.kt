@@ -214,9 +214,11 @@ fun HomeScreenContent(
                         label = { Text(stringResource(id = item.nameResId)) },
                         selected = item == selectedItem.value,
                         onClick = {
-                            coroutineScope.launch { drawerState.close() }
                             selectedItem.value = item
-                            navController.navigate(item.route)
+                            coroutineScope.launch {
+                                drawerState.close()
+                                navController.navigate(item.route)
+                            }
                         },
                         modifier = Modifier.padding(NavigationDrawerItemDefaults.ItemPadding)
                     )
