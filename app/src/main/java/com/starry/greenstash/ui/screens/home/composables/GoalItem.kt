@@ -27,15 +27,19 @@ package com.starry.greenstash.ui.screens.home.composables
 
 import android.graphics.Bitmap
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -49,9 +53,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
@@ -64,6 +70,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.starry.greenstash.R
 import com.starry.greenstash.ui.theme.greenstashFont
+import com.starry.greenstash.ui.theme.greenstashNumberFont
 
 @Composable
 fun GoalItem(
@@ -200,10 +207,97 @@ fun GoalItem(
 }
 
 
+// TODO: Expose parameters & rename this function
 @Composable
-@Preview
+fun GoalItem_X() {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(240.dp)
+            .padding(12.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(
+                5.dp
+            )
+        ),
+        shape = RoundedCornerShape(6.dp)
+    ) {
+        Box(modifier = Modifier
+            .fillMaxSize()
+            .clipToBounds()) {
+            Row {
+                Spacer(modifier = Modifier.weight(1f))
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_nav_home),
+                    contentDescription = null,
+                    modifier = Modifier.size(210.dp),
+                    tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f)
+                )
+            }
+
+            Icons.AutoMirrored.Filled
+
+            Column(modifier = Modifier.padding(10.dp)) {
+                LinearProgressIndicator(
+                    progress = { 0.6f },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 8.dp),
+                )
+
+                Row {
+                    Column {
+                        Spacer(modifier = Modifier.height(50.dp))
+                        Icon(
+                            modifier = Modifier.size(56.dp),
+                            imageVector = ImageVector.vectorResource(id = R.drawable.ic_nav_home),
+                            contentDescription = stringResource(id = R.string.info_button_description),
+                            tint = MaterialTheme.colorScheme.onSurface
+                        )
+                        Text(
+                            text = "Home Decorations",
+                            modifier = Modifier.padding(start = 4.dp, top = 10.dp),
+                            fontWeight = FontWeight.Normal,
+                            fontSize = 18.sp,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+
+                        Row(
+                            Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Text(
+                                text = "$1000.00",
+                                modifier = Modifier.padding(start = 4.dp),
+                                fontSize = 26.sp,
+                                fontFamily = greenstashNumberFont,
+                                fontWeight = FontWeight.Bold,
+                                maxLines = 2,
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
+
+                            Text(
+                                text = "12 days left",
+                                modifier = Modifier.padding(start = 4.dp, top = 12.dp),
+                                fontSize = 18.sp,
+                                fontFamily = greenstashFont,
+                                fontWeight = FontWeight.Medium,
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+@Preview(showBackground = true)
 fun GoalItemPV() {
-    GoalItem(
+    /*GoalItem(
         title = "New Genshin Character",
         primaryText = "You're off to a great start!\nCurrently  saved $0.00 out of $1,000.00.",
         secondaryText = "You have until 26/05/2023 (85) days left.\nYou need to save around $58.83/day, $416.67/week, $2,500.00/month.",
@@ -214,5 +308,7 @@ fun GoalItemPV() {
         onInfoClicked = { },
         onEditClicked = { }) {
 
-    }
+    }*/
+
+    GoalItem_X()
 }

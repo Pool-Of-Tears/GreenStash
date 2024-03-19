@@ -34,36 +34,11 @@ import androidx.compose.ui.unit.sp
 import com.starry.greenstash.R
 
 val greenstashFont = FontFamily(
-    listOf(
-        Font(
-            resId = R.font.redhatdisplay_black,
-            weight = FontWeight.Black
-        ),
-        Font(
-            resId = R.font.redhatdisplay_bold,
-            weight = FontWeight.Bold
-        ),
-        Font(
-            resId = R.font.redhatdisplay_extrabold,
-            weight = FontWeight.ExtraBold
-        ),
-        Font(
-            resId = R.font.redhatdisplay_light,
-            weight = FontWeight.Light
-        ),
-        Font(
-            resId = R.font.redhatdisplay_medium,
-            weight = FontWeight.Medium
-        ),
-        Font(
-            resId = R.font.redhatdisplay_regular,
-            weight = FontWeight.Normal
-        ),
-        Font(
-            resId = R.font.redhatdisplay_semibold,
-            weight = FontWeight.SemiBold
-        ),
-    )
+    Font(R.font.opensans_variablefont_wdth_wght)
+)
+
+val greenstashNumberFont = FontFamily(
+    Font(R.font.konkhmersleokchher_regular)
 )
 
 // Set of Material typography styles to start with
