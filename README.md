@@ -22,35 +22,11 @@
 
 ------
 
-<h2 align="center">Donations</h2>
-
-If this project helped you a little bit, please consider donating a small amount to keep the projects going, Your donations helps ensure that my open source projects are actively maintained. You can donate via following mediums:
-
-[![Github-sponsors](https://img.shields.io/badge/sponsor-30363D?style=for-the-badge&logo=GitHub-Sponsors&logoColor=#EA4AAA)](https://github.com/sponsors/starry-shivam)
-[![Bitcoin](https://img.shields.io/badge/Bitcoin-000?style=for-the-badge&logo=bitcoin&logoColor=white)](https://www.blockchain.com/btc/address/bc1q82qh9hw5xupwlf0f3ddfud63sek53lavk6cf0k)
-[![Ethereum](https://img.shields.io/badge/Ethereum-3C3C3D?style=for-the-badge&logo=Ethereum&logoColor=white)](https://www.blockchain.com/eth/address/0x9ef20ad6FBf1985e6eF6ea6337ad800Cb8126eD3)
-![](https://img.shields.io/badge/starry%40airtel-UPI-red?style=for-the-badge)
-
-Or you could just buy the app from Google Play Store. You'll get constant updates without the need to get all the way here and download the release all by yourself and install the release all by yourself and then you realize you have a different package name so you contact me but I really don't have time for this so I update it on google play and then you realize your installer doesn't work and then you realize your whole life is like this, miserable and not working but then you see a point of light in the distance so you run towards and it's the "Buy" button in the GreenStash's page on google play, it'll make your life easier.
-
-------
-<h2 align="center">Downloads</h2>
-
-<div align="center">
-<a href="https://play.google.com/store/apps/details?id=com.starry.greenstash"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" height="65"</img></a>
-<a href='https://f-droid.org/packages/com.starry.greenstash/'><img alt='Get it on F-Droid' src='https://fdroid.gitlab.io/artwork/badge/get-it-on.png' height='65'/></a>
-<a href='https://apt.izzysoft.de/fdroid/index/apk/com.starry.greenstash'><img alt='Get it on IzzyOnDroid' src='https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png' height='65'/></a>
-<a href="https://github.com/Pool-Of-Tears/GreenStash/releases/latest"><img alt="Get it on GitHub" src="https://github.com/machiav3lli/oandbackupx/blob/034b226cea5c1b30eb4f6a6f313e4dadcbb0ece4/badge_github.png" height="65"</img></a>
-</div>
-
-------
-
 <h2 align="center">Screenshots</h2>
 
 | ![](https://te.legra.ph/file/62e0a71bfbba51aa64f44.png) | ![](https://te.legra.ph/file/396f07eebc3cacae8da48.png) | ![](https://te.legra.ph/file/9754841ed1b6f9c4bdb89.png) |
 |-------------------------------------------------------|-------|-------------------------------------------------------|
 | ![](https://te.legra.ph/file/9e135107db6a8d3acc758.png) | ![](https://te.legra.ph/file/8fae219ae0dfc8d5ae178.png) | ![](https://te.legra.ph/file/12596309941afd16cf5a6.png) |
-
 
 ------
 
@@ -67,6 +43,29 @@ Or you could just buy the app from Google Play Store. You'll get constant update
 - Compatible with Android 7.0 and above (API 24+)
 - Supports [Material You](https://www.androidpolice.com/everything-we-love-about-material-you/amp/) theming in devices running on Android 12+
 - MAD: UI and logic written with pure Kotlin. Single activity, no fragments, only composable destinations.
+
+------
+
+<h2 align="center">Downloads</h2>
+
+<div align="center">
+<a href="https://play.google.com/store/apps/details?id=com.starry.greenstash"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" height="65"</img></a>
+<a href='https://f-droid.org/packages/com.starry.greenstash/'><img alt='Get it on F-Droid' src='https://fdroid.gitlab.io/artwork/badge/get-it-on.png' height='65'/></a>
+<a href='https://apt.izzysoft.de/fdroid/index/apk/com.starry.greenstash'><img alt='Get it on IzzyOnDroid' src='https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png' height='65'/></a>
+<a href="https://github.com/Pool-Of-Tears/GreenStash/releases/latest"><img alt="Get it on GitHub" src="https://github.com/machiav3lli/oandbackupx/blob/034b226cea5c1b30eb4f6a6f313e4dadcbb0ece4/badge_github.png" height="65"</img></a>
+</div>
+
+------
+
+<h2 align="center">Donations</h2>
+
+If this project helped you a little bit, please consider donating a small amount to keep the projects going, Your donations helps ensure that my open source projects are actively maintained. You can donate via following mediums:
+
+[![Github-sponsors](https://img.shields.io/badge/sponsor-30363D?style=for-the-badge&logo=GitHub-Sponsors&logoColor=#EA4AAA)](https://github.com/sponsors/starry-shivam)
+[![Bitcoin](https://img.shields.io/badge/Bitcoin-000?style=for-the-badge&logo=bitcoin&logoColor=white)](https://www.blockchain.com/btc/address/bc1q82qh9hw5xupwlf0f3ddfud63sek53lavk6cf0k)
+![](https://img.shields.io/badge/starry%40airtel-UPI-red?style=for-the-badge)
+
+Or you could just buy the app from Google Play Store. You'll get constant updates without the need to get all the way here and download the release all by yourself and install the release all by yourself and then you realize you have a different package name so you contact me but I really don't have time for this so I update it on google play and then you realize your installer doesn't work and then you realize your whole life is like this, miserable and not working but then you see a point of light in the distance so you run towards and it's the "Buy" button in the GreenStash's page on google play, it'll make your life easier.
 
 ------
 
