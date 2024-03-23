@@ -26,7 +26,10 @@
 package com.starry.greenstash.ui.screens.home.composables
 
 import android.graphics.Bitmap
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -35,25 +38,34 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SwipeToDismissBox
+import androidx.compose.material3.SwipeToDismissBoxValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.clipToBounds
+import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -72,8 +84,9 @@ import com.starry.greenstash.R
 import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.ui.theme.greenstashNumberFont
 
+
 @Composable
-fun GoalItem(
+fun GoalItemClassic(
     title: String,
     primaryText: String,
     secondaryText: String,
@@ -207,61 +220,184 @@ fun GoalItem(
 }
 
 
-// TODO: Expose parameters & rename this function
+@ExperimentalMaterial3Api
 @Composable
-fun GoalItem_X() {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(240.dp)
-            .padding(12.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(
-                5.dp
+fun GoalItemCompact(
+    title: String,
+    savedAmount: String,
+    daysLeftText: String,
+    goalProgress: Float,
+    goalIcon: ImageVector,
+    onDepositClicked: () -> Unit,
+    onWithdrawClicked: () -> Unit,
+    onInfoClicked: () -> Unit,
+    onEditClicked: () -> Unit,
+    onDeleteClicked: () -> Unit,
+) {
+    val swipeState = rememberSwipeToDismissBoxState(
+        confirmValueChange = { direction ->
+            when (direction) {
+                SwipeToDismissBoxValue.EndToStart -> {
+                    onDeleteClicked()
+                }
+
+                SwipeToDismissBoxValue.StartToEnd -> {
+                    onEditClicked()
+                }
+
+                SwipeToDismissBoxValue.Settled -> {}
+            }
+            false // Don't allow the swipe to be settled
+        }
+    )
+
+    val dismissDirection = swipeState.dismissDirection
+    val shape = RoundedCornerShape(18.dp)
+    val progress by animateFloatAsState(targetValue = goalProgress, label = "progress")
+
+    SwipeToDismissBox(
+        state = swipeState,
+        backgroundContent = {
+            val color by animateColorAsState(
+                when (dismissDirection) {
+                    SwipeToDismissBoxValue.EndToStart -> Color.Green
+                    SwipeToDismissBoxValue.StartToEnd -> Color.Red
+                    SwipeToDismissBoxValue.Settled -> Color.Transparent
+                }, label = "color"
             )
-        ),
-        shape = RoundedCornerShape(6.dp)
-    ) {
-        Box(modifier = Modifier
-            .fillMaxSize()
-            .clipToBounds()) {
-            Row {
-                Spacer(modifier = Modifier.weight(1f))
+            val alignment by remember(dismissDirection) {
+                derivedStateOf {
+                    when (dismissDirection) {
+                        SwipeToDismissBoxValue.EndToStart -> Alignment.CenterEnd
+                        SwipeToDismissBoxValue.StartToEnd -> Alignment.CenterStart
+                        SwipeToDismissBoxValue.Settled -> Alignment.Center
+                    }
+                }
+            }
+            val icon by remember(dismissDirection) {
+                derivedStateOf {
+                    when (dismissDirection) {
+                        SwipeToDismissBoxValue.EndToStart -> R.drawable.ic_goal_edit
+                        SwipeToDismissBoxValue.StartToEnd -> R.drawable.ic_goal_delete
+                        // Placeholder icon, not used anywhere.
+                        SwipeToDismissBoxValue.Settled -> R.drawable.ic_goal_info
+                    }
+                }
+            }
+            val scale by animateFloatAsState(
+                if (swipeState.dismissDirection != SwipeToDismissBoxValue.Settled) 1f else 0.75f,
+                label = "scale"
+            )
+
+            Box(
+                Modifier
+                    .fillMaxSize()
+                    .background(color)
+                    .padding(horizontal = 20.dp)
+                    .clickable { onInfoClicked() },
+                contentAlignment = alignment
+            ) {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_nav_home),
-                    contentDescription = null,
-                    modifier = Modifier.size(210.dp),
-                    tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f)
+                    imageVector = ImageVector.vectorResource(id = icon),
+                    contentDescription = "Dismiss Icon",
+                    modifier = Modifier.scale(scale)
                 )
             }
-
-            Icons.AutoMirrored.Filled
-
-            Column(modifier = Modifier.padding(10.dp)) {
-                LinearProgressIndicator(
-                    progress = { 0.6f },
+        },
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 12.dp, vertical = 8.dp)
+            .clip(shape = shape),
+        enableDismissFromStartToEnd = true,
+        enableDismissFromEndToStart = true,
+        content = {
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(200.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.secondaryContainer
+                ),
+                shape = shape
+            ) {
+                Box(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 8.dp),
-                )
-
-                Row {
-                    Column {
-                        Spacer(modifier = Modifier.height(50.dp))
+                        .fillMaxSize()
+                        .clipToBounds()
+                ) {
+                    Row {
+                        Spacer(modifier = Modifier.weight(1f))
                         Icon(
-                            modifier = Modifier.size(56.dp),
-                            imageVector = ImageVector.vectorResource(id = R.drawable.ic_nav_home),
-                            contentDescription = stringResource(id = R.string.info_button_description),
-                            tint = MaterialTheme.colorScheme.onSurface
+                            painter = painterResource(id = R.drawable.ic_nav_backups),
+                            contentDescription = null,
+                            modifier = Modifier.size(210.dp),
+                            tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f)
                         )
+                    }
+
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(10.dp)
+                    ) {
+                        LinearProgressIndicator(
+                            progress = { goalProgress },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(top = 8.dp)
+                                .clip(RoundedCornerShape(50.dp)),
+                        )
+
+                        Row(modifier = Modifier.fillMaxWidth(), Arrangement.SpaceBetween) {
+                            Column {
+                                Spacer(modifier = Modifier.height(40.dp))
+                                Icon(
+                                    modifier = Modifier.size(56.dp),
+                                    imageVector = goalIcon,
+                                    contentDescription = title,
+                                    tint = MaterialTheme.colorScheme.onSecondaryContainer
+                                )
+                            }
+
+                            Row {
+                                IconButton(
+                                    onClick = { onDepositClicked() },
+                                    modifier = Modifier
+                                        .padding(top = 4.dp)
+                                        .offset((10).dp)
+                                        .size(54.dp)
+                                ) {
+                                    Icon(
+                                        modifier = Modifier.size(20.dp),
+                                        imageVector = ImageVector.vectorResource(id = R.drawable.ic_deposit_plus),
+                                        contentDescription = stringResource(id = R.string.deposit_button),
+                                        tint = MaterialTheme.colorScheme.onSecondaryContainer
+                                    )
+                                }
+                                IconButton(
+                                    onClick = { onWithdrawClicked() }, modifier = Modifier
+                                        .padding(top = 4.dp)
+                                        .offset((-2).dp)
+                                        .size(54.dp)
+                                ) {
+                                    Icon(
+                                        modifier = Modifier.size(20.dp),
+                                        imageVector = ImageVector.vectorResource(id = R.drawable.ic_withdraw_minus),
+                                        contentDescription = stringResource(id = R.string.withdraw_button),
+                                        tint = MaterialTheme.colorScheme.onSecondaryContainer
+                                    )
+                                }
+                            }
+
+                        }
                         Text(
-                            text = "Home Decorations",
+                            text = title,
                             modifier = Modifier.padding(start = 4.dp, top = 10.dp),
                             fontWeight = FontWeight.Normal,
                             fontSize = 18.sp,
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis,
-                            color = MaterialTheme.colorScheme.onSurface
+                            color = MaterialTheme.colorScheme.onSecondaryContainer
                         )
 
                         Row(
@@ -269,46 +405,62 @@ fun GoalItem_X() {
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
                             Text(
-                                text = "$1000.00",
+                                text = savedAmount,
                                 modifier = Modifier.padding(start = 4.dp),
-                                fontSize = 26.sp,
+                                fontSize = 24.sp,
                                 fontFamily = greenstashNumberFont,
                                 fontWeight = FontWeight.Bold,
                                 maxLines = 2,
-                                color = MaterialTheme.colorScheme.onSurface
+                                color = MaterialTheme.colorScheme.onSecondaryContainer
                             )
 
                             Text(
-                                text = "12 days left",
+                                text = daysLeftText,
                                 modifier = Modifier.padding(start = 4.dp, top = 12.dp),
                                 fontSize = 18.sp,
                                 fontFamily = greenstashFont,
                                 fontWeight = FontWeight.Medium,
-                                color = MaterialTheme.colorScheme.onSurface
+                                color = MaterialTheme.colorScheme.onSecondaryContainer
                             )
                         }
                     }
                 }
             }
         }
-    }
+    )
 }
 
+@ExperimentalMaterial3Api
 @Composable
 @Preview(showBackground = true)
-fun GoalItemPV() {
-    /*GoalItem(
-        title = "New Genshin Character",
-        primaryText = "You're off to a great start!\nCurrently  saved $0.00 out of $1,000.00.",
-        secondaryText = "You have until 26/05/2023 (85) days left.\nYou need to save around $58.83/day, $416.67/week, $2,500.00/month.",
-        goalProgress = 0.6f,
-        goalImage = null,
-        onDepositClicked = { },
-        onWithdrawClicked = { },
-        onInfoClicked = { },
-        onEditClicked = { }) {
+fun GoalItemsPV() {
+    Column {
+        GoalItemClassic(
+            title = "Home Decorations",
+            primaryText = "You're off to a great start!\nCurrently  saved $0.00 out of $1,000.00.",
+            secondaryText = "You have until 26/05/2023 (85) days left.\nYou need to save around $58.83/day, $416.67/week, $2,500.00/month.",
+            goalProgress = 0.6f,
+            goalImage = null,
+            onDepositClicked = { },
+            onWithdrawClicked = { },
+            onInfoClicked = { },
+            onEditClicked = { }) {
 
-    }*/
+        }
 
-    GoalItem_X()
+        Spacer(modifier = Modifier.height(10.dp))
+
+        GoalItemCompact(
+            title = "Home Decorations",
+            savedAmount = "$1,000.00",
+            daysLeftText = "!2 days left",
+            goalProgress = 0.8f,
+            goalIcon = ImageVector.vectorResource(id = R.drawable.ic_nav_backups),
+            onDepositClicked = {},
+            onWithdrawClicked = {},
+            onInfoClicked = {},
+            onEditClicked = {},
+            onDeleteClicked = {})
+
+    }
 }

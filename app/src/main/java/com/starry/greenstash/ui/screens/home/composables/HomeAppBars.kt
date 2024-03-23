@@ -104,39 +104,42 @@ fun DefaultAppBar(
     onFilterClicked: () -> Unit,
     onSearchClicked: () -> Unit,
 ) {
-    TopAppBar(title = {
-        Text(
-            stringResource(id = R.string.home_screen_header),
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-            fontFamily = greenstashFont
+    TopAppBar(
+        title = {
+            Text(
+                stringResource(id = R.string.home_screen_header),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                fontFamily = greenstashFont
+            )
+        },
+        navigationIcon = {
+            IconButton(onClick = { onMenuClicked() }) {
+                Icon(
+                    imageVector = Icons.Filled.Menu,
+                    contentDescription = stringResource(id = R.string.menu_button_desc)
+                )
+            }
+        },
+        actions = {
+            IconButton(onClick = { onFilterClicked() }) {
+                Icon(
+                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_menu_filter),
+                    contentDescription = stringResource(id = R.string.filter_button_desc),
+                    modifier = Modifier.size(22.dp)
+                )
+            }
+            IconButton(onClick = { onSearchClicked() }) {
+                Icon(
+                    imageVector = Icons.Filled.Search,
+                    contentDescription = stringResource(id = R.string.search_button_desc)
+                )
+            }
+        },
+
+        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+            containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(4.dp)
         )
-    }, navigationIcon = {
-        IconButton(onClick = { onMenuClicked() }) {
-            Icon(
-                imageVector = Icons.Filled.Menu,
-                contentDescription = stringResource(id = R.string.menu_button_desc)
-            )
-        }
-    }, actions = {
-        IconButton(onClick = { onFilterClicked() }) {
-            Icon(
-                imageVector = ImageVector.vectorResource(id = R.drawable.ic_menu_filter),
-                contentDescription = stringResource(id = R.string.filter_button_desc),
-                modifier = Modifier.size(22.dp)
-            )
-        }
-        IconButton(onClick = { onSearchClicked() }) {
-            Icon(
-                imageVector = Icons.Filled.Search,
-                contentDescription = stringResource(id = R.string.search_button_desc)
-            )
-        }
-    }, colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-        containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(
-            4.dp
-        )
-    )
     )
 }
 

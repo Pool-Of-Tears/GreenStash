@@ -65,7 +65,7 @@ fun GoalLazyColumnItem(
 
     val openDeleteDialog = remember { mutableStateOf(false) }
 
-    GoalItem(title = item.goal.title,
+    GoalItemClassic(title = item.goal.title,
         primaryText = viewModel.goalTextUtil.buildPrimaryText(context, progressPercent, item),
         secondaryText = viewModel.goalTextUtil.buildSecondaryText(context, item),
         goalProgress = progressPercent.toFloat() / 100,
