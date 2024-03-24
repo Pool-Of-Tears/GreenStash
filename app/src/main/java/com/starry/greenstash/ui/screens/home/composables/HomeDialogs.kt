@@ -54,7 +54,7 @@ fun HomeDialogs(
                 openDeleteDialog.value = false
                 onDeleteConfirmed()
             }) {
-                Text(stringResource(id = R.string.dialog_confirm_button))
+                Text(stringResource(id = R.string.confirm))
             }
         }, dismissButton = {
             TextButton(onClick = {

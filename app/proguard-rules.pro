@@ -26,3 +26,6 @@
 -keep class * implements com.google.gson.TypeAdapterFactory
 -keep class * implements com.google.gson.JsonSerializer
 -keep class * implements com.google.gson.JsonDeserializer
+
+# Prevent R8 from removing icons used in goal icon picker.
+-keep class androidx.compose.material.icons.filled.** { *; }

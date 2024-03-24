@@ -225,7 +225,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                 showRemoveDeadlineDialog.value = false
                 viewModel.removeDeadLine()
             }) {
-                Text(stringResource(id = R.string.dialog_confirm_button))
+                Text(stringResource(id = R.string.confirm))
             }
         }, dismissButton = {
             TextButton(onClick = {
@@ -317,7 +317,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                     ) {
                         Box(
                             modifier = Modifier
-                                .fillMaxWidth(0.8f)
+                                .fillMaxWidth(0.82f)
                                 .height(190.dp)
                                 .border(
                                     width = 2.dp,
@@ -376,13 +376,42 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                     fontSize = 15.sp
                 )
 
+                // TODO : Add Icon Picker
+                val dialogOpen = remember { mutableStateOf(false) }
+
+
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+
+                    }
+
+                    Button(
+                        onClick = {
+                            dialogOpen .value= true
+                        }
+                    ) {
+                        Text("Select icons")
+                    }
+                    ExtendedIconsPicker(viewModel = viewModel, showDialog = dialogOpen)
+
+                }
+                // End of Icon Picker
+
+
                 Column(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
 
                     GoalPriorityMenu(viewModel = viewModel)
-                    Spacer(modifier = Modifier.height(18.dp))
+                    Spacer(modifier = Modifier.height(10.dp))
                     GoalReminderMenu(
                         viewModel = viewModel,
                         context = context,
@@ -396,7 +425,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                         onValueChange = { newText ->
                             viewModel.state = viewModel.state.copy(goalTitleText = newText)
                         },
-                        modifier = Modifier.fillMaxWidth(0.8f),
+                        modifier = Modifier.fillMaxWidth(0.86f),
                         label = {
                             Text(text = stringResource(id = R.string.input_text_title))
                         },
@@ -415,7 +444,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
                     )
 
-                    Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(modifier = Modifier.height(10.dp))
 
                     OutlinedTextField(
                         value = viewModel.state.targetAmount,
@@ -423,7 +452,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                             viewModel.state =
                                 viewModel.state.copy(targetAmount = Utils.getValidatedNumber(newText))
                         },
-                        modifier = Modifier.fillMaxWidth(0.8f),
+                        modifier = Modifier.fillMaxWidth(0.86f),
                         label = {
                             Text(text = stringResource(id = R.string.input_text_amount))
                         },
@@ -442,7 +471,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     )
 
-                    Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(modifier = Modifier.height(10.dp))
 
                     val interactionSource = remember { MutableInteractionSource() }
 
@@ -452,7 +481,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                             viewModel.state = viewModel.state.copy(deadline = newText)
                         },
                         modifier = Modifier
-                            .fillMaxWidth(0.8f)
+                            .fillMaxWidth(0.86f)
                             .combinedClickable(
                                 onClick = { calenderState.show() },
                                 onLongClick = {
@@ -489,14 +518,14 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
                     )
 
-                    Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(modifier = Modifier.height(10.dp))
 
                     OutlinedTextField(
                         value = viewModel.state.additionalNotes,
                         onValueChange = { newText ->
                             viewModel.state = viewModel.state.copy(additionalNotes = newText)
                         },
-                        modifier = Modifier.fillMaxWidth(0.8f),
+                        modifier = Modifier.fillMaxWidth(0.86f),
                         label = {
                             Text(text = stringResource(id = R.string.input_additional_notes))
                         },
@@ -538,7 +567,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                             }
                         },
                         modifier = Modifier
-                            .fillMaxWidth(0.8f)
+                            .fillMaxWidth(0.86f)
                             .height(55.dp),
                         shape = RoundedCornerShape(14.dp),
                     ) {
@@ -556,6 +585,22 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
 }
 
 
+// Goal icon picker layout
+@Composable
+fun GoalIconPicker() {
+    Card(
+        modifier = Modifier.fillMaxWidth(0.8f),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer
+        ), shape = RoundedCornerShape(14.dp)
+    ) {
+        Row {
+            // TODO : Add Icon Picker
+        }
+    }
+}
+
+@ExperimentalCoroutinesApi
 @ExperimentalMaterial3Api
 @ExperimentalAnimationApi
 @ExperimentalComposeUiApi
@@ -564,7 +609,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
 @Composable
 fun GoalPriorityMenu(viewModel: InputViewModel) {
     Card(
-        modifier = Modifier.fillMaxWidth(0.8f),
+        modifier = Modifier.fillMaxWidth(0.86f),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer
         ), shape = RoundedCornerShape(14.dp)
@@ -648,7 +693,7 @@ fun GoalReminderMenu(
     )
 
     Card(
-        modifier = Modifier.fillMaxWidth(0.8f),
+        modifier = Modifier.fillMaxWidth(0.86f),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer
         ), shape = RoundedCornerShape(14.dp)

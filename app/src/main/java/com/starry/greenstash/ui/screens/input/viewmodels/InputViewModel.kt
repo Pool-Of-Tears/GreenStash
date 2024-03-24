@@ -32,12 +32,15 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.starry.greenstash.R
 import com.starry.greenstash.database.goal.Goal
 import com.starry.greenstash.database.goal.GoalDao
 import com.starry.greenstash.database.goal.GoalPriority
@@ -48,9 +51,27 @@ import com.starry.greenstash.utils.PreferenceUtil
 import com.starry.greenstash.utils.Utils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.BufferedReader
+import java.io.InputStreamReader
 import javax.inject.Inject
+
+data class IconItem(
+    var id: String = "",
+    var name: String = "",
+    var image: ImageVector? = null,
+)
+
+data class IconsState(
+    val searchText: String = "",
+    val icons: List<List<IconItem>> = emptyList(),
+    val selectedIcon: IconItem? = null,
+    val loading: Boolean = true
+)
 
 data class InputScreenState(
     val goalImageUri: Uri? = null,
@@ -62,6 +83,7 @@ data class InputScreenState(
     val reminder: Boolean = false
 )
 
+@ExperimentalCoroutinesApi
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
 @ExperimentalComposeUiApi
@@ -75,6 +97,12 @@ class InputViewModel @Inject constructor(
 ) : ViewModel() {
 
     var state by mutableStateOf(InputScreenState())
+
+    // Icons state
+    private val _iconState = mutableStateOf(IconsState())
+    val iconState: State<IconsState> = _iconState
+
+    private var iconSearchJob: Job? = null
 
     fun addSavingGoal(context: Context) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -151,5 +179,51 @@ class InputViewModel @Inject constructor(
     fun getDateStyleValue() = preferenceUtil.getString(
         PreferenceUtil.DATE_FORMAT_STR, DateStyle.DateMonthYear.pattern
     )
+
+    fun updateIconSearch(context: Context, search: String) {
+        _iconState.value = _iconState.value.copy(searchText = search)
+        iconSearchJob?.cancel()
+        iconSearchJob = viewModelScope.launch(Dispatchers.IO) {
+            // Add delay to avoid frequent search.
+            delay(400)
+
+            withContext(Dispatchers.Main) {
+                _iconState.value = _iconState.value.copy(loading = true)
+            }
+
+            val icons = getNamesIcons(context)
+                .filter { it.contains(search, ignoreCase = true) }
+                .take(50)
+                .map { parseIconItem(it) }
+
+            val chunks = icons.chunked(3)
+            withContext(Dispatchers.Main) {
+                _iconState.value = _iconState.value.copy(icons = chunks, loading = false)
+            }
+        }
+    }
+
+     fun onIconClick(icon: IconItem) {
+        _iconState.value = _iconState.value.copy(selectedIcon = icon)
+    }
+
+
+    private fun parseIconItem(line: String): IconItem {
+        val split = line.split(",")
+        val id = split[0]
+        val name = split[1]
+        val image = ImageUtils.createIconVector(id)
+
+        return IconItem(id, name, image)
+    }
+
+    private fun getNamesIcons(context: Context): List<String> {
+        val inputStream = context.resources.openRawResource(R.raw.icons_names)
+        val reader = BufferedReader(InputStreamReader(inputStream))
+        val lines = reader.readLines()
+        reader.close()
+        return lines
+    }
+
 
 }

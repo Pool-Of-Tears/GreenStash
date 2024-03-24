@@ -2,7 +2,7 @@
     <string name="app_name">GreenStash</string>
 
     <!-- Other Strings -->
-    <string name="dialog_confirm_button">Confirm</string>
+    <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
     <string name="unknown_error">Oops! something went wrong.</string>
 

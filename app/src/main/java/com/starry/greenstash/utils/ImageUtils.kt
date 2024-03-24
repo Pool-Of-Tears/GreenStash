@@ -29,8 +29,27 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.util.Log
+import androidx.compose.material.icons.Icons
+import androidx.compose.ui.graphics.vector.ImageVector
 
 object ImageUtils {
+
+    private const val TAG = "ImageUtils"
+
+    /** Create image vector from icon name. */
+    fun createIconVector(name: String): ImageVector? {
+        return try {
+            val className = "androidx.compose.material.icons.filled.${name}Kt"
+            val cl = Class.forName(className)
+            val method = cl.declaredMethods.first()
+            method.invoke(null, Icons.Filled) as ImageVector
+        } catch (ex: Exception) {
+            Log.e(TAG, "Error creating image vector", ex)
+            null
+        }
+    }
+
     /** Get bitmap from image Uri. */
     fun uriToBitmap(uri: Uri, context: Context, maxSize: Int): Bitmap {
         val stream = context.contentResolver.openInputStream(uri)

@@ -434,7 +434,7 @@ fun GoalItemCompact(
 @Composable
 @Preview(showBackground = true)
 fun GoalItemsPV() {
-    Column {
+    Column(modifier = Modifier.padding(10.dp)) {
         GoalItemClassic(
             title = "Home Decorations",
             primaryText = "You're off to a great start!\nCurrently  saved $0.00 out of $1,000.00.",

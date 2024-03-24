@@ -353,7 +353,7 @@ fun SettingsScreen(navController: NavController) {
                                     }
                                 }
                             }) {
-                                Text(stringResource(id = R.string.dialog_confirm_button))
+                                Text(stringResource(id = R.string.confirm))
                             }
                         }, dismissButton = {
                             TextButton(onClick = {
@@ -418,7 +418,7 @@ fun SettingsScreen(navController: NavController) {
                                     currencyValues[currencyEntries.indexOf(selectedCurrencyOption)]
                                 viewModel.setDefaultCurrency(choice)
                             }) {
-                                Text(stringResource(id = R.string.dialog_confirm_button))
+                                Text(stringResource(id = R.string.confirm))
                             }
                         }, dismissButton = {
                             TextButton(onClick = {
