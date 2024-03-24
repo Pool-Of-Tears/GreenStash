@@ -53,6 +53,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
@@ -110,7 +111,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.airbnb.lottie.compose.LottieAnimation
@@ -377,31 +377,32 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                 )
 
                 // TODO : Add Icon Picker
-                val dialogOpen = remember { mutableStateOf(false) }
 
+                /* val dialogOpen = remember { mutableStateOf(false) }
 
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.Center
-                    ) {
+                 Column(
+                     modifier = Modifier.fillMaxSize(),
+                     verticalArrangement = Arrangement.Center,
+                     horizontalAlignment = Alignment.CenterHorizontally
+                 ) {
+                     Row(
+                         modifier = Modifier.fillMaxWidth(),
+                         horizontalArrangement = Arrangement.Center
+                     ) {
 
-                    }
+                     }
 
-                    Button(
-                        onClick = {
-                            dialogOpen .value= true
-                        }
-                    ) {
-                        Text("Select icons")
-                    }
-                    ExtendedIconsPicker(viewModel = viewModel, showDialog = dialogOpen)
+                     Button(
+                         onClick = {
+                             dialogOpen .value= true
+                         }
+                     ) {
+                         Text("Select icons")
+                     }
+                     ExtendedIconsPicker(viewModel = viewModel, showDialog = dialogOpen)
 
-                }
+                 }*/
+
                 // End of Icon Picker
 
 
@@ -409,7 +410,8 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                     modifier = Modifier.fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-
+                    GoalIconPicker()
+                    Spacer(modifier = Modifier.height(10.dp))
                     GoalPriorityMenu(viewModel = viewModel)
                     Spacer(modifier = Modifier.height(10.dp))
                     GoalReminderMenu(
@@ -584,18 +586,49 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
     }
 }
 
-
-// Goal icon picker layout
+// TODO: expose parameters and implement it
 @Composable
 fun GoalIconPicker() {
     Card(
-        modifier = Modifier.fillMaxWidth(0.8f),
+        modifier = Modifier.fillMaxWidth(0.86f),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer
-        ), shape = RoundedCornerShape(14.dp)
+        ),
+        shape = RoundedCornerShape(14.dp)
     ) {
-        Row {
-            // TODO : Add Icon Picker
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(48.dp)
+                    .background(
+                        color = MaterialTheme.colorScheme.surface,
+                        shape = CircleShape
+                    )
+                    .padding(8.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_input_image),
+                    contentDescription = "Icon Placeholder",
+                    tint = MaterialTheme.colorScheme.onSurface
+                )
+            }
+
+            Spacer(modifier = Modifier.width(14.dp))
+            Text(
+                text = "Pick an icon for this goal",
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
+                fontSize = 18.sp, maxLines = 2,
+                overflow = TextOverflow.Ellipsis
+
+            )
         }
     }
 }
@@ -730,8 +763,9 @@ fun GoalReminderMenu(
 @ExperimentalFoundationApi
 @ExperimentalComposeUiApi
 @ExperimentalMaterial3Api
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun InputScreenPV() {
-    InputScreen(editGoalId = "", navController = rememberNavController())
+    // InputScreen(editGoalId = "", navController = rememberNavController())
+    GoalIconPicker()
 }

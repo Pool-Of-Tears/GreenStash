@@ -54,7 +54,6 @@ import com.starry.greenstash.ui.screens.input.viewmodels.IconItem
 import com.starry.greenstash.ui.screens.input.viewmodels.IconsState
 import com.starry.greenstash.ui.screens.input.viewmodels.InputViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
 
 @ExperimentalCoroutinesApi
 @ExperimentalMaterial3Api
@@ -63,11 +62,10 @@ import kotlinx.coroutines.delay
 @ExperimentalFoundationApi
 @ExperimentalMaterialApi
 @Composable
-fun ExtendedIconsPicker(
+fun IconPickerDialog(
     viewModel: InputViewModel,
     showDialog: MutableState<Boolean>,
 ) {
-
     val context = LocalContext.current
     val state by viewModel.iconState
 
