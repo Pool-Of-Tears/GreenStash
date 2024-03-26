@@ -29,7 +29,6 @@ import android.graphics.Bitmap
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -250,6 +249,7 @@ fun GoalItemCompact(
         }
     )
 
+    val context = LocalContext.current
     val dismissDirection = swipeState.dismissDirection
     val shape = RoundedCornerShape(18.dp)
     val progress by animateFloatAsState(targetValue = goalProgress, label = "progress")
@@ -283,6 +283,16 @@ fun GoalItemCompact(
                     }
                 }
             }
+            val iconDescription by remember(dismissDirection) {
+                derivedStateOf {
+                    when (dismissDirection) {
+                        SwipeToDismissBoxValue.EndToStart -> context.getString(R.string.edit_button_description)
+                        SwipeToDismissBoxValue.StartToEnd -> context.getString(R.string.delete_button_description)
+                        // Placeholder string, not used anywhere.
+                        SwipeToDismissBoxValue.Settled -> context.getString(R.string.info_button_description)
+                    }
+                }
+            }
             val scale by animateFloatAsState(
                 if (swipeState.dismissDirection != SwipeToDismissBoxValue.Settled) 1f else 0.75f,
                 label = "scale"
@@ -292,13 +302,12 @@ fun GoalItemCompact(
                 Modifier
                     .fillMaxSize()
                     .background(color)
-                    .padding(horizontal = 20.dp)
-                    .clickable { onInfoClicked() },
+                    .padding(horizontal = 20.dp),
                 contentAlignment = alignment
             ) {
                 Icon(
                     imageVector = ImageVector.vectorResource(id = icon),
-                    contentDescription = "Dismiss Icon",
+                    contentDescription = iconDescription,
                     modifier = Modifier.scale(scale)
                 )
             }
@@ -311,6 +320,7 @@ fun GoalItemCompact(
         enableDismissFromEndToStart = true,
         content = {
             Card(
+                onClick = onInfoClicked,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(200.dp),

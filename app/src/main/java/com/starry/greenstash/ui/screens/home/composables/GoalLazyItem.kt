@@ -28,6 +28,8 @@ package com.starry.greenstash.ui.screens.home.composables
 import android.content.Context
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.SnackbarHostState
@@ -36,6 +38,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.starry.greenstash.R
 import com.starry.greenstash.database.core.GoalWithTransactions
@@ -61,7 +65,8 @@ fun GoalLazyColumnItem(
     viewModel: HomeViewModel,
     item: GoalWithTransactions,
     snackBarHostState: SnackbarHostState,
-    navController: NavController
+    navController: NavController,
+    currentIndex: Int
 ) {
     val coroutineScope = rememberCoroutineScope()
     val progressPercent = remember {
@@ -137,6 +142,9 @@ fun GoalLazyColumnItem(
         }
 
         GoalCardStyle.Compact -> {
+            if (currentIndex == 0) {
+                Spacer(modifier = Modifier.height(5.dp))
+            }
             val goalIcon = remember {
                 ImageUtils.createIconVector(
                     item.goal.goalIconId ?: Constants.DEFAULT_GOAL_ICON_ID
