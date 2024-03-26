@@ -47,7 +47,10 @@ data class Goal(
     val priority: GoalPriority,
     // Added in database schema v4
     @ColumnInfo(defaultValue = "false")
-    val reminder: Boolean
+    val reminder: Boolean,
+    // Added in database schema v5
+    @ColumnInfo(defaultValue = "Image")
+    val goalIconId: String?
 ) {
     @PrimaryKey(autoGenerate = true)
     var goalId: Long = 0L

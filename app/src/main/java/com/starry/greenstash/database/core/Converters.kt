@@ -35,22 +35,17 @@ import java.io.ByteArrayOutputStream
 class Converters {
 
     @TypeConverter
-    fun fromBitmap(bitmap: Bitmap?): ByteArray? {
-        if (bitmap != null) {
-            val outputStream = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
-            return outputStream.toByteArray()
+    fun fromBitmap(bitmap: Bitmap?): ByteArray? =
+        bitmap?.let { bmp ->
+            ByteArrayOutputStream().apply {
+                bmp.compress(Bitmap.CompressFormat.PNG, 100, this)
+            }.toByteArray()
         }
-        return null
-    }
+
 
     @TypeConverter
-    fun toBitmap(byteArray: ByteArray?): Bitmap? {
-        if (byteArray != null) {
-            return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
-        }
-        return null
-    }
+    fun toBitmap(byteArray: ByteArray?): Bitmap? =
+        byteArray?.let { BitmapFactory.decodeByteArray(it, 0, it.size) }
 
     @TypeConverter
     fun fromTransactionType(value: TransactionType) = value.ordinal

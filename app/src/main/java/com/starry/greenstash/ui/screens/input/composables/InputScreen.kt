@@ -60,6 +60,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Image
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
@@ -111,6 +112,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.airbnb.lottie.compose.LottieAnimation
@@ -131,6 +133,7 @@ import com.starry.greenstash.ui.common.SelectableChipGroup
 import com.starry.greenstash.ui.navigation.DrawerScreens
 import com.starry.greenstash.ui.screens.input.viewmodels.InputViewModel
 import com.starry.greenstash.ui.theme.greenstashFont
+import com.starry.greenstash.utils.ImageUtils
 import com.starry.greenstash.utils.Utils
 import com.starry.greenstash.utils.getActivity
 import com.starry.greenstash.utils.hasNotificationPermission
@@ -158,7 +161,8 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
     val coroutineScope = rememberCoroutineScope()
     val snackBarHostState = remember { SnackbarHostState() }
 
-    var imageData: Any? by remember { mutableStateOf(R.drawable.default_goal_image) }
+    var goalImage: Any? by remember { mutableStateOf(R.drawable.default_goal_image) }
+    var goalIcon by remember { mutableStateOf(Icons.Filled.Image) }
 
     val selectedDate = remember { mutableStateOf<LocalDate?>(LocalDate.now()) }
     val calenderState = rememberUseCaseState(visible = false, true)
@@ -171,11 +175,14 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
 
     if (editGoalId != null) {
         LaunchedEffect(key1 = true, block = {
-            viewModel.setEditGoalData(goalId = editGoalId.toLong(), onEditDataSet = { goalImageBm ->
-                if (goalImageBm != null) {
-                    imageData = goalImageBm
-                }
-            })
+            viewModel.setEditGoalData(
+                goalId = editGoalId.toLong(),
+                onEditDataSet = { goalImageBm, goalIconId ->
+                    goalImageBm?.let { goalImage = it }
+                    goalIconId?.let { id ->
+                        goalIcon = ImageUtils.createIconVector(id) ?: Icons.Filled.Image
+                    }
+                })
         })
         topBarText = stringResource(id = R.string.input_edit_goal_header)
         buttonText = stringResource(id = R.string.input_edit_goal_button)
@@ -185,15 +192,17 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
     }
 
 
+    // Goal Image Picker.
     val photoPicker = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickVisualMedia()
     ) {
         if (it != null) {
-            imageData = it
+            goalImage = it
             viewModel.state = viewModel.state.copy(goalImageUri = it)
         }
     }
 
+    // Deadline Calendar Dialog.
     CalendarDialog(
         state = calenderState,
         config = CalendarConfig(
@@ -212,6 +221,20 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
         },
     )
 
+    // Icon Picker Dialog.
+    val showIconPickerDialog = remember { mutableStateOf(false) }
+    IconPickerDialog(
+        viewModel = viewModel,
+        showDialog = showIconPickerDialog,
+        onIconSelected = { icon ->
+            icon?.let {
+                goalIcon = it.image ?: Icons.Filled.Image
+                viewModel.updateSelectedIcon(it)
+            }
+        }
+    )
+
+    // Remove Deadline Dialog.
     if (showRemoveDeadlineDialog.value) {
         AlertDialog(onDismissRequest = {
             showRemoveDeadlineDialog.value = false
@@ -236,6 +259,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
         })
     }
 
+    // Input Screen UI.
     Scaffold(modifier = Modifier
         .fillMaxSize()
         .imePadding(),
@@ -327,7 +351,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                                 .clip(RoundedCornerShape(16.dp))
                         ) {
                             AsyncImage(
-                                model = ImageRequest.Builder(context).data(imageData)
+                                model = ImageRequest.Builder(context).data(goalImage)
                                     .crossfade(enable = true).build(),
                                 contentDescription = null,
                                 contentScale = ContentScale.Crop,
@@ -376,41 +400,13 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                     fontSize = 15.sp
                 )
 
-                // TODO : Add Icon Picker
-
-                /* val dialogOpen = remember { mutableStateOf(false) }
-
-                 Column(
-                     modifier = Modifier.fillMaxSize(),
-                     verticalArrangement = Arrangement.Center,
-                     horizontalAlignment = Alignment.CenterHorizontally
-                 ) {
-                     Row(
-                         modifier = Modifier.fillMaxWidth(),
-                         horizontalArrangement = Arrangement.Center
-                     ) {
-
-                     }
-
-                     Button(
-                         onClick = {
-                             dialogOpen .value= true
-                         }
-                     ) {
-                         Text("Select icons")
-                     }
-                     ExtendedIconsPicker(viewModel = viewModel, showDialog = dialogOpen)
-
-                 }*/
-
-                // End of Icon Picker
-
-
                 Column(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    GoalIconPicker()
+                    GoalIconPicker(goalIcon = goalIcon, onClick = {
+                        showIconPickerDialog.value = true
+                    })
                     Spacer(modifier = Modifier.height(10.dp))
                     GoalPriorityMenu(viewModel = viewModel)
                     Spacer(modifier = Modifier.height(10.dp))
@@ -586,10 +582,10 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
     }
 }
 
-// TODO: expose parameters and implement it
 @Composable
-fun GoalIconPicker() {
+fun GoalIconPicker(goalIcon: ImageVector, onClick: () -> Unit) {
     Card(
+        onClick = onClick,
         modifier = Modifier.fillMaxWidth(0.86f),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer
@@ -614,15 +610,15 @@ fun GoalIconPicker() {
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
-                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_input_image),
-                    contentDescription = "Icon Placeholder",
+                    imageVector = goalIcon,
+                    contentDescription = stringResource(id = R.string.input_pick_icon),
                     tint = MaterialTheme.colorScheme.onSurface
                 )
             }
 
             Spacer(modifier = Modifier.width(14.dp))
             Text(
-                text = "Pick an icon for this goal",
+                text = stringResource(id = R.string.input_pick_icon),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onPrimaryContainer,
                 fontSize = 18.sp, maxLines = 2,
@@ -766,6 +762,5 @@ fun GoalReminderMenu(
 @Preview(showBackground = true)
 @Composable
 fun InputScreenPV() {
-    // InputScreen(editGoalId = "", navController = rememberNavController())
-    GoalIconPicker()
+    InputScreen(editGoalId = "", navController = rememberNavController())
 }

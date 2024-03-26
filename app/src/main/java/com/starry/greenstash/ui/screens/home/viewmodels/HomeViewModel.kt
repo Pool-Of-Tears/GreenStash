@@ -52,6 +52,7 @@ import javax.inject.Inject
 enum class SearchWidgetState { OPENED, CLOSED }
 enum class FilterField { Title, Amount, Priority }
 enum class FilterSortType(val value: Int) { Ascending(1), Descending(2) }
+enum class GoalCardStyle { Classic, Compact }
 data class FilterFlowData(val filterField: FilterField, val sortType: FilterSortType)
 
 @ExperimentalMaterialApi
@@ -114,6 +115,10 @@ class HomeViewModel @Inject constructor(
     private val _searchTextState: MutableState<String> = mutableStateOf(value = "")
     val searchTextState: State<String> = _searchTextState
 
+    val goalCardStyle = GoalCardStyle.entries[preferenceUtil.getInt(
+        PreferenceUtil.GOAL_CARD_STYLE_INT, GoalCardStyle.Compact.ordinal
+    )]
+
     fun updateSearchWidgetState(newValue: SearchWidgetState) {
         _searchWidgetState.value = newValue
     }
@@ -147,5 +152,9 @@ class HomeViewModel @Inject constructor(
                 reminderManager.stopReminder(goal.goalId)
             }
         }
+    }
+
+    fun getDefaultCurrency(): String {
+        return preferenceUtil.getString(PreferenceUtil.DEFAULT_CURRENCY_STR, "")!!
     }
 }

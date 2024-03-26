@@ -88,6 +88,8 @@
     <!-- Input (New/Edit Goal) Screen -->
     <string name="input_screen_header">¡Es momento de ahorrar!</string>
     <string name="input_edit_goal_header">Editar Meta de Ahorro</string>
+    <string name="input_pick_icon">Selecciona un ícono para tu objetivo.</string>
+    <string name="input_icon_dialog">Selecciona un ícono</string>
     <string name="input_pick_image">Imagen de la meta</string>
     <string name="input_goal_priority">Select priority for this goal.</string>
     <string name="input_text_title">Título del Ahorro</string>

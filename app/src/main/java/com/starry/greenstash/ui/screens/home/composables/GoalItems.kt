@@ -69,7 +69,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
@@ -238,11 +237,11 @@ fun GoalItemCompact(
         confirmValueChange = { direction ->
             when (direction) {
                 SwipeToDismissBoxValue.EndToStart -> {
-                    onDeleteClicked()
+                    onEditClicked()
                 }
 
                 SwipeToDismissBoxValue.StartToEnd -> {
-                    onEditClicked()
+                    onDeleteClicked()
                 }
 
                 SwipeToDismissBoxValue.Settled -> {}
@@ -260,8 +259,8 @@ fun GoalItemCompact(
         backgroundContent = {
             val color by animateColorAsState(
                 when (dismissDirection) {
-                    SwipeToDismissBoxValue.EndToStart -> Color.Green
-                    SwipeToDismissBoxValue.StartToEnd -> Color.Red
+                    SwipeToDismissBoxValue.EndToStart -> MaterialTheme.colorScheme.primary
+                    SwipeToDismissBoxValue.StartToEnd -> Color.Red.copy(alpha = 0.5f)
                     SwipeToDismissBoxValue.Settled -> Color.Transparent
                 }, label = "color"
             )
@@ -328,7 +327,7 @@ fun GoalItemCompact(
                     Row {
                         Spacer(modifier = Modifier.weight(1f))
                         Icon(
-                            painter = painterResource(id = R.drawable.ic_nav_backups),
+                            imageVector = goalIcon,
                             contentDescription = null,
                             modifier = Modifier.size(210.dp),
                             tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f)
@@ -341,7 +340,7 @@ fun GoalItemCompact(
                             .padding(10.dp)
                     ) {
                         LinearProgressIndicator(
-                            progress = { goalProgress },
+                            progress = { progress },
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(top = 8.dp)
@@ -382,7 +381,7 @@ fun GoalItemCompact(
                                 ) {
                                     Icon(
                                         modifier = Modifier.size(20.dp),
-                                        imageVector = ImageVector.vectorResource(id = R.drawable.ic_withdraw_minus),
+                                        imageVector = ImageVector.vectorResource(R.drawable.ic_withdraw_minus),
                                         contentDescription = stringResource(id = R.string.withdraw_button),
                                         tint = MaterialTheme.colorScheme.onSecondaryContainer
                                     )

@@ -69,6 +69,7 @@ data class IconItem(
 data class IconsState(
     val searchText: String = "",
     val icons: List<List<IconItem>> = emptyList(),
+    val currentIcon: IconItem? = null,
     val selectedIcon: IconItem? = null,
     val loading: Boolean = true
 )
@@ -115,7 +116,8 @@ class InputViewModel @Inject constructor(
                 ) else null,
                 additionalNotes = state.additionalNotes,
                 priority = GoalPriority.entries.find { it.name == state.priority }!!,
-                reminder = state.reminder
+                reminder = state.reminder,
+                goalIconId = iconState.value.selectedIcon?.id
             )
 
             // Add goal into database.
@@ -127,7 +129,10 @@ class InputViewModel @Inject constructor(
         }
     }
 
-    fun setEditGoalData(goalId: Long, onEditDataSet: (Bitmap?) -> Unit) {
+    fun setEditGoalData(
+        goalId: Long,
+        onEditDataSet: (goalImage: Bitmap?, goalIconId: String?) -> Unit
+    ) {
         viewModelScope.launch(Dispatchers.IO) {
             val goal = goalDao.getGoalById(goalId)!!
             withContext(Dispatchers.Main) {
@@ -139,7 +144,7 @@ class InputViewModel @Inject constructor(
                     priority = goal.priority.name,
                     reminder = goal.reminder
                 )
-                onEditDataSet(goal.goalImage)
+                onEditDataSet(goal.goalImage, goal.goalIconId)
             }
         }
     }
@@ -156,7 +161,8 @@ class InputViewModel @Inject constructor(
                 ) else goal.goalImage,
                 additionalNotes = state.additionalNotes,
                 priority = GoalPriority.entries.find { it.name == state.priority }!!,
-                reminder = state.reminder
+                reminder = state.reminder,
+                goalIconId = iconState.value.selectedIcon?.id
             )
             // copy id of already saved goal to update it.
             newGoal.goalId = goal.goalId
@@ -203,10 +209,13 @@ class InputViewModel @Inject constructor(
         }
     }
 
-     fun onIconClick(icon: IconItem) {
-        _iconState.value = _iconState.value.copy(selectedIcon = icon)
+    fun updateCurrentIcon(icon: IconItem) {
+        _iconState.value = _iconState.value.copy(currentIcon = icon)
     }
 
+    fun updateSelectedIcon(icon: IconItem) {
+        _iconState.value = _iconState.value.copy(selectedIcon = icon)
+    }
 
     private fun parseIconItem(line: String): IconItem {
         val split = line.split(",")
@@ -224,6 +233,5 @@ class InputViewModel @Inject constructor(
         reader.close()
         return lines
     }
-
 
 }

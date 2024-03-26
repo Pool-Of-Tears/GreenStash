@@ -88,6 +88,8 @@
     <!-- Input (New/Edit Goal) Screen -->
     <string name="input_screen_header">Birikim yapma zamanı!</string>
     <string name="input_edit_goal_header">Birikim Hedefini Düzenle</string>
+    <string name="input_pick_icon">Hedefiniz için bir simge seçin.</string>
+    <string name="input_icon_dialog">Bir simge seçin</string>
     <string name="input_pick_image">Hedef Resmi</string>
     <string name="input_page_quote">Merdivenin tamamını görmek zorunda değilsin, sadece ilk adımı at. – Martin Luther King, Jr.  </string>
     <string name="input_goal_priority">Bu hedef için öncelik seçin.</string>

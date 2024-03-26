@@ -88,6 +88,8 @@
     <!-- Input (New/Edit Goal) Screen -->
     <string name="input_screen_header">省钱时间到！</string>
     <string name="input_edit_goal_header">编辑省钱目标</string>
+    <string name="input_pick_icon">为您的目标选择一个图标。</string>
+    <string name="input_icon_dialog">选择图标</string>
     <string name="input_pick_image">目标图片</string>
     <string name="input_page_quote">千里之行，始于足下</string>
     <string name="input_goal_priority">为此目标选择优先级。</string>

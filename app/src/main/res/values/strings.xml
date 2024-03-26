@@ -88,6 +88,8 @@
     <!-- Input (New/Edit Goal) Screen -->
     <string name="input_screen_header">It\'s time to save!</string>
     <string name="input_edit_goal_header">Edit Saving Goal</string>
+    <string name="input_pick_icon">Select icon for your goal.</string>
+    <string name="input_icon_dialog">Select an icon</string>
     <string name="input_pick_image">Goal Image</string>
     <string name="input_page_quote" translatable="false">You don’t have to see the whole staircase, just take the first step. – Martin Luther King, Jr.  </string>
     <string name="input_goal_priority">Select priority for this goal.</string>

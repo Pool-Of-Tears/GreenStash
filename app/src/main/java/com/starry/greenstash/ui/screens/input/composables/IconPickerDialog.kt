@@ -65,6 +65,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 fun IconPickerDialog(
     viewModel: InputViewModel,
     showDialog: MutableState<Boolean>,
+    onIconSelected: (IconItem?) -> Unit
 ) {
     val context = LocalContext.current
     val state by viewModel.iconState
@@ -75,9 +76,7 @@ fun IconPickerDialog(
 
     if (showDialog.value) {
         Dialog(
-            onDismissRequest = {
-                println("Dialog dismissed 11")
-            }
+            onDismissRequest = {}
         ) {
             Column(
                 modifier = Modifier.fillMaxWidth(0.99f)
@@ -106,7 +105,7 @@ fun IconPickerDialog(
 
                         IconsList(
                             iconState = state,
-                            onIconClick = { viewModel.onIconClick(it) }
+                            onIconClick = { viewModel.updateCurrentIcon(it) }
                         )
 
                         Row(
@@ -128,7 +127,10 @@ fun IconPickerDialog(
 
                             Spacer(modifier = Modifier.width(10.dp))
 
-                            Button(onClick = { showDialog.value = false }) {
+                            Button(onClick = {
+                                onIconSelected(state.currentIcon)
+                                showDialog.value = false
+                            }) {
                                 Text(text = stringResource(id = R.string.confirm))
                             }
                         }
@@ -154,7 +156,7 @@ private fun SearchTextField(
 
     Text(
         modifier = Modifier.padding(12.dp),
-        text = "Select an Icon",
+        text = stringResource(id = R.string.input_icon_dialog),
         color = MaterialTheme.colorScheme.onSurface,
         fontWeight = FontWeight.SemiBold,
         fontSize = 20.sp
@@ -164,7 +166,7 @@ private fun SearchTextField(
         modifier = Modifier.height(60.dp),
         label = {
             Text(
-                text = "Search",
+                text = stringResource(id = R.string.home_search_label),
                 color = MaterialTheme.colorScheme.primary
             )
         },
@@ -207,7 +209,7 @@ private fun IconsList(
                     itemContent = { iconItems ->
                         IconListRow(
                             icons = iconItems,
-                            selectedIcon = iconState.selectedIcon,
+                            selectedIcon = iconState.currentIcon,
                             onClick = { onIconClick(it) }
                         )
                     }
