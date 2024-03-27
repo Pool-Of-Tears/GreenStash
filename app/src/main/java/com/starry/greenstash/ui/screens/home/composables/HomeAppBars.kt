@@ -45,8 +45,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -136,10 +134,6 @@ fun DefaultAppBar(
                 )
             }
         },
-
-        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-            containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(4.dp)
-        )
     )
 }
 
@@ -155,9 +149,7 @@ fun SearchAppBar(
         modifier = Modifier
             .fillMaxWidth()
             .height(56.dp),
-        color = MaterialTheme.colorScheme.surfaceColorAtElevation(
-            4.dp
-        )
+        color = MaterialTheme.colorScheme.surface
     ) {
         TextField(modifier = Modifier
             .fillMaxWidth(),

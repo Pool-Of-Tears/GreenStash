@@ -150,7 +150,7 @@ class MainActivity : AppCompatActivity() {
                 )
 
                 systemUiController.setStatusBarColor(
-                    color = MaterialTheme.colorScheme.surfaceColorAtElevation(4.dp),
+                    color = MaterialTheme.colorScheme.surface,
                     darkIcons = settingsViewModel.getCurrentTheme() == ThemeMode.Light
                 )
 

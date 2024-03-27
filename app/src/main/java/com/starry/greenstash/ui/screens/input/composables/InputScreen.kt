@@ -81,8 +81,6 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -265,23 +263,23 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
         .imePadding(),
         snackbarHost = { SnackbarHost(snackBarHostState) },
         topBar = {
-            TopAppBar(modifier = Modifier.fillMaxWidth(), title = {
-                Text(
-                    text = topBarText,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    fontFamily = greenstashFont
-                )
-            }, navigationIcon = {
-                IconButton(onClick = { navController.navigateUp() }) {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = null
+            TopAppBar(
+                modifier = Modifier.fillMaxWidth(),
+                title = {
+                    Text(
+                        text = topBarText,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        fontFamily = greenstashFont
                     )
+                }, navigationIcon = {
+                    IconButton(onClick = { navController.navigateUp() }) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = null
+                        )
+                    }
                 }
-            }, colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(4.dp)
-            )
             )
         }) { paddingValues ->
         if (showGoalAddedAnim.value) {
@@ -397,7 +395,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                         .padding(top = 20.dp, bottom = 20.dp, start = 30.dp, end = 30.dp),
                     text = stringResource(id = R.string.input_page_quote),
                     textAlign = TextAlign.Center,
-                    fontSize = 15.sp
+                    fontSize = 13.sp
                 )
 
                 Column(

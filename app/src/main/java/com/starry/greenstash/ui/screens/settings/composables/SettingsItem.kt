@@ -73,7 +73,7 @@ fun SettingsItem(title: String, description: String, icon: ImageVector, onClick:
             Text(
                 text = description,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
-                style = MaterialTheme.typography.bodyMedium,
+                style = MaterialTheme.typography.bodySmall,
             )
         }
     }

@@ -125,9 +125,8 @@ fun SettingsScreen(navController: NavController) {
                     )
                 }
             }, scrollBehavior = scrollBehavior, colors = TopAppBarDefaults.largeTopAppBarColors(
-                containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(
-                    4.dp
-                )
+                containerColor = MaterialTheme.colorScheme.surface,
+                scrolledContainerColor = MaterialTheme.colorScheme.surface,
             )
             )
         },
