@@ -45,9 +45,11 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LargeTopAppBar
@@ -226,23 +228,28 @@ fun SettingsScreen(navController: NavController) {
                                 }
                             }
                         }, confirmButton = {
-                            TextButton(onClick = {
-                                themeDialog.value = false
+                            FilledTonalButton(
+                                onClick = {
+                                    themeDialog.value = false
+                                    when (selectedThemeOption) {
+                                        "Light" -> {
+                                            viewModel.setTheme(ThemeMode.Light)
+                                        }
 
-                                when (selectedThemeOption) {
-                                    "Light" -> {
-                                        viewModel.setTheme(ThemeMode.Light)
-                                    }
+                                        "Dark" -> {
+                                            viewModel.setTheme(ThemeMode.Dark)
+                                        }
 
-                                    "Dark" -> {
-                                        viewModel.setTheme(ThemeMode.Dark)
+                                        "System" -> {
+                                            viewModel.setTheme(ThemeMode.Auto)
+                                        }
                                     }
-
-                                    "System" -> {
-                                        viewModel.setTheme(ThemeMode.Auto)
-                                    }
-                                }
-                            }) {
+                                },
+                                colors = ButtonDefaults.filledTonalButtonColors(
+                                    containerColor = MaterialTheme.colorScheme.primary,
+                                    contentColor = MaterialTheme.colorScheme.onPrimary
+                                )
+                            ) {
                                 Text(stringResource(id = R.string.theme_dialog_apply_button))
                             }
                         }, dismissButton = {
@@ -340,19 +347,24 @@ fun SettingsScreen(navController: NavController) {
                                 }
                             }
                         }, confirmButton = {
-                            TextButton(onClick = {
-                                dateDialog.value = false
+                            FilledTonalButton(
+                                onClick = {
+                                    dateDialog.value = false
+                                    when (selectedDateOption) {
+                                        "DD/MM/YYYY" -> {
+                                            viewModel.setDateStyle(DateStyle.DateMonthYear.pattern)
+                                        }
 
-                                when (selectedDateOption) {
-                                    "DD/MM/YYYY" -> {
-                                        viewModel.setDateStyle(DateStyle.DateMonthYear.pattern)
+                                        "YYYY/MM/DD" -> {
+                                            viewModel.setDateStyle(DateStyle.YearMonthDate.pattern)
+                                        }
                                     }
-
-                                    "YYYY/MM/DD" -> {
-                                        viewModel.setDateStyle(DateStyle.YearMonthDate.pattern)
-                                    }
-                                }
-                            }) {
+                                },
+                                colors = ButtonDefaults.filledTonalButtonColors(
+                                    containerColor = MaterialTheme.colorScheme.primary,
+                                    contentColor = MaterialTheme.colorScheme.onPrimary
+                                )
+                            ) {
                                 Text(stringResource(id = R.string.confirm))
                             }
                         }, dismissButton = {
@@ -412,14 +424,20 @@ fun SettingsScreen(navController: NavController) {
                                 }
                             }
                         }, confirmButton = {
-                            TextButton(onClick = {
-                                currencyDialog.value = false
-                                val choice =
-                                    currencyValues[currencyEntries.indexOf(
-                                        selectedCurrencyOption
-                                    )]
-                                viewModel.setDefaultCurrency(choice)
-                            }) {
+                            FilledTonalButton(
+                                onClick = {
+                                    currencyDialog.value = false
+                                    val choice =
+                                        currencyValues[currencyEntries.indexOf(
+                                            selectedCurrencyOption
+                                        )]
+                                    viewModel.setDefaultCurrency(choice)
+                                },
+                                colors = ButtonDefaults.filledTonalButtonColors(
+                                    containerColor = MaterialTheme.colorScheme.primary,
+                                    contentColor = MaterialTheme.colorScheme.onPrimary
+                                )
+                            ) {
                                 Text(stringResource(id = R.string.confirm))
                             }
                         }, dismissButton = {
