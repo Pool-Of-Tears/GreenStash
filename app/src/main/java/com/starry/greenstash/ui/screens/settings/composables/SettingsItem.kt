@@ -33,7 +33,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -45,42 +44,40 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun SettingsItem(title: String, description: String, icon: ImageVector, onClick: () -> Unit) {
-    Surface(
-        modifier = Modifier.clickable { onClick() }
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 8.dp, vertical = 14.dp)
+            .clickable { onClick() },
+        verticalAlignment = Alignment.CenterVertically,
     ) {
-        Row(
+        Icon(
+            imageVector = icon,
+            contentDescription = null,
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp, 20.dp),
-            verticalAlignment = Alignment.CenterVertically,
+                .padding(start = 14.dp, end = 16.dp)
+                .size(26.dp),
+            tint = MaterialTheme.colorScheme.secondary
+        )
+        Column(
+            modifier = Modifier
+                .weight(1f)
+                .padding(start = 12.dp, end = 8.dp)
         ) {
-            Icon(
-                imageVector = icon,
-                contentDescription = null,
-                modifier = Modifier
-                    .padding(start = 14.dp, end = 16.dp)
-                    .size(26.dp),
-                tint = MaterialTheme.colorScheme.secondary
+            Text(
+                text = title,
+                maxLines = 1,
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onSurface
             )
-            Column(
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(start = 12.dp, end = 8.dp)
-            ) {
-                Text(
-                    text = title,
-                    maxLines = 1,
-                    style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.onSurface
-                )
-                Text(
-                    text = description,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    style = MaterialTheme.typography.bodyMedium,
-                )
-            }
+            Text(
+                text = description,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                style = MaterialTheme.typography.bodyMedium,
+            )
         }
     }
+
 }
 
 @Composable
@@ -119,7 +116,7 @@ fun SettingsItem(
             Text(
                 text = description,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
-                style = MaterialTheme.typography.bodyMedium,
+                style = MaterialTheme.typography.bodySmall,
             )
         }
         Switch(

@@ -32,6 +32,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -44,6 +45,8 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -147,9 +150,9 @@ fun SettingsScreen(navController: NavController) {
                     mutableStateOf(viewModel.getMaterialYouValue())
                 }
 
-                Column(
-                    modifier = Modifier.padding(top = 10.dp)
-                ) {
+                Spacer(modifier = Modifier.height(8.dp))
+
+                SettingsContainer {
                     SettingsCategory(title = stringResource(id = R.string.display_settings_title))
                     SettingsItem(title = stringResource(id = R.string.theme_setting),
                         description = themeValue,
@@ -171,7 +174,8 @@ fun SettingsScreen(navController: NavController) {
                                     viewModel.setMaterialYou(true)
                                 } else {
                                     materialYouSwitch.value = false
-                                    context.getString(R.string.material_you_error).toToast(context)
+                                    context.getString(R.string.material_you_error)
+                                        .toToast(context)
                                 }
                             } else {
                                 viewModel.setMaterialYou(false)
@@ -281,10 +285,7 @@ fun SettingsScreen(navController: NavController) {
                     mutableStateOf(currencyValue)
                 }
 
-
-                Column(
-                    modifier = Modifier.padding(top = 10.dp)
-                ) {
+                SettingsContainer {
                     SettingsCategory(title = stringResource(id = R.string.locales_setting_title))
                     SettingsItem(title = stringResource(id = R.string.date_format_setting),
                         description = dateValue,
@@ -415,7 +416,9 @@ fun SettingsScreen(navController: NavController) {
                             TextButton(onClick = {
                                 currencyDialog.value = false
                                 val choice =
-                                    currencyValues[currencyEntries.indexOf(selectedCurrencyOption)]
+                                    currencyValues[currencyEntries.indexOf(
+                                        selectedCurrencyOption
+                                    )]
                                 viewModel.setDefaultCurrency(choice)
                             }) {
                                 Text(stringResource(id = R.string.confirm))
@@ -435,9 +438,7 @@ fun SettingsScreen(navController: NavController) {
             item {
                 val appLockSwitch = remember { mutableStateOf(viewModel.getAppLockValue()) }
 
-                Column(
-                    modifier = Modifier.padding(top = 10.dp)
-                ) {
+                SettingsContainer {
                     SettingsCategory(title = stringResource(id = R.string.security_settings_title))
                     SettingsItem(
                         title = stringResource(id = R.string.app_lock_setting),
@@ -496,9 +497,7 @@ fun SettingsScreen(navController: NavController) {
 
             /** About Setting */
             item {
-                Column(
-                    modifier = Modifier.padding(top = 10.dp)
-                ) {
+                SettingsContainer {
                     SettingsCategory(title = stringResource(id = R.string.misc_setting_title))
                     SettingsItem(
                         title = stringResource(id = R.string.license_setting),
@@ -513,7 +512,24 @@ fun SettingsScreen(navController: NavController) {
                         onClick = { navController.navigate(Screens.AboutScreen.route) }
                     )
                 }
+                Spacer(modifier = Modifier.height(2.dp))
             }
+        }
+    }
+}
+
+@Composable
+fun SettingsContainer(content: @Composable () -> Unit) {
+    Card(
+        modifier = Modifier.padding(vertical = 10.dp, horizontal = 12.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(
+                3.dp
+            )
+        ),
+    ) {
+        Column(modifier = Modifier.padding(top = 2.dp)) {
+            content()
         }
     }
 }
