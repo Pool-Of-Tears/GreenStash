@@ -34,7 +34,14 @@ import androidx.compose.ui.unit.sp
 import com.starry.greenstash.R
 
 val greenstashFont = FontFamily(
-    Font(R.font.opensans_variablefont_wdth_wght)
+    Font(R.font.poppins_black, FontWeight.Black),
+    Font(R.font.poppins_bold, FontWeight.Bold),
+    Font(R.font.poppins_extrabold, FontWeight.ExtraBold),
+    Font(R.font.poppins_light, FontWeight.Light),
+    Font(R.font.poppins_medium, FontWeight.Medium),
+    Font(R.font.poppins_regular, FontWeight.Normal),
+    Font(R.font.poppins_semibold, FontWeight.SemiBold),
+    Font(R.font.poppins_thin, FontWeight.Thin)
 )
 
 val greenstashNumberFont = FontFamily(

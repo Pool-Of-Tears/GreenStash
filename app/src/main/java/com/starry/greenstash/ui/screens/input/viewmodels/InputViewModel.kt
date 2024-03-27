@@ -133,6 +133,7 @@ class InputViewModel @Inject constructor(
         goalId: Long,
         onEditDataSet: (goalImage: Bitmap?, goalIconId: String?) -> Unit
     ) {
+        println("Goal ID: $goalId")
         viewModelScope.launch(Dispatchers.IO) {
             val goal = goalDao.getGoalById(goalId)!!
             withContext(Dispatchers.Main) {
@@ -162,7 +163,7 @@ class InputViewModel @Inject constructor(
                 additionalNotes = state.additionalNotes,
                 priority = GoalPriority.entries.find { it.name == state.priority }!!,
                 reminder = state.reminder,
-                goalIconId = iconState.value.selectedIcon?.id
+                goalIconId = iconState.value.selectedIcon?.id ?: goal.goalIconId
             )
             // copy id of already saved goal to update it.
             newGoal.goalId = goal.goalId

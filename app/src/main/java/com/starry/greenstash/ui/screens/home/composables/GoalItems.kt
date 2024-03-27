@@ -59,10 +59,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -81,6 +81,10 @@ import coil.request.ImageRequest
 import com.starry.greenstash.R
 import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.ui.theme.greenstashNumberFont
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 @Composable
@@ -232,20 +236,27 @@ fun GoalItemCompact(
     onEditClicked: () -> Unit,
     onDeleteClicked: () -> Unit,
 ) {
+    val coroutineScope = rememberCoroutineScope()
     val swipeState = rememberSwipeToDismissBoxState(
         confirmValueChange = { direction ->
             when (direction) {
                 SwipeToDismissBoxValue.EndToStart -> {
-                    onEditClicked()
+                    coroutineScope.launch {
+                        delay(150) // allow the swipe to settle.
+                        withContext(Dispatchers.Main) { onEditClicked() }
+                    }
                 }
 
                 SwipeToDismissBoxValue.StartToEnd -> {
-                    onDeleteClicked()
+                    coroutineScope.launch {
+                        delay(150) // allow the swipe to settle.
+                        withContext(Dispatchers.Main) { onDeleteClicked() }
+                    }
                 }
 
                 SwipeToDismissBoxValue.Settled -> {}
             }
-            false // Don't allow the swipe to be settled
+            false // Don't allow it to settle on dismissed state.
         }
     )
 
@@ -321,25 +332,21 @@ fun GoalItemCompact(
         content = {
             Card(
                 onClick = onInfoClicked,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(200.dp),
+                modifier = Modifier.fillMaxWidth(),
                 colors = CardDefaults.cardColors(
                     containerColor = MaterialTheme.colorScheme.secondaryContainer
                 ),
                 shape = shape
             ) {
                 Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .clipToBounds()
+                    modifier = Modifier.fillMaxWidth()
                 ) {
                     Row {
                         Spacer(modifier = Modifier.weight(1f))
                         Icon(
                             imageVector = goalIcon,
                             contentDescription = null,
-                            modifier = Modifier.size(210.dp),
+                            modifier = Modifier.size(200.dp),
                             tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f)
                         )
                     }
@@ -361,7 +368,7 @@ fun GoalItemCompact(
                             Column {
                                 Spacer(modifier = Modifier.height(40.dp))
                                 Icon(
-                                    modifier = Modifier.size(56.dp),
+                                    modifier = Modifier.size(56.dp).padding(start = 6.dp),
                                     imageVector = goalIcon,
                                     contentDescription = title,
                                     tint = MaterialTheme.colorScheme.onSecondaryContainer
@@ -425,8 +432,8 @@ fun GoalItemCompact(
 
                             Text(
                                 text = daysLeftText,
-                                modifier = Modifier.padding(start = 4.dp, top = 12.dp),
-                                fontSize = 18.sp,
+                                modifier = Modifier.padding(top = 18.dp),
+                                fontSize = 16.sp,
                                 fontFamily = greenstashFont,
                                 fontWeight = FontWeight.Medium,
                                 color = MaterialTheme.colorScheme.onSecondaryContainer
@@ -462,7 +469,7 @@ fun GoalItemsPV() {
         GoalItemCompact(
             title = "Home Decorations",
             savedAmount = "$1,000.00",
-            daysLeftText = "!2 days left",
+            daysLeftText = "Goal Achieved! 🎉",
             goalProgress = 0.8f,
             goalIcon = ImageVector.vectorResource(id = R.drawable.ic_nav_backups),
             onDepositClicked = {},

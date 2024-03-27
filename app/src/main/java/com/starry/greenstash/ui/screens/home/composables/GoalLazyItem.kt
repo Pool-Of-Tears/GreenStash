@@ -34,6 +34,7 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -69,7 +70,7 @@ fun GoalLazyColumnItem(
     currentIndex: Int
 ) {
     val coroutineScope = rememberCoroutineScope()
-    val progressPercent = remember {
+    val progressPercent = remember(item.goal.goalId) {
         ((item.getCurrentlySavedAmount() / item.goal.targetAmount) * 100).toInt()
     }
 
@@ -145,11 +146,14 @@ fun GoalLazyColumnItem(
             if (currentIndex == 0) {
                 Spacer(modifier = Modifier.height(5.dp))
             }
-            val goalIcon = remember {
-                ImageUtils.createIconVector(
-                    item.goal.goalIconId ?: Constants.DEFAULT_GOAL_ICON_ID
-                )!!
+            val goalIcon by remember(item.goal.goalIconId) {
+                mutableStateOf(
+                    ImageUtils.createIconVector(
+                        item.goal.goalIconId ?: Constants.DEFAULT_GOAL_ICON_ID
+                    )!!
+                )
             }
+
             GoalItemCompact(
                 title = item.goal.title,
                 savedAmount = Utils.formatCurrency(
@@ -202,7 +206,6 @@ fun GoalLazyColumnItem(
                     )
                 },
                 onDeleteClicked = {
-                    println("Delete Clicked")
                     openDeleteDialog.value = true
                 }
             )

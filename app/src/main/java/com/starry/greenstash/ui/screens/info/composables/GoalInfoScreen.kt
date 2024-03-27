@@ -97,6 +97,7 @@ import com.starry.greenstash.ui.common.ExpandableTextCard
 import com.starry.greenstash.ui.screens.info.viewmodels.InfoViewModel
 import com.starry.greenstash.ui.screens.settings.viewmodels.ThemeMode
 import com.starry.greenstash.ui.theme.greenstashFont
+import com.starry.greenstash.ui.theme.greenstashNumberFont
 import com.starry.greenstash.utils.Utils
 import com.starry.greenstash.utils.getActivity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -266,8 +267,8 @@ fun GoalInfoCard(
                 text = formattedSavedAmount,
                 fontWeight = FontWeight.Bold,
                 fontSize = 38.sp,
-                modifier = Modifier
-                    .padding(start = 4.dp)
+                fontFamily = greenstashNumberFont,
+                modifier = Modifier.padding(start = 8.dp)
             )
 
 
