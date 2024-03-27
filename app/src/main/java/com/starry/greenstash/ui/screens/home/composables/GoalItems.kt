@@ -242,14 +242,14 @@ fun GoalItemCompact(
             when (direction) {
                 SwipeToDismissBoxValue.EndToStart -> {
                     coroutineScope.launch {
-                        delay(150) // allow the swipe to settle.
+                        delay(180) // allow the swipe to settle.
                         withContext(Dispatchers.Main) { onEditClicked() }
                     }
                 }
 
                 SwipeToDismissBoxValue.StartToEnd -> {
                     coroutineScope.launch {
-                        delay(150) // allow the swipe to settle.
+                        delay(180) // allow the swipe to settle.
                         withContext(Dispatchers.Main) { onDeleteClicked() }
                     }
                 }
