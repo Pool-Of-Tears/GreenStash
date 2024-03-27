@@ -100,6 +100,8 @@ dependencies {
     implementation 'com.google.android.material:material:1.11.0'
     // Android 12+ splash API.
     implementation 'androidx.core:core-splashscreen:1.0.1'
+    // Material icons.
+    implementation 'androidx.compose.material:material-icons-extended:1.6.4'
     // Room database
     implementation "androidx.room:room-ktx:$room_version"
     ksp "androidx.room:room-compiler:$room_version"

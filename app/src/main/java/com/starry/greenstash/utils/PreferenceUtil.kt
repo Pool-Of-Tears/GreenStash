@@ -40,6 +40,7 @@ class PreferenceUtil(context: Context) {
         const val DEFAULT_CURRENCY_STR = "default_currency_code"
         const val DATE_FORMAT_STR = "date_format"
         const val APP_LOCK_BOOL = "app_lock"
+        const val GOAL_CARD_STYLE_INT = "goal_card_style"
 
         // Goal filter preferences
         const val GOAL_FILTER_FIELD_INT = "goal_filter_field"

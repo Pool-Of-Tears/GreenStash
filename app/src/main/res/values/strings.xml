@@ -2,7 +2,7 @@
     <string name="app_name">GreenStash</string>
 
     <!-- Other Strings -->
-    <string name="dialog_confirm_button">Confirm</string>
+    <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
     <string name="unknown_error">Oops! something went wrong.</string>
 
@@ -51,7 +51,7 @@
     <string name="goal_already_achieved">You\'ve already achieved this goal.</string>
     <string name="withdraw_button">Withdraw</string>
     <string name="withdraw_button_error">You haven\'t deposited any amount yet.</string>
-    <string name="goal_delete_confirmation">You sure?</string>
+    <string name="goal_delete_confirmation">Are you sure?</string>
     <string name="goal_delete_success">Deleted Successfully.</string>
     <string name="info_button_description">View goal information.</string>
     <string name="edit_button_description">Edit this goal</string>
@@ -80,7 +80,7 @@
     <string name="info_card_remaining_amount">Out of %s</string>
     <string name="info_card_remaining_days">%s days left.</string>
     <string name="info_card_no_deadline_set">No deadline set.</string>
-    <string name="info_card_goal_achieved">Goal achieved. Congrats!</string>
+    <string name="info_card_goal_achieved">Goal achieved! 🎉</string>
     <string name="info_goal_priority">Goal Priority is %s</string>
     <string name="info_notes_card_title">Notes</string>
     <string name="info_goal_no_transactions">No Transactions Yet.</string>
@@ -88,6 +88,8 @@
     <!-- Input (New/Edit Goal) Screen -->
     <string name="input_screen_header">It\'s time to save!</string>
     <string name="input_edit_goal_header">Edit Saving Goal</string>
+    <string name="input_pick_icon">Select icon for your goal.</string>
+    <string name="input_icon_dialog">Select an icon</string>
     <string name="input_pick_image">Goal Image</string>
     <string name="input_page_quote" translatable="false">You don’t have to see the whole staircase, just take the first step. – Martin Luther King, Jr.  </string>
     <string name="input_goal_priority">Select priority for this goal.</string>

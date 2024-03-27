@@ -386,7 +386,8 @@ fun HomeScreenContent(
                                         viewModel = viewModel,
                                         item = item,
                                         snackBarHostState = snackBarHostState,
-                                        navController = navController
+                                        navController = navController,
+                                        currentIndex = idx
                                     )
                                 }
                             }
@@ -406,7 +407,8 @@ fun HomeScreenContent(
                                     viewModel = viewModel,
                                     item = item,
                                     snackBarHostState = snackBarHostState,
-                                    navController = navController
+                                    navController = navController,
+                                    currentIndex = idx
                                 )
                             }
                         }

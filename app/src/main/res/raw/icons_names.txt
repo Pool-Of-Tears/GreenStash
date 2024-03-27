@@ -1,0 +1,2130 @@
+_10k,10K
+_10mp,10Mp
+_11mp,11Mp
+_123,123
+_12mp,12Mp
+_13mp,13Mp
+_14mp,14Mp
+_15mp,15Mp
+_16mp,16Mp
+_17mp,17Mp
+_18UpRating,18 Up Rating
+_18mp,18Mp
+_19mp,19Mp
+_1k,1K
+_1kPlus,1K Plus
+_1xMobiledata,1X Mobiledata
+_20mp,20Mp
+_21mp,21Mp
+_22mp,22Mp
+_23mp,23Mp
+_24mp,24Mp
+_2k,2K
+_2kPlus,2K Plus
+_2mp,2Mp
+_30fps,30Fps
+_30fpsSelect,30Fps Select
+_360,360
+_3dRotation,3D Rotation
+_3gMobiledata,3G Mobiledata
+_3k,3K
+_3kPlus,3K Plus
+_3mp,3Mp
+_3p,3P
+_4gMobiledata,4G Mobiledata
+_4gPlusMobiledata,4G Plus Mobiledata
+_4k,4K
+_4kPlus,4K Plus
+_4mp,4Mp
+_5g,5G
+_5k,5K
+_5kPlus,5K Plus
+_5mp,5Mp
+_60fps,60Fps
+_60fpsSelect,60Fps Select
+_6FtApart,6 Ft Apart
+_6k,6K
+_6kPlus,6K Plus
+_6mp,6Mp
+_7k,7K
+_7kPlus,7K Plus
+_7mp,7Mp
+_8k,8K
+_8kPlus,8K Plus
+_8mp,8Mp
+_9k,9K
+_9kPlus,9K Plus
+_9mp,9Mp
+Abc,Abc
+AcUnit,Ac Unit
+AccessAlarm,Access Alarm
+AccessAlarms,Access Alarms
+AccessTime,Access Time
+AccessTimeFilled,Access Time Filled
+Accessibility,Accessibility
+AccessibilityNew,Accessibility New
+Accessible,Accessible
+AccessibleForward,Accessible Forward
+AccountBalance,Account Balance
+AccountBalanceWallet,Account Balance Wallet
+AccountBox,Account Box
+AccountCircle,Account Circle
+AccountTree,Account Tree
+AdUnits,Ad Units
+Adb,Adb
+Add,Add
+AddAPhoto,Add A Photo
+AddAlarm,Add Alarm
+AddAlert,Add Alert
+AddBox,Add Box
+AddBusiness,Add Business
+AddCard,Add Card
+AddChart,Add Chart
+AddCircle,Add Circle
+AddCircleOutline,Add Circle Outline
+AddComment,Add Comment
+AddHome,Add Home
+AddHomeWork,Add Home Work
+AddIcCall,Add Ic Call
+AddLink,Add Link
+AddLocation,Add Location
+AddLocationAlt,Add Location Alt
+AddModerator,Add Moderator
+AddPhotoAlternate,Add Photo Alternate
+AddReaction,Add Reaction
+AddRoad,Add Road
+AddShoppingCart,Add Shopping Cart
+AddTask,Add Task
+AddToDrive,Add To Drive
+AddToHomeScreen,Add To Home Screen
+AddToPhotos,Add To Photos
+AddToQueue,Add To Queue
+Addchart,Addchart
+AdfScanner,Adf Scanner
+Adjust,Adjust
+AdminPanelSettings,Admin Panel Settings
+AdsClick,Ads Click
+Agriculture,Agriculture
+Air,Air
+AirlineSeatFlat,Airline Seat Flat
+AirlineSeatFlatAngled,Airline Seat Flat Angled
+AirlineSeatIndividualSuite,Airline Seat Individual Suite
+AirlineSeatLegroomExtra,Airline Seat Legroom Extra
+AirlineSeatLegroomNormal,Airline Seat Legroom Normal
+AirlineSeatLegroomReduced,Airline Seat Legroom Reduced
+AirlineSeatReclineExtra,Airline Seat Recline Extra
+AirlineSeatReclineNormal,Airline Seat Recline Normal
+AirlineStops,Airline Stops
+Airlines,Airlines
+AirplaneTicket,Airplane Ticket
+AirplanemodeActive,Airplanemode Active
+AirplanemodeInactive,Airplanemode Inactive
+Airplay,Airplay
+AirportShuttle,Airport Shuttle
+Alarm,Alarm
+AlarmAdd,Alarm Add
+AlarmOff,Alarm Off
+AlarmOn,Alarm On
+Album,Album
+AlignHorizontalCenter,Align Horizontal Center
+AlignHorizontalLeft,Align Horizontal Left
+AlignHorizontalRight,Align Horizontal Right
+AlignVerticalBottom,Align Vertical Bottom
+AlignVerticalCenter,Align Vertical Center
+AlignVerticalTop,Align Vertical Top
+AllInbox,All Inbox
+AllInclusive,All Inclusive
+AllOut,All Out
+AltRoute,Alt Route
+AlternateEmail,Alternate Email
+AmpStories,Amp Stories
+Analytics,Analytics
+Anchor,Anchor
+Android,Android
+Animation,Animation
+Announcement,Announcement
+Aod,Aod
+Apartment,Apartment
+Api,Api
+AppBlocking,App Blocking
+AppRegistration,App Registration
+AppSettingsAlt,App Settings Alt
+AppShortcut,App Shortcut
+Approval,Approval
+Apps,Apps
+AppsOutage,Apps Outage
+Architecture,Architecture
+Archive,Archive
+AreaChart,Area Chart
+ArrowBack,Arrow Back
+ArrowBackIos,Arrow Back Ios
+ArrowBackIosNew,Arrow Back Ios New
+ArrowCircleDown,Arrow Circle Down
+ArrowCircleLeft,Arrow Circle Left
+ArrowCircleRight,Arrow Circle Right
+ArrowCircleUp,Arrow Circle Up
+ArrowDownward,Arrow Downward
+ArrowDropDown,Arrow Drop Down
+ArrowDropDownCircle,Arrow Drop Down Circle
+ArrowDropUp,Arrow Drop Up
+ArrowForward,Arrow Forward
+ArrowForwardIos,Arrow Forward Ios
+ArrowLeft,Arrow Left
+ArrowOutward,Arrow Outward
+ArrowRight,Arrow Right
+ArrowRightAlt,Arrow Right Alt
+ArrowUpward,Arrow Upward
+ArtTrack,Art Track
+Article,Article
+AspectRatio,Aspect Ratio
+Assessment,Assessment
+Assignment,Assignment
+AssignmentInd,Assignment Ind
+AssignmentLate,Assignment Late
+AssignmentReturn,Assignment Return
+AssignmentReturned,Assignment Returned
+AssignmentTurnedIn,Assignment Turned In
+AssistWalker,Assist Walker
+Assistant,Assistant
+AssistantDirection,Assistant Direction
+AssistantPhoto,Assistant Photo
+AssuredWorkload,Assured Workload
+Atm,Atm
+AttachEmail,Attach Email
+AttachFile,Attach File
+AttachMoney,Attach Money
+Attachment,Attachment
+Attractions,Attractions
+Attribution,Attribution
+AudioFile,Audio File
+Audiotrack,Audiotrack
+AutoAwesome,Auto Awesome
+AutoAwesomeMosaic,Auto Awesome Mosaic
+AutoAwesomeMotion,Auto Awesome Motion
+AutoDelete,Auto Delete
+AutoFixHigh,Auto Fix High
+AutoFixNormal,Auto Fix Normal
+AutoFixOff,Auto Fix Off
+AutoGraph,Auto Graph
+AutoMode,Auto Mode
+AutoStories,Auto Stories
+AutofpsSelect,Autofps Select
+Autorenew,Autorenew
+AvTimer,Av Timer
+BabyChangingStation,Baby Changing Station
+BackHand,Back Hand
+Backpack,Backpack
+Backspace,Backspace
+Backup,Backup
+BackupTable,Backup Table
+Badge,Badge
+BakeryDining,Bakery Dining
+Balance,Balance
+Balcony,Balcony
+Ballot,Ballot
+BarChart,Bar Chart
+BatchPrediction,Batch Prediction
+Bathroom,Bathroom
+Bathtub,Bathtub
+Battery0Bar,Battery 0 Bar
+Battery1Bar,Battery 1 Bar
+Battery2Bar,Battery 2 Bar
+Battery3Bar,Battery 3 Bar
+Battery4Bar,Battery 4 Bar
+Battery5Bar,Battery 5 Bar
+Battery6Bar,Battery 6 Bar
+BatteryAlert,Battery Alert
+BatteryChargingFull,Battery Charging Full
+BatteryFull,Battery Full
+BatterySaver,Battery Saver
+BatteryStd,Battery Std
+BatteryUnknown,Battery Unknown
+BeachAccess,Beach Access
+Bed,Bed
+BedroomBaby,Bedroom Baby
+BedroomChild,Bedroom Child
+BedroomParent,Bedroom Parent
+Bedtime,Bedtime
+BedtimeOff,Bedtime Off
+Beenhere,Beenhere
+Bento,Bento
+BikeScooter,Bike Scooter
+Biotech,Biotech
+Blender,Blender
+Blind,Blind
+Blinds,Blinds
+BlindsClosed,Blinds Closed
+Block,Block
+Bloodtype,Bloodtype
+Bluetooth,Bluetooth
+BluetoothAudio,Bluetooth Audio
+BluetoothConnected,Bluetooth Connected
+BluetoothDisabled,Bluetooth Disabled
+BluetoothDrive,Bluetooth Drive
+BluetoothSearching,Bluetooth Searching
+BlurCircular,Blur Circular
+BlurLinear,Blur Linear
+BlurOff,Blur Off
+BlurOn,Blur On
+Bolt,Bolt
+Book,Book
+BookOnline,Book Online
+Bookmark,Bookmark
+BookmarkAdd,Bookmark Add
+BookmarkAdded,Bookmark Added
+BookmarkBorder,Bookmark Border
+BookmarkRemove,Bookmark Remove
+Bookmarks,Bookmarks
+BorderAll,Border All
+BorderBottom,Border Bottom
+BorderClear,Border Clear
+BorderColor,Border Color
+BorderHorizontal,Border Horizontal
+BorderInner,Border Inner
+BorderLeft,Border Left
+BorderOuter,Border Outer
+BorderRight,Border Right
+BorderStyle,Border Style
+BorderTop,Border Top
+BorderVertical,Border Vertical
+Boy,Boy
+BrandingWatermark,Branding Watermark
+BreakfastDining,Breakfast Dining
+Brightness1,Brightness 1
+Brightness2,Brightness 2
+Brightness3,Brightness 3
+Brightness4,Brightness 4
+Brightness5,Brightness 5
+Brightness6,Brightness 6
+Brightness7,Brightness 7
+BrightnessAuto,Brightness Auto
+BrightnessHigh,Brightness High
+BrightnessLow,Brightness Low
+BrightnessMedium,Brightness Medium
+BroadcastOnHome,Broadcast On Home
+BroadcastOnPersonal,Broadcast On Personal
+BrokenImage,Broken Image
+BrowseGallery,Browse Gallery
+BrowserNotSupported,Browser Not Supported
+BrowserUpdated,Browser Updated
+BrunchDining,Brunch Dining
+Brush,Brush
+BubbleChart,Bubble Chart
+BugReport,Bug Report
+Build,Build
+BuildCircle,Build Circle
+Bungalow,Bungalow
+BurstMode,Burst Mode
+BusAlert,Bus Alert
+Business,Business
+BusinessCenter,Business Center
+Cabin,Cabin
+Cable,Cable
+Cached,Cached
+Cake,Cake
+Calculate,Calculate
+CalendarMonth,Calendar Month
+CalendarToday,Calendar Today
+CalendarViewDay,Calendar View Day
+CalendarViewMonth,Calendar View Month
+CalendarViewWeek,Calendar View Week
+Call,Call
+CallEnd,Call End
+CallMade,Call Made
+CallMerge,Call Merge
+CallMissed,Call Missed
+CallMissedOutgoing,Call Missed Outgoing
+CallReceived,Call Received
+CallSplit,Call Split
+CallToAction,Call To Action
+Camera,Camera
+CameraAlt,Camera Alt
+CameraEnhance,Camera Enhance
+CameraFront,Camera Front
+CameraIndoor,Camera Indoor
+CameraOutdoor,Camera Outdoor
+CameraRear,Camera Rear
+CameraRoll,Camera Roll
+Cameraswitch,Cameraswitch
+Campaign,Campaign
+Cancel,Cancel
+CancelPresentation,Cancel Presentation
+CancelScheduleSend,Cancel Schedule Send
+CandlestickChart,Candlestick Chart
+CarCrash,Car Crash
+CarRental,Car Rental
+CarRepair,Car Repair
+CardGiftcard,Card Giftcard
+CardMembership,Card Membership
+CardTravel,Card Travel
+Carpenter,Carpenter
+Cases,Cases
+Casino,Casino
+Cast,Cast
+CastConnected,Cast Connected
+CastForEducation,Cast For Education
+Castle,Castle
+CatchingPokemon,Catching Pokemon
+Category,Category
+Celebration,Celebration
+CellTower,Cell Tower
+CellWifi,Cell Wifi
+CenterFocusStrong,Center Focus Strong
+CenterFocusWeak,Center Focus Weak
+Chair,Chair
+ChairAlt,Chair Alt
+Chalet,Chalet
+ChangeCircle,Change Circle
+ChangeHistory,Change History
+ChargingStation,Charging Station
+Chat,Chat
+ChatBubble,Chat Bubble
+ChatBubbleOutline,Chat Bubble Outline
+Check,Check
+CheckBox,Check Box
+CheckBoxOutlineBlank,Check Box Outline Blank
+CheckCircle,Check Circle
+CheckCircleOutline,Check Circle Outline
+Checklist,Checklist
+ChecklistRtl,Checklist Rtl
+Checkroom,Checkroom
+ChevronLeft,Chevron Left
+ChevronRight,Chevron Right
+ChildCare,Child Care
+ChildFriendly,Child Friendly
+ChromeReaderMode,Chrome Reader Mode
+Church,Church
+Circle,Circle
+CircleNotifications,Circle Notifications
+Class,Class
+CleanHands,Clean Hands
+CleaningServices,Cleaning Services
+Clear,Clear
+ClearAll,Clear All
+Close,Close
+CloseFullscreen,Close Fullscreen
+ClosedCaption,Closed Caption
+ClosedCaptionDisabled,Closed Caption Disabled
+ClosedCaptionOff,Closed Caption Off
+Cloud,Cloud
+CloudCircle,Cloud Circle
+CloudDone,Cloud Done
+CloudDownload,Cloud Download
+CloudOff,Cloud Off
+CloudQueue,Cloud Queue
+CloudSync,Cloud Sync
+CloudUpload,Cloud Upload
+Co2,Co2
+CoPresent,Co Present
+Code,Code
+CodeOff,Code Off
+Coffee,Coffee
+CoffeeMaker,Coffee Maker
+Collections,Collections
+CollectionsBookmark,Collections Bookmark
+ColorLens,Color Lens
+Colorize,Colorize
+Comment,Comment
+CommentBank,Comment Bank
+CommentsDisabled,Comments Disabled
+Commit,Commit
+Commute,Commute
+Compare,Compare
+CompareArrows,Compare Arrows
+CompassCalibration,Compass Calibration
+Compost,Compost
+Compress,Compress
+Computer,Computer
+ConfirmationNumber,Confirmation Number
+ConnectWithoutContact,Connect Without Contact
+ConnectedTv,Connected Tv
+ConnectingAirports,Connecting Airports
+Construction,Construction
+ContactEmergency,Contact Emergency
+ContactMail,Contact Mail
+ContactPage,Contact Page
+ContactPhone,Contact Phone
+ContactSupport,Contact Support
+Contactless,Contactless
+Contacts,Contacts
+ContentCopy,Content Copy
+ContentCut,Content Cut
+ContentPaste,Content Paste
+ContentPasteGo,Content Paste Go
+ContentPasteOff,Content Paste Off
+ContentPasteSearch,Content Paste Search
+Contrast,Contrast
+ControlCamera,Control Camera
+ControlPoint,Control Point
+ControlPointDuplicate,Control Point Duplicate
+Cookie,Cookie
+CopyAll,Copy All
+Copyright,Copyright
+Coronavirus,Coronavirus
+CorporateFare,Corporate Fare
+Cottage,Cottage
+Countertops,Countertops
+Create,Create
+CreateNewFolder,Create New Folder
+CreditCard,Credit Card
+CreditCardOff,Credit Card Off
+CreditScore,Credit Score
+Crib,Crib
+CrisisAlert,Crisis Alert
+Crop,Crop
+Crop169,Crop 16 9
+Crop32,Crop 3 2
+Crop54,Crop 5 4
+Crop75,Crop 7 5
+CropDin,Crop Din
+CropFree,Crop Free
+CropLandscape,Crop Landscape
+CropOriginal,Crop Original
+CropPortrait,Crop Portrait
+CropRotate,Crop Rotate
+CropSquare,Crop Square
+CrueltyFree,Cruelty Free
+Css,Css
+CurrencyBitcoin,Currency Bitcoin
+CurrencyExchange,Currency Exchange
+CurrencyFranc,Currency Franc
+CurrencyLira,Currency Lira
+CurrencyPound,Currency Pound
+CurrencyRuble,Currency Ruble
+CurrencyRupee,Currency Rupee
+CurrencyYen,Currency Yen
+CurrencyYuan,Currency Yuan
+Curtains,Curtains
+CurtainsClosed,Curtains Closed
+Cyclone,Cyclone
+Dangerous,Dangerous
+DarkMode,Dark Mode
+Dashboard,Dashboard
+DashboardCustomize,Dashboard Customize
+DataArray,Data Array
+DataExploration,Data Exploration
+DataObject,Data Object
+DataSaverOff,Data Saver Off
+DataSaverOn,Data Saver On
+DataThresholding,Data Thresholding
+DataUsage,Data Usage
+Dataset,Dataset
+DatasetLinked,Dataset Linked
+DateRange,Date Range
+Deblur,Deblur
+Deck,Deck
+Dehaze,Dehaze
+Delete,Delete
+DeleteForever,Delete Forever
+DeleteOutline,Delete Outline
+DeleteSweep,Delete Sweep
+DeliveryDining,Delivery Dining
+DensityLarge,Density Large
+DensityMedium,Density Medium
+DensitySmall,Density Small
+DepartureBoard,Departure Board
+Description,Description
+Deselect,Deselect
+DesignServices,Design Services
+Desk,Desk
+DesktopAccessDisabled,Desktop Access Disabled
+DesktopMac,Desktop Mac
+DesktopWindows,Desktop Windows
+Details,Details
+DeveloperBoard,Developer Board
+DeveloperBoardOff,Developer Board Off
+DeveloperMode,Developer Mode
+DeviceHub,Device Hub
+DeviceThermostat,Device Thermostat
+DeviceUnknown,Device Unknown
+Devices,Devices
+DevicesFold,Devices Fold
+DevicesOther,Devices Other
+DialerSip,Dialer Sip
+Dialpad,Dialpad
+Diamond,Diamond
+Difference,Difference
+Dining,Dining
+DinnerDining,Dinner Dining
+Directions,Directions
+DirectionsBike,Directions Bike
+DirectionsBoat,Directions Boat
+DirectionsBoatFilled,Directions Boat Filled
+DirectionsBus,Directions Bus
+DirectionsBusFilled,Directions Bus Filled
+DirectionsCar,Directions Car
+DirectionsCarFilled,Directions Car Filled
+DirectionsOff,Directions Off
+DirectionsRailway,Directions Railway
+DirectionsRailwayFilled,Directions Railway Filled
+DirectionsRun,Directions Run
+DirectionsSubway,Directions Subway
+DirectionsSubwayFilled,Directions Subway Filled
+DirectionsTransit,Directions Transit
+DirectionsTransitFilled,Directions Transit Filled
+DirectionsWalk,Directions Walk
+DirtyLens,Dirty Lens
+DisabledByDefault,Disabled By Default
+DisabledVisible,Disabled Visible
+DiscFull,Disc Full
+Discount,Discount
+DisplaySettings,Display Settings
+Diversity1,Diversity 1
+Diversity2,Diversity 2
+Diversity3,Diversity 3
+Dns,Dns
+DoDisturb,Do Disturb
+DoDisturbAlt,Do Disturb Alt
+DoDisturbOff,Do Disturb Off
+DoDisturbOn,Do Disturb On
+DoNotDisturb,Do Not Disturb
+DoNotDisturbAlt,Do Not Disturb Alt
+DoNotDisturbOff,Do Not Disturb Off
+DoNotDisturbOn,Do Not Disturb On
+DoNotDisturbOnTotalSilence,Do Not Disturb On Total Silence
+DoNotStep,Do Not Step
+DoNotTouch,Do Not Touch
+Dock,Dock
+DocumentScanner,Document Scanner
+Domain,Domain
+DomainAdd,Domain Add
+DomainDisabled,Domain Disabled
+DomainVerification,Domain Verification
+Done,Done
+DoneAll,Done All
+DoneOutline,Done Outline
+DonutLarge,Donut Large
+DonutSmall,Donut Small
+DoorBack,Door Back
+DoorFront,Door Front
+DoorSliding,Door Sliding
+Doorbell,Doorbell
+DoubleArrow,Double Arrow
+DownhillSkiing,Downhill Skiing
+Download,Download
+DownloadDone,Download Done
+DownloadForOffline,Download For Offline
+Downloading,Downloading
+Drafts,Drafts
+DragHandle,Drag Handle
+DragIndicator,Drag Indicator
+Draw,Draw
+DriveEta,Drive Eta
+DriveFileMove,Drive File Move
+DriveFileMoveRtl,Drive File Move Rtl
+DriveFileRenameOutline,Drive File Rename Outline
+DriveFolderUpload,Drive Folder Upload
+Dry,Dry
+DryCleaning,Dry Cleaning
+Duo,Duo
+Dvr,Dvr
+DynamicFeed,Dynamic Feed
+DynamicForm,Dynamic Form
+EMobiledata,E Mobiledata
+Earbuds,Earbuds
+EarbudsBattery,Earbuds Battery
+East,East
+Eco,Eco
+EdgesensorHigh,Edgesensor High
+EdgesensorLow,Edgesensor Low
+Edit,Edit
+EditAttributes,Edit Attributes
+EditCalendar,Edit Calendar
+EditLocation,Edit Location
+EditLocationAlt,Edit Location Alt
+EditNote,Edit Note
+EditNotifications,Edit Notifications
+EditOff,Edit Off
+EditRoad,Edit Road
+Egg,Egg
+EggAlt,Egg Alt
+Eject,Eject
+Elderly,Elderly
+ElderlyWoman,Elderly Woman
+ElectricBike,Electric Bike
+ElectricBolt,Electric Bolt
+ElectricCar,Electric Car
+ElectricMeter,Electric Meter
+ElectricMoped,Electric Moped
+ElectricRickshaw,Electric Rickshaw
+ElectricScooter,Electric Scooter
+ElectricalServices,Electrical Services
+Elevator,Elevator
+Email,Email
+Emergency,Emergency
+EmergencyRecording,Emergency Recording
+EmergencyShare,Emergency Share
+EmojiEmotions,Emoji Emotions
+EmojiEvents,Emoji Events
+EmojiFlags,Emoji Flags
+EmojiFoodBeverage,Emoji Food Beverage
+EmojiNature,Emoji Nature
+EmojiObjects,Emoji Objects
+EmojiPeople,Emoji People
+EmojiSymbols,Emoji Symbols
+EmojiTransportation,Emoji Transportation
+EnergySavingsLeaf,Energy Savings Leaf
+Engineering,Engineering
+EnhancedEncryption,Enhanced Encryption
+Equalizer,Equalizer
+Error,Error
+ErrorOutline,Error Outline
+Escalator,Escalator
+EscalatorWarning,Escalator Warning
+Euro,Euro
+EuroSymbol,Euro Symbol
+EvStation,Ev Station
+Event,Event
+EventAvailable,Event Available
+EventBusy,Event Busy
+EventNote,Event Note
+EventRepeat,Event Repeat
+EventSeat,Event Seat
+ExitToApp,Exit To App
+Expand,Expand
+ExpandCircleDown,Expand Circle Down
+ExpandLess,Expand Less
+ExpandMore,Expand More
+Explicit,Explicit
+Explore,Explore
+ExploreOff,Explore Off
+Exposure,Exposure
+ExposureNeg1,Exposure Neg 1
+ExposureNeg2,Exposure Neg 2
+ExposurePlus1,Exposure Plus 1
+ExposurePlus2,Exposure Plus 2
+ExposureZero,Exposure Zero
+Extension,Extension
+ExtensionOff,Extension Off
+Face,Face
+Face2,Face 2
+Face3,Face 3
+Face4,Face 4
+Face5,Face 5
+Face6,Face 6
+FaceRetouchingNatural,Face Retouching Natural
+FaceRetouchingOff,Face Retouching Off
+Facebook,Facebook
+FactCheck,Fact Check
+Factory,Factory
+FamilyRestroom,Family Restroom
+FastForward,Fast Forward
+FastRewind,Fast Rewind
+Fastfood,Fastfood
+Favorite,Favorite
+FavoriteBorder,Favorite Border
+Fax,Fax
+FeaturedPlayList,Featured Play List
+FeaturedVideo,Featured Video
+Feed,Feed
+Feedback,Feedback
+Female,Female
+Fence,Fence
+Festival,Festival
+FiberDvr,Fiber Dvr
+FiberManualRecord,Fiber Manual Record
+FiberNew,Fiber New
+FiberPin,Fiber Pin
+FiberSmartRecord,Fiber Smart Record
+FileCopy,File Copy
+FileDownload,File Download
+FileDownloadDone,File Download Done
+FileDownloadOff,File Download Off
+FileOpen,File Open
+FilePresent,File Present
+FileUpload,File Upload
+Filter,Filter
+Filter1,Filter 1
+Filter2,Filter 2
+Filter3,Filter 3
+Filter4,Filter 4
+Filter5,Filter 5
+Filter6,Filter 6
+Filter7,Filter 7
+Filter8,Filter 8
+Filter9,Filter 9
+Filter9Plus,Filter 9 Plus
+FilterAlt,Filter Alt
+FilterAltOff,Filter Alt Off
+FilterBAndW,Filter B And W
+FilterCenterFocus,Filter Center Focus
+FilterDrama,Filter Drama
+FilterFrames,Filter Frames
+FilterHdr,Filter Hdr
+FilterList,Filter List
+FilterListOff,Filter List Off
+FilterNone,Filter None
+FilterTiltShift,Filter Tilt Shift
+FilterVintage,Filter Vintage
+FindInPage,Find In Page
+FindReplace,Find Replace
+Fingerprint,Fingerprint
+FireExtinguisher,Fire Extinguisher
+FireHydrantAlt,Fire Hydrant Alt
+FireTruck,Fire Truck
+Fireplace,Fireplace
+FirstPage,First Page
+FitScreen,Fit Screen
+Fitbit,Fitbit
+FitnessCenter,Fitness Center
+Flag,Flag
+FlagCircle,Flag Circle
+Flaky,Flaky
+Flare,Flare
+FlashAuto,Flash Auto
+FlashOff,Flash Off
+FlashOn,Flash On
+FlashlightOff,Flashlight Off
+FlashlightOn,Flashlight On
+Flatware,Flatware
+Flight,Flight
+FlightClass,Flight Class
+FlightLand,Flight Land
+FlightTakeoff,Flight Takeoff
+Flip,Flip
+FlipCameraAndroid,Flip Camera Android
+FlipCameraIos,Flip Camera Ios
+FlipToBack,Flip To Back
+FlipToFront,Flip To Front
+Flood,Flood
+Flourescent,Flourescent
+Flourescent,Flourescent
+Fluorescent,Fluorescent
+FlutterDash,Flutter Dash
+FmdBad,Fmd Bad
+FmdGood,Fmd Good
+Folder,Folder
+FolderCopy,Folder Copy
+FolderDelete,Folder Delete
+FolderOff,Folder Off
+FolderOpen,Folder Open
+FolderShared,Folder Shared
+FolderSpecial,Folder Special
+FolderZip,Folder Zip
+FollowTheSigns,Follow The Signs
+FontDownload,Font Download
+FontDownloadOff,Font Download Off
+FoodBank,Food Bank
+Forest,Forest
+ForkLeft,Fork Left
+ForkRight,Fork Right
+FormatAlignCenter,Format Align Center
+FormatAlignJustify,Format Align Justify
+FormatAlignLeft,Format Align Left
+FormatAlignRight,Format Align Right
+FormatBold,Format Bold
+FormatClear,Format Clear
+FormatColorFill,Format Color Fill
+FormatColorReset,Format Color Reset
+FormatColorText,Format Color Text
+FormatIndentDecrease,Format Indent Decrease
+FormatIndentIncrease,Format Indent Increase
+FormatItalic,Format Italic
+FormatLineSpacing,Format Line Spacing
+FormatListBulleted,Format List Bulleted
+FormatListNumbered,Format List Numbered
+FormatListNumberedRtl,Format List Numbered Rtl
+FormatOverline,Format Overline
+FormatPaint,Format Paint
+FormatQuote,Format Quote
+FormatShapes,Format Shapes
+FormatSize,Format Size
+FormatStrikethrough,Format Strikethrough
+FormatTextdirectionLToR,Format Textdirection L To R
+FormatTextdirectionRToL,Format Textdirection R To L
+FormatUnderlined,Format Underlined
+Fort,Fort
+Forum,Forum
+Forward,Forward
+Forward10,Forward 10
+Forward30,Forward 30
+Forward5,Forward 5
+ForwardToInbox,Forward To Inbox
+Foundation,Foundation
+FreeBreakfast,Free Breakfast
+FreeCancellation,Free Cancellation
+FrontHand,Front Hand
+Fullscreen,Fullscreen
+FullscreenExit,Fullscreen Exit
+Functions,Functions
+GMobiledata,G Mobiledata
+GTranslate,G Translate
+Gamepad,Gamepad
+Games,Games
+Garage,Garage
+GasMeter,Gas Meter
+Gavel,Gavel
+GeneratingTokens,Generating Tokens
+Gesture,Gesture
+GetApp,Get App
+Gif,Gif
+GifBox,Gif Box
+Girl,Girl
+Gite,Gite
+GolfCourse,Golf Course
+GppBad,Gpp Bad
+GppGood,Gpp Good
+GppMaybe,Gpp Maybe
+GpsFixed,Gps Fixed
+GpsNotFixed,Gps Not Fixed
+GpsOff,Gps Off
+Grade,Grade
+Gradient,Gradient
+Grading,Grading
+Grain,Grain
+GraphicEq,Graphic Eq
+Grass,Grass
+GridGoldenratio,Grid Goldenratio
+GridOff,Grid Off
+GridOn,Grid On
+GridView,Grid View
+Group,Group
+GroupAdd,Group Add
+GroupOff,Group Off
+GroupRemove,Group Remove
+GroupWork,Group Work
+Groups,Groups
+Groups2,Groups 2
+Groups3,Groups 3
+HMobiledata,H Mobiledata
+HPlusMobiledata,H Plus Mobiledata
+Hail,Hail
+Handshake,Handshake
+Handyman,Handyman
+Hardware,Hardware
+Hd,Hd
+HdrAuto,Hdr Auto
+HdrAutoSelect,Hdr Auto Select
+HdrEnhancedSelect,Hdr Enhanced Select
+HdrOff,Hdr Off
+HdrOffSelect,Hdr Off Select
+HdrOn,Hdr On
+HdrOnSelect,Hdr On Select
+HdrPlus,Hdr Plus
+HdrStrong,Hdr Strong
+HdrWeak,Hdr Weak
+Headphones,Headphones
+HeadphonesBattery,Headphones Battery
+Headset,Headset
+HeadsetMic,Headset Mic
+HeadsetOff,Headset Off
+Healing,Healing
+HealthAndSafety,Health And Safety
+Hearing,Hearing
+HearingDisabled,Hearing Disabled
+HeartBroken,Heart Broken
+HeatPump,Heat Pump
+Height,Height
+Help,Help
+HelpCenter,Help Center
+HelpOutline,Help Outline
+Hevc,Hevc
+Hexagon,Hexagon
+HideImage,Hide Image
+HideSource,Hide Source
+HighQuality,High Quality
+Highlight,Highlight
+HighlightAlt,Highlight Alt
+HighlightOff,Highlight Off
+Hiking,Hiking
+History,History
+HistoryEdu,History Edu
+HistoryToggleOff,History Toggle Off
+Hive,Hive
+Hls,Hls
+HlsOff,Hls Off
+HolidayVillage,Holiday Village
+Home,Home
+HomeMax,Home Max
+HomeMini,Home Mini
+HomeRepairService,Home Repair Service
+HomeWork,Home Work
+HorizontalDistribute,Horizontal Distribute
+HorizontalRule,Horizontal Rule
+HorizontalSplit,Horizontal Split
+HotTub,Hot Tub
+Hotel,Hotel
+HotelClass,Hotel Class
+HourglassBottom,Hourglass Bottom
+HourglassDisabled,Hourglass Disabled
+HourglassEmpty,Hourglass Empty
+HourglassFull,Hourglass Full
+HourglassTop,Hourglass Top
+House,House
+HouseSiding,House Siding
+Houseboat,Houseboat
+HowToReg,How To Reg
+HowToVote,How To Vote
+Html,Html
+Http,Http
+Https,Https
+Hub,Hub
+Hvac,Hvac
+IceSkating,Ice Skating
+Icecream,Icecream
+Image,Image
+ImageAspectRatio,Image Aspect Ratio
+ImageNotSupported,Image Not Supported
+ImageSearch,Image Search
+ImagesearchRoller,Imagesearch Roller
+ImportContacts,Import Contacts
+ImportExport,Import Export
+ImportantDevices,Important Devices
+Inbox,Inbox
+IncompleteCircle,Incomplete Circle
+IndeterminateCheckBox,Indeterminate Check Box
+Info,Info
+Input,Input
+InsertChart,Insert Chart
+InsertChartOutlined,Insert Chart Outlined
+InsertComment,Insert Comment
+InsertDriveFile,Insert Drive File
+InsertEmoticon,Insert Emoticon
+InsertInvitation,Insert Invitation
+InsertLink,Insert Link
+InsertPageBreak,Insert Page Break
+InsertPhoto,Insert Photo
+Insights,Insights
+InstallDesktop,Install Desktop
+InstallMobile,Install Mobile
+IntegrationInstructions,Integration Instructions
+Interests,Interests
+InterpreterMode,Interpreter Mode
+Inventory,Inventory
+Inventory2,Inventory 2
+InvertColors,Invert Colors
+InvertColorsOff,Invert Colors Off
+IosShare,Ios Share
+Iron,Iron
+Iso,Iso
+Javascript,Javascript
+JoinFull,Join Full
+JoinInner,Join Inner
+JoinLeft,Join Left
+JoinRight,Join Right
+Kayaking,Kayaking
+KebabDining,Kebab Dining
+Key,Key
+KeyOff,Key Off
+Keyboard,Keyboard
+KeyboardAlt,Keyboard Alt
+KeyboardArrowDown,Keyboard Arrow Down
+KeyboardArrowLeft,Keyboard Arrow Left
+KeyboardArrowRight,Keyboard Arrow Right
+KeyboardArrowUp,Keyboard Arrow Up
+KeyboardBackspace,Keyboard Backspace
+KeyboardCapslock,Keyboard Capslock
+KeyboardCommandKey,Keyboard Command Key
+KeyboardControlKey,Keyboard Control Key
+KeyboardDoubleArrowDown,Keyboard Double Arrow Down
+KeyboardDoubleArrowLeft,Keyboard Double Arrow Left
+KeyboardDoubleArrowRight,Keyboard Double Arrow Right
+KeyboardDoubleArrowUp,Keyboard Double Arrow Up
+KeyboardHide,Keyboard Hide
+KeyboardOptionKey,Keyboard Option Key
+KeyboardReturn,Keyboard Return
+KeyboardTab,Keyboard Tab
+KeyboardVoice,Keyboard Voice
+KingBed,King Bed
+Kitchen,Kitchen
+Kitesurfing,Kitesurfing
+Label,Label
+LabelImportant,Label Important
+LabelOff,Label Off
+Lan,Lan
+Landscape,Landscape
+Landslide,Landslide
+Language,Language
+Laptop,Laptop
+LaptopChromebook,Laptop Chromebook
+LaptopMac,Laptop Mac
+LaptopWindows,Laptop Windows
+LastPage,Last Page
+Launch,Launch
+Layers,Layers
+LayersClear,Layers Clear
+Leaderboard,Leaderboard
+LeakAdd,Leak Add
+LeakRemove,Leak Remove
+LeaveBagsAtHome,Leave Bags At Home
+LegendToggle,Legend Toggle
+Lens,Lens
+LensBlur,Lens Blur
+LibraryAdd,Library Add
+LibraryAddCheck,Library Add Check
+LibraryBooks,Library Books
+LibraryMusic,Library Music
+Light,Light
+LightMode,Light Mode
+Lightbulb,Lightbulb
+LightbulbCircle,Lightbulb Circle
+LineAxis,Line Axis
+LineStyle,Line Style
+LineWeight,Line Weight
+LinearScale,Linear Scale
+Link,Link
+LinkOff,Link Off
+LinkedCamera,Linked Camera
+Liquor,Liquor
+List,List
+ListAlt,List Alt
+LiveHelp,Live Help
+LiveTv,Live Tv
+Living,Living
+LocalActivity,Local Activity
+LocalAirport,Local Airport
+LocalAtm,Local Atm
+LocalBar,Local Bar
+LocalCafe,Local Cafe
+LocalCarWash,Local Car Wash
+LocalConvenienceStore,Local Convenience Store
+LocalDining,Local Dining
+LocalDrink,Local Drink
+LocalFireDepartment,Local Fire Department
+LocalFlorist,Local Florist
+LocalGasStation,Local Gas Station
+LocalGroceryStore,Local Grocery Store
+LocalHospital,Local Hospital
+LocalHotel,Local Hotel
+LocalLaundryService,Local Laundry Service
+LocalLibrary,Local Library
+LocalMall,Local Mall
+LocalMovies,Local Movies
+LocalOffer,Local Offer
+LocalParking,Local Parking
+LocalPharmacy,Local Pharmacy
+LocalPhone,Local Phone
+LocalPizza,Local Pizza
+LocalPlay,Local Play
+LocalPolice,Local Police
+LocalPostOffice,Local Post Office
+LocalPrintshop,Local Printshop
+LocalSee,Local See
+LocalShipping,Local Shipping
+LocalTaxi,Local Taxi
+LocationCity,Location City
+LocationDisabled,Location Disabled
+LocationOff,Location Off
+LocationOn,Location On
+LocationSearching,Location Searching
+Lock,Lock
+LockClock,Lock Clock
+LockOpen,Lock Open
+LockPerson,Lock Person
+LockReset,Lock Reset
+Login,Login
+LogoDev,Logo Dev
+Logout,Logout
+Looks,Looks
+Looks3,Looks 3
+Looks4,Looks 4
+Looks5,Looks 5
+Looks6,Looks 6
+LooksOne,Looks One
+LooksTwo,Looks Two
+Loop,Loop
+Loupe,Loupe
+LowPriority,Low Priority
+Loyalty,Loyalty
+LteMobiledata,Lte Mobiledata
+LtePlusMobiledata,Lte Plus Mobiledata
+Luggage,Luggage
+LunchDining,Lunch Dining
+Lyrics,Lyrics
+MacroOff,Macro Off
+Mail,Mail
+MailLock,Mail Lock
+MailOutline,Mail Outline
+Male,Male
+Man,Man
+Man2,Man 2
+Man3,Man 3
+Man4,Man 4
+ManageAccounts,Manage Accounts
+ManageHistory,Manage History
+ManageSearch,Manage Search
+Map,Map
+MapsHomeWork,Maps Home Work
+MapsUgc,Maps Ugc
+Margin,Margin
+MarkAsUnread,Mark As Unread
+MarkChatRead,Mark Chat Read
+MarkChatUnread,Mark Chat Unread
+MarkEmailRead,Mark Email Read
+MarkEmailUnread,Mark Email Unread
+MarkUnreadChatAlt,Mark Unread Chat Alt
+Markunread,Markunread
+MarkunreadMailbox,Markunread Mailbox
+Masks,Masks
+Maximize,Maximize
+MediaBluetoothOff,Media Bluetooth Off
+MediaBluetoothOn,Media Bluetooth On
+Mediation,Mediation
+MedicalInformation,Medical Information
+MedicalServices,Medical Services
+Medication,Medication
+MeetingRoom,Meeting Room
+Memory,Memory
+Menu,Menu
+MenuBook,Menu Book
+MenuOpen,Menu Open
+Merge,Merge
+MergeType,Merge Type
+Message,Message
+Mic,Mic
+MicExternalOff,Mic External Off
+MicExternalOn,Mic External On
+MicNone,Mic None
+MicOff,Mic Off
+Microwave,Microwave
+MilitaryTech,Military Tech
+Minimize,Minimize
+MinorCrash,Minor Crash
+MiscellaneousServices,Miscellaneous Services
+MissedVideoCall,Missed Video Call
+Mms,Mms
+MobileFriendly,Mobile Friendly
+MobileOff,Mobile Off
+MobileScreenShare,Mobile Screen Share
+MobiledataOff,Mobiledata Off
+Mode,Mode
+ModeComment,Mode Comment
+ModeEdit,Mode Edit
+ModeEditOutline,Mode Edit Outline
+ModeFanOff,Mode Fan Off
+ModeNight,Mode Night
+ModeOfTravel,Mode Of Travel
+ModeStandby,Mode Standby
+ModelTraining,Model Training
+MonetizationOn,Monetization On
+Money,Money
+MoneyOff,Money Off
+MoneyOffCsred,Money Off Csred
+Monitor,Monitor
+MonitorHeart,Monitor Heart
+MonitorWeight,Monitor Weight
+MonochromePhotos,Monochrome Photos
+Mood,Mood
+MoodBad,Mood Bad
+Moped,Moped
+More,More
+MoreHoriz,More Horiz
+MoreTime,More Time
+MoreVert,More Vert
+Mosque,Mosque
+MotionPhotosAuto,Motion Photos Auto
+MotionPhotosOff,Motion Photos Off
+MotionPhotosOn,Motion Photos On
+MotionPhotosPause,Motion Photos Pause
+MotionPhotosPaused,Motion Photos Paused
+Motorcycle,Motorcycle
+Mouse,Mouse
+MoveDown,Move Down
+MoveToInbox,Move To Inbox
+MoveUp,Move Up
+Movie,Movie
+MovieCreation,Movie Creation
+MovieFilter,Movie Filter
+Moving,Moving
+Mp,Mp
+MultilineChart,Multiline Chart
+MultipleStop,Multiple Stop
+Museum,Museum
+MusicNote,Music Note
+MusicOff,Music Off
+MusicVideo,Music Video
+MyLocation,My Location
+Nat,Nat
+Nature,Nature
+NaturePeople,Nature People
+NavigateBefore,Navigate Before
+NavigateNext,Navigate Next
+Navigation,Navigation
+NearMe,Near Me
+NearMeDisabled,Near Me Disabled
+NearbyError,Nearby Error
+NearbyOff,Nearby Off
+NestCamWiredStand,Nest Cam Wired Stand
+NetworkCell,Network Cell
+NetworkCheck,Network Check
+NetworkLocked,Network Locked
+NetworkPing,Network Ping
+NetworkWifi,Network Wifi
+NetworkWifi1Bar,Network Wifi 1 Bar
+NetworkWifi2Bar,Network Wifi 2 Bar
+NetworkWifi3Bar,Network Wifi 3 Bar
+NewLabel,New Label
+NewReleases,New Releases
+Newspaper,Newspaper
+NextPlan,Next Plan
+NextWeek,Next Week
+Nfc,Nfc
+NightShelter,Night Shelter
+Nightlife,Nightlife
+Nightlight,Nightlight
+NightlightRound,Nightlight Round
+NightsStay,Nights Stay
+NoAccounts,No Accounts
+NoAdultContent,No Adult Content
+NoBackpack,No Backpack
+NoCell,No Cell
+NoCrash,No Crash
+NoDrinks,No Drinks
+NoEncryption,No Encryption
+NoEncryptionGmailerrorred,No Encryption Gmailerrorred
+NoFlash,No Flash
+NoFood,No Food
+NoLuggage,No Luggage
+NoMeals,No Meals
+NoMeetingRoom,No Meeting Room
+NoPhotography,No Photography
+NoSim,No Sim
+NoStroller,No Stroller
+NoTransfer,No Transfer
+NoiseAware,Noise Aware
+NoiseControlOff,Noise Control Off
+NordicWalking,Nordic Walking
+North,North
+NorthEast,North East
+NorthWest,North West
+NotAccessible,Not Accessible
+NotInterested,Not Interested
+NotListedLocation,Not Listed Location
+NotStarted,Not Started
+Note,Note
+NoteAdd,Note Add
+NoteAlt,Note Alt
+Notes,Notes
+NotificationAdd,Notification Add
+NotificationImportant,Notification Important
+Notifications,Notifications
+NotificationsActive,Notifications Active
+NotificationsNone,Notifications None
+NotificationsOff,Notifications Off
+NotificationsPaused,Notifications Paused
+Numbers,Numbers
+OfflineBolt,Offline Bolt
+OfflinePin,Offline Pin
+OfflineShare,Offline Share
+OilBarrel,Oil Barrel
+OnDeviceTraining,On Device Training
+OndemandVideo,Ondemand Video
+OnlinePrediction,Online Prediction
+Opacity,Opacity
+OpenInBrowser,Open In Browser
+OpenInFull,Open In Full
+OpenInNew,Open In New
+OpenInNewOff,Open In New Off
+OpenWith,Open With
+OtherHouses,Other Houses
+Outbond,Outbond
+Outbound,Outbound
+Outbox,Outbox
+OutdoorGrill,Outdoor Grill
+Outlet,Outlet
+OutlinedFlag,Outlined Flag
+Output,Output
+Padding,Padding
+Pages,Pages
+Pageview,Pageview
+Paid,Paid
+Palette,Palette
+PanTool,Pan Tool
+PanToolAlt,Pan Tool Alt
+Panorama,Panorama
+PanoramaFishEye,Panorama Fish Eye
+PanoramaHorizontal,Panorama Horizontal
+PanoramaHorizontalSelect,Panorama Horizontal Select
+PanoramaPhotosphere,Panorama Photosphere
+PanoramaPhotosphereSelect,Panorama Photosphere Select
+PanoramaVertical,Panorama Vertical
+PanoramaVerticalSelect,Panorama Vertical Select
+PanoramaWideAngle,Panorama Wide Angle
+PanoramaWideAngleSelect,Panorama Wide Angle Select
+Paragliding,Paragliding
+Park,Park
+PartyMode,Party Mode
+Password,Password
+Pattern,Pattern
+Pause,Pause
+PauseCircle,Pause Circle
+PauseCircleFilled,Pause Circle Filled
+PauseCircleOutline,Pause Circle Outline
+PausePresentation,Pause Presentation
+Payment,Payment
+Payments,Payments
+PedalBike,Pedal Bike
+Pending,Pending
+PendingActions,Pending Actions
+Pentagon,Pentagon
+People,People
+PeopleAlt,People Alt
+PeopleOutline,People Outline
+Percent,Percent
+PermCameraMic,Perm Camera Mic
+PermContactCalendar,Perm Contact Calendar
+PermDataSetting,Perm Data Setting
+PermDeviceInformation,Perm Device Information
+PermIdentity,Perm Identity
+PermMedia,Perm Media
+PermPhoneMsg,Perm Phone Msg
+PermScanWifi,Perm Scan Wifi
+Person,Person
+Person2,Person 2
+Person3,Person 3
+Person4,Person 4
+PersonAdd,Person Add
+PersonAddAlt,Person Add Alt
+PersonAddAlt1,Person Add Alt 1
+PersonAddDisabled,Person Add Disabled
+PersonOff,Person Off
+PersonOutline,Person Outline
+PersonPin,Person Pin
+PersonPinCircle,Person Pin Circle
+PersonRemove,Person Remove
+PersonRemoveAlt1,Person Remove Alt 1
+PersonSearch,Person Search
+PersonalInjury,Personal Injury
+PersonalVideo,Personal Video
+PestControl,Pest Control
+PestControlRodent,Pest Control Rodent
+Pets,Pets
+Phishing,Phishing
+Phone,Phone
+PhoneAndroid,Phone Android
+PhoneBluetoothSpeaker,Phone Bluetooth Speaker
+PhoneCallback,Phone Callback
+PhoneDisabled,Phone Disabled
+PhoneEnabled,Phone Enabled
+PhoneForwarded,Phone Forwarded
+PhoneInTalk,Phone In Talk
+PhoneIphone,Phone Iphone
+PhoneLocked,Phone Locked
+PhoneMissed,Phone Missed
+PhonePaused,Phone Paused
+Phonelink,Phonelink
+PhonelinkErase,Phonelink Erase
+PhonelinkLock,Phonelink Lock
+PhonelinkOff,Phonelink Off
+PhonelinkRing,Phonelink Ring
+PhonelinkSetup,Phonelink Setup
+Photo,Photo
+PhotoAlbum,Photo Album
+PhotoCamera,Photo Camera
+PhotoCameraBack,Photo Camera Back
+PhotoCameraFront,Photo Camera Front
+PhotoFilter,Photo Filter
+PhotoLibrary,Photo Library
+PhotoSizeSelectActual,Photo Size Select Actual
+PhotoSizeSelectLarge,Photo Size Select Large
+PhotoSizeSelectSmall,Photo Size Select Small
+Php,Php
+Piano,Piano
+PianoOff,Piano Off
+PictureAsPdf,Picture As Pdf
+PictureInPicture,Picture In Picture
+PictureInPictureAlt,Picture In Picture Alt
+PieChart,Pie Chart
+PieChartOutline,Pie Chart Outline
+Pin,Pin
+PinDrop,Pin Drop
+PinEnd,Pin End
+PinInvoke,Pin Invoke
+Pinch,Pinch
+PivotTableChart,Pivot Table Chart
+Pix,Pix
+Place,Place
+Plagiarism,Plagiarism
+PlayArrow,Play Arrow
+PlayCircle,Play Circle
+PlayCircleFilled,Play Circle Filled
+PlayCircleOutline,Play Circle Outline
+PlayDisabled,Play Disabled
+PlayForWork,Play For Work
+PlayLesson,Play Lesson
+PlaylistAdd,Playlist Add
+PlaylistAddCheck,Playlist Add Check
+PlaylistAddCheckCircle,Playlist Add Check Circle
+PlaylistAddCircle,Playlist Add Circle
+PlaylistPlay,Playlist Play
+PlaylistRemove,Playlist Remove
+Plumbing,Plumbing
+PlusOne,Plus One
+Podcasts,Podcasts
+PointOfSale,Point Of Sale
+Policy,Policy
+Poll,Poll
+Polyline,Polyline
+Polymer,Polymer
+Pool,Pool
+PortableWifiOff,Portable Wifi Off
+Portrait,Portrait
+PostAdd,Post Add
+Power,Power
+PowerInput,Power Input
+PowerOff,Power Off
+PowerSettingsNew,Power Settings New
+PrecisionManufacturing,Precision Manufacturing
+PregnantWoman,Pregnant Woman
+PresentToAll,Present To All
+Preview,Preview
+PriceChange,Price Change
+PriceCheck,Price Check
+Print,Print
+PrintDisabled,Print Disabled
+PriorityHigh,Priority High
+PrivacyTip,Privacy Tip
+PrivateConnectivity,Private Connectivity
+ProductionQuantityLimits,Production Quantity Limits
+Propane,Propane
+PropaneTank,Propane Tank
+Psychology,Psychology
+PsychologyAlt,Psychology Alt
+Public,Public
+PublicOff,Public Off
+Publish,Publish
+PublishedWithChanges,Published With Changes
+PunchClock,Punch Clock
+PushPin,Push Pin
+QrCode,Qr Code
+QrCode2,Qr Code 2
+QrCodeScanner,Qr Code Scanner
+QueryBuilder,Query Builder
+QueryStats,Query Stats
+QuestionAnswer,Question Answer
+QuestionMark,Question Mark
+Queue,Queue
+QueueMusic,Queue Music
+QueuePlayNext,Queue Play Next
+Quickreply,Quickreply
+Quiz,Quiz
+RMobiledata,R Mobiledata
+Radar,Radar
+Radio,Radio
+RadioButtonChecked,Radio Button Checked
+RadioButtonUnchecked,Radio Button Unchecked
+RailwayAlert,Railway Alert
+RamenDining,Ramen Dining
+RampLeft,Ramp Left
+RampRight,Ramp Right
+RateReview,Rate Review
+RawOff,Raw Off
+RawOn,Raw On
+ReadMore,Read More
+RealEstateAgent,Real Estate Agent
+Receipt,Receipt
+ReceiptLong,Receipt Long
+RecentActors,Recent Actors
+Recommend,Recommend
+RecordVoiceOver,Record Voice Over
+Rectangle,Rectangle
+Recycling,Recycling
+Redeem,Redeem
+Redo,Redo
+ReduceCapacity,Reduce Capacity
+Refresh,Refresh
+RememberMe,Remember Me
+Remove,Remove
+RemoveCircle,Remove Circle
+RemoveCircleOutline,Remove Circle Outline
+RemoveDone,Remove Done
+RemoveFromQueue,Remove From Queue
+RemoveModerator,Remove Moderator
+RemoveRedEye,Remove Red Eye
+RemoveRoad,Remove Road
+RemoveShoppingCart,Remove Shopping Cart
+Reorder,Reorder
+Repartition,Repartition
+Repeat,Repeat
+RepeatOn,Repeat On
+RepeatOne,Repeat One
+RepeatOneOn,Repeat One On
+Replay,Replay
+Replay10,Replay 10
+Replay30,Replay 30
+Replay5,Replay 5
+ReplayCircleFilled,Replay Circle Filled
+Reply,Reply
+ReplyAll,Reply All
+Report,Report
+ReportGmailerrorred,Report Gmailerrorred
+ReportOff,Report Off
+ReportProblem,Report Problem
+RequestPage,Request Page
+RequestQuote,Request Quote
+ResetTv,Reset Tv
+RestartAlt,Restart Alt
+Restaurant,Restaurant
+RestaurantMenu,Restaurant Menu
+Restore,Restore
+RestoreFromTrash,Restore From Trash
+RestorePage,Restore Page
+Reviews,Reviews
+RiceBowl,Rice Bowl
+RingVolume,Ring Volume
+Rocket,Rocket
+RocketLaunch,Rocket Launch
+RollerShades,Roller Shades
+RollerShadesClosed,Roller Shades Closed
+RollerSkating,Roller Skating
+Roofing,Roofing
+Room,Room
+RoomPreferences,Room Preferences
+RoomService,Room Service
+Rotate90DegreesCcw,Rotate 90 Degrees Ccw
+Rotate90DegreesCw,Rotate 90 Degrees Cw
+RotateLeft,Rotate Left
+RotateRight,Rotate Right
+RoundaboutLeft,Roundabout Left
+RoundaboutRight,Roundabout Right
+RoundedCorner,Rounded Corner
+Route,Route
+Router,Router
+Rowing,Rowing
+RssFeed,Rss Feed
+Rsvp,Rsvp
+Rtt,Rtt
+Rule,Rule
+RuleFolder,Rule Folder
+RunCircle,Run Circle
+RunningWithErrors,Running With Errors
+RvHookup,Rv Hookup
+SafetyCheck,Safety Check
+SafetyDivider,Safety Divider
+Sailing,Sailing
+Sanitizer,Sanitizer
+Satellite,Satellite
+SatelliteAlt,Satellite Alt
+Save,Save
+SaveAlt,Save Alt
+SaveAs,Save As
+SavedSearch,Saved Search
+Savings,Savings
+Scale,Scale
+Scanner,Scanner
+ScatterPlot,Scatter Plot
+Schedule,Schedule
+ScheduleSend,Schedule Send
+Schema,Schema
+School,School
+Science,Science
+Score,Score
+Scoreboard,Scoreboard
+ScreenLockLandscape,Screen Lock Landscape
+ScreenLockPortrait,Screen Lock Portrait
+ScreenLockRotation,Screen Lock Rotation
+ScreenRotation,Screen Rotation
+ScreenRotationAlt,Screen Rotation Alt
+ScreenSearchDesktop,Screen Search Desktop
+ScreenShare,Screen Share
+Screenshot,Screenshot
+ScreenshotMonitor,Screenshot Monitor
+ScubaDiving,Scuba Diving
+Sd,Sd
+SdCard,Sd Card
+SdCardAlert,Sd Card Alert
+SdStorage,Sd Storage
+Search,Search
+SearchOff,Search Off
+Security,Security
+SecurityUpdate,Security Update
+SecurityUpdateGood,Security Update Good
+SecurityUpdateWarning,Security Update Warning
+Segment,Segment
+SelectAll,Select All
+SelfImprovement,Self Improvement
+Sell,Sell
+Send,Send
+SendAndArchive,Send And Archive
+SendTimeExtension,Send Time Extension
+SendToMobile,Send To Mobile
+SensorDoor,Sensor Door
+SensorOccupied,Sensor Occupied
+SensorWindow,Sensor Window
+Sensors,Sensors
+SensorsOff,Sensors Off
+SentimentDissatisfied,Sentiment Dissatisfied
+SentimentNeutral,Sentiment Neutral
+SentimentSatisfied,Sentiment Satisfied
+SentimentSatisfiedAlt,Sentiment Satisfied Alt
+SentimentVeryDissatisfied,Sentiment Very Dissatisfied
+SentimentVerySatisfied,Sentiment Very Satisfied
+SetMeal,Set Meal
+Settings,Settings
+SettingsAccessibility,Settings Accessibility
+SettingsApplications,Settings Applications
+SettingsBackupRestore,Settings Backup Restore
+SettingsBluetooth,Settings Bluetooth
+SettingsBrightness,Settings Brightness
+SettingsCell,Settings Cell
+SettingsEthernet,Settings Ethernet
+SettingsInputAntenna,Settings Input Antenna
+SettingsInputComponent,Settings Input Component
+SettingsInputComposite,Settings Input Composite
+SettingsInputHdmi,Settings Input Hdmi
+SettingsInputSvideo,Settings Input Svideo
+SettingsOverscan,Settings Overscan
+SettingsPhone,Settings Phone
+SettingsPower,Settings Power
+SettingsRemote,Settings Remote
+SettingsSuggest,Settings Suggest
+SettingsSystemDaydream,Settings System Daydream
+SettingsVoice,Settings Voice
+SevereCold,Severe Cold
+ShapeLine,Shape Line
+Share,Share
+ShareLocation,Share Location
+Shield,Shield
+ShieldMoon,Shield Moon
+Shop,Shop
+Shop2,Shop 2
+ShopTwo,Shop Two
+ShoppingBag,Shopping Bag
+ShoppingBasket,Shopping Basket
+ShoppingCart,Shopping Cart
+ShoppingCartCheckout,Shopping Cart Checkout
+ShortText,Short Text
+Shortcut,Shortcut
+ShowChart,Show Chart
+Shower,Shower
+Shuffle,Shuffle
+ShuffleOn,Shuffle On
+ShutterSpeed,Shutter Speed
+Sick,Sick
+SignLanguage,Sign Language
+SignalCellular0Bar,Signal Cellular 0 Bar
+SignalCellular4Bar,Signal Cellular 4 Bar
+SignalCellularAlt,Signal Cellular Alt
+SignalCellularAlt1Bar,Signal Cellular Alt 1 Bar
+SignalCellularAlt2Bar,Signal Cellular Alt 2 Bar
+SignalCellularConnectedNoInternet0Bar,Signal Cellular Connected No Internet 0 Bar
+SignalCellularConnectedNoInternet4Bar,Signal Cellular Connected No Internet 4 Bar
+SignalCellularNoSim,Signal Cellular No Sim
+SignalCellularNodata,Signal Cellular Nodata
+SignalCellularNull,Signal Cellular Null
+SignalCellularOff,Signal Cellular Off
+SignalWifi0Bar,Signal Wifi 0 Bar
+SignalWifi4Bar,Signal Wifi 4 Bar
+SignalWifi4BarLock,Signal Wifi 4 Bar Lock
+SignalWifiBad,Signal Wifi Bad
+SignalWifiConnectedNoInternet4,Signal Wifi Connected No Internet 4
+SignalWifiOff,Signal Wifi Off
+SignalWifiStatusbar4Bar,Signal Wifi Statusbar 4 Bar
+SignalWifiStatusbarConnectedNoInternet4,Signal Wifi Statusbar Connected No Internet 4
+SignalWifiStatusbarNull,Signal Wifi Statusbar Null
+Signpost,Signpost
+SimCard,Sim Card
+SimCardAlert,Sim Card Alert
+SimCardDownload,Sim Card Download
+SingleBed,Single Bed
+Sip,Sip
+Skateboarding,Skateboarding
+SkipNext,Skip Next
+SkipPrevious,Skip Previous
+Sledding,Sledding
+Slideshow,Slideshow
+SlowMotionVideo,Slow Motion Video
+SmartButton,Smart Button
+SmartDisplay,Smart Display
+SmartScreen,Smart Screen
+SmartToy,Smart Toy
+Smartphone,Smartphone
+SmokeFree,Smoke Free
+SmokingRooms,Smoking Rooms
+Sms,Sms
+SmsFailed,Sms Failed
+SnippetFolder,Snippet Folder
+Snooze,Snooze
+Snowboarding,Snowboarding
+Snowmobile,Snowmobile
+Snowshoeing,Snowshoeing
+Soap,Soap
+SocialDistance,Social Distance
+SolarPower,Solar Power
+Sort,Sort
+SortByAlpha,Sort By Alpha
+Sos,Sos
+SoupKitchen,Soup Kitchen
+Source,Source
+South,South
+SouthAmerica,South America
+SouthEast,South East
+SouthWest,South West
+Spa,Spa
+SpaceBar,Space Bar
+SpaceDashboard,Space Dashboard
+SpatialAudio,Spatial Audio
+SpatialAudioOff,Spatial Audio Off
+SpatialTracking,Spatial Tracking
+Speaker,Speaker
+SpeakerGroup,Speaker Group
+SpeakerNotes,Speaker Notes
+SpeakerNotesOff,Speaker Notes Off
+SpeakerPhone,Speaker Phone
+Speed,Speed
+Spellcheck,Spellcheck
+Splitscreen,Splitscreen
+Spoke,Spoke
+Sports,Sports
+SportsBar,Sports Bar
+SportsBaseball,Sports Baseball
+SportsBasketball,Sports Basketball
+SportsCricket,Sports Cricket
+SportsEsports,Sports Esports
+SportsFootball,Sports Football
+SportsGolf,Sports Golf
+SportsGymnastics,Sports Gymnastics
+SportsHandball,Sports Handball
+SportsHockey,Sports Hockey
+SportsKabaddi,Sports Kabaddi
+SportsMartialArts,Sports Martial Arts
+SportsMma,Sports Mma
+SportsMotorsports,Sports Motorsports
+SportsRugby,Sports Rugby
+SportsScore,Sports Score
+SportsSoccer,Sports Soccer
+SportsTennis,Sports Tennis
+SportsVolleyball,Sports Volleyball
+Square,Square
+SquareFoot,Square Foot
+SsidChart,Ssid Chart
+StackedBarChart,Stacked Bar Chart
+StackedLineChart,Stacked Line Chart
+Stadium,Stadium
+Stairs,Stairs
+Star,Star
+StarBorder,Star Border
+StarBorderPurple500,Star Border Purple500
+StarHalf,Star Half
+StarOutline,Star Outline
+StarPurple500,Star Purple500
+StarRate,Star Rate
+Stars,Stars
+Start,Start
+StayCurrentLandscape,Stay Current Landscape
+StayCurrentPortrait,Stay Current Portrait
+StayPrimaryLandscape,Stay Primary Landscape
+StayPrimaryPortrait,Stay Primary Portrait
+StickyNote2,Sticky Note 2
+Stop,Stop
+StopCircle,Stop Circle
+StopScreenShare,Stop Screen Share
+Storage,Storage
+Store,Store
+StoreMallDirectory,Store Mall Directory
+Storefront,Storefront
+Storm,Storm
+Straight,Straight
+Straighten,Straighten
+Stream,Stream
+Streetview,Streetview
+StrikethroughS,Strikethrough S
+Stroller,Stroller
+Style,Style
+SubdirectoryArrowLeft,Subdirectory Arrow Left
+SubdirectoryArrowRight,Subdirectory Arrow Right
+Subject,Subject
+Subscript,Subscript
+Subscriptions,Subscriptions
+Subtitles,Subtitles
+SubtitlesOff,Subtitles Off
+Subway,Subway
+Summarize,Summarize
+Superscript,Superscript
+SupervisedUserCircle,Supervised User Circle
+SupervisorAccount,Supervisor Account
+Support,Support
+SupportAgent,Support Agent
+Surfing,Surfing
+SurroundSound,Surround Sound
+SwapCalls,Swap Calls
+SwapHoriz,Swap Horiz
+SwapHorizontalCircle,Swap Horizontal Circle
+SwapVert,Swap Vert
+SwapVerticalCircle,Swap Vertical Circle
+Swipe,Swipe
+SwipeDown,Swipe Down
+SwipeDownAlt,Swipe Down Alt
+SwipeLeft,Swipe Left
+SwipeLeftAlt,Swipe Left Alt
+SwipeRight,Swipe Right
+SwipeRightAlt,Swipe Right Alt
+SwipeUp,Swipe Up
+SwipeUpAlt,Swipe Up Alt
+SwipeVertical,Swipe Vertical
+SwitchAccessShortcut,Switch Access Shortcut
+SwitchAccessShortcutAdd,Switch Access Shortcut Add
+SwitchAccount,Switch Account
+SwitchCamera,Switch Camera
+SwitchLeft,Switch Left
+SwitchRight,Switch Right
+SwitchVideo,Switch Video
+Synagogue,Synagogue
+Sync,Sync
+SyncAlt,Sync Alt
+SyncDisabled,Sync Disabled
+SyncLock,Sync Lock
+SyncProblem,Sync Problem
+SystemSecurityUpdate,System Security Update
+SystemSecurityUpdateGood,System Security Update Good
+SystemSecurityUpdateWarning,System Security Update Warning
+SystemUpdate,System Update
+SystemUpdateAlt,System Update Alt
+Tab,Tab
+TabUnselected,Tab Unselected
+TableBar,Table Bar
+TableChart,Table Chart
+TableRestaurant,Table Restaurant
+TableRows,Table Rows
+TableView,Table View
+Tablet,Tablet
+TabletAndroid,Tablet Android
+TabletMac,Tablet Mac
+Tag,Tag
+TagFaces,Tag Faces
+TakeoutDining,Takeout Dining
+TapAndPlay,Tap And Play
+Tapas,Tapas
+Task,Task
+TaskAlt,Task Alt
+TaxiAlert,Taxi Alert
+TempleBuddhist,Temple Buddhist
+TempleHindu,Temple Hindu
+Terminal,Terminal
+Terrain,Terrain
+TextDecrease,Text Decrease
+TextFields,Text Fields
+TextFormat,Text Format
+TextIncrease,Text Increase
+TextRotateUp,Text Rotate Up
+TextRotateVertical,Text Rotate Vertical
+TextRotationAngledown,Text Rotation Angledown
+TextRotationAngleup,Text Rotation Angleup
+TextRotationDown,Text Rotation Down
+TextRotationNone,Text Rotation None
+TextSnippet,Text Snippet
+Textsms,Textsms
+Texture,Texture
+TheaterComedy,Theater Comedy
+Theaters,Theaters
+Thermostat,Thermostat
+ThermostatAuto,Thermostat Auto
+ThumbDown,Thumb Down
+ThumbDownAlt,Thumb Down Alt
+ThumbDownOffAlt,Thumb Down Off Alt
+ThumbUp,Thumb Up
+ThumbUpAlt,Thumb Up Alt
+ThumbUpOffAlt,Thumb Up Off Alt
+ThumbsUpDown,Thumbs Up Down
+Thunderstorm,Thunderstorm
+TimeToLeave,Time To Leave
+Timelapse,Timelapse
+Timeline,Timeline
+Timer,Timer
+Timer10,Timer 10
+Timer10Select,Timer 10 Select
+Timer3,Timer 3
+Timer3Select,Timer 3 Select
+TimerOff,Timer Off
+TipsAndUpdates,Tips And Updates
+TireRepair,Tire Repair
+Title,Title
+Toc,Toc
+Today,Today
+ToggleOff,Toggle Off
+ToggleOn,Toggle On
+Token,Token
+Toll,Toll
+Tonality,Tonality
+Topic,Topic
+Tornado,Tornado
+TouchApp,Touch App
+Tour,Tour
+Toys,Toys
+TrackChanges,Track Changes
+Traffic,Traffic
+Train,Train
+Tram,Tram
+Transcribe,Transcribe
+TransferWithinAStation,Transfer Within A Station
+Transform,Transform
+Transgender,Transgender
+TransitEnterexit,Transit Enterexit
+Translate,Translate
+TravelExplore,Travel Explore
+TrendingDown,Trending Down
+TrendingFlat,Trending Flat
+TrendingUp,Trending Up
+TripOrigin,Trip Origin
+Troubleshoot,Troubleshoot
+Try,Try
+Tsunami,Tsunami
+Tty,Tty
+Tune,Tune
+Tungsten,Tungsten
+TurnLeft,Turn Left
+TurnRight,Turn Right
+TurnSharpLeft,Turn Sharp Left
+TurnSharpRight,Turn Sharp Right
+TurnSlightLeft,Turn Slight Left
+TurnSlightRight,Turn Slight Right
+TurnedIn,Turned In
+TurnedInNot,Turned In Not
+Tv,Tv
+TvOff,Tv Off
+TwoWheeler,Two Wheeler
+TypeSpecimen,Type Specimen
+UTurnLeft,U Turn Left
+UTurnRight,U Turn Right
+Umbrella,Umbrella
+Unarchive,Unarchive
+Undo,Undo
+UnfoldLess,Unfold Less
+UnfoldLessDouble,Unfold Less Double
+UnfoldMore,Unfold More
+UnfoldMoreDouble,Unfold More Double
+Unpublished,Unpublished
+Unsubscribe,Unsubscribe
+Upcoming,Upcoming
+Update,Update
+UpdateDisabled,Update Disabled
+Upgrade,Upgrade
+Upload,Upload
+UploadFile,Upload File
+Usb,Usb
+UsbOff,Usb Off
+Vaccines,Vaccines
+VapeFree,Vape Free
+VapingRooms,Vaping Rooms
+Verified,Verified
+VerifiedUser,Verified User
+VerticalAlignBottom,Vertical Align Bottom
+VerticalAlignCenter,Vertical Align Center
+VerticalAlignTop,Vertical Align Top
+VerticalDistribute,Vertical Distribute
+VerticalShades,Vertical Shades
+VerticalShadesClosed,Vertical Shades Closed
+VerticalSplit,Vertical Split
+Vibration,Vibration
+VideoCall,Video Call
+VideoCameraBack,Video Camera Back
+VideoCameraFront,Video Camera Front
+VideoChat,Video Chat
+VideoFile,Video File
+VideoLabel,Video Label
+VideoLibrary,Video Library
+VideoSettings,Video Settings
+VideoStable,Video Stable
+Videocam,Videocam
+VideocamOff,Videocam Off
+VideogameAsset,Videogame Asset
+VideogameAssetOff,Videogame Asset Off
+ViewAgenda,View Agenda
+ViewArray,View Array
+ViewCarousel,View Carousel
+ViewColumn,View Column
+ViewComfy,View Comfy
+ViewComfyAlt,View Comfy Alt
+ViewCompact,View Compact
+ViewCompactAlt,View Compact Alt
+ViewCozy,View Cozy
+ViewDay,View Day
+ViewHeadline,View Headline
+ViewInAr,View In Ar
+ViewKanban,View Kanban
+ViewList,View List
+ViewModule,View Module
+ViewQuilt,View Quilt
+ViewSidebar,View Sidebar
+ViewStream,View Stream
+ViewTimeline,View Timeline
+ViewWeek,View Week
+Vignette,Vignette
+Villa,Villa
+Visibility,Visibility
+VisibilityOff,Visibility Off
+VoiceChat,Voice Chat
+VoiceOverOff,Voice Over Off
+Voicemail,Voicemail
+Volcano,Volcano
+VolumeDown,Volume Down
+VolumeMute,Volume Mute
+VolumeOff,Volume Off
+VolumeUp,Volume Up
+VolunteerActivism,Volunteer Activism
+VpnKey,Vpn Key
+VpnKeyOff,Vpn Key Off
+VpnLock,Vpn Lock
+Vrpano,Vrpano
+Wallet,Wallet
+Wallpaper,Wallpaper
+Warehouse,Warehouse
+Warning,Warning
+WarningAmber,Warning Amber
+Wash,Wash
+Watch,Watch
+WatchLater,Watch Later
+WatchOff,Watch Off
+Water,Water
+WaterDamage,Water Damage
+WaterDrop,Water Drop
+WaterfallChart,Waterfall Chart
+Waves,Waves
+WavingHand,Waving Hand
+WbAuto,Wb Auto
+WbCloudy,Wb Cloudy
+WbIncandescent,Wb Incandescent
+WbIridescent,Wb Iridescent
+WbShade,Wb Shade
+WbSunny,Wb Sunny
+WbTwilight,Wb Twilight
+Wc,Wc
+Web,Web
+WebAsset,Web Asset
+WebAssetOff,Web Asset Off
+WebStories,Web Stories
+Webhook,Webhook
+Weekend,Weekend
+West,West
+Whatshot,Whatshot
+WheelchairPickup,Wheelchair Pickup
+WhereToVote,Where To Vote
+Widgets,Widgets
+WidthFull,Width Full
+WidthNormal,Width Normal
+WidthWide,Width Wide
+Wifi,Wifi
+Wifi1Bar,Wifi 1 Bar
+Wifi2Bar,Wifi 2 Bar
+WifiCalling,Wifi Calling
+WifiCalling3,Wifi Calling 3
+WifiChannel,Wifi Channel
+WifiFind,Wifi Find
+WifiLock,Wifi Lock
+WifiOff,Wifi Off
+WifiPassword,Wifi Password
+WifiProtectedSetup,Wifi Protected Setup
+WifiTethering,Wifi Tethering
+WifiTetheringError,Wifi Tethering Error
+WifiTetheringErrorRounded,Wifi Tethering Error Rounded
+WifiTetheringOff,Wifi Tethering Off
+WindPower,Wind Power
+Window,Window
+WineBar,Wine Bar
+Woman,Woman
+Woman2,Woman 2
+Work,Work
+WorkHistory,Work History
+WorkOff,Work Off
+WorkOutline,Work Outline
+WorkspacePremium,Workspace Premium
+Workspaces,Workspaces
+WrapText,Wrap Text
+WrongLocation,Wrong Location
+Wysiwyg,Wysiwyg
+Yard,Yard
+YoutubeSearchedFor,Youtube Searched For
+ZoomIn,Zoom In
+ZoomInMap,Zoom In Map
+ZoomOut,Zoom Out
+ZoomOutMap,Zoom Out Map
