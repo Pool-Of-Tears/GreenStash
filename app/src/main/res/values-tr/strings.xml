@@ -145,7 +145,7 @@
     <string name="app_info_setting_desc">Uygulama versiyonunu ve faydalı linkleri göster.</string>
 
     <!-- Goal Card Style -->
-    <string name="goal_card_style_header">Hedef Stili</string>
+    <string name="goal_card_settings_header">Hedef Stili</string>
 
     <!-- OSL Screen -->
     <string name="osl_screen_header">Açık Kaynak Kütüphaneleri</string>

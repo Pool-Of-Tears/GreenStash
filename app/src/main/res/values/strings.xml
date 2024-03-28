@@ -28,6 +28,8 @@
     <string name="filter_button_desc">Filter your saving goals</string>
     <string name="search_button_desc">Search for specific saving goal.</string>
     <string name="new_goal_fab">New Goal</string>
+    <string name="new_goal_onboarding_title">Let\'s start by creating a new saving goal!</string>
+    <string name="new_goal_onboarding_desc">Click on the floating action button to create a new saving goal.</string>
     <string name="filter_menu_title">Filter By</string>
     <string name="home_search_label">Search here…</string>
     <string name="search_goal_not_found">404: Goal not found!</string>>
@@ -145,7 +147,8 @@
     <string name="app_info_setting_desc">Show app version and useful links.</string>
 
     <!-- Goal Card Style -->
-    <string name="goal_card_style_header">Goal Style</string>
+    <string name="goal_card_settings_header">Goal Style</string>
+    <string name="goal_card_settings_tip">Tip! You can swipe a compact-styled card left or right to either edit or delete a savings goal.</string>
 
     <!-- OSL Screen -->
     <string name="osl_screen_header">Open Source Libraries</string>

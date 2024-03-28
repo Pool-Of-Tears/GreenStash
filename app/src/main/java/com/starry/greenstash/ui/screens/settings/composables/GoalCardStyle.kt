@@ -26,8 +26,15 @@
 package com.starry.greenstash.ui.screens.settings.composables
 
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -53,7 +60,11 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -69,8 +80,10 @@ import com.starry.greenstash.R
 import com.starry.greenstash.ui.screens.home.composables.GoalItemClassic
 import com.starry.greenstash.ui.screens.home.composables.GoalItemCompact
 import com.starry.greenstash.ui.screens.home.viewmodels.GoalCardStyle
+import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.utils.getActivity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.delay
 
 @ExperimentalCoroutinesApi
 @ExperimentalAnimationApi
@@ -89,9 +102,10 @@ fun GoalCardStyle(navController: NavController) {
             modifier = Modifier.fillMaxWidth(),
             title = {
                 Text(
-                    text = stringResource(id = R.string.goal_card_style_header),
+                    text = stringResource(id = R.string.goal_card_settings_header),
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
+                    fontFamily = greenstashFont,
                 )
             }, navigationIcon = {
                 IconButton(onClick = { navController.navigateUp() }) {
@@ -117,7 +131,8 @@ fun GoalCardStyle(navController: NavController) {
                 Text(
                     text = "Preview",
                     style = MaterialTheme.typography.titleLarge,
-                    modifier = Modifier.padding(start = 16.dp, top = 16.dp)
+                    modifier = Modifier.padding(start = 16.dp, top = 16.dp),
+                    fontFamily = greenstashFont
                 )
 
                 AnimatedContent(
@@ -169,14 +184,6 @@ fun GoalCardStyle(navController: NavController) {
                 )
 
             ) {
-
-                /*Text(
-                    text = "Select a style",
-                    style = MaterialTheme.typography.titleLarge,
-                    modifier = Modifier.padding(start = 16.dp, top = 16.dp)
-                )*/
-
-
                 val onOptionSelected: (GoalCardStyle) -> Unit = { opt ->
                     settingsVM.setGoalCardStyle(opt)
                 }
@@ -209,7 +216,8 @@ fun GoalCardStyle(navController: NavController) {
                             Text(
                                 text = goalStyleToString(option),
                                 style = MaterialTheme.typography.titleMedium,
-                                modifier = Modifier.padding(start = 16.dp, top = 12.dp)
+                                modifier = Modifier.padding(start = 16.dp, top = 12.dp),
+                                fontFamily = greenstashFont
                             )
                         }
                     }
@@ -217,6 +225,38 @@ fun GoalCardStyle(navController: NavController) {
 
             }
 
+            Spacer(modifier = Modifier.height(16.dp))
+
+            val showCompactTip = remember { mutableStateOf(false) }
+            LaunchedEffect(key1 = currentStyle) {
+                if (currentStyle == GoalCardStyle.Compact) {
+                    delay(500)
+                    showCompactTip.value = true
+                } else {
+                    delay(400)
+                    showCompactTip.value = false
+                }
+            }
+            AnimatedVisibility(
+                visible = showCompactTip.value,
+                enter = slideInVertically { it / 2 } + expandVertically(expandFrom = Alignment.Top) + fadeIn(
+                    initialAlpha = 0.3f
+                ),
+                exit = slideOutVertically() + shrinkVertically() + fadeOut(),
+            ) {
+                OutlinedCard(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 8.dp)
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.goal_card_settings_tip),
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 12.dp),
+                        fontFamily = greenstashFont
+                    )
+                }
+            }
         }
 
     }

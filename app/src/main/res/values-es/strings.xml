@@ -143,7 +143,7 @@
     <string name="app_info_setting_desc">Muestra la versión de la aplicación y enlaces útiles.</string>
 
     <!-- Goal Card Style -->
-    <string name="goal_card_style_header">Estilo de la Tarjeta de Objetivo</string>
+    <string name="goal_card_settings_header">Estilo de la Tarjeta de Objetivo</string>
 
     <!-- OSL Screen -->
     <string name="osl_screen_header">Librerías de código abierto</string>

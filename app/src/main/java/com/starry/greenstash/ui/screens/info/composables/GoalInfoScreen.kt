@@ -212,6 +212,7 @@ fun GoalInfoScreen(goalId: String, navController: NavController) {
                             Text(
                                 text = stringResource(id = R.string.info_goal_no_transactions),
                                 fontWeight = FontWeight.SemiBold,
+                                fontFamily = greenstashFont,
                                 fontSize = 20.sp,
                                 modifier = Modifier.padding(start = 12.dp, end = 12.dp)
                             )
@@ -261,6 +262,7 @@ fun GoalInfoCard(
                 text = stringResource(id = R.string.info_card_title),
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Medium,
+                fontFamily = greenstashFont,
                 modifier = Modifier.padding(start = 12.dp)
             )
 
@@ -284,6 +286,7 @@ fun GoalInfoCard(
                 ),
                 fontSize = 14.sp,
                 fontWeight = FontWeight.SemiBold,
+                fontFamily = greenstashFont,
                 modifier = Modifier.padding(start = 12.dp)
             )
 
@@ -307,6 +310,7 @@ fun GoalInfoCard(
                     text = "${(progress * 100).toInt()}% | $daysLeftText",
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Medium,
+                    fontFamily = greenstashFont,
                     modifier = Modifier.padding(end = 12.dp)
                 )
             }
@@ -356,7 +360,8 @@ fun GoalPriorityCard(goalPriority: GoalPriority, reminders: Boolean) {
             Text(
                 modifier = Modifier.padding(start = 14.dp),
                 text = stringResource(id = R.string.info_goal_priority).format(goalPriority.name),
-                fontWeight = FontWeight.Medium
+                fontWeight = FontWeight.Medium,
+                fontFamily = greenstashFont
             )
 
             Spacer(modifier = Modifier.weight(1f))
@@ -455,6 +460,7 @@ fun TransactionItem(transaction: Transaction, currencySymbol: String) {
                     Text(
                         text = "$amountPrefix$currencySymbol${transaction.amount}",
                         fontWeight = FontWeight.Medium,
+                        fontFamily = greenstashFont,
                         fontSize = 16.sp,
                         color = amountColor
                     )
@@ -462,6 +468,7 @@ fun TransactionItem(transaction: Transaction, currencySymbol: String) {
                     Text(
                         text = transaction.getTransactionDate(),
                         fontWeight = FontWeight.Medium,
+                        fontFamily = greenstashFont,
                         fontSize = 16.sp
                     )
                 }
@@ -471,6 +478,7 @@ fun TransactionItem(transaction: Transaction, currencySymbol: String) {
                     Text(
                         text = transaction.notes,
                         fontWeight = FontWeight.Medium,
+                        fontFamily = greenstashFont,
                         fontSize = 14.sp,
                         maxLines = 4,
                         overflow = TextOverflow.Ellipsis,

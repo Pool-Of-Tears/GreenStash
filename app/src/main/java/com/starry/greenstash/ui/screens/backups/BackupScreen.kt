@@ -71,6 +71,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.starry.greenstash.R
+import com.starry.greenstash.ui.theme.greenstashFont
 import kotlinx.coroutines.launch
 import java.io.InputStreamReader
 import java.io.Reader
@@ -97,6 +98,7 @@ fun BackupScreen(navController: NavController) {
                         text = stringResource(id = R.string.backup_screen_header),
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
+                        fontFamily = greenstashFont
                     )
                 }, navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {
@@ -196,12 +198,14 @@ fun BackupScreenContent(
             Text(
                 text = stringResource(id = R.string.backup_screen_text),
                 style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier.padding(horizontal = 12.dp, vertical = 12.dp)
+                modifier = Modifier.padding(horizontal = 12.dp, vertical = 12.dp),
+                fontFamily = greenstashFont
             )
             Text(
                 text = stringResource(id = R.string.backup_screen_sub_text),
                 style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.padding(horizontal = 12.dp)
+                modifier = Modifier.padding(horizontal = 12.dp),
+                fontFamily = greenstashFont
             )
             Spacer(modifier = Modifier.height(12.dp))
         }
@@ -219,7 +223,10 @@ fun BackupScreenContent(
                     .weight(0.45f),
                 shape = RoundedCornerShape(12.dp),
             ) {
-                Text(text = stringResource(id = R.string.backup_button))
+                Text(
+                    text = stringResource(id = R.string.backup_button),
+                    fontFamily = greenstashFont
+                )
             }
 
             Spacer(modifier = Modifier.weight(0.04f))
@@ -231,7 +238,10 @@ fun BackupScreenContent(
                     .weight(0.45f),
                 shape = RoundedCornerShape(12.dp),
             ) {
-                Text(text = stringResource(id = R.string.restore_button))
+                Text(
+                    text = stringResource(id = R.string.restore_button),
+                    fontFamily = greenstashFont
+                )
             }
         }
     }

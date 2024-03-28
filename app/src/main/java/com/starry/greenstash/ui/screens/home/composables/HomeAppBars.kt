@@ -160,7 +160,8 @@ fun SearchAppBar(
             placeholder = {
                 Text(
                     text = stringResource(id = R.string.home_search_label),
-                    color = MaterialTheme.colorScheme.onSurface
+                    color = MaterialTheme.colorScheme.onSurface,
+                    fontFamily = greenstashFont
                 )
             },
             singleLine = true,

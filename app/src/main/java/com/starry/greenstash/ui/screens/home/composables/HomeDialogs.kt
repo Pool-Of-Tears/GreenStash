@@ -39,6 +39,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.res.stringResource
 import com.starry.greenstash.R
+import com.starry.greenstash.ui.theme.greenstashFont
 
 @ExperimentalMaterial3Api
 @Composable
@@ -53,6 +54,7 @@ fun HomeDialogs(
             Text(
                 text = stringResource(id = R.string.goal_delete_confirmation),
                 color = MaterialTheme.colorScheme.onSurface,
+                fontFamily = greenstashFont,
             )
         }, confirmButton = {
             FilledTonalButton(
@@ -65,13 +67,13 @@ fun HomeDialogs(
                     contentColor = MaterialTheme.colorScheme.onErrorContainer
                 )
             ) {
-                Text(stringResource(id = R.string.confirm))
+                Text(stringResource(id = R.string.confirm),   fontFamily = greenstashFont)
             }
         }, dismissButton = {
             TextButton(onClick = {
                 openDeleteDialog.value = false
             }) {
-                Text(stringResource(id = R.string.cancel))
+                Text(stringResource(id = R.string.cancel),   fontFamily = greenstashFont)
             }
         },
             icon = {

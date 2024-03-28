@@ -45,6 +45,7 @@ import androidx.navigation.NavController
 import com.mikepenz.aboutlibraries.ui.compose.LibrariesContainer
 import com.mikepenz.aboutlibraries.ui.compose.LibraryDefaults
 import com.starry.greenstash.R
+import com.starry.greenstash.ui.theme.greenstashFont
 
 @ExperimentalMaterial3Api
 @Composable
@@ -57,6 +58,7 @@ fun OSLScreen(navController: NavController) {
                     text = stringResource(id = R.string.osl_screen_header),
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
+                    fontFamily = greenstashFont
                 )
             }, navigationIcon = {
                 IconButton(onClick = { navController.navigateUp() }) {

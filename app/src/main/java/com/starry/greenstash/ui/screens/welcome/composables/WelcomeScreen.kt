@@ -73,6 +73,7 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.starry.greenstash.R
 import com.starry.greenstash.ui.navigation.DrawerScreens
 import com.starry.greenstash.ui.screens.welcome.viewmodels.WelcomeViewModel
+import com.starry.greenstash.ui.theme.greenstashFont
 
 @Composable
 fun WelcomeScreen(navController: NavController) {
@@ -119,6 +120,7 @@ fun WelcomeScreen(navController: NavController) {
             text = stringResource(id = R.string.welcome_screen_text),
             fontWeight = FontWeight.SemiBold,
             fontSize = 18.sp,
+            fontFamily = greenstashFont,
             textAlign = TextAlign.Center,
             modifier = Modifier
                 .fillMaxWidth()
@@ -140,6 +142,7 @@ fun WelcomeScreen(navController: NavController) {
                 Text(
                     text = currencyValue,
                     fontSize = 16.sp,
+                    fontFamily = greenstashFont,
                     fontWeight = FontWeight.Medium,
                     color = MaterialTheme.colorScheme.onPrimaryContainer
                 )
@@ -159,6 +162,7 @@ fun WelcomeScreen(navController: NavController) {
                 Text(
                     text = stringResource(id = R.string.welcome_screen_button),
                     fontSize = 16.sp,
+                    fontFamily = greenstashFont,
                     fontWeight = FontWeight.Medium
                 )
             }
@@ -173,6 +177,7 @@ fun WelcomeScreen(navController: NavController) {
                 Text(
                     text = stringResource(id = R.string.currency_dialog_title),
                     color = MaterialTheme.colorScheme.onSurface,
+                    fontFamily = greenstashFont,
                 )
             }, text = {
                 Column(
@@ -209,6 +214,7 @@ fun WelcomeScreen(navController: NavController) {
                                 text = text,
                                 modifier = Modifier.padding(start = 16.dp),
                                 color = MaterialTheme.colorScheme.onSurface,
+                                fontFamily = greenstashFont,
                             )
                         }
                     }
@@ -219,13 +225,13 @@ fun WelcomeScreen(navController: NavController) {
                     val choice = currencyValues[currencyEntries.indexOf(selectedCurrencyOption)]
                     viewModel.setDefaultCurrency(choice)
                 }) {
-                    Text(stringResource(id = R.string.confirm))
+                    Text(stringResource(id = R.string.confirm), fontFamily = greenstashFont)
                 }
             }, dismissButton = {
                 TextButton(onClick = {
                     currencyDialog.value = false
                 }) {
-                    Text(stringResource(id = R.string.cancel))
+                    Text(stringResource(id = R.string.cancel), fontFamily = greenstashFont)
                 }
             })
         }

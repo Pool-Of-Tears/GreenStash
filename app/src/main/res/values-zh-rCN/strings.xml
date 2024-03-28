@@ -145,7 +145,7 @@
     <string name="app_info_setting_desc">显示应用版本和有用的链接。</string>
 
     <!-- Goal Card STyle -->
-    <string name="goal_card_style_header">目标样式</string>
+    <string name="goal_card_settings_header">目标样式</string>
 
     <!-- OSL Screen -->
     <string name="osl_screen_header">开源库</string>

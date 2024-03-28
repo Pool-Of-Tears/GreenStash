@@ -213,6 +213,7 @@ fun SettingsScreen(navController: NavController) {
                             Text(
                                 text = stringResource(id = R.string.theme_dialog_title),
                                 color = MaterialTheme.colorScheme.onSurface,
+                                fontFamily = greenstashFont,
                             )
                         }, text = {
                             Column(
@@ -245,6 +246,7 @@ fun SettingsScreen(navController: NavController) {
                                             text = text,
                                             modifier = Modifier.padding(start = 16.dp),
                                             color = MaterialTheme.colorScheme.onSurface,
+                                            fontFamily = greenstashFont,
                                         )
                                     }
                                 }
@@ -272,13 +274,13 @@ fun SettingsScreen(navController: NavController) {
                                     contentColor = MaterialTheme.colorScheme.onPrimary
                                 )
                             ) {
-                                Text(stringResource(id = R.string.theme_dialog_apply_button))
+                                Text(stringResource(id = R.string.theme_dialog_apply_button),  fontFamily = greenstashFont)
                             }
                         }, dismissButton = {
                             TextButton(onClick = {
                                 themeDialog.value = false
                             }) {
-                                Text(stringResource(id = R.string.cancel))
+                                Text(stringResource(id = R.string.cancel),  fontFamily = greenstashFont)
                             }
                         })
                     }
@@ -332,6 +334,7 @@ fun SettingsScreen(navController: NavController) {
                             Text(
                                 text = stringResource(id = R.string.date_format_dialog_title),
                                 color = MaterialTheme.colorScheme.onSurface,
+                                fontFamily = greenstashFont
                             )
                         }, text = {
                             Column(
@@ -364,6 +367,7 @@ fun SettingsScreen(navController: NavController) {
                                             text = text,
                                             modifier = Modifier.padding(start = 16.dp),
                                             color = MaterialTheme.colorScheme.onSurface,
+                                            fontFamily = greenstashFont
                                         )
                                     }
                                 }
@@ -387,13 +391,13 @@ fun SettingsScreen(navController: NavController) {
                                     contentColor = MaterialTheme.colorScheme.onPrimary
                                 )
                             ) {
-                                Text(stringResource(id = R.string.confirm))
+                                Text(stringResource(id = R.string.confirm),  fontFamily = greenstashFont)
                             }
                         }, dismissButton = {
                             TextButton(onClick = {
                                 dateDialog.value = false
                             }) {
-                                Text(stringResource(id = R.string.cancel))
+                                Text(stringResource(id = R.string.cancel),  fontFamily = greenstashFont)
                             }
                         })
                     }
@@ -405,6 +409,7 @@ fun SettingsScreen(navController: NavController) {
                             Text(
                                 text = stringResource(id = R.string.currency_dialog_title),
                                 color = MaterialTheme.colorScheme.onSurface,
+                                fontFamily = greenstashFont
                             )
                         }, text = {
                             Column(
@@ -441,6 +446,7 @@ fun SettingsScreen(navController: NavController) {
                                             text = text,
                                             modifier = Modifier.padding(start = 16.dp),
                                             color = MaterialTheme.colorScheme.onSurface,
+                                            fontFamily = greenstashFont
                                         )
                                     }
                                 }
@@ -460,13 +466,13 @@ fun SettingsScreen(navController: NavController) {
                                     contentColor = MaterialTheme.colorScheme.onPrimary
                                 )
                             ) {
-                                Text(stringResource(id = R.string.confirm))
+                                Text(stringResource(id = R.string.confirm),  fontFamily = greenstashFont)
                             }
                         }, dismissButton = {
                             TextButton(onClick = {
                                 currencyDialog.value = false
                             }) {
-                                Text(stringResource(id = R.string.cancel))
+                                Text(stringResource(id = R.string.cancel),  fontFamily = greenstashFont)
                             }
                         })
                     }
@@ -579,6 +585,7 @@ fun SettingsCategory(title: String) {
         text = title,
         color = MaterialTheme.colorScheme.onBackground,
         fontSize = 14.sp,
+        fontFamily = greenstashFont,
         fontWeight = FontWeight.Bold,
         modifier = Modifier
             .padding(vertical = 8.dp)

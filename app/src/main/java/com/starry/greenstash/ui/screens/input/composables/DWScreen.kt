@@ -184,6 +184,7 @@ fun DWScreen(goalId: String, transactionTypeName: String, navController: NavCont
                         stringResource(id = R.string.deposit_successful)
                     else stringResource(id = R.string.withdraw_successful),
                     fontWeight = FontWeight.SemiBold,
+                    fontFamily = greenstashFont,
                     fontSize = 20.sp
                 )
 
@@ -277,7 +278,10 @@ fun DWScreen(goalId: String, transactionTypeName: String, navController: NavCont
                         .fillMaxWidth()
                         .padding(horizontal = 18.dp, vertical = 12.dp),
                     label = {
-                        Text(text = stringResource(id = R.string.transaction_amount))
+                        Text(
+                            text = stringResource(id = R.string.transaction_amount),
+                            fontFamily = greenstashFont
+                        )
                     },
                     leadingIcon = {
                         Icon(
@@ -303,7 +307,10 @@ fun DWScreen(goalId: String, transactionTypeName: String, navController: NavCont
                         .fillMaxWidth()
                         .padding(horizontal = 18.dp, vertical = 2.dp),
                     label = {
-                        Text(text = stringResource(id = R.string.input_additional_notes))
+                        Text(
+                            text = stringResource(id = R.string.input_additional_notes),
+                            fontFamily = greenstashFont
+                        )
                     },
                     leadingIcon = {
                         Icon(
@@ -385,7 +392,8 @@ fun DWScreen(goalId: String, transactionTypeName: String, navController: NavCont
                     Text(
                         text = if (transactionType == TransactionType.Deposit)
                             stringResource(id = R.string.deposit_button)
-                        else stringResource(id = R.string.withdraw_button)
+                        else stringResource(id = R.string.withdraw_button),
+                        fontFamily = greenstashFont
                     )
                 }
 

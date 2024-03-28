@@ -44,6 +44,7 @@ class WelcomeDataStore(context: Context) {
 
     private object PreferencesKey {
         val onBoardingKey = booleanPreferencesKey(name = "on_boarding_completed")
+        val newGoalTapTargetKey = booleanPreferencesKey(name = "new_goal_tap_target")
     }
 
     suspend fun saveOnBoardingState(completed: Boolean) {
@@ -66,4 +67,26 @@ class WelcomeDataStore(context: Context) {
                 onBoardingState
             }
     }
+
+    suspend fun saveNewGoalTapTargetState(completed: Boolean) {
+        dataStore.edit { preferences ->
+            preferences[PreferencesKey.newGoalTapTargetKey] = completed
+        }
+    }
+
+    fun readNewGoalTapTargetState(): Flow<Boolean> {
+        return dataStore.data
+            .catch { exception ->
+                if (exception is IOException) {
+                    emit(emptyPreferences())
+                } else {
+                    throw exception
+                }
+            }
+            .map { preferences ->
+                val newGoalTapTargetState = preferences[PreferencesKey.newGoalTapTargetKey] ?: false
+                newGoalTapTargetState
+            }
+    }
+
 }

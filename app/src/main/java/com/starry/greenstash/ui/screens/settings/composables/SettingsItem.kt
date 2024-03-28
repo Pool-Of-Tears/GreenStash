@@ -43,6 +43,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.unit.dp
+import com.starry.greenstash.ui.theme.greenstashFont
 
 @Composable
 fun SettingsItem(title: String, description: String, icon: ImageVector, onClick: () -> Unit) {
@@ -70,12 +71,14 @@ fun SettingsItem(title: String, description: String, icon: ImageVector, onClick:
                 text = title,
                 maxLines = 1,
                 style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.onSurface
+                color = MaterialTheme.colorScheme.onSurface,
+                fontFamily = greenstashFont
             )
             Text(
                 text = description,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 style = MaterialTheme.typography.bodySmall,
+                fontFamily = greenstashFont
             )
         }
     }
@@ -114,12 +117,14 @@ fun SettingsItem(
                 text = title,
                 maxLines = 1,
                 style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.onSurface
+                color = MaterialTheme.colorScheme.onSurface,
+                fontFamily = greenstashFont
             )
             Text(
                 text = description,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 style = MaterialTheme.typography.bodySmall,
+                fontFamily = greenstashFont
             )
         }
         Switch(

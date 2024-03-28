@@ -62,6 +62,7 @@ import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.starry.greenstash.R
 import com.starry.greenstash.ui.navigation.DrawerScreens
+import com.starry.greenstash.ui.theme.greenstashFont
 
 @Composable
 fun CongratsScreen(navController: NavController) {
@@ -109,6 +110,7 @@ fun CongratsScreen(navController: NavController) {
             Text(
                 text = stringResource(id = R.string.goal_achieved_heading),
                 fontWeight = FontWeight.Bold,
+                fontFamily = greenstashFont,
                 fontSize = 24.sp
             )
 
@@ -117,6 +119,7 @@ fun CongratsScreen(navController: NavController) {
             Text(
                 text = stringResource(id = R.string.goal_achieved_subtext),
                 fontWeight = FontWeight.SemiBold,
+                fontFamily = greenstashFont,
                 fontSize = 20.sp,
             )
 
@@ -130,7 +133,10 @@ fun CongratsScreen(navController: NavController) {
                 shape = RoundedCornerShape(12.dp),
                 modifier = Modifier.width(100.dp)
             ) {
-                Text(text = stringResource(id = R.string.goal_achieved_button))
+                Text(
+                    text = stringResource(id = R.string.goal_achieved_button),
+                    fontFamily = greenstashFont
+                )
             }
 
             Spacer(modifier = Modifier.height(100.dp))
