@@ -40,6 +40,8 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -88,6 +90,7 @@ fun SettingsItem(
     switchState: MutableState<Boolean>,
     onCheckChange: (Boolean) -> Unit,
 ) {
+    val haptic = LocalHapticFeedback.current
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -121,7 +124,10 @@ fun SettingsItem(
         }
         Switch(
             checked = switchState.value,
-            onCheckedChange = { onCheckChange(it) },
+            onCheckedChange = {
+                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                onCheckChange(it)
+            },
             modifier = Modifier.padding(start = 12.dp, end = 12.dp)
         )
     }

@@ -31,6 +31,7 @@ import androidx.compose.runtime.Composable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.starry.greenstash.ui.screens.home.viewmodels.GoalCardStyle
 import com.starry.greenstash.utils.PreferenceUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -51,10 +52,13 @@ class SettingsViewModel @Inject constructor(
 
     private val _theme = MutableLiveData(ThemeMode.Auto)
     private val _materialYou = MutableLiveData(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
+    private val _goalCardStyle = MutableLiveData(GoalCardStyle.Classic)
 
     val theme: LiveData<ThemeMode> = _theme
     val materialYou: LiveData<Boolean> = _materialYou
+    val goalCardStyle: LiveData<GoalCardStyle> = _goalCardStyle
 
+    // Setters for preferences --------------------------------------------
     fun setTheme(newTheme: ThemeMode) {
         _theme.postValue(newTheme)
         preferenceUtil.putInt(PreferenceUtil.APP_THEME_INT, newTheme.ordinal)
@@ -63,6 +67,11 @@ class SettingsViewModel @Inject constructor(
     fun setMaterialYou(newValue: Boolean) {
         _materialYou.postValue(newValue)
         preferenceUtil.putBoolean(PreferenceUtil.MATERIAL_YOU_BOOL, newValue)
+    }
+
+    fun setGoalCardStyle(newValue: GoalCardStyle) {
+        _goalCardStyle.postValue(newValue)
+        preferenceUtil.putInt(PreferenceUtil.GOAL_CARD_STYLE_INT, newValue.ordinal)
     }
 
     fun setDateStyle(newValue: String) {
@@ -77,12 +86,17 @@ class SettingsViewModel @Inject constructor(
         preferenceUtil.putBoolean(PreferenceUtil.APP_LOCK_BOOL, newValue)
     }
 
+    // Getters for preferences --------------------------------------------
     fun getThemeValue() = preferenceUtil.getInt(
         PreferenceUtil.APP_THEME_INT, ThemeMode.Auto.ordinal
     )
 
     fun getMaterialYouValue() = preferenceUtil.getBoolean(
         PreferenceUtil.MATERIAL_YOU_BOOL, Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+    )
+
+    fun getGoalCardStyleValue() = preferenceUtil.getInt(
+        PreferenceUtil.GOAL_CARD_STYLE_INT, GoalCardStyle.Classic.ordinal
     )
 
     fun getDateStyleValue() = preferenceUtil.getString(

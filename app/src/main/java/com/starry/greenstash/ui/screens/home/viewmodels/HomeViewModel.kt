@@ -115,10 +115,6 @@ class HomeViewModel @Inject constructor(
     private val _searchTextState: MutableState<String> = mutableStateOf(value = "")
     val searchTextState: State<String> = _searchTextState
 
-    val goalCardStyle = GoalCardStyle.entries[preferenceUtil.getInt(
-        PreferenceUtil.GOAL_CARD_STYLE_INT, GoalCardStyle.Compact.ordinal
-    )]
-
     fun updateSearchWidgetState(newValue: SearchWidgetState) {
         _searchWidgetState.value = newValue
     }

@@ -44,6 +44,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Style
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -83,6 +84,7 @@ import androidx.navigation.NavController
 import com.starry.greenstash.MainActivity
 import com.starry.greenstash.R
 import com.starry.greenstash.ui.navigation.Screens
+import com.starry.greenstash.ui.screens.home.viewmodels.GoalCardStyle
 import com.starry.greenstash.ui.screens.settings.viewmodels.DateStyle
 import com.starry.greenstash.ui.screens.settings.viewmodels.ThemeMode
 import com.starry.greenstash.ui.theme.greenstashFont
@@ -136,6 +138,8 @@ fun SettingsScreen(navController: NavController) {
         LazyColumn(modifier = Modifier.padding(it)) {
             /** Display Settings */
             item {
+
+                // Theme related values.
                 val themeValue = when (viewModel.getThemeValue()) {
                     ThemeMode.Light.ordinal -> "Light"
                     ThemeMode.Dark.ordinal -> "Dark"
@@ -147,8 +151,15 @@ fun SettingsScreen(navController: NavController) {
                     mutableStateOf(themeValue)
                 }
 
+                // Material You related values.
                 val materialYouSwitch = remember {
                     mutableStateOf(viewModel.getMaterialYouValue())
+                }
+
+                val goalStyleValue = when (viewModel.getGoalCardStyleValue()) {
+                    GoalCardStyle.Classic.ordinal -> stringResource(id = R.string.goal_card_option1)
+                    GoalCardStyle.Compact.ordinal -> stringResource(id = R.string.goal_card_option2)
+                    else -> stringResource(id = R.string.goal_card_option1)
                 }
 
                 Spacer(modifier = Modifier.height(8.dp))
@@ -182,6 +193,13 @@ fun SettingsScreen(navController: NavController) {
                                 viewModel.setMaterialYou(false)
                             }
                         }
+                    )
+
+                    SettingsItem(
+                        title = stringResource(id = R.string.goal_card_setting),
+                        description = goalStyleValue,
+                        icon = Icons.Filled.Style,
+                        onClick = { navController.navigate(Screens.GoalCardStyle.route) }
                     )
 
                     if (themeDialog.value) {

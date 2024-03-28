@@ -476,7 +476,7 @@ fun GoalItemsPV() {
             onWithdrawClicked = {},
             onInfoClicked = {},
             onEditClicked = {},
-            onDeleteClicked = {})
-
+            onDeleteClicked = {}
+        )
     }
 }

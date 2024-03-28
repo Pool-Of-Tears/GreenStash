@@ -122,6 +122,9 @@
     <string name="material_you_setting" translatable="false">Material You</string>
     <string name="material_you_setting_desc">Switch theme according to your wallpaper (A12+ Only)</string>
     <string name="material_you_error">This feature is only for devices running Android 12 or above.</string>
+    <string name="goal_card_setting">Goal Card Style</string>
+    <string name="goal_card_option1">Classic</string>
+    <string name="goal_card_option2">Compact</string>
     <string name="locales_setting_title">Locales</string>
     <string name="date_format_setting">Date Format</string>
     <string name="date_format_dialog_title">Change Date Format</string>
@@ -135,6 +138,9 @@
     <string name="license_setting_desc">Show open source license information.</string>
     <string name="app_info_setting">App Information</string>
     <string name="app_info_setting_desc">Show app version and useful links.</string>
+
+    <!-- Goal Card Style -->
+    <string name="goal_card_style_header">Goal UI</string>
 
     <!-- OSL Screen -->
     <string name="osl_screen_header">Open Source Libraries</string>
