@@ -117,9 +117,15 @@
     <string name="display_settings_title">Pantalla</string>
     <string name="theme_setting">Tema predeterminado</string>
     <string name="theme_dialog_title">Cambiar tema</string>
+    <string name="theme_dialog_option1">Claro</string>
+    <string name="theme_dialog_option2">Oscuro</string>
+    <string name="theme_dialog_option3">Predeterminado del sistema</string>
     <string name="theme_dialog_apply_button">Aplicar</string>
     <string name="material_you_setting_desc">Cambia el tema según tú fondo de pantalla (A12 en adelante)</string>
     <string name="material_you_error">Esta característica es sólo para dispositivos con Android 12 en adelante.</string>
+    <string name="goal_card_setting">Estilo de la Tarjeta de Objetivo</string>
+    <string name="goal_card_option1">Clásico</string>
+    <string name="goal_card_option2">Compacto</string>
     <string name="locales_setting_title">Configuración regional</string>
     <string name="date_format_setting">Formato de Fecha</string>
     <string name="date_format_dialog_title">Cambiar Formato de Fecha</string>
@@ -133,6 +139,9 @@
     <string name="license_setting_desc">Mostrar información de la licencia de código abierto.</string>
     <string name="app_info_setting">Información de la aplicación</string>
     <string name="app_info_setting_desc">Muestra la versión de la aplicación y enlaces útiles.</string>
+
+    <!-- Goal Card Style -->
+    <string name="goal_card_style_header">Estilo de la Tarjeta de Objetivo</string>
 
     <!-- OSL Screen -->
     <string name="osl_screen_header">Librerías de código abierto</string>

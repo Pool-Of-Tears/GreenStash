@@ -118,10 +118,16 @@
     <string name="display_settings_title">显示</string>
     <string name="theme_setting">默认主题</string>
     <string name="theme_dialog_title">修改主题</string>
+    <string name="theme_dialog_option1">明亮</string>
+    <string name="theme_dialog_option2">暗色</string>
+    <string name="theme_dialog_option3">系统默认</string>
     <string name="theme_dialog_apply_button">应用</string>
     <string name="material_you_setting">自适应</string>
     <string name="material_you_setting_desc">根据壁纸切换合适的主题（仅Android12+）</string>
     <string name="material_you_error">此功能仅在Android 12或更高版本上有效。</string>
+    <string name="goal_card_setting">目标卡样式</string>
+    <string name="goal_card_option1">经典</string>
+    <string name="goal_card_option2">紧凑</string>
     <string name="locales_setting_title">地区</string>
     <string name="date_format_setting">日期格式</string>
     <string name="date_format_dialog_title">修改日期格式</string>
@@ -135,6 +141,9 @@
     <string name="license_setting_desc">显示开源许可协议信息。</string>
     <string name="app_info_setting">应用信息</string>
     <string name="app_info_setting_desc">显示应用版本和有用的链接。</string>
+
+    <!-- Goal Card STyle -->
+    <string name="goal_card_style_header">目标样式</string>
 
     <!-- OSL Screen -->
     <string name="osl_screen_header">开源库</string>

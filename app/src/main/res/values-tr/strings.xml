@@ -118,10 +118,16 @@
     <string name="display_settings_title">Görünüm</string>
     <string name="theme_setting">Varsayılan Tema</string>
     <string name="theme_dialog_title">Temayı Değiştir</string>
+    <string name="theme_dialog_option1">Açık</string>
+    <string name="theme_dialog_option2">Koyu</string>
+    <string name="theme_dialog_option3">Sistem Varsayılanı</string>
     <string name="theme_dialog_apply_button">Uygula</string>
     <string name="material_you_setting" translatable="false">Material You</string>
     <string name="material_you_setting_desc">Temayı duvar kağıdınıza göre değiştirin (Yalnızca A12+)</string>
     <string name="material_you_error">Bu özellik yalnızca Android 12 ve üstü cihazlar içindir.</string>
+    <string name="goal_card_setting">Hedef Kartı Stili</string>
+    <string name="goal_card_option1">Klasik</string>
+    <string name="goal_card_option2">Kompakt</string>
     <string name="locales_setting_title">Yerel</string>
     <string name="date_format_setting">Tarih Biçimi</string>
     <string name="date_format_dialog_title">Tarih Biçimini Değiştir</string>
@@ -135,6 +141,9 @@
     <string name="license_setting_desc">Açık kaynak lisans bilgilerini göster.</string>
     <string name="app_info_setting">Uygulama Bilgileri</string>
     <string name="app_info_setting_desc">Uygulama versiyonunu ve faydalı linkleri göster.</string>
+
+    <!-- Goal Card Style -->
+    <string name="goal_card_style_header">Hedef Stili</string>
 
     <!-- OSL Screen -->
     <string name="osl_screen_header">Açık Kaynak Kütüphaneleri</string>

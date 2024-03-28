@@ -141,12 +141,16 @@ fun SettingsScreen(navController: NavController) {
 
                 // Theme related values.
                 val themeValue = when (viewModel.getThemeValue()) {
-                    ThemeMode.Light.ordinal -> "Light"
-                    ThemeMode.Dark.ordinal -> "Dark"
-                    else -> "System"
+                    ThemeMode.Light.ordinal -> stringResource(id = R.string.theme_dialog_option1)
+                    ThemeMode.Dark.ordinal -> stringResource(id = R.string.theme_dialog_option2)
+                    else -> stringResource(id = R.string.theme_dialog_option3)
                 }
                 val themeDialog = remember { mutableStateOf(false) }
-                val themeRadioOptions = listOf("Light", "Dark", "System")
+                val themeRadioOptions = listOf(
+                    stringResource(id = R.string.theme_dialog_option1),
+                    stringResource(id = R.string.theme_dialog_option2),
+                    stringResource(id = R.string.theme_dialog_option3)
+                )
                 val (selectedThemeOption, onThemeOptionSelected) = remember {
                     mutableStateOf(themeValue)
                 }
@@ -250,15 +254,15 @@ fun SettingsScreen(navController: NavController) {
                                 onClick = {
                                     themeDialog.value = false
                                     when (selectedThemeOption) {
-                                        "Light" -> {
+                                        context.getString(R.string.theme_dialog_option1) -> {
                                             viewModel.setTheme(ThemeMode.Light)
                                         }
 
-                                        "Dark" -> {
+                                        context.getString(R.string.theme_dialog_option2) -> {
                                             viewModel.setTheme(ThemeMode.Dark)
                                         }
 
-                                        "System" -> {
+                                        context.getString(R.string.theme_dialog_option3) -> {
                                             viewModel.setTheme(ThemeMode.Auto)
                                         }
                                     }
