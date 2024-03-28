@@ -4,12 +4,13 @@
     <!-- Other Strings -->
     <string name="confirm">Confirmar</string>
     <string name="cancel">Cancelar</string>
-    <string name="unknown_error">Oops! something went wrong.</string>
+    <string name="unknown_error">¡Vaya! Algo salió mal.</string>
 
     <!-- Navigation Drawer -->
     <string name="drawer_home">Inicio</string>
     <string name="drawer_backups">Respaldo</string>
     <string name="drawer_settings">Ajustes</string>
+    <string name="drawer_footer_text">Hecho con ❤️ en India.</string>
 
     <!-- Biometric Lock -->
     <string name="bio_lock_title">Desbloquear GreenStash</string>
@@ -83,7 +84,7 @@
     <string name="info_card_remaining_days">%s días restantes.</string>
     <string name="info_card_no_deadline_set">Sin fecha objetivo.</string>
     <string name="info_card_goal_achieved">Meta alcanzada. ¡Felicitaciones!</string>
-    <string name="info_goal_priority">Goal Priority is %s</string>
+    <string name="info_goal_priority">La prioridad del objetivo es %s</string>
     <string name="info_reminder_status_on">Los recordatorios están activados</string>
     <string name="info_reminder_status_off">Los recordatorios están desactivados</string>
     <string name="info_notes_card_title">Notas</string>
@@ -95,7 +96,7 @@
     <string name="input_pick_icon">Selecciona ícono para tu objetivo.</string>
     <string name="input_icon_dialog">Selecciona un ícono</string>
     <string name="input_pick_image">Imagen de la meta</string>
-    <string name="input_goal_priority">Select priority for this goal.</string>
+    <string name="input_goal_priority">Selecciona la prioridad para este objetivo.</string>
     <string name="input_text_title">Título del Ahorro</string>
     <string name="title_empty_err">¡Oops! el título está vacío.</string>
     <string name="input_text_amount">Meta</string>
@@ -105,8 +106,8 @@
     <string name="input_add_goal_button">Agregar Nueva Meta</string>
     <string name="input_edit_goal_button">Actualizar Meta</string>
     <string name="goal_saved_success">¡Buen trabajo! Meta agregada.</string>
-    <string name="goad_edit_success">Meta actualizada.</string>\
-    <string name="goal_remove_deadline">Do you want to remove deadline from this goal?</string>
+    <string name="goad_edit_success">Meta actualizada.</string>
+    <string name="goal_remove_deadline">¿Quieres quitar la fecha límite de este objetivo?</string>
 
     <!-- Backup Screen -->
     <string name="backup_screen_header">Respaldar y recuperar datos</string>
@@ -114,7 +115,7 @@
     <string name="backup_screen_sub_text">Nota: La copia de seguridad no incluye la configuración de la app.</string>
     <string name="backup_button">Respaldar</string>
     <string name="restore_button">Restaurar</string>
-    <string name="backup_restore_success">Backup restored successfully!</string>
+    <string name="backup_restore_success">¡La copia de seguridad se ha restaurado correctamente!</string>
 
     <!-- Settings Screen -->
     <string name="settings_screen_header">Configuración</string>

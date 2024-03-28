@@ -120,8 +120,6 @@ fun GoalCardStyle(navController: NavController) {
                 .fillMaxSize()
                 .padding(paddingValues)
         ) {
-
-
             OutlinedCard(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -233,7 +231,7 @@ fun GoalCardStyle(navController: NavController) {
                     delay(500)
                     showCompactTip.value = true
                 } else {
-                    delay(400)
+                    delay(600)
                     showCompactTip.value = false
                 }
             }

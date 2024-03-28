@@ -4,12 +4,13 @@
     <!-- Other Strings -->
     <string name="confirm">确认</string>
     <string name="cancel">取消</string>
-    <string name="unknown_error">Oops! something went wrong.</string>
+    <string name="unknown_error">糟糕！出了点问题。</string>
 
     <!-- Navigation Drawer -->
     <string name="drawer_home">主页</string>
     <string name="drawer_backups">备份</string>
     <string name="drawer_settings">设置</string>
+    <string name="drawer_footer_text">用❤️制作于印度。</string>
 
     <!-- Biometric Lock -->
     <string name="bio_lock_title">解锁GreenStash</string>
@@ -115,7 +116,7 @@
     <string name="backup_screen_sub_text">注意：备份不包括应用设置信息。</string>
     <string name="backup_button">备份</string>
     <string name="restore_button">恢复</string>
-    <string name="backup_restore_success">Backup restored successfully!</string>
+    <string name="backup_restore_success">备份成功恢复！</string>
 
     <!-- Settings Screen -->
     <string name="settings_screen_header">设置</string>
@@ -162,7 +163,7 @@
     <string name="about_gh_issue_title">Github问题</string>
     <string name="about_gh_issue_desc">通过在Github上创建问题来提交bug报告或功能需求。</string>
     <string name="about_telegram_title">Telegram组</string>
-    <string name="about_telegram_desc">Join us at telegram to share your ideas or just to chat!</string>
+    <string name="about_telegram_desc">加入我们的 Telegram，分享您的想法或进行聊天！</string>
     <string name="about_version_title">版本</string>
     <string name="about_version_desc">版本-%s</string>
 

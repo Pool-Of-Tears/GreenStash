@@ -188,7 +188,10 @@ fun HomeScreenContent(
         drawerState = drawerState,
         gesturesEnabled = drawerState.isOpen,
         drawerContent = {
-            ModalDrawerSheet(drawerShape = RoundedCornerShape(4.dp)) {
+            ModalDrawerSheet(
+                modifier = Modifier.width(280.dp),
+                drawerShape = RoundedCornerShape(4.dp)
+            ) {
                 Spacer(Modifier.height(14.dp))
 
                 Text(
@@ -196,6 +199,7 @@ fun HomeScreenContent(
                     modifier = Modifier.padding(start = 16.dp, top = 12.dp),
                     fontSize = 24.sp,
                     fontWeight = FontWeight.SemiBold,
+                    fontFamily = greenstashFont,
                     color = MaterialTheme.colorScheme.onSurface
                 )
 
@@ -229,14 +233,35 @@ fun HomeScreenContent(
                                 navController.navigate(item.route)
                             }
                         },
-                        modifier = Modifier.padding(NavigationDrawerItemDefaults.ItemPadding)
+                        modifier = Modifier
+                            .width(280.dp)
+                            .padding(NavigationDrawerItemDefaults.ItemPadding)
                     )
                     Spacer(modifier = Modifier.height(4.dp))
                 }
+
+                Spacer(Modifier.weight(1f))
+
+                Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+                    Text(
+                        text = stringResource(id = R.string.drawer_footer_text),
+                        modifier = Modifier.padding(bottom = 18.dp),
+                        fontSize = 12.sp,
+                        fontFamily = greenstashFont,
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f)
+                    )
+                }
+
             }
         }) {
+
+        val showTapTargets = remember { mutableStateOf(false) }
+        LaunchedEffect(key1 = viewModel.showOnboardingTapTargets.value) {
+            delay(300) // Delay to prevent flickering
+            showTapTargets.value = viewModel.showOnboardingTapTargets.value
+        }
         TapTargetCoordinator(
-            showTapTargets = viewModel.showOnboardingTapTargets.value,
+            showTapTargets = showTapTargets.value,
             onComplete = { viewModel.onboardingTapTargetsShown() }
         ) {
             Scaffold(modifier = Modifier.fillMaxSize(),

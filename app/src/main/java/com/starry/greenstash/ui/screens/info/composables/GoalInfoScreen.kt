@@ -26,6 +26,7 @@
 package com.starry.greenstash.ui.screens.info.composables
 
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -43,35 +44,50 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.NotificationsActive
 import androidx.compose.material.icons.filled.NotificationsOff
+import androidx.compose.material.icons.rounded.Delete
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SwipeToDismissBox
+import androidx.compose.material3.SwipeToDismissBoxValue
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -101,9 +117,11 @@ import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.ui.theme.greenstashNumberFont
 import com.starry.greenstash.utils.Utils
 import com.starry.greenstash.utils.getActivity
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import me.saket.swipe.SwipeAction
-import me.saket.swipe.SwipeableActionsBox
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 @ExperimentalCoroutinesApi
@@ -183,7 +201,7 @@ fun GoalInfoScreen(goalId: String, navController: NavController) {
                         Spacer(modifier = Modifier.height(6.dp))
                     }
                     if (goalData.transactions.isNotEmpty()) {
-                        TransactionCard(goalData.transactions.reversed(), currencySymbol, viewModel)
+                        TransactionItem(goalData.transactions.reversed(), currencySymbol, viewModel)
                     } else {
                         Column(
                             modifier = Modifier.fillMaxWidth(),
@@ -385,29 +403,145 @@ fun GoalNotesCard(notesText: String) {
 @ExperimentalAnimationApi
 @ExperimentalMaterial3Api
 @Composable
-fun TransactionCard(
+fun TransactionItem(
     transactions: List<Transaction>,
     currencySymbol: String,
     viewModel: InfoViewModel
 ) {
     val settingsVM = (LocalContext.current.getActivity() as MainActivity).settingsViewModel
-    transactions.forEach {
-        val deleteAction = SwipeAction(
-            icon = painterResource(
-                id = if (settingsVM.getCurrentTheme() == ThemeMode.Light)
-                    R.drawable.ic_goal_delete else R.drawable.ic_goal_delete_white
-            ),
-            background = Color.Red,
-            onSwipe = {
-                viewModel.deleteTransaction(it)
+    transactions.forEach {transaction ->
+        val showEditSheet = remember { mutableStateOf(false) }
+        val showDeleteDialog = remember { mutableStateOf(false) }
+
+        val coroutineScope = rememberCoroutineScope()
+        val swipeState = rememberSwipeToDismissBoxState(
+            confirmValueChange = { direction ->
+                when (direction) {
+                    SwipeToDismissBoxValue.EndToStart -> {
+                        coroutineScope.launch {
+                            delay(180) // allow the swipe to settle.
+                            withContext(Dispatchers.Main) { showEditSheet.value = true}
+                        }
+                    }
+
+                    SwipeToDismissBoxValue.StartToEnd -> {
+                        coroutineScope.launch {
+                            delay(180) // allow the swipe to settle.
+                            withContext(Dispatchers.Main) { showDeleteDialog.value = true}
+                        }
+                    }
+
+                    SwipeToDismissBoxValue.Settled -> {}
+                }
+                false // Don't allow it to settle on dismissed state.
             }
         )
-        SwipeableActionsBox(
-            endActions = listOf(deleteAction),
-            swipeThreshold = 85.dp,
-            content = { TransactionItem(it, currencySymbol) }
+
+        val dismissDirection = swipeState.dismissDirection
+
+        SwipeToDismissBox(
+            state = swipeState,
+            backgroundContent = {
+                val color by animateColorAsState(
+                    when (dismissDirection) {
+                        SwipeToDismissBoxValue.EndToStart -> MaterialTheme.colorScheme.primary
+                        SwipeToDismissBoxValue.StartToEnd -> Color.Red.copy(alpha = 0.5f)
+                        SwipeToDismissBoxValue.Settled -> Color.Transparent
+                    }, label = "color"
+                )
+                val alignment by remember(dismissDirection) {
+                    derivedStateOf {
+                        when (dismissDirection) {
+                            SwipeToDismissBoxValue.EndToStart -> Alignment.CenterEnd
+                            SwipeToDismissBoxValue.StartToEnd -> Alignment.CenterStart
+                            SwipeToDismissBoxValue.Settled -> Alignment.Center
+                        }
+                    }
+                }
+                val icon by remember(dismissDirection) {
+                    derivedStateOf {
+                        when (dismissDirection) {
+                            SwipeToDismissBoxValue.EndToStart -> R.drawable.ic_goal_edit
+                            SwipeToDismissBoxValue.StartToEnd -> R.drawable.ic_goal_delete
+                            // Placeholder icon, not used anywhere.
+                            SwipeToDismissBoxValue.Settled -> R.drawable.ic_goal_info
+                        }
+                    }
+                }
+
+                val scale by animateFloatAsState(
+                    if (swipeState.dismissDirection != SwipeToDismissBoxValue.Settled) 1f else 0.75f,
+                    label = "scale"
+                )
+
+                Box(
+                    Modifier
+                        .fillMaxSize()
+                        .background(color)
+                        .padding(horizontal = 20.dp),
+                    contentAlignment = alignment
+                ) {
+                    Icon(
+                        imageVector = ImageVector.vectorResource(id = icon),
+                        contentDescription = null,
+                        modifier = Modifier.scale(scale)
+                    )
+                }
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 12.dp, vertical = 4.dp)
+                .clip(shape = RoundedCornerShape(8.dp)),
+            enableDismissFromStartToEnd = true,
+            enableDismissFromEndToStart = true,
+            content = {
+                TransactionCard(transaction = transaction, currencySymbol = currencySymbol)
+            }
         )
+
+        if (showEditSheet.value) {
+            ModalBottomSheet(onDismissRequest = { showEditSheet.value = false }) {
+                // TODO: Add edit transaction sheet
+
+            }
+        }
+
+        if (showDeleteDialog.value) {
+            AlertDialog(onDismissRequest = {
+                showDeleteDialog.value = false
+            }, title = {
+                Text(
+                    text = stringResource(id = R.string.goal_delete_confirmation),
+                    color = MaterialTheme.colorScheme.onSurface,
+                    fontFamily = greenstashFont,
+                )
+            }, confirmButton = {
+                FilledTonalButton(
+                    onClick = {
+                        showDeleteDialog.value = false
+                        viewModel.deleteTransaction(transaction)
+                    },
+                    colors = ButtonDefaults.filledTonalButtonColors(
+                        containerColor = MaterialTheme.colorScheme.errorContainer,
+                        contentColor = MaterialTheme.colorScheme.onErrorContainer
+                    )
+                ) {
+                    Text(stringResource(id = R.string.confirm), fontFamily = greenstashFont)
+                }
+            }, dismissButton = {
+                TextButton(onClick = {
+                    showDeleteDialog.value = false
+                }) {
+                    Text(stringResource(id = R.string.cancel), fontFamily = greenstashFont)
+                }
+            },
+                icon = {
+                    Icon(imageVector = Icons.Rounded.Delete, contentDescription = null)
+                }
+            )
+        }
     }
+
 
 }
 
@@ -418,11 +552,10 @@ fun TransactionCard(
 @ExperimentalFoundationApi
 @ExperimentalMaterialApi
 @Composable
-fun TransactionItem(transaction: Transaction, currencySymbol: String) {
+fun TransactionCard(transaction: Transaction, currencySymbol: String) {
     Card(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(start = 12.dp, end = 12.dp, top = 4.dp),
+            .fillMaxWidth(),
         shape = RoundedCornerShape(8.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(

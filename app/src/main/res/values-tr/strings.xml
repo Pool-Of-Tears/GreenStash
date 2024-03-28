@@ -10,6 +10,7 @@
     <string name="drawer_home">Ana Sayfa</string>
     <string name="drawer_backups">Yedekler</string>
     <string name="drawer_settings">Ayarlar</string>
+    <string name="drawer_footer_text">❤️ Hindistan\'da yapıldı.</string>
 
     <!-- Biometric Lock -->
     <string name="bio_lock_title">GreenStash\'in Kilidini Aç</string>
