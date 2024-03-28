@@ -109,8 +109,8 @@
     <string name="backup_screen_header">Yedekle &amp; Geri yükle</string>
     <string name="backup_screen_text">Tüm tasarruf hedefleriniz, mevcut ilerlemeniz, işlemleriniz vb. dahil olmak üzere uygulama verilerini yedekleyin ve istediğiniz zaman kolayca geri yükleyin.</string>
     <string name="backup_screen_sub_text">Not: Yedekler uygulama ayarlarını içermez.</string>
-    <string name="backup_button">Uygulama Verilerini Yedekle</string>
-    <string name="restore_button">Uygulama Verilerini Geri Yükle</string>
+    <string name="backup_button">Yedekle</string>
+    <string name="restore_button">Geri Yükle</string>
     <string name="backup_restore_success">Yedek başarıyla geri yüklendi!</string>
 
     <!-- Settings Screen -->

@@ -30,6 +30,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -41,35 +42,34 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LargeTopAppBar
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.airbnb.lottie.compose.LottieAnimation
-import com.airbnb.lottie.compose.LottieCompositionResult
-import com.airbnb.lottie.compose.LottieCompositionSpec
-import com.airbnb.lottie.compose.LottieConstants
-import com.airbnb.lottie.compose.animateLottieCompositionAsState
-import com.airbnb.lottie.compose.rememberLottieComposition
+import coil.compose.AsyncImage
 import com.starry.greenstash.R
 import kotlinx.coroutines.launch
 import java.io.InputStreamReader
@@ -86,11 +86,12 @@ fun BackupScreen(navController: NavController) {
     val snackBarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
 
+    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
+
     Scaffold(modifier = Modifier.fillMaxSize(),
         snackbarHost = { SnackbarHost(snackBarHostState) },
         topBar = {
-            TopAppBar(
-                modifier = Modifier.fillMaxWidth(),
+            LargeTopAppBar(
                 title = {
                     Text(
                         text = stringResource(id = R.string.backup_screen_header),
@@ -104,7 +105,11 @@ fun BackupScreen(navController: NavController) {
                             contentDescription = null
                         )
                     }
-                })
+                }, scrollBehavior = scrollBehavior, colors = TopAppBarDefaults.largeTopAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.surface,
+                    scrolledContainerColor = MaterialTheme.colorScheme.surface,
+                )
+            )
         }, content = {
             val backupLauncher =
                 rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
@@ -156,74 +161,78 @@ fun BackupScreenContent(
             .padding(paddingValues)
             .verticalScroll(rememberScrollState()),
     ) {
-        val compositionResult: LottieCompositionResult = rememberLottieComposition(
-            spec = LottieCompositionSpec.RawRes(R.raw.backup_lottie)
-        )
-        val progressAnimation by animateLottieCompositionAsState(
-            compositionResult.value,
-            isPlaying = true,
-            iterations = LottieConstants.IterateForever,
-            speed = 1f
-        )
-
-        Spacer(modifier = Modifier.weight(1f))
-
-        Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
-            LottieAnimation(
-                composition = compositionResult.value,
-                progress = progressAnimation,
-                modifier = Modifier.size(320.dp),
-                enableMergePaths = true
-            )
-        }
-
-        Box(contentAlignment = Alignment.Center) {
-            Column {
-                Text(
-                    text = stringResource(id = R.string.backup_screen_text),
-                    fontWeight = FontWeight.Medium,
-                    modifier = Modifier.padding(start = 20.dp, end = 20.dp)
+        Spacer(modifier = Modifier.height(4.dp))
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 12.dp),
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(
+                    5.dp
                 )
-                Text(
-                    text = stringResource(id = R.string.backup_screen_sub_text),
-                    modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 8.dp)
+            )
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(10.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                AsyncImage(
+                    model = R.drawable.backup_logo,
+                    contentDescription = null,
+                    modifier = Modifier.size(200.dp)
                 )
             }
         }
 
-        Column(
-            modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally
+        Spacer(modifier = Modifier.height(14.dp))
+
+        OutlinedCard(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 12.dp),
         ) {
-            Button(
+            Text(
+                text = stringResource(id = R.string.backup_screen_text),
+                style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier.padding(horizontal = 12.dp, vertical = 12.dp)
+            )
+            Text(
+                text = stringResource(id = R.string.backup_screen_sub_text),
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier.padding(horizontal = 12.dp)
+            )
+            Spacer(modifier = Modifier.height(12.dp))
+        }
+
+        Spacer(modifier = Modifier.height(14.dp))
+
+
+        Row(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            FilledTonalButton(
                 onClick = onBackupClicked,
                 modifier = Modifier
-                    .padding(top = 50.dp, bottom = 16.dp)
-                    .height(50.dp)
-                    .fillMaxWidth(0.78f),
+                    .padding(start = 14.dp)
+                    .weight(0.45f),
                 shape = RoundedCornerShape(12.dp),
             ) {
-                Text(
-                    text = stringResource(id = R.string.backup_button),
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Medium
-                )
+                Text(text = stringResource(id = R.string.backup_button))
             }
 
-            Button(
+            Spacer(modifier = Modifier.weight(0.04f))
+
+            OutlinedButton(
                 onClick = onRestoreClicked,
                 modifier = Modifier
-                    .height(50.dp)
-                    .fillMaxWidth(0.78f),
+                    .padding(end = 14.dp)
+                    .weight(0.45f),
                 shape = RoundedCornerShape(12.dp),
             ) {
-                Text(
-                    text = stringResource(id = R.string.restore_button),
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Medium
-                )
+                Text(text = stringResource(id = R.string.restore_button))
             }
         }
-
-        Spacer(modifier = Modifier.weight(2f))
     }
 }
