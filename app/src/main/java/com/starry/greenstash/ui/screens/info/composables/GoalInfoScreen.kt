@@ -341,13 +341,11 @@ fun GoalPriorityCard(goalPriority: GoalPriority, reminders: Boolean) {
             val (reminderIcon, reminderText) = when (reminders) {
                 true -> Pair(
                     Icons.Filled.NotificationsActive,
-                    //ImageVector.vectorResource(R.drawable.ic_reminder_on),
                     stringResource(id = R.string.info_reminder_status_on)
                 )
 
                 false -> Pair(
                     Icons.Filled.NotificationsOff,
-                    // ImageVector.vectorResource(R.drawable.ic_reminder_off),
                     stringResource(id = R.string.info_reminder_status_off)
                 )
             }
