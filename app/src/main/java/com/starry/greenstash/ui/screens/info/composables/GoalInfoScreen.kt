@@ -46,6 +46,8 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.NotificationsActive
+import androidx.compose.material.icons.filled.NotificationsOff
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -170,7 +172,10 @@ fun GoalInfoScreen(goalId: String, navController: NavController) {
                         ),
                         progress = progressPercent.toFloat() / 100
                     )
-                    GoalPriorityCard(goalPriority = goalData.goal.priority)
+                    GoalPriorityCard(
+                        goalPriority = goalData.goal.priority,
+                        reminders = goalData.goal.reminder
+                    )
                     if (goalData.goal.additionalNotes.isNotEmpty() && goalData.goal.additionalNotes.isNotBlank()) {
                         GoalNotesCard(
                             notesText = goalData.goal.additionalNotes
@@ -310,7 +315,7 @@ fun GoalInfoCard(
 }
 
 @Composable
-fun GoalPriorityCard(goalPriority: GoalPriority) {
+fun GoalPriorityCard(goalPriority: GoalPriority, reminders: Boolean) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -333,6 +338,20 @@ fun GoalPriorityCard(goalPriority: GoalPriority) {
                 Normal -> Color.Green
                 Low -> Color.Blue
             }
+            val (reminderIcon, reminderText) = when (reminders) {
+                true -> Pair(
+                    Icons.Filled.NotificationsActive,
+                    //ImageVector.vectorResource(R.drawable.ic_reminder_on),
+                    stringResource(id = R.string.info_reminder_status_on)
+                )
+
+                false -> Pair(
+                    Icons.Filled.NotificationsOff,
+                    // ImageVector.vectorResource(R.drawable.ic_reminder_off),
+                    stringResource(id = R.string.info_reminder_status_off)
+                )
+            }
+
             Box(modifier = Modifier.padding(start = 8.dp)) {
                 DotIndicator(modifier = Modifier.size(8.2f.dp), color = indicatorColor)
             }
@@ -341,6 +360,9 @@ fun GoalPriorityCard(goalPriority: GoalPriority) {
                 text = stringResource(id = R.string.info_goal_priority).format(goalPriority.name),
                 fontWeight = FontWeight.Medium
             )
+
+            Spacer(modifier = Modifier.weight(1f))
+            Icon(imageVector = reminderIcon, contentDescription = reminderText)
         }
     }
 }

@@ -58,6 +58,13 @@ class SettingsViewModel @Inject constructor(
     val materialYou: LiveData<Boolean> = _materialYou
     val goalCardStyle: LiveData<GoalCardStyle> = _goalCardStyle
 
+    // Initialize preferences --------------------------------------------
+    init {
+        _theme.value = ThemeMode.entries.toTypedArray()[getThemeValue()]
+        _materialYou.value = getMaterialYouValue()
+        _goalCardStyle.value = GoalCardStyle.entries.toTypedArray()[getGoalCardStyleValue()]
+    }
+
     // Setters for preferences --------------------------------------------
     fun setTheme(newTheme: ThemeMode) {
         _theme.postValue(newTheme)

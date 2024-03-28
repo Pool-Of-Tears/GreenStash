@@ -82,6 +82,8 @@
     <string name="info_card_no_deadline_set">未设置截止日期。</string>
     <string name="info_card_goal_achieved">目标实现。恭喜！</string>
     <string name="info_goal_priority">目标优先级是%s</string>
+    <string name="info_reminder_status_on">提醒已启用</string>
+    <string name="info_reminder_status_off">提醒已禁用</string>
     <string name="info_notes_card_title">备注</string>
     <string name="info_goal_no_transactions">尚无收支。</string>
 
