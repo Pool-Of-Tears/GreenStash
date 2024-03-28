@@ -46,6 +46,8 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.NotificationsActive
+import androidx.compose.material.icons.filled.NotificationsOff
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -57,7 +59,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -121,23 +122,22 @@ fun GoalInfoScreen(goalId: String, navController: NavController) {
     LaunchedEffect(key1 = true, block = { viewModel.loadGoalData(goalId.toLong()) })
 
     Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
-        TopAppBar(modifier = Modifier.fillMaxWidth(), title = {
-            Text(
-                text = stringResource(id = R.string.info_screen_header),
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                fontFamily = greenstashFont
-            )
-        }, navigationIcon = {
-            IconButton(onClick = { navController.navigateUp() }) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null
+        TopAppBar(
+            modifier = Modifier.fillMaxWidth(),
+            title = {
+                Text(
+                    text = stringResource(id = R.string.info_screen_header),
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    fontFamily = greenstashFont
                 )
-            }
-        }, colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-            containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(4.dp)
-        )
-        )
+            }, navigationIcon = {
+                IconButton(onClick = { navController.navigateUp() }) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null
+                    )
+                }
+            })
     }) {
         Column(
             modifier = Modifier
@@ -172,7 +172,10 @@ fun GoalInfoScreen(goalId: String, navController: NavController) {
                         ),
                         progress = progressPercent.toFloat() / 100
                     )
-                    GoalPriorityCard(goalPriority = goalData.goal.priority)
+                    GoalPriorityCard(
+                        goalPriority = goalData.goal.priority,
+                        reminders = goalData.goal.reminder
+                    )
                     if (goalData.goal.additionalNotes.isNotEmpty() && goalData.goal.additionalNotes.isNotBlank()) {
                         GoalNotesCard(
                             notesText = goalData.goal.additionalNotes
@@ -209,6 +212,7 @@ fun GoalInfoScreen(goalId: String, navController: NavController) {
                             Text(
                                 text = stringResource(id = R.string.info_goal_no_transactions),
                                 fontWeight = FontWeight.SemiBold,
+                                fontFamily = greenstashFont,
                                 fontSize = 20.sp,
                                 modifier = Modifier.padding(start = 12.dp, end = 12.dp)
                             )
@@ -258,6 +262,7 @@ fun GoalInfoCard(
                 text = stringResource(id = R.string.info_card_title),
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Medium,
+                fontFamily = greenstashFont,
                 modifier = Modifier.padding(start = 12.dp)
             )
 
@@ -281,6 +286,7 @@ fun GoalInfoCard(
                 ),
                 fontSize = 14.sp,
                 fontWeight = FontWeight.SemiBold,
+                fontFamily = greenstashFont,
                 modifier = Modifier.padding(start = 12.dp)
             )
 
@@ -304,6 +310,7 @@ fun GoalInfoCard(
                     text = "${(progress * 100).toInt()}% | $daysLeftText",
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Medium,
+                    fontFamily = greenstashFont,
                     modifier = Modifier.padding(end = 12.dp)
                 )
             }
@@ -312,7 +319,7 @@ fun GoalInfoCard(
 }
 
 @Composable
-fun GoalPriorityCard(goalPriority: GoalPriority) {
+fun GoalPriorityCard(goalPriority: GoalPriority, reminders: Boolean) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -335,14 +342,30 @@ fun GoalPriorityCard(goalPriority: GoalPriority) {
                 Normal -> Color.Green
                 Low -> Color.Blue
             }
+            val (reminderIcon, reminderText) = when (reminders) {
+                true -> Pair(
+                    Icons.Filled.NotificationsActive,
+                    stringResource(id = R.string.info_reminder_status_on)
+                )
+
+                false -> Pair(
+                    Icons.Filled.NotificationsOff,
+                    stringResource(id = R.string.info_reminder_status_off)
+                )
+            }
+
             Box(modifier = Modifier.padding(start = 8.dp)) {
                 DotIndicator(modifier = Modifier.size(8.2f.dp), color = indicatorColor)
             }
             Text(
                 modifier = Modifier.padding(start = 14.dp),
                 text = stringResource(id = R.string.info_goal_priority).format(goalPriority.name),
-                fontWeight = FontWeight.Medium
+                fontWeight = FontWeight.Medium,
+                fontFamily = greenstashFont
             )
+
+            Spacer(modifier = Modifier.weight(1f))
+            Icon(imageVector = reminderIcon, contentDescription = reminderText)
         }
     }
 }
@@ -437,6 +460,7 @@ fun TransactionItem(transaction: Transaction, currencySymbol: String) {
                     Text(
                         text = "$amountPrefix$currencySymbol${transaction.amount}",
                         fontWeight = FontWeight.Medium,
+                        fontFamily = greenstashFont,
                         fontSize = 16.sp,
                         color = amountColor
                     )
@@ -444,6 +468,7 @@ fun TransactionItem(transaction: Transaction, currencySymbol: String) {
                     Text(
                         text = transaction.getTransactionDate(),
                         fontWeight = FontWeight.Medium,
+                        fontFamily = greenstashFont,
                         fontSize = 16.sp
                     )
                 }
@@ -453,6 +478,7 @@ fun TransactionItem(transaction: Transaction, currencySymbol: String) {
                     Text(
                         text = transaction.notes,
                         fontWeight = FontWeight.Medium,
+                        fontFamily = greenstashFont,
                         fontSize = 14.sp,
                         maxLines = 4,
                         overflow = TextOverflow.Ellipsis,

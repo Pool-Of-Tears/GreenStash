@@ -81,8 +81,6 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -242,19 +240,20 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
             Text(
                 text = stringResource(id = R.string.goal_remove_deadline),
                 color = MaterialTheme.colorScheme.onSurface,
+                fontFamily = greenstashFont
             )
         }, confirmButton = {
             TextButton(onClick = {
                 showRemoveDeadlineDialog.value = false
                 viewModel.removeDeadLine()
             }) {
-                Text(stringResource(id = R.string.confirm))
+                Text(stringResource(id = R.string.confirm),   fontFamily = greenstashFont)
             }
         }, dismissButton = {
             TextButton(onClick = {
                 showRemoveDeadlineDialog.value = false
             }) {
-                Text(stringResource(id = R.string.cancel))
+                Text(stringResource(id = R.string.cancel),   fontFamily = greenstashFont)
             }
         })
     }
@@ -265,23 +264,23 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
         .imePadding(),
         snackbarHost = { SnackbarHost(snackBarHostState) },
         topBar = {
-            TopAppBar(modifier = Modifier.fillMaxWidth(), title = {
-                Text(
-                    text = topBarText,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    fontFamily = greenstashFont
-                )
-            }, navigationIcon = {
-                IconButton(onClick = { navController.navigateUp() }) {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = null
+            TopAppBar(
+                modifier = Modifier.fillMaxWidth(),
+                title = {
+                    Text(
+                        text = topBarText,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        fontFamily = greenstashFont
                     )
+                }, navigationIcon = {
+                    IconButton(onClick = { navController.navigateUp() }) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = null
+                        )
+                    }
                 }
-            }, colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(4.dp)
-            )
             )
         }) { paddingValues ->
         if (showGoalAddedAnim.value) {
@@ -314,18 +313,25 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                 Text(
                     text = textStr,
                     fontWeight = FontWeight.SemiBold,
-                    fontSize = 20.sp
+                    fontSize = 20.sp,
+                    fontFamily = greenstashFont
                 )
 
                 Spacer(modifier = Modifier.weight(1.4f))
             }
         } else {
+            // Scroll to top when screen is loaded.
+            val scrollState = rememberScrollState()
+            LaunchedEffect(key1 = true) {
+                scrollState.scrollTo(scrollState.maxValue)
+            }
+
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .background(MaterialTheme.colorScheme.background)
                     .padding(paddingValues)
-                    .verticalScroll(rememberScrollState(), reverseScrolling = true),
+                    .verticalScroll(scrollState, reverseScrolling = true),
             ) {
                 Spacer(modifier = Modifier.height(12.dp))
                 Box(
@@ -385,7 +391,8 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                             Text(
                                 text = stringResource(id = R.string.input_pick_image),
                                 modifier = Modifier.padding(top = 2.dp),
-                                color = MaterialTheme.colorScheme.onPrimary
+                                color = MaterialTheme.colorScheme.onPrimary,
+                                fontFamily = greenstashFont
                             )
                         }
                     }
@@ -397,7 +404,8 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                         .padding(top = 20.dp, bottom = 20.dp, start = 30.dp, end = 30.dp),
                     text = stringResource(id = R.string.input_page_quote),
                     textAlign = TextAlign.Center,
-                    fontSize = 15.sp
+                    fontSize = 13.sp,
+                    fontFamily = greenstashFont
                 )
 
                 Column(
@@ -425,7 +433,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                         },
                         modifier = Modifier.fillMaxWidth(0.86f),
                         label = {
-                            Text(text = stringResource(id = R.string.input_text_title))
+                            Text(text = stringResource(id = R.string.input_text_title),   fontFamily = greenstashFont)
                         },
                         leadingIcon = {
                             Icon(
@@ -452,7 +460,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                         },
                         modifier = Modifier.fillMaxWidth(0.86f),
                         label = {
-                            Text(text = stringResource(id = R.string.input_text_amount))
+                            Text(text = stringResource(id = R.string.input_text_amount),   fontFamily = greenstashFont)
                         },
                         leadingIcon = {
                             Icon(
@@ -494,7 +502,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                                 indication = null
                             ),
                         label = {
-                            Text(text = stringResource(id = R.string.input_deadline))
+                            Text(text = stringResource(id = R.string.input_deadline),   fontFamily = greenstashFont)
                         },
                         leadingIcon = {
                             Icon(
@@ -525,7 +533,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                         },
                         modifier = Modifier.fillMaxWidth(0.86f),
                         label = {
-                            Text(text = stringResource(id = R.string.input_additional_notes))
+                            Text(text = stringResource(id = R.string.input_additional_notes),   fontFamily = greenstashFont)
                         },
                         leadingIcon = {
                             Icon(
@@ -571,7 +579,8 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                     ) {
                         Text(
                             text = buttonText,
-                            color = MaterialTheme.colorScheme.onPrimary
+                            color = MaterialTheme.colorScheme.onPrimary,
+                            fontFamily = greenstashFont
                         )
                     }
 
@@ -621,7 +630,8 @@ fun GoalIconPicker(goalIcon: ImageVector, onClick: () -> Unit) {
                 text = stringResource(id = R.string.input_pick_icon),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onPrimaryContainer,
-                fontSize = 18.sp, maxLines = 2,
+                fontSize = 17.sp, maxLines = 2,
+                fontFamily = greenstashFont,
                 overflow = TextOverflow.Ellipsis
 
             )
@@ -654,6 +664,7 @@ fun GoalPriorityMenu(viewModel: InputViewModel) {
                         .padding(top = 6.dp),
                     text = stringResource(id = R.string.input_goal_priority),
                     textAlign = TextAlign.Center,
+                    fontFamily = greenstashFont,
                     color = MaterialTheme.colorScheme.onPrimaryContainer
                 )
                 SelectableChipGroup(
@@ -734,7 +745,7 @@ fun GoalReminderMenu(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
-            Text(text = "Saving Reminders", fontSize = 18.sp)
+            Text(text = "Saving Reminders", fontSize = 18.sp,   fontFamily = greenstashFont)
             Spacer(modifier = Modifier.width(14.dp))
             Switch(
                 checked = viewModel.state.reminder,

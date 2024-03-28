@@ -28,6 +28,8 @@
     <string name="filter_button_desc">Filter your saving goals</string>
     <string name="search_button_desc">Search for specific saving goal.</string>
     <string name="new_goal_fab">New Goal</string>
+    <string name="new_goal_onboarding_title">Let\'s start by creating a new saving goal!</string>
+    <string name="new_goal_onboarding_desc">Click on the floating action button to create a new saving goal.</string>
     <string name="filter_menu_title">Filter By</string>
     <string name="home_search_label">Search here…</string>
     <string name="search_goal_not_found">404: Goal not found!</string>>
@@ -82,6 +84,8 @@
     <string name="info_card_no_deadline_set">No deadline set.</string>
     <string name="info_card_goal_achieved">Goal achieved! 🎉</string>
     <string name="info_goal_priority">Goal Priority is %s</string>
+    <string name="info_reminder_status_on">Reminders are enabled</string>
+    <string name="info_reminder_status_off">Reminders are disabled</string>
     <string name="info_notes_card_title">Notes</string>
     <string name="info_goal_no_transactions">No Transactions Yet.</string>
 
@@ -108,9 +112,9 @@
     <!-- Backup Screen -->
     <string name="backup_screen_header">Backup &amp; Restore</string>
     <string name="backup_screen_text">Backup app data including all of your saving goals, current progress, transactions etc and easily restore it whenever you want.</string>
-    <string name="backup_screen_sub_text">Note: Backups does not include app settings.</string>
-    <string name="backup_button">Backup App Data</string>
-    <string name="restore_button">Restore App Data</string>
+    <string name="backup_screen_sub_text">Please note that backups do not include app settings.</string>
+    <string name="backup_button">Backup</string>
+    <string name="restore_button">Restore</string>
     <string name="backup_restore_success">Backup restored successfully!</string>
 
     <!-- Settings Screen -->
@@ -118,10 +122,16 @@
     <string name="display_settings_title">Display</string>
     <string name="theme_setting">Default Theme</string>
     <string name="theme_dialog_title">Change Theme</string>
+    <string name="theme_dialog_option1">Light</string>
+    <string name="theme_dialog_option2">Dark</string>
+    <string name="theme_dialog_option3">System Default</string>
     <string name="theme_dialog_apply_button">Apply</string>
     <string name="material_you_setting" translatable="false">Material You</string>
     <string name="material_you_setting_desc">Switch theme according to your wallpaper (A12+ Only)</string>
     <string name="material_you_error">This feature is only for devices running Android 12 or above.</string>
+    <string name="goal_card_setting">Goal Card Style</string>
+    <string name="goal_card_option1">Classic</string>
+    <string name="goal_card_option2">Compact</string>
     <string name="locales_setting_title">Locales</string>
     <string name="date_format_setting">Date Format</string>
     <string name="date_format_dialog_title">Change Date Format</string>
@@ -135,6 +145,10 @@
     <string name="license_setting_desc">Show open source license information.</string>
     <string name="app_info_setting">App Information</string>
     <string name="app_info_setting_desc">Show app version and useful links.</string>
+
+    <!-- Goal Card Style -->
+    <string name="goal_card_settings_header">Goal Style</string>
+    <string name="goal_card_settings_tip">Tip! You can swipe a compact-styled card left or right to either edit or delete a savings goal.</string>
 
     <!-- OSL Screen -->
     <string name="osl_screen_header">Open Source Libraries</string>

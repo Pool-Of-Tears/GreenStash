@@ -114,10 +114,6 @@ class WidgetConfigActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         settingsViewModel = ViewModelProvider(this)[SettingsViewModel::class.java]
-        // Setup app theme according to user's settings.
-        ThemeMode.entries.find { it.ordinal == settingsViewModel.getThemeValue() }
-            ?.let { settingsViewModel.setTheme(it) }
-        settingsViewModel.setMaterialYou(settingsViewModel.getMaterialYouValue())
 
         setContent {
             GreenStashTheme(settingsViewModel = settingsViewModel) {

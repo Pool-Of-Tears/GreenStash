@@ -32,6 +32,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -43,8 +44,13 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Style
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LargeTopAppBar
@@ -78,6 +84,7 @@ import androidx.navigation.NavController
 import com.starry.greenstash.MainActivity
 import com.starry.greenstash.R
 import com.starry.greenstash.ui.navigation.Screens
+import com.starry.greenstash.ui.screens.home.viewmodels.GoalCardStyle
 import com.starry.greenstash.ui.screens.settings.viewmodels.DateStyle
 import com.starry.greenstash.ui.screens.settings.viewmodels.ThemeMode
 import com.starry.greenstash.ui.theme.greenstashFont
@@ -122,9 +129,8 @@ fun SettingsScreen(navController: NavController) {
                     )
                 }
             }, scrollBehavior = scrollBehavior, colors = TopAppBarDefaults.largeTopAppBarColors(
-                containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(
-                    4.dp
-                )
+                containerColor = MaterialTheme.colorScheme.surface,
+                scrolledContainerColor = MaterialTheme.colorScheme.surface,
             )
             )
         },
@@ -132,24 +138,37 @@ fun SettingsScreen(navController: NavController) {
         LazyColumn(modifier = Modifier.padding(it)) {
             /** Display Settings */
             item {
+
+                // Theme related values.
                 val themeValue = when (viewModel.getThemeValue()) {
-                    ThemeMode.Light.ordinal -> "Light"
-                    ThemeMode.Dark.ordinal -> "Dark"
-                    else -> "System"
+                    ThemeMode.Light.ordinal -> stringResource(id = R.string.theme_dialog_option1)
+                    ThemeMode.Dark.ordinal -> stringResource(id = R.string.theme_dialog_option2)
+                    else -> stringResource(id = R.string.theme_dialog_option3)
                 }
                 val themeDialog = remember { mutableStateOf(false) }
-                val themeRadioOptions = listOf("Light", "Dark", "System")
+                val themeRadioOptions = listOf(
+                    stringResource(id = R.string.theme_dialog_option1),
+                    stringResource(id = R.string.theme_dialog_option2),
+                    stringResource(id = R.string.theme_dialog_option3)
+                )
                 val (selectedThemeOption, onThemeOptionSelected) = remember {
                     mutableStateOf(themeValue)
                 }
 
+                // Material You related values.
                 val materialYouSwitch = remember {
                     mutableStateOf(viewModel.getMaterialYouValue())
                 }
 
-                Column(
-                    modifier = Modifier.padding(top = 10.dp)
-                ) {
+                val goalStyleValue = when (viewModel.getGoalCardStyleValue()) {
+                    GoalCardStyle.Classic.ordinal -> stringResource(id = R.string.goal_card_option1)
+                    GoalCardStyle.Compact.ordinal -> stringResource(id = R.string.goal_card_option2)
+                    else -> stringResource(id = R.string.goal_card_option1)
+                }
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                SettingsContainer {
                     SettingsCategory(title = stringResource(id = R.string.display_settings_title))
                     SettingsItem(title = stringResource(id = R.string.theme_setting),
                         description = themeValue,
@@ -171,12 +190,20 @@ fun SettingsScreen(navController: NavController) {
                                     viewModel.setMaterialYou(true)
                                 } else {
                                     materialYouSwitch.value = false
-                                    context.getString(R.string.material_you_error).toToast(context)
+                                    context.getString(R.string.material_you_error)
+                                        .toToast(context)
                                 }
                             } else {
                                 viewModel.setMaterialYou(false)
                             }
                         }
+                    )
+
+                    SettingsItem(
+                        title = stringResource(id = R.string.goal_card_setting),
+                        description = goalStyleValue,
+                        icon = Icons.Filled.Style,
+                        onClick = { navController.navigate(Screens.GoalCardStyle.route) }
                     )
 
                     if (themeDialog.value) {
@@ -186,6 +213,7 @@ fun SettingsScreen(navController: NavController) {
                             Text(
                                 text = stringResource(id = R.string.theme_dialog_title),
                                 color = MaterialTheme.colorScheme.onSurface,
+                                fontFamily = greenstashFont,
                             )
                         }, text = {
                             Column(
@@ -218,35 +246,41 @@ fun SettingsScreen(navController: NavController) {
                                             text = text,
                                             modifier = Modifier.padding(start = 16.dp),
                                             color = MaterialTheme.colorScheme.onSurface,
+                                            fontFamily = greenstashFont,
                                         )
                                     }
                                 }
                             }
                         }, confirmButton = {
-                            TextButton(onClick = {
-                                themeDialog.value = false
+                            FilledTonalButton(
+                                onClick = {
+                                    themeDialog.value = false
+                                    when (selectedThemeOption) {
+                                        context.getString(R.string.theme_dialog_option1) -> {
+                                            viewModel.setTheme(ThemeMode.Light)
+                                        }
 
-                                when (selectedThemeOption) {
-                                    "Light" -> {
-                                        viewModel.setTheme(ThemeMode.Light)
-                                    }
+                                        context.getString(R.string.theme_dialog_option2) -> {
+                                            viewModel.setTheme(ThemeMode.Dark)
+                                        }
 
-                                    "Dark" -> {
-                                        viewModel.setTheme(ThemeMode.Dark)
+                                        context.getString(R.string.theme_dialog_option3) -> {
+                                            viewModel.setTheme(ThemeMode.Auto)
+                                        }
                                     }
-
-                                    "System" -> {
-                                        viewModel.setTheme(ThemeMode.Auto)
-                                    }
-                                }
-                            }) {
-                                Text(stringResource(id = R.string.theme_dialog_apply_button))
+                                },
+                                colors = ButtonDefaults.filledTonalButtonColors(
+                                    containerColor = MaterialTheme.colorScheme.primary,
+                                    contentColor = MaterialTheme.colorScheme.onPrimary
+                                )
+                            ) {
+                                Text(stringResource(id = R.string.theme_dialog_apply_button),  fontFamily = greenstashFont)
                             }
                         }, dismissButton = {
                             TextButton(onClick = {
                                 themeDialog.value = false
                             }) {
-                                Text(stringResource(id = R.string.cancel))
+                                Text(stringResource(id = R.string.cancel),  fontFamily = greenstashFont)
                             }
                         })
                     }
@@ -281,10 +315,7 @@ fun SettingsScreen(navController: NavController) {
                     mutableStateOf(currencyValue)
                 }
 
-
-                Column(
-                    modifier = Modifier.padding(top = 10.dp)
-                ) {
+                SettingsContainer {
                     SettingsCategory(title = stringResource(id = R.string.locales_setting_title))
                     SettingsItem(title = stringResource(id = R.string.date_format_setting),
                         description = dateValue,
@@ -303,6 +334,7 @@ fun SettingsScreen(navController: NavController) {
                             Text(
                                 text = stringResource(id = R.string.date_format_dialog_title),
                                 color = MaterialTheme.colorScheme.onSurface,
+                                fontFamily = greenstashFont
                             )
                         }, text = {
                             Column(
@@ -335,31 +367,37 @@ fun SettingsScreen(navController: NavController) {
                                             text = text,
                                             modifier = Modifier.padding(start = 16.dp),
                                             color = MaterialTheme.colorScheme.onSurface,
+                                            fontFamily = greenstashFont
                                         )
                                     }
                                 }
                             }
                         }, confirmButton = {
-                            TextButton(onClick = {
-                                dateDialog.value = false
+                            FilledTonalButton(
+                                onClick = {
+                                    dateDialog.value = false
+                                    when (selectedDateOption) {
+                                        "DD/MM/YYYY" -> {
+                                            viewModel.setDateStyle(DateStyle.DateMonthYear.pattern)
+                                        }
 
-                                when (selectedDateOption) {
-                                    "DD/MM/YYYY" -> {
-                                        viewModel.setDateStyle(DateStyle.DateMonthYear.pattern)
+                                        "YYYY/MM/DD" -> {
+                                            viewModel.setDateStyle(DateStyle.YearMonthDate.pattern)
+                                        }
                                     }
-
-                                    "YYYY/MM/DD" -> {
-                                        viewModel.setDateStyle(DateStyle.YearMonthDate.pattern)
-                                    }
-                                }
-                            }) {
-                                Text(stringResource(id = R.string.confirm))
+                                },
+                                colors = ButtonDefaults.filledTonalButtonColors(
+                                    containerColor = MaterialTheme.colorScheme.primary,
+                                    contentColor = MaterialTheme.colorScheme.onPrimary
+                                )
+                            ) {
+                                Text(stringResource(id = R.string.confirm),  fontFamily = greenstashFont)
                             }
                         }, dismissButton = {
                             TextButton(onClick = {
                                 dateDialog.value = false
                             }) {
-                                Text(stringResource(id = R.string.cancel))
+                                Text(stringResource(id = R.string.cancel),  fontFamily = greenstashFont)
                             }
                         })
                     }
@@ -371,6 +409,7 @@ fun SettingsScreen(navController: NavController) {
                             Text(
                                 text = stringResource(id = R.string.currency_dialog_title),
                                 color = MaterialTheme.colorScheme.onSurface,
+                                fontFamily = greenstashFont
                             )
                         }, text = {
                             Column(
@@ -407,24 +446,33 @@ fun SettingsScreen(navController: NavController) {
                                             text = text,
                                             modifier = Modifier.padding(start = 16.dp),
                                             color = MaterialTheme.colorScheme.onSurface,
+                                            fontFamily = greenstashFont
                                         )
                                     }
                                 }
                             }
                         }, confirmButton = {
-                            TextButton(onClick = {
-                                currencyDialog.value = false
-                                val choice =
-                                    currencyValues[currencyEntries.indexOf(selectedCurrencyOption)]
-                                viewModel.setDefaultCurrency(choice)
-                            }) {
-                                Text(stringResource(id = R.string.confirm))
+                            FilledTonalButton(
+                                onClick = {
+                                    currencyDialog.value = false
+                                    val choice =
+                                        currencyValues[currencyEntries.indexOf(
+                                            selectedCurrencyOption
+                                        )]
+                                    viewModel.setDefaultCurrency(choice)
+                                },
+                                colors = ButtonDefaults.filledTonalButtonColors(
+                                    containerColor = MaterialTheme.colorScheme.primary,
+                                    contentColor = MaterialTheme.colorScheme.onPrimary
+                                )
+                            ) {
+                                Text(stringResource(id = R.string.confirm),  fontFamily = greenstashFont)
                             }
                         }, dismissButton = {
                             TextButton(onClick = {
                                 currencyDialog.value = false
                             }) {
-                                Text(stringResource(id = R.string.cancel))
+                                Text(stringResource(id = R.string.cancel),  fontFamily = greenstashFont)
                             }
                         })
                     }
@@ -435,9 +483,7 @@ fun SettingsScreen(navController: NavController) {
             item {
                 val appLockSwitch = remember { mutableStateOf(viewModel.getAppLockValue()) }
 
-                Column(
-                    modifier = Modifier.padding(top = 10.dp)
-                ) {
+                SettingsContainer {
                     SettingsCategory(title = stringResource(id = R.string.security_settings_title))
                     SettingsItem(
                         title = stringResource(id = R.string.app_lock_setting),
@@ -496,9 +542,7 @@ fun SettingsScreen(navController: NavController) {
 
             /** About Setting */
             item {
-                Column(
-                    modifier = Modifier.padding(top = 10.dp)
-                ) {
+                SettingsContainer {
                     SettingsCategory(title = stringResource(id = R.string.misc_setting_title))
                     SettingsItem(
                         title = stringResource(id = R.string.license_setting),
@@ -513,7 +557,24 @@ fun SettingsScreen(navController: NavController) {
                         onClick = { navController.navigate(Screens.AboutScreen.route) }
                     )
                 }
+                Spacer(modifier = Modifier.height(2.dp))
             }
+        }
+    }
+}
+
+@Composable
+fun SettingsContainer(content: @Composable () -> Unit) {
+    Card(
+        modifier = Modifier.padding(vertical = 10.dp, horizontal = 12.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(
+                3.dp
+            )
+        ),
+    ) {
+        Column(modifier = Modifier.padding(top = 2.dp)) {
+            content()
         }
     }
 }
@@ -524,6 +585,7 @@ fun SettingsCategory(title: String) {
         text = title,
         color = MaterialTheme.colorScheme.onBackground,
         fontSize = 14.sp,
+        fontFamily = greenstashFont,
         fontWeight = FontWeight.Bold,
         modifier = Modifier
             .padding(vertical = 8.dp)
