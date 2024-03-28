@@ -148,6 +148,7 @@
 
     <!-- Goal Card Style -->
     <string name="goal_card_settings_header">Hedef Stili</string>
+    <string name="goal_card_settings_tip">İpucu! Kompakt tarzda bir kartı sola veya sağa kaydırarak bir tasarruf hedefini düzenleyebilir veya silebilirsiniz.</string>
 
     <!-- OSL Screen -->
     <string name="osl_screen_header">Açık Kaynak Kütüphaneleri</string>

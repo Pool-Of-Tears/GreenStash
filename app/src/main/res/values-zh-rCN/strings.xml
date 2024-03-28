@@ -148,6 +148,7 @@
 
     <!-- Goal Card STyle -->
     <string name="goal_card_settings_header">目标样式</string>
+    <string name="goal_card_settings_tip">提示！你可以向左或向右滑动一个紧凑样式的卡片来编辑或删除一个储蓄目标。</string>
 
     <!-- OSL Screen -->
     <string name="osl_screen_header">开源库</string>
