@@ -159,7 +159,7 @@ fun GoalCardStyle(navController: NavController) {
                             GoalItemCompact(
                                 title = "Home Decorations",
                                 savedAmount = "$1,000.00",
-                                daysLeftText = "!2 days left",
+                                daysLeftText = "12 days left",
                                 goalProgress = 0.8f,
                                 goalIcon = ImageVector.vectorResource(id = R.drawable.ic_nav_backups),
                                 onDepositClicked = {},
@@ -216,7 +216,7 @@ fun GoalCardStyle(navController: NavController) {
                             Text(
                                 text = goalStyleToString(option),
                                 style = MaterialTheme.typography.titleMedium,
-                                modifier = Modifier.padding(start = 16.dp, top = 12.dp),
+                                modifier = Modifier.padding(start = 10.dp, top = 12.dp),
                                 fontFamily = greenstashFont
                             )
                         }
@@ -247,7 +247,10 @@ fun GoalCardStyle(navController: NavController) {
                 OutlinedCard(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 8.dp)
+                        .padding(horizontal = 8.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surfaceContainer
+                    )
                 ) {
                     Text(
                         text = stringResource(id = R.string.goal_card_settings_tip),

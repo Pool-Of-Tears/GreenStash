@@ -28,6 +28,8 @@
     <string name="filter_button_desc">Birikim hedeflerini filtrele</string>
     <string name="search_button_desc">Belli bir birikim hedefini ara.</string>
     <string name="new_goal_fab">Yeni Hedef</string>
+    <string name="new_goal_onboarding_title">Yeni bir tasarruf hedefi oluşturarak başlayalım!</string>
+    <string name="new_goal_onboarding_desc">Yeni bir tasarruf hedefi oluşturmak için hareketli işlem düğmesine tıklayın.</string>
     <string name="filter_menu_title">Filtrele</string>
     <string name="home_search_label">Ara…</string>
     <string name="search_goal_not_found">404: Hedef bulunamadı!</string>>

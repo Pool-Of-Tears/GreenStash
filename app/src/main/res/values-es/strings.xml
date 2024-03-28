@@ -28,6 +28,8 @@
     <string name="filter_button_desc">Filter your saving goals</string>
     <string name="search_button_desc">Search for specific saving goal.</string>
     <string name="new_goal_fab">Nueva Meta</string>
+    <string name="new_goal_onboarding_title">¡Comencemos creando un nuevo objetivo de ahorro!</string>
+    <string name="new_goal_onboarding_desc">Haz clic en el botón de acción flotante para crear un nuevo objetivo de ahorro.</string>
     <string name="filter_menu_title">Filter By</string>
     <string name="home_search_label">Busca aquí…</string>
     <string name="search_goal_not_found">404: ¡Meta no encontrada!</string>

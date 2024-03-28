@@ -23,6 +23,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.starry.greenstash.ui.theme.greenstashFont
 
 @Composable
 fun SelectableChipGroup(
@@ -81,7 +82,8 @@ fun Chip(
             Text(
                 text = title,
                 color = MaterialTheme.colorScheme.onPrimary,
-                fontSize = 16.sp
+                fontSize = 16.sp,
+                fontFamily = greenstashFont
             )
 
         }

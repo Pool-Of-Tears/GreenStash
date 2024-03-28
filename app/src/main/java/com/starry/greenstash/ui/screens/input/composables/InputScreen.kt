@@ -320,12 +320,18 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                 Spacer(modifier = Modifier.weight(1.4f))
             }
         } else {
+            // Scroll to top when screen is loaded.
+            val scrollState = rememberScrollState()
+            LaunchedEffect(key1 = true) {
+                scrollState.scrollTo(scrollState.maxValue)
+            }
+
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .background(MaterialTheme.colorScheme.background)
                     .padding(paddingValues)
-                    .verticalScroll(rememberScrollState(), reverseScrolling = true),
+                    .verticalScroll(scrollState, reverseScrolling = true),
             ) {
                 Spacer(modifier = Modifier.height(12.dp))
                 Box(
@@ -624,7 +630,7 @@ fun GoalIconPicker(goalIcon: ImageVector, onClick: () -> Unit) {
                 text = stringResource(id = R.string.input_pick_icon),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onPrimaryContainer,
-                fontSize = 18.sp, maxLines = 2,
+                fontSize = 17.sp, maxLines = 2,
                 fontFamily = greenstashFont,
                 overflow = TextOverflow.Ellipsis
 

@@ -28,6 +28,8 @@
     <string name="filter_button_desc">过滤省钱目标</string>
     <string name="search_button_desc">搜索某些省钱目标。</string>
     <string name="new_goal_fab">新目标</string>
+    <string name="new_goal_onboarding_title">让我们从创建一个新的储蓄目标开始吧！</string>
+    <string name="new_goal_onboarding_desc">点击浮动操作按钮创建一个新的储蓄目标。</string>
     <string name="filter_menu_title">过滤，按</string>
     <string name="home_search_label">搜索此处…</string>
     <string name="search_goal_not_found">404: 目标未发现！</string>>
