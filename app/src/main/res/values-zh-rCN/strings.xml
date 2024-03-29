@@ -89,6 +89,7 @@
     <string name="info_reminder_status_off">提醒已禁用</string>
     <string name="info_notes_card_title">备注</string>
     <string name="info_goal_no_transactions">尚无收支。</string>
+    <string name="edit_transaction_button">更新交易</string>
 
     <!-- Input (New/Edit Goal) Screen -->
     <string name="input_screen_header">省钱时间到！</string>
@@ -171,6 +172,8 @@
     <string name="about_gh_issue_desc">通过在Github上创建问题来提交bug报告或功能需求。</string>
     <string name="about_telegram_title">Telegram组</string>
     <string name="about_telegram_desc">加入我们的 Telegram，分享您的想法或进行聊天！</string>
+    <string name="about_support_title">支持开发</string>
+    <string name="about_support_desc">如果您认为我的工作值得一些饼干，您可以点击这里购买给我一些。</string>
     <string name="about_version_title">版本</string>
     <string name="about_version_desc">版本-%s</string>
 

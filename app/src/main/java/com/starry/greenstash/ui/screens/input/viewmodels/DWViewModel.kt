@@ -117,13 +117,7 @@ class DWViewModel @Inject constructor(
         dateTime: LocalDateTime,
         transactionType: TransactionType
     ) {
-        // Coonvert the LocalDateTime to epoch time in millis
-        val timeZone = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            ZoneId.systemDefault()
-        } else {
-            TimeZone.getDefault().toZoneId()
-        }
-        val timeStamp = dateTime.atZone(timeZone).toInstant().toEpochMilli()
+        val timeStamp = Utils.getEpochTime(dateTime)
 
         val transaction = Transaction(
             ownerGoalId = goalId,

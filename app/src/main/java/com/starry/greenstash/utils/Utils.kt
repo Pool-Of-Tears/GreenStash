@@ -34,9 +34,12 @@ import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.ZoneId
 import java.util.Currency
 import java.util.Date
 import java.util.Locale
+import java.util.TimeZone
 
 object Utils {
 
@@ -97,6 +100,15 @@ object Utils {
             in 17..20 -> "Good Evening!"
             else -> "Good Night!"
         }
+    }
+
+    fun getEpochTime(dateTime: LocalDateTime): Long {
+        val timeZone = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            ZoneId.systemDefault()
+        } else {
+            TimeZone.getDefault().toZoneId()
+        }
+        return dateTime.atZone(timeZone).toInstant().toEpochMilli()
     }
 
 }

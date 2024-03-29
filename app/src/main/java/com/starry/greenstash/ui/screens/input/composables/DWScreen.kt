@@ -220,53 +220,11 @@ fun DWScreen(goalId: String, transactionTypeName: String, navController: NavCont
                     enableMergePaths = true
                 )
 
-                Card(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 18.dp, vertical = 8.dp)
-                        .clickable { dateTimeDialogState.show() }
-                ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp),
-                        horizontalArrangement = Arrangement.Center
-                    ) {
-                        Row {
-                            Icon(
-                                imageVector = ImageVector.vectorResource(id = R.drawable.ic_dw_date),
-                                contentDescription = null,
-                                modifier = Modifier.size(24.dp)
-                            )
-                            Text(
-                                text = selectedDateTime.value!!.format(
-                                    DateTimeFormatter.ofPattern(
-                                        viewModel.getDateStyleValue()
-                                    )
-                                ),
-                                fontFamily = greenstashFont,
-                                fontWeight = FontWeight.Medium,
-                                modifier = Modifier.padding(start = 8.dp, top = 2.dp)
-                            )
-                        }
-
-                        Spacer(modifier = Modifier.width(24.dp))
-
-                        Row {
-                            Icon(
-                                imageVector = ImageVector.vectorResource(id = R.drawable.ic_dw_time),
-                                contentDescription = null,
-                                modifier = Modifier.size(24.dp)
-                            )
-                            Text(
-                                text = selectedDateTime.value!!.format(DateTimeFormatter.ofPattern("h:mm a")),
-                                fontFamily = greenstashFont,
-                                fontWeight = FontWeight.Medium,
-                                modifier = Modifier.padding(start = 8.dp, top = 2.dp)
-                            )
-                        }
-                    }
-                }
+                DateTimePicker(
+                    selectedDateTime = selectedDateTime,
+                    dateTimeStyle = { viewModel.getDateStyleValue()!! },
+                    onClick = { dateTimeDialogState.show() }
+                )
 
                 OutlinedTextField(
                     value = viewModel.state.amount,
@@ -276,7 +234,7 @@ fun DWScreen(goalId: String, transactionTypeName: String, navController: NavCont
                     },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 18.dp, vertical = 12.dp),
+                        .padding(horizontal = 18.dp, vertical = 4.dp),
                     label = {
                         Text(
                             text = stringResource(id = R.string.transaction_amount),
@@ -403,6 +361,59 @@ fun DWScreen(goalId: String, transactionTypeName: String, navController: NavCont
     }
 }
 
+@Composable
+fun DateTimePicker(
+    selectedDateTime: MutableState<LocalDateTime?>,
+    dateTimeStyle: () -> String,
+    onClick: () -> Unit
+) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 18.dp, vertical = 8.dp)
+            .clickable { onClick() }
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Row {
+                Icon(
+                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_dw_date),
+                    contentDescription = null,
+                    modifier = Modifier.size(24.dp)
+                )
+                Text(
+                    text = selectedDateTime.value!!.format(
+                        DateTimeFormatter.ofPattern(dateTimeStyle())
+                    ),
+                    fontFamily = greenstashFont,
+                    fontWeight = FontWeight.Medium,
+                    modifier = Modifier.padding(start = 8.dp, top = 2.dp)
+                )
+            }
+
+            Spacer(modifier = Modifier.width(24.dp))
+
+            Row {
+                Icon(
+                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_dw_time),
+                    contentDescription = null,
+                    modifier = Modifier.size(24.dp)
+                )
+                Text(
+                    text = selectedDateTime.value!!.format(DateTimeFormatter.ofPattern("h:mm a")),
+                    fontFamily = greenstashFont,
+                    fontWeight = FontWeight.Medium,
+                    modifier = Modifier.padding(start = 8.dp, top = 2.dp)
+                )
+            }
+        }
+    }
+}
+
 private fun navigateToHome(
     navController: NavController,
     coroutineScope: CoroutineScope,
@@ -411,8 +422,10 @@ private fun navigateToHome(
     coroutineScope.launch {
         showTransactionAddedAnim.value = true
         delay(1100)
-        navController.popBackStack(DrawerScreens.Home.route, true)
-        navController.navigate(DrawerScreens.Home.route)
+        withContext(Dispatchers.Main) {
+            navController.popBackStack(DrawerScreens.Home.route, true)
+            navController.navigate(DrawerScreens.Home.route)
+        }
     }
 }
 

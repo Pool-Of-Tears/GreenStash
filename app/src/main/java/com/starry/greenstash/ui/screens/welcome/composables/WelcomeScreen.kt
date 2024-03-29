@@ -194,7 +194,6 @@ fun WelcomeScreen(navController: NavController) {
             currencyValues = currencyValues,
             showBottomSheet = currencyDialog,
             onCurrencySelected = { newValue ->
-                println("Selected currency: $newValue")
                 viewModel.setDefaultCurrency(newValue)
                 selectedCurrencyName.value = currencyNames[currencyValues.indexOf(newValue)]
             }

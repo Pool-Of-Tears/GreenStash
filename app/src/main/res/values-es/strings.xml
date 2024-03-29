@@ -89,6 +89,7 @@
     <string name="info_reminder_status_off">Los recordatorios están desactivados</string>
     <string name="info_notes_card_title">Notas</string>
     <string name="info_goal_no_transactions">Sin transacciones aún.</string>
+    <string name="edit_transaction_button">Actualizar Transacción</string>
 
     <!-- Input (New/Edit Goal) Screen -->
     <string name="input_screen_header">¡Es momento de ahorrar!</string>
@@ -169,6 +170,8 @@
     <string name="about_gh_issue_desc">Envía reportes de errores o solicitud de características creando una nueva solicitud en Github</string>
     <string name="about_telegram_title">Grupo de Telegram</string>
     <string name="about_telegram_desc">¡Únete a nosotros en telegram para compartir tus ideas o simplemente hablar!</string>
+    <string name="about_support_title">Apoya el Desarrollo</string>
+    <string name="about_support_desc">Si crees que merezco algunas galletas por mi trabajo, puedes comprarme algunas haciendo clic aquí.</string>
     <string name="about_version_title">Versión</string>
     <string name="about_version_desc">Versión-%s</string>
 

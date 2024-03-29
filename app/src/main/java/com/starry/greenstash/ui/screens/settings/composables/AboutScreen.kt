@@ -34,6 +34,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.Notes
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.PrivacyTip
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -64,6 +68,7 @@ sealed class AboutLinks(val url: String) {
 
     data object GithubIssues : AboutLinks("https://github.com/Pool-Of-Tears/GreenStash/issues")
     data object Telegram : AboutLinks("https://t.me/PotApps")
+    data object Sponser : AboutLinks("https://github.com/sponsors/starry-shivam")
 }
 
 @ExperimentalMaterial3Api
@@ -102,14 +107,14 @@ fun AboutScreen(navController: NavController) {
             item {
                 SettingsItem(title = stringResource(id = R.string.about_readme_title),
                     description = stringResource(id = R.string.about_readme_desc),
-                    icon = ImageVector.vectorResource(id = R.drawable.ic_about_readme),
+                    icon = Icons.AutoMirrored.Filled.Notes,
                     onClick = { openWebLink(context, AboutLinks.ReadMe.url) }
                 )
             }
             item {
                 SettingsItem(title = stringResource(id = R.string.about_privacy_title),
                     description = stringResource(id = R.string.about_privacy_desc),
-                    icon = ImageVector.vectorResource(id = R.drawable.ic_about_privacy),
+                    icon = Icons.Filled.PrivacyTip,
                     onClick = { openWebLink(context, AboutLinks.PrivacyPolicy.url) }
                 )
             }
@@ -128,11 +133,18 @@ fun AboutScreen(navController: NavController) {
                 )
             }
             item {
+                SettingsItem(title = stringResource(id = R.string.about_support_title),
+                    description = stringResource(id = R.string.about_support_desc),
+                    icon = Icons.Filled.Favorite,
+                    onClick = { openWebLink(context, AboutLinks.Sponser.url) }
+                )
+            }
+            item {
                 SettingsItem(title = stringResource(id = R.string.about_version_title),
                     description = stringResource(id = R.string.about_version_desc).format(
                         BuildConfig.VERSION_NAME
                     ),
-                    icon = ImageVector.vectorResource(id = R.drawable.ic_about_version),
+                    icon = Icons.Filled.Info,
                     onClick = { clipboardManager.setText(AnnotatedString(getVersionReport())) }
                 )
             }

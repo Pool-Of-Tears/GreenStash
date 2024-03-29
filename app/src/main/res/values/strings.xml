@@ -89,6 +89,7 @@
     <string name="info_reminder_status_off">Reminders are disabled</string>
     <string name="info_notes_card_title">Notes</string>
     <string name="info_goal_no_transactions">No Transactions Yet.</string>
+    <string name="edit_transaction_button">Update Transaction</string>
 
     <!-- Input (New/Edit Goal) Screen -->
     <string name="input_screen_header">It\'s time to save!</string>
@@ -171,6 +172,8 @@
     <string name="about_gh_issue_desc">Submit bug reports or feature requests by creating an issue on Github.</string>
     <string name="about_telegram_title">Telegram Group</string>
     <string name="about_telegram_desc">Join us at telegram to share your ideas or just to chat!</string>
+    <string name="about_support_title">Support Development</string>
+    <string name="about_support_desc">If you think I deserve cookies for my work, you can buy me some by clicking here.</string>
     <string name="about_version_title">Version</string>
     <string name="about_version_desc">Version-%s</string>
 

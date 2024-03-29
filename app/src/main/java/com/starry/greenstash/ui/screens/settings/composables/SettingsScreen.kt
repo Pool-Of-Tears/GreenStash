@@ -37,10 +37,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -83,6 +81,7 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import com.starry.greenstash.MainActivity
 import com.starry.greenstash.R
+import com.starry.greenstash.ui.common.CurrencyPicker
 import com.starry.greenstash.ui.navigation.Screens
 import com.starry.greenstash.ui.screens.home.viewmodels.GoalCardStyle
 import com.starry.greenstash.ui.screens.settings.viewmodels.DateStyle
@@ -289,7 +288,7 @@ fun SettingsScreen(navController: NavController) {
 
             /** Locales Setting */
             item {
-
+                // Date related values.
                 val dateValue = if (viewModel.getDateStyleValue() == DateStyle.YearMonthDate.pattern
                 ) {
                     "YYYY/MM/DD"
@@ -303,17 +302,15 @@ fun SettingsScreen(navController: NavController) {
                     mutableStateOf(dateValue)
                 }
 
-                val currencyEntries = context.resources.getStringArray(R.array.currency_names)
+                // Currency related values.
+                val currencyDialog = remember { mutableStateOf(false) }
+                val currencyNames = context.resources.getStringArray(R.array.currency_names)
                 val currencyValues = context.resources.getStringArray(R.array.currency_values)
 
-                val currencyValue = currencyEntries[
-                    currencyValues.indexOf(viewModel.getDefaultCurrencyValue())
-                ]
-
-                val currencyDialog = remember { mutableStateOf(false) }
-                val (selectedCurrencyOption, onCurrencyOptionSelected) = remember {
-                    mutableStateOf(currencyValue)
+                val selectedCurrencyName = remember {
+                    mutableStateOf(currencyNames[currencyValues.indexOf(viewModel.getDefaultCurrencyValue())])
                 }
+
 
                 SettingsContainer {
                     SettingsCategory(title = stringResource(id = R.string.locales_setting_title))
@@ -323,7 +320,7 @@ fun SettingsScreen(navController: NavController) {
                         onClick = { dateDialog.value = true })
 
                     SettingsItem(title = stringResource(id = R.string.preferred_currency_setting),
-                        description = currencyValue,
+                        description = selectedCurrencyName.value,
                         icon = ImageVector.vectorResource(id = R.drawable.ic_settings_currency),
                         onClick = { currencyDialog.value = true })
 
@@ -402,80 +399,17 @@ fun SettingsScreen(navController: NavController) {
                         })
                     }
 
-                    if (currencyDialog.value) {
-                        AlertDialog(onDismissRequest = {
-                            currencyDialog.value = false
-                        }, title = {
-                            Text(
-                                text = stringResource(id = R.string.currency_dialog_title),
-                                color = MaterialTheme.colorScheme.onSurface,
-                                fontFamily = greenstashFont
-                            )
-                        }, text = {
-                            Column(
-                                modifier = Modifier
-                                    .selectableGroup()
-                                    .verticalScroll(
-                                        rememberScrollState()
-                                    ),
-                                verticalArrangement = Arrangement.Center,
-                            ) {
-                                currencyEntries.forEach { text ->
-                                    Row(
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .height(46.dp)
-                                            .selectable(
-                                                selected = (text == selectedCurrencyOption),
-                                                onClick = { onCurrencyOptionSelected(text) },
-                                                role = Role.RadioButton,
-                                            ),
-                                        verticalAlignment = Alignment.CenterVertically,
-                                    ) {
-                                        RadioButton(
-                                            selected = (text == selectedCurrencyOption),
-                                            onClick = null,
-                                            colors = RadioButtonDefaults.colors(
-                                                selectedColor = MaterialTheme.colorScheme.primary,
-                                                unselectedColor = MaterialTheme.colorScheme.inversePrimary,
-                                                disabledSelectedColor = Color.Black,
-                                                disabledUnselectedColor = Color.Black
-                                            ),
-                                        )
-                                        Text(
-                                            text = text,
-                                            modifier = Modifier.padding(start = 16.dp),
-                                            color = MaterialTheme.colorScheme.onSurface,
-                                            fontFamily = greenstashFont
-                                        )
-                                    }
-                                }
-                            }
-                        }, confirmButton = {
-                            FilledTonalButton(
-                                onClick = {
-                                    currencyDialog.value = false
-                                    val choice =
-                                        currencyValues[currencyEntries.indexOf(
-                                            selectedCurrencyOption
-                                        )]
-                                    viewModel.setDefaultCurrency(choice)
-                                },
-                                colors = ButtonDefaults.filledTonalButtonColors(
-                                    containerColor = MaterialTheme.colorScheme.primary,
-                                    contentColor = MaterialTheme.colorScheme.onPrimary
-                                )
-                            ) {
-                                Text(stringResource(id = R.string.confirm),  fontFamily = greenstashFont)
-                            }
-                        }, dismissButton = {
-                            TextButton(onClick = {
-                                currencyDialog.value = false
-                            }) {
-                                Text(stringResource(id = R.string.cancel),  fontFamily = greenstashFont)
-                            }
-                        })
-                    }
+                    CurrencyPicker(
+                        defaultCurrencyValue = viewModel.getDefaultCurrencyValue()
+                            ?: currencyValues.first(),
+                        currencyNames = currencyNames,
+                        currencyValues = currencyValues,
+                        showBottomSheet = currencyDialog,
+                        onCurrencySelected = { newValue ->
+                            viewModel.setDefaultCurrency(newValue)
+                            selectedCurrencyName.value = currencyNames[currencyValues.indexOf(newValue)]
+                        }
+                    )
                 }
             }
 
