@@ -47,7 +47,8 @@ class PreferenceUtil(context: Context) {
         const val GOAL_FILTER_SORT_TYPE_INT = "goal_filter_sort_type"
 
         // Onboarding preferences
-        const val SHOW_ONBOARDING_TAP_TARGETS_BOOL = "show_onboarding_tap_targets"
+        const val HOME_SCREEN_ONBOARDING_BOOL = "show_home_screen_onboarding"
+        const val INPUT_SCREEN_ONBOARDING_BOOL = "show_input_onboarding"
     }
 
     private var prefs: SharedPreferences

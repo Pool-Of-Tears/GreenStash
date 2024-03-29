@@ -123,6 +123,9 @@ import com.maxkeppeler.sheets.calendar.CalendarDialog
 import com.maxkeppeler.sheets.calendar.models.CalendarConfig
 import com.maxkeppeler.sheets.calendar.models.CalendarSelection
 import com.maxkeppeler.sheets.calendar.models.CalendarStyle
+import com.psoffritti.taptargetcompose.TapTargetCoordinator
+import com.psoffritti.taptargetcompose.TapTargetStyle
+import com.psoffritti.taptargetcompose.TextDefinition
 import com.starry.greenstash.BuildConfig
 import com.starry.greenstash.MainActivity
 import com.starry.greenstash.R
@@ -247,344 +250,403 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                 showRemoveDeadlineDialog.value = false
                 viewModel.removeDeadLine()
             }) {
-                Text(stringResource(id = R.string.confirm),   fontFamily = greenstashFont)
+                Text(stringResource(id = R.string.confirm), fontFamily = greenstashFont)
             }
         }, dismissButton = {
             TextButton(onClick = {
                 showRemoveDeadlineDialog.value = false
             }) {
-                Text(stringResource(id = R.string.cancel),   fontFamily = greenstashFont)
+                Text(stringResource(id = R.string.cancel), fontFamily = greenstashFont)
             }
         })
     }
 
-    // Input Screen UI.
-    Scaffold(modifier = Modifier
-        .fillMaxSize()
-        .imePadding(),
-        snackbarHost = { SnackbarHost(snackBarHostState) },
-        topBar = {
-            TopAppBar(
-                modifier = Modifier.fillMaxWidth(),
-                title = {
-                    Text(
-                        text = topBarText,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                        fontFamily = greenstashFont
-                    )
-                }, navigationIcon = {
-                    IconButton(onClick = { navController.navigateUp() }) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = null
+    // Input Screen UI. ================================================
+
+    val showTapTargets = remember { mutableStateOf(false) }
+    LaunchedEffect(key1 = viewModel.showOnboardingTapTargets.value) {
+        delay(300) // Delay to prevent flickering
+        showTapTargets.value = viewModel.showOnboardingTapTargets.value
+    }
+
+    TapTargetCoordinator(
+        showTapTargets = showTapTargets.value,
+        onComplete = { viewModel.onboardingTapTargetsShown() },
+    ) {
+        Scaffold(
+            modifier = Modifier
+                .fillMaxSize()
+                .imePadding(),
+            snackbarHost = { SnackbarHost(snackBarHostState) },
+            topBar = {
+                TopAppBar(
+                    modifier = Modifier.fillMaxWidth(),
+                    title = {
+                        Text(
+                            text = topBarText,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                            fontFamily = greenstashFont
                         )
-                    }
-                }
-            )
-        }) { paddingValues ->
-        if (showGoalAddedAnim.value) {
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                val compositionResult: LottieCompositionResult = rememberLottieComposition(
-                    spec = LottieCompositionSpec.RawRes(R.raw.goal_saved_lottie)
-                )
-                val progressAnimation by animateLottieCompositionAsState(
-                    compositionResult.value,
-                    isPlaying = true,
-                    iterations = 1,
-                    speed = 1.4f
-                )
-
-                Spacer(modifier = Modifier.weight(1f))
-
-                LottieAnimation(
-                    composition = compositionResult.value,
-                    progress = progressAnimation,
-                    modifier = Modifier.size(320.dp)
-                )
-                val textStr = if (editGoalId == null) {
-                    stringResource(id = R.string.goal_saved_success)
-                } else {
-                    stringResource(id = R.string.goad_edit_success)
-                }
-                Text(
-                    text = textStr,
-                    fontWeight = FontWeight.SemiBold,
-                    fontSize = 20.sp,
-                    fontFamily = greenstashFont
-                )
-
-                Spacer(modifier = Modifier.weight(1.4f))
-            }
-        } else {
-            // Scroll to top when screen is loaded.
-            val scrollState = rememberScrollState()
-            LaunchedEffect(key1 = true) {
-                scrollState.scrollTo(scrollState.maxValue)
-            }
-
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(MaterialTheme.colorScheme.background)
-                    .padding(paddingValues)
-                    .verticalScroll(scrollState, reverseScrolling = true),
-            ) {
-                Spacer(modifier = Modifier.height(12.dp))
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(220.dp)
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 16.dp),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Box(
-                            modifier = Modifier
-                                .fillMaxWidth(0.82f)
-                                .height(190.dp)
-                                .border(
-                                    width = 2.dp,
-                                    color = MaterialTheme.colorScheme.primary,
-                                    shape = RoundedCornerShape(16.dp)
-                                )
-                                .clip(RoundedCornerShape(16.dp))
-                        ) {
-                            AsyncImage(
-                                model = ImageRequest.Builder(context).data(goalImage)
-                                    .crossfade(enable = true).build(),
-                                contentDescription = null,
-                                contentScale = ContentScale.Crop,
-                                modifier = Modifier.fillMaxSize()
+                    }, navigationIcon = {
+                        IconButton(onClick = { navController.navigateUp() }) {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                contentDescription = null
                             )
                         }
                     }
+                )
+            }
+        ) { paddingValues ->
+            if (showGoalAddedAnim.value) {
+                GoalAddedOREditedAnimation(editGoalId = editGoalId)
+            } else {
+                // Scroll to top when screen is loaded.
+                val scrollState = rememberScrollState()
+                LaunchedEffect(key1 = true) {
+                    scrollState.scrollTo(scrollState.maxValue)
+                }
 
-
-                    ExtendedFloatingActionButton(
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(MaterialTheme.colorScheme.background)
+                        .padding(paddingValues)
+                        .verticalScroll(scrollState, reverseScrolling = true),
+                ) {
+                    Spacer(modifier = Modifier.height(12.dp))
+                    Box(
                         modifier = Modifier
-                            .align(Alignment.BottomEnd)
-                            .padding(end = 24.dp),
-                        onClick = {
-                            photoPicker.launch(
-                                PickVisualMediaRequest(
-                                    ActivityResultContracts.PickVisualMedia.ImageOnly
-                                )
-                            )
-                        },
-                        elevation = FloatingActionButtonDefaults.elevation(4.dp),
-                        containerColor = MaterialTheme.colorScheme.primary
+                            .fillMaxWidth()
+                            .height(220.dp)
                     ) {
-                        Row {
-                            Icon(
-                                imageVector = ImageVector.vectorResource(id = R.drawable.ic_input_image),
-                                contentDescription = null,
-                                tint = MaterialTheme.colorScheme.onPrimary
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(top = 16.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxWidth(0.82f)
+                                    .height(190.dp)
+                                    .border(
+                                        width = 2.dp,
+                                        color = MaterialTheme.colorScheme.primary,
+                                        shape = RoundedCornerShape(16.dp)
+                                    )
+                                    .clip(RoundedCornerShape(16.dp))
+                            ) {
+                                AsyncImage(
+                                    model = ImageRequest.Builder(context).data(goalImage)
+                                        .crossfade(enable = true).build(),
+                                    contentDescription = null,
+                                    contentScale = ContentScale.Crop,
+                                    modifier = Modifier.fillMaxSize()
+                                )
+                            }
+                        }
+
+                        ExtendedFloatingActionButton(
+                            modifier = Modifier
+                                .align(Alignment.BottomEnd)
+                                .padding(end = 24.dp)
+                                .tapTarget(
+                                    precedence = 0,
+                                    title = TextDefinition(
+                                        text = stringResource(id = R.string.input_pick_image_onboarding_title),
+                                        textStyle = MaterialTheme.typography.titleLarge,
+                                        fontWeight = FontWeight.Bold,
+                                        fontFamily = greenstashFont,
+                                        color = MaterialTheme.colorScheme.onSecondaryContainer
+                                    ),
+                                    description = TextDefinition(
+                                        text = stringResource(id = R.string.input_pick_image_onboarding_desc),
+                                        textStyle = MaterialTheme.typography.bodyMedium,
+                                        color = MaterialTheme.colorScheme.onSecondaryContainer,
+                                        fontFamily = greenstashFont
+                                    ),
+                                    tapTargetStyle = TapTargetStyle(
+                                        backgroundColor = MaterialTheme.colorScheme.secondaryContainer,
+                                        tapTargetHighlightColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                                        backgroundAlpha = 1f,
+                                    ),
+                                ),
+                            onClick = {
+                                photoPicker.launch(
+                                    PickVisualMediaRequest(
+                                        ActivityResultContracts.PickVisualMedia.ImageOnly
+                                    )
+                                )
+                            },
+                            elevation = FloatingActionButtonDefaults.elevation(4.dp),
+                            containerColor = MaterialTheme.colorScheme.primary
+                        ) {
+                            Row {
+                                Icon(
+                                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_input_image),
+                                    contentDescription = null,
+                                    tint = MaterialTheme.colorScheme.onPrimary
+                                )
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text(
+                                    text = stringResource(id = R.string.input_pick_image_fab),
+                                    modifier = Modifier.padding(top = 2.dp),
+                                    color = MaterialTheme.colorScheme.onPrimary,
+                                    fontFamily = greenstashFont
+                                )
+                            }
+                        }
+                    }
+
+                    Text(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 20.dp, bottom = 20.dp, start = 30.dp, end = 30.dp),
+                        text = stringResource(id = R.string.input_page_quote),
+                        textAlign = TextAlign.Center,
+                        fontSize = 13.sp,
+                        fontFamily = greenstashFont
+                    )
+
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        GoalIconPicker(
+                            goalIcon = goalIcon,
+                            onClick = { showIconPickerDialog.value = true },
+                            modifier = Modifier.tapTarget(
+                                precedence = 1,
+                                title = TextDefinition(
+                                    text = stringResource(id = R.string.input_pick_icon_onboarding_title),
+                                    textStyle = MaterialTheme.typography.titleLarge,
+                                    fontWeight = FontWeight.Bold,
+                                    fontFamily = greenstashFont,
+                                    color = MaterialTheme.colorScheme.onSecondaryContainer
+                                ),
+                                description = TextDefinition(
+                                    text = stringResource(id = R.string.input_pick_icon_onboarding_desc),
+                                    textStyle = MaterialTheme.typography.bodyMedium,
+                                    color = MaterialTheme.colorScheme.onSecondaryContainer,
+                                    fontFamily = greenstashFont
+                                ),
+                                tapTargetStyle = TapTargetStyle(
+                                    backgroundColor = MaterialTheme.colorScheme.secondaryContainer,
+                                    tapTargetHighlightColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                                    backgroundAlpha = 1f,
+                                ),
+                            ),
+                        )
+                        Spacer(modifier = Modifier.height(10.dp))
+                        GoalPriorityMenu(viewModel = viewModel)
+                        Spacer(modifier = Modifier.height(10.dp))
+                        GoalReminderMenu(
+                            viewModel = viewModel,
+                            context = context,
+                            snackBarHostState = snackBarHostState,
+                            coroutineScope = coroutineScope,
+                            modifier = Modifier.tapTarget(
+                                precedence = 2,
+                                title = TextDefinition(
+                                    text = stringResource(id = R.string.input_goal_reminders_onboarding_title),
+                                    textStyle = MaterialTheme.typography.titleLarge,
+                                    fontWeight = FontWeight.Bold,
+                                    fontFamily = greenstashFont,
+                                    color = MaterialTheme.colorScheme.onSecondaryContainer
+                                ),
+                                description = TextDefinition(
+                                    text = stringResource(id = R.string.input_goal_reminders_onboarding_desc),
+                                    textStyle = MaterialTheme.typography.bodyMedium,
+                                    color = MaterialTheme.colorScheme.onSecondaryContainer,
+                                    fontFamily = greenstashFont
+                                ),
+                                tapTargetStyle = TapTargetStyle(
+                                    backgroundColor = MaterialTheme.colorScheme.secondaryContainer,
+                                    tapTargetHighlightColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                                    backgroundAlpha = 1f,
+                                ),
                             )
-                            Spacer(modifier = Modifier.width(8.dp))
+                        )
+                        Spacer(modifier = Modifier.height(18.dp))
+
+                        OutlinedTextField(
+                            value = viewModel.state.goalTitleText,
+                            onValueChange = { newText ->
+                                viewModel.state = viewModel.state.copy(goalTitleText = newText)
+                            },
+                            modifier = Modifier.fillMaxWidth(0.86f),
+                            label = {
+                                Text(
+                                    text = stringResource(id = R.string.input_text_title),
+                                    fontFamily = greenstashFont
+                                )
+                            },
+                            leadingIcon = {
+                                Icon(
+                                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_input_title),
+                                    contentDescription = null
+                                )
+                            },
+                            colors = OutlinedTextFieldDefaults.colors(
+                                focusedBorderColor = MaterialTheme.colorScheme.primary,
+                                unfocusedBorderColor = MaterialTheme.colorScheme.onBackground,
+                            ),
+                            shape = RoundedCornerShape(14.dp),
+                            singleLine = true,
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+                        )
+
+                        Spacer(modifier = Modifier.height(10.dp))
+
+                        OutlinedTextField(
+                            value = viewModel.state.targetAmount,
+                            onValueChange = { newText ->
+                                viewModel.state =
+                                    viewModel.state.copy(
+                                        targetAmount = Utils.getValidatedNumber(
+                                            newText
+                                        )
+                                    )
+                            },
+                            modifier = Modifier.fillMaxWidth(0.86f),
+                            label = {
+                                Text(
+                                    text = stringResource(id = R.string.input_text_amount),
+                                    fontFamily = greenstashFont
+                                )
+                            },
+                            leadingIcon = {
+                                Icon(
+                                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_input_amount),
+                                    contentDescription = null
+                                )
+                            },
+                            colors = OutlinedTextFieldDefaults.colors(
+                                focusedBorderColor = MaterialTheme.colorScheme.primary,
+                                unfocusedBorderColor = MaterialTheme.colorScheme.onBackground,
+                            ),
+                            shape = RoundedCornerShape(14.dp),
+                            singleLine = true,
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        )
+
+                        Spacer(modifier = Modifier.height(10.dp))
+
+                        val interactionSource = remember { MutableInteractionSource() }
+
+                        OutlinedTextField(
+                            value = viewModel.state.deadline,
+                            onValueChange = { newText ->
+                                viewModel.state = viewModel.state.copy(deadline = newText)
+                            },
+                            modifier = Modifier
+                                .fillMaxWidth(0.86f)
+                                .combinedClickable(
+                                    onClick = { calenderState.show() },
+                                    onLongClick = {
+                                        haptic.performHapticFeedback(
+                                            HapticFeedbackType.LongPress
+                                        )
+                                        if (viewModel.state.deadline.isNotEmpty()) {
+                                            showRemoveDeadlineDialog.value = true
+                                        }
+                                    },
+                                    interactionSource = interactionSource,
+                                    indication = null
+                                ),
+                            label = {
+                                Text(
+                                    text = stringResource(id = R.string.input_deadline),
+                                    fontFamily = greenstashFont
+                                )
+                            },
+                            leadingIcon = {
+                                Icon(
+                                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_input_deadline),
+                                    contentDescription = null
+                                )
+                            },
+                            colors = OutlinedTextFieldDefaults.colors(
+                                disabledTextColor = MaterialTheme.colorScheme.onSurface,
+                                disabledBorderColor = MaterialTheme.colorScheme.onBackground,
+                                disabledLeadingIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                                disabledTrailingIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                                disabledLabelColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                                //For Icons
+                                disabledPlaceholderColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                            ),
+                            shape = RoundedCornerShape(14.dp),
+                            enabled = false,
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+                        )
+
+                        Spacer(modifier = Modifier.height(10.dp))
+
+                        OutlinedTextField(
+                            value = viewModel.state.additionalNotes,
+                            onValueChange = { newText ->
+                                viewModel.state = viewModel.state.copy(additionalNotes = newText)
+                            },
+                            modifier = Modifier.fillMaxWidth(0.86f),
+                            label = {
+                                Text(
+                                    text = stringResource(id = R.string.input_additional_notes),
+                                    fontFamily = greenstashFont
+                                )
+                            },
+                            leadingIcon = {
+                                Icon(
+                                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_input_additional_notes),
+                                    contentDescription = null
+                                )
+                            },
+                            colors = OutlinedTextFieldDefaults.colors(
+                                focusedBorderColor = MaterialTheme.colorScheme.primary,
+                                unfocusedBorderColor = MaterialTheme.colorScheme.onBackground,
+                            ),
+                            shape = RoundedCornerShape(14.dp),
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+                        )
+
+                        Spacer(modifier = Modifier.height(22.dp))
+
+                        Button(
+                            onClick = {
+                                if (viewModel.state.goalTitleText.isEmpty() || viewModel.state.goalTitleText.isBlank()) {
+                                    context.getString(R.string.title_empty_err).toToast(context)
+                                } else if (!viewModel.state.targetAmount.validateAmount()) {
+                                    context.getString(R.string.amount_empty_err).toToast(context)
+                                } else {
+                                    if (editGoalId != null) {
+                                        viewModel.editSavingGoal(editGoalId.toLong(), context)
+                                    } else {
+                                        viewModel.addSavingGoal(context)
+                                    }
+
+                                    coroutineScope.launch {
+                                        showGoalAddedAnim.value = true
+                                        delay(1050)
+                                        navController.popBackStack(DrawerScreens.Home.route, true)
+                                        navController.navigate(DrawerScreens.Home.route)
+                                    }
+                                }
+                            },
+                            modifier = Modifier
+                                .fillMaxWidth(0.86f)
+                                .height(55.dp),
+                            shape = RoundedCornerShape(14.dp),
+                        ) {
                             Text(
-                                text = stringResource(id = R.string.input_pick_image),
-                                modifier = Modifier.padding(top = 2.dp),
+                                text = buttonText,
                                 color = MaterialTheme.colorScheme.onPrimary,
                                 fontFamily = greenstashFont
                             )
                         }
+
+                        Spacer(modifier = Modifier.height(24.dp))
                     }
-                }
-
-                Text(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 20.dp, bottom = 20.dp, start = 30.dp, end = 30.dp),
-                    text = stringResource(id = R.string.input_page_quote),
-                    textAlign = TextAlign.Center,
-                    fontSize = 13.sp,
-                    fontFamily = greenstashFont
-                )
-
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    GoalIconPicker(goalIcon = goalIcon, onClick = {
-                        showIconPickerDialog.value = true
-                    })
-                    Spacer(modifier = Modifier.height(10.dp))
-                    GoalPriorityMenu(viewModel = viewModel)
-                    Spacer(modifier = Modifier.height(10.dp))
-                    GoalReminderMenu(
-                        viewModel = viewModel,
-                        context = context,
-                        snackbarHostState = snackBarHostState,
-                        coroutineScope = coroutineScope
-                    )
-                    Spacer(modifier = Modifier.height(18.dp))
-
-                    OutlinedTextField(
-                        value = viewModel.state.goalTitleText,
-                        onValueChange = { newText ->
-                            viewModel.state = viewModel.state.copy(goalTitleText = newText)
-                        },
-                        modifier = Modifier.fillMaxWidth(0.86f),
-                        label = {
-                            Text(text = stringResource(id = R.string.input_text_title),   fontFamily = greenstashFont)
-                        },
-                        leadingIcon = {
-                            Icon(
-                                imageVector = ImageVector.vectorResource(id = R.drawable.ic_input_title),
-                                contentDescription = null
-                            )
-                        },
-                        colors = OutlinedTextFieldDefaults.colors(
-                            focusedBorderColor = MaterialTheme.colorScheme.primary,
-                            unfocusedBorderColor = MaterialTheme.colorScheme.onBackground,
-                        ),
-                        shape = RoundedCornerShape(14.dp),
-                        singleLine = true,
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-                    )
-
-                    Spacer(modifier = Modifier.height(10.dp))
-
-                    OutlinedTextField(
-                        value = viewModel.state.targetAmount,
-                        onValueChange = { newText ->
-                            viewModel.state =
-                                viewModel.state.copy(targetAmount = Utils.getValidatedNumber(newText))
-                        },
-                        modifier = Modifier.fillMaxWidth(0.86f),
-                        label = {
-                            Text(text = stringResource(id = R.string.input_text_amount),   fontFamily = greenstashFont)
-                        },
-                        leadingIcon = {
-                            Icon(
-                                imageVector = ImageVector.vectorResource(id = R.drawable.ic_input_amount),
-                                contentDescription = null
-                            )
-                        },
-                        colors = OutlinedTextFieldDefaults.colors(
-                            focusedBorderColor = MaterialTheme.colorScheme.primary,
-                            unfocusedBorderColor = MaterialTheme.colorScheme.onBackground,
-                        ),
-                        shape = RoundedCornerShape(14.dp),
-                        singleLine = true,
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                    )
-
-                    Spacer(modifier = Modifier.height(10.dp))
-
-                    val interactionSource = remember { MutableInteractionSource() }
-
-                    OutlinedTextField(
-                        value = viewModel.state.deadline,
-                        onValueChange = { newText ->
-                            viewModel.state = viewModel.state.copy(deadline = newText)
-                        },
-                        modifier = Modifier
-                            .fillMaxWidth(0.86f)
-                            .combinedClickable(
-                                onClick = { calenderState.show() },
-                                onLongClick = {
-                                    haptic.performHapticFeedback(
-                                        HapticFeedbackType.LongPress
-                                    )
-                                    if (viewModel.state.deadline.isNotEmpty()) {
-                                        showRemoveDeadlineDialog.value = true
-                                    }
-                                },
-                                interactionSource = interactionSource,
-                                indication = null
-                            ),
-                        label = {
-                            Text(text = stringResource(id = R.string.input_deadline),   fontFamily = greenstashFont)
-                        },
-                        leadingIcon = {
-                            Icon(
-                                imageVector = ImageVector.vectorResource(id = R.drawable.ic_input_deadline),
-                                contentDescription = null
-                            )
-                        },
-                        colors = OutlinedTextFieldDefaults.colors(
-                            disabledTextColor = MaterialTheme.colorScheme.onSurface,
-                            disabledBorderColor = MaterialTheme.colorScheme.onBackground,
-                            disabledLeadingIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                            disabledTrailingIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                            disabledLabelColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                            //For Icons
-                            disabledPlaceholderColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                        ),
-                        shape = RoundedCornerShape(14.dp),
-                        enabled = false,
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-                    )
-
-                    Spacer(modifier = Modifier.height(10.dp))
-
-                    OutlinedTextField(
-                        value = viewModel.state.additionalNotes,
-                        onValueChange = { newText ->
-                            viewModel.state = viewModel.state.copy(additionalNotes = newText)
-                        },
-                        modifier = Modifier.fillMaxWidth(0.86f),
-                        label = {
-                            Text(text = stringResource(id = R.string.input_additional_notes),   fontFamily = greenstashFont)
-                        },
-                        leadingIcon = {
-                            Icon(
-                                imageVector = ImageVector.vectorResource(id = R.drawable.ic_input_additional_notes),
-                                contentDescription = null
-                            )
-                        },
-                        colors = OutlinedTextFieldDefaults.colors(
-                            focusedBorderColor = MaterialTheme.colorScheme.primary,
-                            unfocusedBorderColor = MaterialTheme.colorScheme.onBackground,
-                        ),
-                        shape = RoundedCornerShape(14.dp),
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-                    )
-
-                    Spacer(modifier = Modifier.height(22.dp))
-
-                    Button(
-                        onClick = {
-                            if (viewModel.state.goalTitleText.isEmpty() || viewModel.state.goalTitleText.isBlank()) {
-                                context.getString(R.string.title_empty_err).toToast(context)
-                            } else if (!viewModel.state.targetAmount.validateAmount()) {
-                                context.getString(R.string.amount_empty_err).toToast(context)
-                            } else {
-                                if (editGoalId != null) {
-                                    viewModel.editSavingGoal(editGoalId.toLong(), context)
-                                } else {
-                                    viewModel.addSavingGoal(context)
-                                }
-
-                                coroutineScope.launch {
-                                    showGoalAddedAnim.value = true
-                                    delay(1050)
-                                    navController.popBackStack(DrawerScreens.Home.route, true)
-                                    navController.navigate(DrawerScreens.Home.route)
-                                }
-                            }
-                        },
-                        modifier = Modifier
-                            .fillMaxWidth(0.86f)
-                            .height(55.dp),
-                        shape = RoundedCornerShape(14.dp),
-                    ) {
-                        Text(
-                            text = buttonText,
-                            color = MaterialTheme.colorScheme.onPrimary,
-                            fontFamily = greenstashFont
-                        )
-                    }
-
-                    Spacer(modifier = Modifier.height(24.dp))
                 }
             }
         }
@@ -592,7 +654,12 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
 }
 
 @Composable
-fun GoalIconPicker(goalIcon: ImageVector, onClick: () -> Unit) {
+fun GoalIconPicker(
+    goalIcon: ImageVector,
+    onClick: () -> Unit,
+    // To be used for onboarding tap target.
+    modifier: Modifier = Modifier,
+) {
     Card(
         onClick = onClick,
         modifier = Modifier.fillMaxWidth(0.86f),
@@ -609,7 +676,7 @@ fun GoalIconPicker(goalIcon: ImageVector, onClick: () -> Unit) {
                 .padding(16.dp)
         ) {
             Box(
-                modifier = Modifier
+                modifier = modifier
                     .size(48.dp)
                     .background(
                         color = MaterialTheme.colorScheme.surface,
@@ -697,9 +764,12 @@ fun GoalPriorityMenu(viewModel: InputViewModel) {
 fun GoalReminderMenu(
     context: Context,
     viewModel: InputViewModel,
-    snackbarHostState: SnackbarHostState,
-    coroutineScope: CoroutineScope
+    snackBarHostState: SnackbarHostState,
+    coroutineScope: CoroutineScope,
+    // To be used for onboarding tap target.
+    modifier: Modifier = Modifier
 ) {
+    val haptic = LocalHapticFeedback.current
     var hasNotificationPermission by remember { mutableStateOf(context.hasNotificationPermission()) }
 
     val launcher = rememberLauncherForActivityResult(
@@ -716,7 +786,7 @@ fun GoalReminderMenu(
                 ) {
                     coroutineScope.launch {
                         val snackBarResult =
-                            snackbarHostState.showSnackbar(
+                            snackBarHostState.showSnackbar(
                                 message = context.getString(R.string.notification_permission_error),
                                 actionLabel = "Open Settings"
                             )
@@ -745,11 +815,16 @@ fun GoalReminderMenu(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
-            Text(text = "Saving Reminders", fontSize = 18.sp,   fontFamily = greenstashFont)
+            Text(
+                text = stringResource(id = R.string.input_goal_reminder),
+                fontSize = 18.sp,
+                fontFamily = greenstashFont
+            )
             Spacer(modifier = Modifier.width(14.dp))
             Switch(
                 checked = viewModel.state.reminder,
                 onCheckedChange = { newValue ->
+                    haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                     viewModel.state = viewModel.state.copy(reminder = newValue)
                     // Ask for notification permission if android ver > 13.
                     if (newValue &&
@@ -758,9 +833,49 @@ fun GoalReminderMenu(
                     ) {
                         launcher.launch(Manifest.permission.POST_NOTIFICATIONS)
                     }
-                }
+                },
+                modifier = modifier
             )
         }
+    }
+}
+
+@Composable
+fun GoalAddedOREditedAnimation(editGoalId: String?) {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        val compositionResult: LottieCompositionResult = rememberLottieComposition(
+            spec = LottieCompositionSpec.RawRes(R.raw.goal_saved_lottie)
+        )
+        val progressAnimation by animateLottieCompositionAsState(
+            compositionResult.value,
+            isPlaying = true,
+            iterations = 1,
+            speed = 1.4f
+        )
+
+        Spacer(modifier = Modifier.weight(1f))
+
+        LottieAnimation(
+            composition = compositionResult.value,
+            progress = progressAnimation,
+            modifier = Modifier.size(320.dp)
+        )
+        val textStr = if (editGoalId == null) {
+            stringResource(id = R.string.goal_saved_success)
+        } else {
+            stringResource(id = R.string.goad_edit_success)
+        }
+        Text(
+            text = textStr,
+            fontWeight = FontWeight.SemiBold,
+            fontSize = 20.sp,
+            fontFamily = greenstashFont
+        )
+
+        Spacer(modifier = Modifier.weight(1.4f))
     }
 }
 

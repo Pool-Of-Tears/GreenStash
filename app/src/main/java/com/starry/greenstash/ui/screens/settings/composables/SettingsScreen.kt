@@ -303,7 +303,7 @@ fun SettingsScreen(navController: NavController) {
                     mutableStateOf(dateValue)
                 }
 
-                val currencyEntries = context.resources.getStringArray(R.array.currency_entries)
+                val currencyEntries = context.resources.getStringArray(R.array.currency_names)
                 val currencyValues = context.resources.getStringArray(R.array.currency_values)
 
                 val currencyValue = currencyEntries[

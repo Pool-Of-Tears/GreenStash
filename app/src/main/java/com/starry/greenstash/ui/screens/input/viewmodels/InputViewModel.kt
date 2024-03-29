@@ -32,6 +32,7 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -105,6 +106,14 @@ class InputViewModel @Inject constructor(
 
     private var iconSearchJob: Job? = null
 
+    private val _showOnboardingTapTargets: MutableState<Boolean> = mutableStateOf(
+        value = preferenceUtil.getBoolean(
+            PreferenceUtil.INPUT_SCREEN_ONBOARDING_BOOL,
+            true
+        )
+    )
+    val showOnboardingTapTargets: State<Boolean> = _showOnboardingTapTargets
+
     fun addSavingGoal(context: Context) {
         viewModelScope.launch(Dispatchers.IO) {
             val goal = Goal(
@@ -133,7 +142,6 @@ class InputViewModel @Inject constructor(
         goalId: Long,
         onEditDataSet: (goalImage: Bitmap?, goalIconId: String?) -> Unit
     ) {
-        println("Goal ID: $goalId")
         viewModelScope.launch(Dispatchers.IO) {
             val goal = goalDao.getGoalById(goalId)!!
             withContext(Dispatchers.Main) {
@@ -233,6 +241,11 @@ class InputViewModel @Inject constructor(
         val lines = reader.readLines()
         reader.close()
         return lines
+    }
+
+    fun onboardingTapTargetsShown() {
+        preferenceUtil.putBoolean(PreferenceUtil.INPUT_SCREEN_ONBOARDING_BOOL, false)
+        _showOnboardingTapTargets.value = false
     }
 
 }

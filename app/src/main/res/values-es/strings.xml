@@ -94,9 +94,16 @@
     <string name="input_screen_header">¡Es momento de ahorrar!</string>
     <string name="input_edit_goal_header">Editar Meta de Ahorro</string>
     <string name="input_pick_icon">Selecciona ícono para tu objetivo.</string>
+    <string name="input_pick_icon_onboarding_title">…O si el minimalismo es tu estilo, agrega un icono para tu objetivo.</string>
+    <string name="input_pick_icon_onboarding_desc">Los iconos de objetivo se usarán en las tarjetas de objetivo con estilo compacto, Configuración > Estilo de Tarjeta de Objetivo</string>
     <string name="input_icon_dialog">Selecciona un ícono</string>
-    <string name="input_pick_image">Imagen de la meta</string>
+    <string name="input_pick_image_fab">Imagen de la meta</string>
+    <string name="input_pick_image_onboarding_title">¡Agrega imágenes a tus objetivos para darles un aspecto personalizado!</string>
+    <string name="input_pick_image_onboarding_desc">Haz clic en el botón de acción flotante para agregar una imagen a tu objetivo.</string>
     <string name="input_goal_priority">Selecciona la prioridad para este objetivo.</string>
+    <string name="input_goal_reminder">Recordatorios de ahorro</string>
+    <string name="input_goal_reminders_onboarding_title">¡Habilita los recordatorios para mantenerte actualizado sobre tus objetivos!</string>
+    <string name="input_goal_reminders_onboarding_desc">Se enviarán recordatorios diarios, semanalmente o según la prioridad del objetivo.</string>
     <string name="input_text_title">Título del Ahorro</string>
     <string name="title_empty_err">¡Oops! el título está vacío.</string>
     <string name="input_text_amount">Meta</string>

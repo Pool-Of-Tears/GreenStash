@@ -117,7 +117,7 @@ class HomeViewModel @Inject constructor(
 
     private val _showOnboardingTapTargets: MutableState<Boolean> = mutableStateOf(
         value = preferenceUtil.getBoolean(
-            PreferenceUtil.SHOW_ONBOARDING_TAP_TARGETS_BOOL,
+            PreferenceUtil.HOME_SCREEN_ONBOARDING_BOOL,
             true
         )
     )
@@ -163,7 +163,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun onboardingTapTargetsShown() {
-        preferenceUtil.putBoolean(PreferenceUtil.SHOW_ONBOARDING_TAP_TARGETS_BOOL, false)
+        preferenceUtil.putBoolean(PreferenceUtil.HOME_SCREEN_ONBOARDING_BOOL, false)
         _showOnboardingTapTargets.value = false
     }
 

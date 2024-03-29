@@ -87,8 +87,10 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
@@ -538,13 +540,18 @@ fun FilterButton(text: String, isSelected: Boolean, onClick: () -> Unit) {
         textColor = MaterialTheme.colorScheme.onSecondaryContainer
     }
 
+    val haptic = LocalHapticFeedback.current
+
     Card(
         modifier = Modifier
             .height(60.dp)
             .padding(6.dp),
         colors = CardDefaults.cardColors(containerColor = buttonColor),
         shape = RoundedCornerShape(14.dp),
-        onClick = onClick
+        onClick = {
+            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+            onClick()
+        }
     ) {
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             Text(

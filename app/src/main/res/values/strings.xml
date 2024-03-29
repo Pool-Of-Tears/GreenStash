@@ -21,7 +21,7 @@
 
     <!-- Welcome Screen. -->
     <string name="welcome_screen_text">Hello! Please select your preferred currency to get started.</string>
-    <string name="welcome_screen_button">Get Started</string>
+    <string name="welcome_screen_button">Let\'s Get Started!</string>
 
     <!-- Home Screen -->
     <string name="home_screen_header">Saving Goals</string>
@@ -94,10 +94,17 @@
     <string name="input_screen_header">It\'s time to save!</string>
     <string name="input_edit_goal_header">Edit Saving Goal</string>
     <string name="input_pick_icon">Select icon for your goal.</string>
+    <string name="input_pick_icon_onboarding_title">…Or if minimalism is your style, add an icon for your goal.</string>
+    <string name="input_pick_icon_onboarding_desc">Goal icons will be used on compact syled goal cards, Settings > Goal Card Style</string>
     <string name="input_icon_dialog">Select an icon</string>
-    <string name="input_pick_image">Goal Image</string>
+    <string name="input_pick_image_fab">Goal Image</string>
+    <string name="input_pick_image_onboarding_title">Add images to your goals to give them a personalized look!</string>
+    <string name="input_pick_image_onboarding_desc">Click on the floating action button to add an image to your goal.</string>
     <string name="input_page_quote" translatable="false">You don’t have to see the whole staircase, just take the first step. – Martin Luther King, Jr.  </string>
     <string name="input_goal_priority">Select priority for this goal.</string>
+    <string name="input_goal_reminder">Saving Reminders</string>
+    <string name="input_goal_reminders_onboarding_title">Enable Reminders to Stay Updated on Your Goals!</string>
+    <string name="input_goal_reminders_onboarding_desc">Reminders will be sent daily, semiweekly, or weekly, depending on goal priority.</string>
     <string name="input_text_title">Goal Title</string>
     <string name="title_empty_err">Woops! title is empty.</string>
     <string name="input_text_amount">Target Amount</string>

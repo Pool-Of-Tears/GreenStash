@@ -111,7 +111,7 @@ class SettingsViewModel @Inject constructor(
     )
 
     fun getDefaultCurrencyValue() = preferenceUtil.getString(
-        PreferenceUtil.DEFAULT_CURRENCY_STR, "$"
+        PreferenceUtil.DEFAULT_CURRENCY_STR, "USD"
     )
 
     fun getAppLockValue() = preferenceUtil.getBoolean(
