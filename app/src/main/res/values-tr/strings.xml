@@ -44,8 +44,8 @@
 
     <!-- Congratulations Screen -->
     <string name="goal_achieved_heading">Tebrikler 🥳</string>
-    <string name="goal_achieved_subtext">Birikim hedefine ulaştın!</string>
-    <string name="goal_achieved_button">Ana Sayfa</string>
+    <string name="goal_achieved_subtext">Tasarruf hedefinize ulaştınız! Sıkı çalışmanız ve bağlılığınız bu hak ettiğiniz başarıya yol açtı. Başarınızı kutlayın!</string>
+    <string name="goal_achieved_button">Ana ekrana dön</string>
 
     <!-- Strings used for dashboard saving goals cards -->
     <string name="no_goal_set">Birikim Hedefi Yok.</string>

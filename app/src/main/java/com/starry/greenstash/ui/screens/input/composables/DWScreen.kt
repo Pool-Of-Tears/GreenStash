@@ -207,7 +207,7 @@ fun DWScreen(goalId: String, transactionTypeName: String, navController: NavCont
                 val progressAnimation by animateLottieCompositionAsState(
                     compositionResult.value,
                     isPlaying = true,
-                    iterations = LottieConstants.IterateForever,
+                    iterations = 1,
                     speed = 1f
                 )
 

@@ -44,8 +44,8 @@
 
     <!-- Congratulations Screen -->
     <string name="goal_achieved_heading">恭喜 🥳</string>
-    <string name="goal_achieved_subtext">您已经实现了省钱目标！</string>
-    <string name="goal_achieved_button">主页</string>
+    <string name="goal_achieved_subtext">您已经达到了您的储蓄目标！您的辛勤工作和承诺带来了这个当之无愧的成就。庆祝您的成功！</string>
+    <string name="goal_achieved_button">返回主页</string>
 
     <!-- Strings used for dashboard saving goals cards -->
     <string name="no_goal_set">没有设置省钱目标。</string>

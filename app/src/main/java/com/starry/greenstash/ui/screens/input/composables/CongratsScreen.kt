@@ -31,14 +31,16 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Card
+import androidx.compose.material3.FilledTonalButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -51,7 +53,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.airbnb.lottie.compose.LottieAnimation
@@ -61,6 +62,7 @@ import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.starry.greenstash.R
+import com.starry.greenstash.ui.common.SlideInAnimatedContainer
 import com.starry.greenstash.ui.navigation.DrawerScreens
 import com.starry.greenstash.ui.theme.greenstashFont
 
@@ -103,43 +105,52 @@ fun CongratsScreen(navController: NavController) {
             LottieAnimation(
                 composition = compositionResult.value,
                 progress = progressAnimation,
-                modifier = Modifier.size(320.dp),
+                modifier = Modifier.size(360.dp),
                 enableMergePaths = true
             )
 
-            Text(
-                text = stringResource(id = R.string.goal_achieved_heading),
-                fontWeight = FontWeight.Bold,
-                fontFamily = greenstashFont,
-                fontSize = 24.sp
-            )
+            SlideInAnimatedContainer(initialDelay = 1200) {
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
+                ) {
+                    Column(
+                        modifier = Modifier.padding(16.dp),
+                    ) {
+                        Text(
+                            text = stringResource(id = R.string.goal_achieved_heading),
+                            style = MaterialTheme.typography.headlineSmall,
+                            fontFamily = greenstashFont,
+                            fontWeight = FontWeight.Medium
+                        )
 
-            Spacer(modifier = Modifier.height(10.dp))
+                        Spacer(modifier = Modifier.height(8.dp))
 
-            Text(
-                text = stringResource(id = R.string.goal_achieved_subtext),
-                fontWeight = FontWeight.SemiBold,
-                fontFamily = greenstashFont,
-                fontSize = 20.sp,
-            )
-
-            Spacer(modifier = Modifier.height(10.dp))
-
-            OutlinedButton(
-                onClick = {
-                    navController.popBackStack(DrawerScreens.Home.route, true)
-                    navController.navigate(DrawerScreens.Home.route)
-                },
-                shape = RoundedCornerShape(12.dp),
-                modifier = Modifier.width(100.dp)
-            ) {
-                Text(
-                    text = stringResource(id = R.string.goal_achieved_button),
-                    fontFamily = greenstashFont
-                )
+                        Text(
+                            text = stringResource(id = R.string.goal_achieved_subtext),
+                            style = MaterialTheme.typography.bodyLarge,
+                            fontFamily = greenstashFont,
+                            fontWeight = FontWeight.Normal
+                        )
+                    }
+                }
             }
 
-            Spacer(modifier = Modifier.height(100.dp))
+            SlideInAnimatedContainer(initialDelay = 3600) {
+                FilledTonalButton(
+                    onClick = {
+                        navController.popBackStack(DrawerScreens.Home.route, true)
+                        navController.navigate(DrawerScreens.Home.route)
+                    },
+                    shape = RoundedCornerShape(12.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp)
+                ) {
+                    Text(text = stringResource(id = R.string.goal_achieved_button))
+                }
+            }
         }
     }
 }
