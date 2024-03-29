@@ -1,6 +1,5 @@
 package com.starry.greenstash.ui.screens.input.viewmodels
 
-import android.os.Build
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -18,8 +17,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.LocalDateTime
-import java.time.ZoneId
-import java.util.TimeZone
 import javax.inject.Inject
 
 data class DWScreenState(

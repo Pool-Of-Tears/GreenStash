@@ -371,7 +371,9 @@ fun GoalItemCompact(
                             Column {
                                 Spacer(modifier = Modifier.height(40.dp))
                                 Icon(
-                                    modifier = Modifier.size(56.dp).padding(start = 6.dp),
+                                    modifier = Modifier
+                                        .size(56.dp)
+                                        .padding(start = 6.dp),
                                     imageVector = goalIcon,
                                     contentDescription = title,
                                     tint = MaterialTheme.colorScheme.onSecondaryContainer

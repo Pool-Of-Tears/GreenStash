@@ -273,13 +273,19 @@ fun SettingsScreen(navController: NavController) {
                                     contentColor = MaterialTheme.colorScheme.onPrimary
                                 )
                             ) {
-                                Text(stringResource(id = R.string.theme_dialog_apply_button),  fontFamily = greenstashFont)
+                                Text(
+                                    stringResource(id = R.string.theme_dialog_apply_button),
+                                    fontFamily = greenstashFont
+                                )
                             }
                         }, dismissButton = {
                             TextButton(onClick = {
                                 themeDialog.value = false
                             }) {
-                                Text(stringResource(id = R.string.cancel),  fontFamily = greenstashFont)
+                                Text(
+                                    stringResource(id = R.string.cancel),
+                                    fontFamily = greenstashFont
+                                )
                             }
                         })
                     }
@@ -388,13 +394,19 @@ fun SettingsScreen(navController: NavController) {
                                     contentColor = MaterialTheme.colorScheme.onPrimary
                                 )
                             ) {
-                                Text(stringResource(id = R.string.confirm),  fontFamily = greenstashFont)
+                                Text(
+                                    stringResource(id = R.string.confirm),
+                                    fontFamily = greenstashFont
+                                )
                             }
                         }, dismissButton = {
                             TextButton(onClick = {
                                 dateDialog.value = false
                             }) {
-                                Text(stringResource(id = R.string.cancel),  fontFamily = greenstashFont)
+                                Text(
+                                    stringResource(id = R.string.cancel),
+                                    fontFamily = greenstashFont
+                                )
                             }
                         })
                     }
@@ -407,7 +419,8 @@ fun SettingsScreen(navController: NavController) {
                         showBottomSheet = currencyDialog,
                         onCurrencySelected = { newValue ->
                             viewModel.setDefaultCurrency(newValue)
-                            selectedCurrencyName.value = currencyNames[currencyValues.indexOf(newValue)]
+                            selectedCurrencyName.value =
+                                currencyNames[currencyValues.indexOf(newValue)]
                         }
                     )
                 }

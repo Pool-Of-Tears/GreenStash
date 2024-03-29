@@ -148,7 +148,10 @@ fun IconPickerDialog(
                                     showDialog.value = false
                                 }
                             }) {
-                                Text(text = stringResource(id = R.string.cancel),   fontFamily = greenstashFont)
+                                Text(
+                                    text = stringResource(id = R.string.cancel),
+                                    fontFamily = greenstashFont
+                                )
                             }
 
                             Spacer(modifier = Modifier.width(10.dp))
@@ -157,7 +160,10 @@ fun IconPickerDialog(
                                 onIconSelected(state.currentIcon)
                                 showDialog.value = false
                             }) {
-                                Text(text = stringResource(id = R.string.confirm),   fontFamily = greenstashFont,)
+                                Text(
+                                    text = stringResource(id = R.string.confirm),
+                                    fontFamily = greenstashFont,
+                                )
                             }
                         }
                     }

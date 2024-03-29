@@ -442,18 +442,21 @@ fun HomeScreenContent(
                                         .background(MaterialTheme.colorScheme.background)
                                 ) {
                                     items(
-                                        filteredList.size,
-                                        key = { k -> k },
-                                        contentType = { 0 }) { idx ->
+                                        count = filteredList.size,
+                                        key = { k -> filteredList[k].goal.goalId },
+                                        contentType = { 0 }
+                                    ) { idx ->
                                         val item = filteredList[idx]
-                                        GoalLazyColumnItem(
-                                            context = context,
-                                            viewModel = viewModel,
-                                            item = item,
-                                            snackBarHostState = snackBarHostState,
-                                            navController = navController,
-                                            currentIndex = idx
-                                        )
+                                        Box(modifier = Modifier.animateItemPlacement()) {
+                                            GoalLazyColumnItem(
+                                                context = context,
+                                                viewModel = viewModel,
+                                                item = item,
+                                                snackBarHostState = snackBarHostState,
+                                                navController = navController,
+                                                currentIndex = idx
+                                            )
+                                        }
                                     }
                                 }
                             }
@@ -465,16 +468,22 @@ fun HomeScreenContent(
                                     .background(MaterialTheme.colorScheme.background),
                                 state = lazyListState
                             ) {
-                                items(allGoals.size, key = { k -> k }, contentType = { 0 }) { idx ->
+                                items(
+                                    count = allGoals.size,
+                                    key = { k -> allGoals[k].goal.goalId },
+                                    contentType = { 0 }
+                                ) { idx ->
                                     val item = allGoals[idx]
-                                    GoalLazyColumnItem(
-                                        context = context,
-                                        viewModel = viewModel,
-                                        item = item,
-                                        snackBarHostState = snackBarHostState,
-                                        navController = navController,
-                                        currentIndex = idx
-                                    )
+                                    Box(modifier = Modifier.animateItemPlacement()) {
+                                        GoalLazyColumnItem(
+                                            context = context,
+                                            viewModel = viewModel,
+                                            item = item,
+                                            snackBarHostState = snackBarHostState,
+                                            navController = navController,
+                                            currentIndex = idx
+                                        )
+                                    }
                                 }
                             }
                         }

@@ -121,11 +121,10 @@ fun WelcomeScreen(navController: NavController) {
                 .padding(horizontal = 24.dp, vertical = 14.dp),
             colors = CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(
-                    3.dp
+                    4.dp
                 )
             )
         ) {
-
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -135,7 +134,7 @@ fun WelcomeScreen(navController: NavController) {
                 Text(
                     text = stringResource(id = R.string.welcome_screen_text),
                     fontWeight = FontWeight.Medium,
-                    fontSize = 14.sp,
+                    fontSize = 15.sp,
                     fontFamily = greenstashFont,
                     textAlign = TextAlign.Center,
                     modifier = Modifier
@@ -154,7 +153,6 @@ fun WelcomeScreen(navController: NavController) {
                 ) {
                     Text(
                         text = selectedCurrencyName.value,
-                        fontSize = 16.sp,
                         fontFamily = greenstashFont,
                         fontWeight = FontWeight.Medium,
                         color = MaterialTheme.colorScheme.onPrimaryContainer
@@ -180,7 +178,6 @@ fun WelcomeScreen(navController: NavController) {
             ) {
                 Text(
                     text = stringResource(id = R.string.welcome_screen_button),
-                    fontSize = 16.sp,
                     fontFamily = greenstashFont,
                     fontWeight = FontWeight.Medium
                 )

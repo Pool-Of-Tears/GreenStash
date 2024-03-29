@@ -69,7 +69,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
@@ -102,6 +104,8 @@ fun TransactionItem(
     currencySymbol: String,
     viewModel: InfoViewModel
 ) {
+    val haptic = LocalHapticFeedback.current
+
     transactions.forEach { transaction ->
         val showEditSheet = remember { mutableStateOf(false) }
         val showDeleteDialog = remember { mutableStateOf(false) }
@@ -199,6 +203,7 @@ fun TransactionItem(
         )
 
         if (showDeleteDialog.value) {
+            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
             AlertDialog(onDismissRequest = {
                 showDeleteDialog.value = false
             }, title = {
