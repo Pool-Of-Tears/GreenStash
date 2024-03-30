@@ -141,6 +141,7 @@ fun GoalItemClassic(
                     fontWeight = FontWeight.Medium,
                     lineHeight = 1.2f.em,
                     fontSize = 18.sp,
+                    fontFamily = greenstashFont,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     color = MaterialTheme.colorScheme.onSurface
@@ -150,6 +151,7 @@ fun GoalItemClassic(
                     modifier = Modifier.padding(start = 8.dp, top = 6.dp),
                     lineHeight = 1.2f.em,
                     fontSize = 14.sp,
+                    fontFamily = greenstashFont,
                     color = MaterialTheme.colorScheme.onSurface
                 )
                 Text(
@@ -157,6 +159,7 @@ fun GoalItemClassic(
                     modifier = Modifier.padding(start = 8.dp, top = 8.dp),
                     lineHeight = 1.1f.em,
                     fontSize = 14.sp,
+                    fontFamily = greenstashFont,
                     color = MaterialTheme.colorScheme.onSurface
                 )
             }
@@ -368,7 +371,9 @@ fun GoalItemCompact(
                             Column {
                                 Spacer(modifier = Modifier.height(40.dp))
                                 Icon(
-                                    modifier = Modifier.size(56.dp).padding(start = 6.dp),
+                                    modifier = Modifier
+                                        .size(56.dp)
+                                        .padding(start = 6.dp),
                                     imageVector = goalIcon,
                                     contentDescription = title,
                                     tint = MaterialTheme.colorScheme.onSecondaryContainer
@@ -410,6 +415,7 @@ fun GoalItemCompact(
                             text = title,
                             modifier = Modifier.padding(start = 4.dp, top = 10.dp),
                             fontWeight = FontWeight.Normal,
+                            fontFamily = greenstashFont,
                             fontSize = 18.sp,
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis,
@@ -476,7 +482,7 @@ fun GoalItemsPV() {
             onWithdrawClicked = {},
             onInfoClicked = {},
             onEditClicked = {},
-            onDeleteClicked = {})
-
+            onDeleteClicked = {}
+        )
     }
 }

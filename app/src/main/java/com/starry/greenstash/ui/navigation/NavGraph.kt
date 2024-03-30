@@ -52,6 +52,7 @@ import com.starry.greenstash.ui.screens.input.composables.CongratsScreen
 import com.starry.greenstash.ui.screens.input.composables.DWScreen
 import com.starry.greenstash.ui.screens.input.composables.InputScreen
 import com.starry.greenstash.ui.screens.settings.composables.AboutScreen
+import com.starry.greenstash.ui.screens.settings.composables.GoalCardStyle
 import com.starry.greenstash.ui.screens.settings.composables.OSLScreen
 import com.starry.greenstash.ui.screens.settings.composables.SettingsScreen
 import com.starry.greenstash.ui.screens.welcome.composables.WelcomeScreen
@@ -207,6 +208,15 @@ fun NavGraph(
             popExitTransition = { popExitTransition() },
         ) {
             SettingsScreen(navController = navController)
+        }
+
+        /** Goal Ui Settings Screen */
+        composable(
+            route = Screens.GoalCardStyle.route,
+            enterTransition = { enterTransition() },
+            popExitTransition = { popExitTransition() },
+        ) {
+            GoalCardStyle(navController = navController)
         }
 
         /** Open Source Licenses Screen */

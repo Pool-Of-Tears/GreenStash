@@ -35,6 +35,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -42,6 +43,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.starry.greenstash.MainActivity
 import com.starry.greenstash.R
 import com.starry.greenstash.database.core.GoalWithTransactions
 import com.starry.greenstash.database.transaction.TransactionType
@@ -51,6 +53,7 @@ import com.starry.greenstash.ui.screens.home.viewmodels.HomeViewModel
 import com.starry.greenstash.utils.Constants
 import com.starry.greenstash.utils.ImageUtils
 import com.starry.greenstash.utils.Utils
+import com.starry.greenstash.utils.getActivity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
@@ -69,6 +72,9 @@ fun GoalLazyColumnItem(
     navController: NavController,
     currentIndex: Int
 ) {
+    val settingsVM = (context.getActivity() as MainActivity).settingsViewModel
+    val goalCardStyle = settingsVM.goalCardStyle.observeAsState().value!!
+
     val coroutineScope = rememberCoroutineScope()
     val progressPercent = remember(item.goal.goalId) {
         ((item.getCurrentlySavedAmount() / item.goal.targetAmount) * 100).toInt()
@@ -76,7 +82,7 @@ fun GoalLazyColumnItem(
 
     val openDeleteDialog = remember { mutableStateOf(false) }
 
-    when (viewModel.goalCardStyle) {
+    when (goalCardStyle) {
         GoalCardStyle.Classic -> {
             GoalItemClassic(title = item.goal.title,
                 primaryText = viewModel.goalTextUtil.buildPrimaryText(
@@ -129,17 +135,9 @@ fun GoalLazyColumnItem(
                         )
                     )
                 },
-                onDeleteClicked = { openDeleteDialog.value = true })
-
-            HomeDialogs(
-                openDeleteDialog = openDeleteDialog,
-                onDeleteConfirmed = {
-                    viewModel.deleteGoal(item.goal)
-                    coroutineScope.launch {
-                        snackBarHostState.showSnackbar(context.getString(R.string.goal_delete_success))
-                    }
-                }
+                onDeleteClicked = { openDeleteDialog.value = true }
             )
+
         }
 
         GoalCardStyle.Compact -> {

@@ -28,15 +28,20 @@ package com.starry.greenstash.ui.screens.home.composables
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.stringResource
 import com.starry.greenstash.R
+import com.starry.greenstash.ui.theme.greenstashFont
 
 @ExperimentalMaterial3Api
 @Composable
@@ -44,26 +49,36 @@ fun HomeDialogs(
     openDeleteDialog: MutableState<Boolean>,
     onDeleteConfirmed: () -> Unit,
 ) {
+    val haptic = LocalHapticFeedback.current
+
     if (openDeleteDialog.value) {
+        haptic.performHapticFeedback(HapticFeedbackType.LongPress)
         AlertDialog(onDismissRequest = {
             openDeleteDialog.value = false
         }, title = {
             Text(
                 text = stringResource(id = R.string.goal_delete_confirmation),
                 color = MaterialTheme.colorScheme.onSurface,
+                fontFamily = greenstashFont,
             )
         }, confirmButton = {
-            TextButton(onClick = {
-                openDeleteDialog.value = false
-                onDeleteConfirmed()
-            }) {
-                Text(stringResource(id = R.string.confirm))
+            FilledTonalButton(
+                onClick = {
+                    openDeleteDialog.value = false
+                    onDeleteConfirmed()
+                },
+                colors = ButtonDefaults.filledTonalButtonColors(
+                    containerColor = MaterialTheme.colorScheme.errorContainer,
+                    contentColor = MaterialTheme.colorScheme.onErrorContainer
+                )
+            ) {
+                Text(stringResource(id = R.string.confirm), fontFamily = greenstashFont)
             }
         }, dismissButton = {
             TextButton(onClick = {
                 openDeleteDialog.value = false
             }) {
-                Text(stringResource(id = R.string.cancel))
+                Text(stringResource(id = R.string.cancel), fontFamily = greenstashFont)
             }
         },
             icon = {

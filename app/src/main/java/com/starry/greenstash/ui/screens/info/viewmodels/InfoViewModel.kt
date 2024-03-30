@@ -34,17 +34,26 @@ import com.starry.greenstash.database.core.GoalWithTransactions
 import com.starry.greenstash.database.goal.GoalDao
 import com.starry.greenstash.database.transaction.Transaction
 import com.starry.greenstash.database.transaction.TransactionDao
+import com.starry.greenstash.database.transaction.TransactionType
+import com.starry.greenstash.ui.screens.settings.viewmodels.DateStyle
 import com.starry.greenstash.utils.GoalTextUtils
 import com.starry.greenstash.utils.PreferenceUtil
+import com.starry.greenstash.utils.Utils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
 import javax.inject.Inject
 
 data class InfoScreenState(
     val goalData: Flow<GoalWithTransactions?>? = null
+)
+
+data class EditGoalState(
+    val amount: String = "",
+    val notes: String = "",
 )
 
 @HiltViewModel
@@ -56,6 +65,7 @@ class InfoViewModel @Inject constructor(
 
     val goalTextUtils = GoalTextUtils(preferenceUtil)
     var state by mutableStateOf(InfoScreenState())
+    var editGoalState by mutableStateOf(EditGoalState())
 
     fun loadGoalData(goalId: Long) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -65,6 +75,12 @@ class InfoViewModel @Inject constructor(
         }
     }
 
+    fun setEditAmountAndNotes(transaction: Transaction) {
+        editGoalState = EditGoalState(
+            amount = transaction.amount.toString(),
+            notes = transaction.notes,
+        )
+    }
 
     fun deleteTransaction(transaction: Transaction) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -72,7 +88,37 @@ class InfoViewModel @Inject constructor(
         }
     }
 
+    fun updateTransaction(
+        transaction: Transaction,
+        transactionTime: LocalDateTime,
+        transactionType: String
+    ) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val newTransaction = transaction.copy(
+                type = TransactionType.valueOf(transactionType),
+                timeStamp = Utils.getEpochTime(transactionTime),
+                amount = Utils.roundDecimal(editGoalState.amount.toDouble()),
+                notes = editGoalState.notes
+            )
+            newTransaction.transactionId = transaction.transactionId
+            transactionDao.updateTransaction(newTransaction)
+        }
+    }
+
     fun getDefaultCurrencyValue() = preferenceUtil.getString(
         PreferenceUtil.DEFAULT_CURRENCY_STR, "$"
     )!!
+
+    fun getDateStyleValue() = preferenceUtil.getString(
+        PreferenceUtil.DATE_FORMAT_STR, DateStyle.DateMonthYear.pattern
+    )
+
+    fun shouldShowTransactionTip() = preferenceUtil.getBoolean(
+        PreferenceUtil.INFO_TRANSACTION_SWIPE_TIP_BOOL, true
+    )
+
+    fun transactionTipDismissed() = preferenceUtil.putBoolean(
+        PreferenceUtil.INFO_TRANSACTION_SWIPE_TIP_BOOL, false
+    )
+
 }

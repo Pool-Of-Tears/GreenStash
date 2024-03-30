@@ -4,12 +4,14 @@
     <!-- Other Strings -->
     <string name="confirm">确认</string>
     <string name="cancel">取消</string>
-    <string name="unknown_error">Oops! something went wrong.</string>
+    <string name="ok">确定</string>
+    <string name="unknown_error">糟糕！出了点问题。</string>
 
     <!-- Navigation Drawer -->
     <string name="drawer_home">主页</string>
     <string name="drawer_backups">备份</string>
     <string name="drawer_settings">设置</string>
+    <string name="drawer_footer_text">用❤️制作于印度。</string>
 
     <!-- Biometric Lock -->
     <string name="bio_lock_title">解锁GreenStash</string>
@@ -28,6 +30,8 @@
     <string name="filter_button_desc">过滤省钱目标</string>
     <string name="search_button_desc">搜索某些省钱目标。</string>
     <string name="new_goal_fab">新目标</string>
+    <string name="new_goal_onboarding_title">让我们从创建一个新的储蓄目标开始吧！</string>
+    <string name="new_goal_onboarding_desc">点击浮动操作按钮创建一个新的储蓄目标。</string>
     <string name="filter_menu_title">过滤，按</string>
     <string name="home_search_label">搜索此处…</string>
     <string name="search_goal_not_found">404: 目标未发现！</string>>
@@ -41,8 +45,8 @@
 
     <!-- Congratulations Screen -->
     <string name="goal_achieved_heading">恭喜 🥳</string>
-    <string name="goal_achieved_subtext">您已经实现了省钱目标！</string>
-    <string name="goal_achieved_button">主页</string>
+    <string name="goal_achieved_subtext">您已经达到了您的储蓄目标！您的辛勤工作和承诺带来了这个当之无愧的成就。庆祝您的成功！</string>
+    <string name="goal_achieved_button">返回主页</string>
 
     <!-- Strings used for dashboard saving goals cards -->
     <string name="no_goal_set">没有设置省钱目标。</string>
@@ -82,17 +86,28 @@
     <string name="info_card_no_deadline_set">未设置截止日期。</string>
     <string name="info_card_goal_achieved">目标实现。恭喜！</string>
     <string name="info_goal_priority">目标优先级是%s</string>
+    <string name="info_reminder_status_on">提醒已启用</string>
+    <string name="info_reminder_status_off">提醒已禁用</string>
     <string name="info_notes_card_title">备注</string>
     <string name="info_goal_no_transactions">尚无收支。</string>
+    <string name="info_edit_transaction_button">更新交易</string>
+    <string name="info_transaction_onboarding_tip">提示：左右滑动交易以编辑或删除它们。</string>
 
     <!-- Input (New/Edit Goal) Screen -->
     <string name="input_screen_header">省钱时间到！</string>
     <string name="input_edit_goal_header">编辑省钱目标</string>
     <string name="input_pick_icon">为您的目标选择一个图标。</string>
+    <string name="input_pick_icon_onboarding_title">…或者如果简约风格是您的风格，请为您的目标添加图标。</string>
+    <string name="input_pick_icon_onboarding_desc">目标图标将用于紧凑样式的目标卡上，设置 > 目标卡样式</string>
     <string name="input_icon_dialog">选择图标</string>
-    <string name="input_pick_image">目标图片</string>
+    <string name="input_pick_image_fab">目标图片</string>
+    <string name="input_pick_image_onboarding_title">为您的目标添加图片，赋予它们个性化的外观！</string>
+    <string name="input_pick_image_onboarding_desc">点击浮动操作按钮为您的目标添加图片。</string>
     <string name="input_page_quote">千里之行，始于足下</string>
     <string name="input_goal_priority">为此目标选择优先级。</string>
+    <string name="input_goal_reminder">储蓄提醒</string>
+    <string name="input_goal_reminders_onboarding_title">启用提醒，及时了解您的目标进展！</string>
+    <string name="input_goal_reminders_onboarding_desc">根据目标优先级，将每日、半周或每周发送提醒。</string>
     <string name="input_text_title">目标标题</string>
     <string name="title_empty_err">哇！尚无标题。</string>
     <string name="input_text_amount">目标金额</string>
@@ -109,19 +124,25 @@
     <string name="backup_screen_header">备份与恢复</string>
     <string name="backup_screen_text">备份应用数据——包括您所有的省钱目标、当前进展、收支等等，并且可以随时轻松恢复。</string>
     <string name="backup_screen_sub_text">注意：备份不包括应用设置信息。</string>
-    <string name="backup_button">备份应用数据</string>
-    <string name="restore_button">恢复应用数据</string>
-    <string name="backup_restore_success">Backup restored successfully!</string>
+    <string name="backup_button">备份</string>
+    <string name="restore_button">恢复</string>
+    <string name="backup_restore_success">备份成功恢复！</string>
 
     <!-- Settings Screen -->
     <string name="settings_screen_header">设置</string>
     <string name="display_settings_title">显示</string>
     <string name="theme_setting">默认主题</string>
     <string name="theme_dialog_title">修改主题</string>
+    <string name="theme_dialog_option1">明亮</string>
+    <string name="theme_dialog_option2">暗色</string>
+    <string name="theme_dialog_option3">系统默认</string>
     <string name="theme_dialog_apply_button">应用</string>
     <string name="material_you_setting">自适应</string>
     <string name="material_you_setting_desc">根据壁纸切换合适的主题（仅Android12+）</string>
     <string name="material_you_error">此功能仅在Android 12或更高版本上有效。</string>
+    <string name="goal_card_setting">目标卡样式</string>
+    <string name="goal_card_option1">经典</string>
+    <string name="goal_card_option2">紧凑</string>
     <string name="locales_setting_title">地区</string>
     <string name="date_format_setting">日期格式</string>
     <string name="date_format_dialog_title">修改日期格式</string>
@@ -136,6 +157,10 @@
     <string name="app_info_setting">应用信息</string>
     <string name="app_info_setting_desc">显示应用版本和有用的链接。</string>
 
+    <!-- Goal Card STyle -->
+    <string name="goal_card_settings_header">目标样式</string>
+    <string name="goal_card_settings_tip">提示！你可以向左或向右滑动一个紧凑样式的卡片来编辑或删除一个储蓄目标。</string>
+
     <!-- OSL Screen -->
     <string name="osl_screen_header">开源库</string>
 
@@ -148,7 +173,9 @@
     <string name="about_gh_issue_title">Github问题</string>
     <string name="about_gh_issue_desc">通过在Github上创建问题来提交bug报告或功能需求。</string>
     <string name="about_telegram_title">Telegram组</string>
-    <string name="about_telegram_desc">Join us at telegram to share your ideas or just to chat!</string>
+    <string name="about_telegram_desc">加入我们的 Telegram，分享您的想法或进行聊天！</string>
+    <string name="about_support_title">支持开发</string>
+    <string name="about_support_desc">如果您认为我的工作值得一些饼干，您可以点击这里购买给我一些。</string>
     <string name="about_version_title">版本</string>
     <string name="about_version_desc">版本-%s</string>
 

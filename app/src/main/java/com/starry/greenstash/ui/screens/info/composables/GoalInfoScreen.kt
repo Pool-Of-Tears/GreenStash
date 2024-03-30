@@ -46,6 +46,8 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.NotificationsActive
+import androidx.compose.material.icons.filled.NotificationsOff
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -55,21 +57,24 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -84,25 +89,18 @@ import com.airbnb.lottie.compose.LottieCompositionResult
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
-import com.starry.greenstash.MainActivity
 import com.starry.greenstash.R
 import com.starry.greenstash.database.goal.GoalPriority
 import com.starry.greenstash.database.goal.GoalPriority.High
 import com.starry.greenstash.database.goal.GoalPriority.Low
 import com.starry.greenstash.database.goal.GoalPriority.Normal
-import com.starry.greenstash.database.transaction.Transaction
-import com.starry.greenstash.database.transaction.TransactionType
 import com.starry.greenstash.ui.common.DotIndicator
 import com.starry.greenstash.ui.common.ExpandableTextCard
 import com.starry.greenstash.ui.screens.info.viewmodels.InfoViewModel
-import com.starry.greenstash.ui.screens.settings.viewmodels.ThemeMode
 import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.ui.theme.greenstashNumberFont
 import com.starry.greenstash.utils.Utils
-import com.starry.greenstash.utils.getActivity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import me.saket.swipe.SwipeAction
-import me.saket.swipe.SwipeableActionsBox
 
 
 @ExperimentalCoroutinesApi
@@ -118,27 +116,32 @@ fun GoalInfoScreen(goalId: String, navController: NavController) {
     val state = viewModel.state
     val context = LocalContext.current
 
+    val snackBarHostState = remember { SnackbarHostState() }
+
     LaunchedEffect(key1 = true, block = { viewModel.loadGoalData(goalId.toLong()) })
 
-    Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
-        TopAppBar(modifier = Modifier.fillMaxWidth(), title = {
-            Text(
-                text = stringResource(id = R.string.info_screen_header),
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                fontFamily = greenstashFont
-            )
-        }, navigationIcon = {
-            IconButton(onClick = { navController.navigateUp() }) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null
-                )
-            }
-        }, colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-            containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(4.dp)
-        )
-        )
-    }) {
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        snackbarHost = { SnackbarHost(snackBarHostState) },
+        topBar = {
+            TopAppBar(
+                modifier = Modifier.fillMaxWidth(),
+                title = {
+                    Text(
+                        text = stringResource(id = R.string.info_screen_header),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        fontFamily = greenstashFont
+                    )
+                }, navigationIcon = {
+                    IconButton(onClick = { navController.navigateUp() }) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = null
+                        )
+                    }
+                })
+        }) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -172,7 +175,10 @@ fun GoalInfoScreen(goalId: String, navController: NavController) {
                         ),
                         progress = progressPercent.toFloat() / 100
                     )
-                    GoalPriorityCard(goalPriority = goalData.goal.priority)
+                    GoalPriorityCard(
+                        goalPriority = goalData.goal.priority,
+                        reminders = goalData.goal.reminder
+                    )
                     if (goalData.goal.additionalNotes.isNotEmpty() && goalData.goal.additionalNotes.isNotBlank()) {
                         GoalNotesCard(
                             notesText = goalData.goal.additionalNotes
@@ -180,7 +186,29 @@ fun GoalInfoScreen(goalId: String, navController: NavController) {
                         Spacer(modifier = Modifier.height(6.dp))
                     }
                     if (goalData.transactions.isNotEmpty()) {
-                        TransactionCard(goalData.transactions.reversed(), currencySymbol, viewModel)
+                        TransactionItem(
+                            goalData.getOrderedTransactions(),
+                            currencySymbol,
+                            viewModel
+                        )
+                        // Show tooltip for swipe functionality.
+                        LaunchedEffect(key1 = true) {
+                            if (viewModel.shouldShowTransactionTip()) {
+                                val result = snackBarHostState.showSnackbar(
+                                    message = context.getString(R.string.info_transaction_onboarding_tip),
+                                    actionLabel = context.getString(R.string.ok),
+                                    duration = SnackbarDuration.Indefinite
+                                )
+
+                                when (result) {
+                                    SnackbarResult.ActionPerformed -> {
+                                        viewModel.transactionTipDismissed()
+                                    }
+
+                                    SnackbarResult.Dismissed -> {}
+                                }
+                            }
+                        }
                     } else {
                         Column(
                             modifier = Modifier.fillMaxWidth(),
@@ -209,6 +237,7 @@ fun GoalInfoScreen(goalId: String, navController: NavController) {
                             Text(
                                 text = stringResource(id = R.string.info_goal_no_transactions),
                                 fontWeight = FontWeight.SemiBold,
+                                fontFamily = greenstashFont,
                                 fontSize = 20.sp,
                                 modifier = Modifier.padding(start = 12.dp, end = 12.dp)
                             )
@@ -258,6 +287,7 @@ fun GoalInfoCard(
                 text = stringResource(id = R.string.info_card_title),
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Medium,
+                fontFamily = greenstashFont,
                 modifier = Modifier.padding(start = 12.dp)
             )
 
@@ -281,6 +311,7 @@ fun GoalInfoCard(
                 ),
                 fontSize = 14.sp,
                 fontWeight = FontWeight.SemiBold,
+                fontFamily = greenstashFont,
                 modifier = Modifier.padding(start = 12.dp)
             )
 
@@ -304,6 +335,7 @@ fun GoalInfoCard(
                     text = "${(progress * 100).toInt()}% | $daysLeftText",
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Medium,
+                    fontFamily = greenstashFont,
                     modifier = Modifier.padding(end = 12.dp)
                 )
             }
@@ -312,7 +344,7 @@ fun GoalInfoCard(
 }
 
 @Composable
-fun GoalPriorityCard(goalPriority: GoalPriority) {
+fun GoalPriorityCard(goalPriority: GoalPriority, reminders: Boolean) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -335,14 +367,30 @@ fun GoalPriorityCard(goalPriority: GoalPriority) {
                 Normal -> Color.Green
                 Low -> Color.Blue
             }
+            val (reminderIcon, reminderText) = when (reminders) {
+                true -> Pair(
+                    Icons.Filled.NotificationsActive,
+                    stringResource(id = R.string.info_reminder_status_on)
+                )
+
+                false -> Pair(
+                    Icons.Filled.NotificationsOff,
+                    stringResource(id = R.string.info_reminder_status_off)
+                )
+            }
+
             Box(modifier = Modifier.padding(start = 8.dp)) {
                 DotIndicator(modifier = Modifier.size(8.2f.dp), color = indicatorColor)
             }
             Text(
                 modifier = Modifier.padding(start = 14.dp),
                 text = stringResource(id = R.string.info_goal_priority).format(goalPriority.name),
-                fontWeight = FontWeight.Medium
+                fontWeight = FontWeight.Medium,
+                fontFamily = greenstashFont
             )
+
+            Spacer(modifier = Modifier.weight(1f))
+            Icon(imageVector = reminderIcon, contentDescription = reminderText)
         }
     }
 }
@@ -353,116 +401,6 @@ fun GoalNotesCard(notesText: String) {
     ExpandableTextCard(
         title = stringResource(id = R.string.info_notes_card_title), description = notesText
     )
-}
-
-@ExperimentalCoroutinesApi
-@ExperimentalMaterialApi
-@ExperimentalFoundationApi
-@ExperimentalComposeUiApi
-@ExperimentalAnimationApi
-@ExperimentalMaterial3Api
-@Composable
-fun TransactionCard(
-    transactions: List<Transaction>,
-    currencySymbol: String,
-    viewModel: InfoViewModel
-) {
-    val settingsVM = (LocalContext.current.getActivity() as MainActivity).settingsViewModel
-    transactions.forEach {
-        val deleteAction = SwipeAction(
-            icon = painterResource(
-                id = if (settingsVM.getCurrentTheme() == ThemeMode.Light)
-                    R.drawable.ic_goal_delete else R.drawable.ic_goal_delete_white
-            ),
-            background = Color.Red,
-            onSwipe = {
-                viewModel.deleteTransaction(it)
-            }
-        )
-        SwipeableActionsBox(
-            endActions = listOf(deleteAction),
-            swipeThreshold = 85.dp,
-            content = { TransactionItem(it, currencySymbol) }
-        )
-    }
-
-}
-
-@ExperimentalCoroutinesApi
-@ExperimentalMaterial3Api
-@ExperimentalAnimationApi
-@ExperimentalComposeUiApi
-@ExperimentalFoundationApi
-@ExperimentalMaterialApi
-@Composable
-fun TransactionItem(transaction: Transaction, currencySymbol: String) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(start = 12.dp, end = 12.dp, top = 4.dp),
-        shape = RoundedCornerShape(8.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(
-                4.dp
-            )
-        )
-    ) {
-        Column(modifier = Modifier.padding(8.dp)) {
-            val amountPrefix: String
-            val amountColor: Color
-            val activity = LocalContext.current.getActivity() as MainActivity
-
-            if (transaction.type == TransactionType.Deposit) {
-                amountPrefix = "+"
-                amountColor = if (activity.settingsViewModel.getCurrentTheme() == ThemeMode.Light) {
-                    Color(0xFF037d50)
-                } else {
-                    Color(0xFF04df8f)
-                }
-            } else {
-                amountPrefix = "-"
-                amountColor = if (activity.settingsViewModel.getCurrentTheme() == ThemeMode.Light) {
-                    Color(0xFFd90000)
-                } else {
-                    Color(0xFFff1515)
-                }
-            }
-
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp)
-            ) {
-                Row {
-                    Text(
-                        text = "$amountPrefix$currencySymbol${transaction.amount}",
-                        fontWeight = FontWeight.Medium,
-                        fontSize = 16.sp,
-                        color = amountColor
-                    )
-                    Spacer(modifier = Modifier.weight(1f))
-                    Text(
-                        text = transaction.getTransactionDate(),
-                        fontWeight = FontWeight.Medium,
-                        fontSize = 16.sp
-                    )
-                }
-
-                if (transaction.notes.isNotBlank()) {
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text(
-                        text = transaction.notes,
-                        fontWeight = FontWeight.Medium,
-                        fontSize = 14.sp,
-                        maxLines = 4,
-                        overflow = TextOverflow.Ellipsis,
-                        modifier = Modifier.padding(horizontal = 14.dp)
-                    )
-                }
-            }
-        }
-
-    }
 }
 
 @ExperimentalCoroutinesApi

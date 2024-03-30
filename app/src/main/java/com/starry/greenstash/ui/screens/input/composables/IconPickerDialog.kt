@@ -1,3 +1,28 @@
+/**
+ * MIT License
+ *
+ * Copyright (c) [2022 - Present] Stɑrry Shivɑm
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
 package com.starry.greenstash.ui.screens.input.composables
 
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -53,6 +78,7 @@ import com.starry.greenstash.R
 import com.starry.greenstash.ui.screens.input.viewmodels.IconItem
 import com.starry.greenstash.ui.screens.input.viewmodels.IconsState
 import com.starry.greenstash.ui.screens.input.viewmodels.InputViewModel
+import com.starry.greenstash.ui.theme.greenstashFont
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
@@ -122,7 +148,10 @@ fun IconPickerDialog(
                                     showDialog.value = false
                                 }
                             }) {
-                                Text(text = stringResource(id = R.string.cancel))
+                                Text(
+                                    text = stringResource(id = R.string.cancel),
+                                    fontFamily = greenstashFont
+                                )
                             }
 
                             Spacer(modifier = Modifier.width(10.dp))
@@ -131,7 +160,10 @@ fun IconPickerDialog(
                                 onIconSelected(state.currentIcon)
                                 showDialog.value = false
                             }) {
-                                Text(text = stringResource(id = R.string.confirm))
+                                Text(
+                                    text = stringResource(id = R.string.confirm),
+                                    fontFamily = greenstashFont,
+                                )
                             }
                         }
                     }
@@ -159,6 +191,7 @@ private fun SearchTextField(
         text = stringResource(id = R.string.input_icon_dialog),
         color = MaterialTheme.colorScheme.onSurface,
         fontWeight = FontWeight.SemiBold,
+        fontFamily = greenstashFont,
         fontSize = 20.sp
     )
 
@@ -167,7 +200,8 @@ private fun SearchTextField(
         label = {
             Text(
                 text = stringResource(id = R.string.home_search_label),
-                color = MaterialTheme.colorScheme.primary
+                color = MaterialTheme.colorScheme.primary,
+                fontFamily = greenstashFont
             )
         },
         value = viewModel.iconState.value.searchText,
@@ -279,6 +313,7 @@ private fun IconItem(
         Text(
             text = text,
             fontSize = MaterialTheme.typography.labelSmall.fontSize,
+            fontFamily = greenstashFont,
             textAlign = TextAlign.Center,
             overflow = TextOverflow.Ellipsis,
             maxLines = 1

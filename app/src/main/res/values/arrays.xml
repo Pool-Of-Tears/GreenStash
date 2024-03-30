@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="currency_entries">
+    <string-array name="currency_names">
         <item>US Dollar ($)</item>
         <item>Canadian Dollar (CA$)</item>
         <item>Euro (€)</item>

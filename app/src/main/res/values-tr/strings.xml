@@ -4,12 +4,14 @@
     <!-- Other Strings -->
     <string name="confirm">Onayla</string>
     <string name="cancel">İptal</string>
+    <string name="ok">Tamam</string>
     <string name="unknown_error">Hoop! bir şeyler yanlış gitti.</string>
 
     <!-- Navigation Drawer -->
     <string name="drawer_home">Ana Sayfa</string>
     <string name="drawer_backups">Yedekler</string>
     <string name="drawer_settings">Ayarlar</string>
+    <string name="drawer_footer_text">❤️ Hindistan\'da yapıldı.</string>
 
     <!-- Biometric Lock -->
     <string name="bio_lock_title">GreenStash\'in Kilidini Aç</string>
@@ -28,6 +30,8 @@
     <string name="filter_button_desc">Birikim hedeflerini filtrele</string>
     <string name="search_button_desc">Belli bir birikim hedefini ara.</string>
     <string name="new_goal_fab">Yeni Hedef</string>
+    <string name="new_goal_onboarding_title">Yeni bir tasarruf hedefi oluşturarak başlayalım!</string>
+    <string name="new_goal_onboarding_desc">Yeni bir tasarruf hedefi oluşturmak için hareketli işlem düğmesine tıklayın.</string>
     <string name="filter_menu_title">Filtrele</string>
     <string name="home_search_label">Ara…</string>
     <string name="search_goal_not_found">404: Hedef bulunamadı!</string>>
@@ -41,8 +45,8 @@
 
     <!-- Congratulations Screen -->
     <string name="goal_achieved_heading">Tebrikler 🥳</string>
-    <string name="goal_achieved_subtext">Birikim hedefine ulaştın!</string>
-    <string name="goal_achieved_button">Ana Sayfa</string>
+    <string name="goal_achieved_subtext">Tasarruf hedefinize ulaştınız! Sıkı çalışmanız ve bağlılığınız bu hak ettiğiniz başarıya yol açtı. Başarınızı kutlayın!</string>
+    <string name="goal_achieved_button">Ana ekrana dön</string>
 
     <!-- Strings used for dashboard saving goals cards -->
     <string name="no_goal_set">Birikim Hedefi Yok.</string>
@@ -82,17 +86,28 @@
     <string name="info_card_no_deadline_set">Son tarih belirlenmedi.</string>
     <string name="info_card_goal_achieved">Hedefe ulaşıldı. Tebrikler!</string>
     <string name="info_goal_priority">Hedef Önceliği: %s</string>
+    <string name="info_reminder_status_on">Hatırlatıcılar etkin</string>
+    <string name="info_reminder_status_off">Hatırlatıcılar devre dışı</string>
     <string name="info_notes_card_title">Notlar</string>
     <string name="info_goal_no_transactions">Henüz İşlem Yok.</string>
+    <string name="info_edit_transaction_button">İşlemi Güncelle</string>
+    <string name="info_transaction_onboarding_tip">İpucu: İşlemleri düzenlemek veya silmek için sola veya sağa kaydırın.</string>
 
     <!-- Input (New/Edit Goal) Screen -->
     <string name="input_screen_header">Birikim yapma zamanı!</string>
     <string name="input_edit_goal_header">Birikim Hedefini Düzenle</string>
     <string name="input_pick_icon">Hedefiniz için bir simge seçin.</string>
+    <string name="input_pick_icon_onboarding_title">…Ya da minimalizm tarzınızsa, hedefiniz için bir simge ekleyin.</string>
+    <string name="input_pick_icon_onboarding_desc">Hedef simgeleri, kompakt stil hedef kartlarında kullanılacaktır, Ayarlar > Hedef Kartı Stili</string>
     <string name="input_icon_dialog">Bir simge seçin</string>
-    <string name="input_pick_image">Hedef Resmi</string>
+    <string name="input_pick_image_fab">Hedef Resmi</string>
+    <string name="input_pick_image_onboarding_title">Hedeflerinize kişisel bir görünüm kazandırmak için resimler ekleyin!</string>
+    <string name="input_pick_image_onboarding_desc">Hedefinize bir resim eklemek için hareketli işlem düğmesine tıklayın.</string>
     <string name="input_page_quote">Merdivenin tamamını görmek zorunda değilsin, sadece ilk adımı at. – Martin Luther King, Jr.  </string>
     <string name="input_goal_priority">Bu hedef için öncelik seçin.</string>
+    <string name="input_goal_reminder">Tasarruf Hatırlatıcıları</string>
+    <string name="input_goal_reminders_onboarding_title">Hedeflerinizle Güncel Kalabilmek için Hatırlatıcıları Etkinleştirin!</string>
+    <string name="input_goal_reminders_onboarding_desc">Hatırlatıcılar, hedef önceliğine bağlı olarak günlük, haftalık veya yarı haftalık olarak gönderilecektir.</string>
     <string name="input_text_title">Hedef Başlığı</string>
     <string name="title_empty_err">Hoop! başlık boş.</string>
     <string name="input_text_amount">Hedef Tutar</string>
@@ -109,8 +124,8 @@
     <string name="backup_screen_header">Yedekle &amp; Geri yükle</string>
     <string name="backup_screen_text">Tüm tasarruf hedefleriniz, mevcut ilerlemeniz, işlemleriniz vb. dahil olmak üzere uygulama verilerini yedekleyin ve istediğiniz zaman kolayca geri yükleyin.</string>
     <string name="backup_screen_sub_text">Not: Yedekler uygulama ayarlarını içermez.</string>
-    <string name="backup_button">Uygulama Verilerini Yedekle</string>
-    <string name="restore_button">Uygulama Verilerini Geri Yükle</string>
+    <string name="backup_button">Yedekle</string>
+    <string name="restore_button">Geri Yükle</string>
     <string name="backup_restore_success">Yedek başarıyla geri yüklendi!</string>
 
     <!-- Settings Screen -->
@@ -118,10 +133,16 @@
     <string name="display_settings_title">Görünüm</string>
     <string name="theme_setting">Varsayılan Tema</string>
     <string name="theme_dialog_title">Temayı Değiştir</string>
+    <string name="theme_dialog_option1">Açık</string>
+    <string name="theme_dialog_option2">Koyu</string>
+    <string name="theme_dialog_option3">Sistem Varsayılanı</string>
     <string name="theme_dialog_apply_button">Uygula</string>
     <string name="material_you_setting" translatable="false">Material You</string>
     <string name="material_you_setting_desc">Temayı duvar kağıdınıza göre değiştirin (Yalnızca A12+)</string>
     <string name="material_you_error">Bu özellik yalnızca Android 12 ve üstü cihazlar içindir.</string>
+    <string name="goal_card_setting">Hedef Kartı Stili</string>
+    <string name="goal_card_option1">Klasik</string>
+    <string name="goal_card_option2">Kompakt</string>
     <string name="locales_setting_title">Yerel</string>
     <string name="date_format_setting">Tarih Biçimi</string>
     <string name="date_format_dialog_title">Tarih Biçimini Değiştir</string>
@@ -136,6 +157,10 @@
     <string name="app_info_setting">Uygulama Bilgileri</string>
     <string name="app_info_setting_desc">Uygulama versiyonunu ve faydalı linkleri göster.</string>
 
+    <!-- Goal Card Style -->
+    <string name="goal_card_settings_header">Hedef Stili</string>
+    <string name="goal_card_settings_tip">İpucu! Kompakt tarzda bir kartı sola veya sağa kaydırarak bir tasarruf hedefini düzenleyebilir veya silebilirsiniz.</string>
+
     <!-- OSL Screen -->
     <string name="osl_screen_header">Açık Kaynak Kütüphaneleri</string>
 
@@ -149,6 +174,8 @@
     <string name="about_gh_issue_desc">Github\'da bir sorun oluşturarak hataları bildirin ya da özellik talep edin.</string>
     <string name="about_telegram_title">Telegram Grubu</string>
     <string name="about_telegram_desc">Fikirlerinizi paylaşmak ya da sadece sohbet etmek için Telegram\'da bize katılın!</string>
+    <string name="about_support_title">Gelişimi Destekle</string>
+    <string name="about_support_desc">Çalışmalarım için bana birkaç kurabiye hediye etmeyi düşünüyorsanız, buraya tıklayarak bana bazı satın alabilirsiniz.</string>
     <string name="about_version_title">Versiyon</string>
     <string name="about_version_desc">Versiyon-%s</string>
 

@@ -87,8 +87,10 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
@@ -105,6 +107,9 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
+import com.psoffritti.taptargetcompose.TapTargetCoordinator
+import com.psoffritti.taptargetcompose.TapTargetStyle
+import com.psoffritti.taptargetcompose.TextDefinition
 import com.starry.greenstash.R
 import com.starry.greenstash.database.core.GoalWithTransactions
 import com.starry.greenstash.ui.navigation.DrawerScreens
@@ -113,6 +118,7 @@ import com.starry.greenstash.ui.screens.home.viewmodels.FilterField
 import com.starry.greenstash.ui.screens.home.viewmodels.FilterSortType
 import com.starry.greenstash.ui.screens.home.viewmodels.HomeViewModel
 import com.starry.greenstash.ui.screens.home.viewmodels.SearchWidgetState
+import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.utils.Utils
 import com.starry.greenstash.utils.isScrollingUp
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -184,7 +190,10 @@ fun HomeScreenContent(
         drawerState = drawerState,
         gesturesEnabled = drawerState.isOpen,
         drawerContent = {
-            ModalDrawerSheet(drawerShape = RoundedCornerShape(4.dp)) {
+            ModalDrawerSheet(
+                modifier = Modifier.width(280.dp),
+                drawerShape = RoundedCornerShape(4.dp)
+            ) {
                 Spacer(Modifier.height(14.dp))
 
                 Text(
@@ -192,6 +201,7 @@ fun HomeScreenContent(
                     modifier = Modifier.padding(start = 16.dp, top = 12.dp),
                     fontSize = 24.sp,
                     fontWeight = FontWeight.SemiBold,
+                    fontFamily = greenstashFont,
                     color = MaterialTheme.colorScheme.onSurface
                 )
 
@@ -211,7 +221,12 @@ fun HomeScreenContent(
                                 contentDescription = null
                             )
                         },
-                        label = { Text(stringResource(id = item.nameResId)) },
+                        label = {
+                            Text(
+                                text = stringResource(id = item.nameResId),
+                                fontFamily = greenstashFont
+                            )
+                        },
                         selected = item == selectedItem.value,
                         onClick = {
                             selectedItem.value = item
@@ -220,129 +235,132 @@ fun HomeScreenContent(
                                 navController.navigate(item.route)
                             }
                         },
-                        modifier = Modifier.padding(NavigationDrawerItemDefaults.ItemPadding)
+                        modifier = Modifier
+                            .width(280.dp)
+                            .padding(NavigationDrawerItemDefaults.ItemPadding)
                     )
                     Spacer(modifier = Modifier.height(4.dp))
                 }
+
+                Spacer(Modifier.weight(1f))
+
+                Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+                    Text(
+                        text = stringResource(id = R.string.drawer_footer_text),
+                        modifier = Modifier.padding(bottom = 18.dp),
+                        fontSize = 12.sp,
+                        fontFamily = greenstashFont,
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f)
+                    )
+                }
+
             }
         }) {
-        Scaffold(modifier = Modifier.fillMaxSize(),
-            snackbarHost = { SnackbarHost(snackBarHostState) },
-            topBar = {
-                MainAppBar(
-                    onMenuClicked = { coroutineScope.launch { drawerState.open() } },
-                    onFilterClicked = {
-                        coroutineScope.launch { bottomSheetState.show() }
-                    },
-                    onSearchClicked = { viewModel.updateSearchWidgetState(newValue = SearchWidgetState.OPENED) },
-                    searchWidgetState = searchWidgetState,
-                    searchTextState = searchTextState,
-                    onSearchTextChange = { viewModel.updateSearchTextState(newValue = it) },
-                    onSearchCloseClicked = { viewModel.updateSearchWidgetState(newValue = SearchWidgetState.CLOSED) },
-                    onSearchImeAction = { println("Meow >~< | $it") },
-                )
-            },
 
-            floatingActionButton = {
-                val density = LocalDensity.current
-                AnimatedVisibility(
-                    visible = isFabVisible,
-                    enter = slideInVertically {
-                        with(density) { 40.dp.roundToPx() }
-                    } + fadeIn(),
-                    exit = fadeOut(
-                        animationSpec = keyframes {
-                            this.durationMillis = 120
-                        }
+        val showTapTargets = remember { mutableStateOf(false) }
+        LaunchedEffect(key1 = viewModel.showOnboardingTapTargets.value) {
+            delay(300) // Delay to prevent flickering
+            showTapTargets.value = viewModel.showOnboardingTapTargets.value
+        }
+        TapTargetCoordinator(
+            showTapTargets = showTapTargets.value,
+            onComplete = { viewModel.onboardingTapTargetsShown() }
+        ) {
+            Scaffold(modifier = Modifier.fillMaxSize(),
+                snackbarHost = { SnackbarHost(snackBarHostState) },
+                topBar = {
+                    MainAppBar(
+                        onMenuClicked = { coroutineScope.launch { drawerState.open() } },
+                        onFilterClicked = {
+                            coroutineScope.launch { bottomSheetState.show() }
+                        },
+                        onSearchClicked = { viewModel.updateSearchWidgetState(newValue = SearchWidgetState.OPENED) },
+                        searchWidgetState = searchWidgetState,
+                        searchTextState = searchTextState,
+                        onSearchTextChange = { viewModel.updateSearchTextState(newValue = it) },
+                        onSearchCloseClicked = { viewModel.updateSearchWidgetState(newValue = SearchWidgetState.CLOSED) },
+                        onSearchImeAction = { println("Meow >~< | $it") },
                     )
-                ) {
-                    ExtendedFloatingActionButton(
-                        modifier = Modifier.padding(end = 10.dp, bottom = 12.dp),
-                        onClick = { navController.navigate(Screens.InputScreen.route) },
-                        elevation = FloatingActionButtonDefaults.elevation(8.dp)
+                },
+
+                floatingActionButton = {
+                    val density = LocalDensity.current
+                    AnimatedVisibility(
+                        visible = isFabVisible,
+                        enter = slideInVertically {
+                            with(density) { 40.dp.roundToPx() }
+                        } + fadeIn(),
+                        exit = fadeOut(
+                            animationSpec = keyframes {
+                                this.durationMillis = 120
+                            }
+                        )
                     ) {
-                        Row {
-                            Icon(
-                                imageVector = Icons.Filled.Add, contentDescription = null
-                            )
-                            Spacer(modifier = Modifier.width(8.dp))
-                            Text(
-                                text = stringResource(id = R.string.new_goal_fab),
-                                modifier = Modifier.padding(top = 2.dp)
-                            )
+                        ExtendedFloatingActionButton(
+                            modifier = Modifier
+                                .padding(end = 10.dp, bottom = 12.dp)
+                                .tapTarget(
+                                    precedence = 0,
+                                    title = TextDefinition(
+                                        text = stringResource(id = R.string.new_goal_onboarding_title),
+                                        textStyle = MaterialTheme.typography.titleLarge,
+                                        fontWeight = FontWeight.Bold,
+                                        fontFamily = greenstashFont,
+                                        color = MaterialTheme.colorScheme.onSecondaryContainer
+                                    ),
+                                    description = TextDefinition(
+                                        text = stringResource(id = R.string.new_goal_onboarding_desc),
+                                        textStyle = MaterialTheme.typography.bodyMedium,
+                                        color = MaterialTheme.colorScheme.onSecondaryContainer,
+                                        fontFamily = greenstashFont
+                                    ),
+                                    tapTargetStyle = TapTargetStyle(
+                                        backgroundColor = MaterialTheme.colorScheme.secondaryContainer,
+                                        tapTargetHighlightColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                                        backgroundAlpha = 1f,
+                                    ),
+                                ),
+                            onClick = { navController.navigate(Screens.InputScreen.route) },
+                            elevation = FloatingActionButtonDefaults.elevation(8.dp)
+                        ) {
+                            Row {
+                                Icon(
+                                    imageVector = Icons.Filled.Add, contentDescription = null
+                                )
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text(
+                                    text = stringResource(id = R.string.new_goal_fab),
+                                    modifier = Modifier.padding(top = 2.dp),
+                                    fontFamily = greenstashFont
+                                )
+                            }
                         }
                     }
                 }
-            }
 
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(it)
-                    .background(MaterialTheme.colorScheme.background)
             ) {
-                if (allGoals.isEmpty()) {
-                    var showNoGoalsAnimation by remember { mutableStateOf(false) }
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(it)
+                        .background(MaterialTheme.colorScheme.background)
+                ) {
+                    if (allGoals.isEmpty()) {
+                        var showNoGoalsAnimation by remember { mutableStateOf(false) }
 
-                    LaunchedEffect(key1 = true, block = {
-                        delay(200)
-                        showNoGoalsAnimation = true
-                    })
+                        LaunchedEffect(key1 = true, block = {
+                            delay(200)
+                            showNoGoalsAnimation = true
+                        })
 
-                    if (showNoGoalsAnimation) {
-                        Column(
-                            modifier = Modifier.fillMaxSize(),
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
-                            val compositionResult: LottieCompositionResult =
-                                rememberLottieComposition(
-                                    spec = LottieCompositionSpec.RawRes(R.raw.no_goal_set_lottie)
-                                )
-                            val progressAnimation by animateLottieCompositionAsState(
-                                compositionResult.value,
-                                isPlaying = true,
-                                iterations = LottieConstants.IterateForever,
-                                speed = 1f
-                            )
-
-                            Spacer(modifier = Modifier.weight(1f))
-
-                            LottieAnimation(
-                                composition = compositionResult.value,
-                                progress = progressAnimation,
-                                modifier = Modifier.size(335.dp),
-                                enableMergePaths = true
-                            )
-
-                            Text(
-                                text = stringResource(id = R.string.no_goal_set),
-                                fontWeight = FontWeight.Medium,
-                                fontSize = 18.sp,
-                                modifier = Modifier.padding(start = 12.dp, end = 12.dp)
-                            )
-
-                            Spacer(modifier = Modifier.weight(2f))
-                        }
-                    }
-                } else {
-                    if (searchTextState.isNotEmpty() && searchTextState.isNotBlank()) {
-                        val filteredList: ArrayList<GoalWithTransactions> = ArrayList()
-                        for (goalItem in allGoals) {
-                            if (goalItem.goal.title.lowercase(Locale.getDefault())
-                                    .contains(searchTextState.lowercase(Locale.getDefault()))
-                            ) {
-                                filteredList.add(goalItem)
-                            }
-                        }
-                        if (allGoals.isNotEmpty() && filteredList.isEmpty()) {
+                        if (showNoGoalsAnimation) {
                             Column(
                                 modifier = Modifier.fillMaxSize(),
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
                                 val compositionResult: LottieCompositionResult =
                                     rememberLottieComposition(
-                                        spec = LottieCompositionSpec.RawRes(R.raw.goal_not_found_lottie)
+                                        spec = LottieCompositionSpec.RawRes(R.raw.no_goal_set_lottie)
                                     )
                                 val progressAnimation by animateLottieCompositionAsState(
                                     compositionResult.value,
@@ -356,66 +374,124 @@ fun HomeScreenContent(
                                 LottieAnimation(
                                     composition = compositionResult.value,
                                     progress = progressAnimation,
-                                    modifier = Modifier.size(320.dp),
+                                    modifier = Modifier.size(335.dp),
                                     enableMergePaths = true
                                 )
 
                                 Text(
-                                    text = stringResource(id = R.string.search_goal_not_found),
-                                    fontWeight = FontWeight.SemiBold,
-                                    fontSize = 20.sp,
-                                    modifier = Modifier.padding(start = 12.dp, end = 12.dp)
+                                    text = stringResource(id = R.string.no_goal_set),
+                                    fontWeight = FontWeight.Medium,
+                                    fontFamily = greenstashFont,
+                                    fontSize = 18.sp,
+                                    modifier = Modifier.padding(start = 12.dp, end = 12.dp),
                                 )
 
                                 Spacer(modifier = Modifier.weight(2f))
+                            }
+                        }
+                    } else {
+                        if (searchTextState.isNotEmpty() && searchTextState.isNotBlank()) {
+                            val filteredList: ArrayList<GoalWithTransactions> = ArrayList()
+                            for (goalItem in allGoals) {
+                                if (goalItem.goal.title.lowercase(Locale.getDefault())
+                                        .contains(searchTextState.lowercase(Locale.getDefault()))
+                                ) {
+                                    filteredList.add(goalItem)
+                                }
+                            }
+                            if (allGoals.isNotEmpty() && filteredList.isEmpty()) {
+                                Column(
+                                    modifier = Modifier.fillMaxSize(),
+                                    horizontalAlignment = Alignment.CenterHorizontally
+                                ) {
+                                    val compositionResult: LottieCompositionResult =
+                                        rememberLottieComposition(
+                                            spec = LottieCompositionSpec.RawRes(R.raw.goal_not_found_lottie)
+                                        )
+                                    val progressAnimation by animateLottieCompositionAsState(
+                                        compositionResult.value,
+                                        isPlaying = true,
+                                        iterations = LottieConstants.IterateForever,
+                                        speed = 1f
+                                    )
+
+                                    Spacer(modifier = Modifier.weight(1f))
+
+                                    LottieAnimation(
+                                        composition = compositionResult.value,
+                                        progress = progressAnimation,
+                                        modifier = Modifier.size(320.dp),
+                                        enableMergePaths = true
+                                    )
+
+                                    Text(
+                                        text = stringResource(id = R.string.search_goal_not_found),
+                                        fontWeight = FontWeight.SemiBold,
+                                        fontSize = 20.sp,
+                                        fontFamily = greenstashFont,
+                                        modifier = Modifier.padding(start = 12.dp, end = 12.dp)
+                                    )
+
+                                    Spacer(modifier = Modifier.weight(2f))
+                                }
+
+                            } else {
+                                LazyColumn(
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .background(MaterialTheme.colorScheme.background)
+                                ) {
+                                    items(
+                                        count = filteredList.size,
+                                        key = { k -> filteredList[k].goal.goalId },
+                                        contentType = { 0 }
+                                    ) { idx ->
+                                        val item = filteredList[idx]
+                                        Box(modifier = Modifier.animateItemPlacement()) {
+                                            GoalLazyColumnItem(
+                                                context = context,
+                                                viewModel = viewModel,
+                                                item = item,
+                                                snackBarHostState = snackBarHostState,
+                                                navController = navController,
+                                                currentIndex = idx
+                                            )
+                                        }
+                                    }
+                                }
                             }
 
                         } else {
                             LazyColumn(
                                 modifier = Modifier
                                     .fillMaxSize()
-                                    .background(MaterialTheme.colorScheme.background)
+                                    .background(MaterialTheme.colorScheme.background),
+                                state = lazyListState
                             ) {
                                 items(
-                                    filteredList.size,
-                                    key = { k -> k },
-                                    contentType = { 0 }) { idx ->
-                                    val item = filteredList[idx]
-                                    GoalLazyColumnItem(
-                                        context = context,
-                                        viewModel = viewModel,
-                                        item = item,
-                                        snackBarHostState = snackBarHostState,
-                                        navController = navController,
-                                        currentIndex = idx
-                                    )
+                                    count = allGoals.size,
+                                    key = { k -> allGoals[k].goal.goalId },
+                                    contentType = { 0 }
+                                ) { idx ->
+                                    val item = allGoals[idx]
+                                    Box(modifier = Modifier.animateItemPlacement()) {
+                                        GoalLazyColumnItem(
+                                            context = context,
+                                            viewModel = viewModel,
+                                            item = item,
+                                            snackBarHostState = snackBarHostState,
+                                            navController = navController,
+                                            currentIndex = idx
+                                        )
+                                    }
                                 }
-                            }
-                        }
-
-                    } else {
-                        LazyColumn(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .background(MaterialTheme.colorScheme.background),
-                            state = lazyListState
-                        ) {
-                            items(allGoals.size, key = { k -> k }, contentType = { 0 }) { idx ->
-                                val item = allGoals[idx]
-                                GoalLazyColumnItem(
-                                    context = context,
-                                    viewModel = viewModel,
-                                    item = item,
-                                    snackBarHostState = snackBarHostState,
-                                    navController = navController,
-                                    currentIndex = idx
-                                )
                             }
                         }
                     }
                 }
             }
         }
+
     }
 }
 
@@ -436,6 +512,7 @@ fun FilterMenuSheet(viewModel: HomeViewModel) {
             text = stringResource(id = R.string.filter_menu_title),
             fontWeight = FontWeight.SemiBold,
             fontSize = 20.sp,
+            fontFamily = greenstashFont,
             modifier = Modifier.padding(start = 8.dp, bottom = 6.dp)
         )
         Row(modifier = Modifier.fillMaxWidth()) {
@@ -472,13 +549,18 @@ fun FilterButton(text: String, isSelected: Boolean, onClick: () -> Unit) {
         textColor = MaterialTheme.colorScheme.onSecondaryContainer
     }
 
+    val haptic = LocalHapticFeedback.current
+
     Card(
         modifier = Modifier
             .height(60.dp)
             .padding(6.dp),
         colors = CardDefaults.cardColors(containerColor = buttonColor),
         shape = RoundedCornerShape(14.dp),
-        onClick = onClick
+        onClick = {
+            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+            onClick()
+        }
     ) {
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             Text(
@@ -486,6 +568,7 @@ fun FilterButton(text: String, isSelected: Boolean, onClick: () -> Unit) {
                 text = text,
                 fontSize = 16.sp,
                 fontStyle = MaterialTheme.typography.headlineMedium.fontStyle,
+                fontFamily = greenstashFont,
                 fontWeight = FontWeight.SemiBold,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,

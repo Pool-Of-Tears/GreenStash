@@ -34,6 +34,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.Notes
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.PrivacyTip
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -42,7 +46,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -53,10 +56,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.starry.greenstash.BuildConfig
 import com.starry.greenstash.R
+import com.starry.greenstash.ui.theme.greenstashFont
 
 sealed class AboutLinks(val url: String) {
     data object ReadMe : AboutLinks("https://github.com/Pool-Of-Tears/GreenStash")
@@ -65,6 +68,7 @@ sealed class AboutLinks(val url: String) {
 
     data object GithubIssues : AboutLinks("https://github.com/Pool-Of-Tears/GreenStash/issues")
     data object Telegram : AboutLinks("https://t.me/PotApps")
+    data object Sponser : AboutLinks("https://github.com/sponsors/starry-shivam")
 }
 
 @ExperimentalMaterial3Api
@@ -76,38 +80,41 @@ fun AboutScreen(navController: NavController) {
 
     Scaffold(modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            LargeTopAppBar(title = {
-                Text(
-                    stringResource(id = R.string.about_screen_header),
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-            }, navigationIcon = {
-                IconButton(onClick = { navController.navigateUp() }) {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = null
+            LargeTopAppBar(
+                title = {
+                    Text(
+                        stringResource(id = R.string.about_screen_header),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        fontFamily = greenstashFont
                     )
-                }
-            }, scrollBehavior = scrollBehavior, colors = TopAppBarDefaults.largeTopAppBarColors(
-                containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(
-                    4.dp
+                },
+                navigationIcon = {
+                    IconButton(onClick = { navController.navigateUp() }) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = null
+                        )
+                    }
+                },
+                scrollBehavior = scrollBehavior, colors = TopAppBarDefaults.largeTopAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.surface,
+                    scrolledContainerColor = MaterialTheme.colorScheme.surface,
                 )
-            )
             )
         }) {
         LazyColumn(modifier = Modifier.padding(it)) {
             item {
                 SettingsItem(title = stringResource(id = R.string.about_readme_title),
                     description = stringResource(id = R.string.about_readme_desc),
-                    icon = ImageVector.vectorResource(id = R.drawable.ic_about_readme),
+                    icon = Icons.AutoMirrored.Filled.Notes,
                     onClick = { openWebLink(context, AboutLinks.ReadMe.url) }
                 )
             }
             item {
                 SettingsItem(title = stringResource(id = R.string.about_privacy_title),
                     description = stringResource(id = R.string.about_privacy_desc),
-                    icon = ImageVector.vectorResource(id = R.drawable.ic_about_privacy),
+                    icon = Icons.Filled.PrivacyTip,
                     onClick = { openWebLink(context, AboutLinks.PrivacyPolicy.url) }
                 )
             }
@@ -126,11 +133,18 @@ fun AboutScreen(navController: NavController) {
                 )
             }
             item {
+                SettingsItem(title = stringResource(id = R.string.about_support_title),
+                    description = stringResource(id = R.string.about_support_desc),
+                    icon = Icons.Filled.Favorite,
+                    onClick = { openWebLink(context, AboutLinks.Sponser.url) }
+                )
+            }
+            item {
                 SettingsItem(title = stringResource(id = R.string.about_version_title),
                     description = stringResource(id = R.string.about_version_desc).format(
                         BuildConfig.VERSION_NAME
                     ),
-                    icon = ImageVector.vectorResource(id = R.drawable.ic_about_version),
+                    icon = Icons.Filled.Info,
                     onClick = { clipboardManager.setText(AnnotatedString(getVersionReport())) }
                 )
             }

@@ -1,3 +1,28 @@
+/**
+ * MIT License
+ *
+ * Copyright (c) [2022 - Present] Stɑrry Shivɑm
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
 package com.starry.greenstash.ui.screens.input.composables
 
 import androidx.compose.foundation.clickable
@@ -30,8 +55,6 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
@@ -56,7 +79,6 @@ import androidx.navigation.compose.rememberNavController
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionResult
 import com.airbnb.lottie.compose.LottieCompositionSpec
-import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.maxkeppeker.sheets.core.models.base.rememberUseCaseState
@@ -111,27 +133,26 @@ fun DWScreen(goalId: String, transactionTypeName: String, navController: NavCont
             .fillMaxSize()
             .imePadding(),
         topBar = {
-            TopAppBar(modifier = Modifier.fillMaxWidth(), title = {
-                Text(
-                    text = if (transactionType == TransactionType.Deposit)
-                        stringResource(id = R.string.deposit_screen_title)
-                    else stringResource(id = R.string.withdraw_screen_title),
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    fontFamily = greenstashFont
-                )
-            }, navigationIcon = {
-                IconButton(onClick = { navController.navigateUp() }) {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = null
+            TopAppBar(
+                modifier = Modifier.fillMaxWidth(),
+                title = {
+                    Text(
+                        text = if (transactionType == TransactionType.Deposit)
+                            stringResource(id = R.string.deposit_screen_title)
+                        else stringResource(id = R.string.withdraw_screen_title),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        fontFamily = greenstashFont
                     )
+                }, navigationIcon = {
+                    IconButton(onClick = { navController.navigateUp() }) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = null
+                        )
+                    }
                 }
-            }, colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(4.dp)
             )
-            )
-
         }) { paddingValues ->
 
         if (showTransactionAddedAnim.value) {
@@ -162,6 +183,7 @@ fun DWScreen(goalId: String, transactionTypeName: String, navController: NavCont
                         stringResource(id = R.string.deposit_successful)
                     else stringResource(id = R.string.withdraw_successful),
                     fontWeight = FontWeight.SemiBold,
+                    fontFamily = greenstashFont,
                     fontSize = 20.sp
                 )
 
@@ -184,7 +206,7 @@ fun DWScreen(goalId: String, transactionTypeName: String, navController: NavCont
                 val progressAnimation by animateLottieCompositionAsState(
                     compositionResult.value,
                     isPlaying = true,
-                    iterations = LottieConstants.IterateForever,
+                    iterations = 1,
                     speed = 1f
                 )
 
@@ -193,57 +215,15 @@ fun DWScreen(goalId: String, transactionTypeName: String, navController: NavCont
                     progress = progressAnimation,
                     modifier = Modifier
                         .size(280.dp)
-                        .padding(top = 24.dp),
+                        .padding(top = 28.dp),
                     enableMergePaths = true
                 )
 
-                Card(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 18.dp, vertical = 8.dp)
-                        .clickable { dateTimeDialogState.show() }
-                ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp),
-                        horizontalArrangement = Arrangement.Center
-                    ) {
-                        Row {
-                            Icon(
-                                imageVector = ImageVector.vectorResource(id = R.drawable.ic_dw_date),
-                                contentDescription = null,
-                                modifier = Modifier.size(24.dp)
-                            )
-                            Text(
-                                text = selectedDateTime.value!!.format(
-                                    DateTimeFormatter.ofPattern(
-                                        viewModel.getDateStyleValue()
-                                    )
-                                ),
-                                fontFamily = greenstashFont,
-                                fontWeight = FontWeight.Medium,
-                                modifier = Modifier.padding(start = 8.dp, top = 2.dp)
-                            )
-                        }
-
-                        Spacer(modifier = Modifier.width(24.dp))
-
-                        Row {
-                            Icon(
-                                imageVector = ImageVector.vectorResource(id = R.drawable.ic_dw_time),
-                                contentDescription = null,
-                                modifier = Modifier.size(24.dp)
-                            )
-                            Text(
-                                text = selectedDateTime.value!!.format(DateTimeFormatter.ofPattern("h:mm a")),
-                                fontFamily = greenstashFont,
-                                fontWeight = FontWeight.Medium,
-                                modifier = Modifier.padding(start = 8.dp, top = 2.dp)
-                            )
-                        }
-                    }
-                }
+                DateTimePicker(
+                    selectedDateTime = selectedDateTime,
+                    dateTimeStyle = { viewModel.getDateStyleValue()!! },
+                    onClick = { dateTimeDialogState.show() }
+                )
 
                 OutlinedTextField(
                     value = viewModel.state.amount,
@@ -253,9 +233,12 @@ fun DWScreen(goalId: String, transactionTypeName: String, navController: NavCont
                     },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 18.dp, vertical = 12.dp),
+                        .padding(horizontal = 18.dp, vertical = 4.dp),
                     label = {
-                        Text(text = stringResource(id = R.string.transaction_amount))
+                        Text(
+                            text = stringResource(id = R.string.transaction_amount),
+                            fontFamily = greenstashFont
+                        )
                     },
                     leadingIcon = {
                         Icon(
@@ -281,7 +264,10 @@ fun DWScreen(goalId: String, transactionTypeName: String, navController: NavCont
                         .fillMaxWidth()
                         .padding(horizontal = 18.dp, vertical = 2.dp),
                     label = {
-                        Text(text = stringResource(id = R.string.input_additional_notes))
+                        Text(
+                            text = stringResource(id = R.string.input_additional_notes),
+                            fontFamily = greenstashFont
+                        )
                     },
                     leadingIcon = {
                         Icon(
@@ -363,13 +349,67 @@ fun DWScreen(goalId: String, transactionTypeName: String, navController: NavCont
                     Text(
                         text = if (transactionType == TransactionType.Deposit)
                             stringResource(id = R.string.deposit_button)
-                        else stringResource(id = R.string.withdraw_button)
+                        else stringResource(id = R.string.withdraw_button),
+                        fontFamily = greenstashFont
                     )
                 }
 
             }
         }
 
+    }
+}
+
+@Composable
+fun DateTimePicker(
+    selectedDateTime: MutableState<LocalDateTime?>,
+    dateTimeStyle: () -> String,
+    onClick: () -> Unit
+) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 18.dp, vertical = 8.dp)
+            .clickable { onClick() }
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Row {
+                Icon(
+                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_dw_date),
+                    contentDescription = null,
+                    modifier = Modifier.size(24.dp)
+                )
+                Text(
+                    text = selectedDateTime.value!!.format(
+                        DateTimeFormatter.ofPattern(dateTimeStyle())
+                    ),
+                    fontFamily = greenstashFont,
+                    fontWeight = FontWeight.Medium,
+                    modifier = Modifier.padding(start = 8.dp, top = 2.dp)
+                )
+            }
+
+            Spacer(modifier = Modifier.width(24.dp))
+
+            Row {
+                Icon(
+                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_dw_time),
+                    contentDescription = null,
+                    modifier = Modifier.size(24.dp)
+                )
+                Text(
+                    text = selectedDateTime.value!!.format(DateTimeFormatter.ofPattern("h:mm a")),
+                    fontFamily = greenstashFont,
+                    fontWeight = FontWeight.Medium,
+                    modifier = Modifier.padding(start = 8.dp, top = 2.dp)
+                )
+            }
+        }
     }
 }
 
@@ -381,8 +421,10 @@ private fun navigateToHome(
     coroutineScope.launch {
         showTransactionAddedAnim.value = true
         delay(1100)
-        navController.popBackStack(DrawerScreens.Home.route, true)
-        navController.navigate(DrawerScreens.Home.route)
+        withContext(Dispatchers.Main) {
+            navController.popBackStack(DrawerScreens.Home.route, true)
+            navController.navigate(DrawerScreens.Home.route)
+        }
     }
 }
 

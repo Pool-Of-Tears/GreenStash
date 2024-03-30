@@ -51,6 +51,6 @@ class WelcomeViewModel @Inject constructor(
     }
 
     fun getDefaultCurrencyValue() = preferenceUtil.getString(
-        PreferenceUtil.DEFAULT_CURRENCY_STR, "$"
+        PreferenceUtil.DEFAULT_CURRENCY_STR, "USD"
     )
 }

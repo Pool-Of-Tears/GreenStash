@@ -115,9 +115,13 @@ class HomeViewModel @Inject constructor(
     private val _searchTextState: MutableState<String> = mutableStateOf(value = "")
     val searchTextState: State<String> = _searchTextState
 
-    val goalCardStyle = GoalCardStyle.entries[preferenceUtil.getInt(
-        PreferenceUtil.GOAL_CARD_STYLE_INT, GoalCardStyle.Compact.ordinal
-    )]
+    private val _showOnboardingTapTargets: MutableState<Boolean> = mutableStateOf(
+        value = preferenceUtil.getBoolean(
+            PreferenceUtil.HOME_SCREEN_ONBOARDING_BOOL,
+            true
+        )
+    )
+    val showOnboardingTapTargets: State<Boolean> = _showOnboardingTapTargets
 
     fun updateSearchWidgetState(newValue: SearchWidgetState) {
         _searchWidgetState.value = newValue
@@ -157,4 +161,10 @@ class HomeViewModel @Inject constructor(
     fun getDefaultCurrency(): String {
         return preferenceUtil.getString(PreferenceUtil.DEFAULT_CURRENCY_STR, "")!!
     }
+
+    fun onboardingTapTargetsShown() {
+        preferenceUtil.putBoolean(PreferenceUtil.HOME_SCREEN_ONBOARDING_BOOL, false)
+        _showOnboardingTapTargets.value = false
+    }
+
 }

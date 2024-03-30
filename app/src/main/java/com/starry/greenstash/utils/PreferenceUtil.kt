@@ -34,7 +34,7 @@ class PreferenceUtil(context: Context) {
     companion object {
         private const val PREFS_NAME = "greenstash_settings"
 
-        // Preference keys
+        // Main preference keys
         const val APP_THEME_INT = "theme_settings"
         const val MATERIAL_YOU_BOOL = "material_you"
         const val DEFAULT_CURRENCY_STR = "default_currency_code"
@@ -45,6 +45,11 @@ class PreferenceUtil(context: Context) {
         // Goal filter preferences
         const val GOAL_FILTER_FIELD_INT = "goal_filter_field"
         const val GOAL_FILTER_SORT_TYPE_INT = "goal_filter_sort_type"
+
+        // Onboarding preferences
+        const val HOME_SCREEN_ONBOARDING_BOOL = "show_home_screen_onboarding"
+        const val INPUT_SCREEN_ONBOARDING_BOOL = "show_input_onboarding"
+        const val INFO_TRANSACTION_SWIPE_TIP_BOOL = "show_info_transaction_swipe_tip"
     }
 
     private var prefs: SharedPreferences

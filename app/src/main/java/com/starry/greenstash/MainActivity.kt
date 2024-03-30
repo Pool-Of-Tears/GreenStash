@@ -37,11 +37,9 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.ViewModelProvider
@@ -77,12 +75,6 @@ class MainActivity : AppCompatActivity() {
 
         settingsViewModel = ViewModelProvider(this)[SettingsViewModel::class.java]
         mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
-
-        // Setup app theme according to user's settings.
-        ThemeMode.entries.find { it.ordinal == settingsViewModel.getThemeValue() }
-            ?.let { settingsViewModel.setTheme(it) }
-        settingsViewModel.setMaterialYou(settingsViewModel.getMaterialYouValue())
-
 
         // show splash screen until we figure out start nav destination.
         installSplashScreen().setKeepOnScreenCondition {
@@ -150,7 +142,7 @@ class MainActivity : AppCompatActivity() {
                 )
 
                 systemUiController.setStatusBarColor(
-                    color = MaterialTheme.colorScheme.surfaceColorAtElevation(4.dp),
+                    color = MaterialTheme.colorScheme.surface,
                     darkIcons = settingsViewModel.getCurrentTheme() == ThemeMode.Light
                 )
 
