@@ -9,7 +9,7 @@
 
 <p align="center">
   <a href="https://t.me/PotApps"><img src="https://img.shields.io/badge/Telegram-PotApps-green?style=flat&logo=telegram"/></a>
-  <a href="https://github.com/Pool-Of-Tears/GreenStash/releases"><img src="https://img.shields.io/github/downloads/Pool-Of-Tears/GreenStash/total?label=Downloads&logo=github"</img></a>
+  <a href="https://github.com/Pool-Of-Tears/GreenStash/releases"><img src="https://img.shields.io/github/downloads/Pool-Of-Tears/GreenStash/total?label=Downloads&logo=github"></img></a>
   <img alt="GitHub" src="https://img.shields.io/github/license/Pool-Of-Tears/GreenStash">
   <img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/Pool-Of-Tears/GreenStash">
   <a href="https://www.repostatus.org/#active"><img src="https://www.repostatus.org/badges/latest/active.svg" alt="Project Status: Active – The project has reached a stable, usable state and is being actively developed." /></a>
@@ -24,9 +24,9 @@
 
 <h2 align="center">Screenshots</h2>
 
-| ![](https://te.legra.ph/file/62e0a71bfbba51aa64f44.png) | ![](https://te.legra.ph/file/396f07eebc3cacae8da48.png) | ![](https://te.legra.ph/file/9754841ed1b6f9c4bdb89.png) |
-|-------------------------------------------------------|-------|-------------------------------------------------------|
-| ![](https://te.legra.ph/file/9e135107db6a8d3acc758.png) | ![](https://te.legra.ph/file/8fae219ae0dfc8d5ae178.png) | ![](https://te.legra.ph/file/12596309941afd16cf5a6.png) |
+| ![](https://te.legra.ph/file/0e02039099c0b4d019717.png) | ![](https://te.legra.ph/file/3dbaf2f978fe5043ee5da.png) | ![](https://te.legra.ph/file/e48e419452ce760f74ff3.png) |
+|---------------------------------------------------------|---------------------------------------------------------|---------------------------------------------------------|
+| ![](https://te.legra.ph/file/ee5fb4975abd7b8f76609.png) | ![](https://te.legra.ph/file/49fb67b2232b09978f57e.png) | ![](https://te.legra.ph/file/6d5e04a162a39c4d09bf3.png) |
 
 ------
 
@@ -49,10 +49,10 @@
 <h2 align="center">Downloads</h2>
 
 <div align="center">
-<a href="https://play.google.com/store/apps/details?id=com.starry.greenstash"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" height="65"</img></a>
+<a href="https://play.google.com/store/apps/details?id=com.starry.greenstash"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" height="65"></img></a>
 <a href='https://f-droid.org/packages/com.starry.greenstash/'><img alt='Get it on F-Droid' src='https://fdroid.gitlab.io/artwork/badge/get-it-on.png' height='65'/></a>
 <a href='https://apt.izzysoft.de/fdroid/index/apk/com.starry.greenstash'><img alt='Get it on IzzyOnDroid' src='https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png' height='65'/></a>
-<a href="https://github.com/Pool-Of-Tears/GreenStash/releases/latest"><img alt="Get it on GitHub" src="https://github.com/machiav3lli/oandbackupx/blob/034b226cea5c1b30eb4f6a6f313e4dadcbb0ece4/badge_github.png" height="65"</img></a>
+<a href="https://github.com/Pool-Of-Tears/GreenStash/releases/latest"><img alt="Get it on GitHub" src="https://github.com/machiav3lli/oandbackupx/blob/034b226cea5c1b30eb4f6a6f313e4dadcbb0ece4/badge_github.png" height="65"></img></a>
 </div>
 
 ------
