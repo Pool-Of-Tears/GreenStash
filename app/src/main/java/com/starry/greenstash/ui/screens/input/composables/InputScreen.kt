@@ -612,7 +612,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
                         )
 
-                        Spacer(modifier = Modifier.height(22.dp))
+                        Spacer(modifier = Modifier.height(18.dp))
 
                         Button(
                             onClick = {
@@ -637,7 +637,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                             },
                             modifier = Modifier
                                 .fillMaxWidth(0.86f)
-                                .height(55.dp),
+                                .height(45.dp),
                             shape = RoundedCornerShape(14.dp),
                         ) {
                             Text(

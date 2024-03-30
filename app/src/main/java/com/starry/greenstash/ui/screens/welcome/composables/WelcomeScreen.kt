@@ -30,7 +30,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -142,10 +141,6 @@ fun WelcomeScreen(navController: NavController) {
                         .padding(horizontal = 24.dp, vertical = 12.dp)
                 )
 
-                Row {
-
-                }
-
                 OutlinedButton(
                     onClick = { currencyDialog.value = true },
                     modifier = Modifier.animateContentSize(),
@@ -164,7 +159,12 @@ fun WelcomeScreen(navController: NavController) {
 
         }
 
-        Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(44.dp),
+            contentAlignment = Alignment.Center
+        ) {
             FilledTonalButton(
                 onClick = {
                     viewModel.saveOnBoardingState(completed = true)

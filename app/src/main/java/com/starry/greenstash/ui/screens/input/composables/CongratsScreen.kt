@@ -39,10 +39,12 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -114,6 +116,11 @@ fun CongratsScreen(navController: NavController) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(
+                            4.dp
+                        )
+                    )
                 ) {
                     Column(
                         modifier = Modifier.padding(16.dp),
@@ -129,7 +136,7 @@ fun CongratsScreen(navController: NavController) {
 
                         Text(
                             text = stringResource(id = R.string.goal_achieved_subtext),
-                            style = MaterialTheme.typography.bodyLarge,
+                            style = MaterialTheme.typography.bodyMedium,
                             fontFamily = greenstashFont,
                             fontWeight = FontWeight.Normal
                         )
@@ -146,6 +153,7 @@ fun CongratsScreen(navController: NavController) {
                     shape = RoundedCornerShape(12.dp),
                     modifier = Modifier
                         .fillMaxWidth()
+                        .height(44.dp)
                         .padding(horizontal = 16.dp)
                 ) {
                     Text(text = stringResource(id = R.string.goal_achieved_button))

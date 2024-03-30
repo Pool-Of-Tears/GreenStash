@@ -187,7 +187,7 @@ fun GoalInfoScreen(goalId: String, navController: NavController) {
                     }
                     if (goalData.transactions.isNotEmpty()) {
                         TransactionItem(goalData.getOrderedTransactions(), currencySymbol, viewModel)
-                        // Show tooltip for library screen.
+                        // Show tooltip for swipe functionality.
                         LaunchedEffect(key1 = true) {
                             if (viewModel.shouldShowTransactionTip()) {
                                 val result = snackBarHostState.showSnackbar(
