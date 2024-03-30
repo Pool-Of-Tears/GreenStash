@@ -4,6 +4,7 @@
     <!-- Other Strings -->
     <string name="confirm">确认</string>
     <string name="cancel">取消</string>
+    <string name="ok">确定</string>
     <string name="unknown_error">糟糕！出了点问题。</string>
 
     <!-- Navigation Drawer -->
@@ -89,7 +90,8 @@
     <string name="info_reminder_status_off">提醒已禁用</string>
     <string name="info_notes_card_title">备注</string>
     <string name="info_goal_no_transactions">尚无收支。</string>
-    <string name="edit_transaction_button">更新交易</string>
+    <string name="info_edit_transaction_button">更新交易</string>
+    <string name="info_transaction_onboarding_tip">提示：左右滑动交易以编辑或删除它们。</string>
 
     <!-- Input (New/Edit Goal) Screen -->
     <string name="input_screen_header">省钱时间到！</string>

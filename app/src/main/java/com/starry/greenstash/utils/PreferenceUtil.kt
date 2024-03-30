@@ -49,6 +49,7 @@ class PreferenceUtil(context: Context) {
         // Onboarding preferences
         const val HOME_SCREEN_ONBOARDING_BOOL = "show_home_screen_onboarding"
         const val INPUT_SCREEN_ONBOARDING_BOOL = "show_input_onboarding"
+        const val INFO_TRANSACTION_SWIPE_TIP_BOOL = "show_info_transaction_swipe_tip"
     }
 
     private var prefs: SharedPreferences

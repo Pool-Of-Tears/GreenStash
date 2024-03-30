@@ -4,6 +4,7 @@
     <!-- Other Strings -->
     <string name="confirm">Confirmar</string>
     <string name="cancel">Cancelar</string>
+    <string name="ok">Aceptar</string>
     <string name="unknown_error">¡Vaya! Algo salió mal.</string>
 
     <!-- Navigation Drawer -->
@@ -89,7 +90,8 @@
     <string name="info_reminder_status_off">Los recordatorios están desactivados</string>
     <string name="info_notes_card_title">Notas</string>
     <string name="info_goal_no_transactions">Sin transacciones aún.</string>
-    <string name="edit_transaction_button">Actualizar Transacción</string>
+    <string name="info_edit_transaction_button">Actualizar Transacción</string>
+    <string name="info_transaction_onboarding_tip">Consejo: Desliza las transacciones hacia la izquierda o hacia la derecha para editarlas o eliminarlas.</string>
 
     <!-- Input (New/Edit Goal) Screen -->
     <string name="input_screen_header">¡Es momento de ahorrar!</string>

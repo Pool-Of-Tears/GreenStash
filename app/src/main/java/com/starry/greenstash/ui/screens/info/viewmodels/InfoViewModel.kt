@@ -82,10 +82,6 @@ class InfoViewModel @Inject constructor(
         )
     }
 
-    fun getDateStyleValue() = preferenceUtil.getString(
-        PreferenceUtil.DATE_FORMAT_STR, DateStyle.DateMonthYear.pattern
-    )
-
     fun deleteTransaction(transaction: Transaction) {
         viewModelScope.launch(Dispatchers.IO) {
             transactionDao.deleteTransaction(transaction)
@@ -112,4 +108,17 @@ class InfoViewModel @Inject constructor(
     fun getDefaultCurrencyValue() = preferenceUtil.getString(
         PreferenceUtil.DEFAULT_CURRENCY_STR, "$"
     )!!
+
+    fun getDateStyleValue() = preferenceUtil.getString(
+        PreferenceUtil.DATE_FORMAT_STR, DateStyle.DateMonthYear.pattern
+    )
+
+    fun shouldShowTransactionTip() = preferenceUtil.getBoolean(
+        PreferenceUtil.INFO_TRANSACTION_SWIPE_TIP_BOOL, true
+    )
+
+    fun transactionTipDismissed() = preferenceUtil.putBoolean(
+        PreferenceUtil.INFO_TRANSACTION_SWIPE_TIP_BOOL, false
+    )
+
 }

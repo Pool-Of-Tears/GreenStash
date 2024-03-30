@@ -31,9 +31,12 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
+import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -50,8 +53,8 @@ fun SettingsItem(title: String, description: String, icon: ImageVector, onClick:
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 8.dp, vertical = 14.dp)
-            .clickable { onClick() },
+            .clickable { onClick() }
+            .padding(horizontal = 8.dp, vertical = 14.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
@@ -132,6 +135,17 @@ fun SettingsItem(
             onCheckedChange = {
                 haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                 onCheckChange(it)
+            },
+            thumbContent = if (switchState.value) {
+                {
+                    Icon(
+                        imageVector = Icons.Filled.Check,
+                        contentDescription = null,
+                        modifier = Modifier.size(SwitchDefaults.IconSize),
+                    )
+                }
+            } else {
+                null
             },
             modifier = Modifier.padding(start = 12.dp, end = 12.dp)
         )

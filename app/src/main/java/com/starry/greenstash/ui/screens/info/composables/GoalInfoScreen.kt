@@ -57,6 +57,10 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.surfaceColorAtElevation
@@ -64,6 +68,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -111,26 +116,32 @@ fun GoalInfoScreen(goalId: String, navController: NavController) {
     val state = viewModel.state
     val context = LocalContext.current
 
+    val snackBarHostState = remember { SnackbarHostState() }
+
     LaunchedEffect(key1 = true, block = { viewModel.loadGoalData(goalId.toLong()) })
 
-    Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
-        TopAppBar(
-            modifier = Modifier.fillMaxWidth(),
-            title = {
-                Text(
-                    text = stringResource(id = R.string.info_screen_header),
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    fontFamily = greenstashFont
-                )
-            }, navigationIcon = {
-                IconButton(onClick = { navController.navigateUp() }) {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        snackbarHost = { SnackbarHost(snackBarHostState) },
+        topBar = {
+            TopAppBar(
+                modifier = Modifier.fillMaxWidth(),
+                title = {
+                    Text(
+                        text = stringResource(id = R.string.info_screen_header),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        fontFamily = greenstashFont
                     )
-                }
-            })
-    }) {
+                }, navigationIcon = {
+                    IconButton(onClick = { navController.navigateUp() }) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = null
+                        )
+                    }
+                })
+        }) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -175,7 +186,25 @@ fun GoalInfoScreen(goalId: String, navController: NavController) {
                         Spacer(modifier = Modifier.height(6.dp))
                     }
                     if (goalData.transactions.isNotEmpty()) {
-                        TransactionItem(goalData.transactions.reversed(), currencySymbol, viewModel)
+                        TransactionItem(goalData.getOrderedTransactions(), currencySymbol, viewModel)
+                        // Show tooltip for library screen.
+                        LaunchedEffect(key1 = true) {
+                            if (viewModel.shouldShowTransactionTip()) {
+                                val result = snackBarHostState.showSnackbar(
+                                    message = context.getString(R.string.info_transaction_onboarding_tip),
+                                    actionLabel = context.getString(R.string.ok),
+                                    duration = SnackbarDuration.Indefinite
+                                )
+
+                                when (result) {
+                                    SnackbarResult.ActionPerformed -> {
+                                        viewModel.transactionTipDismissed()
+                                    }
+
+                                    SnackbarResult.Dismissed -> {}
+                                }
+                            }
+                        }
                     } else {
                         Column(
                             modifier = Modifier.fillMaxWidth(),

@@ -258,7 +258,7 @@ fun EditTransactionSheet(
                         shape = RoundedCornerShape(12.dp),
                     ) {
                         Text(
-                            text = stringResource(id = R.string.edit_transaction_button),
+                            text = stringResource(id = R.string.info_edit_transaction_button),
                             fontFamily = greenstashFont
                         )
                     }

@@ -56,4 +56,8 @@ data class GoalWithTransactions(
             }
         }
     }
+
+    fun getOrderedTransactions(): List<Transaction> {
+        return transactions.sortedByDescending { it.timeStamp }
+    }
 }

@@ -4,6 +4,7 @@
     <!-- Other Strings -->
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
+    <string name="ok" >OK</string>
     <string name="unknown_error">Oops! something went wrong.</string>
 
     <!-- Navigation Drawer -->
@@ -89,7 +90,8 @@
     <string name="info_reminder_status_off">Reminders are disabled</string>
     <string name="info_notes_card_title">Notes</string>
     <string name="info_goal_no_transactions">No Transactions Yet.</string>
-    <string name="edit_transaction_button">Update Transaction</string>
+    <string name="info_edit_transaction_button">Update Transaction</string>
+    <string name="info_transaction_onboarding_tip">Tip: Swipe transactions left or right to edit or delete them.</string>
 
     <!-- Input (New/Edit Goal) Screen -->
     <string name="input_screen_header">It\'s time to save!</string>
@@ -102,7 +104,7 @@
     <string name="input_pick_image_onboarding_title">Add images to your goals to give them a personalized look!</string>
     <string name="input_pick_image_onboarding_desc">Click on the floating action button to add an image to your goal.</string>
     <string name="input_page_quote" translatable="false">You don’t have to see the whole staircase, just take the first step. – Martin Luther King, Jr.  </string>
-    <string name="input_goal_priority">Select priority for this goal.</string>
+    <string name="input_goal_priority">Select priority for your goal.</string>
     <string name="input_goal_reminder">Saving Reminders</string>
     <string name="input_goal_reminders_onboarding_title">Enable Reminders to Stay Updated on Your Goals!</string>
     <string name="input_goal_reminders_onboarding_desc">Reminders will be sent daily, semiweekly, or weekly, depending on goal priority.</string>
