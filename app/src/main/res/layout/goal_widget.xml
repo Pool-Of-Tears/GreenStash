@@ -1,10 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--
+MIT License
+
+Copyright (c) [2022 - Present] Stɑrry Shivɑm
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+-->
+
+<!-- This layout is used to display the goal widget on the home screen. -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?android:attr/colorBackground"
+    android:background="@drawable/widget_rounded_corners"
     android:orientation="vertical"
     android:theme="@style/Theme.Material3.DynamicColors.DayNight">
 
@@ -25,11 +51,11 @@
                 android:orientation="vertical">
 
                 <TextView
-
                     android:id="@+id/widgetTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
+                    android:fontFamily="@font/poppins_medium"
                     android:maxLines="1"
                     android:textAppearance="@style/TextAppearance.AppCompat.Title"
                     android:textColor="?android:attr/textColorPrimary"
@@ -40,6 +66,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
+                    android:fontFamily="@font/poppins_regular"
                     android:maxLines="1"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     android:textColor="?android:attr/textColorPrimary"
@@ -90,7 +117,7 @@
             android:layout_width="match_parent"
             android:layout_height="8dp"
             android:layout_marginTop="6dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="10dp"
             android:progressDrawable="@drawable/progress_bar_rounded_corners"
             android:scaleY="0.8"
             app:indicatorColor="?android:attr/colorAccent"
@@ -108,7 +135,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="3dp"
                 android:background="@drawable/textview_border"
-                android:textColor="?android:attr/textColorPrimary"
+                android:fontFamily="@font/poppins_light"
+                android:textColor="?attr/colorOnPrimaryContainer"
                 android:visibility="gone"
                 tools:text="$153.45/day"
                 tools:visibility="visible" />
@@ -119,7 +147,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="3dp"
                 android:background="@drawable/textview_border"
-                android:textColor="?android:attr/textColorPrimary"
+                android:fontFamily="@font/poppins_light"
+                android:textColor="?attr/colorOnPrimaryContainer"
                 android:visibility="gone"
                 tools:text="$253.45/week"
                 tools:visibility="visible" />
@@ -130,6 +159,7 @@
             android:id="@+id/widgetGoalAchieved"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_regular"
             android:text="@string/info_card_goal_achieved"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="?android:attr/textColorPrimary"

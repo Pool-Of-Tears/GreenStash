@@ -93,6 +93,7 @@ import com.starry.greenstash.R
 import com.starry.greenstash.ui.screens.settings.viewmodels.SettingsViewModel
 import com.starry.greenstash.ui.screens.settings.viewmodels.ThemeMode
 import com.starry.greenstash.ui.theme.GreenStashTheme
+import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.widget.GoalWidget
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -109,7 +110,6 @@ class WidgetConfigActivity : AppCompatActivity() {
 
     private val viewModel: WidgetConfigViewModel by viewModels()
     private lateinit var settingsViewModel: SettingsViewModel
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -162,6 +162,7 @@ class WidgetConfigActivity : AppCompatActivity() {
                         text = stringResource(id = R.string.widget_config_screen_header),
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
+                        fontFamily = greenstashFont
                     )
                 }, navigationIcon = {
                     IconButton(onClick = {
@@ -222,6 +223,7 @@ class WidgetConfigActivity : AppCompatActivity() {
                                 text = stringResource(id = R.string.no_goal_set),
                                 fontWeight = FontWeight.Medium,
                                 fontSize = 18.sp,
+                                fontFamily = greenstashFont,
                                 modifier = Modifier.padding(start = 12.dp, end = 12.dp)
                             )
 
@@ -320,10 +322,10 @@ class WidgetConfigActivity : AppCompatActivity() {
                 Column(modifier = Modifier.padding(8.dp)) {
                     Text(
                         text = title,
-                        fontStyle = MaterialTheme.typography.headlineMedium.fontStyle,
                         fontSize = 20.sp,
                         fontWeight = FontWeight.SemiBold,
                         maxLines = 1,
+                        fontFamily = greenstashFont,
                         overflow = TextOverflow.Ellipsis,
                         color = MaterialTheme.colorScheme.onSurface,
                     )
@@ -332,9 +334,9 @@ class WidgetConfigActivity : AppCompatActivity() {
                         text = description,
                         color = MaterialTheme.colorScheme.onSurface,
                         maxLines = 1,
-                        fontStyle = MaterialTheme.typography.bodySmall.fontStyle,
+                        fontFamily = greenstashFont,
                         fontWeight = FontWeight.Medium,
-                        fontSize = 16.sp,
+                        fontSize = 14.sp,
                     )
 
                     Spacer(modifier = Modifier.height(8.dp))

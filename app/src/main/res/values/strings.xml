@@ -4,7 +4,7 @@
     <!-- Other Strings -->
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
-    <string name="ok" >OK</string>
+    <string name="ok">OK</string>
     <string name="unknown_error">Oops! something went wrong.</string>
 
     <!-- Navigation Drawer -->
@@ -45,7 +45,7 @@
 
     <!-- Congratulations Screen -->
     <string name="goal_achieved_heading">Congratulations 🥳</string>
-    <string name="goal_achieved_subtext">You\'ve reached your saving goal! Your hard work and commitment have led to this well-deserved accomplishment. Celebrate your success!</string>
+    <string name="goal_achieved_subtext">You\'ve reached your saving goal! Your hard work and commitment have led to this well-deserved accomplishment. Celebrate your success! 🎉</string>
     <string name="goal_achieved_button">Go back to home</string>
 
     <!-- Strings used for dashboard saving goals cards -->
