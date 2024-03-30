@@ -186,7 +186,11 @@ fun GoalInfoScreen(goalId: String, navController: NavController) {
                         Spacer(modifier = Modifier.height(6.dp))
                     }
                     if (goalData.transactions.isNotEmpty()) {
-                        TransactionItem(goalData.getOrderedTransactions(), currencySymbol, viewModel)
+                        TransactionItem(
+                            goalData.getOrderedTransactions(),
+                            currencySymbol,
+                            viewModel
+                        )
                         // Show tooltip for swipe functionality.
                         LaunchedEffect(key1 = true) {
                             if (viewModel.shouldShowTransactionTip()) {
