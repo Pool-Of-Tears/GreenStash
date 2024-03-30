@@ -1,0 +1,1 @@
+The update brings a new Compact goal card, revamped settings, improved onboarding, better transaction editing, notification icons for reminders, and smoother navigation. Check out the full changes https://github.com/Pool-Of-Tears/GreenStash/releases/tag/v3.2.0
