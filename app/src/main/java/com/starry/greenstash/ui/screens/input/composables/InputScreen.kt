@@ -59,9 +59,13 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.Image
+import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.AddPhotoAlternate
+import androidx.compose.material.icons.rounded.CalendarMonth
+import androidx.compose.material.icons.rounded.Check
+import androidx.compose.material.icons.rounded.Description
+import androidx.compose.material.icons.rounded.Image
+import androidx.compose.material.icons.rounded.Savings
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
@@ -165,7 +169,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
     val snackBarHostState = remember { SnackbarHostState() }
 
     var goalImage: Any? by remember { mutableStateOf(R.drawable.default_goal_image) }
-    var goalIcon by remember { mutableStateOf(Icons.Filled.Image) }
+    var goalIcon by remember { mutableStateOf(Icons.Rounded.Image) }
 
     val selectedDate = remember { mutableStateOf<LocalDate?>(LocalDate.now()) }
     val calenderState = rememberUseCaseState(visible = false, true)
@@ -183,7 +187,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                 onEditDataSet = { goalImageBm, goalIconId ->
                     goalImageBm?.let { goalImage = it }
                     goalIconId?.let { id ->
-                        goalIcon = ImageUtils.createIconVector(id) ?: Icons.Filled.Image
+                        goalIcon = ImageUtils.createIconVector(id) ?: Icons.Rounded.Image
                     }
                 })
         })
@@ -231,7 +235,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
         showDialog = showIconPickerDialog,
         onIconSelected = { icon ->
             icon?.let {
-                goalIcon = it.image ?: Icons.Filled.Image
+                goalIcon = it.image ?: Icons.Rounded.Image
                 viewModel.updateSelectedIcon(it)
             }
         }
@@ -293,7 +297,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                     }, navigationIcon = {
                         IconButton(onClick = { navController.navigateUp() }) {
                             Icon(
-                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
                                 contentDescription = null
                             )
                         }
@@ -387,7 +391,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                         ) {
                             Row {
                                 Icon(
-                                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_input_image),
+                                    imageVector = Icons.Rounded.AddPhotoAlternate,
                                     contentDescription = null,
                                     tint = MaterialTheme.colorScheme.onPrimary
                                 )
@@ -521,7 +525,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                             },
                             leadingIcon = {
                                 Icon(
-                                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_input_amount),
+                                    imageVector = Icons.Rounded.Savings,
                                     contentDescription = null
                                 )
                             },
@@ -566,7 +570,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                             },
                             leadingIcon = {
                                 Icon(
-                                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_input_deadline),
+                                    imageVector = Icons.Rounded.CalendarMonth,
                                     contentDescription = null
                                 )
                             },
@@ -600,7 +604,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                             },
                             leadingIcon = {
                                 Icon(
-                                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_input_additional_notes),
+                                    imageVector = Icons.Rounded.Description,
                                     contentDescription = null
                                 )
                             },
@@ -839,7 +843,7 @@ fun GoalReminderMenu(
                 thumbContent = if (viewModel.state.reminder) {
                     {
                         Icon(
-                            imageVector = Icons.Filled.Check,
+                            imageVector = Icons.Rounded.Check,
                             contentDescription = null,
                             modifier = Modifier.size(SwitchDefaults.IconSize),
                         )

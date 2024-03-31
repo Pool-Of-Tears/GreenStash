@@ -40,10 +40,10 @@ object ImageUtils {
     /** Create image vector from icon name. */
     fun createIconVector(name: String): ImageVector? {
         return try {
-            val className = "androidx.compose.material.icons.filled.${name}Kt"
+            val className = "androidx.compose.material.icons.rounded.${name}Kt"
             val cl = Class.forName(className)
             val method = cl.declaredMethods.first()
-            method.invoke(null, Icons.Filled) as ImageVector
+            method.invoke(null, Icons.Rounded) as ImageVector
         } catch (ex: Exception) {
             Log.e(TAG, "Error creating image vector", ex)
             null

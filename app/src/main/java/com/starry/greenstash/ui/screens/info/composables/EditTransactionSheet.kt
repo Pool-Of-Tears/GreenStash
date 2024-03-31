@@ -35,6 +35,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Edit
+import androidx.compose.material.icons.rounded.Savings
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -54,10 +57,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.maxkeppeker.sheets.core.models.base.rememberUseCaseState
@@ -193,7 +194,7 @@ fun EditTransactionSheet(
                         },
                         leadingIcon = {
                             Icon(
-                                imageVector = ImageVector.vectorResource(id = R.drawable.ic_input_amount),
+                                imageVector = Icons.Rounded.Savings,
                                 contentDescription = null
                             )
                         },
@@ -222,7 +223,7 @@ fun EditTransactionSheet(
                         },
                         leadingIcon = {
                             Icon(
-                                imageVector = ImageVector.vectorResource(id = R.drawable.ic_input_additional_notes),
+                                imageVector = Icons.Rounded.Edit,
                                 contentDescription = null
                             )
                         },

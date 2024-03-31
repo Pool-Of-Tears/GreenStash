@@ -25,15 +25,20 @@
 
 package com.starry.greenstash.ui.navigation
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Backup
+import androidx.compose.material.icons.rounded.Home
+import androidx.compose.material.icons.rounded.Settings
+import androidx.compose.ui.graphics.vector.ImageVector
 import com.starry.greenstash.R
 
-sealed class DrawerScreens(val route: String, val nameResId: Int, val iconResId: Int) {
-    data object Home : DrawerScreens("home", R.string.drawer_home, R.drawable.ic_nav_home)
+sealed class DrawerScreens(val route: String, val nameResId: Int, val iconResId: ImageVector) {
+    data object Home : DrawerScreens("home", R.string.drawer_home, Icons.Rounded.Home)
     data object Backups :
-        DrawerScreens("backups", R.string.drawer_backups, R.drawable.ic_nav_backups)
+        DrawerScreens("backups", R.string.drawer_backups, Icons.Rounded.Backup)
 
     data object Settings :
-        DrawerScreens("settings", R.string.drawer_settings, R.drawable.ic_nav_settings)
+        DrawerScreens("settings", R.string.drawer_settings, Icons.Rounded.Settings)
 }
 
 

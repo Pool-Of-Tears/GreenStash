@@ -53,7 +53,7 @@ import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetState
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -86,13 +86,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -217,7 +215,7 @@ fun HomeScreenContent(
                     NavigationDrawerItem(
                         icon = {
                             Icon(
-                                imageVector = ImageVector.vectorResource(id = item.iconResId),
+                                imageVector = item.iconResId,
                                 contentDescription = null
                             )
                         },
@@ -325,7 +323,7 @@ fun HomeScreenContent(
                         ) {
                             Row {
                                 Icon(
-                                    imageVector = Icons.Filled.Add, contentDescription = null
+                                    imageVector = Icons.Rounded.Add, contentDescription = null
                                 )
                                 Spacer(modifier = Modifier.width(8.dp))
                                 Text(

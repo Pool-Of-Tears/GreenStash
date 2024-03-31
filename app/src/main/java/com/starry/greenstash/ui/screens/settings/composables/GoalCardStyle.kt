@@ -46,7 +46,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.FormatPaint
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -67,9 +68,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -110,7 +109,7 @@ fun GoalCardStyle(navController: NavController) {
             }, navigationIcon = {
                 IconButton(onClick = { navController.navigateUp() }) {
                     Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null
+                        imageVector = Icons.AutoMirrored.Rounded.ArrowBack, contentDescription = null
                     )
                 }
             })
@@ -159,7 +158,7 @@ fun GoalCardStyle(navController: NavController) {
                                 savedAmount = "$1,000.00",
                                 daysLeftText = "12 days left",
                                 goalProgress = 0.8f,
-                                goalIcon = ImageVector.vectorResource(id = R.drawable.ic_nav_backups),
+                                goalIcon = Icons.Rounded.FormatPaint,
                                 onDepositClicked = {},
                                 onWithdrawClicked = {},
                                 onInfoClicked = {},

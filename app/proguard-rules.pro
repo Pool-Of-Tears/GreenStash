@@ -28,7 +28,7 @@
 -keep class * implements com.google.gson.JsonDeserializer
 
 # Prevent R8 from removing icons used in goal icon picker.
--keep class androidx.compose.material.icons.filled.** { *; }
+-keep class androidx.compose.material.icons.rounded.** { *; }
 
 # remove Log statements in release builds.
 -assumenosideeffects class android.util.Log {

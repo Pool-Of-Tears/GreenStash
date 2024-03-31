@@ -45,9 +45,9 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.NotificationsActive
-import androidx.compose.material.icons.filled.NotificationsOff
+import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.NotificationsActive
+import androidx.compose.material.icons.rounded.NotificationsOff
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -136,7 +136,7 @@ fun GoalInfoScreen(goalId: String, navController: NavController) {
                 }, navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {
                         Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
                             contentDescription = null
                         )
                     }
@@ -369,12 +369,12 @@ fun GoalPriorityCard(goalPriority: GoalPriority, reminders: Boolean) {
             }
             val (reminderIcon, reminderText) = when (reminders) {
                 true -> Pair(
-                    Icons.Filled.NotificationsActive,
+                    Icons.Rounded.NotificationsActive,
                     stringResource(id = R.string.info_reminder_status_on)
                 )
 
                 false -> Pair(
-                    Icons.Filled.NotificationsOff,
+                    Icons.Rounded.NotificationsOff,
                     stringResource(id = R.string.info_reminder_status_off)
                 )
             }

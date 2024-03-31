@@ -42,6 +42,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Delete
+import androidx.compose.material.icons.rounded.Edit
+import androidx.compose.material.icons.rounded.FormatPaint
+import androidx.compose.material.icons.rounded.Info
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -198,7 +203,7 @@ fun GoalItemClassic(
                 IconButton(onClick = { onInfoClicked() }) {
                     Icon(
                         modifier = Modifier.size(24.dp),
-                        imageVector = ImageVector.vectorResource(id = R.drawable.ic_goal_info),
+                        imageVector = Icons.Rounded.Info,
                         contentDescription = stringResource(id = R.string.info_button_description),
                         tint = MaterialTheme.colorScheme.onSurface
                     )
@@ -206,7 +211,7 @@ fun GoalItemClassic(
                 IconButton(onClick = { onEditClicked() }) {
                     Icon(
                         modifier = Modifier.size(24.dp),
-                        imageVector = ImageVector.vectorResource(id = R.drawable.ic_goal_edit),
+                        imageVector = Icons.Rounded.Edit,
                         contentDescription = stringResource(id = R.string.edit_button_description),
                         tint = MaterialTheme.colorScheme.onSurface
                     )
@@ -214,7 +219,7 @@ fun GoalItemClassic(
                 IconButton(onClick = { onDeleteClicked() }) {
                     Icon(
                         modifier = Modifier.size(24.dp),
-                        imageVector = ImageVector.vectorResource(id = R.drawable.ic_goal_delete),
+                        imageVector = Icons.Rounded.Delete,
                         contentDescription = stringResource(id = R.string.delete_button_description),
                         tint = MaterialTheme.colorScheme.onSurface
                     )
@@ -290,10 +295,10 @@ fun GoalItemCompact(
             val icon by remember(dismissDirection) {
                 derivedStateOf {
                     when (dismissDirection) {
-                        SwipeToDismissBoxValue.EndToStart -> R.drawable.ic_goal_edit
-                        SwipeToDismissBoxValue.StartToEnd -> R.drawable.ic_goal_delete
+                        SwipeToDismissBoxValue.EndToStart -> Icons.Rounded.Edit
+                        SwipeToDismissBoxValue.StartToEnd -> Icons.Rounded.Delete
                         // Placeholder icon, not used anywhere.
-                        SwipeToDismissBoxValue.Settled -> R.drawable.ic_goal_info
+                        SwipeToDismissBoxValue.Settled -> Icons.Rounded.Info
                     }
                 }
             }
@@ -320,7 +325,7 @@ fun GoalItemCompact(
                 contentAlignment = alignment
             ) {
                 Icon(
-                    imageVector = ImageVector.vectorResource(id = icon),
+                    imageVector = icon,
                     contentDescription = iconDescription,
                     modifier = Modifier.scale(scale)
                 )
@@ -477,7 +482,7 @@ fun GoalItemsPV() {
             savedAmount = "$1,000.00",
             daysLeftText = "Goal Achieved! 🎉",
             goalProgress = 0.8f,
-            goalIcon = ImageVector.vectorResource(id = R.drawable.ic_nav_backups),
+            goalIcon = Icons.Rounded.FormatPaint,
             onDepositClicked = {},
             onWithdrawClicked = {},
             onInfoClicked = {},

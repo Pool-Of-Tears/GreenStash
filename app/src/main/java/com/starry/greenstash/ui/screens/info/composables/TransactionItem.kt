@@ -42,6 +42,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Delete
+import androidx.compose.material.icons.rounded.Edit
+import androidx.compose.material.icons.rounded.Info
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -68,10 +70,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -154,10 +154,10 @@ fun TransactionItem(
                 val icon by remember(dismissDirection) {
                     derivedStateOf {
                         when (dismissDirection) {
-                            SwipeToDismissBoxValue.EndToStart -> R.drawable.ic_goal_edit
-                            SwipeToDismissBoxValue.StartToEnd -> R.drawable.ic_goal_delete
+                            SwipeToDismissBoxValue.EndToStart -> Icons.Rounded.Edit
+                            SwipeToDismissBoxValue.StartToEnd -> Icons.Rounded.Delete
                             // Placeholder icon, not used anywhere.
-                            SwipeToDismissBoxValue.Settled -> R.drawable.ic_goal_info
+                            SwipeToDismissBoxValue.Settled -> Icons.Rounded.Info
                         }
                     }
                 }
@@ -175,7 +175,7 @@ fun TransactionItem(
                     contentAlignment = alignment
                 ) {
                     Icon(
-                        imageVector = ImageVector.vectorResource(id = icon),
+                        imageVector = icon,
                         contentDescription = null,
                         modifier = Modifier.scale(scale)
                     )

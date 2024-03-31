@@ -46,7 +46,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Image
+import androidx.compose.material.icons.rounded.Image
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -213,7 +213,7 @@ private fun SearchTextField(
         ),
         trailingIcon = {
             Icon(
-                Icons.Filled.Image, "Image",
+                Icons.Rounded.Image, "Image",
                 tint = MaterialTheme.colorScheme.primary
             )
         },
@@ -295,7 +295,7 @@ private fun IconItem(
         verticalArrangement = Arrangement.Center
     ) {
         var text = "Not found"
-        var vector = Icons.Filled.Image
+        var vector = Icons.Rounded.Image
         var color = MaterialTheme.colorScheme.error
 
 

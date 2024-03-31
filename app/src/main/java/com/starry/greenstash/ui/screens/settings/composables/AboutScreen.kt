@@ -33,11 +33,12 @@ import android.os.Build
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.automirrored.filled.Notes
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.PrivacyTip
+import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material.icons.automirrored.rounded.Notes
+import androidx.compose.material.icons.rounded.BugReport
+import androidx.compose.material.icons.rounded.Favorite
+import androidx.compose.material.icons.rounded.Info
+import androidx.compose.material.icons.rounded.PrivacyTip
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -92,7 +93,7 @@ fun AboutScreen(navController: NavController) {
                 navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {
                         Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
                             contentDescription = null
                         )
                     }
@@ -107,21 +108,21 @@ fun AboutScreen(navController: NavController) {
             item {
                 SettingsItem(title = stringResource(id = R.string.about_readme_title),
                     description = stringResource(id = R.string.about_readme_desc),
-                    icon = Icons.AutoMirrored.Filled.Notes,
+                    icon = Icons.AutoMirrored.Rounded.Notes,
                     onClick = { openWebLink(context, AboutLinks.ReadMe.url) }
                 )
             }
             item {
                 SettingsItem(title = stringResource(id = R.string.about_privacy_title),
                     description = stringResource(id = R.string.about_privacy_desc),
-                    icon = Icons.Filled.PrivacyTip,
+                    icon = Icons.Rounded.PrivacyTip,
                     onClick = { openWebLink(context, AboutLinks.PrivacyPolicy.url) }
                 )
             }
             item {
                 SettingsItem(title = stringResource(id = R.string.about_gh_issue_title),
                     description = stringResource(id = R.string.about_gh_issue_desc),
-                    icon = ImageVector.vectorResource(id = R.drawable.ic_about_gh_issue),
+                    icon = Icons.Rounded.BugReport,
                     onClick = { openWebLink(context, AboutLinks.GithubIssues.url) }
                 )
             }
@@ -135,7 +136,7 @@ fun AboutScreen(navController: NavController) {
             item {
                 SettingsItem(title = stringResource(id = R.string.about_support_title),
                     description = stringResource(id = R.string.about_support_desc),
-                    icon = Icons.Filled.Favorite,
+                    icon = Icons.Rounded.Favorite,
                     onClick = { openWebLink(context, AboutLinks.Sponser.url) }
                 )
             }
@@ -144,7 +145,7 @@ fun AboutScreen(navController: NavController) {
                     description = stringResource(id = R.string.about_version_desc).format(
                         BuildConfig.VERSION_NAME
                     ),
-                    icon = Icons.Filled.Info,
+                    icon = Icons.Rounded.Info,
                     onClick = { clipboardManager.setText(AnnotatedString(getVersionReport())) }
                 )
             }

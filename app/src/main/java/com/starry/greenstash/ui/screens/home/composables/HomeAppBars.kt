@@ -33,9 +33,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.rounded.Close
+import androidx.compose.material.icons.rounded.FilterList
+import androidx.compose.material.icons.rounded.Menu
+import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -48,9 +49,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -114,7 +113,7 @@ fun DefaultAppBar(
         navigationIcon = {
             IconButton(onClick = { onMenuClicked() }) {
                 Icon(
-                    imageVector = Icons.Filled.Menu,
+                    imageVector = Icons.Rounded.Menu,
                     contentDescription = stringResource(id = R.string.menu_button_desc)
                 )
             }
@@ -122,14 +121,14 @@ fun DefaultAppBar(
         actions = {
             IconButton(onClick = { onFilterClicked() }) {
                 Icon(
-                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_menu_filter),
+                    imageVector = Icons.Rounded.FilterList,
                     contentDescription = stringResource(id = R.string.filter_button_desc),
                     modifier = Modifier.size(22.dp)
                 )
             }
             IconButton(onClick = { onSearchClicked() }) {
                 Icon(
-                    imageVector = Icons.Filled.Search,
+                    imageVector = Icons.Rounded.Search,
                     contentDescription = stringResource(id = R.string.search_button_desc)
                 )
             }
@@ -170,7 +169,7 @@ fun SearchAppBar(
                     onClick = {}
                 ) {
                     Icon(
-                        imageVector = Icons.Default.Search,
+                        imageVector = Icons.Rounded.Search,
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.onSurface
                     )
@@ -187,7 +186,7 @@ fun SearchAppBar(
                     }
                 ) {
                     Icon(
-                        imageVector = Icons.Filled.Close,
+                        imageVector = Icons.Rounded.Close,
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.onSurface
                     )

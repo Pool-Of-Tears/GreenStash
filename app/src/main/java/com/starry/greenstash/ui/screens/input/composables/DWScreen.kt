@@ -41,7 +41,11 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.AccessTime
+import androidx.compose.material.icons.rounded.CalendarMonth
+import androidx.compose.material.icons.rounded.Description
+import androidx.compose.material.icons.rounded.Savings
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -63,10 +67,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextOverflow
@@ -147,7 +149,7 @@ fun DWScreen(goalId: String, transactionTypeName: String, navController: NavCont
                 }, navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {
                         Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
                             contentDescription = null
                         )
                     }
@@ -242,7 +244,7 @@ fun DWScreen(goalId: String, transactionTypeName: String, navController: NavCont
                     },
                     leadingIcon = {
                         Icon(
-                            imageVector = ImageVector.vectorResource(id = R.drawable.ic_input_amount),
+                            imageVector = Icons.Rounded.Savings,
                             contentDescription = null
                         )
                     },
@@ -271,7 +273,7 @@ fun DWScreen(goalId: String, transactionTypeName: String, navController: NavCont
                     },
                     leadingIcon = {
                         Icon(
-                            imageVector = ImageVector.vectorResource(id = R.drawable.ic_input_additional_notes),
+                            imageVector = Icons.Rounded.Description,
                             contentDescription = null
                         )
                     },
@@ -380,7 +382,7 @@ fun DateTimePicker(
         ) {
             Row {
                 Icon(
-                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_dw_date),
+                    imageVector = Icons.Rounded.CalendarMonth,
                     contentDescription = null,
                     modifier = Modifier.size(24.dp)
                 )
@@ -398,7 +400,7 @@ fun DateTimePicker(
 
             Row {
                 Icon(
-                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_dw_time),
+                    imageVector = Icons.Rounded.AccessTime,
                     contentDescription = null,
                     modifier = Modifier.size(24.dp)
                 )

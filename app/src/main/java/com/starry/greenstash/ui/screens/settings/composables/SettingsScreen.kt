@@ -41,8 +41,15 @@ import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Style
+import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.Brightness6
+import androidx.compose.material.icons.rounded.EditCalendar
+import androidx.compose.material.icons.rounded.Info
+import androidx.compose.material.icons.rounded.LocalPolice
+import androidx.compose.material.icons.rounded.Lock
+import androidx.compose.material.icons.rounded.Palette
+import androidx.compose.material.icons.rounded.Payments
+import androidx.compose.material.icons.rounded.Style
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -67,11 +74,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -123,7 +128,7 @@ fun SettingsScreen(navController: NavController) {
             }, navigationIcon = {
                 IconButton(onClick = { navController.navigateUp() }) {
                     Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
                         contentDescription = null
                     )
                 }
@@ -171,7 +176,7 @@ fun SettingsScreen(navController: NavController) {
                     SettingsCategory(title = stringResource(id = R.string.display_settings_title))
                     SettingsItem(title = stringResource(id = R.string.theme_setting),
                         description = themeValue,
-                        icon = ImageVector.vectorResource(id = R.drawable.ic_settings_theme),
+                        icon = Icons.Rounded.Brightness6,
                         onClick = { themeDialog.value = true })
 
                     SettingsItem(
@@ -179,7 +184,7 @@ fun SettingsScreen(navController: NavController) {
                         description = stringResource(
                             id = R.string.material_you_setting_desc
                         ),
-                        icon = ImageVector.vectorResource(id = R.drawable.ic_settings_material_you),
+                        icon = Icons.Rounded.Palette,
                         switchState = materialYouSwitch,
                         onCheckChange = { newValue ->
                             materialYouSwitch.value = newValue
@@ -201,7 +206,7 @@ fun SettingsScreen(navController: NavController) {
                     SettingsItem(
                         title = stringResource(id = R.string.goal_card_setting),
                         description = goalStyleValue,
-                        icon = Icons.Filled.Style,
+                        icon = Icons.Rounded.Style,
                         onClick = { navController.navigate(Screens.GoalCardStyle.route) }
                     )
 
@@ -322,12 +327,12 @@ fun SettingsScreen(navController: NavController) {
                     SettingsCategory(title = stringResource(id = R.string.locales_setting_title))
                     SettingsItem(title = stringResource(id = R.string.date_format_setting),
                         description = dateValue,
-                        icon = ImageVector.vectorResource(id = R.drawable.ic_settings_calender),
+                        icon = Icons.Rounded.EditCalendar,
                         onClick = { dateDialog.value = true })
 
                     SettingsItem(title = stringResource(id = R.string.preferred_currency_setting),
                         description = selectedCurrencyName.value,
-                        icon = ImageVector.vectorResource(id = R.drawable.ic_settings_currency),
+                        icon = Icons.Rounded.Payments,
                         onClick = { currencyDialog.value = true })
 
                     if (dateDialog.value) {
@@ -435,7 +440,7 @@ fun SettingsScreen(navController: NavController) {
                     SettingsItem(
                         title = stringResource(id = R.string.app_lock_setting),
                         description = stringResource(id = R.string.app_lock_setting_desc),
-                        icon = ImageVector.vectorResource(id = R.drawable.ic_settings_app_lock),
+                        icon = Icons.Rounded.Lock,
                         switchState = appLockSwitch,
                         onCheckChange = { newValue ->
                             appLockSwitch.value = newValue
@@ -494,13 +499,13 @@ fun SettingsScreen(navController: NavController) {
                     SettingsItem(
                         title = stringResource(id = R.string.license_setting),
                         description = stringResource(id = R.string.license_setting_desc),
-                        icon = ImageVector.vectorResource(id = R.drawable.ic_settings_osl),
+                        icon = Icons.Rounded.LocalPolice,
                         onClick = { navController.navigate(Screens.OSLScreen.route) }
                     )
                     SettingsItem(
                         title = stringResource(id = R.string.app_info_setting),
                         description = stringResource(id = R.string.app_info_setting_desc),
-                        icon = ImageVector.vectorResource(id = R.drawable.ic_settings_about),
+                        icon = Icons.Rounded.Info,
                         onClick = { navController.navigate(Screens.AboutScreen.route) }
                     )
                 }
