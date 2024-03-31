@@ -65,7 +65,7 @@ import androidx.compose.material.icons.rounded.CalendarMonth
 import androidx.compose.material.icons.rounded.Check
 import androidx.compose.material.icons.rounded.Description
 import androidx.compose.material.icons.rounded.Image
-import androidx.compose.material.icons.rounded.Savings
+import androidx.compose.material.icons.rounded.Payments
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
@@ -525,7 +525,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                             },
                             leadingIcon = {
                                 Icon(
-                                    imageVector = Icons.Rounded.Savings,
+                                    imageVector = Icons.Rounded.Payments,
                                     contentDescription = null
                                 )
                             },

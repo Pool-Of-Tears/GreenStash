@@ -37,7 +37,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Edit
-import androidx.compose.material.icons.rounded.Savings
+import androidx.compose.material.icons.rounded.Payments
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -194,7 +194,7 @@ fun EditTransactionSheet(
                         },
                         leadingIcon = {
                             Icon(
-                                imageVector = Icons.Rounded.Savings,
+                                imageVector = Icons.Rounded.Payments,
                                 contentDescription = null
                             )
                         },

@@ -45,7 +45,7 @@ import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.AccessTime
 import androidx.compose.material.icons.rounded.CalendarMonth
 import androidx.compose.material.icons.rounded.Description
-import androidx.compose.material.icons.rounded.Savings
+import androidx.compose.material.icons.rounded.Payments
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -244,7 +244,7 @@ fun DWScreen(goalId: String, transactionTypeName: String, navController: NavCont
                     },
                     leadingIcon = {
                         Icon(
-                            imageVector = Icons.Rounded.Savings,
+                            imageVector = Icons.Rounded.Payments,
                             contentDescription = null
                         )
                     },
