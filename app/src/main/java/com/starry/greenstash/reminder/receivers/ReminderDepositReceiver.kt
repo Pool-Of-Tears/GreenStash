@@ -41,6 +41,7 @@ import com.starry.greenstash.database.transaction.TransactionDao
 import com.starry.greenstash.database.transaction.TransactionType
 import com.starry.greenstash.reminder.ReminderManager
 import com.starry.greenstash.reminder.ReminderNotificationSender
+import com.starry.greenstash.utils.Utils
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -95,7 +96,7 @@ class ReminderDepositReceiver : BroadcastReceiver() {
                             ownerGoalId = it.goal.goalId,
                             type = TransactionType.Deposit,
                             timeStamp = System.currentTimeMillis(),
-                            amount = depositAmount,
+                            amount = Utils.roundDecimal(depositAmount),
                             notes = ""
                         )
                     )
