@@ -6,6 +6,7 @@
     <string name="cancel">取消</string>
     <string name="ok">确定</string>
     <string name="unknown_error">糟糕！出了点问题。</string>
+    <string name="copy">Copy</string>
 
     <!-- Navigation Drawer -->
     <string name="drawer_home">主页</string>

@@ -6,6 +6,7 @@
     <string name="cancel">Cancelar</string>
     <string name="ok">Aceptar</string>
     <string name="unknown_error">¡Vaya! Algo salió mal.</string>
+    <string name="copy">Copy</string>
 
     <!-- Navigation Drawer -->
     <string name="drawer_home">Inicio</string>

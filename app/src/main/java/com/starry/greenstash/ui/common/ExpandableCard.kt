@@ -60,6 +60,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -67,6 +68,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.starry.greenstash.R
 
 @ExperimentalMaterial3Api
 @Composable
@@ -181,7 +183,7 @@ fun ExpandableTextCard(
                 Row {
                     Icon(Icons.Filled.ContentCopy, contentDescription = "Copy Notes" )
                     Spacer(Modifier.size(ButtonDefaults.IconSpacing))
-                    Text(text = "Copy")
+                    Text(text = stringResource(id = R.string.copy))
                 }
             }
         }
