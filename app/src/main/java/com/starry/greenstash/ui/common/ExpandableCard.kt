@@ -31,15 +31,20 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.filled.ContentCopy
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -54,6 +59,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
@@ -147,8 +154,11 @@ fun ExpandableTextCard(
     descriptionFontWeight: FontWeight = FontWeight.Normal,
     descriptionMaxLines: Int = 10,
     shape: Shape = RoundedCornerShape(8.dp),
+    showCopyButton: Boolean = false,
     padding: Dp = 12.dp,
 ) {
+    val clipboardManager = LocalClipboardManager.current
+
     ExpandableCard(
         title = title,
         titleFontSize = titleFontSize,
@@ -164,5 +174,16 @@ fun ExpandableTextCard(
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier.padding(start = 12.dp, end = 12.dp)
         )
+        if (showCopyButton) {
+            FilledTonalButton(onClick = {
+                clipboardManager.setText(AnnotatedString(description))
+            }) {
+                Row {
+                    Icon(Icons.Filled.ContentCopy, contentDescription = "Copy Notes" )
+                    Spacer(Modifier.size(ButtonDefaults.IconSpacing))
+                    Text(text = "Copy")
+                }
+            }
+        }
     }
 }

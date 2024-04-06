@@ -399,7 +399,7 @@ fun GoalPriorityCard(goalPriority: GoalPriority, reminders: Boolean) {
 @Composable
 fun GoalNotesCard(notesText: String) {
     ExpandableTextCard(
-        title = stringResource(id = R.string.info_notes_card_title), description = notesText
+        title = stringResource(id = R.string.info_notes_card_title), description = notesText, showCopyButton = true
     )
 }
 
