@@ -7,6 +7,7 @@
     <string name="ok">OK</string>
     <string name="unknown_error">Oops! something went wrong.</string>
     <string name="copy">Copy</string>
+    <string name="copy_alert">Copied</string>
 
     <!-- Navigation Drawer -->
     <string name="drawer_home">Home</string>

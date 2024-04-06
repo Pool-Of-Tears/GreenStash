@@ -7,6 +7,7 @@
     <string name="ok">Tamam</string>
     <string name="unknown_error">Hoop! bir şeyler yanlış gitti.</string>
     <string name="copy">Copy</string>
+    <string name="copy_alert">Copied</string>
 
     <!-- Navigation Drawer -->
     <string name="drawer_home">Ana Sayfa</string>

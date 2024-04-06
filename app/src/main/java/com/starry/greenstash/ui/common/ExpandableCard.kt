@@ -25,6 +25,8 @@
 
 package com.starry.greenstash.ui.common
 
+import android.os.Build
+import android.widget.Toast
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
@@ -60,6 +62,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -159,6 +162,7 @@ fun ExpandableTextCard(
     showCopyButton: Boolean = false,
     padding: Dp = 12.dp,
 ) {
+    val context = LocalContext.current
     val clipboardManager = LocalClipboardManager.current
 
     ExpandableCard(
@@ -179,6 +183,9 @@ fun ExpandableTextCard(
         if (showCopyButton) {
             FilledTonalButton(onClick = {
                 clipboardManager.setText(AnnotatedString(description))
+                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) {
+                    Toast.makeText(context, R.string.copy_alert, Toast.LENGTH_SHORT).show()
+                }
             }) {
                 Row {
                     Icon(Icons.Filled.ContentCopy, contentDescription = "Copy Notes" )

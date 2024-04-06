@@ -7,6 +7,7 @@
     <string name="ok">Aceptar</string>
     <string name="unknown_error">¡Vaya! Algo salió mal.</string>
     <string name="copy">Copy</string>
+    <string name="copy_alert">Copied</string>
 
     <!-- Navigation Drawer -->
     <string name="drawer_home">Inicio</string>
