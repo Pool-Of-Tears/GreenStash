@@ -188,8 +188,7 @@ fun ExpandableTextCard(
                 onClick = {
                     clipboardManager.setText(AnnotatedString(description))
                     if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) {
-                        getString(context, R.string.info_copy_alert)
-                            .toToast(context, Toast.LENGTH_SHORT)
+                        getString(context, R.string.info_copy_alert).toToast(context)
                     }
                 },
                 modifier = Modifier.padding(start = 8.dp, top = 8.dp)
