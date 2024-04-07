@@ -6,8 +6,6 @@
     <string name="cancel">İptal</string>
     <string name="ok">Tamam</string>
     <string name="unknown_error">Hoop! bir şeyler yanlış gitti.</string>
-    <string name="copy">Copy</string>
-    <string name="copy_alert">Copied</string>
 
     <!-- Navigation Drawer -->
     <string name="drawer_home">Ana Sayfa</string>
@@ -94,6 +92,9 @@
     <string name="info_goal_no_transactions">Henüz İşlem Yok.</string>
     <string name="info_edit_transaction_button">İşlemi Güncelle</string>
     <string name="info_transaction_onboarding_tip">İpucu: İşlemleri düzenlemek veya silmek için sola veya sağa kaydırın.</string>
+    <string name="info_copy_button">Copy</string>
+    <string name="info_copy_icon_description">Copy Notes</string>
+    <string name="info_copy_alert">Copied</string>
 
     <!-- Input (New/Edit Goal) Screen -->
     <string name="input_screen_header">Birikim yapma zamanı!</string>

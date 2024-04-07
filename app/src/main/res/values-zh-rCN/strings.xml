@@ -6,8 +6,6 @@
     <string name="cancel">取消</string>
     <string name="ok">确定</string>
     <string name="unknown_error">糟糕！出了点问题。</string>
-    <string name="copy">Copy</string>
-    <string name="copy_alert">Copied</string>
 
     <!-- Navigation Drawer -->
     <string name="drawer_home">主页</string>
@@ -94,6 +92,9 @@
     <string name="info_goal_no_transactions">尚无收支。</string>
     <string name="info_edit_transaction_button">更新交易</string>
     <string name="info_transaction_onboarding_tip">提示：左右滑动交易以编辑或删除它们。</string>
+    <string name="info_copy_button">Copy</string>
+    <string name="info_copy_icon_description">Copy Notes</string>
+    <string name="info_copy_alert">Copied</string>
 
     <!-- Input (New/Edit Goal) Screen -->
     <string name="input_screen_header">省钱时间到！</string>

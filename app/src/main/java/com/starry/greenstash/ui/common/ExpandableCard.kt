@@ -184,13 +184,13 @@ fun ExpandableTextCard(
             FilledTonalButton(onClick = {
                 clipboardManager.setText(AnnotatedString(description))
                 if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) {
-                    Toast.makeText(context, R.string.copy_alert, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, R.string.info_copy_alert, Toast.LENGTH_SHORT).show()
                 }
             }) {
                 Row {
-                    Icon(Icons.Filled.ContentCopy, contentDescription = "Copy Notes" )
+                    Icon(Icons.Filled.ContentCopy, contentDescription = stringResource(R.string.info_copy_icon_description))
                     Spacer(Modifier.width(ButtonDefaults.IconSpacing))
-                    Text(text = stringResource(id = R.string.copy))
+                    Text(text = stringResource(id = R.string.info_copy_button))
                 }
             }
         }

@@ -6,8 +6,6 @@
     <string name="cancel">Cancel</string>
     <string name="ok">OK</string>
     <string name="unknown_error">Oops! something went wrong.</string>
-    <string name="copy">Copy</string>
-    <string name="copy_alert">Copied</string>
 
     <!-- Navigation Drawer -->
     <string name="drawer_home">Home</string>
@@ -94,6 +92,9 @@
     <string name="info_goal_no_transactions">No Transactions Yet.</string>
     <string name="info_edit_transaction_button">Update Transaction</string>
     <string name="info_transaction_onboarding_tip">Tip: Swipe transactions left or right to edit or delete them.</string>
+    <string name="info_copy_button">Copy</string>
+    <string name="info_copy_icon_description">Copy Notes</string>
+    <string name="info_copy_alert">Copied</string>
 
     <!-- Input (New/Edit Goal) Screen -->
     <string name="input_screen_header">It\'s time to save!</string>

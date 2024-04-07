@@ -6,8 +6,6 @@
     <string name="cancel">Cancelar</string>
     <string name="ok">Aceptar</string>
     <string name="unknown_error">¡Vaya! Algo salió mal.</string>
-    <string name="copy">Copy</string>
-    <string name="copy_alert">Copied</string>
 
     <!-- Navigation Drawer -->
     <string name="drawer_home">Inicio</string>
@@ -94,6 +92,9 @@
     <string name="info_goal_no_transactions">Sin transacciones aún.</string>
     <string name="info_edit_transaction_button">Actualizar Transacción</string>
     <string name="info_transaction_onboarding_tip">Consejo: Desliza las transacciones hacia la izquierda o hacia la derecha para editarlas o eliminarlas.</string>
+    <string name="info_copy_button">Copy</string>
+    <string name="info_copy_icon_description">Copy Notes</string>
+    <string name="info_copy_alert">Copied</string>
 
     <!-- Input (New/Edit Goal) Screen -->
     <string name="input_screen_header">¡Es momento de ahorrar!</string>
