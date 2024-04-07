@@ -36,6 +36,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -183,15 +184,22 @@ fun ExpandableTextCard(
             modifier = Modifier.padding(start = 12.dp, end = 12.dp)
         )
         if (showCopyButton) {
-            FilledTonalButton(onClick = {
-                clipboardManager.setText(AnnotatedString(description))
-                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) {
-                    getString(context, R.string.info_copy_alert)
-                        .toToast(context, Toast.LENGTH_SHORT)
-                }
-            }) {
+            FilledTonalButton(
+                onClick = {
+                    clipboardManager.setText(AnnotatedString(description))
+                    if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) {
+                        getString(context, R.string.info_copy_alert)
+                            .toToast(context, Toast.LENGTH_SHORT)
+                    }
+                },
+                modifier = Modifier.padding(start = 8.dp, top = 8.dp)
+            ) {
                 Row {
-                    Icon(Icons.Filled.ContentCopy, contentDescription = stringResource(R.string.info_copy_icon_description))
+                    Icon(
+                        Icons.Filled.ContentCopy,
+                        contentDescription = stringResource(R.string.info_copy_icon_description),
+                        modifier = Modifier.size(ButtonDefaults.IconSize)
+                    )
                     Spacer(Modifier.width(ButtonDefaults.IconSpacing))
                     Text(text = stringResource(id = R.string.info_copy_button))
                 }
