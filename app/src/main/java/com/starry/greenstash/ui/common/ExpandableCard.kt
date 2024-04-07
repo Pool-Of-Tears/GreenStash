@@ -25,21 +25,29 @@
 
 package com.starry.greenstash.ui.common
 
+import android.os.Build
+import android.widget.Toast
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.filled.ContentCopy
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -54,12 +62,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat.getString
+import com.starry.greenstash.R
+import com.starry.greenstash.utils.toToast
 
 @ExperimentalMaterial3Api
 @Composable
@@ -147,8 +162,12 @@ fun ExpandableTextCard(
     descriptionFontWeight: FontWeight = FontWeight.Normal,
     descriptionMaxLines: Int = 10,
     shape: Shape = RoundedCornerShape(8.dp),
+    showCopyButton: Boolean = false,
     padding: Dp = 12.dp,
 ) {
+    val context = LocalContext.current
+    val clipboardManager = LocalClipboardManager.current
+
     ExpandableCard(
         title = title,
         titleFontSize = titleFontSize,
@@ -164,5 +183,26 @@ fun ExpandableTextCard(
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier.padding(start = 12.dp, end = 12.dp)
         )
+        if (showCopyButton) {
+            FilledTonalButton(
+                onClick = {
+                    clipboardManager.setText(AnnotatedString(description))
+                    if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) {
+                        getString(context, R.string.info_copy_alert).toToast(context)
+                    }
+                },
+                modifier = Modifier.padding(start = 8.dp, top = 8.dp)
+            ) {
+                Row {
+                    Icon(
+                        Icons.Filled.ContentCopy,
+                        contentDescription = stringResource(R.string.info_copy_icon_description),
+                        modifier = Modifier.size(ButtonDefaults.IconSize)
+                    )
+                    Spacer(Modifier.width(ButtonDefaults.IconSpacing))
+                    Text(text = stringResource(id = R.string.info_copy_button))
+                }
+            }
+        }
     }
 }

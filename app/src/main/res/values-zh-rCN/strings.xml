@@ -92,6 +92,9 @@
     <string name="info_goal_no_transactions">尚无收支。</string>
     <string name="info_edit_transaction_button">更新交易</string>
     <string name="info_transaction_onboarding_tip">提示：左右滑动交易以编辑或删除它们。</string>
+    <string name="info_copy_button">Copy</string>
+    <string name="info_copy_icon_description">Copy Notes</string>
+    <string name="info_copy_alert">Copied</string>
 
     <!-- Input (New/Edit Goal) Screen -->
     <string name="input_screen_header">省钱时间到！</string>
