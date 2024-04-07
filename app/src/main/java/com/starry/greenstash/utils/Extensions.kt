@@ -76,7 +76,9 @@ fun LazyListState.isScrollingUp(): Boolean {
     }.value
 }
 
-
+/**
+ * Creates and shows a toast message.
+ */
 fun String.toToast(context: Context, length: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(context, this, length).show()
 }

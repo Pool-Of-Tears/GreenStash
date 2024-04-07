@@ -71,7 +71,9 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat.getString
 import com.starry.greenstash.R
+import com.starry.greenstash.utils.toToast
 
 @ExperimentalMaterial3Api
 @Composable
@@ -184,7 +186,8 @@ fun ExpandableTextCard(
             FilledTonalButton(onClick = {
                 clipboardManager.setText(AnnotatedString(description))
                 if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) {
-                    Toast.makeText(context, R.string.info_copy_alert, Toast.LENGTH_SHORT).show()
+                    getString(context, R.string.info_copy_alert)
+                        .toToast(context, Toast.LENGTH_SHORT)
                 }
             }) {
                 Row {
