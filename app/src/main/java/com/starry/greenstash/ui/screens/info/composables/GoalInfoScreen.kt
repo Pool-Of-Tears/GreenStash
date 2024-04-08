@@ -103,12 +103,7 @@ import com.starry.greenstash.utils.Utils
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 
-@ExperimentalCoroutinesApi
-@ExperimentalFoundationApi
-@ExperimentalComposeUiApi
-@ExperimentalAnimationApi
-@ExperimentalMaterialApi
-@ExperimentalMaterial3Api
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GoalInfoScreen(goalId: String, navController: NavController) {
 
@@ -399,7 +394,9 @@ fun GoalPriorityCard(goalPriority: GoalPriority, reminders: Boolean) {
 @Composable
 fun GoalNotesCard(notesText: String) {
     ExpandableTextCard(
-        title = stringResource(id = R.string.info_notes_card_title), description = notesText, showCopyButton = true
+        title = stringResource(id = R.string.info_notes_card_title),
+        description = notesText,
+        showCopyButton = true
     )
 }
 

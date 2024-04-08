@@ -41,7 +41,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -72,7 +71,7 @@ import com.starry.greenstash.ui.navigation.DrawerScreens
 import com.starry.greenstash.ui.screens.welcome.viewmodels.WelcomeViewModel
 import com.starry.greenstash.ui.theme.greenstashFont
 
-@ExperimentalMaterial3Api
+
 @Composable
 fun WelcomeScreen(navController: NavController) {
     val context = LocalContext.current

@@ -25,8 +25,6 @@
 
 package com.starry.greenstash.ui.screens.input.composables
 
-import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -44,14 +42,12 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Image
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -63,7 +59,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
@@ -75,18 +70,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.starry.greenstash.R
-import com.starry.greenstash.ui.screens.input.viewmodels.IconItem
-import com.starry.greenstash.ui.screens.input.viewmodels.IconsState
-import com.starry.greenstash.ui.screens.input.viewmodels.InputViewModel
+import com.starry.greenstash.ui.screens.dwscreen.viewmodels.IconItem
+import com.starry.greenstash.ui.screens.dwscreen.viewmodels.IconsState
+import com.starry.greenstash.ui.screens.dwscreen.viewmodels.InputViewModel
 import com.starry.greenstash.ui.theme.greenstashFont
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-@ExperimentalCoroutinesApi
-@ExperimentalMaterial3Api
-@ExperimentalAnimationApi
-@ExperimentalComposeUiApi
-@ExperimentalFoundationApi
-@ExperimentalMaterialApi
+
 @Composable
 fun IconPickerDialog(
     viewModel: InputViewModel,
@@ -174,12 +163,7 @@ fun IconPickerDialog(
 
 }
 
-@ExperimentalCoroutinesApi
-@ExperimentalMaterial3Api
-@ExperimentalAnimationApi
-@ExperimentalComposeUiApi
-@ExperimentalFoundationApi
-@ExperimentalMaterialApi
+
 @Composable
 private fun SearchTextField(
     viewModel: InputViewModel,

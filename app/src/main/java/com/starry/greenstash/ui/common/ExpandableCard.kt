@@ -26,7 +26,6 @@
 package com.starry.greenstash.ui.common
 
 import android.os.Build
-import android.widget.Toast
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
@@ -66,14 +65,15 @@ import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.content.ContextCompat.getString
 import com.starry.greenstash.R
+import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.utils.toToast
 
 @ExperimentalMaterial3Api
@@ -82,6 +82,7 @@ fun ExpandableCard(
     title: String,
     titleFontSize: TextUnit = 16.sp,
     titleFontWeight: FontWeight = FontWeight.Bold,
+    titleFontFamily: FontFamily = greenstashFont,
     shape: Shape = RoundedCornerShape(8.dp),
     padding: Dp = 12.dp,
     expanded: Boolean = false,
@@ -157,13 +158,15 @@ fun ExpandableTextCard(
     title: String,
     titleFontSize: TextUnit = 16.sp,
     titleFontWeight: FontWeight = FontWeight.Bold,
+    titleFontFamily: FontFamily = greenstashFont,
     description: String,
     descriptionFontSize: TextUnit = 14.sp,
     descriptionFontWeight: FontWeight = FontWeight.Normal,
+    descriptionFontFamily: FontFamily = greenstashFont,
     descriptionMaxLines: Int = 10,
     shape: Shape = RoundedCornerShape(8.dp),
-    showCopyButton: Boolean = false,
     padding: Dp = 12.dp,
+    showCopyButton: Boolean = false,
 ) {
     val context = LocalContext.current
     val clipboardManager = LocalClipboardManager.current
@@ -172,6 +175,7 @@ fun ExpandableTextCard(
         title = title,
         titleFontSize = titleFontSize,
         titleFontWeight = titleFontWeight,
+        titleFontFamily = titleFontFamily,
         shape = shape,
         padding = padding
     ) {
@@ -179,6 +183,7 @@ fun ExpandableTextCard(
             text = description,
             fontSize = descriptionFontSize,
             fontWeight = descriptionFontWeight,
+            fontFamily = descriptionFontFamily,
             maxLines = descriptionMaxLines,
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier.padding(start = 12.dp, end = 12.dp)
@@ -188,7 +193,7 @@ fun ExpandableTextCard(
                 onClick = {
                     clipboardManager.setText(AnnotatedString(description))
                     if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) {
-                        getString(context, R.string.info_copy_alert).toToast(context)
+                        context.getString(R.string.info_copy_notes_alert).toToast(context)
                     }
                 },
                 modifier = Modifier.padding(start = 8.dp, top = 8.dp)
@@ -196,11 +201,15 @@ fun ExpandableTextCard(
                 Row {
                     Icon(
                         Icons.Filled.ContentCopy,
-                        contentDescription = stringResource(R.string.info_copy_icon_description),
+                        contentDescription = stringResource(R.string.info_copy_notes_icon_desc),
                         modifier = Modifier.size(ButtonDefaults.IconSize)
                     )
                     Spacer(Modifier.width(ButtonDefaults.IconSpacing))
-                    Text(text = stringResource(id = R.string.info_copy_button))
+                    Text(
+                        text = stringResource(id = R.string.info_copy_notes_button),
+                        fontFamily = greenstashFont,
+                        fontSize = 14.sp
+                    )
                 }
             }
         }

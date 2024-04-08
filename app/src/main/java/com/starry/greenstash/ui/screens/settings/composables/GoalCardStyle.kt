@@ -85,12 +85,8 @@ import com.starry.greenstash.utils.getActivity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 
-@ExperimentalCoroutinesApi
-@ExperimentalAnimationApi
-@ExperimentalComposeUiApi
-@ExperimentalFoundationApi
-@ExperimentalMaterialApi
-@ExperimentalMaterial3Api
+
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GoalCardStyle(navController: NavController) {
     val context = navController.context

@@ -47,7 +47,8 @@ import com.mikepenz.aboutlibraries.ui.compose.LibraryDefaults
 import com.starry.greenstash.R
 import com.starry.greenstash.ui.theme.greenstashFont
 
-@ExperimentalMaterial3Api
+
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun OSLScreen(navController: NavController) {
     Scaffold(modifier = Modifier.fillMaxSize(), topBar = {

@@ -27,7 +27,6 @@ package com.starry.greenstash.ui.screens.home.composables
 
 import android.content.Context
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.keyframes
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -58,7 +57,6 @@ import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DrawerValue
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.HorizontalDivider
@@ -83,7 +81,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -121,17 +118,14 @@ import com.starry.greenstash.ui.screens.home.viewmodels.SearchWidgetState
 import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.utils.Utils
 import com.starry.greenstash.utils.isScrollingUp
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.Locale
 
-@ExperimentalAnimationApi
-@ExperimentalComposeUiApi
-@ExperimentalCoroutinesApi
-@ExperimentalMaterialApi
-@ExperimentalFoundationApi
-@ExperimentalMaterial3Api
+
+@OptIn(
+    ExperimentalMaterialApi::class
+)
 @Composable
 fun HomeScreen(navController: NavController) {
     val context = LocalContext.current
@@ -159,12 +153,8 @@ fun HomeScreen(navController: NavController) {
 
 }
 
-@ExperimentalAnimationApi
-@ExperimentalComposeUiApi
-@ExperimentalCoroutinesApi
-@ExperimentalMaterialApi
-@ExperimentalFoundationApi
-@ExperimentalMaterial3Api
+
+@OptIn(ExperimentalMaterialApi::class, ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreenContent(
     context: Context,
@@ -495,12 +485,7 @@ fun HomeScreenContent(
     }
 }
 
-@ExperimentalAnimationApi
-@ExperimentalComposeUiApi
-@ExperimentalFoundationApi
-@ExperimentalMaterialApi
-@ExperimentalCoroutinesApi
-@ExperimentalMaterial3Api
+
 @Composable
 fun FilterMenuSheet(viewModel: HomeViewModel) {
     Column(
@@ -536,7 +521,7 @@ fun FilterMenuSheet(viewModel: HomeViewModel) {
     }
 }
 
-@ExperimentalMaterial3Api
+
 @Composable
 fun FilterButton(text: String, isSelected: Boolean, onClick: () -> Unit) {
     val buttonColor: Color
@@ -578,12 +563,7 @@ fun FilterButton(text: String, isSelected: Boolean, onClick: () -> Unit) {
     }
 }
 
-@ExperimentalComposeUiApi
-@ExperimentalAnimationApi
-@ExperimentalCoroutinesApi
-@ExperimentalMaterialApi
-@ExperimentalFoundationApi
-@ExperimentalMaterial3Api
+
 @Composable
 @Preview
 fun HomeScreenPreview() {
