@@ -58,7 +58,7 @@ import com.starry.greenstash.R
 import com.starry.greenstash.ui.screens.home.viewmodels.SearchWidgetState
 import com.starry.greenstash.ui.theme.greenstashFont
 
-@ExperimentalMaterial3Api
+
 @Composable
 fun MainAppBar(
     onMenuClicked: () -> Unit,
@@ -95,7 +95,8 @@ fun MainAppBar(
     }
 }
 
-@ExperimentalMaterial3Api
+
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DefaultAppBar(
     onMenuClicked: () -> Unit,
@@ -137,7 +138,7 @@ fun DefaultAppBar(
     )
 }
 
-@ExperimentalMaterial3Api
+
 @Composable
 fun SearchAppBar(
     text: String,

@@ -71,7 +71,8 @@ sealed class AboutLinks(val url: String) {
     data object Sponser : AboutLinks("https://github.com/sponsors/starry-shivam")
 }
 
-@ExperimentalMaterial3Api
+
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AboutScreen(navController: NavController) {
     val context = LocalContext.current

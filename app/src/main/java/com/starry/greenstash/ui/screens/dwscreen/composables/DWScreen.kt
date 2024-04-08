@@ -23,7 +23,7 @@
  */
 
 
-package com.starry.greenstash.ui.screens.input.composables
+package com.starry.greenstash.ui.screens.dwscreen.composables
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -100,7 +100,8 @@ import kotlinx.coroutines.withContext
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-@ExperimentalMaterial3Api
+
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DWScreen(goalId: String, transactionTypeName: String, navController: NavController) {
     val context = LocalContext.current

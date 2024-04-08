@@ -25,14 +25,9 @@
 
 package com.starry.greenstash
 
-import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.starry.greenstash.database.goal.GoalDao
@@ -42,17 +37,11 @@ import com.starry.greenstash.ui.navigation.DrawerScreens
 import com.starry.greenstash.ui.navigation.Screens
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@ExperimentalCoroutinesApi
-@ExperimentalMaterialApi
-@ExperimentalFoundationApi
-@ExperimentalComposeUiApi
-@ExperimentalAnimationApi
-@ExperimentalMaterial3Api
+
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val welcomeDataStore: WelcomeDataStore,

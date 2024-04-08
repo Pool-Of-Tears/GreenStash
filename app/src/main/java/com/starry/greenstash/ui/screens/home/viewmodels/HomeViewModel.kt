@@ -25,14 +25,9 @@
 
 package com.starry.greenstash.ui.screens.home.viewmodels
 
-import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
@@ -43,7 +38,6 @@ import com.starry.greenstash.utils.GoalTextUtils
 import com.starry.greenstash.utils.PreferenceUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
@@ -55,12 +49,7 @@ enum class FilterSortType(val value: Int) { Ascending(1), Descending(2) }
 enum class GoalCardStyle { Classic, Compact }
 data class FilterFlowData(val filterField: FilterField, val sortType: FilterSortType)
 
-@ExperimentalMaterialApi
-@ExperimentalFoundationApi
-@ExperimentalComposeUiApi
-@ExperimentalAnimationApi
-@ExperimentalMaterial3Api
-@ExperimentalCoroutinesApi
+
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val goalDao: GoalDao,

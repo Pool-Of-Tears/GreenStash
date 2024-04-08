@@ -23,7 +23,7 @@
  */
 
 
-package com.starry.greenstash.ui.screens.input.composables
+package com.starry.greenstash.ui.screens.other
 
 import android.media.MediaPlayer
 import androidx.activity.compose.BackHandler

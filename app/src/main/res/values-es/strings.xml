@@ -89,12 +89,12 @@
     <string name="info_reminder_status_on">Los recordatorios están activados</string>
     <string name="info_reminder_status_off">Los recordatorios están desactivados</string>
     <string name="info_notes_card_title">Notas</string>
+    <string name="info_copy_notes_button">Copiar</string>
+    <string name="info_copy_notes_icon_desc">Copiar notas</string>
+    <string name="info_copy_notes_alert">¡Copiado correctamente!</string>
     <string name="info_goal_no_transactions">Sin transacciones aún.</string>
     <string name="info_edit_transaction_button">Actualizar Transacción</string>
     <string name="info_transaction_onboarding_tip">Consejo: Desliza las transacciones hacia la izquierda o hacia la derecha para editarlas o eliminarlas.</string>
-    <string name="info_copy_button">Copy</string>
-    <string name="info_copy_icon_description">Copy Notes</string>
-    <string name="info_copy_alert">Copied</string>
 
     <!-- Input (New/Edit Goal) Screen -->
     <string name="input_screen_header">¡Es momento de ahorrar!</string>

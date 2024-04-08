@@ -25,20 +25,15 @@
 
 package com.starry.greenstash.ui.navigation
 
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -46,17 +41,16 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.starry.greenstash.ui.screens.backups.BackupScreen
+import com.starry.greenstash.ui.screens.dwscreen.composables.DWScreen
 import com.starry.greenstash.ui.screens.home.composables.HomeScreen
 import com.starry.greenstash.ui.screens.info.composables.GoalInfoScreen
-import com.starry.greenstash.ui.screens.input.composables.CongratsScreen
-import com.starry.greenstash.ui.screens.input.composables.DWScreen
 import com.starry.greenstash.ui.screens.input.composables.InputScreen
+import com.starry.greenstash.ui.screens.other.CongratsScreen
 import com.starry.greenstash.ui.screens.settings.composables.AboutScreen
 import com.starry.greenstash.ui.screens.settings.composables.GoalCardStyle
 import com.starry.greenstash.ui.screens.settings.composables.OSLScreen
 import com.starry.greenstash.ui.screens.settings.composables.SettingsScreen
 import com.starry.greenstash.ui.screens.welcome.composables.WelcomeScreen
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 
 private const val NAVIGATION_ANIM_DURATION = 300
@@ -85,12 +79,7 @@ private fun popExitTransition() = slideOutHorizontally(
     )
 ) + fadeOut(animationSpec = tween(NAVIGATION_ANIM_DURATION))
 
-@ExperimentalCoroutinesApi
-@ExperimentalMaterialApi
-@ExperimentalFoundationApi
-@ExperimentalComposeUiApi
-@ExperimentalMaterial3Api
-@ExperimentalAnimationApi
+
 @Composable
 fun NavGraph(
     navController: NavHostController,

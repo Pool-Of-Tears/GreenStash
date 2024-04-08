@@ -134,7 +134,7 @@ import com.starry.greenstash.R
 import com.starry.greenstash.database.goal.GoalPriority
 import com.starry.greenstash.ui.common.SelectableChipGroup
 import com.starry.greenstash.ui.navigation.DrawerScreens
-import com.starry.greenstash.ui.screens.input.viewmodels.InputViewModel
+import com.starry.greenstash.ui.screens.dwscreen.viewmodels.InputViewModel
 import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.utils.ImageUtils
 import com.starry.greenstash.utils.Utils
@@ -150,12 +150,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 
-@ExperimentalCoroutinesApi
-@ExperimentalAnimationApi
-@ExperimentalMaterialApi
-@ExperimentalFoundationApi
-@ExperimentalComposeUiApi
-@ExperimentalMaterial3Api
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 fun InputScreen(editGoalId: String?, navController: NavController) {
     val context = LocalContext.current
@@ -708,12 +703,7 @@ fun GoalIconPicker(
     }
 }
 
-@ExperimentalCoroutinesApi
-@ExperimentalMaterial3Api
-@ExperimentalAnimationApi
-@ExperimentalComposeUiApi
-@ExperimentalFoundationApi
-@ExperimentalMaterialApi
+
 @Composable
 fun GoalPriorityMenu(viewModel: InputViewModel) {
     Card(
@@ -756,12 +746,7 @@ fun GoalPriorityMenu(viewModel: InputViewModel) {
     }
 }
 
-@ExperimentalCoroutinesApi
-@ExperimentalMaterial3Api
-@ExperimentalAnimationApi
-@ExperimentalComposeUiApi
-@ExperimentalFoundationApi
-@ExperimentalMaterialApi
+
 @Composable
 fun GoalReminderMenu(
     context: Context,
