@@ -23,7 +23,7 @@
  */
 
 
-package com.starry.greenstash.ui.screens.welcome.viewmodels
+package com.starry.greenstash.ui.screens.welcome
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

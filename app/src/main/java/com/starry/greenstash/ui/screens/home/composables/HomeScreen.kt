@@ -111,10 +111,10 @@ import com.starry.greenstash.R
 import com.starry.greenstash.database.core.GoalWithTransactions
 import com.starry.greenstash.ui.navigation.DrawerScreens
 import com.starry.greenstash.ui.navigation.Screens
-import com.starry.greenstash.ui.screens.home.viewmodels.FilterField
-import com.starry.greenstash.ui.screens.home.viewmodels.FilterSortType
-import com.starry.greenstash.ui.screens.home.viewmodels.HomeViewModel
-import com.starry.greenstash.ui.screens.home.viewmodels.SearchWidgetState
+import com.starry.greenstash.ui.screens.home.FilterField
+import com.starry.greenstash.ui.screens.home.FilterSortType
+import com.starry.greenstash.ui.screens.home.HomeViewModel
+import com.starry.greenstash.ui.screens.home.SearchWidgetState
 import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.utils.Utils
 import com.starry.greenstash.utils.isScrollingUp
@@ -123,9 +123,7 @@ import kotlinx.coroutines.launch
 import java.util.Locale
 
 
-@OptIn(
-    ExperimentalMaterialApi::class
-)
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun HomeScreen(navController: NavController) {
     val context = LocalContext.current
@@ -156,7 +154,7 @@ fun HomeScreen(navController: NavController) {
 
 @OptIn(ExperimentalMaterialApi::class, ExperimentalFoundationApi::class)
 @Composable
-fun HomeScreenContent(
+private fun HomeScreenContent(
     context: Context,
     viewModel: HomeViewModel,
     navController: NavController,
@@ -259,7 +257,7 @@ fun HomeScreenContent(
             Scaffold(modifier = Modifier.fillMaxSize(),
                 snackbarHost = { SnackbarHost(snackBarHostState) },
                 topBar = {
-                    MainAppBar(
+                    HomeAppBar(
                         onMenuClicked = { coroutineScope.launch { drawerState.open() } },
                         onFilterClicked = {
                             coroutineScope.launch { bottomSheetState.show() }
@@ -344,40 +342,7 @@ fun HomeScreenContent(
                         })
 
                         if (showNoGoalsAnimation) {
-                            Column(
-                                modifier = Modifier.fillMaxSize(),
-                                horizontalAlignment = Alignment.CenterHorizontally
-                            ) {
-                                val compositionResult: LottieCompositionResult =
-                                    rememberLottieComposition(
-                                        spec = LottieCompositionSpec.RawRes(R.raw.no_goal_set_lottie)
-                                    )
-                                val progressAnimation by animateLottieCompositionAsState(
-                                    compositionResult.value,
-                                    isPlaying = true,
-                                    iterations = LottieConstants.IterateForever,
-                                    speed = 1f
-                                )
-
-                                Spacer(modifier = Modifier.weight(1f))
-
-                                LottieAnimation(
-                                    composition = compositionResult.value,
-                                    progress = progressAnimation,
-                                    modifier = Modifier.size(335.dp),
-                                    enableMergePaths = true
-                                )
-
-                                Text(
-                                    text = stringResource(id = R.string.no_goal_set),
-                                    fontWeight = FontWeight.Medium,
-                                    fontFamily = greenstashFont,
-                                    fontSize = 18.sp,
-                                    modifier = Modifier.padding(start = 12.dp, end = 12.dp),
-                                )
-
-                                Spacer(modifier = Modifier.weight(2f))
-                            }
+                            NoGoalAnimation()
                         }
                     } else {
                         if (searchTextState.isNotEmpty() && searchTextState.isNotBlank()) {
@@ -487,7 +452,7 @@ fun HomeScreenContent(
 
 
 @Composable
-fun FilterMenuSheet(viewModel: HomeViewModel) {
+private fun FilterMenuSheet(viewModel: HomeViewModel) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -523,7 +488,7 @@ fun FilterMenuSheet(viewModel: HomeViewModel) {
 
 
 @Composable
-fun FilterButton(text: String, isSelected: Boolean, onClick: () -> Unit) {
+private fun FilterButton(text: String, isSelected: Boolean, onClick: () -> Unit) {
     val buttonColor: Color
     val textColor: Color
     if (isSelected) {
@@ -560,6 +525,44 @@ fun FilterButton(text: String, isSelected: Boolean, onClick: () -> Unit) {
                 color = textColor,
             )
         }
+    }
+}
+
+@Composable
+private fun NoGoalAnimation() {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        val compositionResult: LottieCompositionResult =
+            rememberLottieComposition(
+                spec = LottieCompositionSpec.RawRes(R.raw.no_goal_set_lottie)
+            )
+        val progressAnimation by animateLottieCompositionAsState(
+            compositionResult.value,
+            isPlaying = true,
+            iterations = LottieConstants.IterateForever,
+            speed = 1f
+        )
+
+        Spacer(modifier = Modifier.weight(1f))
+
+        LottieAnimation(
+            composition = compositionResult.value,
+            progress = progressAnimation,
+            modifier = Modifier.size(335.dp),
+            enableMergePaths = true
+        )
+
+        Text(
+            text = stringResource(id = R.string.no_goal_set),
+            fontWeight = FontWeight.Medium,
+            fontFamily = greenstashFont,
+            fontSize = 18.sp,
+            modifier = Modifier.padding(start = 12.dp, end = 12.dp),
+        )
+
+        Spacer(modifier = Modifier.weight(2f))
     }
 }
 

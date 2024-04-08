@@ -41,8 +41,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.starry.greenstash.ui.navigation.NavGraph
-import com.starry.greenstash.ui.screens.settings.viewmodels.SettingsViewModel
-import com.starry.greenstash.ui.screens.settings.viewmodels.ThemeMode
+import com.starry.greenstash.ui.screens.settings.SettingsViewModel
+import com.starry.greenstash.ui.screens.settings.ThemeMode
 import com.starry.greenstash.ui.theme.GreenStashTheme
 import com.starry.greenstash.utils.Utils
 import dagger.hilt.android.AndroidEntryPoint

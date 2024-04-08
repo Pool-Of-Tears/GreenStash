@@ -25,9 +25,7 @@
 
 package com.starry.greenstash.ui.screens.info.composables
 
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -43,7 +41,6 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.NotificationsActive
@@ -70,7 +67,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -96,11 +92,11 @@ import com.starry.greenstash.database.goal.GoalPriority.Low
 import com.starry.greenstash.database.goal.GoalPriority.Normal
 import com.starry.greenstash.ui.common.DotIndicator
 import com.starry.greenstash.ui.common.ExpandableTextCard
-import com.starry.greenstash.ui.screens.info.viewmodels.InfoViewModel
+import com.starry.greenstash.ui.screens.info.InfoViewModel
 import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.ui.theme.greenstashNumberFont
+import com.starry.greenstash.utils.GoalTextUtils
 import com.starry.greenstash.utils.Utils
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -165,8 +161,10 @@ fun GoalInfoScreen(goalId: String, navController: NavController) {
                         currencySymbol = currencySymbol,
                         targetAmount = goalData.goal.targetAmount,
                         savedAmount = goalData.getCurrentlySavedAmount(),
-                        daysLeftText = viewModel.goalTextUtils.getRemainingDaysText(
-                            context, goalData
+                        daysLeftText = GoalTextUtils.getRemainingDaysText(
+                            context = context,
+                            goalItem = goalData,
+                            datePattern = viewModel.getDateStyle().pattern
                         ),
                         progress = progressPercent.toFloat() / 100
                     )
@@ -400,12 +398,7 @@ fun GoalNotesCard(notesText: String) {
     )
 }
 
-@ExperimentalCoroutinesApi
-@ExperimentalAnimationApi
-@ExperimentalComposeUiApi
-@ExperimentalFoundationApi
-@ExperimentalMaterial3Api
-@ExperimentalMaterialApi
+
 @Composable
 @Preview
 fun GoalInfoPV() {

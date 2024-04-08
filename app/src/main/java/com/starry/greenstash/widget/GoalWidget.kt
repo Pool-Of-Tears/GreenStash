@@ -100,6 +100,8 @@ class GoalWidget : AppWidgetProvider() {
 
         // Set Widget description.
         val defCurrency = preferenceUtil.getString(PreferenceUtil.DEFAULT_CURRENCY_STR, "")!!
+        val datePattern = preferenceUtil.getString(PreferenceUtil.DATE_FORMAT_STR, "")!!
+
         val widgetDesc = context.getString(R.string.goal_widget_desc)
             .format(
                 "${
@@ -112,7 +114,7 @@ class GoalWidget : AppWidgetProvider() {
         views.setCharSequence(R.id.widgetDesc, "setText", widgetDesc)
 
         // Calculate and display savings per day and week if applicable.
-        handleSavingsPerDuration(context, views, goalItem, defCurrency, preferenceUtil)
+        handleSavingsPerDuration(context, views, goalItem, defCurrency, datePattern)
 
         // Display appropriate views when the goal is achieved.
         handleGoalAchieved(views, goalItem)
@@ -163,18 +165,18 @@ class GoalWidget : AppWidgetProvider() {
         views: RemoteViews,
         goalItem: GoalWithTransactions,
         defCurrency: String,
-        preferenceUtil: PreferenceUtil
+        datePattern: String
     ) {
         val remainingAmount = (goalItem.goal.targetAmount - goalItem.getCurrentlySavedAmount())
 
         if (remainingAmount > 0f && goalItem.goal.deadline.isNotEmpty()) {
-            val calculatedDays = GoalTextUtils(preferenceUtil).calcRemainingDays(goalItem.goal)
+            val calculatedDays = GoalTextUtils.calcRemainingDays(goalItem.goal, datePattern)
 
             if (calculatedDays.remainingDays > 2) {
                 val amountDays = "${
                     Utils.formatCurrency(
-                        Utils.roundDecimal(remainingAmount / calculatedDays.remainingDays),
-                        defCurrency
+                        amount = Utils.roundDecimal(remainingAmount / calculatedDays.remainingDays),
+                        currencyCode = defCurrency
                     )
                 }/${context.getString(R.string.goal_approx_saving_day)}"
                 views.setCharSequence(R.id.widgetAmountDay, "setText", amountDays)
@@ -184,8 +186,8 @@ class GoalWidget : AppWidgetProvider() {
             if (calculatedDays.remainingDays > 7) {
                 val amountWeeks = "${
                     Utils.formatCurrency(
-                        Utils.roundDecimal(remainingAmount / (calculatedDays.remainingDays / 7)),
-                        defCurrency
+                        amount = Utils.roundDecimal(remainingAmount / (calculatedDays.remainingDays / 7)),
+                        currencyCode = defCurrency
                     )
                 }/${context.getString(R.string.goal_approx_saving_week)}"
                 views.setCharSequence(R.id.widgetAmountWeek, "setText", amountWeeks)

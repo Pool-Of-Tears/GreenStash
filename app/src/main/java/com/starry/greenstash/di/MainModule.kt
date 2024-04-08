@@ -26,11 +26,6 @@
 package com.starry.greenstash.di
 
 import android.content.Context
-import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.ui.ExperimentalComposeUiApi
 import com.starry.greenstash.backup.BackupManager
 import com.starry.greenstash.database.core.AppDatabase
 import com.starry.greenstash.database.goal.GoalDao
@@ -43,15 +38,9 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Singleton
 
-@ExperimentalCoroutinesApi
-@ExperimentalMaterialApi
-@ExperimentalFoundationApi
-@ExperimentalComposeUiApi
-@ExperimentalAnimationApi
-@ExperimentalMaterial3Api
+
 @InstallIn(SingletonComponent::class)
 @Module
 class MainModule {

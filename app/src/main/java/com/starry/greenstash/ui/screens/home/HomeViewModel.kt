@@ -23,7 +23,7 @@
  */
 
 
-package com.starry.greenstash.ui.screens.home.viewmodels
+package com.starry.greenstash.ui.screens.home
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
@@ -34,10 +34,10 @@ import androidx.lifecycle.viewModelScope
 import com.starry.greenstash.database.goal.Goal
 import com.starry.greenstash.database.goal.GoalDao
 import com.starry.greenstash.reminder.ReminderManager
-import com.starry.greenstash.utils.GoalTextUtils
 import com.starry.greenstash.utils.PreferenceUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
@@ -57,8 +57,6 @@ class HomeViewModel @Inject constructor(
     private val preferenceUtil: PreferenceUtil
 ) : ViewModel() {
 
-    val goalTextUtil = GoalTextUtils(preferenceUtil)
-
     private val _filterFlowData: MutableState<FilterFlowData> = mutableStateOf(
         FilterFlowData(
             FilterField.entries[preferenceUtil.getInt(
@@ -74,6 +72,8 @@ class HomeViewModel @Inject constructor(
     val filterFlowData: State<FilterFlowData> = _filterFlowData
 
     private val filterFlow = MutableStateFlow(filterFlowData.value)
+
+    @OptIn(ExperimentalCoroutinesApi::class)
     private val goalsListFlow = filterFlow.flatMapLatest { ffData ->
 
         // Save the current filter combination in shared preferences
@@ -149,6 +149,10 @@ class HomeViewModel @Inject constructor(
 
     fun getDefaultCurrency(): String {
         return preferenceUtil.getString(PreferenceUtil.DEFAULT_CURRENCY_STR, "")!!
+    }
+
+    fun getDateFormatPattern(): String {
+        return preferenceUtil.getString(PreferenceUtil.DATE_FORMAT_STR, "")!!
     }
 
     fun onboardingTapTargetsShown() {

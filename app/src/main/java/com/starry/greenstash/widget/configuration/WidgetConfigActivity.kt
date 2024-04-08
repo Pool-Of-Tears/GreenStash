@@ -86,8 +86,8 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.starry.greenstash.MainActivity
 import com.starry.greenstash.R
-import com.starry.greenstash.ui.screens.settings.viewmodels.SettingsViewModel
-import com.starry.greenstash.ui.screens.settings.viewmodels.ThemeMode
+import com.starry.greenstash.ui.screens.settings.SettingsViewModel
+import com.starry.greenstash.ui.screens.settings.ThemeMode
 import com.starry.greenstash.ui.theme.GreenStashTheme
 import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.widget.GoalWidget

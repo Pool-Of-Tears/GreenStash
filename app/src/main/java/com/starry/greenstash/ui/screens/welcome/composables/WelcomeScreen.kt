@@ -67,8 +67,9 @@ import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.starry.greenstash.R
 import com.starry.greenstash.ui.common.CurrencyPicker
+import com.starry.greenstash.ui.common.CurrencyPickerData
 import com.starry.greenstash.ui.navigation.DrawerScreens
-import com.starry.greenstash.ui.screens.welcome.viewmodels.WelcomeViewModel
+import com.starry.greenstash.ui.screens.welcome.WelcomeViewModel
 import com.starry.greenstash.ui.theme.greenstashFont
 
 
@@ -186,8 +187,10 @@ fun WelcomeScreen(navController: NavController) {
         CurrencyPicker(
             defaultCurrencyValue = viewModel.getDefaultCurrencyValue()
                 ?: currencyValues.first(),
-            currencyNames = currencyNames,
-            currencyValues = currencyValues,
+            currencyPickerData = CurrencyPickerData(
+                currencyNames = currencyNames,
+                currencyValues = currencyValues
+            ),
             showBottomSheet = currencyDialog,
             onCurrencySelected = { newValue ->
                 viewModel.setDefaultCurrency(newValue)

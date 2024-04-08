@@ -23,7 +23,7 @@
  */
 
 
-package com.starry.greenstash.ui.screens.settings.viewmodels
+package com.starry.greenstash.ui.screens.settings
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -31,7 +31,7 @@ import androidx.compose.runtime.Composable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.starry.greenstash.ui.screens.home.viewmodels.GoalCardStyle
+import com.starry.greenstash.ui.screens.home.GoalCardStyle
 import com.starry.greenstash.utils.PreferenceUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

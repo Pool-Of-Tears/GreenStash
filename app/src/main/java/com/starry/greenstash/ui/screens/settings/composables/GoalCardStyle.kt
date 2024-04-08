@@ -77,9 +77,9 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.starry.greenstash.MainActivity
 import com.starry.greenstash.R
+import com.starry.greenstash.ui.screens.home.GoalCardStyle
 import com.starry.greenstash.ui.screens.home.composables.GoalItemClassic
 import com.starry.greenstash.ui.screens.home.composables.GoalItemCompact
-import com.starry.greenstash.ui.screens.home.viewmodels.GoalCardStyle
 import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.utils.getActivity
 import kotlinx.coroutines.ExperimentalCoroutinesApi

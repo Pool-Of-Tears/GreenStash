@@ -55,12 +55,12 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.starry.greenstash.R
-import com.starry.greenstash.ui.screens.home.viewmodels.SearchWidgetState
+import com.starry.greenstash.ui.screens.home.SearchWidgetState
 import com.starry.greenstash.ui.theme.greenstashFont
 
 
 @Composable
-fun MainAppBar(
+fun HomeAppBar(
     onMenuClicked: () -> Unit,
     onFilterClicked: () -> Unit,
     onSearchClicked: () -> Unit,
@@ -98,7 +98,7 @@ fun MainAppBar(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DefaultAppBar(
+private fun DefaultAppBar(
     onMenuClicked: () -> Unit,
     onFilterClicked: () -> Unit,
     onSearchClicked: () -> Unit,
@@ -140,7 +140,7 @@ fun DefaultAppBar(
 
 
 @Composable
-fun SearchAppBar(
+private fun SearchAppBar(
     text: String,
     onTextChange: (String) -> Unit,
     onCloseClicked: () -> Unit,
