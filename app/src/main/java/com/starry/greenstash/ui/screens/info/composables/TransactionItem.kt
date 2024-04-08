@@ -76,8 +76,8 @@ import com.starry.greenstash.MainActivity
 import com.starry.greenstash.R
 import com.starry.greenstash.database.transaction.Transaction
 import com.starry.greenstash.database.transaction.TransactionType
-import com.starry.greenstash.ui.screens.info.viewmodels.InfoViewModel
-import com.starry.greenstash.ui.screens.settings.viewmodels.ThemeMode
+import com.starry.greenstash.ui.screens.info.InfoViewModel
+import com.starry.greenstash.ui.screens.settings.ThemeMode
 import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.utils.getActivity
 import kotlinx.coroutines.Dispatchers

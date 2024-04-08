@@ -35,8 +35,8 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.LocalContext
-import com.starry.greenstash.ui.screens.settings.viewmodels.SettingsViewModel
-import com.starry.greenstash.ui.screens.settings.viewmodels.ThemeMode
+import com.starry.greenstash.ui.screens.settings.SettingsViewModel
+import com.starry.greenstash.ui.screens.settings.ThemeMode
 
 
 private val LightColors = lightColorScheme(

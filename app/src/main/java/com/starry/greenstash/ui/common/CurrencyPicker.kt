@@ -48,6 +48,7 @@ import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -66,15 +67,46 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 
+/**
+ * Data class to hold the currency names and values for the currency picker.
+ * @param currencyNames Array of currency names.
+ * @param currencyValues Array of currency values.
+ */
+@Immutable
+data class CurrencyPickerData(
+    val currencyNames: Array<String>,
+    val currencyValues: Array<String>
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as CurrencyPickerData
+
+        if (!currencyNames.contentEquals(other.currencyNames)) return false
+        if (!currencyValues.contentEquals(other.currencyValues)) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = currencyNames.contentHashCode()
+        result = 31 * result + currencyValues.contentHashCode()
+        return result
+    }
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CurrencyPicker(
     defaultCurrencyValue: String,
-    currencyNames: Array<String>,
-    currencyValues: Array<String>,
+    currencyPickerData: CurrencyPickerData,
     showBottomSheet: MutableState<Boolean>,
     onCurrencySelected: (String) -> Unit
 ) {
+    val currencyNames = currencyPickerData.currencyNames
+    val currencyValues = currencyPickerData.currencyValues
+
     val defaultCurrencyEntry = currencyNames[currencyValues.indexOf(defaultCurrencyValue)]
     val (selectedCurrencyOption, onCurrencyOptionSelected) = remember {
         mutableStateOf(defaultCurrencyEntry)

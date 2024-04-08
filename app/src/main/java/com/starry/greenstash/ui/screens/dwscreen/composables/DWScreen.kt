@@ -25,17 +25,13 @@
 
 package com.starry.greenstash.ui.screens.dwscreen.composables
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -43,7 +39,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Button
-import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -86,9 +81,10 @@ import com.maxkeppeler.sheets.date_time.DateTimeDialog
 import com.maxkeppeler.sheets.date_time.models.DateTimeSelection
 import com.starry.greenstash.R
 import com.starry.greenstash.database.transaction.TransactionType
+import com.starry.greenstash.ui.common.DateTimeCard
 import com.starry.greenstash.ui.navigation.DrawerScreens
 import com.starry.greenstash.ui.navigation.Screens
-import com.starry.greenstash.ui.screens.input.viewmodels.DWViewModel
+import com.starry.greenstash.ui.screens.dwscreen.DWViewModel
 import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.utils.Utils
 import com.starry.greenstash.utils.validateAmount
@@ -98,7 +94,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -108,7 +103,7 @@ fun DWScreen(goalId: String, transactionTypeName: String, navController: NavCont
     val viewModel: DWViewModel = hiltViewModel()
 
     val selectedDateTime = remember {
-        mutableStateOf<LocalDateTime?>(LocalDateTime.now())
+        mutableStateOf<LocalDateTime>(LocalDateTime.now())
     }
     val dateTimeDialogState = rememberUseCaseState(visible = false)
 
@@ -121,8 +116,8 @@ fun DWScreen(goalId: String, transactionTypeName: String, navController: NavCont
     DateTimeDialog(
         state = dateTimeDialogState,
         selection = DateTimeSelection.DateTime(
-            selectedDate = selectedDateTime.value!!.toLocalDate(),
-            selectedTime = selectedDateTime.value!!.toLocalTime(),
+            selectedDate = selectedDateTime.value.toLocalDate(),
+            selectedTime = selectedDateTime.value.toLocalTime(),
         ) { newDateTime ->
             selectedDateTime.value = newDateTime
         },
@@ -157,39 +152,7 @@ fun DWScreen(goalId: String, transactionTypeName: String, navController: NavCont
         }) { paddingValues ->
 
         if (showTransactionAddedAnim.value) {
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                val compositionResult: LottieCompositionResult = rememberLottieComposition(
-                    spec = LottieCompositionSpec.RawRes(R.raw.transaction_added_lottie)
-                )
-                val progressAnimation by animateLottieCompositionAsState(
-                    compositionResult.value,
-                    isPlaying = true,
-                    iterations = 1,
-                    speed = 1.4f
-                )
-
-                Spacer(modifier = Modifier.weight(1f))
-
-                LottieAnimation(
-                    composition = compositionResult.value,
-                    progress = progressAnimation,
-                    modifier = Modifier.size(320.dp)
-                )
-
-                Text(
-                    text = if (transactionType == TransactionType.Deposit)
-                        stringResource(id = R.string.deposit_successful)
-                    else stringResource(id = R.string.withdraw_successful),
-                    fontWeight = FontWeight.SemiBold,
-                    fontFamily = greenstashFont,
-                    fontSize = 20.sp
-                )
-
-                Spacer(modifier = Modifier.weight(1.4f))
-            }
+            TransactionAddedAnimation(transactionType)
         } else {
             Column(
                 modifier = Modifier
@@ -220,9 +183,9 @@ fun DWScreen(goalId: String, transactionTypeName: String, navController: NavCont
                     enableMergePaths = true
                 )
 
-                DateTimePicker(
-                    selectedDateTime = selectedDateTime,
-                    dateTimeStyle = { viewModel.getDateStyleValue()!! },
+                DateTimeCard(
+                    selectedDateTime = selectedDateTime.value,
+                    dateTimeStyle = { viewModel.getDateStyle() },
                     onClick = { dateTimeDialogState.show() }
                 )
 
@@ -295,7 +258,7 @@ fun DWScreen(goalId: String, transactionTypeName: String, navController: NavCont
                                 TransactionType.Deposit -> {
                                     viewModel.deposit(
                                         goalId = goalId.toLong(),
-                                        dateTime = selectedDateTime.value!!,
+                                        dateTime = selectedDateTime.value,
                                         onGoalAchieved = {
                                             coroutineScope.launch {
                                                 showTransactionAddedAnim.value = true
@@ -317,7 +280,7 @@ fun DWScreen(goalId: String, transactionTypeName: String, navController: NavCont
                                 TransactionType.Withdraw -> {
                                     viewModel.withdraw(
                                         goalId = goalId.toLong(),
-                                        dateTime = selectedDateTime.value!!,
+                                        dateTime = selectedDateTime.value,
                                         onWithDrawOverflow = {
                                             coroutineScope.launch {
                                                 snackBarHostState.showSnackbar(
@@ -361,56 +324,41 @@ fun DWScreen(goalId: String, transactionTypeName: String, navController: NavCont
     }
 }
 
+
 @Composable
-fun DateTimePicker(
-    selectedDateTime: MutableState<LocalDateTime?>,
-    dateTimeStyle: () -> String,
-    onClick: () -> Unit
-) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 18.dp, vertical = 8.dp)
-            .clickable { onClick() }
+private fun TransactionAddedAnimation(transactionType: TransactionType) {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Row {
-                Icon(
-                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_dw_date),
-                    contentDescription = null,
-                    modifier = Modifier.size(24.dp)
-                )
-                Text(
-                    text = selectedDateTime.value!!.format(
-                        DateTimeFormatter.ofPattern(dateTimeStyle())
-                    ),
-                    fontFamily = greenstashFont,
-                    fontWeight = FontWeight.Medium,
-                    modifier = Modifier.padding(start = 8.dp, top = 2.dp)
-                )
-            }
+        val compositionResult: LottieCompositionResult = rememberLottieComposition(
+            spec = LottieCompositionSpec.RawRes(R.raw.transaction_added_lottie)
+        )
+        val progressAnimation by animateLottieCompositionAsState(
+            compositionResult.value,
+            isPlaying = true,
+            iterations = 1,
+            speed = 1.4f
+        )
 
-            Spacer(modifier = Modifier.width(24.dp))
+        Spacer(modifier = Modifier.weight(1f))
 
-            Row {
-                Icon(
-                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_dw_time),
-                    contentDescription = null,
-                    modifier = Modifier.size(24.dp)
-                )
-                Text(
-                    text = selectedDateTime.value!!.format(DateTimeFormatter.ofPattern("h:mm a")),
-                    fontFamily = greenstashFont,
-                    fontWeight = FontWeight.Medium,
-                    modifier = Modifier.padding(start = 8.dp, top = 2.dp)
-                )
-            }
-        }
+        LottieAnimation(
+            composition = compositionResult.value,
+            progress = progressAnimation,
+            modifier = Modifier.size(320.dp)
+        )
+
+        Text(
+            text = if (transactionType == TransactionType.Deposit)
+                stringResource(id = R.string.deposit_successful)
+            else stringResource(id = R.string.withdraw_successful),
+            fontWeight = FontWeight.SemiBold,
+            fontFamily = greenstashFont,
+            fontSize = 20.sp
+        )
+
+        Spacer(modifier = Modifier.weight(1.4f))
     }
 }
 

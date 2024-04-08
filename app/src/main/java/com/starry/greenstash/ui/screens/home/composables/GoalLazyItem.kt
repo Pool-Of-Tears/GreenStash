@@ -43,9 +43,10 @@ import com.starry.greenstash.R
 import com.starry.greenstash.database.core.GoalWithTransactions
 import com.starry.greenstash.database.transaction.TransactionType
 import com.starry.greenstash.ui.navigation.Screens
-import com.starry.greenstash.ui.screens.home.viewmodels.GoalCardStyle
-import com.starry.greenstash.ui.screens.home.viewmodels.HomeViewModel
+import com.starry.greenstash.ui.screens.home.GoalCardStyle
+import com.starry.greenstash.ui.screens.home.HomeViewModel
 import com.starry.greenstash.utils.Constants
+import com.starry.greenstash.utils.GoalTextUtils
 import com.starry.greenstash.utils.ImageUtils
 import com.starry.greenstash.utils.Utils
 import com.starry.greenstash.utils.getActivity
@@ -74,12 +75,18 @@ fun GoalLazyColumnItem(
     when (goalCardStyle) {
         GoalCardStyle.Classic -> {
             GoalItemClassic(title = item.goal.title,
-                primaryText = viewModel.goalTextUtil.buildPrimaryText(
-                    context,
-                    progressPercent,
-                    item
+                primaryText = GoalTextUtils.buildPrimaryText(
+                    context = context,
+                    progressPercent = progressPercent,
+                    goalItem = item,
+                    currencyCode = viewModel.getDefaultCurrency()
                 ),
-                secondaryText = viewModel.goalTextUtil.buildSecondaryText(context, item),
+                secondaryText = GoalTextUtils.buildSecondaryText(
+                    context = context,
+                    goalItem = item,
+                    currencyCode = viewModel.getDefaultCurrency(),
+                    datePattern = viewModel.getDateFormatPattern()
+                ),
                 goalProgress = progressPercent.toFloat() / 100,
                 goalImage = item.goal.goalImage,
                 onDepositClicked = {
@@ -147,7 +154,11 @@ fun GoalLazyColumnItem(
                     item.getCurrentlySavedAmount(),
                     viewModel.getDefaultCurrency()
                 ),
-                daysLeftText = viewModel.goalTextUtil.getRemainingDaysText(context, item),
+                daysLeftText = GoalTextUtils.getRemainingDaysText(
+                    context = context,
+                    goalItem = item,
+                    datePattern = viewModel.getDateFormatPattern()
+                ),
                 goalProgress = progressPercent.toFloat() / 100,
                 goalIcon = goalIcon,
                 onDepositClicked = {

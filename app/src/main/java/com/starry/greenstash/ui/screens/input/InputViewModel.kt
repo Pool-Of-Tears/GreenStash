@@ -23,7 +23,7 @@
  */
 
 
-package com.starry.greenstash.ui.screens.dwscreen.viewmodels
+package com.starry.greenstash.ui.screens.input
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -41,7 +41,7 @@ import com.starry.greenstash.database.goal.Goal
 import com.starry.greenstash.database.goal.GoalDao
 import com.starry.greenstash.database.goal.GoalPriority
 import com.starry.greenstash.reminder.ReminderManager
-import com.starry.greenstash.ui.screens.settings.viewmodels.DateStyle
+import com.starry.greenstash.ui.screens.settings.DateStyle
 import com.starry.greenstash.utils.ImageUtils
 import com.starry.greenstash.utils.PreferenceUtil
 import com.starry.greenstash.utils.Utils

@@ -23,7 +23,7 @@
  */
 
 
-package com.starry.greenstash.ui.screens.backups
+package com.starry.greenstash.ui.screens.backups.composables
 
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -71,6 +71,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.starry.greenstash.R
+import com.starry.greenstash.ui.screens.backups.BackupViewModel
 import com.starry.greenstash.ui.theme.greenstashFont
 import kotlinx.coroutines.launch
 import java.io.InputStreamReader
@@ -154,7 +155,7 @@ fun BackupScreen(navController: NavController) {
 }
 
 @Composable
-fun BackupScreenContent(
+private fun BackupScreenContent(
     paddingValues: PaddingValues, onBackupClicked: () -> Unit, onRestoreClicked: () -> Unit
 ) {
     Column(

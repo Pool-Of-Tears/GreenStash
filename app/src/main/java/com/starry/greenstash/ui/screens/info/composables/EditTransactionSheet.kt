@@ -66,8 +66,8 @@ import com.maxkeppeler.sheets.date_time.models.DateTimeSelection
 import com.starry.greenstash.R
 import com.starry.greenstash.database.transaction.Transaction
 import com.starry.greenstash.database.transaction.TransactionType
-import com.starry.greenstash.ui.screens.dwscreen.composables.DateTimePicker
-import com.starry.greenstash.ui.screens.info.viewmodels.InfoViewModel
+import com.starry.greenstash.ui.common.DateTimeCard
+import com.starry.greenstash.ui.screens.info.InfoViewModel
 import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.utils.Utils
 import com.starry.greenstash.utils.toToast
@@ -91,7 +91,7 @@ fun EditTransactionSheet(
 
     val selectedDateTime = remember {
         val instant = Instant.ofEpochMilli(transaction.timeStamp)
-        mutableStateOf<LocalDateTime?>(
+        mutableStateOf<LocalDateTime>(
             LocalDateTime.ofInstant(
                 instant,
                 TimeZone.getDefault().toZoneId()
@@ -106,8 +106,8 @@ fun EditTransactionSheet(
     DateTimeDialog(
         state = dateTimeDialogState,
         selection = DateTimeSelection.DateTime(
-            selectedDate = selectedDateTime.value!!.toLocalDate(),
-            selectedTime = selectedDateTime.value!!.toLocalTime(),
+            selectedDate = selectedDateTime.value.toLocalDate(),
+            selectedTime = selectedDateTime.value.toLocalTime(),
         ) { newDateTime -> selectedDateTime.value = newDateTime }
     )
 
@@ -166,9 +166,9 @@ fun EditTransactionSheet(
                         }
                     }
 
-                    DateTimePicker(
-                        selectedDateTime = selectedDateTime,
-                        dateTimeStyle = { viewModel.getDateStyleValue()!! },
+                    DateTimeCard(
+                        selectedDateTime = selectedDateTime.value,
+                        dateTimeStyle = { viewModel.getDateStyle() },
                         onClick = { dateTimeDialogState.show() }
                     )
 
@@ -241,7 +241,7 @@ fun EditTransactionSheet(
                             } else {
                                 viewModel.updateTransaction(
                                     transaction = transaction,
-                                    transactionTime = selectedDateTime.value!!,
+                                    transactionTime = selectedDateTime.value,
                                     transactionType = selectedTransactionType,
                                 )
                                 coroutineScope.launch {

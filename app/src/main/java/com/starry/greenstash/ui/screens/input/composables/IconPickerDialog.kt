@@ -70,9 +70,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.starry.greenstash.R
-import com.starry.greenstash.ui.screens.dwscreen.viewmodels.IconItem
-import com.starry.greenstash.ui.screens.dwscreen.viewmodels.IconsState
-import com.starry.greenstash.ui.screens.dwscreen.viewmodels.InputViewModel
+import com.starry.greenstash.ui.screens.input.IconItem
+import com.starry.greenstash.ui.screens.input.IconsState
+import com.starry.greenstash.ui.screens.input.InputViewModel
 import com.starry.greenstash.ui.theme.greenstashFont
 
 

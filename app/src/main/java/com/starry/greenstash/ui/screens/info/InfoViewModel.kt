@@ -23,7 +23,7 @@
  */
 
 
-package com.starry.greenstash.ui.screens.info.viewmodels
+package com.starry.greenstash.ui.screens.info
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -35,8 +35,7 @@ import com.starry.greenstash.database.goal.GoalDao
 import com.starry.greenstash.database.transaction.Transaction
 import com.starry.greenstash.database.transaction.TransactionDao
 import com.starry.greenstash.database.transaction.TransactionType
-import com.starry.greenstash.ui.screens.settings.viewmodels.DateStyle
-import com.starry.greenstash.utils.GoalTextUtils
+import com.starry.greenstash.ui.screens.settings.DateStyle
 import com.starry.greenstash.utils.PreferenceUtil
 import com.starry.greenstash.utils.Utils
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -63,7 +62,6 @@ class InfoViewModel @Inject constructor(
     private val preferenceUtil: PreferenceUtil
 ) : ViewModel() {
 
-    val goalTextUtils = GoalTextUtils(preferenceUtil)
     var state by mutableStateOf(InfoScreenState())
     var editGoalState by mutableStateOf(EditGoalState())
 
@@ -109,9 +107,17 @@ class InfoViewModel @Inject constructor(
         PreferenceUtil.DEFAULT_CURRENCY_STR, "$"
     )!!
 
-    fun getDateStyleValue() = preferenceUtil.getString(
-        PreferenceUtil.DATE_FORMAT_STR, DateStyle.DateMonthYear.pattern
-    )
+    fun getDateStyle(): DateStyle {
+        val dateStyleValue = preferenceUtil.getString(
+            PreferenceUtil.DATE_FORMAT_STR,
+            DateStyle.DateMonthYear.pattern
+        )
+        return if (dateStyleValue == DateStyle.DateMonthYear.pattern) {
+            DateStyle.DateMonthYear
+        } else {
+            DateStyle.YearMonthDate
+        }
+    }
 
     fun shouldShowTransactionTip() = preferenceUtil.getBoolean(
         PreferenceUtil.INFO_TRANSACTION_SWIPE_TIP_BOOL, true

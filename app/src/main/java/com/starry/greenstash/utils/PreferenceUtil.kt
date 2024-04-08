@@ -27,7 +27,7 @@ package com.starry.greenstash.utils
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.starry.greenstash.ui.screens.settings.viewmodels.DateStyle
+import com.starry.greenstash.ui.screens.settings.DateStyle
 
 class PreferenceUtil(context: Context) {
 
