@@ -91,9 +91,11 @@ import com.starry.greenstash.ui.screens.settings.ThemeMode
 import com.starry.greenstash.ui.theme.GreenStashTheme
 import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.widget.GoalWidget
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 
 
+@AndroidEntryPoint
 class WidgetConfigActivity : AppCompatActivity() {
 
     private val viewModel: WidgetConfigViewModel by viewModels()

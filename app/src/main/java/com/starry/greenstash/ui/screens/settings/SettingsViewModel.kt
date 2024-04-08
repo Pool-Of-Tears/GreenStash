@@ -36,10 +36,21 @@ import com.starry.greenstash.utils.PreferenceUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+/**
+ * Enum class for the theme mode of the app.
+ * [ThemeMode.Light] - Light theme
+ * [ThemeMode.Dark] - Dark theme
+ * [ThemeMode.Auto] - Follow system theme
+ */
 enum class ThemeMode {
     Light, Dark, Auto
 }
 
+/**
+ * Sealed class for the date style of the app.
+ * [DateStyle.DateMonthYear] - Date in the format dd/MM/yyyy
+ * [DateStyle.YearMonthDate] - Date in the format yyyy/MM/dd
+ */
 sealed class DateStyle(val pattern: String) {
     data object DateMonthYear : DateStyle("dd/MM/yyyy")
     data object YearMonthDate : DateStyle("yyyy/MM/dd")
@@ -118,6 +129,12 @@ class SettingsViewModel @Inject constructor(
         PreferenceUtil.APP_LOCK_BOOL, false
     )
 
+    /**
+     * Get the current theme of the app, regardless of the system theme.
+     * This will always return either [ThemeMode.Light] or [ThemeMode.Dark].
+     * If user has set the theme to Auto it will return the system theme,
+     * again Light or Dark instead of [ThemeMode.Auto].
+     */
     @Composable
     fun getCurrentTheme(): ThemeMode {
         return if (theme.value == ThemeMode.Auto) {
