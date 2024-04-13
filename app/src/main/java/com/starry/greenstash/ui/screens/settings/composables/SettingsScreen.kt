@@ -472,7 +472,7 @@ private fun SecuritySettings(viewModel: SettingsViewModel) {
                                 super.onAuthenticationSucceeded(result)
                                 context.getString(R.string.auth_successful)
                                     .toToast(context)
-                                mainActivity.mainViewModel.appUnlocked = true
+                                mainActivity.mainViewModel.setAppUnlocked(true)
                                 viewModel.setAppLock(true)
                             }
 
