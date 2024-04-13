@@ -1,0 +1,4 @@
+- Added nice UI with authorize button when app is locked.
+- Added ability to copy notes related to saving goal.
+- Fixed double precision issue when depositing via reminder notification.
+- Bunch of code cleanups and optimizations.
