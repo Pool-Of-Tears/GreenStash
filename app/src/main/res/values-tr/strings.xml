@@ -24,6 +24,13 @@
     <string name="welcome_screen_text">Merhaba! Lütfen başlamak için tercih edilen para birimini seçin.</string>
     <string name="welcome_screen_button">Başla</string>
 
+    <!-- App Lock Screen -->
+    <string name="app_lock_screen_title">GreenStash kilitli</string>
+    <string name="app_lock_screen_subtitle">Kimlik doğrulamak için aşağıdaki düğmeye tıklayın.</string>
+    <string name="app_lock_button_text">Yetkilendir</string>
+    <string name="app_lock_button_icon_desc">Uygulamayı Aç</string>
+    <string name="app_lock_unable_to_authenticate">Cihaz kimlik doğrulayamadığı için uygulama kilitli değil</string>
+
     <!-- Home Screen -->
     <string name="home_screen_header">Birikim Hedefleri</string>
     <string name="menu_button_desc">Yan menüyü aç</string>

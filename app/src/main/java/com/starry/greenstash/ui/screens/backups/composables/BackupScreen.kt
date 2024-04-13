@@ -182,7 +182,7 @@ private fun BackupScreenContent(
                 contentAlignment = Alignment.Center
             ) {
                 AsyncImage(
-                    model = R.drawable.backup_logo,
+                    model = R.drawable.backup_icon,
                     contentDescription = null,
                     modifier = Modifier.size(200.dp)
                 )

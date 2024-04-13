@@ -24,6 +24,13 @@
     <string name="welcome_screen_text">Hello! Please select your preferred currency to get started.</string>
     <string name="welcome_screen_button">Let\'s Get Started!</string>
 
+    <!-- App Lock Screen -->
+    <string name="app_lock_screen_title">GreenStash is locked</string>
+    <string name="app_lock_screen_subtitle">Click the button below to authenticate.</string>
+    <string name="app_lock_button_text">Authorize</string>
+    <string name="app_lock_button_icon_desc">Unlock App</string>
+    <string name="app_lock_unable_to_authenticate">App-lock is disabled because the device is unable to authenticate</string>
+
     <!-- Home Screen -->
     <string name="home_screen_header">Saving Goals</string>
     <string name="menu_button_desc">Open side menu</string>

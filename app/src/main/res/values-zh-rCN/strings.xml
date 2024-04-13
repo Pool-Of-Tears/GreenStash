@@ -24,6 +24,13 @@
     <string name="welcome_screen_text">您好！请选择您的货币。</string>
     <string name="welcome_screen_button">开始</string>
 
+    <!-- App Lock Screen -->
+    <string name="app_lock_screen_title">GreenStash已锁定</string>
+    <string name="app_lock_screen_subtitle">点击下面的按钮进行身份验证。</string>
+    <string name="app_lock_button_text">授权</string>
+    <string name="app_lock_button_icon_desc">解锁应用</string>
+    <string name="app_lock_unable_to_authenticate">由于设备无法进行身份验证，应用程序锁定已禁用</string>
+
     <!-- Home Screen -->
     <string name="home_screen_header">省钱目标</string>
     <string name="menu_button_desc">打开侧边菜单</string>

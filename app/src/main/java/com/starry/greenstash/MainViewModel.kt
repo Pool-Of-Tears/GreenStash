@@ -49,11 +49,11 @@ class MainViewModel @Inject constructor(
     private val reminderManager: ReminderManager
 ) : ViewModel() {
     /**
-     * Storing app lock status to avoid asking for authentication
+     * Store app lock status to avoid asking for authentication
      * when activity restarts like when changing app or device
      * theme or when changing device orientation.
      */
-    var appUnlocked = false
+    private var _appUnlocked = false
 
     private val _isLoading: MutableState<Boolean> = mutableStateOf(true)
     val isLoading: State<Boolean> = _isLoading
@@ -81,5 +81,11 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             reminderManager.checkAndScheduleReminders(goalDao.getAllGoals())
         }
+    }
+
+    fun isAppUnlocked(): Boolean = _appUnlocked
+
+    fun setAppUnlocked(value: Boolean) {
+        _appUnlocked = value
     }
 }
