@@ -1,0 +1,203 @@
+<resources>
+    <string name="app_name">GreenStash</string>
+
+    <!-- Other Strings -->
+    <string name="confirm">確認</string>
+    <string name="cancel">取消</string>
+    <string name="ok">確定</string>
+    <string name="unknown_error">哎呀！遇到了錯誤。</string>
+
+    <!-- Navigation Drawer -->
+    <string name="drawer_home">首頁</string>
+    <string name="drawer_backups">備份</string>
+    <string name="drawer_settings">設定</string>
+    <string name="drawer_footer_text">在印度製作，充滿 ❤️。</string>
+
+    <!-- Biometric Lock -->
+    <string name="bio_lock_title">解鎖 GreenStash</string>
+    <string name="bio_lock_subtitle">請確認您的螢幕鎖定、PIN 或密碼。</string>
+    <string name="auth_successful">驗證成功！</string>
+    <string name="auth_failed">驗證失敗！</string>
+    <string name="auth_error">驗證錯誤：%s</string>
+
+    <!-- Welcome Screen. -->
+    <string name="welcome_screen_text">您好！請選擇您的預設貨幣以開始。</string>
+    <string name="welcome_screen_button">開始吧！</string>
+
+    <!-- App Lock Screen -->
+    <string name="app_lock_screen_title">GreenStash 已鎖定</string>
+    <string name="app_lock_screen_subtitle">點選下方按鈕進行驗證。</string>
+    <string name="app_lock_button_text">授權</string>
+    <string name="app_lock_button_icon_desc">解鎖應用程式</string>
+    <string name="app_lock_unable_to_authenticate">由於裝置無法進行驗證，應用程式鎖定已停用</string>
+
+    <!-- Home Screen -->
+    <string name="home_screen_header">儲蓄目標</string>
+    <string name="menu_button_desc">開啟側邊選單</string>
+    <string name="filter_button_desc">篩選您的儲蓄目標</string>
+    <string name="search_button_desc">搜尋特定的儲蓄目標。</string>
+    <string name="new_goal_fab">新目標</string>
+    <string name="new_goal_onboarding_title">讓我們開始建立新的儲蓄目標吧！</string>
+    <string name="new_goal_onboarding_desc">點選浮動動作按鈕以建立新的儲蓄目標。</string>
+    <string name="filter_menu_title">篩選條件</string>
+    <string name="home_search_label">在此搜尋…</string>
+    <string name="search_goal_not_found">404：找不到目標！</string>
+
+    <!-- Deposit & Withdraw Screen -->
+    <string name="deposit_screen_title">太棒了！請輸入金額</string>
+    <string name="withdraw_screen_title">很好！請輸入金額</string>
+    <string name="deposit_successful">存款成功！</string>
+    <string name="withdraw_successful">提款成功！</string>
+    <string name="withdraw_overflow_error">金額超過目前的存款金額！</string>
+
+    <!-- Congratulations Screen -->
+    <string name="goal_achieved_heading">恭喜 🥳</string>
+    <string name="goal_achieved_subtext">您已達成您的儲蓄目標！您的努力和承諾帶來了這個值得慶祝的成就。慶祝您的成功！🎉</string>
+    <string name="goal_achieved_button">回到首頁</string>
+
+    <!-- Strings used for dashboard saving goals cards -->
+    <string name="no_goal_set">尚未設定儲蓄目標。</string>
+    <string name="transaction_amount">金額</string>
+    <string name="deposit_button">存款</string>
+    <string name="goal_already_achieved">您已達成此目標。</string>
+    <string name="withdraw_button">提款</string>
+    <string name="withdraw_button_error">您尚未存入任何金額。</string>
+    <string name="goal_delete_confirmation">您確定嗎？</string>
+    <string name="goal_delete_success">成功刪除。</string>
+    <string name="info_button_description">檢視目標資訊。</string>
+    <string name="edit_button_description">編輯此目標</string>
+    <string name="delete_button_description">刪除此目標</string>
+    <string name="add_fab_button_title">新目標</string>
+    <string name="progress_greet1">您已經有了很好的開始！</string>
+    <string name="progress_greet2">繼續保持！</string>
+    <string name="progress_greet3">如果您認為自己能做到，那麼您就能做到。</string>
+    <string name="progress_greet4">快到了，您可以做到！</string>
+    <string name="progress_greet5">恭喜 &#x1F389;</string>
+    <string name="currently_saved_incomplete">目前已儲蓄 %s，目標 %s。</string>
+    <string name="currently_saved_complete">您已儲蓄 %s，目標 %s。</string>
+    <!-- Eg: You have until 25/12/2022 (152) days left. -->
+    <string name="goal_days_left">您還有到 %s 的時間，剩餘 (%s) 天。</string>
+    <!-- Eg: You need to save around $2/day, $20/week, $200/month. -->
+    <string name="goal_approx_saving">您需要每天儲蓄約 %s/</string>
+    <string name="goal_approx_saving_day">天。</string>
+    <string name="goal_approx_saving_week">週。</string>
+    <string name="goal_approx_saving_month">月。</string>
+    <string name="no_goal_deadline_set">由於您沒有指定任何期限，所以您有全世界的時間！</string>
+    <string name="goal_achieved_desc">現在是慶祝所有辛勤工作帶來這個快樂時刻的時候了。</string>
+
+    <!-- Goal Info Screen -->
+    <string name="info_screen_header">目標資訊</string>
+    <string name="info_card_title">您已儲蓄</string>
+    <string name="info_card_remaining_amount">目標 %s</string>
+    <string name="info_card_remaining_days">剩餘 %s 天。</string>
+    <string name="info_card_no_deadline_set">未設定期限。</string>
+    <string name="info_card_goal_achieved">達成目標！🎉</string>
+    <string name="info_goal_priority">目標優先順序為 %s</string>
+    <string name="info_reminder_status_on">提醒已啟用</string>
+    <string name="info_reminder_status_off">提醒已停用</string>
+    <string name="info_notes_card_title">筆記</string>
+    <string name="info_copy_notes_button">複製</string>
+    <string name="info_copy_notes_icon_desc">複製筆記</string>
+    <string name="info_copy_notes_alert">成功複製！</string>
+    <string name="info_goal_no_transactions">尚無交易。</string>
+    <string name="info_edit_transaction_button">更新交易</string>
+    <string name="info_transaction_onboarding_tip">提示：向左或向右滑動交易以編輯或刪除它們。</string>
+
+    <!-- Input (New/Edit Goal) Screen -->
+    <string name="input_screen_header">該存錢的時候了！</string>
+    <string name="input_edit_goal_header">編輯儲蓄目標</string>
+    <string name="input_pick_icon">為您的目標選擇一個圖示。</string>
+    <string name="input_pick_icon_onboarding_title">…或者如果您喜歡簡約樣式，為您的目標新增一個圖示。</string>
+    <string name="input_pick_icon_onboarding_desc">目標圖示將用於緊湊型目標卡片，設定 > 目標卡片樣式</string>
+    <string name="input_icon_dialog">選擇一個圖示</string>
+    <string name="input_pick_image_fab">目標圖片</string>
+    <string name="input_pick_image_onboarding_title">為您的目標新增圖片，讓它們看起來更個性化！</string>
+    <string name="input_pick_image_onboarding_desc">點選浮動動作按鈕以為您的目標新增圖片。</string>
+    <string name="input_page_quote">千里之行，始於足下</string>
+    <string name="input_goal_priority">選擇您的目標優先順序。</string>
+    <string name="input_goal_reminder">儲蓄提醒</string>
+    <string name="input_goal_reminders_onboarding_title">啟用提醒以隨時更新您的目標！</string>
+    <string name="input_goal_reminders_onboarding_desc">根據目標優先順序，提醒將每天、每週或每兩週傳送一次。</string>
+    <string name="input_text_title">目標標題</string>
+    <string name="title_empty_err">哎呀！標題是空的。</string>
+    <string name="input_text_amount">目標金額</string>
+    <string name="amount_empty_err">哎呀！金額是空的或無效。</string>
+    <string name="input_deadline">期限（選填）</string>
+    <string name="input_additional_notes">筆記（選填）</string>
+    <string name="input_add_goal_button">設定新的儲蓄目標</string>
+    <string name="input_edit_goal_button">更新儲蓄目標</string>
+    <string name="goal_saved_success">做得好！已設定儲蓄目標。</string>
+    <string name="goad_edit_success">儲蓄目標已更新。</string>
+    <string name="goal_remove_deadline">您是否要從此目標中移除期限？</string>
+
+    <!-- Backup Screen -->
+    <string name="backup_screen_header">備份與還原</string>
+    <string name="backup_screen_text">備份應用程式資料，包括所有的儲蓄目標、目前進度、交易等，並在您需要時可以輕鬆還原。</string>
+    <string name="backup_screen_sub_text">請注意，備份不包括應用程式設定。</string>
+    <string name="backup_button">備份</string>
+    <string name="restore_button">還原</string>
+    <string name="backup_restore_success">備份已成功還原！</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_screen_header">設定</string>
+    <string name="display_settings_title">顯示</string>
+    <string name="theme_setting">預設主題</string>
+    <string name="theme_dialog_title">更改主題</string>
+    <string name="theme_dialog_option1">亮色</string>
+    <string name="theme_dialog_option2">暗色</string>
+    <string name="theme_dialog_option3">系統預設</string>
+    <string name="theme_dialog_apply_button">套用</string>
+    <string name="material_you_setting" translatable="false">Material You</string>
+    <string name="material_you_setting_desc">根據您的桌布切換主題（僅限 Android 12+）</string>
+    <string name="material_you_error">此功能僅適用於執行 Android 12 或以上版本的裝置。</string>
+    <string name="goal_card_setting">目標卡片樣式</string>
+    <string name="goal_card_option1">傳統</string>
+    <string name="goal_card_option2">緊湊</string>
+    <string name="locales_setting_title">地區</string>
+    <string name="date_format_setting">日期格式</string>
+    <string name="date_format_dialog_title">更改日期格式</string>
+    <string name="preferred_currency_setting">預設貨幣</string>
+    <string name="currency_dialog_title">選擇預設貨幣</string>
+    <string name="security_settings_title">安全</string>
+    <string name="app_lock_setting">生物辨識鎖定</string>
+    <string name="app_lock_setting_desc">使用您的指紋或螢幕鎖定密碼來解鎖 GreenStash</string>
+    <string name="misc_setting_title">其他</string>
+    <string name="license_setting">授權與認可</string>
+    <string name="license_setting_desc">顯示開放原始碼授權資訊。</string>
+    <string name="app_info_setting">應用程式資訊</string>
+    <string name="app_info_setting_desc">顯示應用程式版本和連結。</string>
+
+    <!-- Goal Card Style -->
+    <string name="goal_card_settings_header">目標樣式</string>
+    <string name="goal_card_settings_tip">提示！您可以向左或向右滑動緊湊樣式的卡片以編輯或刪除儲蓄目標。</string>
+
+    <!-- OSL Screen -->
+    <string name="osl_screen_header">開放原始碼函式庫</string>
+
+    <!-- About Screen -->
+    <string name="about_screen_header">關於</string>
+    <string name="about_readme_title">讀我檔案</string>
+    <string name="about_readme_desc">檢視 GitHub 專案及讀我檔案。</string>
+    <string name="about_privacy_title">隱私權政策</string>
+    <string name="about_privacy_desc">在 GitHub 上閱讀我們最新的隱私權政策和服務條款。</string>
+    <string name="about_gh_issue_title">GitHub Issue</string>
+    <string name="about_gh_issue_desc">透過在 GitHub 上建立 Issue 來回報錯誤或提供功能建議。</string>
+    <string name="about_telegram_title">Telegram 群組</string>
+    <string name="about_telegram_desc">加入我們的 Telegram 以分享您的想法或只是來聊聊天！</string>
+    <string name="about_support_title">支援開發</string>
+    <string name="about_support_desc">如果您認為我為我的工作應得一些鼓勵，您可以點選這裡為我買一些餅乾。</string>
+    <string name="about_version_title">版本</string>
+    <string name="about_version_desc">版本-%s</string>
+
+    <!-- Widget Screen -->
+    <string name="widget_config_screen_header">選擇目標</string>
+    <string name="goal_widget_desc">已儲蓄 %s</string>
+
+    <!-- Goal Reminders -->
+    <string name="notification_permission_error">請允許通知權限！😾</string>
+    <string name="reminder_notification_desc">您儲蓄的越多，您將越快達到您的目標！💰</string>
+    <string name="dismiss_notification_button">忽略</string>
+    <string name="notification_deposited_title">做得好 🎉</string>
+    <string name="notification_deposited_desc">成功存款 %s！</string>
+
+</resources>
