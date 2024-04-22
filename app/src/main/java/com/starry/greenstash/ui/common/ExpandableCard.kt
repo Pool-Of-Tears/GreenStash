@@ -129,6 +129,7 @@ fun ExpandableCard(
                     text = title,
                     fontSize = titleFontSize,
                     fontWeight = titleFontWeight,
+                    fontFamily = titleFontFamily,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )

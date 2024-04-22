@@ -184,6 +184,8 @@ class InputViewModel @Inject constructor(
         PreferenceUtil.DATE_FORMAT_STR, DateStyle.DateMonthYear.pattern
     )
 
+    // Icon picker ==============
+
     fun updateIconSearch(context: Context, search: String) {
         _iconState.value = _iconState.value.copy(searchText = search)
         iconSearchJob?.cancel()
@@ -232,9 +234,21 @@ class InputViewModel @Inject constructor(
         return lines
     }
 
+    // Onboarding ==============
+
     fun onboardingTapTargetsShown() {
         preferenceUtil.putBoolean(PreferenceUtil.INPUT_SCREEN_ONBOARDING_BOOL, false)
         _showOnboardingTapTargets.value = false
+    }
+
+    fun shouldShowRemoveDeadlineTip(): Boolean {
+        return state.deadline.isNotBlank() && preferenceUtil.getBoolean(
+            PreferenceUtil.INPUT_REMOVE_DEADLINE_TIP_BOOL, true
+        )
+    }
+
+    fun removeDeadlineTipShown() {
+        preferenceUtil.putBoolean(PreferenceUtil.INPUT_REMOVE_DEADLINE_TIP_BOOL, false)
     }
 
 }

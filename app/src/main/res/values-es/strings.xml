@@ -125,9 +125,10 @@
     <string name="input_additional_notes">Notas (Opcional)</string>
     <string name="input_add_goal_button">Agregar Nueva Meta</string>
     <string name="input_edit_goal_button">Actualizar Meta</string>
-    <string name="goal_saved_success">¡Buen trabajo! Meta agregada.</string>
-    <string name="goad_edit_success">Meta actualizada.</string>
-    <string name="goal_remove_deadline">¿Quieres quitar la fecha límite de este objetivo?</string>
+    <string name="input_goal_saved_success">¡Buen trabajo! Meta agregada.</string>
+    <string name="input_goad_edit_success">Meta actualizada.</string>
+    <string name="input_goal_remove_deadline">¿Quieres quitar la fecha límite de este objetivo?</string>
+    <string name="input_remove_deadline_tip">Consejo: Puedes eliminar la fecha límite de los objetivos existentes manteniendo pulsado el campo de fecha límite.</string>
 
     <!-- Backup Screen -->
     <string name="backup_screen_header">Respaldar y recuperar datos</string>
