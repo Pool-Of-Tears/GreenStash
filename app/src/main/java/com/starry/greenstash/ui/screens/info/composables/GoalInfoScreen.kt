@@ -222,7 +222,7 @@ fun GoalInfoScreen(goalId: String, navController: NavController) {
 
                             LottieAnimation(
                                 composition = compositionResult.value,
-                                progress = progressAnimation,
+                                progress = { progressAnimation },
                                 modifier = Modifier.size(320.dp),
                                 enableMergePaths = true
                             )

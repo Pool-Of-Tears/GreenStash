@@ -176,7 +176,7 @@ fun DWScreen(goalId: String, transactionTypeName: String, navController: NavCont
 
                 LottieAnimation(
                     composition = compositionResult.value,
-                    progress = progressAnimation,
+                    progress = { progressAnimation },
                     modifier = Modifier
                         .size(280.dp)
                         .padding(top = 28.dp),
@@ -345,7 +345,7 @@ private fun TransactionAddedAnimation(transactionType: TransactionType) {
 
         LottieAnimation(
             composition = compositionResult.value,
-            progress = progressAnimation,
+            progress = { progressAnimation },
             modifier = Modifier.size(320.dp)
         )
 

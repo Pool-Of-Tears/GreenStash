@@ -895,7 +895,7 @@ private fun GoalAddedOREditedAnimation(editGoalId: String?) {
 
         LottieAnimation(
             composition = compositionResult.value,
-            progress = progressAnimation,
+            progress = { progressAnimation },
             modifier = Modifier.size(320.dp)
         )
         val textStr = if (editGoalId == null) {

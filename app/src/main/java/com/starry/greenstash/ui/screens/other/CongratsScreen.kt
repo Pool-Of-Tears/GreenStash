@@ -106,7 +106,7 @@ fun CongratsScreen(navController: NavController) {
 
             LottieAnimation(
                 composition = compositionResult.value,
-                progress = progressAnimation,
+                progress = { progressAnimation },
                 modifier = Modifier.size(360.dp),
                 enableMergePaths = true
             )
