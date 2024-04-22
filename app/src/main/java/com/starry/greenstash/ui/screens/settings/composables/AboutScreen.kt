@@ -68,7 +68,7 @@ sealed class AboutLinks(val url: String) {
 
     data object GithubIssues : AboutLinks("https://github.com/Pool-Of-Tears/GreenStash/issues")
     data object Telegram : AboutLinks("https://t.me/PotApps")
-    data object Sponser : AboutLinks("https://github.com/sponsors/starry-shivam")
+    data object Sponsor : AboutLinks("https://github.com/sponsors/starry-shivam")
 }
 
 
@@ -137,7 +137,7 @@ fun AboutScreen(navController: NavController) {
                 SettingsItem(title = stringResource(id = R.string.about_support_title),
                     description = stringResource(id = R.string.about_support_desc),
                     icon = Icons.Filled.Favorite,
-                    onClick = { openWebLink(context, AboutLinks.Sponser.url) }
+                    onClick = { openWebLink(context, AboutLinks.Sponsor.url) }
                 )
             }
             item {
