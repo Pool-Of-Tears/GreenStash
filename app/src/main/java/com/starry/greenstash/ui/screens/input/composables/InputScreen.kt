@@ -26,6 +26,7 @@
 package com.starry.greenstash.ui.screens.input.composables
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -236,7 +237,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
             showRemoveDeadlineDialog.value = false
         }, title = {
             Text(
-                text = stringResource(id = R.string.goal_remove_deadline),
+                text = stringResource(id = R.string.input_goal_remove_deadline),
                 color = MaterialTheme.colorScheme.onSurface,
                 fontFamily = greenstashFont
             )
@@ -301,6 +302,20 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                 val scrollState = rememberScrollState()
                 LaunchedEffect(key1 = true) {
                     scrollState.scrollTo(scrollState.maxValue)
+                }
+
+                // Show onboarding tip for removing deadline.
+                LaunchedEffect(key1 = viewModel.state.deadline) {
+                    if (editGoalId != null && viewModel.shouldShowRemoveDeadlineTip()) {
+                        val snackResult = snackBarHostState.showSnackbar(
+                            message = context.getString(R.string.input_remove_deadline_tip),
+                            actionLabel = context.getString(R.string.ok)
+                        )
+                        if (snackResult == SnackbarResult.ActionPerformed) {
+                            viewModel.removeDeadlineTipShown()
+                        }
+
+                    }
                 }
 
                 Column(
@@ -457,7 +472,8 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
 private fun GoalImagePicker(
     goalImage: Any?,
     photoPicker: ActivityResultLauncher<PickVisualMediaRequest>,
-    fabModifier: Modifier // To be used for onboarding tap target.
+    // To be used for onboarding tap target.
+    @SuppressLint("ModifierParameter") fabModifier: Modifier
 ) {
     val context = LocalContext.current
     Box(
@@ -733,7 +749,7 @@ private fun InputTextFields(
     showRemoveDeadlineDialog: MutableState<Boolean>
 ) {
     val haptic = LocalHapticFeedback.current
-    val textFeildSpacing = 8.dp
+    val textFieldSpacing = 8.dp
 
     OutlinedTextField(
         value = viewModel.state.goalTitleText,
@@ -762,7 +778,7 @@ private fun InputTextFields(
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
     )
 
-    Spacer(modifier = Modifier.height(textFeildSpacing))
+    Spacer(modifier = Modifier.height(textFieldSpacing))
 
     OutlinedTextField(
         value = viewModel.state.targetAmount,
@@ -796,7 +812,7 @@ private fun InputTextFields(
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
     )
 
-    Spacer(modifier = Modifier.height(textFeildSpacing))
+    Spacer(modifier = Modifier.height(textFieldSpacing))
 
     val interactionSource = remember { MutableInteractionSource() }
 
@@ -846,7 +862,7 @@ private fun InputTextFields(
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
     )
 
-    Spacer(modifier = Modifier.height(textFeildSpacing))
+    Spacer(modifier = Modifier.height(textFieldSpacing))
 
     OutlinedTextField(
         value = viewModel.state.additionalNotes,
@@ -899,9 +915,9 @@ private fun GoalAddedOREditedAnimation(editGoalId: String?) {
             modifier = Modifier.size(320.dp)
         )
         val textStr = if (editGoalId == null) {
-            stringResource(id = R.string.goal_saved_success)
+            stringResource(id = R.string.input_goal_saved_success)
         } else {
-            stringResource(id = R.string.goad_edit_success)
+            stringResource(id = R.string.input_goad_edit_success)
         }
         Text(
             text = textStr,

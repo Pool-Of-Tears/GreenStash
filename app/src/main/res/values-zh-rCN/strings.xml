@@ -126,9 +126,10 @@
     <string name="input_additional_notes">备注（可选）</string>
     <string name="input_add_goal_button">设置新的省钱目标</string>
     <string name="input_edit_goal_button">更新省钱目标</string>
-    <string name="goal_saved_success">干得漂亮！省钱目标已经设置。</string>
-    <string name="goad_edit_success">省钱目标已经更新</string>
-    <string name="goal_remove_deadline">想要删除此目标的截止日期吗？</string>
+    <string name="input_goal_saved_success">干得漂亮！省钱目标已经设置。</string>
+    <string name="input_goad_edit_success">省钱目标已经更新</string>
+    <string name="input_goal_remove_deadline">想要删除此目标的截止日期吗？</string>
+    <string name="input_remove_deadline_tip">提示：您可以长按截止日期字段来删除现有目标的截止日期。</string>
 
     <!-- Backup Screen -->
     <string name="backup_screen_header">备份与恢复</string>

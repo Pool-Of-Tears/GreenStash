@@ -103,6 +103,7 @@
     <string name="info_edit_transaction_button">İşlemi Güncelle</string>
     <string name="info_transaction_onboarding_tip">İpucu: İşlemleri düzenlemek veya silmek için sola veya sağa kaydırın.</string>
 
+
     <!-- Input (New/Edit Goal) Screen -->
     <string name="input_screen_header">Birikim yapma zamanı!</string>
     <string name="input_edit_goal_header">Birikim Hedefini Düzenle</string>
@@ -126,9 +127,10 @@
     <string name="input_additional_notes">Notlar (Opsiyonel)</string>
     <string name="input_add_goal_button">Yeni Birikim Hedefi Belirle</string>
     <string name="input_edit_goal_button">Birikim Hedefini Güncelle</string>
-    <string name="goal_saved_success">Harika iş! Birikim hedefi belirlendi.</string>
-    <string name="goad_edit_success">Birikim hedefi güncellendi.</string>
-    <string name="goal_remove_deadline">Bu hedeften son tarihi kaldırmak istiyor musun?</string>
+    <string name="input_goal_saved_success">Harika iş! Birikim hedefi belirlendi.</string>
+    <string name="input_goad_edit_success">Birikim hedefi güncellendi.</string>
+    <string name="input_goal_remove_deadline">Bu hedeften son tarihi kaldırmak istiyor musun?</string>
+    <string name="input_remove_deadline_tip">İpucu: Var olan hedeflerden birinin son tarihini kaldırmak için son tarih alanında uzun basılı tutabilirsiniz.</string>
 
     <!-- Backup Screen -->
     <string name="backup_screen_header">Yedekle &amp; Geri yükle</string>
