@@ -64,6 +64,7 @@ fun HomeDrawer(drawerState: DrawerState, navController: NavController) {
     val items = listOf(DrawerScreens.Home, DrawerScreens.Backups, DrawerScreens.Settings)
     val selectedItem = remember { mutableStateOf(items[0]) }
     val coroutineScope = rememberCoroutineScope()
+
     ModalDrawerSheet(
         modifier = Modifier.width(280.dp),
         drawerShape = RoundedCornerShape(4.dp)
