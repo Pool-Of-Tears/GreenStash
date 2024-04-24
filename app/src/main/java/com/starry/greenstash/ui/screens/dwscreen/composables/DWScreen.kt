@@ -161,27 +161,8 @@ fun DWScreen(goalId: String, transactionTypeName: String, navController: NavCont
                     .verticalScroll(rememberScrollState(), reverseScrolling = true),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                val compositionResult: LottieCompositionResult = rememberLottieComposition(
-                    spec = LottieCompositionSpec.RawRes(
-                        if (transactionType == TransactionType.Deposit) R.raw.dw_deposit_lottie
-                        else R.raw.dw_withdraw_lottie
-                    )
-                )
-                val progressAnimation by animateLottieCompositionAsState(
-                    compositionResult.value,
-                    isPlaying = true,
-                    iterations = 1,
-                    speed = 1f
-                )
-
-                LottieAnimation(
-                    composition = compositionResult.value,
-                    progress = { progressAnimation },
-                    modifier = Modifier
-                        .size(280.dp)
-                        .padding(top = 28.dp),
-                    enableMergePaths = true
-                )
+                // Deposit or Withdraw animation
+                MainDWAnimation(transactionType)
 
                 DateTimeCard(
                     selectedDateTime = selectedDateTime.value,
@@ -189,62 +170,16 @@ fun DWScreen(goalId: String, transactionTypeName: String, navController: NavCont
                     onClick = { dateTimeDialogState.show() }
                 )
 
-                OutlinedTextField(
-                    value = viewModel.state.amount,
-                    onValueChange = { newText ->
+                DWInputFields(
+                    amountValue = viewModel.state.amount,
+                    notesValue = viewModel.state.notes,
+                    onAmountChange = { amount ->
                         viewModel.state =
-                            viewModel.state.copy(amount = Utils.getValidatedNumber(newText))
+                            viewModel.state.copy(amount = Utils.getValidatedNumber(amount))
                     },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 18.dp, vertical = 4.dp),
-                    label = {
-                        Text(
-                            text = stringResource(id = R.string.transaction_amount),
-                            fontFamily = greenstashFont
-                        )
-                    },
-                    leadingIcon = {
-                        Icon(
-                            imageVector = ImageVector.vectorResource(id = R.drawable.ic_input_amount),
-                            contentDescription = null
-                        )
-                    },
-                    colors = OutlinedTextFieldDefaults.colors(
-                        focusedBorderColor = MaterialTheme.colorScheme.primary,
-                        unfocusedBorderColor = MaterialTheme.colorScheme.onBackground,
-                    ),
-                    shape = RoundedCornerShape(14.dp),
-                    singleLine = true,
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                )
-
-                OutlinedTextField(
-                    value = viewModel.state.notes,
-                    onValueChange = { newText ->
-                        viewModel.state = viewModel.state.copy(notes = newText)
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 18.dp, vertical = 2.dp),
-                    label = {
-                        Text(
-                            text = stringResource(id = R.string.input_additional_notes),
-                            fontFamily = greenstashFont
-                        )
-                    },
-                    leadingIcon = {
-                        Icon(
-                            imageVector = ImageVector.vectorResource(id = R.drawable.ic_input_additional_notes),
-                            contentDescription = null
-                        )
-                    },
-                    colors = OutlinedTextFieldDefaults.colors(
-                        focusedBorderColor = MaterialTheme.colorScheme.primary,
-                        unfocusedBorderColor = MaterialTheme.colorScheme.onBackground,
-                    ),
-                    shape = RoundedCornerShape(14.dp),
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+                    onNotesChange = { notes ->
+                        viewModel.state = viewModel.state.copy(notes = notes)
+                    }
                 )
 
                 Button(
@@ -324,6 +259,105 @@ fun DWScreen(goalId: String, transactionTypeName: String, navController: NavCont
     }
 }
 
+
+@Composable
+private fun MainDWAnimation(transactionType: TransactionType) {
+    val compositionResult: LottieCompositionResult = rememberLottieComposition(
+        spec = LottieCompositionSpec.RawRes(
+            if (transactionType == TransactionType.Deposit) R.raw.dw_deposit_lottie
+            else R.raw.dw_withdraw_lottie
+        )
+    )
+    val progressAnimation by animateLottieCompositionAsState(
+        compositionResult.value,
+        isPlaying = true,
+        iterations = 1,
+        speed = 1f
+    )
+
+    LottieAnimation(
+        composition = compositionResult.value,
+        progress = { progressAnimation },
+        modifier = Modifier
+            .size(280.dp)
+            .padding(top = 28.dp),
+        enableMergePaths = true
+    )
+}
+
+@Composable
+private fun DWInputFields(
+    amountValue: String,
+    notesValue: String,
+    onAmountChange: (String) -> Unit,
+    onNotesChange: (String) -> Unit
+) {
+    OutlinedTextField(
+        value = amountValue,
+        onValueChange = { newText -> onAmountChange(newText) },
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 18.dp, vertical = 4.dp),
+        label = {
+            Text(
+                text = stringResource(id = R.string.transaction_amount),
+                fontFamily = greenstashFont
+            )
+        },
+        leadingIcon = {
+            Icon(
+                imageVector = ImageVector.vectorResource(id = R.drawable.ic_input_amount),
+                contentDescription = null
+            )
+        },
+        colors = OutlinedTextFieldDefaults.colors(
+            focusedBorderColor = MaterialTheme.colorScheme.primary,
+            unfocusedBorderColor = MaterialTheme.colorScheme.onBackground,
+            focusedContainerColor = MaterialTheme.colorScheme.primaryContainer.copy(
+                alpha = 0.25f
+            ),
+            unfocusedContainerColor = MaterialTheme.colorScheme.primaryContainer.copy(
+                alpha = 0.25f
+            ),
+        ),
+        shape = RoundedCornerShape(14.dp),
+        singleLine = true,
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+    )
+
+    OutlinedTextField(
+        value = notesValue,
+        onValueChange = { newText -> onNotesChange(newText) },
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 18.dp, vertical = 2.dp),
+        label = {
+            Text(
+                text = stringResource(id = R.string.input_additional_notes),
+                fontFamily = greenstashFont
+            )
+        },
+        leadingIcon = {
+            Icon(
+                imageVector = ImageVector.vectorResource(id = R.drawable.ic_input_additional_notes),
+                contentDescription = null
+            )
+        },
+        colors = OutlinedTextFieldDefaults.colors(
+            focusedBorderColor = MaterialTheme.colorScheme.primary,
+            unfocusedBorderColor = MaterialTheme.colorScheme.onBackground,
+            focusedContainerColor = MaterialTheme.colorScheme.primaryContainer.copy(
+                alpha = 0.25f
+            ),
+            unfocusedContainerColor = MaterialTheme.colorScheme.primaryContainer.copy(
+                alpha = 0.25f
+            ),
+        ),
+        shape = RoundedCornerShape(14.dp),
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+    )
+
+}
 
 @Composable
 private fun TransactionAddedAnimation(transactionType: TransactionType) {

@@ -28,8 +28,9 @@ package com.starry.greenstash.ui.screens.home.composables
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -40,9 +41,9 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -147,17 +148,15 @@ private fun SearchAppBar(
     onSearchClicked: (String) -> Unit,
 ) {
     Surface(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(56.dp),
+        modifier = Modifier.fillMaxWidth(),
         color = MaterialTheme.colorScheme.surface
     ) {
-        TextField(modifier = Modifier
-            .fillMaxWidth(),
+        OutlinedTextField(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 14.dp, vertical = 4.dp),
             value = text,
-            onValueChange = {
-                onTextChange(it)
-            },
+            onValueChange = { onTextChange(it) },
             placeholder = {
                 Text(
                     text = stringResource(id = R.string.home_search_label),
@@ -204,9 +203,10 @@ private fun SearchAppBar(
             ),
             colors = TextFieldDefaults.colors(
                 focusedContainerColor = Color.Transparent,
-                unfocusedContainerColor = Color.Transparent,
+                unfocusedContainerColor = MaterialTheme.colorScheme.primaryContainer.copy(0.3f),
                 disabledContainerColor = Color.Transparent,
                 cursorColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f),
-            ))
+            ),
+            shape = RoundedCornerShape(24.dp))
     }
 }

@@ -209,7 +209,7 @@ fun GoalInfoScreen(goalId: String, navController: NavController) {
                         ) {
                             val compositionResult: LottieCompositionResult =
                                 rememberLottieComposition(
-                                    spec = LottieCompositionSpec.RawRes(R.raw.no_transactions_lottie)
+                                    spec = LottieCompositionSpec.RawRes(R.raw.no_transaction_found_lottie)
                                 )
                             val progressAnimation by animateLottieCompositionAsState(
                                 compositionResult.value,
