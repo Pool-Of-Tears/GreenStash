@@ -68,6 +68,11 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun AppLockedScreen(onAuthRequest: () -> Unit) {
+    LaunchedEffect(key1 = true) {
+        // Auto trigger the auth request for the first time.
+        // We are waiting for 650ms to let the screen load properly.
+        delay(650); onAuthRequest()
+    }
     Column(
         Modifier
             .fillMaxSize()
