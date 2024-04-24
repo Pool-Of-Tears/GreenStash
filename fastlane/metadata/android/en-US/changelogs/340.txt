@@ -1,0 +1,5 @@
+- Added traditional Chinese translation.
+- Improved search bar UI & fixed flickering height issue when opening search bar.
+- Biometric authentication dialog will now automatically show up when opening the app if enabled.
+- Some other UI/UX improvements and bug fixes.
+- Updated gradle and other dependencies.
