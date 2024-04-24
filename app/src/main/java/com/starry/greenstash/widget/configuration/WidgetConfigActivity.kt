@@ -192,7 +192,7 @@ class WidgetConfigActivity : AppCompatActivity() {
                         ) {
                             val compositionResult: LottieCompositionResult =
                                 rememberLottieComposition(
-                                    spec = LottieCompositionSpec.RawRes(R.raw.widget_config_no_goal_lottie)
+                                    spec = LottieCompositionSpec.RawRes(R.raw.no_goal_set_lottie)
                                 )
                             val progressAnimation by animateLottieCompositionAsState(
                                 compositionResult.value,
