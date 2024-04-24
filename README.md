@@ -13,7 +13,7 @@
   <img alt="GitHub" src="https://img.shields.io/github/license/Pool-Of-Tears/GreenStash">
   <img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/Pool-Of-Tears/GreenStash">
   <a href="https://www.repostatus.org/#active"><img src="https://www.repostatus.org/badges/latest/active.svg" alt="Project Status: Active – The project has reached a stable, usable state and is being actively developed." /></a>
-  <img alt="build-workflow"src="https://github.com/Pool-Of-Tears/GreenStash/actions/workflows/android.yml/badge.svg">
+  <img alt="build-workflow" src="https://github.com/Pool-Of-Tears/GreenStash/actions/workflows/android.yml/badge.svg">
 </p>
 
 ------
@@ -49,10 +49,10 @@
 <h2 align="center">Downloads</h2>
 
 <div align="center">
-<a href="https://play.google.com/store/apps/details?id=com.starry.greenstash"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" height="65"></img></a>
+<a href="https://play.google.com/store/apps/details?id=com.starry.greenstash"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" height="65"></a>
 <a href='https://f-droid.org/packages/com.starry.greenstash/'><img alt='Get it on F-Droid' src='https://fdroid.gitlab.io/artwork/badge/get-it-on.png' height='65'/></a>
 <a href='https://apt.izzysoft.de/fdroid/index/apk/com.starry.greenstash'><img alt='Get it on IzzyOnDroid' src='https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png' height='65'/></a>
-<a href="https://github.com/Pool-Of-Tears/GreenStash/releases/latest"><img alt="Get it on GitHub" src="https://github.com/machiav3lli/oandbackupx/blob/034b226cea5c1b30eb4f6a6f313e4dadcbb0ece4/badge_github.png" height="65"></img></a>
+<a href="https://github.com/Pool-Of-Tears/GreenStash/releases/latest"><img alt="Get it on GitHub" src="https://github.com/machiav3lli/oandbackupx/blob/034b226cea5c1b30eb4f6a6f313e4dadcbb0ece4/badge_github.png" height="65"></a>
 </div>
 
 ------
@@ -93,6 +93,7 @@ It is easiest to make a translation using the Android Studio XML editor, but you
   - [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) - Stores UI-related data that isn't destroyed on UI changes.
 - [Lottie](https://airbnb.design/lottie) - Lottie is an Android, iOS and React Native library that renders After Effects animations in real time.
 - [Coil](https://coil-kt.github.io/coil/compose) - An image loading library for Android backed by Kotlin Coroutines.
+- [Gson](https://github.com/google/gson) - A Java serialization/deserialization library to convert Java Objects into JSON and back.
 - [Dagger-Hilt](https://dagger.dev/hilt) For [Dependency injection (DI)](https://developer.android.com/training/dependency-injection)
 - [Room database](https://developer.android.com/jetpack/androidx/releases/room) - Persistence library provides an abstraction layer over SQLite to allow for more robust database access while harnessing the full power of SQLite.
 

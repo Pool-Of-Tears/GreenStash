@@ -104,7 +104,7 @@ class BackupManager(private val context: Context, private val goalDao: GoalDao) 
         )
 
         log("Creating backup json file inside cache directory...")
-        val fileName = "Greenstash-Backup (${LocalDateTime.now()}).json"
+        val fileName = "GreenStash-Backup (${LocalDateTime.now()}).json"
         val file = File(context.cacheDir, fileName)
         file.updateText(jsonString)
         val uri = FileProvider.getUriForFile(context, FILE_PROVIDER_AUTHORITY, file)

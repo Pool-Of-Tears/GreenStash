@@ -188,7 +188,6 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
         buttonText = stringResource(id = R.string.input_add_goal_button)
     }
 
-
     // Goal Image Picker.
     val photoPicker = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickVisualMedia()
@@ -750,6 +749,7 @@ private fun InputTextFields(
 ) {
     val haptic = LocalHapticFeedback.current
     val textFieldSpacing = 8.dp
+    val containerColorAlpha = 0.25f
 
     OutlinedTextField(
         value = viewModel.state.goalTitleText,
@@ -772,6 +772,8 @@ private fun InputTextFields(
         colors = OutlinedTextFieldDefaults.colors(
             focusedBorderColor = MaterialTheme.colorScheme.primary,
             unfocusedBorderColor = MaterialTheme.colorScheme.onBackground,
+            focusedContainerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = containerColorAlpha),
+            unfocusedContainerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = containerColorAlpha),
         ),
         shape = RoundedCornerShape(14.dp),
         singleLine = true,
@@ -806,6 +808,8 @@ private fun InputTextFields(
         colors = OutlinedTextFieldDefaults.colors(
             focusedBorderColor = MaterialTheme.colorScheme.primary,
             unfocusedBorderColor = MaterialTheme.colorScheme.onBackground,
+            focusedContainerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = containerColorAlpha),
+            unfocusedContainerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = containerColorAlpha),
         ),
         shape = RoundedCornerShape(14.dp),
         singleLine = true,
@@ -854,6 +858,7 @@ private fun InputTextFields(
             disabledLeadingIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
             disabledTrailingIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
             disabledLabelColor = MaterialTheme.colorScheme.onSurfaceVariant,
+            disabledContainerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = containerColorAlpha),
             //For Icons
             disabledPlaceholderColor = MaterialTheme.colorScheme.onSurfaceVariant,
         ),
@@ -885,6 +890,8 @@ private fun InputTextFields(
         colors = OutlinedTextFieldDefaults.colors(
             focusedBorderColor = MaterialTheme.colorScheme.primary,
             unfocusedBorderColor = MaterialTheme.colorScheme.onBackground,
+            focusedContainerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = containerColorAlpha),
+            unfocusedContainerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = containerColorAlpha),
         ),
         shape = RoundedCornerShape(14.dp),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
