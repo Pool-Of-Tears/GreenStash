@@ -205,7 +205,7 @@ class WidgetConfigActivity : AppCompatActivity() {
 
                             LottieAnimation(
                                 composition = compositionResult.value,
-                                progress = progressAnimation,
+                                progress = { progressAnimation },
                                 modifier = Modifier.size(335.dp),
                                 enableMergePaths = true
                             )
