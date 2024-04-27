@@ -32,7 +32,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -44,38 +43,45 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Image
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.rememberModalBottomSheetState
+import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.compose.ui.window.Dialog
 import com.starry.greenstash.R
 import com.starry.greenstash.ui.screens.input.IconItem
 import com.starry.greenstash.ui.screens.input.IconsState
 import com.starry.greenstash.ui.screens.input.InputViewModel
 import com.starry.greenstash.ui.theme.greenstashFont
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun IconPickerDialog(
     viewModel: InputViewModel,
@@ -89,9 +95,19 @@ fun IconPickerDialog(
         viewModel.updateIconSearch(context = context, search = "")
     }
 
+    val sheetState = rememberModalBottomSheetState()
+    val coroutineScope = rememberCoroutineScope()
+
     if (showDialog.value) {
-        Dialog(
-            onDismissRequest = {}
+        ModalBottomSheet(
+            sheetState = sheetState,
+            onDismissRequest = {
+                coroutineScope.launch {
+                    sheetState.hide()
+                    delay(300)
+                    showDialog.value = false
+                }
+            }
         ) {
             Column(
                 modifier = Modifier.fillMaxWidth(0.99f)
@@ -116,9 +132,9 @@ fun IconPickerDialog(
                             }
                         )
 
-                        Spacer(modifier = Modifier.height(10.dp))
+                        Spacer(modifier = Modifier.height(18.dp))
 
-                        IconsList(
+                        IconsGirdList(
                             iconState = state,
                             onIconClick = { viewModel.updateCurrentIcon(it) }
                         )
@@ -130,11 +146,16 @@ fun IconPickerDialog(
                         ) {
                             Spacer(modifier = Modifier.weight(1f))
 
+                            // Cancel button
                             TextButton(onClick = {
                                 if (viewModel.iconState.value.searchText.isNotEmpty()) {
                                     viewModel.updateIconSearch(context = context, search = "")
                                 } else {
-                                    showDialog.value = false
+                                    coroutineScope.launch {
+                                        sheetState.hide()
+                                        delay(300)
+                                        showDialog.value = false
+                                    }
                                 }
                             }) {
                                 Text(
@@ -145,9 +166,14 @@ fun IconPickerDialog(
 
                             Spacer(modifier = Modifier.width(10.dp))
 
+                            // Confirm button
                             Button(onClick = {
                                 onIconSelected(state.currentIcon)
-                                showDialog.value = false
+                                coroutineScope.launch {
+                                    sheetState.hide()
+                                    delay(300)
+                                    showDialog.value = false
+                                }
                             }) {
                                 Text(
                                     text = stringResource(id = R.string.confirm),
@@ -155,6 +181,8 @@ fun IconPickerDialog(
                                 )
                             }
                         }
+
+                        Spacer(modifier = Modifier.height(10.dp))
                     }
                 }
             }
@@ -169,73 +197,77 @@ private fun SearchTextField(
     viewModel: InputViewModel,
     onSearchChanged: (String) -> Unit
 ) {
-
-    Text(
-        modifier = Modifier.padding(12.dp),
-        text = stringResource(id = R.string.input_icon_dialog),
-        color = MaterialTheme.colorScheme.onSurface,
-        fontWeight = FontWeight.SemiBold,
-        fontFamily = greenstashFont,
-        fontSize = 20.sp
-    )
-
     OutlinedTextField(
-        modifier = Modifier.height(60.dp),
+        modifier = Modifier.fillMaxWidth(0.9f),
         label = {
             Text(
                 text = stringResource(id = R.string.home_search_label),
-                color = MaterialTheme.colorScheme.primary,
                 fontFamily = greenstashFont
             )
         },
         value = viewModel.iconState.value.searchText,
         onValueChange = { onSearchChanged(it) },
         colors = OutlinedTextFieldDefaults.colors(
-            unfocusedBorderColor = MaterialTheme.colorScheme.primary,
-            unfocusedTextColor = MaterialTheme.colorScheme.primary,
-            focusedTextColor = MaterialTheme.colorScheme.primary
+            focusedContainerColor = Color.Transparent,
+            unfocusedContainerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(4.dp),
+            disabledContainerColor = Color.Transparent,
+            cursorColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f),
+            focusedBorderColor = MaterialTheme.colorScheme.primary,
+            unfocusedBorderColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
         ),
         trailingIcon = {
             Icon(
-                Icons.Filled.Image, "Image",
-                tint = MaterialTheme.colorScheme.primary
+                Icons.Filled.Search, stringResource(id = R.string.home_search_label),
             )
         },
         maxLines = 1,
-        shape = RoundedCornerShape(16.dp)
+        shape = RoundedCornerShape(24.dp)
     )
 }
 
 @Composable
-private fun IconsList(
+private fun IconsGirdList(
     iconState: IconsState,
     onIconClick: (IconItem) -> Unit
 ) {
-    val icons = iconState.icons
     Column(
-        modifier = Modifier.fillMaxHeight(0.4f),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        if (iconState.loading) {
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                CircularProgressIndicator()
-            }
-        } else {
-            LazyColumn {
-                items(
-                    items = icons,
-                    itemContent = { iconItems ->
-                        IconListRow(
-                            icons = iconItems,
-                            selectedIcon = iconState.currentIcon,
-                            onClick = { onIconClick(it) }
-                        )
-                    }
-                )
+        Card(
+            modifier = Modifier
+                .fillMaxWidth(0.9f)
+                .height(180.dp),
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(4.dp)
+            ),
+            shape = RoundedCornerShape(16.dp)
+        ) {
+            if (iconState.isLoading) {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator()
+                }
+            } else {
+                val icons = iconState.icons
+                LazyColumn(modifier = Modifier.padding(8.dp)) {
+                    items(
+                        items = icons,
+                        itemContent = { iconItems ->
+                            IconListRow(
+                                icons = iconItems,
+                                selectedIcon = iconState.currentIcon,
+                                onClick = { onIconClick(it) }
+                            )
+                        }
+                    )
+                }
             }
         }
     }
 }
+
 
 @Composable
 private fun IconListRow(
@@ -304,4 +336,3 @@ private fun IconItem(
         )
     }
 }
-

@@ -109,7 +109,6 @@
     <string name="input_pick_icon">Selecciona ícono para tu objetivo.</string>
     <string name="input_pick_icon_onboarding_title">…O si el minimalismo es tu estilo, agrega un icono para tu objetivo.</string>
     <string name="input_pick_icon_onboarding_desc">Los iconos de objetivo se usarán en las tarjetas de objetivo con estilo compacto, Configuración > Estilo de Tarjeta de Objetivo</string>
-    <string name="input_icon_dialog">Selecciona un ícono</string>
     <string name="input_pick_image_fab">Imagen de la meta</string>
     <string name="input_pick_image_onboarding_title">¡Agrega imágenes a tus objetivos para darles un aspecto personalizado!</string>
     <string name="input_pick_image_onboarding_desc">Haz clic en el botón de acción flotante para agregar una imagen a tu objetivo.</string>
