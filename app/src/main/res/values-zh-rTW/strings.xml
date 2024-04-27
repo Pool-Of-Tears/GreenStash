@@ -109,7 +109,6 @@
     <string name="input_pick_icon">為您的目標選擇一個圖示。</string>
     <string name="input_pick_icon_onboarding_title">…或者如果您喜歡簡約樣式，為您的目標新增一個圖示。</string>
     <string name="input_pick_icon_onboarding_desc">目標圖示將用於緊湊型目標卡片，設定 > 目標卡片樣式</string>
-    <string name="input_icon_dialog">選擇一個圖示</string>
     <string name="input_pick_image_fab">目標圖片</string>
     <string name="input_pick_image_onboarding_title">為您的目標新增圖片，讓它們看起來更個性化！</string>
     <string name="input_pick_image_onboarding_desc">點選浮動動作按鈕以為您的目標新增圖片。</string>

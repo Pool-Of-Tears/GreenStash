@@ -109,7 +109,6 @@
     <string name="input_pick_icon">为您的目标选择一个图标。</string>
     <string name="input_pick_icon_onboarding_title">…或者如果简约风格是您的风格，请为您的目标添加图标。</string>
     <string name="input_pick_icon_onboarding_desc">目标图标将用于紧凑样式的目标卡上，设置 > 目标卡样式</string>
-    <string name="input_icon_dialog">选择图标</string>
     <string name="input_pick_image_fab">目标图片</string>
     <string name="input_pick_image_onboarding_title">为您的目标添加图片，赋予它们个性化的外观！</string>
     <string name="input_pick_image_onboarding_desc">点击浮动操作按钮为您的目标添加图片。</string>

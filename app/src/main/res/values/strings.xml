@@ -108,8 +108,7 @@
     <string name="input_edit_goal_header">Edit Saving Goal</string>
     <string name="input_pick_icon">Select icon for your goal.</string>
     <string name="input_pick_icon_onboarding_title">…Or if minimalism is your style, add an icon for your goal.</string>
-    <string name="input_pick_icon_onboarding_desc">Goal icons will be used on compact syled goal cards, Settings > Goal Card Style</string>
-    <string name="input_icon_dialog">Select an icon</string>
+    <string name="input_pick_icon_onboarding_desc">Goal icons will be used on compact styled goal cards, Settings > Goal Card Style</string>
     <string name="input_pick_image_fab">Goal Image</string>
     <string name="input_pick_image_onboarding_title">Add images to your goals to give them a personalized look!</string>
     <string name="input_pick_image_onboarding_desc">Click on the floating action button to add an image to your goal.</string>

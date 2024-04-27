@@ -66,7 +66,7 @@ data class IconsState(
     val icons: List<List<IconItem>> = emptyList(),
     val currentIcon: IconItem? = null,
     val selectedIcon: IconItem? = null,
-    val loading: Boolean = true
+    val isLoading: Boolean = true
 )
 
 data class InputScreenState(
@@ -194,7 +194,7 @@ class InputViewModel @Inject constructor(
             delay(400)
 
             withContext(Dispatchers.Main) {
-                _iconState.value = _iconState.value.copy(loading = true)
+                _iconState.value = _iconState.value.copy(isLoading = true)
             }
 
             val icons = getNamesIcons(context)
@@ -204,7 +204,7 @@ class InputViewModel @Inject constructor(
 
             val chunks = icons.chunked(3)
             withContext(Dispatchers.Main) {
-                _iconState.value = _iconState.value.copy(icons = chunks, loading = false)
+                _iconState.value = _iconState.value.copy(icons = chunks, isLoading = false)
             }
         }
     }

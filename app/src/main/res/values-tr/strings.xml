@@ -110,7 +110,6 @@
     <string name="input_pick_icon">Hedefiniz için bir simge seçin.</string>
     <string name="input_pick_icon_onboarding_title">…Ya da minimalizm tarzınızsa, hedefiniz için bir simge ekleyin.</string>
     <string name="input_pick_icon_onboarding_desc">Hedef simgeleri, kompakt stil hedef kartlarında kullanılacaktır, Ayarlar > Hedef Kartı Stili</string>
-    <string name="input_icon_dialog">Bir simge seçin</string>
     <string name="input_pick_image_fab">Hedef Resmi</string>
     <string name="input_pick_image_onboarding_title">Hedeflerinize kişisel bir görünüm kazandırmak için resimler ekleyin!</string>
     <string name="input_pick_image_onboarding_desc">Hedefinize bir resim eklemek için hareketli işlem düğmesine tıklayın.</string>
