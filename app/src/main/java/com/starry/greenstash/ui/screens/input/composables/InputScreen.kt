@@ -36,6 +36,10 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -62,6 +66,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Image
+import androidx.compose.material.icons.filled.Lightbulb
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
@@ -267,6 +272,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
     TapTargetCoordinator(
         showTapTargets = showTapTargets.value,
         onComplete = { viewModel.onboardingTapTargetsShown() },
+        modifier = Modifier.fillMaxSize()
     ) {
         Scaffold(
             modifier = Modifier
@@ -301,20 +307,6 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                 val scrollState = rememberScrollState()
                 LaunchedEffect(key1 = true) {
                     scrollState.scrollTo(scrollState.maxValue)
-                }
-
-                // Show onboarding tip for removing deadline.
-                LaunchedEffect(key1 = viewModel.state.deadline) {
-                    if (editGoalId != null && viewModel.shouldShowRemoveDeadlineTip()) {
-                        val snackResult = snackBarHostState.showSnackbar(
-                            message = context.getString(R.string.input_remove_deadline_tip),
-                            actionLabel = context.getString(R.string.ok)
-                        )
-                        if (snackResult == SnackbarResult.ActionPerformed) {
-                            viewModel.removeDeadlineTipShown()
-                        }
-
-                    }
                 }
 
                 Column(
@@ -357,7 +349,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                         modifier = Modifier.fillMaxWidth(),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        GoalIconPicker(
+                        IconPickerCard(
                             goalIcon = goalIcon,
                             onClick = { showIconPickerDialog.value = true },
                             modifier = Modifier.tapTarget(
@@ -417,6 +409,26 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                         )
                         Spacer(modifier = Modifier.height(14.dp))
 
+                        // Show onboarding tip for removing deadline.
+                        val showRemoveDeadlineTip = remember { mutableStateOf(false) }
+                        LaunchedEffect(key1 = viewModel.state.deadline) {
+                            if (editGoalId != null && viewModel.shouldShowRemoveDeadlineTip()) {
+                                delay(600) // Don't show immediately.
+                                showRemoveDeadlineTip.value = true
+                            }
+                        }
+
+                        InputTipCard(
+                            icon = Icons.Filled.Lightbulb,
+                            description = stringResource(id = R.string.input_remove_deadline_tip),
+                            showTipCard = showRemoveDeadlineTip.value,
+                            onDismissRequest = {
+                                showRemoveDeadlineTip.value = false
+                                viewModel.removeDeadlineTipShown()
+                            }
+                        )
+
+
                         InputTextFields(
                             viewModel = viewModel,
                             calenderState = calenderState,
@@ -466,6 +478,63 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
     }
 }
 
+@Composable
+fun InputTipCard(
+    icon: ImageVector,
+    description: String,
+    showTipCard: Boolean,
+    onDismissRequest: () -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .animateContentSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        AnimatedVisibility(
+            visible = showTipCard,
+            enter = expandVertically(),
+            exit = shrinkVertically()
+        ) {
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth(0.86f)
+                    .padding(bottom = 10.dp),
+                shape = RoundedCornerShape(16.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.secondaryContainer
+                )
+            ) {
+                Column(
+                    modifier = Modifier.padding(16.dp)
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            imageVector = icon,
+                            contentDescription = null,
+                            modifier = Modifier.size(32.dp)
+                        )
+                        Spacer(modifier = Modifier.width(16.dp))
+                        Text(
+                            text = description,
+                            style = MaterialTheme.typography.titleSmall,
+                            fontFamily = greenstashFont,
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Button(
+                        onClick = { onDismissRequest() },
+                        modifier = Modifier.align(Alignment.End)
+                    ) {
+                        Text(text = "OK")
+                    }
+                }
+            }
+        }
+    }
+}
 
 @Composable
 private fun GoalImagePicker(
@@ -553,7 +622,7 @@ private fun InputQuoteText() {
 }
 
 @Composable
-private fun GoalIconPicker(
+private fun IconPickerCard(
     goalIcon: ImageVector,
     onClick: () -> Unit,
     // To be used for onboarding tap target.

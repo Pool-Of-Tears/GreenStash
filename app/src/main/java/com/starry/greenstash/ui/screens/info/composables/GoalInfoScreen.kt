@@ -25,6 +25,7 @@
 
 package com.starry.greenstash.ui.screens.info.composables
 
+import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -90,7 +91,6 @@ import com.starry.greenstash.database.goal.GoalPriority
 import com.starry.greenstash.database.goal.GoalPriority.High
 import com.starry.greenstash.database.goal.GoalPriority.Low
 import com.starry.greenstash.database.goal.GoalPriority.Normal
-import com.starry.greenstash.ui.common.DotIndicator
 import com.starry.greenstash.ui.common.ExpandableTextCard
 import com.starry.greenstash.ui.screens.info.InfoViewModel
 import com.starry.greenstash.ui.theme.greenstashFont
@@ -141,101 +141,107 @@ fun GoalInfoScreen(goalId: String, navController: NavController) {
         ) {
             val goalData = state.goalData?.collectAsState(initial = null)?.value
 
-            if (goalData == null) {
-                Box(
-                    modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
-                ) {
-                    CircularProgressIndicator()
-                }
-            } else {
-                val currencySymbol = viewModel.getDefaultCurrencyValue()
-                val progressPercent =
-                    ((goalData.getCurrentlySavedAmount() / goalData.goal.targetAmount) * 100).toInt()
-
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .verticalScroll(rememberScrollState())
-                ) {
-                    GoalInfoCard(
-                        currencySymbol = currencySymbol,
-                        targetAmount = goalData.goal.targetAmount,
-                        savedAmount = goalData.getCurrentlySavedAmount(),
-                        daysLeftText = GoalTextUtils.getRemainingDaysText(
-                            context = context,
-                            goalItem = goalData,
-                            datePattern = viewModel.getDateStyle().pattern
-                        ),
-                        progress = progressPercent.toFloat() / 100
-                    )
-                    GoalPriorityCard(
-                        goalPriority = goalData.goal.priority,
-                        reminders = goalData.goal.reminder
-                    )
-                    if (goalData.goal.additionalNotes.isNotEmpty() && goalData.goal.additionalNotes.isNotBlank()) {
-                        GoalNotesCard(
-                            notesText = goalData.goal.additionalNotes
-                        )
-                        Spacer(modifier = Modifier.height(6.dp))
+            Crossfade(
+                targetState = goalData == null,
+                label = "GoalDataLoading"
+            ) { isGoalDataLoading ->
+                if (isGoalDataLoading) {
+                    Box(
+                        modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
+                    ) {
+                        CircularProgressIndicator()
                     }
-                    if (goalData.transactions.isNotEmpty()) {
-                        TransactionItem(
-                            goalData.getOrderedTransactions(),
-                            currencySymbol,
-                            viewModel
+                } else {
+                    val currencySymbol = viewModel.getDefaultCurrencyValue()
+                    val progressPercent =
+                        ((goalData!!.getCurrentlySavedAmount() / goalData.goal.targetAmount) * 100).toInt()
+
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .verticalScroll(rememberScrollState())
+                    ) {
+                        GoalInfoCard(
+                            currencySymbol = currencySymbol,
+                            targetAmount = goalData.goal.targetAmount,
+                            savedAmount = goalData.getCurrentlySavedAmount(),
+                            daysLeftText = GoalTextUtils.getRemainingDaysText(
+                                context = context,
+                                goalItem = goalData,
+                                datePattern = viewModel.getDateStyle().pattern
+                            ),
+                            progress = progressPercent.toFloat() / 100
                         )
-                        // Show tooltip for swipe functionality.
-                        LaunchedEffect(key1 = true) {
-                            if (viewModel.shouldShowTransactionTip()) {
-                                val result = snackBarHostState.showSnackbar(
-                                    message = context.getString(R.string.info_transaction_onboarding_tip),
-                                    actionLabel = context.getString(R.string.ok),
-                                    duration = SnackbarDuration.Indefinite
-                                )
+                        GoalPriorityCard(
+                            goalPriority = goalData.goal.priority,
+                            reminders = goalData.goal.reminder
+                        )
+                        if (goalData.goal.additionalNotes.isNotEmpty() && goalData.goal.additionalNotes.isNotBlank()) {
+                            GoalNotesCard(
+                                notesText = goalData.goal.additionalNotes
+                            )
+                            Spacer(modifier = Modifier.height(6.dp))
+                        }
+                        if (goalData.transactions.isNotEmpty()) {
+                            TransactionItems(
+                                goalData.getOrderedTransactions(),
+                                currencySymbol,
+                                viewModel
+                            )
+                            // Show tooltip for swipe functionality.
+                            LaunchedEffect(key1 = true) {
+                                if (viewModel.shouldShowTransactionTip()) {
+                                    val result = snackBarHostState.showSnackbar(
+                                        message = context.getString(R.string.info_transaction_onboarding_tip),
+                                        actionLabel = context.getString(R.string.ok),
+                                        duration = SnackbarDuration.Indefinite
+                                    )
 
-                                when (result) {
-                                    SnackbarResult.ActionPerformed -> {
-                                        viewModel.transactionTipDismissed()
+                                    when (result) {
+                                        SnackbarResult.ActionPerformed -> {
+                                            viewModel.transactionTipDismissed()
+                                        }
+
+                                        SnackbarResult.Dismissed -> {}
                                     }
-
-                                    SnackbarResult.Dismissed -> {}
                                 }
                             }
-                        }
-                    } else {
-                        Column(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
-                            val compositionResult: LottieCompositionResult =
-                                rememberLottieComposition(
-                                    spec = LottieCompositionSpec.RawRes(R.raw.no_transaction_found_lottie)
+
+                        } else {
+                            Column(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                val compositionResult: LottieCompositionResult =
+                                    rememberLottieComposition(
+                                        spec = LottieCompositionSpec.RawRes(R.raw.no_transaction_found_lottie)
+                                    )
+                                val progressAnimation by animateLottieCompositionAsState(
+                                    compositionResult.value,
+                                    isPlaying = true,
+                                    iterations = 1,
+                                    speed = 1f
                                 )
-                            val progressAnimation by animateLottieCompositionAsState(
-                                compositionResult.value,
-                                isPlaying = true,
-                                iterations = 1,
-                                speed = 1f
-                            )
 
-                            Spacer(modifier = Modifier.weight(1f))
+                                Spacer(modifier = Modifier.weight(1f))
 
-                            LottieAnimation(
-                                composition = compositionResult.value,
-                                progress = { progressAnimation },
-                                modifier = Modifier.size(320.dp),
-                                enableMergePaths = true
-                            )
+                                LottieAnimation(
+                                    composition = compositionResult.value,
+                                    progress = { progressAnimation },
+                                    modifier = Modifier.size(320.dp),
+                                    enableMergePaths = true
+                                )
 
-                            Text(
-                                text = stringResource(id = R.string.info_goal_no_transactions),
-                                fontWeight = FontWeight.SemiBold,
-                                fontFamily = greenstashFont,
-                                fontSize = 20.sp,
-                                modifier = Modifier.padding(start = 12.dp, end = 12.dp)
-                            )
+                                Text(
+                                    text = stringResource(id = R.string.info_goal_no_transactions),
+                                    fontWeight = FontWeight.SemiBold,
+                                    fontFamily = greenstashFont,
+                                    fontSize = 20.sp,
+                                    modifier = Modifier.padding(start = 12.dp, end = 12.dp)
+                                )
 
-                            Spacer(modifier = Modifier.weight(2f))
+                                Spacer(modifier = Modifier.weight(2f))
+                            }
                         }
                     }
                 }
@@ -373,10 +379,10 @@ fun GoalPriorityCard(goalPriority: GoalPriority, reminders: Boolean) {
             }
 
             Box(modifier = Modifier.padding(start = 8.dp)) {
-                DotIndicator(modifier = Modifier.size(8.2f.dp), color = indicatorColor)
+                PriorityIndicator(modifier = Modifier.size(13.dp), color = indicatorColor)
             }
             Text(
-                modifier = Modifier.padding(start = 14.dp),
+                modifier = Modifier.padding(start = 12.dp),
                 text = stringResource(id = R.string.info_goal_priority).format(goalPriority.name),
                 fontWeight = FontWeight.Medium,
                 fontFamily = greenstashFont
