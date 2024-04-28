@@ -479,7 +479,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
 }
 
 @Composable
-fun InputTipCard(
+private fun InputTipCard(
     icon: ImageVector,
     description: String,
     showTipCard: Boolean,

@@ -47,27 +47,24 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.ModalBottomSheetLayout
-import androidx.compose.material.ModalBottomSheetState
-import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
-import androidx.compose.material3.surfaceColorAtElevation
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
@@ -116,41 +113,15 @@ import kotlinx.coroutines.launch
 import java.util.Locale
 
 
-@OptIn(ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(navController: NavController) {
     val viewModel: HomeViewModel = hiltViewModel()
-
-    val modalBottomSheetState = rememberModalBottomSheetState(
-        initialValue = ModalBottomSheetValue.Hidden
-    )
-
-    ModalBottomSheetLayout(sheetState = modalBottomSheetState,
-        sheetShape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
-        sheetElevation = 24.dp,
-        sheetBackgroundColor = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp),
-        sheetContent = {
-            FilterMenuSheet(viewModel = viewModel)
-        },
-        content = {
-            HomeScreenContent(
-                viewModel = viewModel,
-                navController = navController,
-                bottomSheetState = modalBottomSheetState,
-            )
-        })
-
-}
-
-
-@OptIn(ExperimentalMaterialApi::class)
-@Composable
-private fun HomeScreenContent(
-    viewModel: HomeViewModel,
-    navController: NavController,
-    bottomSheetState: ModalBottomSheetState,
-) {
     val allGoalState = viewModel.goalsList.observeAsState(emptyList())
+
+    val showFilterSheet = remember { mutableStateOf(false) }
+    val filterSheetState = rememberModalBottomSheetState()
+
     val drawerState = rememberDrawerState(DrawerValue.Closed)
 
     val searchWidgetState by viewModel.searchWidgetState
@@ -160,6 +131,21 @@ private fun HomeScreenContent(
 
     val snackBarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
+
+    if (showFilterSheet.value) {
+        ModalBottomSheet(
+            onDismissRequest = {
+                coroutineScope.launch {
+                    filterSheetState.hide()
+                    delay(300)
+                    showFilterSheet.value = false
+                }
+            },
+            sheetState = filterSheetState
+        ) {
+            FilterSheetContent(viewModel = viewModel)
+        }
+    }
 
     ModalNavigationDrawer(
         drawerState = drawerState,
@@ -183,7 +169,9 @@ private fun HomeScreenContent(
                     HomeAppBar(
                         onMenuClicked = { coroutineScope.launch { drawerState.open() } },
                         onFilterClicked = {
-                            coroutineScope.launch { bottomSheetState.show() }
+
+                            showFilterSheet.value = true
+
                         },
                         onSearchClicked = { viewModel.updateSearchWidgetState(newValue = SearchWidgetState.OPENED) },
                         searchWidgetState = searchWidgetState,
@@ -431,19 +419,12 @@ private fun HomeExtendedFAB(
 
 
 @Composable
-private fun FilterMenuSheet(viewModel: HomeViewModel) {
+private fun FilterSheetContent(viewModel: HomeViewModel) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(12.dp)
     ) {
-        Text(
-            text = stringResource(id = R.string.filter_menu_title),
-            fontWeight = FontWeight.SemiBold,
-            fontSize = 20.sp,
-            fontFamily = greenstashFont,
-            modifier = Modifier.padding(start = 8.dp, bottom = 6.dp)
-        )
         Row(modifier = Modifier.fillMaxWidth()) {
             Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.Center) {
                 FilterField.entries.forEach {
@@ -462,6 +443,8 @@ private fun FilterMenuSheet(viewModel: HomeViewModel) {
                 }
             }
         }
+        
+        Spacer(modifier = Modifier.height(16.dp))
     }
 }
 
