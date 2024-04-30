@@ -25,12 +25,6 @@
 
 package com.starry.greenstash.ui.navigation
 
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.background
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -51,33 +45,6 @@ import com.starry.greenstash.ui.screens.settings.composables.GoalCardStyle
 import com.starry.greenstash.ui.screens.settings.composables.OSLScreen
 import com.starry.greenstash.ui.screens.settings.composables.SettingsScreen
 import com.starry.greenstash.ui.screens.welcome.composables.WelcomeScreen
-
-
-private const val NAVIGATION_ANIM_DURATION = 300
-
-private fun enterTransition() = slideInHorizontally(
-    initialOffsetX = { NAVIGATION_ANIM_DURATION }, animationSpec = tween(
-        durationMillis = NAVIGATION_ANIM_DURATION, easing = FastOutSlowInEasing
-    )
-) + fadeIn(animationSpec = tween(NAVIGATION_ANIM_DURATION))
-
-private fun exitTransition() = slideOutHorizontally(
-    targetOffsetX = { -NAVIGATION_ANIM_DURATION }, animationSpec = tween(
-        durationMillis = NAVIGATION_ANIM_DURATION, easing = FastOutSlowInEasing
-    )
-) + fadeOut(animationSpec = tween(NAVIGATION_ANIM_DURATION))
-
-private fun popEnterTransition() = slideInHorizontally(
-    initialOffsetX = { -NAVIGATION_ANIM_DURATION }, animationSpec = tween(
-        durationMillis = NAVIGATION_ANIM_DURATION, easing = FastOutSlowInEasing
-    )
-) + fadeIn(animationSpec = tween(NAVIGATION_ANIM_DURATION))
-
-private fun popExitTransition() = slideOutHorizontally(
-    targetOffsetX = { NAVIGATION_ANIM_DURATION }, animationSpec = tween(
-        durationMillis = NAVIGATION_ANIM_DURATION, easing = FastOutSlowInEasing
-    )
-) + fadeOut(animationSpec = tween(NAVIGATION_ANIM_DURATION))
 
 
 @Composable

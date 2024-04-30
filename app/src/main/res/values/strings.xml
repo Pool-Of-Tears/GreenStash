@@ -39,7 +39,6 @@
     <string name="new_goal_fab">New Goal</string>
     <string name="new_goal_onboarding_title">Let\'s start by creating a new saving goal!</string>
     <string name="new_goal_onboarding_desc">Click on the floating action button to create a new saving goal.</string>
-    <string name="filter_menu_title">Filter By</string>
     <string name="home_search_label">Search here…</string>
     <string name="search_goal_not_found">404: Goal not found!</string>>
 

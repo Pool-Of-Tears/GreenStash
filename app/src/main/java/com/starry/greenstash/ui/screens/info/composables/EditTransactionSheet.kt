@@ -78,7 +78,8 @@ import java.time.Instant
 import java.time.LocalDateTime
 import java.util.TimeZone
 
-@ExperimentalMaterial3Api
+
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EditTransactionSheet(
     transaction: Transaction,

@@ -39,7 +39,6 @@
     <string name="new_goal_fab">新目標</string>
     <string name="new_goal_onboarding_title">讓我們開始建立新的儲蓄目標吧！</string>
     <string name="new_goal_onboarding_desc">點選浮動動作按鈕以建立新的儲蓄目標。</string>
-    <string name="filter_menu_title">篩選條件</string>
     <string name="home_search_label">在此搜尋…</string>
     <string name="search_goal_not_found">404：找不到目標！</string>
 
