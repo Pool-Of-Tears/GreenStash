@@ -1,0 +1,7 @@
+- Added black amoled theme.
+- Add soft haptic feedbacks for better user experience.
+- Improved navigation animations for smoother transitions between screens.
+- Improved icon picker and filter dialogs.
+- Improved UI of tip card.
+- Improved default color scheme.
+- Some other minor improvements and bug fixes.

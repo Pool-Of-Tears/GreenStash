@@ -46,7 +46,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun PriorityIndicator(modifier: Modifier = Modifier, color: Color) {
     val value by rememberInfiniteTransition(label = "value").animateFloat(
-        initialValue = 0.6f,
+        initialValue = 0.8f,
         targetValue = 1f,
         animationSpec = infiniteRepeatable(
             animation = tween(

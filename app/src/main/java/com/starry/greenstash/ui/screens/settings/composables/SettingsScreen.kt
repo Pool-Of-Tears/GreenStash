@@ -368,7 +368,7 @@ private fun ThemeBottomSheet(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 4.dp, bottom = 20.dp, end = 14.dp)
+                    .padding(top = 8.dp, bottom = 20.dp, end = 14.dp)
             ) {
                 Spacer(modifier = Modifier.weight(1f))
                 TextButton(onClick = {

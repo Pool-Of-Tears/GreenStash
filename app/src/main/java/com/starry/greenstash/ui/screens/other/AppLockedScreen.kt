@@ -133,7 +133,7 @@ private fun LockIconCard() {
             .clip(CircleShape)
             .animateContentSize(),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp)
+            containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(5.dp)
         )
     ) {
         Box(
