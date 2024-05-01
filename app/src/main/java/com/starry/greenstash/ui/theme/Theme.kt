@@ -34,6 +34,7 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import com.starry.greenstash.ui.screens.settings.SettingsViewModel
 import com.starry.greenstash.ui.screens.settings.ThemeMode
@@ -106,12 +107,13 @@ fun GreenStashTheme(
 ) {
     val context = LocalContext.current
     val themeState = settingsViewModel.theme.observeAsState(initial = ThemeMode.Auto)
+    val amoledTheme = settingsViewModel.amoledTheme.observeAsState(initial = false)
     val materialYouState = settingsViewModel.materialYou.observeAsState(
         initial = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
     )
 
 
-    val colorScheme = when (themeState.value) {
+    var colorScheme = when (themeState.value) {
         ThemeMode.Light -> if (materialYouState.value && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) dynamicLightColorScheme(
             context
         ) else LightColors
@@ -125,6 +127,12 @@ fun GreenStashTheme(
         } else {
             if (darkTheme) DarkColors else LightColors
         }
+    }
+
+    if (amoledTheme.value && // Amoled theme enabled
+        (themeState.value == ThemeMode.Dark || themeState.value == ThemeMode.Auto && darkTheme)
+    ) {
+        colorScheme = colorScheme.copy(surface = Color.Black, background = Color.Black)
     }
 
     /*

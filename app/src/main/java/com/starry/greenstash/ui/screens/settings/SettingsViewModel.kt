@@ -62,16 +62,19 @@ class SettingsViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _theme = MutableLiveData(ThemeMode.Auto)
+    private val _amoledTheme = MutableLiveData(false)
     private val _materialYou = MutableLiveData(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
     private val _goalCardStyle = MutableLiveData(GoalCardStyle.Classic)
 
     val theme: LiveData<ThemeMode> = _theme
+    val amoledTheme: LiveData<Boolean> = _amoledTheme
     val materialYou: LiveData<Boolean> = _materialYou
     val goalCardStyle: LiveData<GoalCardStyle> = _goalCardStyle
 
     // Initialize preferences --------------------------------------------
     init {
         _theme.value = ThemeMode.entries.toTypedArray()[getThemeValue()]
+        _amoledTheme.value = getAmoledThemeValue()
         _materialYou.value = getMaterialYouValue()
         _goalCardStyle.value = GoalCardStyle.entries.toTypedArray()[getGoalCardStyleValue()]
     }
@@ -80,6 +83,11 @@ class SettingsViewModel @Inject constructor(
     fun setTheme(newTheme: ThemeMode) {
         _theme.postValue(newTheme)
         preferenceUtil.putInt(PreferenceUtil.APP_THEME_INT, newTheme.ordinal)
+    }
+
+    fun setAmoledTheme(newValue: Boolean) {
+        _amoledTheme.postValue(newValue)
+        preferenceUtil.putBoolean(PreferenceUtil.AMOLED_THEME_BOOL, newValue)
     }
 
     fun setMaterialYou(newValue: Boolean) {
@@ -107,6 +115,10 @@ class SettingsViewModel @Inject constructor(
     // Getters for preferences --------------------------------------------
     fun getThemeValue() = preferenceUtil.getInt(
         PreferenceUtil.APP_THEME_INT, ThemeMode.Auto.ordinal
+    )
+
+    fun getAmoledThemeValue() = preferenceUtil.getBoolean(
+        PreferenceUtil.AMOLED_THEME_BOOL, false
     )
 
     fun getMaterialYouValue() = preferenceUtil.getBoolean(

@@ -36,6 +36,7 @@ class PreferenceUtil(context: Context) {
 
         // Main preference keys
         const val APP_THEME_INT = "theme_settings"
+        const val AMOLED_THEME_BOOL = "amoled_theme"
         const val MATERIAL_YOU_BOOL = "material_you"
         const val DEFAULT_CURRENCY_STR = "default_currency_code"
         const val DATE_FORMAT_STR = "date_format"
