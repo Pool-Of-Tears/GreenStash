@@ -54,12 +54,13 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -70,11 +71,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.starry.greenstash.MainActivity
@@ -84,6 +87,7 @@ import com.starry.greenstash.ui.screens.home.composables.GoalItemClassic
 import com.starry.greenstash.ui.screens.home.composables.GoalItemCompact
 import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.utils.getActivity
+import com.starry.greenstash.utils.weakHapticFeedback
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 
@@ -91,12 +95,15 @@ import kotlinx.coroutines.delay
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GoalCardStyle(navController: NavController) {
+    val view = LocalView.current
     val context = navController.context
+
     val settingsVM = (context.getActivity() as MainActivity).settingsViewModel
     val currentStyle = settingsVM.goalCardStyle.observeAsState().value!!
+    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 
     Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
-        TopAppBar(
+        LargeTopAppBar(
             modifier = Modifier.fillMaxWidth(),
             title = {
                 Text(
@@ -106,12 +113,20 @@ fun GoalCardStyle(navController: NavController) {
                     fontFamily = greenstashFont,
                 )
             }, navigationIcon = {
-                IconButton(onClick = { navController.navigateUp() }) {
+                IconButton(onClick = {
+                    view.weakHapticFeedback()
+                    navController.navigateUp()
+                }) {
                     Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = null
                     )
                 }
-            })
+            }, scrollBehavior = scrollBehavior, colors = TopAppBarDefaults.largeTopAppBarColors(
+                containerColor = MaterialTheme.colorScheme.surface,
+                scrolledContainerColor = MaterialTheme.colorScheme.surface,
+            )
+        )
     }) { paddingValues ->
         Column(
             modifier = Modifier
@@ -127,9 +142,10 @@ fun GoalCardStyle(navController: NavController) {
             ) {
                 Text(
                     text = "Preview",
-                    style = MaterialTheme.typography.titleLarge,
-                    modifier = Modifier.padding(start = 16.dp, top = 16.dp),
-                    fontFamily = greenstashFont
+                    modifier = Modifier.padding(start = 16.dp, top = 14.dp),
+                    fontFamily = greenstashFont,
+                    fontSize = 17.sp,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f)
                 )
 
                 AnimatedContent(
@@ -227,10 +243,10 @@ fun GoalCardStyle(navController: NavController) {
             val showCompactTip = remember { mutableStateOf(false) }
             LaunchedEffect(key1 = currentStyle) {
                 if (currentStyle == GoalCardStyle.Compact) {
-                    delay(500)
+                    delay(600)
                     showCompactTip.value = true
                 } else {
-                    delay(600)
+                    delay(700)
                     showCompactTip.value = false
                 }
             }

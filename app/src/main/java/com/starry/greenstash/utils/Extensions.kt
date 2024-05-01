@@ -30,6 +30,8 @@ import android.content.Context
 import android.content.ContextWrapper
 import android.content.pm.PackageManager
 import android.os.Build
+import android.view.HapticFeedbackConstants
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.lazy.LazyListState
@@ -43,12 +45,20 @@ import androidx.core.content.ContextCompat
 import java.io.File
 import java.io.PrintWriter
 
+/**
+ * Gets the activity from the context.
+ * @return the activity if the context is an instance of [AppCompatActivity], null otherwise.
+ */
 fun Context.getActivity(): AppCompatActivity? = when (this) {
     is AppCompatActivity -> this
     is ContextWrapper -> baseContext.getActivity()
     else -> null
 }
 
+/**
+ * Checks if the app has the notification permission.
+ * @return true if the app has the notification permission, false otherwise.
+ */
 fun Context.hasNotificationPermission() =
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
         ContextCompat.checkSelfPermission(
@@ -58,6 +68,10 @@ fun Context.hasNotificationPermission() =
         true
     }
 
+/**
+ * Checks if the lazy list is scrolling up.
+ * @return true if the list is scrolling up, false otherwise.
+ */
 @Composable
 fun LazyListState.isScrollingUp(): Boolean {
     var previousIndex by remember(this) { mutableIntStateOf(firstVisibleItemIndex) }
@@ -83,11 +97,18 @@ fun String.toToast(context: Context, length: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(context, this, length).show()
 }
 
+/**
+ * Validates the amount.
+ * @return true if the amount is valid, false otherwise.
+ */
 fun String.validateAmount() =
     this.isNotEmpty() && this.isNotBlank()
             && !this.matches("[0.]+".toRegex())
             && !this.endsWith(".")
 
+/**
+ * Clears the text content of the file.
+ */
 fun File.clearText() {
     PrintWriter(this).also {
         it.print("")
@@ -95,7 +116,24 @@ fun File.clearText() {
     }
 }
 
+/**
+ * Updates the text content of the file.
+ */
 fun File.updateText(content: String) {
     clearText()
     appendText(content)
+}
+
+/**
+ * Performs a slight haptic feedback.
+ */
+fun View.weakHapticFeedback() {
+    this.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK)
+}
+
+/**
+ * Performs a strong haptic feedback.
+ */
+fun View.strongHapticFeedback() {
+    this.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
 }

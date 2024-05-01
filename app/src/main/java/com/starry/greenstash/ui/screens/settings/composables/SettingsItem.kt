@@ -43,10 +43,10 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.hapticfeedback.HapticFeedbackType
-import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.unit.dp
 import com.starry.greenstash.ui.theme.greenstashFont
+import com.starry.greenstash.utils.weakHapticFeedback
 
 @Composable
 fun SettingsItem(title: String, description: String, icon: ImageVector, onClick: () -> Unit) {
@@ -96,7 +96,7 @@ fun SettingsItem(
     switchState: MutableState<Boolean>,
     onCheckChange: (Boolean) -> Unit,
 ) {
-    val haptic = LocalHapticFeedback.current
+    val view = LocalView.current
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -133,7 +133,7 @@ fun SettingsItem(
         Switch(
             checked = switchState.value,
             onCheckedChange = {
-                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                view.weakHapticFeedback()
                 onCheckChange(it)
             },
             thumbContent = if (switchState.value) {

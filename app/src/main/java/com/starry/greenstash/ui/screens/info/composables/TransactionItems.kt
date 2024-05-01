@@ -73,6 +73,7 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
@@ -87,6 +88,8 @@ import com.starry.greenstash.ui.screens.info.InfoViewModel
 import com.starry.greenstash.ui.screens.settings.ThemeMode
 import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.utils.getActivity
+import com.starry.greenstash.utils.strongHapticFeedback
+import com.starry.greenstash.utils.weakHapticFeedback
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -190,6 +193,7 @@ private fun TransactionSwipeContainer(
     showEditSheet: MutableState<Boolean>,
     showDeleteDialog: MutableState<Boolean>
 ) {
+    val view = LocalView.current
     val coroutineScope = rememberCoroutineScope()
     val swipeState = rememberSwipeToDismissBoxState(
         confirmValueChange = { direction ->
@@ -197,14 +201,20 @@ private fun TransactionSwipeContainer(
                 SwipeToDismissBoxValue.EndToStart -> {
                     coroutineScope.launch {
                         delay(180) // allow the swipe to settle.
-                        withContext(Dispatchers.Main) { showEditSheet.value = true }
+                        withContext(Dispatchers.Main) {
+                            view.weakHapticFeedback()
+                            showEditSheet.value = true
+                        }
                     }
                 }
 
                 SwipeToDismissBoxValue.StartToEnd -> {
                     coroutineScope.launch {
                         delay(180) // allow the swipe to settle.
-                        withContext(Dispatchers.Main) { showDeleteDialog.value = true }
+                        withContext(Dispatchers.Main) {
+                            view.strongHapticFeedback()
+                            showDeleteDialog.value = true
+                        }
                     }
                 }
 

@@ -100,7 +100,7 @@
     <string name="info_copy_notes_alert">Copied Successfully!</string>
     <string name="info_goal_no_transactions">No Transactions Yet.</string>
     <string name="info_edit_transaction_button">Update Transaction</string>
-    <string name="info_transaction_onboarding_tip">Tip: Swipe transactions left or right to edit or delete them.</string>
+    <string name="info_transaction_swipe_tip">Tip! Swipe transactions left or right to edit or delete them.</string>
 
     <!-- Input (New/Edit Goal) Screen -->
     <string name="input_screen_header">It\'s time to save!</string>
@@ -127,7 +127,7 @@
     <string name="input_goal_saved_success">Great! Saving goal set.</string>
     <string name="input_goad_edit_success">Saving goal updated.</string>
     <string name="input_goal_remove_deadline">Do you want to remove deadline from this goal?</string>
-    <string name="input_remove_deadline_tip">Tip: You can remove the deadline from existing goals by long-pressing on the deadline field.</string>
+    <string name="input_remove_deadline_tip">Tip! You can remove the deadline from existing goals by long-pressing on the deadline field.</string>
 
     <!-- Backup Screen -->
     <string name="backup_screen_header">Backup &amp; Restore</string>

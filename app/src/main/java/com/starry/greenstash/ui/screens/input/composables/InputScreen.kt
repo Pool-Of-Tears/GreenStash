@@ -36,10 +36,6 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.animateContentSize
-import androidx.compose.animation.expandVertically
-import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -66,7 +62,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Image
-import androidx.compose.material.icons.filled.Lightbulb
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
@@ -104,6 +99,7 @@ import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
@@ -139,6 +135,7 @@ import com.starry.greenstash.MainActivity
 import com.starry.greenstash.R
 import com.starry.greenstash.database.goal.GoalPriority
 import com.starry.greenstash.ui.common.SelectableChipGroup
+import com.starry.greenstash.ui.common.TipCard
 import com.starry.greenstash.ui.navigation.DrawerScreens
 import com.starry.greenstash.ui.screens.input.InputViewModel
 import com.starry.greenstash.ui.theme.greenstashFont
@@ -148,6 +145,7 @@ import com.starry.greenstash.utils.getActivity
 import com.starry.greenstash.utils.hasNotificationPermission
 import com.starry.greenstash.utils.toToast
 import com.starry.greenstash.utils.validateAmount
+import com.starry.greenstash.utils.weakHapticFeedback
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -158,7 +156,9 @@ import java.time.format.DateTimeFormatter
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun InputScreen(editGoalId: String?, navController: NavController) {
+    val view = LocalView.current
     val context = LocalContext.current
+
     val viewModel: InputViewModel = hiltViewModel()
     val coroutineScope = rememberCoroutineScope()
     val snackBarHostState = remember { SnackbarHostState() }
@@ -290,7 +290,10 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                             fontFamily = greenstashFont
                         )
                     }, navigationIcon = {
-                        IconButton(onClick = { navController.navigateUp() }) {
+                        IconButton(onClick = {
+                            view.weakHapticFeedback()
+                            navController.navigateUp()
+                        }) {
                             Icon(
                                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                                 contentDescription = null
@@ -418,8 +421,8 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                             }
                         }
 
-                        InputTipCard(
-                            icon = Icons.Filled.Lightbulb,
+                        TipCard(
+                            modifier = Modifier.fillMaxWidth(0.86f),
                             description = stringResource(id = R.string.input_remove_deadline_tip),
                             showTipCard = showRemoveDeadlineTip.value,
                             onDismissRequest = {
@@ -479,64 +482,6 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
 }
 
 @Composable
-private fun InputTipCard(
-    icon: ImageVector,
-    description: String,
-    showTipCard: Boolean,
-    onDismissRequest: () -> Unit
-) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .animateContentSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        AnimatedVisibility(
-            visible = showTipCard,
-            enter = expandVertically(),
-            exit = shrinkVertically()
-        ) {
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth(0.86f)
-                    .padding(bottom = 10.dp),
-                shape = RoundedCornerShape(16.dp),
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.secondaryContainer
-                )
-            ) {
-                Column(
-                    modifier = Modifier.padding(16.dp)
-                ) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Icon(
-                            imageVector = icon,
-                            contentDescription = null,
-                            modifier = Modifier.size(32.dp)
-                        )
-                        Spacer(modifier = Modifier.width(16.dp))
-                        Text(
-                            text = description,
-                            style = MaterialTheme.typography.titleSmall,
-                            fontFamily = greenstashFont,
-                        )
-                    }
-                    Spacer(modifier = Modifier.height(16.dp))
-                    Button(
-                        onClick = { onDismissRequest() },
-                        modifier = Modifier.align(Alignment.End)
-                    ) {
-                        Text(text = "OK")
-                    }
-                }
-            }
-        }
-    }
-}
-
-@Composable
 private fun GoalImagePicker(
     goalImage: Any?,
     photoPicker: ActivityResultLauncher<PickVisualMediaRequest>,
@@ -544,6 +489,8 @@ private fun GoalImagePicker(
     @SuppressLint("ModifierParameter") fabModifier: Modifier
 ) {
     val context = LocalContext.current
+    val view = LocalView.current
+
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -581,6 +528,7 @@ private fun GoalImagePicker(
                 .align(Alignment.BottomEnd)
                 .padding(end = 24.dp),
             onClick = {
+                view.weakHapticFeedback()
                 photoPicker.launch(
                     PickVisualMediaRequest(
                         ActivityResultContracts.PickVisualMedia.ImageOnly
@@ -628,8 +576,12 @@ private fun IconPickerCard(
     // To be used for onboarding tap target.
     modifier: Modifier = Modifier,
 ) {
+    val view = LocalView.current
     Card(
-        onClick = onClick,
+        onClick = {
+            view.weakHapticFeedback()
+            onClick()
+        },
         modifier = Modifier.fillMaxWidth(0.86f),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer
@@ -727,7 +679,7 @@ private fun GoalReminderMenu(
     // To be used for onboarding tap target.
     modifier: Modifier = Modifier
 ) {
-    val haptic = LocalHapticFeedback.current
+    val view = LocalView.current
     var hasNotificationPermission by remember { mutableStateOf(context.hasNotificationPermission()) }
 
     val launcher = rememberLauncherForActivityResult(
@@ -782,7 +734,7 @@ private fun GoalReminderMenu(
             Switch(
                 checked = viewModel.state.reminder,
                 onCheckedChange = { newValue ->
-                    haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                    view.weakHapticFeedback()
                     viewModel.state = viewModel.state.copy(reminder = newValue)
                     // Ask for notification permission if android ver > 13.
                     if (newValue &&

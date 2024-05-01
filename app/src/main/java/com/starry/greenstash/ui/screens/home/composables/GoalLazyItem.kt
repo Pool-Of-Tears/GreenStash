@@ -36,6 +36,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.starry.greenstash.MainActivity
@@ -50,6 +51,8 @@ import com.starry.greenstash.utils.GoalTextUtils
 import com.starry.greenstash.utils.ImageUtils
 import com.starry.greenstash.utils.Utils
 import com.starry.greenstash.utils.getActivity
+import com.starry.greenstash.utils.strongHapticFeedback
+import com.starry.greenstash.utils.weakHapticFeedback
 import kotlinx.coroutines.launch
 
 
@@ -71,6 +74,7 @@ fun GoalLazyColumnItem(
     }
 
     val openDeleteDialog = remember { mutableStateOf(false) }
+    val localView = LocalView.current
 
     when (goalCardStyle) {
         GoalCardStyle.Classic -> {
@@ -90,6 +94,7 @@ fun GoalLazyColumnItem(
                 goalProgress = progressPercent.toFloat() / 100,
                 goalImage = item.goal.goalImage,
                 onDepositClicked = {
+                    localView.weakHapticFeedback()
                     if (item.getCurrentlySavedAmount() >= item.goal.targetAmount) {
                         coroutineScope.launch {
                             snackBarHostState.showSnackbar(context.getString(R.string.goal_already_achieved))
@@ -104,6 +109,7 @@ fun GoalLazyColumnItem(
                     }
                 },
                 onWithdrawClicked = {
+                    localView.weakHapticFeedback()
                     if (item.getCurrentlySavedAmount() == 0f.toDouble()) {
                         coroutineScope.launch {
                             snackBarHostState.showSnackbar(context.getString(R.string.withdraw_button_error))
@@ -118,6 +124,7 @@ fun GoalLazyColumnItem(
                     }
                 },
                 onInfoClicked = {
+                    localView.weakHapticFeedback()
                     navController.navigate(
                         Screens.GoalInfoScreen.withGoalId(
                             goalId = item.goal.goalId.toString()
@@ -125,13 +132,17 @@ fun GoalLazyColumnItem(
                     )
                 },
                 onEditClicked = {
+                    localView.weakHapticFeedback()
                     navController.navigate(
                         Screens.InputScreen.withGoalToEdit(
                             goalId = item.goal.goalId.toString()
                         )
                     )
                 },
-                onDeleteClicked = { openDeleteDialog.value = true }
+                onDeleteClicked = {
+                    localView.strongHapticFeedback()
+                    openDeleteDialog.value = true
+                }
             )
 
         }
@@ -162,6 +173,7 @@ fun GoalLazyColumnItem(
                 goalProgress = progressPercent.toFloat() / 100,
                 goalIcon = goalIcon,
                 onDepositClicked = {
+                    localView.weakHapticFeedback()
                     if (item.getCurrentlySavedAmount() >= item.goal.targetAmount) {
                         coroutineScope.launch {
                             snackBarHostState.showSnackbar(context.getString(R.string.goal_already_achieved))
@@ -176,6 +188,7 @@ fun GoalLazyColumnItem(
                     }
                 },
                 onWithdrawClicked = {
+                    localView.weakHapticFeedback()
                     if (item.getCurrentlySavedAmount() == 0f.toDouble()) {
                         coroutineScope.launch {
                             snackBarHostState.showSnackbar(context.getString(R.string.withdraw_button_error))
@@ -190,6 +203,7 @@ fun GoalLazyColumnItem(
                     }
                 },
                 onInfoClicked = {
+                    localView.weakHapticFeedback()
                     navController.navigate(
                         Screens.GoalInfoScreen.withGoalId(
                             goalId = item.goal.goalId.toString()
@@ -197,6 +211,7 @@ fun GoalLazyColumnItem(
                     )
                 },
                 onEditClicked = {
+                    localView.weakHapticFeedback()
                     navController.navigate(
                         Screens.InputScreen.withGoalToEdit(
                             goalId = item.goal.goalId.toString()
@@ -204,6 +219,7 @@ fun GoalLazyColumnItem(
                     )
                 },
                 onDeleteClicked = {
+                    localView.strongHapticFeedback()
                     openDeleteDialog.value = true
                 }
             )

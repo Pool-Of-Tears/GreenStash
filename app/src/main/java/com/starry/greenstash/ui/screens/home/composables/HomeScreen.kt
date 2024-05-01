@@ -81,6 +81,7 @@ import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -108,6 +109,7 @@ import com.starry.greenstash.ui.screens.home.HomeViewModel
 import com.starry.greenstash.ui.screens.home.SearchWidgetState
 import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.utils.isScrollingUp
+import com.starry.greenstash.utils.weakHapticFeedback
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.Locale
@@ -386,6 +388,8 @@ private fun HomeExtendedFAB(
 ) {
     val isFabVisible = lazyListState.isScrollingUp()
     val density = LocalDensity.current
+    val view = LocalView.current
+
     AnimatedVisibility(
         visible = isFabVisible,
         enter = slideInVertically {
@@ -399,7 +403,10 @@ private fun HomeExtendedFAB(
     ) {
         ExtendedFloatingActionButton(
             modifier = modifier.padding(end = 10.dp, bottom = 12.dp),
-            onClick = { navController.navigate(Screens.InputScreen.route) },
+            onClick = {
+                view.weakHapticFeedback()
+                navController.navigate(Screens.InputScreen.route)
+            },
             elevation = FloatingActionButtonDefaults.elevation(8.dp)
         ) {
             Row {
@@ -443,7 +450,7 @@ private fun FilterSheetContent(viewModel: HomeViewModel) {
                 }
             }
         }
-        
+
         Spacer(modifier = Modifier.height(16.dp))
     }
 }
