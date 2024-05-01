@@ -152,6 +152,9 @@ class MainActivity : AppCompatActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
+                    val navController = rememberNavController()
+                    val startDestination by mainViewModel.startDestination
+
                     Crossfade(
                         targetState = showAppContents,
                         label = "AppLockCrossFade",
@@ -159,9 +162,7 @@ class MainActivity : AppCompatActivity() {
                     ) { showAppContents ->
                         // show app contents only if user has authenticated.
                         if (showAppContents.value) {
-                            val navController = rememberNavController()
-                            val screen by mainViewModel.startDestination
-                            NavGraph(navController = navController, screen)
+                            NavGraph(navController = navController, startDestination)
                         } else {
                             // show app locked screen if user has not authenticated.
                             AppLockedScreen(onAuthRequest = {

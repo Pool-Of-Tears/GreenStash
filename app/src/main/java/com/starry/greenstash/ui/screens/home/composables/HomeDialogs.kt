@@ -36,8 +36,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.ui.hapticfeedback.HapticFeedbackType
-import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.stringResource
 import com.starry.greenstash.R
 import com.starry.greenstash.ui.theme.greenstashFont
@@ -48,10 +46,8 @@ fun HomeDialogs(
     openDeleteDialog: MutableState<Boolean>,
     onDeleteConfirmed: () -> Unit,
 ) {
-    val haptic = LocalHapticFeedback.current
-
     if (openDeleteDialog.value) {
-        haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+
         AlertDialog(onDismissRequest = {
             openDeleteDialog.value = false
         }, title = {

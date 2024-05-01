@@ -64,6 +64,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -73,6 +74,7 @@ import coil.compose.AsyncImage
 import com.starry.greenstash.R
 import com.starry.greenstash.ui.screens.backups.BackupViewModel
 import com.starry.greenstash.ui.theme.greenstashFont
+import com.starry.greenstash.utils.weakHapticFeedback
 import kotlinx.coroutines.launch
 import java.io.InputStreamReader
 import java.io.Reader
@@ -82,6 +84,7 @@ import java.nio.charset.StandardCharsets
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BackupScreen(navController: NavController) {
+    val view = LocalView.current
     val context = LocalContext.current
     val viewModel = hiltViewModel<BackupViewModel>()
 
@@ -102,7 +105,10 @@ fun BackupScreen(navController: NavController) {
                         fontFamily = greenstashFont
                     )
                 }, navigationIcon = {
-                    IconButton(onClick = { navController.navigateUp() }) {
+                    IconButton(onClick = {
+                        view.weakHapticFeedback()
+                        navController.navigateUp()
+                    }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = null

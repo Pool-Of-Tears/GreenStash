@@ -47,6 +47,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
@@ -57,12 +58,15 @@ import com.starry.greenstash.R
 import com.starry.greenstash.ui.navigation.DrawerScreens
 import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.utils.Utils
+import com.starry.greenstash.utils.weakHapticFeedback
 import kotlinx.coroutines.launch
 
 @Composable
 fun HomeDrawer(drawerState: DrawerState, navController: NavController) {
     val items = listOf(DrawerScreens.Home, DrawerScreens.Backups, DrawerScreens.Settings)
     val selectedItem = remember { mutableStateOf(items[0]) }
+
+    val view = LocalView.current
     val coroutineScope = rememberCoroutineScope()
 
     ModalDrawerSheet(
@@ -104,6 +108,7 @@ fun HomeDrawer(drawerState: DrawerState, navController: NavController) {
                 },
                 selected = item == selectedItem.value,
                 onClick = {
+                    view.weakHapticFeedback()
                     selectedItem.value = item
                     coroutineScope.launch {
                         drawerState.close()

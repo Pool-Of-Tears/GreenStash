@@ -55,10 +55,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.surfaceColorAtElevation
@@ -66,12 +64,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -92,20 +92,24 @@ import com.starry.greenstash.database.goal.GoalPriority.High
 import com.starry.greenstash.database.goal.GoalPriority.Low
 import com.starry.greenstash.database.goal.GoalPriority.Normal
 import com.starry.greenstash.ui.common.ExpandableTextCard
+import com.starry.greenstash.ui.common.TipCard
 import com.starry.greenstash.ui.screens.info.InfoViewModel
 import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.ui.theme.greenstashNumberFont
 import com.starry.greenstash.utils.GoalTextUtils
 import com.starry.greenstash.utils.Utils
+import com.starry.greenstash.utils.weakHapticFeedback
+import kotlinx.coroutines.delay
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GoalInfoScreen(goalId: String, navController: NavController) {
+    val view = LocalView.current
+    val context = LocalContext.current
 
     val viewModel: InfoViewModel = hiltViewModel()
     val state = viewModel.state
-    val context = LocalContext.current
 
     val snackBarHostState = remember { SnackbarHostState() }
 
@@ -125,7 +129,10 @@ fun GoalInfoScreen(goalId: String, navController: NavController) {
                         fontFamily = greenstashFont
                     )
                 }, navigationIcon = {
-                    IconButton(onClick = { navController.navigateUp() }) {
+                    IconButton(onClick = {
+                        view.weakHapticFeedback()
+                        navController.navigateUp()
+                    }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = null
@@ -183,29 +190,31 @@ fun GoalInfoScreen(goalId: String, navController: NavController) {
                             Spacer(modifier = Modifier.height(6.dp))
                         }
                         if (goalData.transactions.isNotEmpty()) {
+                            // Show tooltip for swipe functionality.
+                            val showTransactionSwipeTip = remember { mutableStateOf(false) }
+                            LaunchedEffect(key1 = true) {
+                                if (viewModel.shouldShowTransactionTip()) {
+                                    delay(800) // Don't show immediately.
+                                    showTransactionSwipeTip.value = true
+                                }
+                            }
+
+                            TipCard(
+                                modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp),
+                                description = stringResource(id = R.string.info_transaction_swipe_tip),
+                                showTipCard = showTransactionSwipeTip.value,
+                                onDismissRequest = {
+                                    showTransactionSwipeTip.value = false
+                                    viewModel.transactionTipDismissed()
+                                }
+                            )
+
+                            // Show transaction items.
                             TransactionItems(
                                 goalData.getOrderedTransactions(),
                                 currencySymbol,
                                 viewModel
                             )
-                            // Show tooltip for swipe functionality.
-                            LaunchedEffect(key1 = true) {
-                                if (viewModel.shouldShowTransactionTip()) {
-                                    val result = snackBarHostState.showSnackbar(
-                                        message = context.getString(R.string.info_transaction_onboarding_tip),
-                                        actionLabel = context.getString(R.string.ok),
-                                        duration = SnackbarDuration.Indefinite
-                                    )
-
-                                    when (result) {
-                                        SnackbarResult.ActionPerformed -> {
-                                            viewModel.transactionTipDismissed()
-                                        }
-
-                                        SnackbarResult.Dismissed -> {}
-                                    }
-                                }
-                            }
 
                         } else {
                             Column(

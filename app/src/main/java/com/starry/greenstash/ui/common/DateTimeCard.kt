@@ -39,6 +39,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -46,6 +47,7 @@ import androidx.compose.ui.unit.dp
 import com.starry.greenstash.R
 import com.starry.greenstash.ui.screens.settings.DateStyle
 import com.starry.greenstash.ui.theme.greenstashFont
+import com.starry.greenstash.utils.weakHapticFeedback
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -55,11 +57,15 @@ fun DateTimeCard(
     dateTimeStyle: () -> DateStyle,
     onClick: () -> Unit
 ) {
+    val view = LocalView.current
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 18.dp, vertical = 8.dp)
-            .clickable { onClick() }
+            .clickable {
+                view.weakHapticFeedback()
+                onClick()
+            }
     ) {
         Row(
             modifier = Modifier

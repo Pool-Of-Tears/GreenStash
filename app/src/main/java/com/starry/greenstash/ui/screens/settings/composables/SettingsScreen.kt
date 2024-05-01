@@ -66,6 +66,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.Role
@@ -88,12 +89,14 @@ import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.utils.Utils
 import com.starry.greenstash.utils.getActivity
 import com.starry.greenstash.utils.toToast
+import com.starry.greenstash.utils.weakHapticFeedback
 import java.util.concurrent.Executor
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(navController: NavController) {
+    val view = LocalView.current
     val context = LocalContext.current
     val viewModel = (context.getActivity() as MainActivity).settingsViewModel
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
@@ -109,7 +112,10 @@ fun SettingsScreen(navController: NavController) {
                     fontFamily = greenstashFont
                 )
             }, navigationIcon = {
-                IconButton(onClick = { navController.navigateUp() }) {
+                IconButton(onClick = {
+                    view.weakHapticFeedback()
+                    navController.navigateUp()
+                }) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = null

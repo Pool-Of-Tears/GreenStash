@@ -50,6 +50,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.input.ImeAction
@@ -58,6 +59,7 @@ import androidx.compose.ui.unit.dp
 import com.starry.greenstash.R
 import com.starry.greenstash.ui.screens.home.SearchWidgetState
 import com.starry.greenstash.ui.theme.greenstashFont
+import com.starry.greenstash.utils.weakHapticFeedback
 
 
 @Composable
@@ -73,7 +75,8 @@ fun HomeAppBar(
 ) {
     Crossfade(
         targetState = searchWidgetState,
-        animationSpec = tween(durationMillis = 300), label = "searchbar cross-fade"
+        animationSpec = tween(durationMillis = 300),
+        label = "searchbar cross-fade"
     ) {
         when (it) {
             SearchWidgetState.CLOSED -> {
@@ -104,6 +107,7 @@ private fun DefaultAppBar(
     onFilterClicked: () -> Unit,
     onSearchClicked: () -> Unit,
 ) {
+    val view = LocalView.current
     TopAppBar(
         title = {
             Text(
@@ -114,7 +118,10 @@ private fun DefaultAppBar(
             )
         },
         navigationIcon = {
-            IconButton(onClick = { onMenuClicked() }) {
+            IconButton(onClick = {
+                view.weakHapticFeedback()
+                onMenuClicked()
+            }) {
                 Icon(
                     imageVector = Icons.Filled.Menu,
                     contentDescription = stringResource(id = R.string.menu_button_desc)
@@ -122,14 +129,20 @@ private fun DefaultAppBar(
             }
         },
         actions = {
-            IconButton(onClick = { onFilterClicked() }) {
+            IconButton(onClick = {
+                view.weakHapticFeedback()
+                onFilterClicked()
+            }) {
                 Icon(
                     imageVector = ImageVector.vectorResource(id = R.drawable.ic_menu_filter),
                     contentDescription = stringResource(id = R.string.filter_button_desc),
                     modifier = Modifier.size(22.dp)
                 )
             }
-            IconButton(onClick = { onSearchClicked() }) {
+            IconButton(onClick = {
+                view.weakHapticFeedback()
+                onSearchClicked()
+            }) {
                 Icon(
                     imageVector = Icons.Filled.Search,
                     contentDescription = stringResource(id = R.string.search_button_desc)
@@ -148,8 +161,7 @@ private fun SearchAppBar(
     onSearchClicked: (String) -> Unit,
 ) {
     Surface(
-        modifier = Modifier.fillMaxWidth(),
-        color = MaterialTheme.colorScheme.surface
+        modifier = Modifier.fillMaxWidth(), color = MaterialTheme.colorScheme.surface
     ) {
         OutlinedTextField(
             modifier = Modifier
@@ -166,9 +178,7 @@ private fun SearchAppBar(
             },
             singleLine = true,
             leadingIcon = {
-                IconButton(
-                    onClick = {}
-                ) {
+                IconButton(onClick = {}) {
                     Icon(
                         imageVector = Icons.Default.Search,
                         contentDescription = null,
@@ -177,15 +187,13 @@ private fun SearchAppBar(
                 }
             },
             trailingIcon = {
-                IconButton(
-                    onClick = {
-                        if (text.isNotEmpty()) {
-                            onTextChange("")
-                        } else {
-                            onCloseClicked()
-                        }
+                IconButton(onClick = {
+                    if (text.isNotEmpty()) {
+                        onTextChange("")
+                    } else {
+                        onCloseClicked()
                     }
-                ) {
+                }) {
                     Icon(
                         imageVector = Icons.Filled.Close,
                         contentDescription = null,
@@ -196,17 +204,16 @@ private fun SearchAppBar(
             keyboardOptions = KeyboardOptions(
                 imeAction = ImeAction.Search
             ),
-            keyboardActions = KeyboardActions(
-                onSearch = {
-                    onSearchClicked(text)
-                }
-            ),
+            keyboardActions = KeyboardActions(onSearch = {
+                onSearchClicked(text)
+            }),
             colors = TextFieldDefaults.colors(
                 focusedContainerColor = Color.Transparent,
                 unfocusedContainerColor = MaterialTheme.colorScheme.primaryContainer.copy(0.3f),
                 disabledContainerColor = Color.Transparent,
                 cursorColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f),
             ),
-            shape = RoundedCornerShape(24.dp))
+            shape = RoundedCornerShape(24.dp)
+        )
     }
 }
