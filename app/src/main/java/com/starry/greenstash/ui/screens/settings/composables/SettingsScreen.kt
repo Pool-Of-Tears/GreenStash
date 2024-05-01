@@ -251,6 +251,7 @@ private fun ThemeBottomSheet(
     onThemeChange: (ThemeMode) -> Unit,
     onAmoledThemeChange: (Boolean) -> Unit,
 ) {
+    val view = LocalView.current
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
     val themeRadioOptions = listOf(
@@ -345,6 +346,7 @@ private fun ThemeBottomSheet(
                     Switch(
                         checked = amoledThemeValue,
                         onCheckedChange = {
+                            view.weakHapticFeedback()
                             onAmoledThemeChange(it)
                         },
                         thumbContent = if (amoledThemeValue) {
