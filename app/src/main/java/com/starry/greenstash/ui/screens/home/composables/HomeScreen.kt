@@ -158,7 +158,7 @@ fun HomeScreen(navController: NavController) {
     ) {
         val showTapTargets = remember { mutableStateOf(false) }
         LaunchedEffect(key1 = viewModel.showOnboardingTapTargets.value) {
-            delay(300) // Delay to prevent flickering
+            delay(800) // Delay to prevent flickering
             showTapTargets.value = viewModel.showOnboardingTapTargets.value
         }
         TapTargetCoordinator(
@@ -221,13 +221,15 @@ fun HomeScreen(navController: NavController) {
                 ) {
                     if (allGoalState.value.isEmpty()) {
                         var showNoGoalsAnimation by remember { mutableStateOf(false) }
-
                         LaunchedEffect(key1 = true, block = {
                             delay(200)
                             showNoGoalsAnimation = true
                         })
-
-                        if (showNoGoalsAnimation) {
+                        AnimatedVisibility(
+                            visible = showNoGoalsAnimation,
+                            enter = fadeIn(),
+                            exit = fadeOut()
+                        ) {
                             NoGoalAnimation()
                         }
                     } else {
