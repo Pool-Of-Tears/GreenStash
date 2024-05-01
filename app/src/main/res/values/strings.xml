@@ -141,10 +141,10 @@
     <string name="settings_screen_header">Settings</string>
     <string name="display_settings_title">Display</string>
     <string name="theme_setting">Default Theme</string>
-    <string name="theme_dialog_title">Change Theme</string>
     <string name="theme_dialog_option1">Light</string>
     <string name="theme_dialog_option2">Dark</string>
     <string name="theme_dialog_option3">System Default</string>
+    <string name="amoled_theme_setting">Black Theme</string>
     <string name="theme_dialog_apply_button">Apply</string>
     <string name="material_you_setting" translatable="false">Material You</string>
     <string name="material_you_setting_desc">Switch theme according to your wallpaper (A12+ Only)</string>

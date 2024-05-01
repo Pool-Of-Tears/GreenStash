@@ -44,11 +44,12 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Image
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
@@ -112,80 +113,80 @@ fun IconPickerDialog(
             Column(
                 modifier = Modifier.fillMaxWidth(0.99f)
             ) {
-                Card(
+                Column(
                     modifier = Modifier.fillMaxWidth(),
-                    colors = CardDefaults.elevatedCardColors()
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
                 ) {
-                    Column(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center
+                    SearchTextField(
+                        viewModel = viewModel,
+                        onSearchChanged = { search ->
+                            viewModel.updateIconSearch(
+                                context = context,
+                                search = search
+                            )
+                        }
+                    )
+
+                    Spacer(modifier = Modifier.height(18.dp))
+
+                    IconsGirdList(
+                        iconState = state,
+                        onIconClick = { viewModel.updateCurrentIcon(it) }
+                    )
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 10.dp, horizontal = 20.dp)
                     ) {
+                        Spacer(modifier = Modifier.weight(1f))
 
-                        SearchTextField(
-                            viewModel = viewModel,
-                            onSearchChanged = { search ->
-                                viewModel.updateIconSearch(
-                                    context = context,
-                                    search = search
-                                )
-                            }
-                        )
-
-                        Spacer(modifier = Modifier.height(18.dp))
-
-                        IconsGirdList(
-                            iconState = state,
-                            onIconClick = { viewModel.updateCurrentIcon(it) }
-                        )
-
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(10.dp)
-                        ) {
-                            Spacer(modifier = Modifier.weight(1f))
-
-                            // Cancel button
-                            TextButton(onClick = {
-                                if (viewModel.iconState.value.searchText.isNotEmpty()) {
-                                    viewModel.updateIconSearch(context = context, search = "")
-                                } else {
-                                    coroutineScope.launch {
-                                        sheetState.hide()
-                                        delay(300)
-                                        showDialog.value = false
-                                    }
+                        // Cancel button
+                        TextButton(onClick = {
+                            if (viewModel.iconState.value.searchText.isNotEmpty()) {
+                                viewModel.updateIconSearch(context = context, search = "")
+                            } else {
+                                coroutineScope.launch {
+                                    sheetState.hide()
+                                    delay(300)
+                                    showDialog.value = false
                                 }
-                            }) {
-                                Text(
-                                    text = stringResource(id = R.string.cancel),
-                                    fontFamily = greenstashFont
-                                )
                             }
+                        }) {
+                            Text(
+                                text = stringResource(id = R.string.cancel),
+                                fontFamily = greenstashFont
+                            )
+                        }
 
-                            Spacer(modifier = Modifier.width(10.dp))
+                        Spacer(modifier = Modifier.width(10.dp))
 
-                            // Confirm button
-                            Button(onClick = {
+                        // Confirm button
+                        FilledTonalButton(
+                            onClick = {
                                 onIconSelected(state.currentIcon)
                                 coroutineScope.launch {
                                     sheetState.hide()
                                     delay(300)
                                     showDialog.value = false
                                 }
-                            }) {
-                                Text(
-                                    text = stringResource(id = R.string.confirm),
-                                    fontFamily = greenstashFont,
-                                )
-                            }
+                            }, colors = ButtonDefaults.filledTonalButtonColors(
+                                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                                contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                            ), shape = RoundedCornerShape(16.dp)
+                        ) {
+                            Text(
+                                text = stringResource(id = R.string.confirm),
+                                fontFamily = greenstashFont,
+                            )
                         }
-
-                        Spacer(modifier = Modifier.height(10.dp))
                     }
+
+                    Spacer(modifier = Modifier.height(10.dp))
                 }
             }
+
         }
     }
 
@@ -238,7 +239,7 @@ private fun IconsGirdList(
                 .fillMaxWidth(0.9f)
                 .height(180.dp),
             colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(4.dp)
+                containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(5.dp)
             ),
             shape = RoundedCornerShape(16.dp)
         ) {

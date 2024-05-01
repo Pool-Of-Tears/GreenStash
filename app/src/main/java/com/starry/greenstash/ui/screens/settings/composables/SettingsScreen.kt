@@ -34,11 +34,14 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Style
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ButtonDefaults
@@ -50,16 +53,23 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SheetState
+import androidx.compose.material3.Switch
+import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -90,6 +100,10 @@ import com.starry.greenstash.utils.Utils
 import com.starry.greenstash.utils.getActivity
 import com.starry.greenstash.utils.toToast
 import com.starry.greenstash.utils.weakHapticFeedback
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.concurrent.Executor
 
 
@@ -144,9 +158,12 @@ fun SettingsScreen(navController: NavController) {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun DisplaySettings(viewModel: SettingsViewModel, navController: NavController) {
     val context = LocalContext.current
+    val sheetState = rememberModalBottomSheetState()
+    val showThemeSheet = remember { mutableStateOf(false) }
 
     // Theme related values.
     val themeValue = when (viewModel.getThemeValue()) {
@@ -154,18 +171,14 @@ private fun DisplaySettings(viewModel: SettingsViewModel, navController: NavCont
         ThemeMode.Dark.ordinal -> stringResource(id = R.string.theme_dialog_option2)
         else -> stringResource(id = R.string.theme_dialog_option3)
     }
-    val themeDialog = remember { mutableStateOf(false) }
-    val themeRadioOptions = listOf(
-        stringResource(id = R.string.theme_dialog_option1),
-        stringResource(id = R.string.theme_dialog_option2),
-        stringResource(id = R.string.theme_dialog_option3)
-    )
-    val (selectedThemeOption, onThemeOptionSelected) = remember {
-        mutableStateOf(themeValue)
+
+    // Amoled theme state.
+    val amoledThemeValue = remember {
+        mutableStateOf(viewModel.getAmoledThemeValue())
     }
 
-    // Material You related values.
-    val materialYouSwitch = remember {
+    // Material You theme state.
+    val materialYouValue = remember {
         mutableStateOf(viewModel.getMaterialYouValue())
     }
 
@@ -182,51 +195,98 @@ private fun DisplaySettings(viewModel: SettingsViewModel, navController: NavCont
         SettingsItem(title = stringResource(id = R.string.theme_setting),
             description = themeValue,
             icon = ImageVector.vectorResource(id = R.drawable.ic_settings_theme),
-            onClick = { themeDialog.value = true })
+            onClick = { showThemeSheet.value = true })
 
-        SettingsItem(
-            title = stringResource(id = R.string.material_you_setting),
+        SettingsItem(title = stringResource(id = R.string.material_you_setting),
             description = stringResource(
                 id = R.string.material_you_setting_desc
             ),
             icon = ImageVector.vectorResource(id = R.drawable.ic_settings_material_you),
-            switchState = materialYouSwitch,
+            switchState = materialYouValue,
             onCheckChange = { newValue ->
-                materialYouSwitch.value = newValue
+                materialYouValue.value = newValue
 
                 if (newValue) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                         viewModel.setMaterialYou(true)
                     } else {
-                        materialYouSwitch.value = false
-                        context.getString(R.string.material_you_error)
-                            .toToast(context)
+                        materialYouValue.value = false
+                        context.getString(R.string.material_you_error).toToast(context)
                     }
                 } else {
                     viewModel.setMaterialYou(false)
                 }
-            }
-        )
+            })
 
-        SettingsItem(
-            title = stringResource(id = R.string.goal_card_setting),
+        SettingsItem(title = stringResource(id = R.string.goal_card_setting),
             description = goalStyleValue,
             icon = Icons.Filled.Style,
-            onClick = { navController.navigate(Screens.GoalCardStyle.route) }
-        )
+            onClick = { navController.navigate(Screens.GoalCardStyle.route) })
 
-        if (themeDialog.value) {
-            AlertDialog(onDismissRequest = {
-                themeDialog.value = false
-            }, title = {
-                Text(
-                    text = stringResource(id = R.string.theme_dialog_title),
-                    color = MaterialTheme.colorScheme.onSurface,
-                    fontFamily = greenstashFont,
-                )
-            }, text = {
+        if (showThemeSheet.value) {
+            ThemeBottomSheet(
+                themeValue = themeValue,
+                amoledThemeValue = amoledThemeValue.value,
+                sheetState = sheetState,
+                showThemeSheet = showThemeSheet,
+                onThemeChange = { newTheme ->
+                    viewModel.setTheme(newTheme)
+                },
+                onAmoledThemeChange = { newValue ->
+                    amoledThemeValue.value = newValue
+                    viewModel.setAmoledTheme(newValue)
+                }
+            )
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun ThemeBottomSheet(
+    themeValue: String,
+    amoledThemeValue: Boolean,
+    sheetState: SheetState,
+    showThemeSheet: MutableState<Boolean>,
+    onThemeChange: (ThemeMode) -> Unit,
+    onAmoledThemeChange: (Boolean) -> Unit,
+) {
+    val view = LocalView.current
+    val context = LocalContext.current
+    val coroutineScope = rememberCoroutineScope()
+    val themeRadioOptions = listOf(
+        stringResource(id = R.string.theme_dialog_option1),
+        stringResource(id = R.string.theme_dialog_option2),
+        stringResource(id = R.string.theme_dialog_option3)
+    )
+    val (selectedThemeOption, onThemeOptionSelected) = remember {
+        mutableStateOf(themeValue)
+    }
+
+    ModalBottomSheet(sheetState = sheetState, onDismissRequest = {
+        coroutineScope.launch {
+            sheetState.hide()
+            delay(300)
+            showThemeSheet.value = false
+        }
+    }) {
+        Column(
+            modifier = Modifier.fillMaxWidth()
+
+        ) {
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 14.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(6.dp)
+                ),
+                shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
+            ) {
                 Column(
-                    modifier = Modifier.selectableGroup(),
+                    modifier = Modifier
+                        .selectableGroup()
+                        .padding(top = 6.dp),
                     verticalArrangement = Arrangement.Center,
                 ) {
                     themeRadioOptions.forEach { text ->
@@ -238,7 +298,8 @@ private fun DisplaySettings(viewModel: SettingsViewModel, navController: NavCont
                                     selected = (text == selectedThemeOption),
                                     onClick = { onThemeOptionSelected(text) },
                                     role = Role.RadioButton,
-                                ),
+                                )
+                                .padding(start = 14.dp),
                             verticalAlignment = Alignment.CenterVertically,
                         ) {
                             RadioButton(
@@ -260,44 +321,102 @@ private fun DisplaySettings(viewModel: SettingsViewModel, navController: NavCont
                         }
                     }
                 }
-            }, confirmButton = {
+            }
+
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 14.dp, vertical = 4.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(6.dp)
+                ),
+                shape = RoundedCornerShape(bottomStart = 16.dp, bottomEnd = 16.dp)
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(4.dp)
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.amoled_theme_setting),
+                        fontFamily = greenstashFont,
+                        modifier = Modifier.padding(start = 14.dp, top = 10.dp)
+                    )
+                    Spacer(modifier = Modifier.weight(1f))
+                    Switch(
+                        checked = amoledThemeValue,
+                        onCheckedChange = {
+                            view.weakHapticFeedback()
+                            onAmoledThemeChange(it)
+                        },
+                        thumbContent = if (amoledThemeValue) {
+                            {
+                                Icon(
+                                    imageVector = Icons.Filled.Check,
+                                    contentDescription = null,
+                                    modifier = Modifier.size(SwitchDefaults.IconSize),
+                                )
+                            }
+                        } else {
+                            null
+                        },
+                        modifier = Modifier.padding(end = 14.dp)
+                    )
+                }
+            }
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 4.dp, bottom = 20.dp, end = 14.dp)
+            ) {
+                Spacer(modifier = Modifier.weight(1f))
+                TextButton(onClick = {
+                    coroutineScope.launch {
+                        sheetState.hide()
+                        delay(300)
+                        showThemeSheet.value = false
+                    }
+                }) {
+                    Text(
+                        stringResource(id = R.string.cancel), fontFamily = greenstashFont
+                    )
+                }
+
                 FilledTonalButton(
                     onClick = {
-                        themeDialog.value = false
-                        when (selectedThemeOption) {
-                            context.getString(R.string.theme_dialog_option1) -> {
-                                viewModel.setTheme(ThemeMode.Light)
-                            }
+                        coroutineScope.launch {
+                            sheetState.hide()
+                            delay(100)
+                            showThemeSheet.value = false
 
-                            context.getString(R.string.theme_dialog_option2) -> {
-                                viewModel.setTheme(ThemeMode.Dark)
-                            }
+                            withContext(Dispatchers.Main) {
+                                when (selectedThemeOption) {
+                                    context.getString(R.string.theme_dialog_option1) -> {
+                                        onThemeChange(ThemeMode.Light)
+                                    }
 
-                            context.getString(R.string.theme_dialog_option3) -> {
-                                viewModel.setTheme(ThemeMode.Auto)
+                                    context.getString(R.string.theme_dialog_option2) -> {
+                                        onThemeChange(ThemeMode.Dark)
+                                    }
+
+                                    context.getString(R.string.theme_dialog_option3) -> {
+                                        onThemeChange(ThemeMode.Auto)
+                                    }
+                                }
                             }
                         }
-                    },
-                    colors = ButtonDefaults.filledTonalButtonColors(
-                        containerColor = MaterialTheme.colorScheme.primary,
-                        contentColor = MaterialTheme.colorScheme.onPrimary
-                    )
+                    }, colors = ButtonDefaults.filledTonalButtonColors(
+                        containerColor = MaterialTheme.colorScheme.primaryContainer,
+                        contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                    ), shape = RoundedCornerShape(16.dp)
                 ) {
                     Text(
                         stringResource(id = R.string.theme_dialog_apply_button),
                         fontFamily = greenstashFont
                     )
                 }
-            }, dismissButton = {
-                TextButton(onClick = {
-                    themeDialog.value = false
-                }) {
-                    Text(
-                        stringResource(id = R.string.cancel),
-                        fontFamily = greenstashFont
-                    )
-                }
-            })
+            }
         }
     }
 }
@@ -306,8 +425,7 @@ private fun DisplaySettings(viewModel: SettingsViewModel, navController: NavCont
 private fun LocaleSettings(viewModel: SettingsViewModel) {
     val context = LocalContext.current
     // Date related values.
-    val dateValue = if (viewModel.getDateStyleValue() == DateStyle.YearMonthDate.pattern
-    ) {
+    val dateValue = if (viewModel.getDateStyleValue() == DateStyle.YearMonthDate.pattern) {
         "YYYY/MM/DD"
     } else {
         "DD/MM/YYYY"
@@ -399,15 +517,13 @@ private fun LocaleSettings(viewModel: SettingsViewModel) {
                                 viewModel.setDateStyle(DateStyle.YearMonthDate.pattern)
                             }
                         }
-                    },
-                    colors = ButtonDefaults.filledTonalButtonColors(
+                    }, colors = ButtonDefaults.filledTonalButtonColors(
                         containerColor = MaterialTheme.colorScheme.primary,
                         contentColor = MaterialTheme.colorScheme.onPrimary
                     )
                 ) {
                     Text(
-                        stringResource(id = R.string.confirm),
-                        fontFamily = greenstashFont
+                        stringResource(id = R.string.confirm), fontFamily = greenstashFont
                     )
                 }
             }, dismissButton = {
@@ -415,16 +531,14 @@ private fun LocaleSettings(viewModel: SettingsViewModel) {
                     dateDialog.value = false
                 }) {
                     Text(
-                        stringResource(id = R.string.cancel),
-                        fontFamily = greenstashFont
+                        stringResource(id = R.string.cancel), fontFamily = greenstashFont
                     )
                 }
             })
         }
 
-        CurrencyPicker(
-            defaultCurrencyValue = viewModel.getDefaultCurrencyValue()
-                ?: currencyValues.first(),
+        CurrencyPicker(defaultCurrencyValue = viewModel.getDefaultCurrencyValue()
+            ?: currencyValues.first(),
             currencyPickerData = CurrencyPickerData(
                 currencyNames = currencyNames,
                 currencyValues = currencyValues,
@@ -432,10 +546,8 @@ private fun LocaleSettings(viewModel: SettingsViewModel) {
             showBottomSheet = currencyDialog,
             onCurrencySelected = { newValue ->
                 viewModel.setDefaultCurrency(newValue)
-                selectedCurrencyName.value =
-                    currencyNames[currencyValues.indexOf(newValue)]
-            }
-        )
+                selectedCurrencyName.value = currencyNames[currencyValues.indexOf(newValue)]
+            })
     }
 }
 
@@ -450,8 +562,7 @@ private fun SecuritySettings(viewModel: SettingsViewModel) {
 
     SettingsContainer {
         SettingsCategory(title = stringResource(id = R.string.security_settings_title))
-        SettingsItem(
-            title = stringResource(id = R.string.app_lock_setting),
+        SettingsItem(title = stringResource(id = R.string.app_lock_setting),
             description = stringResource(id = R.string.app_lock_setting_desc),
             icon = ImageVector.vectorResource(id = R.drawable.ic_settings_app_lock),
             switchState = appLockSwitch,
@@ -460,7 +571,8 @@ private fun SecuritySettings(viewModel: SettingsViewModel) {
                 if (newValue) {
                     val mainActivity = context.getActivity() as MainActivity
                     executor = ContextCompat.getMainExecutor(context)
-                    biometricPrompt = BiometricPrompt(mainActivity, executor,
+                    biometricPrompt = BiometricPrompt(mainActivity,
+                        executor,
                         object : BiometricPrompt.AuthenticationCallback() {
                             override fun onAuthenticationError(
                                 errorCode: Int, errString: CharSequence
@@ -476,8 +588,7 @@ private fun SecuritySettings(viewModel: SettingsViewModel) {
                                 result: BiometricPrompt.AuthenticationResult
                             ) {
                                 super.onAuthenticationSucceeded(result)
-                                context.getString(R.string.auth_successful)
-                                    .toToast(context)
+                                context.getString(R.string.auth_successful).toToast(context)
                                 mainActivity.mainViewModel.setAppUnlocked(true)
                                 viewModel.setAppLock(true)
                             }
@@ -499,8 +610,7 @@ private fun SecuritySettings(viewModel: SettingsViewModel) {
                 } else {
                     viewModel.setAppLock(false)
                 }
-            }
-        )
+            })
     }
 }
 
@@ -508,18 +618,14 @@ private fun SecuritySettings(viewModel: SettingsViewModel) {
 private fun MiscSettings(navController: NavController) {
     SettingsContainer {
         SettingsCategory(title = stringResource(id = R.string.misc_setting_title))
-        SettingsItem(
-            title = stringResource(id = R.string.license_setting),
+        SettingsItem(title = stringResource(id = R.string.license_setting),
             description = stringResource(id = R.string.license_setting_desc),
             icon = ImageVector.vectorResource(id = R.drawable.ic_settings_osl),
-            onClick = { navController.navigate(Screens.OSLScreen.route) }
-        )
-        SettingsItem(
-            title = stringResource(id = R.string.app_info_setting),
+            onClick = { navController.navigate(Screens.OSLScreen.route) })
+        SettingsItem(title = stringResource(id = R.string.app_info_setting),
             description = stringResource(id = R.string.app_info_setting_desc),
             icon = ImageVector.vectorResource(id = R.drawable.ic_settings_about),
-            onClick = { navController.navigate(Screens.AboutScreen.route) }
-        )
+            onClick = { navController.navigate(Screens.AboutScreen.route) })
     }
     Spacer(modifier = Modifier.height(2.dp)) // Last item padding.
 }

@@ -142,10 +142,10 @@
     <string name="settings_screen_header">Ayarlar</string>
     <string name="display_settings_title">Görünüm</string>
     <string name="theme_setting">Varsayılan Tema</string>
-    <string name="theme_dialog_title">Temayı Değiştir</string>
     <string name="theme_dialog_option1">Açık</string>
     <string name="theme_dialog_option2">Koyu</string>
     <string name="theme_dialog_option3">Sistem Varsayılanı</string>
+    <string name="amoled_theme_setting">Siyah Tema</string>
     <string name="theme_dialog_apply_button">Uygula</string>
     <string name="material_you_setting" translatable="false">Material You</string>
     <string name="material_you_setting_desc">Temayı duvar kağıdınıza göre değiştirin (Yalnızca A12+)</string>
