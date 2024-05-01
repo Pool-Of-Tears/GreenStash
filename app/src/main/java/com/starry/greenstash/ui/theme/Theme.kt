@@ -25,8 +25,10 @@
 
 package com.starry.greenstash.ui.theme
 
+import android.content.Context
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
@@ -99,6 +101,42 @@ private val DarkColors = darkColorScheme(
     primary = md_theme_dark_primary,
 )
 
+fun getColorScheme(
+    themeState: ThemeMode,
+    materialYouState: Boolean,
+    amoledTheme: Boolean,
+    darkTheme: Boolean,
+    context: Context
+): ColorScheme {
+    val initialColorScheme = when (themeState) {
+        ThemeMode.Light -> if (materialYouState && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            dynamicLightColorScheme(context)
+        } else {
+            LightColors
+        }
+
+        ThemeMode.Dark -> if (materialYouState && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            dynamicDarkColorScheme(context)
+        } else {
+            DarkColors
+        }
+
+        ThemeMode.Auto -> if (materialYouState && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+        } else {
+            if (darkTheme) DarkColors else LightColors
+        }
+    }
+
+    return if (amoledTheme && // Check if AMOLED theme is enabled
+        (themeState == ThemeMode.Dark || themeState == ThemeMode.Auto && darkTheme)
+    ) {
+        initialColorScheme.copy(surface = Color.Black, background = Color.Black)
+    } else {
+        initialColorScheme
+    }
+}
+
 @Composable
 fun GreenStashTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
@@ -112,39 +150,13 @@ fun GreenStashTheme(
         initial = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
     )
 
-
-    var colorScheme = when (themeState.value) {
-        ThemeMode.Light -> if (materialYouState.value && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) dynamicLightColorScheme(
-            context
-        ) else LightColors
-
-        ThemeMode.Dark -> if (materialYouState.value && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) dynamicDarkColorScheme(
-            context
-        ) else DarkColors
-
-        ThemeMode.Auto -> if (materialYouState.value && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        } else {
-            if (darkTheme) DarkColors else LightColors
-        }
-    }
-
-    if (amoledTheme.value && // Amoled theme enabled
-        (themeState.value == ThemeMode.Dark || themeState.value == ThemeMode.Auto && darkTheme)
-    ) {
-        colorScheme = colorScheme.copy(surface = Color.Black, background = Color.Black)
-    }
-
-    /*
-    val view = LocalView.current
-    if (!view.isInEditMode) {
-        SideEffect {
-            (view.context as Activity).window.statusBarColor = colorScheme.primary.toArgb()
-            ViewCompat.getWindowInsetsController(view)?.isAppearanceLightStatusBars = darkTheme
-        }
-    }
-    */
-
+    val colorScheme = getColorScheme(
+        themeState = themeState.value,
+        materialYouState = materialYouState.value,
+        amoledTheme = amoledTheme.value,
+        darkTheme = darkTheme,
+        context = context
+    )
     MaterialTheme(
         colorScheme = colorScheme,
         typography = Typography,

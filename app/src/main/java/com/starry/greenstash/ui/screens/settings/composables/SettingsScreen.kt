@@ -283,7 +283,9 @@ private fun ThemeBottomSheet(
                 shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
             ) {
                 Column(
-                    modifier = Modifier.selectableGroup(),
+                    modifier = Modifier
+                        .selectableGroup()
+                        .padding(top = 6.dp),
                     verticalArrangement = Arrangement.Center,
                 ) {
                     themeRadioOptions.forEach { text ->
