@@ -27,7 +27,6 @@ package com.starry.greenstash.ui.screens.input.composables
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -75,6 +74,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SegmentedButton
+import androidx.compose.material3.SegmentedButtonDefaults
+import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
@@ -94,6 +96,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.layout.ContentScale
@@ -134,7 +137,6 @@ import com.starry.greenstash.BuildConfig
 import com.starry.greenstash.MainActivity
 import com.starry.greenstash.R
 import com.starry.greenstash.database.goal.GoalPriority
-import com.starry.greenstash.ui.common.SelectableChipGroup
 import com.starry.greenstash.ui.common.TipCard
 import com.starry.greenstash.ui.navigation.DrawerScreens
 import com.starry.greenstash.ui.screens.input.InputViewModel
@@ -177,8 +179,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
 
     if (editGoalId != null) {
         LaunchedEffect(key1 = true, block = {
-            viewModel.setEditGoalData(
-                goalId = editGoalId.toLong(),
+            viewModel.setEditGoalData(goalId = editGoalId.toLong(),
                 onEditDataSet = { goalImageBm, goalIconId ->
                     goalImageBm?.let { goalImage = it }
                     goalIconId?.let { id ->
@@ -224,16 +225,14 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
 
     // Icon Picker Dialog.
     val showIconPickerDialog = remember { mutableStateOf(false) }
-    IconPickerDialog(
-        viewModel = viewModel,
+    IconPickerDialog(viewModel = viewModel,
         showDialog = showIconPickerDialog,
         onIconSelected = { icon ->
             icon?.let {
                 goalIcon = it.image ?: Icons.Filled.Image
                 viewModel.updateSelectedIcon(it)
             }
-        }
-    )
+        })
 
     // Remove Deadline Dialog.
     if (showRemoveDeadlineDialog.value) {
@@ -274,35 +273,30 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
         onComplete = { viewModel.onboardingTapTargetsShown() },
         modifier = Modifier.fillMaxSize()
     ) {
-        Scaffold(
-            modifier = Modifier
-                .fillMaxSize()
-                .imePadding(),
+        Scaffold(modifier = Modifier
+            .fillMaxSize()
+            .imePadding(),
             snackbarHost = { SnackbarHost(snackBarHostState) },
             topBar = {
-                TopAppBar(
-                    modifier = Modifier.fillMaxWidth(),
-                    title = {
-                        Text(
-                            text = topBarText,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                            fontFamily = greenstashFont
+                TopAppBar(modifier = Modifier.fillMaxWidth(), title = {
+                    Text(
+                        text = topBarText,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        fontFamily = greenstashFont
+                    )
+                }, navigationIcon = {
+                    IconButton(onClick = {
+                        view.weakHapticFeedback()
+                        navController.navigateUp()
+                    }) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = null
                         )
-                    }, navigationIcon = {
-                        IconButton(onClick = {
-                            view.weakHapticFeedback()
-                            navController.navigateUp()
-                        }) {
-                            Icon(
-                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = null
-                            )
-                        }
                     }
-                )
-            }
-        ) { paddingValues ->
+                })
+            }) { paddingValues ->
             if (showGoalAddedAnim.value) {
                 GoalAddedOREditedAnimation(editGoalId = editGoalId)
             } else {
@@ -379,13 +373,20 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                         )
                         Spacer(modifier = Modifier.height(10.dp))
 
-                        GoalPriorityMenu(viewModel = viewModel)
+                        GoalPriorityMenu(
+                            selectedPriority = viewModel.state.priority,
+                            obPriorityChanged = { newValue ->
+                                viewModel.updatePriority(newValue)
+                            }
+                        )
 
                         Spacer(modifier = Modifier.height(10.dp))
 
                         GoalReminderMenu(
-                            viewModel = viewModel,
-                            context = context,
+                            reminderState = viewModel.state.reminder,
+                            onReminderChanged = { newValue ->
+                                viewModel.updateReminder(newValue)
+                            },
                             snackBarHostState = snackBarHostState,
                             coroutineScope = coroutineScope,
                             modifier = Modifier.tapTarget(
@@ -421,19 +422,24 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                             }
                         }
 
-                        TipCard(
-                            modifier = Modifier.fillMaxWidth(0.86f),
+                        TipCard(modifier = Modifier.fillMaxWidth(0.86f),
                             description = stringResource(id = R.string.input_remove_deadline_tip),
                             showTipCard = showRemoveDeadlineTip.value,
                             onDismissRequest = {
                                 showRemoveDeadlineTip.value = false
                                 viewModel.removeDeadlineTipShown()
-                            }
-                        )
+                            })
 
 
                         InputTextFields(
-                            viewModel = viewModel,
+                            goalTitle = viewModel.state.goalTitleText,
+                            targetAmount = viewModel.state.targetAmount,
+                            deadline = viewModel.state.deadline,
+                            additionalNotes = viewModel.state.additionalNotes,
+                            onTitleChange = { newText -> viewModel.updateTitle(newText) },
+                            onAmountChange = { newText -> viewModel.updateTargetAmount(newText) },
+                            onDeadlineChange = { newText -> viewModel.updateDeadline(newText) },
+                            onNotesChange = { newText -> viewModel.updateAdditionalNotes(newText) },
                             calenderState = calenderState,
                             showRemoveDeadlineDialog = showRemoveDeadlineDialog
                         )
@@ -483,8 +489,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
 
 @Composable
 private fun GoalImagePicker(
-    goalImage: Any?,
-    photoPicker: ActivityResultLauncher<PickVisualMediaRequest>,
+    goalImage: Any?, photoPicker: ActivityResultLauncher<PickVisualMediaRequest>,
     // To be used for onboarding tap target.
     @SuppressLint("ModifierParameter") fabModifier: Modifier
 ) {
@@ -514,8 +519,8 @@ private fun GoalImagePicker(
                     .clip(RoundedCornerShape(16.dp))
             ) {
                 AsyncImage(
-                    model = ImageRequest.Builder(context).data(goalImage)
-                        .crossfade(enable = true).build(),
+                    model = ImageRequest.Builder(context).data(goalImage).crossfade(enable = true)
+                        .build(),
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier.fillMaxSize()
@@ -564,7 +569,7 @@ private fun InputQuoteText() {
             .padding(top = 20.dp, bottom = 20.dp, start = 30.dp, end = 30.dp),
         text = stringResource(id = R.string.input_page_quote),
         textAlign = TextAlign.Center,
-        fontSize = 13.sp,
+        fontSize = 13.5f.sp,
         fontFamily = greenstashFont
     )
 }
@@ -581,29 +586,25 @@ private fun IconPickerCard(
         onClick = {
             view.weakHapticFeedback()
             onClick()
-        },
-        modifier = Modifier.fillMaxWidth(0.86f),
-        colors = CardDefaults.cardColors(
+        }, modifier = Modifier.fillMaxWidth(0.86f), colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer
-        ),
-        shape = RoundedCornerShape(14.dp)
+        ), shape = RoundedCornerShape(14.dp)
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp)
+                .padding(
+                    top = 12.dp, bottom = 12.dp, start = 22.dp, end = 20.dp
+                )
         ) {
             Box(
                 modifier = modifier
                     .size(48.dp)
                     .background(
-                        color = MaterialTheme.colorScheme.surface,
-                        shape = CircleShape
+                        color = MaterialTheme.colorScheme.surface, shape = CircleShape
                     )
-                    .padding(8.dp),
-                contentAlignment = Alignment.Center
+                    .padding(8.dp), contentAlignment = Alignment.Center
             ) {
                 Icon(
                     imageVector = goalIcon,
@@ -611,13 +612,13 @@ private fun IconPickerCard(
                     tint = MaterialTheme.colorScheme.onSurface
                 )
             }
-
-            Spacer(modifier = Modifier.width(14.dp))
+            Spacer(modifier = Modifier.width(16.dp))
             Text(
                 text = stringResource(id = R.string.input_pick_icon),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onPrimaryContainer,
-                fontSize = 17.sp, maxLines = 2,
+                fontSize = 16.sp,
+                maxLines = 2,
                 fontFamily = greenstashFont,
                 overflow = TextOverflow.Ellipsis
 
@@ -627,43 +628,106 @@ private fun IconPickerCard(
 }
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun GoalPriorityMenu(viewModel: InputViewModel) {
+private fun GoalPriorityMenu(selectedPriority: String, obPriorityChanged: (String) -> Unit) {
     Card(
-        modifier = Modifier.fillMaxWidth(0.86f),
-        colors = CardDefaults.cardColors(
+        modifier = Modifier.fillMaxWidth(0.86f), colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer
         ), shape = RoundedCornerShape(14.dp)
     ) {
-        Box(
+
+        Column(
             modifier = Modifier.fillMaxWidth(),
-            contentAlignment = Alignment.Center
         ) {
-            Column {
-                Text(
+            Text(
+                modifier = Modifier.padding(
+                    top = 8.dp, bottom = 4.dp, start = 24.dp, end = 24.dp
+                ),
+                text = stringResource(id = R.string.input_goal_priority),
+                fontFamily = greenstashFont,
+                fontSize = 16.sp,
+                color = MaterialTheme.colorScheme.onPrimaryContainer
+            )
+
+            Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+                SingleChoiceSegmentedButtonRow(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 6.dp),
-                    text = stringResource(id = R.string.input_goal_priority),
-                    textAlign = TextAlign.Center,
-                    fontFamily = greenstashFont,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer
-                )
-                SelectableChipGroup(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(14.dp),
-                    choices = listOf(
-                        GoalPriority.High.name,
-                        GoalPriority.Normal.name,
-                        GoalPriority.Low.name
-                    ),
-                    selected = viewModel.state.priority,
-                    onSelected = { newValue ->
-                        viewModel.state =
-                            viewModel.state.copy(priority = newValue)
-                    }
-                )
+                        .padding(start = 20.dp, end = 20.dp, bottom = 8.dp)
+                ) {
+                    SegmentedButton(
+                        selected = selectedPriority == GoalPriority.High.name,
+                        onClick = { obPriorityChanged(GoalPriority.High.name) },
+                        shape = RoundedCornerShape(topStart = 14.dp, bottomStart = 14.dp),
+                        label = {
+                            Text(
+                                text = GoalPriority.High.name, fontFamily = greenstashFont
+                            )
+                        },
+                        icon = {
+                            if (selectedPriority == GoalPriority.High.name) {
+                                Icon(
+                                    imageVector = Icons.Filled.Check,
+                                    contentDescription = null,
+                                    modifier = Modifier.size(16.dp)
+                                )
+                            }
+                        },
+                        colors = SegmentedButtonDefaults.colors(
+                            activeContentColor = MaterialTheme.colorScheme.onPrimary,
+                            activeContainerColor = MaterialTheme.colorScheme.primary,
+                        )
+                    )
+
+                    SegmentedButton(
+                        selected = selectedPriority == GoalPriority.Normal.name,
+                        onClick = { obPriorityChanged(GoalPriority.Normal.name) },
+                        shape = RectangleShape,
+                        label = {
+                            Text(
+                                text = GoalPriority.Normal.name, fontFamily = greenstashFont
+                            )
+                        },
+                        icon = {
+                            if (selectedPriority == GoalPriority.Normal.name) {
+                                Icon(
+                                    imageVector = Icons.Filled.Check,
+                                    contentDescription = null,
+                                    modifier = Modifier.size(16.dp)
+                                )
+                            }
+                        },
+                        colors = SegmentedButtonDefaults.colors(
+                            activeContentColor = MaterialTheme.colorScheme.onPrimary,
+                            activeContainerColor = MaterialTheme.colorScheme.primary,
+                        )
+                    )
+
+                    SegmentedButton(
+                        selected = selectedPriority == GoalPriority.Low.name,
+                        onClick = { obPriorityChanged(GoalPriority.Low.name) },
+                        shape = RoundedCornerShape(topEnd = 14.dp, bottomEnd = 14.dp),
+                        label = {
+                            Text(
+                                text = GoalPriority.Low.name, fontFamily = greenstashFont
+                            )
+                        },
+                        icon = {
+                            if (selectedPriority == GoalPriority.Low.name) {
+                                Icon(
+                                    imageVector = Icons.Filled.Check,
+                                    contentDescription = null,
+                                    modifier = Modifier.size(16.dp)
+                                )
+                            }
+                        },
+                        colors = SegmentedButtonDefaults.colors(
+                            activeContentColor = MaterialTheme.colorScheme.onPrimary,
+                            activeContainerColor = MaterialTheme.colorScheme.primary,
+                        )
+                    )
+                }
             }
         }
     }
@@ -672,91 +736,80 @@ private fun GoalPriorityMenu(viewModel: InputViewModel) {
 
 @Composable
 private fun GoalReminderMenu(
-    context: Context,
-    viewModel: InputViewModel,
+    reminderState: Boolean,
+    onReminderChanged: (Boolean) -> Unit,
     snackBarHostState: SnackbarHostState,
     coroutineScope: CoroutineScope,
     // To be used for onboarding tap target.
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val view = LocalView.current
+    val context = LocalContext.current
     var hasNotificationPermission by remember { mutableStateOf(context.hasNotificationPermission()) }
 
-    val launcher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.RequestPermission(),
-        onResult = { isGranted ->
-            hasNotificationPermission = isGranted
-            if (!isGranted) {
-                viewModel.state = viewModel.state.copy(reminder = false)
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
-                    && ActivityCompat.shouldShowRequestPermissionRationale(
-                        context.getActivity() as MainActivity,
-                        Manifest.permission.POST_NOTIFICATIONS
-                    )
-                ) {
-                    coroutineScope.launch {
-                        val snackBarResult =
-                            snackBarHostState.showSnackbar(
+    val launcher =
+        rememberLauncherForActivityResult(contract = ActivityResultContracts.RequestPermission(),
+            onResult = { isGranted ->
+                hasNotificationPermission = isGranted
+                if (!isGranted) {
+                    onReminderChanged(false)
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && ActivityCompat.shouldShowRequestPermissionRationale(
+                            context.getActivity() as MainActivity,
+                            Manifest.permission.POST_NOTIFICATIONS
+                        )
+                    ) {
+                        coroutineScope.launch {
+                            val snackBarResult = snackBarHostState.showSnackbar(
                                 message = context.getString(R.string.notification_permission_error),
                                 actionLabel = "Open Settings"
                             )
-                        if (snackBarResult == SnackbarResult.ActionPerformed) {
-                            val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-                            val uri = Uri.fromParts("package", BuildConfig.APPLICATION_ID, null)
-                            intent.data = uri
-                            startActivity(context, intent, null)
+                            if (snackBarResult == SnackbarResult.ActionPerformed) {
+                                val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                                val uri = Uri.fromParts("package", BuildConfig.APPLICATION_ID, null)
+                                intent.data = uri
+                                startActivity(context, intent, null)
+                            }
                         }
                     }
                 }
-            }
-        }
-    )
+            })
 
     Card(
-        modifier = Modifier.fillMaxWidth(0.86f),
-        colors = CardDefaults.cardColors(
+        modifier = Modifier.fillMaxWidth(0.86f), colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer
         ), shape = RoundedCornerShape(14.dp)
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(4.dp),
+                .padding(horizontal = 24.dp, vertical = 4.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
             Text(
                 text = stringResource(id = R.string.input_goal_reminder),
-                fontSize = 18.sp,
+                fontSize = 16.sp,
                 fontFamily = greenstashFont
             )
-            Spacer(modifier = Modifier.width(14.dp))
-            Switch(
-                checked = viewModel.state.reminder,
-                onCheckedChange = { newValue ->
-                    view.weakHapticFeedback()
-                    viewModel.state = viewModel.state.copy(reminder = newValue)
-                    // Ask for notification permission if android ver > 13.
-                    if (newValue &&
-                        !hasNotificationPermission &&
-                        Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
-                    ) {
-                        launcher.launch(Manifest.permission.POST_NOTIFICATIONS)
-                    }
-                },
-                thumbContent = if (viewModel.state.reminder) {
-                    {
-                        Icon(
-                            imageVector = Icons.Filled.Check,
-                            contentDescription = null,
-                            modifier = Modifier.size(SwitchDefaults.IconSize),
-                        )
-                    }
-                } else {
-                    null
-                },
-                modifier = modifier
-            )
+            Spacer(modifier = Modifier.weight(1f))
+            Switch(checked = reminderState, onCheckedChange = { newValue ->
+                view.weakHapticFeedback()
+                onReminderChanged(newValue)
+                // Ask for notification permission if android ver > 13.
+                if (newValue && !hasNotificationPermission && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    launcher.launch(Manifest.permission.POST_NOTIFICATIONS)
+                }
+            }, thumbContent = if (reminderState) {
+                {
+                    Icon(
+                        imageVector = Icons.Filled.Check,
+                        contentDescription = null,
+                        modifier = Modifier.size(SwitchDefaults.IconSize),
+                    )
+                }
+            } else {
+                null
+            }, modifier = modifier)
         }
     }
 }
@@ -764,7 +817,14 @@ private fun GoalReminderMenu(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun InputTextFields(
-    viewModel: InputViewModel,
+    goalTitle: String,
+    targetAmount: String,
+    deadline: String,
+    additionalNotes: String,
+    onTitleChange: (String) -> Unit,
+    onAmountChange: (String) -> Unit,
+    onDeadlineChange: (String) -> Unit,
+    onNotesChange: (String) -> Unit,
     calenderState: UseCaseState,
     showRemoveDeadlineDialog: MutableState<Boolean>
 ) {
@@ -773,15 +833,12 @@ private fun InputTextFields(
     val containerColorAlpha = 0.25f
 
     OutlinedTextField(
-        value = viewModel.state.goalTitleText,
-        onValueChange = { newText ->
-            viewModel.state = viewModel.state.copy(goalTitleText = newText)
-        },
+        value = goalTitle,
+        onValueChange = { newText -> onTitleChange(newText) },
         modifier = Modifier.fillMaxWidth(0.86f),
         label = {
             Text(
-                text = stringResource(id = R.string.input_text_title),
-                fontFamily = greenstashFont
+                text = stringResource(id = R.string.input_text_title), fontFamily = greenstashFont
             )
         },
         leadingIcon = {
@@ -804,20 +861,12 @@ private fun InputTextFields(
     Spacer(modifier = Modifier.height(textFieldSpacing))
 
     OutlinedTextField(
-        value = viewModel.state.targetAmount,
-        onValueChange = { newText ->
-            viewModel.state =
-                viewModel.state.copy(
-                    targetAmount = Utils.getValidatedNumber(
-                        newText
-                    )
-                )
-        },
+        value = targetAmount,
+        onValueChange = { newText -> onAmountChange(Utils.getValidatedNumber(newText)) },
         modifier = Modifier.fillMaxWidth(0.86f),
         label = {
             Text(
-                text = stringResource(id = R.string.input_text_amount),
-                fontFamily = greenstashFont
+                text = stringResource(id = R.string.input_text_amount), fontFamily = greenstashFont
             )
         },
         leadingIcon = {
@@ -842,29 +891,22 @@ private fun InputTextFields(
     val interactionSource = remember { MutableInteractionSource() }
 
     OutlinedTextField(
-        value = viewModel.state.deadline,
-        onValueChange = { newText ->
-            viewModel.state = viewModel.state.copy(deadline = newText)
-        },
+        value = deadline,
+        onValueChange = { newText -> onDeadlineChange(newText) },
         modifier = Modifier
             .fillMaxWidth(0.86f)
-            .combinedClickable(
-                onClick = { calenderState.show() },
-                onLongClick = {
-                    haptic.performHapticFeedback(
-                        HapticFeedbackType.LongPress
-                    )
-                    if (viewModel.state.deadline.isNotEmpty()) {
-                        showRemoveDeadlineDialog.value = true
-                    }
-                },
-                interactionSource = interactionSource,
-                indication = null
+            .combinedClickable(onClick = { calenderState.show() }, onLongClick = {
+                haptic.performHapticFeedback(
+                    HapticFeedbackType.LongPress
+                )
+                if (deadline.isNotEmpty()) {
+                    showRemoveDeadlineDialog.value = true
+                }
+            }, interactionSource = interactionSource, indication = null
             ),
         label = {
             Text(
-                text = stringResource(id = R.string.input_deadline),
-                fontFamily = greenstashFont
+                text = stringResource(id = R.string.input_deadline), fontFamily = greenstashFont
             )
         },
         leadingIcon = {
@@ -891,10 +933,8 @@ private fun InputTextFields(
     Spacer(modifier = Modifier.height(textFieldSpacing))
 
     OutlinedTextField(
-        value = viewModel.state.additionalNotes,
-        onValueChange = { newText ->
-            viewModel.state = viewModel.state.copy(additionalNotes = newText)
-        },
+        value = additionalNotes,
+        onValueChange = { newText -> onNotesChange(newText) },
         modifier = Modifier.fillMaxWidth(0.86f),
         label = {
             Text(
@@ -922,17 +962,13 @@ private fun InputTextFields(
 @Composable
 private fun GoalAddedOREditedAnimation(editGoalId: String?) {
     Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
+        modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally
     ) {
         val compositionResult: LottieCompositionResult = rememberLottieComposition(
             spec = LottieCompositionSpec.RawRes(R.raw.goal_saved_lottie)
         )
         val progressAnimation by animateLottieCompositionAsState(
-            compositionResult.value,
-            isPlaying = true,
-            iterations = 1,
-            speed = 1.4f
+            compositionResult.value, isPlaying = true, iterations = 1, speed = 1.4f
         )
 
         Spacer(modifier = Modifier.weight(1f))
