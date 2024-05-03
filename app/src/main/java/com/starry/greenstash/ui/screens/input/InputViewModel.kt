@@ -176,8 +176,34 @@ class InputViewModel @Inject constructor(
         }
     }
 
+    // State update functions ==============
+
+    fun updatePriority(priority: String) {
+        state = state.copy(priority = priority)
+    }
+
+    fun updateReminder(reminder: Boolean) {
+        state = state.copy(reminder = reminder)
+    }
+
+    fun updateTitle(title: String) {
+        state = state.copy(goalTitleText = title)
+    }
+
+    fun updateTargetAmount(amount: String) {
+        state = state.copy(targetAmount = amount)
+    }
+
+    fun updateDeadline(deadline: String) {
+        state = state.copy(deadline = deadline)
+    }
+
     fun removeDeadLine() {
         state = state.copy(deadline = "")
+    }
+
+    fun updateAdditionalNotes(notes: String) {
+        state = state.copy(additionalNotes = notes)
     }
 
     fun getDateStyleValue() = preferenceUtil.getString(
