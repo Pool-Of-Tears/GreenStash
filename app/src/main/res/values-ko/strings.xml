@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Other Strings -->
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="unknown_error">Oops! Something went wrong.</string>
+    <!-- Navigation Drawer -->
+    <string name="drawer_home">Home</string>
+    <string name="drawer_backups">Backups</string>
+    <string name="drawer_settings">Settings</string>
+    <string name="drawer_footer_text">Made with ❤️ in India.</string>
+    <!-- Biometric Lock -->
+    <string name="bio_lock_title">Unlock GreenStash</string>
+    <string name="bio_lock_subtitle">Confirm your screen lock, PIN or password.</string>
+    <string name="auth_successful">Authentication succeeded!</string>
+    <string name="auth_failed">Authentication failed!</string>
+    <string name="auth_error">Authentication error: %s</string>
+    <!-- Welcome Screen. -->
+    <string name="welcome_screen_text">Hello! Please select your preferred currency to get started.</string>
+    <string name="welcome_screen_button">Let\'s Get Started!</string>
+    <!-- App Lock Screen -->
+    <string name="app_lock_screen_title">GreenStash is locked</string>
+    <string name="app_lock_screen_subtitle">Click the button below to authenticate.</string>
+    <string name="app_lock_button_text">Authorize</string>
+    <string name="app_lock_button_icon_desc">Unlock App</string>
+    <string name="app_lock_unable_to_authenticate">App-lock is disabled because the device is unable to authenticate</string>
+    <!-- Home Screen -->
+    <string name="home_screen_header">Saving Goals</string>
+    <string name="menu_button_desc">Open side menu</string>
+    <string name="filter_button_desc">Filter your saving goals</string>
+    <string name="search_button_desc">Search for specific saving goal.</string>
+    <string name="new_goal_fab">New Goal</string>
+    <string name="new_goal_onboarding_title">Let\'s start by creating a new saving goal!</string>
+    <string name="new_goal_onboarding_desc">Click on the floating action button to create a new saving goal.</string>
+    <string name="home_search_label">Search here…</string>
+    <string name="search_goal_not_found">404: Goal not found!</string>
+    <!-- Deposit & Withdraw Screen -->
+    <string name="deposit_screen_title">Awesome! Enter amount</string>
+    <string name="withdraw_screen_title">Cool! Enter amount</string>
+    <string name="deposit_successful">Deposited Successfully!</string>
+    <string name="withdraw_successful">Withdrawn Successfully!</string>
+    <string name="withdraw_overflow_error">Amount is more than current deposited amount!</string>
+    <!-- Congratulations Screen -->
+    <string name="goal_achieved_heading">Congratulations 🥳</string>
+    <string name="goal_achieved_subtext">You\'ve reached your saving goal! Your hard work and commitment have led to this well-deserved accomplishment. Celebrate your success! 🎉</string>
+    <string name="goal_achieved_button">Go back to home</string>
+    <!-- Strings used for dashboard saving goals cards -->
+    <string name="no_goal_set">No Saving Goals Set.</string>
+    <string name="transaction_amount">Amount</string>
+    <string name="deposit_button">Deposit</string>
+    <string name="goal_already_achieved">You\'ve already achieved this goal.</string>
+    <string name="withdraw_button">Withdraw</string>
+    <string name="withdraw_button_error">You haven\'t deposited any amount yet.</string>
+    <string name="goal_delete_confirmation">Are you sure?</string>
+    <string name="goal_delete_success">Deleted Successfully.</string>
+    <string name="info_button_description">View goal information.</string>
+    <string name="edit_button_description">Edit this goal</string>
+    <string name="delete_button_description">Delete This Goal</string>
+    <string name="add_fab_button_title">New goal</string>
+    <string name="progress_greet1">You\'re off to great start!</string>
+    <string name="progress_greet2">Keep on keeping on!</string>
+    <string name="progress_greet3">If you think you can do it, you can.</string>
+    <string name="progress_greet4">Almost there, You got this!</string>
+    <string name="progress_greet5">Congratulations &#x1F389;</string>
+    <string name="currently_saved_incomplete">Currently saved %s out of %s.</string>
+    <string name="currently_saved_complete">You\'ve saved %s out of %s.</string>
+    <!-- Eg: You have until 25/12/2022 (152) days left. -->
+    <string name="goal_days_left">You have until %s (%s) days left.</string>
+    <!-- Eg: You need to save around $2/day, $20/week, $200/month. -->
+    <string name="goal_approx_saving">You need to save around %s/</string>
+    <string name="goal_approx_saving_day">day.</string>
+    <string name="goal_approx_saving_week">week.</string>
+    <string name="goal_approx_saving_month">month.</string>
+    <string name="no_goal_deadline_set">As you\'ve not specified any deadline, you got all the time in the world!</string>
+    <string name="goal_achieved_desc">It\'s time to celebrate all the hard work that led to this joyful occasion.</string>
+    <!-- Goal Info Screen -->
+    <string name="info_screen_header">Goal Information</string>
+    <string name="info_card_title">You\'ve Saved</string>
+    <string name="info_card_remaining_amount">Out of %s</string>
+    <string name="info_card_remaining_days">%s days left.</string>
+    <string name="info_card_no_deadline_set">No deadline set.</string>
+    <string name="info_card_goal_achieved">Goal achieved! 🎉</string>
+    <string name="info_goal_priority">Goal Priority is %s</string>
+    <string name="info_reminder_status_on">Reminders are enabled</string>
+    <string name="info_reminder_status_off">Reminders are disabled</string>
+    <string name="info_notes_card_title">Notes</string>
+    <string name="info_copy_notes_button">Copy</string>
+    <string name="info_copy_notes_icon_desc">Copy Notes</string>
+    <string name="info_copy_notes_alert">Copied Successfully!</string>
+    <string name="info_goal_no_transactions">No Transactions Yet.</string>
+    <string name="info_edit_transaction_button">Update Transaction</string>
+    <string name="info_transaction_swipe_tip">Tip! Swipe transactions left or right to edit or delete them.</string>
+    <!-- Input (New/Edit Goal) Screen -->
+    <string name="input_screen_header">It\'s time to save!</string>
+    <string name="input_edit_goal_header">Edit Saving Goal</string>
+    <string name="input_pick_icon">Select icon for your goal.</string>
+    <string name="input_pick_icon_onboarding_title">…Or if minimalism is your style, add an icon for your goal.</string>
+    <string name="input_pick_icon_onboarding_desc">Goal icons will be used on compact styled goal cards, Settings &gt; Goal Card Style</string>
+    <string name="input_pick_image_fab">Goal Image</string>
+    <string name="input_pick_image_onboarding_title">Add images to your goals to give them a personalized look!</string>
+    <string name="input_pick_image_onboarding_desc">Click on the floating action button to add an image to your goal.</string>
+    <string name="input_goal_priority">Select priority for your goal.</string>
+    <string name="input_goal_reminder">Saving Reminders</string>
+    <string name="input_goal_reminders_onboarding_title">Enable Reminders to Stay Updated on Your Goals!</string>
+    <string name="input_goal_reminders_onboarding_desc">Reminders will be sent daily, semiweekly, or weekly, depending on goal priority.</string>
+    <string name="input_text_title">Goal Title</string>
+    <string name="title_empty_err">Woops! Title is empty.</string>
+    <string name="input_text_amount">Target Amount</string>
+    <string name="amount_empty_err">Woops! Amount is empty or Invalid.</string>
+    <string name="input_deadline">Deadline (Optional)</string>
+    <string name="input_additional_notes">Notes (Optional)</string>
+    <string name="input_add_goal_button">Set New Saving Goal</string>
+    <string name="input_edit_goal_button">Update Saving Goal</string>
+    <string name="input_goal_saved_success">Great! Saving goal set.</string>
+    <string name="input_goad_edit_success">Saving goal updated.</string>
+    <string name="input_goal_remove_deadline">Do you want to remove deadline from this goal?</string>
+    <string name="input_remove_deadline_tip">Tip! You can remove the deadline from existing goals by long-pressing on the deadline field.</string>
+    <!-- Backup Screen -->
+    <string name="backup_screen_header">Backup &amp; Restore</string>
+    <string name="backup_screen_text">Backup app data including all of your saving goals, current progress, transactions etc and easily restore it whenever you want.</string>
+    <string name="backup_screen_sub_text">Please note that backups do not include app settings.</string>
+    <string name="backup_button">Backup</string>
+    <string name="restore_button">Restore</string>
+    <string name="backup_restore_success">Backup restored successfully!</string>
+    <!-- Settings Screen -->
+    <string name="settings_screen_header">Settings</string>
+    <string name="display_settings_title">Display</string>
+    <string name="theme_setting">Default Theme</string>
+    <string name="theme_dialog_option1">Light</string>
+    <string name="theme_dialog_option2">Dark</string>
+    <string name="theme_dialog_option3">System Default</string>
+    <string name="amoled_theme_setting">Black Theme</string>
+    <string name="theme_dialog_apply_button">Apply</string>
+    <string name="material_you_setting_desc">Switch theme according to your wallpaper (A12+ Only)</string>
+    <string name="material_you_error">This feature is only for devices running Android 12 or above.</string>
+    <string name="goal_card_setting">Goal Card Style</string>
+    <string name="goal_card_option1">Classic</string>
+    <string name="goal_card_option2">Compact</string>
+    <string name="locales_setting_title">Locales</string>
+    <string name="date_format_setting">Date Format</string>
+    <string name="date_format_dialog_title">Change Date Format</string>
+    <string name="preferred_currency_setting">Preferred Currency</string>
+    <string name="currency_dialog_title">Select Preferred currency</string>
+    <string name="security_settings_title">Security</string>
+    <string name="app_lock_setting">Biometric Lock</string>
+    <string name="app_lock_setting_desc">Use your fingerprint or screen lock password to unlock GreenStash</string>
+    <string name="misc_setting_title">Miscellaneous</string>
+    <string name="license_setting">License &amp; Acknowledgement</string>
+    <string name="license_setting_desc">Show open source license information.</string>
+    <string name="app_info_setting">App Information</string>
+    <string name="app_info_setting_desc">Show app version and useful links.</string>
+    <!-- Goal Card Style -->
+    <string name="goal_card_settings_header">Goal Style</string>
+    <string name="goal_card_settings_tip">Tip! You can swipe a compact-styled card left or right to either edit or delete a savings goal.</string>
+    <!-- OSL Screen -->
+    <string name="osl_screen_header">Open Source Libraries</string>
+    <!-- About Screen -->
+    <string name="about_screen_header">About</string>
+    <string name="about_readme_title">README</string>
+    <string name="about_readme_desc">Checkout the GitHub repository and the app\'s README.</string>
+    <string name="about_privacy_title">Privacy Policy</string>
+    <string name="about_privacy_desc">Read our latest privacy policy and terms of service on GitHub.</string>
+    <string name="about_gh_issue_title">GitHub Issues</string>
+    <string name="about_gh_issue_desc">Submit bug reports or feature requests by creating an issue on GitHub.</string>
+    <string name="about_telegram_title">Telegram Group</string>
+    <string name="about_telegram_desc">Join us at telegram to share your ideas or just to chat!</string>
+    <string name="about_support_title">Support Development</string>
+    <string name="about_support_desc">If you think I deserve cookies for my work, you can buy me some by clicking here.</string>
+    <string name="about_version_title">Version</string>
+    <string name="about_version_desc">Version-%s</string>
+    <!-- Widget Screen -->
+    <string name="widget_config_screen_header">Select Goal</string>
+    <string name="goal_widget_desc">Saved %s</string>
+    <!-- Goal Reminders -->
+    <string name="notification_permission_error">Please grant notifications permission! 😾</string>
+    <string name="reminder_notification_desc">The more you save, the quicker you\'ll reach your goal! 💰</string>
+    <string name="dismiss_notification_button">Dismiss</string>
+    <string name="notification_deposited_title">Great Work 🎉</string>
+    <string name="notification_deposited_desc">Successfully deposited %s!</string>
+</resources>
