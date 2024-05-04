@@ -1,11 +1,11 @@
 <resources>
-    <string name="app_name">GreenStash</string>
+    <string name="app_name" translatable="false">GreenStash</string>
 
     <!-- Other Strings -->
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
     <string name="ok">OK</string>
-    <string name="unknown_error">Oops! something went wrong.</string>
+    <string name="unknown_error">Oops! Something went wrong.</string>
 
     <!-- Navigation Drawer -->
     <string name="drawer_home">Home</string>
@@ -43,8 +43,8 @@
     <string name="search_goal_not_found">404: Goal not found!</string>>
 
     <!-- Deposit & Withdraw Screen -->
-    <string name="deposit_screen_title">Awesome! enter amount</string>
-    <string name="withdraw_screen_title">Cool! enter amount</string>
+    <string name="deposit_screen_title">Awesome! Enter amount</string>
+    <string name="withdraw_screen_title">Cool! Enter amount</string>
     <string name="deposit_successful">Deposited Successfully!</string>
     <string name="withdraw_successful">Withdrawn Successfully!</string>
     <string name="withdraw_overflow_error">Amount is more than current deposited amount!</string>
@@ -67,7 +67,7 @@
     <string name="edit_button_description">Edit this goal</string>
     <string name="delete_button_description">Delete This Goal</string>
     <string name="add_fab_button_title">New goal</string>
-    <string name="progress_greet1">You’re off to great start!</string>
+    <string name="progress_greet1">You\'re off to great start!</string>
     <string name="progress_greet2">Keep on keeping on!</string>
     <string name="progress_greet3">If you think you can do it, you can.</string>
     <string name="progress_greet4">Almost there, You got this!</string>
@@ -82,7 +82,7 @@
     <string name="goal_approx_saving_week">week.</string>
     <string name="goal_approx_saving_month">month.</string>
     <string name="no_goal_deadline_set">As you\'ve not specified any deadline, you got all the time in the world!</string>
-    <string name="goal_achieved_desc">It’s time to celebrate all the hard work that led to this joyful occasion.</string>
+    <string name="goal_achieved_desc">It\'s time to celebrate all the hard work that led to this joyful occasion.</string>
 
     <!-- Goal Info Screen -->
     <string name="info_screen_header">Goal Information</string>
@@ -111,15 +111,15 @@
     <string name="input_pick_image_fab">Goal Image</string>
     <string name="input_pick_image_onboarding_title">Add images to your goals to give them a personalized look!</string>
     <string name="input_pick_image_onboarding_desc">Click on the floating action button to add an image to your goal.</string>
-    <string name="input_page_quote" translatable="false">You don’t have to see the whole staircase, just take the first step. – Martin Luther King, Jr.  </string>
+    <string name="input_page_quote" translatable="false">You don\'t have to see the whole staircase, just take the first step. – Martin Luther King, Jr.  </string>
     <string name="input_goal_priority">Select priority for your goal.</string>
     <string name="input_goal_reminder">Saving Reminders</string>
     <string name="input_goal_reminders_onboarding_title">Enable Reminders to Stay Updated on Your Goals!</string>
     <string name="input_goal_reminders_onboarding_desc">Reminders will be sent daily, semiweekly, or weekly, depending on goal priority.</string>
     <string name="input_text_title">Goal Title</string>
-    <string name="title_empty_err">Woops! title is empty.</string>
+    <string name="title_empty_err">Woops! Title is empty.</string>
     <string name="input_text_amount">Target Amount</string>
-    <string name="amount_empty_err">Woops! amount is empty or Invalid.</string>
+    <string name="amount_empty_err">Woops! Amount is empty or Invalid.</string>
     <string name="input_deadline">Deadline (Optional)</string>
     <string name="input_additional_notes">Notes (Optional)</string>
     <string name="input_add_goal_button">Set New Saving Goal</string>
@@ -176,11 +176,11 @@
     <!-- About Screen -->
     <string name="about_screen_header">About</string>
     <string name="about_readme_title">README</string>
-    <string name="about_readme_desc">Checkout the Github repository and the app\'s README.</string>
+    <string name="about_readme_desc">Checkout the GitHub repository and the app\'s README.</string>
     <string name="about_privacy_title">Privacy Policy</string>
-    <string name="about_privacy_desc">Read our latest privacy policy and terms of service on Github.</string>
-    <string name="about_gh_issue_title">Github Issues</string>
-    <string name="about_gh_issue_desc">Submit bug reports or feature requests by creating an issue on Github.</string>
+    <string name="about_privacy_desc">Read our latest privacy policy and terms of service on GitHub.</string>
+    <string name="about_gh_issue_title">GitHub Issues</string>
+    <string name="about_gh_issue_desc">Submit bug reports or feature requests by creating an issue on GitHub.</string>
     <string name="about_telegram_title">Telegram Group</string>
     <string name="about_telegram_desc">Join us at telegram to share your ideas or just to chat!</string>
     <string name="about_support_title">Support Development</string>
@@ -193,8 +193,8 @@
     <string name="goal_widget_desc">Saved %s</string>
 
     <!-- Goal Reminders -->
-    <string name="notification_permission_error">Please allow notification permission! 😾</string>
-    <string name="reminder_notification_desc">The more you save, the quicker you’ll reach your goal! 💰</string>
+    <string name="notification_permission_error">Please grant notifications permission! 😾</string>
+    <string name="reminder_notification_desc">The more you save, the quicker you\'ll reach your goal! 💰</string>
     <string name="dismiss_notification_button">Dismiss</string>
     <string name="notification_deposited_title">Great Work 🎉</string>
     <string name="notification_deposited_desc">Successfully deposited %s!</string>
