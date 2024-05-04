@@ -1,9 +1,9 @@
-GreenStash is a simple android app to help you plan and manage your savings goals easily and establish the habit of saving money.
+GreenStash is a simple app to help you plan and manage your savings goals easily and establish the habit of saving money.
 
-Features
+Features:
 
-- Clean & beautiful UI based on Google's material design three guidelines.
-- Add images to your saving goals to keep you motivated!
+- Clean & beautiful UI based on Google's Material Design 3 guidelines.
+- Add image to your saving goal to keep you motivated!
 - View how much you need to save daily/weekly/monthly to achieve your goal before deadline.
 - View detailed transaction (withdraw/deposit) history.
 - Supports around 100+ local currency symbols.
