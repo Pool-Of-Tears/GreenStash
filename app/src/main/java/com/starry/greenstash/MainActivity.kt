@@ -25,8 +25,11 @@
 
 package com.starry.greenstash
 
+import android.graphics.Color
 import android.os.Bundle
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
@@ -43,11 +46,9 @@ import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.compose.rememberNavController
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.starry.greenstash.ui.navigation.NavGraph
 import com.starry.greenstash.ui.screens.other.AppLockedScreen
 import com.starry.greenstash.ui.screens.settings.SettingsViewModel
-import com.starry.greenstash.ui.screens.settings.ThemeMode
 import com.starry.greenstash.ui.theme.GreenStashTheme
 import com.starry.greenstash.utils.Utils
 import com.starry.greenstash.utils.toToast
@@ -74,6 +75,18 @@ class MainActivity : AppCompatActivity() {
         installSplashScreen().setKeepOnScreenCondition {
             mainViewModel.isLoading.value
         }
+
+        // Enable edge-to-edge mode for the activity.
+        enableEdgeToEdge(
+            statusBarStyle = SystemBarStyle.auto(
+                lightScrim = Color.TRANSPARENT,
+                darkScrim = Color.TRANSPARENT
+            ),
+            navigationBarStyle = SystemBarStyle.auto(
+                lightScrim = Color.TRANSPARENT,
+                darkScrim = Color.TRANSPARENT
+            ),
+        )
 
         // refresh reminders
         mainViewModel.refreshReminders()
@@ -137,17 +150,6 @@ class MainActivity : AppCompatActivity() {
     private fun setAppContents(showAppContents: State<Boolean>) {
         setContent {
             GreenStashTheme(settingsViewModel = settingsViewModel) {
-                val systemUiController = rememberSystemUiController()
-                systemUiController.setNavigationBarColor(
-                    color = MaterialTheme.colorScheme.background,
-                    darkIcons = settingsViewModel.getCurrentTheme() == ThemeMode.Light
-                )
-
-                systemUiController.setStatusBarColor(
-                    color = MaterialTheme.colorScheme.surface,
-                    darkIcons = settingsViewModel.getCurrentTheme() == ThemeMode.Light
-                )
-
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background

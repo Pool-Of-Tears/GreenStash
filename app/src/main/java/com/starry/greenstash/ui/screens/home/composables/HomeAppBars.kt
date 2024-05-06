@@ -42,9 +42,9 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -182,7 +182,7 @@ private fun SearchAppBar(
                     Icon(
                         imageVector = Icons.Default.Search,
                         contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onSurface
+                        tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
                     )
                 }
             },
@@ -197,7 +197,7 @@ private fun SearchAppBar(
                     Icon(
                         imageVector = Icons.Filled.Close,
                         contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onSurface
+                        tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
                     )
                 }
             },
@@ -207,11 +207,13 @@ private fun SearchAppBar(
             keyboardActions = KeyboardActions(onSearch = {
                 onSearchClicked(text)
             }),
-            colors = TextFieldDefaults.colors(
-                focusedContainerColor = Color.Transparent,
-                unfocusedContainerColor = MaterialTheme.colorScheme.primaryContainer.copy(0.3f),
-                disabledContainerColor = Color.Transparent,
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedContainerColor = MaterialTheme.colorScheme.surfaceContainer,
+                unfocusedContainerColor = MaterialTheme.colorScheme.surfaceContainer,
                 cursorColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f),
+                focusedTextColor = MaterialTheme.colorScheme.onSurface,
+                focusedBorderColor = Color.Transparent,
+                unfocusedBorderColor = Color.Transparent
             ),
             shape = RoundedCornerShape(24.dp)
         )

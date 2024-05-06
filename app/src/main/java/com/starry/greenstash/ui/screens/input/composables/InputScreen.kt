@@ -677,6 +677,8 @@ private fun GoalPriorityMenu(selectedPriority: String, obPriorityChanged: (Strin
                         colors = SegmentedButtonDefaults.colors(
                             activeContentColor = MaterialTheme.colorScheme.onPrimary,
                             activeContainerColor = MaterialTheme.colorScheme.primary,
+                            inactiveContainerColor = MaterialTheme.colorScheme.primaryContainer,
+                            inactiveContentColor = MaterialTheme.colorScheme.onPrimaryContainer
                         )
                     )
 
@@ -701,6 +703,8 @@ private fun GoalPriorityMenu(selectedPriority: String, obPriorityChanged: (Strin
                         colors = SegmentedButtonDefaults.colors(
                             activeContentColor = MaterialTheme.colorScheme.onPrimary,
                             activeContainerColor = MaterialTheme.colorScheme.primary,
+                            inactiveContainerColor = MaterialTheme.colorScheme.primaryContainer,
+                            inactiveContentColor = MaterialTheme.colorScheme.onPrimaryContainer
                         )
                     )
 
@@ -725,6 +729,8 @@ private fun GoalPriorityMenu(selectedPriority: String, obPriorityChanged: (Strin
                         colors = SegmentedButtonDefaults.colors(
                             activeContentColor = MaterialTheme.colorScheme.onPrimary,
                             activeContainerColor = MaterialTheme.colorScheme.primary,
+                            inactiveContainerColor = MaterialTheme.colorScheme.primaryContainer,
+                            inactiveContentColor = MaterialTheme.colorScheme.onPrimaryContainer
                         )
                     )
                 }

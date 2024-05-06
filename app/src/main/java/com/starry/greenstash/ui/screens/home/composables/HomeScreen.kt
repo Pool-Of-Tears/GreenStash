@@ -77,10 +77,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -100,6 +98,7 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.psoffritti.taptargetcompose.TapTargetCoordinator
 import com.psoffritti.taptargetcompose.TapTargetStyle
 import com.psoffritti.taptargetcompose.TextDefinition
+import com.starry.greenstash.MainActivity
 import com.starry.greenstash.R
 import com.starry.greenstash.database.core.GoalWithTransactions
 import com.starry.greenstash.ui.navigation.Screens
@@ -108,6 +107,7 @@ import com.starry.greenstash.ui.screens.home.FilterSortType
 import com.starry.greenstash.ui.screens.home.HomeViewModel
 import com.starry.greenstash.ui.screens.home.SearchWidgetState
 import com.starry.greenstash.ui.theme.greenstashFont
+import com.starry.greenstash.utils.getActivity
 import com.starry.greenstash.utils.isScrollingUp
 import com.starry.greenstash.utils.weakHapticFeedback
 import kotlinx.coroutines.delay
@@ -118,19 +118,19 @@ import java.util.Locale
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(navController: NavController) {
+    val context = LocalContext.current
     val viewModel: HomeViewModel = hiltViewModel()
-    val allGoalState = viewModel.goalsList.observeAsState(emptyList())
+    val settingsVM = (context.getActivity() as MainActivity).settingsViewModel
 
+    val allGoalState = viewModel.goalsList.observeAsState(emptyList())
     val showFilterSheet = remember { mutableStateOf(false) }
     val filterSheetState = rememberModalBottomSheetState()
-
     val drawerState = rememberDrawerState(DrawerValue.Closed)
 
     val searchWidgetState by viewModel.searchWidgetState
     val searchTextState by viewModel.searchTextState
 
     val lazyListState = rememberLazyListState()
-
     val snackBarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
 
@@ -153,7 +153,11 @@ fun HomeScreen(navController: NavController) {
         drawerState = drawerState,
         gesturesEnabled = drawerState.isOpen,
         drawerContent = {
-            HomeDrawer(drawerState = drawerState, navController = navController)
+            HomeDrawer(
+                drawerState = drawerState,
+                navController = navController,
+                themeMode = settingsVM.getCurrentTheme()
+            )
         },
     ) {
         val showTapTargets = remember { mutableStateOf(false) }
@@ -469,7 +473,7 @@ private fun FilterButton(text: String, isSelected: Boolean, onClick: () -> Unit)
         textColor = MaterialTheme.colorScheme.onSecondaryContainer
     }
 
-    val haptic = LocalHapticFeedback.current
+    val view = LocalView.current
 
     Card(
         modifier = Modifier
@@ -478,7 +482,7 @@ private fun FilterButton(text: String, isSelected: Boolean, onClick: () -> Unit)
         colors = CardDefaults.cardColors(containerColor = buttonColor),
         shape = RoundedCornerShape(14.dp),
         onClick = {
-            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+            view.weakHapticFeedback()
             onClick()
         }
     ) {
