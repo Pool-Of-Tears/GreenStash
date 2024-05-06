@@ -34,14 +34,17 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.BrightnessMedium
+import androidx.compose.material.icons.filled.Contrast
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.LocalPolice
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Palette
 import androidx.compose.material.icons.filled.Style
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ButtonDefaults
@@ -53,23 +56,17 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SheetState
-import androidx.compose.material3.Switch
-import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -100,10 +97,6 @@ import com.starry.greenstash.utils.Utils
 import com.starry.greenstash.utils.getActivity
 import com.starry.greenstash.utils.toToast
 import com.starry.greenstash.utils.weakHapticFeedback
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.util.concurrent.Executor
 
 
@@ -158,11 +151,9 @@ fun SettingsScreen(navController: NavController) {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun DisplaySettings(viewModel: SettingsViewModel, navController: NavController) {
     val context = LocalContext.current
-    val sheetState = rememberModalBottomSheetState()
     val showThemeSheet = remember { mutableStateOf(false) }
 
     // Theme related values.
@@ -194,14 +185,25 @@ private fun DisplaySettings(viewModel: SettingsViewModel, navController: NavCont
         SettingsCategory(title = stringResource(id = R.string.display_settings_title))
         SettingsItem(title = stringResource(id = R.string.theme_setting),
             description = themeValue,
-            icon = ImageVector.vectorResource(id = R.drawable.ic_settings_theme),
+            icon = Icons.Filled.BrightnessMedium,
             onClick = { showThemeSheet.value = true })
+
+        SettingsItem(
+            title = stringResource(id = R.string.amoled_theme_setting),
+            description = stringResource(id = R.string.amoled_theme_desc),
+            icon = Icons.Filled.Contrast,
+            switchState = amoledThemeValue,
+            onCheckChange = { newValue ->
+                amoledThemeValue.value = newValue
+                viewModel.setAmoledTheme(newValue)
+            }
+        )
 
         SettingsItem(title = stringResource(id = R.string.material_you_setting),
             description = stringResource(
                 id = R.string.material_you_setting_desc
             ),
-            icon = ImageVector.vectorResource(id = R.drawable.ic_settings_material_you),
+            icon = Icons.Filled.Palette,
             switchState = materialYouValue,
             onCheckChange = { newValue ->
                 materialYouValue.value = newValue
@@ -224,36 +226,24 @@ private fun DisplaySettings(viewModel: SettingsViewModel, navController: NavCont
             onClick = { navController.navigate(Screens.GoalCardStyle.route) })
 
         if (showThemeSheet.value) {
-            ThemeBottomSheet(
+            ThemePickerDialog(
                 themeValue = themeValue,
-                amoledThemeValue = amoledThemeValue.value,
-                sheetState = sheetState,
-                showThemeSheet = showThemeSheet,
+                showThemeDialog = showThemeSheet,
                 onThemeChange = { newTheme ->
                     viewModel.setTheme(newTheme)
-                },
-                onAmoledThemeChange = { newValue ->
-                    amoledThemeValue.value = newValue
-                    viewModel.setAmoledTheme(newValue)
                 }
             )
         }
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun ThemeBottomSheet(
+private fun ThemePickerDialog(
     themeValue: String,
-    amoledThemeValue: Boolean,
-    sheetState: SheetState,
-    showThemeSheet: MutableState<Boolean>,
+    showThemeDialog: MutableState<Boolean>,
     onThemeChange: (ThemeMode) -> Unit,
-    onAmoledThemeChange: (Boolean) -> Unit,
 ) {
-    val view = LocalView.current
     val context = LocalContext.current
-    val coroutineScope = rememberCoroutineScope()
     val themeRadioOptions = listOf(
         stringResource(id = R.string.theme_dialog_option1),
         stringResource(id = R.string.theme_dialog_option2),
@@ -263,161 +253,75 @@ private fun ThemeBottomSheet(
         mutableStateOf(themeValue)
     }
 
-    ModalBottomSheet(sheetState = sheetState, onDismissRequest = {
-        coroutineScope.launch {
-            sheetState.hide()
-            delay(300)
-            showThemeSheet.value = false
-        }
-    }) {
-        Column(
-            modifier = Modifier.fillMaxWidth()
-
-        ) {
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 14.dp),
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(6.dp)
-                ),
-                shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
+    if (showThemeDialog.value) {
+        AlertDialog(onDismissRequest = {
+            showThemeDialog.value = false
+        }, title = {
+            Text(
+                text = stringResource(id = R.string.theme_dialog_title),
+                color = MaterialTheme.colorScheme.onSurface,
+            )
+        }, text = {
+            Column(
+                modifier = Modifier.selectableGroup(),
+                verticalArrangement = Arrangement.Center,
             ) {
-                Column(
-                    modifier = Modifier
-                        .selectableGroup()
-                        .padding(top = 6.dp),
-                    verticalArrangement = Arrangement.Center,
-                ) {
-                    themeRadioOptions.forEach { text ->
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(46.dp)
-                                .selectable(
-                                    selected = (text == selectedThemeOption),
-                                    onClick = { onThemeOptionSelected(text) },
-                                    role = Role.RadioButton,
-                                )
-                                .padding(start = 14.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                        ) {
-                            RadioButton(
+                themeRadioOptions.forEach { text ->
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(46.dp)
+                            .selectable(
                                 selected = (text == selectedThemeOption),
-                                onClick = null,
-                                colors = RadioButtonDefaults.colors(
-                                    selectedColor = MaterialTheme.colorScheme.primary,
-                                    unselectedColor = MaterialTheme.colorScheme.inversePrimary,
-                                    disabledSelectedColor = Color.Black,
-                                    disabledUnselectedColor = Color.Black
-                                ),
-                            )
-                            Text(
-                                text = text,
-                                modifier = Modifier.padding(start = 16.dp),
-                                color = MaterialTheme.colorScheme.onSurface,
-                                fontFamily = greenstashFont,
-                            )
-                        }
+                                onClick = { onThemeOptionSelected(text) },
+                                role = Role.RadioButton,
+                            ),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        RadioButton(
+                            selected = (text == selectedThemeOption),
+                            onClick = null,
+                            colors = RadioButtonDefaults.colors(
+                                selectedColor = MaterialTheme.colorScheme.primary,
+                                unselectedColor = MaterialTheme.colorScheme.inversePrimary,
+                                disabledSelectedColor = Color.Black,
+                                disabledUnselectedColor = Color.Black
+                            ),
+                        )
+                        Text(
+                            text = text,
+                            modifier = Modifier.padding(start = 16.dp),
+                            color = MaterialTheme.colorScheme.onSurface,
+                            fontFamily = greenstashFont
+                        )
                     }
                 }
             }
-
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 14.dp, vertical = 4.dp),
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(6.dp)
-                ),
-                shape = RoundedCornerShape(bottomStart = 16.dp, bottomEnd = 16.dp)
-            ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(4.dp)
-                ) {
-                    Text(
-                        text = stringResource(id = R.string.amoled_theme_setting),
-                        fontFamily = greenstashFont,
-                        modifier = Modifier.padding(start = 14.dp, top = 10.dp)
-                    )
-                    Spacer(modifier = Modifier.weight(1f))
-                    Switch(
-                        checked = amoledThemeValue,
-                        onCheckedChange = {
-                            view.weakHapticFeedback()
-                            onAmoledThemeChange(it)
-                        },
-                        thumbContent = if (amoledThemeValue) {
-                            {
-                                Icon(
-                                    imageVector = Icons.Filled.Check,
-                                    contentDescription = null,
-                                    modifier = Modifier.size(SwitchDefaults.IconSize),
-                                )
-                            }
-                        } else {
-                            null
-                        },
-                        modifier = Modifier.padding(end = 14.dp)
-                    )
-                }
-            }
-
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 8.dp, bottom = 20.dp, end = 14.dp)
-            ) {
-                Spacer(modifier = Modifier.weight(1f))
-                TextButton(onClick = {
-                    coroutineScope.launch {
-                        sheetState.hide()
-                        delay(300)
-                        showThemeSheet.value = false
-                    }
-                }) {
-                    Text(
-                        stringResource(id = R.string.cancel), fontFamily = greenstashFont
-                    )
-                }
-
-                FilledTonalButton(
-                    onClick = {
-                        coroutineScope.launch {
-                            sheetState.hide()
-                            delay(100)
-                            showThemeSheet.value = false
-
-                            withContext(Dispatchers.Main) {
-                                when (selectedThemeOption) {
-                                    context.getString(R.string.theme_dialog_option1) -> {
-                                        onThemeChange(ThemeMode.Light)
-                                    }
-
-                                    context.getString(R.string.theme_dialog_option2) -> {
-                                        onThemeChange(ThemeMode.Dark)
-                                    }
-
-                                    context.getString(R.string.theme_dialog_option3) -> {
-                                        onThemeChange(ThemeMode.Auto)
-                                    }
-                                }
-                            }
+        }, confirmButton = {
+            FilledTonalButton(
+                onClick = {
+                    showThemeDialog.value = false
+                    onThemeChange(
+                        when (selectedThemeOption) {
+                            context.getString(R.string.theme_dialog_option1) -> ThemeMode.Light
+                            context.getString(R.string.theme_dialog_option2) -> ThemeMode.Dark
+                            else -> ThemeMode.Auto
                         }
-                    }, colors = ButtonDefaults.filledTonalButtonColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer,
-                        contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                    ), shape = RoundedCornerShape(16.dp)
-                ) {
-                    Text(
-                        stringResource(id = R.string.theme_dialog_apply_button),
-                        fontFamily = greenstashFont
                     )
-                }
+                }, colors = ButtonDefaults.filledTonalButtonColors(
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = MaterialTheme.colorScheme.onPrimary
+                )
+            ) {
+                Text(stringResource(id = R.string.theme_dialog_apply_button))
             }
-        }
+        }, dismissButton = {
+            TextButton(onClick = {
+                showThemeDialog.value = false
+            }) {
+                Text(stringResource(id = R.string.cancel))
+            }
+        })
     }
 }
 
@@ -564,7 +468,7 @@ private fun SecuritySettings(viewModel: SettingsViewModel) {
         SettingsCategory(title = stringResource(id = R.string.security_settings_title))
         SettingsItem(title = stringResource(id = R.string.app_lock_setting),
             description = stringResource(id = R.string.app_lock_setting_desc),
-            icon = ImageVector.vectorResource(id = R.drawable.ic_settings_app_lock),
+            icon = Icons.Filled.Lock,
             switchState = appLockSwitch,
             onCheckChange = { newValue ->
                 appLockSwitch.value = newValue
@@ -620,11 +524,11 @@ private fun MiscSettings(navController: NavController) {
         SettingsCategory(title = stringResource(id = R.string.misc_setting_title))
         SettingsItem(title = stringResource(id = R.string.license_setting),
             description = stringResource(id = R.string.license_setting_desc),
-            icon = ImageVector.vectorResource(id = R.drawable.ic_settings_osl),
+            icon = Icons.Filled.LocalPolice,
             onClick = { navController.navigate(Screens.OSLScreen.route) })
         SettingsItem(title = stringResource(id = R.string.app_info_setting),
             description = stringResource(id = R.string.app_info_setting_desc),
-            icon = ImageVector.vectorResource(id = R.drawable.ic_settings_about),
+            icon = Icons.Filled.Info,
             onClick = { navController.navigate(Screens.AboutScreen.route) })
     }
     Spacer(modifier = Modifier.height(2.dp)) // Last item padding.

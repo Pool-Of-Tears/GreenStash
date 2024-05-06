@@ -27,6 +27,9 @@ package com.starry.greenstash.ui.theme
 
 import android.content.Context
 import android.os.Build
+import androidx.activity.SystemBarStyle
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
@@ -35,6 +38,7 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -155,6 +159,28 @@ private fun getColorScheme(
     }
 }
 
+/**
+ * Helper composable function to fix the status bar icons on dark theme.
+ * @param darkTheme: Boolean to check if the theme is dark.
+ * @param activity: MainActivity to enable edge-to-edge status bar.
+ */
+@Composable
+fun FixStatusBarIconsOnDarkTheme(darkTheme: Boolean, activity: AppCompatActivity) {
+    LaunchedEffect(darkTheme) {
+        if (darkTheme) {
+            activity.enableEdgeToEdge(
+                statusBarStyle = SystemBarStyle.dark(android.graphics.Color.TRANSPARENT)
+            )
+        }
+    }
+}
+
+/**
+ * GreenStashTheme composable function to apply the theme to the app.
+ * @param darkTheme: Boolean to check if the theme is dark.
+ * @param settingsViewModel: SettingsViewModel to observe the theme settings.
+ * @param content: @Composable function to apply the theme to the content.
+ */
 @Composable
 fun GreenStashTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),

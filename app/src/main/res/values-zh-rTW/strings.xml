@@ -11,6 +11,9 @@
     <string name="drawer_home">首頁</string>
     <string name="drawer_backups">備份</string>
     <string name="drawer_settings">設定</string>
+    <string name="drawer_rating">為應用程式評分</string>
+    <string name="drawer_share">分享應用程式</string>
+    <string name="drawer_privacy">隱私政策</string>
     <string name="drawer_footer_text">在印度製作，充滿 ❤️。</string>
 
     <!-- Biometric Lock -->
@@ -141,10 +144,12 @@
     <string name="settings_screen_header">設定</string>
     <string name="display_settings_title">顯示</string>
     <string name="theme_setting">預設主題</string>
+    <string name="theme_dialog_title">更改主題</string>
     <string name="theme_dialog_option1">亮色</string>
     <string name="theme_dialog_option2">暗色</string>
     <string name="theme_dialog_option3">系統預設</string>
     <string name="amoled_theme_setting">黑色主題</string>
+    <string name="amoled_theme_desc">啟用黑色AMOLED主題</string>
     <string name="theme_dialog_apply_button">套用</string>
     <string name="material_you_setting" translatable="false">Material You</string>
     <string name="material_you_setting_desc">根據您的桌布切換主題（僅限 Android 12+）</string>

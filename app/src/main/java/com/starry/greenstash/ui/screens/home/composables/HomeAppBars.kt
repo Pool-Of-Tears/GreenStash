@@ -27,9 +27,12 @@ package com.starry.greenstash.ui.screens.home.composables
 
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBars
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -161,7 +164,10 @@ private fun SearchAppBar(
     onSearchClicked: (String) -> Unit,
 ) {
     Surface(
-        modifier = Modifier.fillMaxWidth(), color = MaterialTheme.colorScheme.surface
+        modifier = Modifier
+            .fillMaxWidth()
+            .windowInsetsPadding(insets = WindowInsets.statusBars),
+        color = MaterialTheme.colorScheme.surface
     ) {
         OutlinedTextField(
             modifier = Modifier

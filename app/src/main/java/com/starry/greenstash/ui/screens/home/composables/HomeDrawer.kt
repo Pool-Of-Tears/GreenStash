@@ -27,16 +27,13 @@ package com.starry.greenstash.ui.screens.home.composables
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.systemBarsIgnoringVisibility
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -75,7 +72,6 @@ import com.starry.greenstash.utils.weakHapticFeedback
 import kotlinx.coroutines.launch
 
 
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun HomeDrawer(drawerState: DrawerState, navController: NavController, themeMode: ThemeMode) {
     val items = listOf(DrawerScreens.Home, DrawerScreens.Backups, DrawerScreens.Settings)
@@ -88,7 +84,6 @@ fun HomeDrawer(drawerState: DrawerState, navController: NavController, themeMode
         modifier = Modifier.width(295.dp),
         drawerShape = RoundedCornerShape(topEnd = 14.dp, bottomEnd = 14.dp),
         drawerTonalElevation = 2.dp,
-        windowInsets = WindowInsets.systemBarsIgnoringVisibility,
     ) {
         Row(
             modifier = Modifier
@@ -99,7 +94,7 @@ fun HomeDrawer(drawerState: DrawerState, navController: NavController, themeMode
             Spacer(modifier = Modifier.width(20.dp))
             Box(
                 modifier = Modifier
-                    .size(58.dp)
+                    .size(60.dp)
                     .background(
                         color = if (themeMode == ThemeMode.Light) MaterialTheme.colorScheme.onSurface
                         else MaterialTheme.colorScheme.surface,
@@ -169,6 +164,11 @@ fun HomeDrawer(drawerState: DrawerState, navController: NavController, themeMode
         )
 
         NavigationDrawerItem(
+            modifier = Modifier
+                .width(280.dp)
+                .padding(NavigationDrawerItemDefaults.ItemPadding),
+            selected = false,
+            onClick = { view.weakHapticFeedback() },
             icon = {
                 Icon(
                     imageVector = ImageVector.vectorResource(id = R.drawable.ic_nav_rating),
@@ -177,20 +177,18 @@ fun HomeDrawer(drawerState: DrawerState, navController: NavController, themeMode
             },
             label = {
                 Text(
-                    text = "Rate the app", fontFamily = greenstashFont
+                    text = stringResource(id = R.string.drawer_rating),
+                    fontFamily = greenstashFont
                 )
             },
-            selected = false,
-            onClick = {
-                view.weakHapticFeedback()
-
-            },
-            modifier = Modifier
-                .width(280.dp)
-                .padding(NavigationDrawerItemDefaults.ItemPadding),
         )
 
         NavigationDrawerItem(
+            modifier = Modifier
+                .width(280.dp)
+                .padding(NavigationDrawerItemDefaults.ItemPadding),
+            selected = false,
+            onClick = { view.weakHapticFeedback() },
             icon = {
                 Icon(
                     imageVector = ImageVector.vectorResource(id = R.drawable.ic_nav_share),
@@ -199,19 +197,18 @@ fun HomeDrawer(drawerState: DrawerState, navController: NavController, themeMode
             },
             label = {
                 Text(
-                    text = "Share with friemds", fontFamily = greenstashFont
+                    text = stringResource(id = R.string.drawer_share),
+                    fontFamily = greenstashFont
                 )
             },
-            selected = false,
-            onClick = {
-                view.weakHapticFeedback()
+        )
 
-            },
+        NavigationDrawerItem(
             modifier = Modifier
                 .width(280.dp)
                 .padding(NavigationDrawerItemDefaults.ItemPadding),
-        )
-        NavigationDrawerItem(
+            selected = false,
+            onClick = { view.weakHapticFeedback() },
             icon = {
                 Icon(
                     imageVector = ImageVector.vectorResource(id = R.drawable.ic_nav_privacy),
@@ -220,19 +217,11 @@ fun HomeDrawer(drawerState: DrawerState, navController: NavController, themeMode
             },
             label = {
                 Text(
-                    text = "Privacy Policy", fontFamily = greenstashFont
+                    text = stringResource(id = R.string.drawer_privacy),
+                    fontFamily = greenstashFont
                 )
             },
-            selected = false,
-            onClick = {
-                view.weakHapticFeedback()
-
-            },
-            modifier = Modifier
-                .width(280.dp)
-                .padding(NavigationDrawerItemDefaults.ItemPadding),
         )
-        Spacer(modifier = Modifier.height(4.dp))
 
         Spacer(Modifier.weight(1f))
 
@@ -240,7 +229,7 @@ fun HomeDrawer(drawerState: DrawerState, navController: NavController, themeMode
             Text(
                 text = stringResource(id = R.string.drawer_footer_text),
                 modifier = Modifier.padding(bottom = 18.dp),
-                fontSize = 12.sp,
+                fontSize = 11.sp,
                 fontFamily = greenstashFont,
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.69f)
             )

@@ -25,9 +25,7 @@
 
 package com.starry.greenstash
 
-import android.graphics.Color
 import android.os.Bundle
-import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -49,6 +47,8 @@ import androidx.navigation.compose.rememberNavController
 import com.starry.greenstash.ui.navigation.NavGraph
 import com.starry.greenstash.ui.screens.other.AppLockedScreen
 import com.starry.greenstash.ui.screens.settings.SettingsViewModel
+import com.starry.greenstash.ui.screens.settings.ThemeMode
+import com.starry.greenstash.ui.theme.FixStatusBarIconsOnDarkTheme
 import com.starry.greenstash.ui.theme.GreenStashTheme
 import com.starry.greenstash.utils.Utils
 import com.starry.greenstash.utils.toToast
@@ -76,17 +76,7 @@ class MainActivity : AppCompatActivity() {
             mainViewModel.isLoading.value
         }
 
-        // Enable edge-to-edge mode for the activity.
-        enableEdgeToEdge(
-            statusBarStyle = SystemBarStyle.auto(
-                lightScrim = Color.TRANSPARENT,
-                darkScrim = Color.TRANSPARENT
-            ),
-            navigationBarStyle = SystemBarStyle.auto(
-                lightScrim = Color.TRANSPARENT,
-                darkScrim = Color.TRANSPARENT
-            ),
-        )
+        enableEdgeToEdge() // enable edge to edge for the activity.
 
         // refresh reminders
         mainViewModel.refreshReminders()
@@ -150,6 +140,10 @@ class MainActivity : AppCompatActivity() {
     private fun setAppContents(showAppContents: State<Boolean>) {
         setContent {
             GreenStashTheme(settingsViewModel = settingsViewModel) {
+                FixStatusBarIconsOnDarkTheme(
+                    darkTheme = settingsViewModel.getCurrentTheme() == ThemeMode.Dark,
+                    activity = this,
+                )
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background

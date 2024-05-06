@@ -174,7 +174,7 @@ fun GoalCardStyle(navController: NavController) {
                                 savedAmount = "$1,000.00",
                                 daysLeftText = "12 days left",
                                 goalProgress = 0.8f,
-                                goalIcon = ImageVector.vectorResource(id = R.drawable.ic_nav_backups),
+                                goalIcon = ImageVector.vectorResource(id = R.drawable.ic_nav_share),
                                 onDepositClicked = {},
                                 onWithdrawClicked = {},
                                 onInfoClicked = {},

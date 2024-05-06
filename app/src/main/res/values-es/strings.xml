@@ -11,6 +11,9 @@
     <string name="drawer_home">Inicio</string>
     <string name="drawer_backups">Respaldo</string>
     <string name="drawer_settings">Ajustes</string>
+    <string name="drawer_rating">Califica la aplicación</string>
+    <string name="drawer_share">Compartir la aplicación</string>
+    <string name="drawer_privacy">Política de privacidad</string>
     <string name="drawer_footer_text">Hecho con ❤️ en India.</string>
 
     <!-- Biometric Lock -->
@@ -140,10 +143,12 @@
     <string name="settings_screen_header">Configuración</string>
     <string name="display_settings_title">Pantalla</string>
     <string name="theme_setting">Tema predeterminado</string>
+    <string name="theme_dialog_title">Cambiar tema</string>
     <string name="theme_dialog_option1">Claro</string>
     <string name="theme_dialog_option2">Oscuro</string>
     <string name="theme_dialog_option3">Predeterminado del sistema</string>
     <string name="amoled_theme_setting">Tema Oscuro</string>
+    <string name="amoled_theme_desc">Activar tema AMOLED negro</string>
     <string name="theme_dialog_apply_button">Aplicar</string>
     <string name="material_you_setting_desc">Cambia el tema según tú fondo de pantalla (A12 en adelante)</string>
     <string name="material_you_error">Esta característica es sólo para dispositivos con Android 12 en adelante.</string>
