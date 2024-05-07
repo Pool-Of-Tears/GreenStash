@@ -230,9 +230,9 @@ fun GoalLazyColumnItem(
         openDeleteDialog = openDeleteDialog,
         onDeleteConfirmed = {
             viewModel.deleteGoal(item.goal)
-            coroutineScope.launch {
+            /*coroutineScope.launch {
                 snackBarHostState.showSnackbar(context.getString(R.string.goal_delete_success))
-            }
+            }*/
         }
     )
 }

@@ -477,7 +477,7 @@ fun GoalItemsPV() {
             savedAmount = "$1,000.00",
             daysLeftText = "Goal Achieved! 🎉",
             goalProgress = 0.8f,
-            goalIcon = ImageVector.vectorResource(id = R.drawable.ic_nav_backups),
+            goalIcon = ImageVector.vectorResource(id = R.drawable.ic_nav_rating),
             onDepositClicked = {},
             onWithdrawClicked = {},
             onInfoClicked = {},

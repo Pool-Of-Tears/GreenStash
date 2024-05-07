@@ -39,7 +39,7 @@ sealed class DrawerScreens(val route: String, val nameResId: Int, val iconResId:
         DrawerScreens("archive", R.string.drawer_archive, R.drawable.ic_nav_archive)
 
     data object Backups :
-        DrawerScreens("backups", R.string.drawer_backups, R.drawable.ic_nav_backups)
+        DrawerScreens("backups", R.string.drawer_backup, R.drawable.ic_nav_backups)
 
     data object Settings :
         DrawerScreens("settings", R.string.drawer_settings, R.drawable.ic_nav_settings)

@@ -10,7 +10,8 @@
 
     <!-- Navigation Drawer -->
     <string name="drawer_home">Главная</string>
-    <string name="drawer_backups">Резервные копии</string>
+    <string name="drawer_archive">Архив</string>
+    <string name="drawer_backup">Резервные копии</string>
     <string name="drawer_settings">Настройки</string>
     <string name="drawer_rating">Оценить нас</string>
     <string name="drawer_share">Поделиться</string>
@@ -71,6 +72,9 @@
     <string name="goal_already_achieved">Вы уже достигли этой цели.</string>
     <string name="withdraw_button">Вывести</string>
     <string name="withdraw_button_error">Вы еще не вносили никакой суммы.</string>
+    <string name="archive_button">Архивировать</string>
+    <string name="goal_archive_confirmation">Хотите ли вы архивировать эту цель?</string>
+    <string name="goal_archive_success">Успешно архивировано.</string>
     <string name="goal_delete_confirmation">Вы уверены?</string>
     <string name="goal_delete_success">Удалено успешно.</string>
     <string name="info_button_description">Просмотр информации о цели.</string>

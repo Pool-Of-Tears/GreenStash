@@ -9,7 +9,8 @@
 
     <!-- Navigation Drawer -->
     <string name="drawer_home">主页</string>
-    <string name="drawer_backups">备份</string>
+    <string name="drawer_archive">存档</string>
+    <string name="drawer_backup">备份</string>
     <string name="drawer_settings">设置</string>
     <string name="drawer_rating">给我们评分</string>
     <string name="drawer_share">分享</string>
@@ -69,6 +70,9 @@
     <string name="goal_already_achieved">您已经实现了此目标。</string>
     <string name="withdraw_button">取钱</string>
     <string name="withdraw_button_error">您尚未存入任何金额。</string>
+    <string name="archive_button">存档</string>
+    <string name="goal_archive_confirmation">您要存档此目标吗？</string>
+    <string name="goal_archive_success">已成功存档。</string>
     <string name="goal_delete_confirmation">确定吗？</string>
     <string name="goal_delete_success">删除成功。</string>
     <string name="info_button_description">查看目标信息。</string>

@@ -9,7 +9,8 @@
 
     <!-- Navigation Drawer -->
     <string name="drawer_home">Ana Sayfa</string>
-    <string name="drawer_backups">Yedekler</string>
+    <string name="drawer_archive">Arşiv</string>
+    <string name="drawer_backup">Yedekler</string>
     <string name="drawer_settings">Ayarlar</string>
     <string name="drawer_rating">Bizi Değerlendir</string>
     <string name="drawer_share">Paylaş</string>
@@ -70,6 +71,9 @@
     <string name="goal_already_achieved">Birikim hedefine zaten ulaştın.</string>
     <string name="withdraw_button">çek</string>
     <string name="withdraw_button_error">Henüz herhangi bir tutar yatırmadın.</string>
+    <string name="archive_button">Arşivle</string>
+    <string name="goal_archive_confirmation">Bu hedefi arşivlemek istiyor musunuz?</string>
+    <string name="goal_archive_success">Başarıyla arşivlendi.</string>
     <string name="goal_delete_confirmation">Emin misin?</string>
     <string name="goal_delete_success">Başarıyla Silindi.</string>
     <string name="info_button_description">Hedef bilgilerini görüntüle.</string>
