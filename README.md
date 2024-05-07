@@ -62,13 +62,17 @@
 GreenStash doesn't contain any ads and doesn't sell your data.
 The development of the app is financed by individual user contributions, such as you purchasing the app via Google Play or becoming a sponsor on Github ❤️
 
-Become a [Sponser](https://github.com/sponsors/starry-shivam) on Github | Purchase it on [Google Play](https://play.google.com/store/apps/details?id=com.starry.greenstash)
+Become a [Sponsor](https://github.com/sponsors/starry-shivam) on Github | Purchase it on [Google Play](https://play.google.com/store/apps/details?id=com.starry.greenstash)
 
 ------
 
 <h2 align="center">Contributions</h2>
 
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change, or feel free to tackle any of the open issues present at the moment. If you're doing the latter, please leave a comment on the issue you want to contribute towards before starting to work on it.
+Contributions are welcome! 
+
+>[!Note]
+>
+>For submitting bug reports, feature requests, questions, or any other ideas to improve, please read [CONTRIBUTING.md](/CONTRIBUTING.md) for instructions and guidelines first.
 
 ------
 
@@ -97,6 +101,10 @@ It is easiest to make a translation using the Android Studio XML editor, but you
 - [Dagger-Hilt](https://dagger.dev/hilt) For [Dependency injection (DI)](https://developer.android.com/training/dependency-injection)
 - [Room database](https://developer.android.com/jetpack/androidx/releases/room) - Persistence library provides an abstraction layer over SQLite to allow for more robust database access while harnessing the full power of SQLite.
 
+## ⭐️ Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=Pool-Of-Tears/Greenstash&type=Timeline)](https://star-history.com/#JunkFood02/Seal&Timeline)
+
 ------
 
 <h2 align="center">License</h2>
@@ -104,7 +112,7 @@ It is easiest to make a translation using the Android Studio XML editor, but you
 [MIT License][license] © [Stɑrry Shivɑm][github]
 
 [license]: /LICENSE
-[github]: https://github.com/starry69
+[github]: https://github.com/starry-shivam
 
 ```
 MIT License
