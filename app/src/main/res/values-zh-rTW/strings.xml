@@ -11,6 +11,9 @@
     <string name="drawer_home">首頁</string>
     <string name="drawer_backups">備份</string>
     <string name="drawer_settings">設定</string>
+    <string name="drawer_rating">給我們評分</string>
+    <string name="drawer_share">分享</string>
+    <string name="drawer_privacy">隱私</string>
     <string name="drawer_footer_text">在印度製作，充滿 ❤️。</string>
 
     <!-- Biometric Lock -->
@@ -19,6 +22,10 @@
     <string name="auth_successful">驗證成功！</string>
     <string name="auth_failed">驗證失敗！</string>
     <string name="auth_error">驗證錯誤：%s</string>
+    <string name="drawer_share_message">
+        嘿！看看這款名為GreenStash的神奇應用吧。它讓你規劃和管理儲蓄目標變得輕鬆愉快，幫助你養成為更好的事物儲蓄的習慣
+        立即從Play Store下載：%s
+    </string>
 
     <!-- Welcome Screen. -->
     <string name="welcome_screen_text">您好！請選擇您的預設貨幣以開始。</string>
@@ -141,10 +148,12 @@
     <string name="settings_screen_header">設定</string>
     <string name="display_settings_title">顯示</string>
     <string name="theme_setting">預設主題</string>
+    <string name="theme_dialog_title">更改主題</string>
     <string name="theme_dialog_option1">亮色</string>
     <string name="theme_dialog_option2">暗色</string>
     <string name="theme_dialog_option3">系統預設</string>
     <string name="amoled_theme_setting">黑色主題</string>
+    <string name="amoled_theme_desc">啟用黑色AMOLED主題</string>
     <string name="theme_dialog_apply_button">套用</string>
     <string name="material_you_setting" translatable="false">Material You</string>
     <string name="material_you_setting_desc">根據您的桌布切換主題（僅限 Android 12+）</string>

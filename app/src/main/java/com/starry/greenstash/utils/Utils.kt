@@ -25,6 +25,10 @@
 
 package com.starry.greenstash.utils
 
+import android.content.ActivityNotFoundException
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG
 import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_WEAK
@@ -33,17 +37,22 @@ import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.text.NumberFormat
-import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.util.Currency
-import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
 
+/**
+ * A collection of utility functions.
+ */
 object Utils {
 
-    /** Validate number from text field. */
+    /** Get validated number from the text.
+     *
+     * @param text The text to validate
+     * @return The validated number
+     */
     fun getValidatedNumber(text: String): String {
         val filteredChars = text.filterIndexed { index, c ->
             c.isDigit() || (c == '.' && index != 0
@@ -60,7 +69,11 @@ object Utils {
         }
     }
 
-    /** Round decimal (double) to 2 digits */
+    /** Round the decimal number to two decimal places.
+     *
+     * @param number The number to round
+     * @return The rounded number
+     */
     fun roundDecimal(number: Double): Double {
         val locale = DecimalFormatSymbols(Locale.US)
         val df = DecimalFormat("#.##", locale)
@@ -68,7 +81,12 @@ object Utils {
         return df.format(number).toDouble()
     }
 
-    /** Convert double into currency format */
+    /** Format currency based on the currency code.
+     *
+     * @param amount The amount to format
+     * @param currencyCode The currency code
+     * @return The formatted currency
+     */
     fun formatCurrency(amount: Double, currencyCode: String): String {
         val nf = NumberFormat.getCurrencyInstance().apply {
             currency = Currency.getInstance(currencyCode)
@@ -82,7 +100,19 @@ object Utils {
     }
 
     /**
-     * https://developer.android.com/reference/androidx/biometric/BiometricPrompt.PromptInfo.Builder#setAllowedAuthenticators(int)
+     * Get the authenticators based on the Android version.
+     *
+     * For Android 9 and 10, the authenticators are BIOMETRIC_WEAK and DEVICE_CREDENTIAL.
+     *
+     * For Android 11 and above, the authenticators are BIOMETRIC_STRONG and DEVICE_CREDENTIAL.
+     *
+     * For Android versions below 9, the authenticators are BIOMETRIC_STRONG and DEVICE_CREDENTIAL although they are not supported,
+     * they don't result in any error unlike in Android 9 and 10.
+     *
+     * See https://developer.android.com/reference/androidx/biometric/BiometricPrompt.PromptInfo.Builder#setAllowedAuthenticators(int)
+     * for more information.
+     *
+     * @return The authenticators based on the Android version.
      */
     fun getAuthenticators() = if (Build.VERSION.SDK_INT == 28 || Build.VERSION.SDK_INT == 29) {
         BIOMETRIC_WEAK or DEVICE_CREDENTIAL
@@ -90,18 +120,12 @@ object Utils {
         BIOMETRIC_STRONG or DEVICE_CREDENTIAL
     }
 
-    fun getGreeting(): String {
-        val currentTime = System.currentTimeMillis()
-        val simpleDateFormat = SimpleDateFormat("HH", Locale.US)
 
-        return when (simpleDateFormat.format(Date(currentTime)).toInt()) {
-            in 0..11 -> "Good Morning!"
-            in 12..16 -> "Good Afternoon!"
-            in 17..20 -> "Good Evening!"
-            else -> "Good Night!"
-        }
-    }
-
+    /** Get the epoch time from the LocalDateTime.
+     *
+     * @param dateTime The LocalDateTime object
+     * @return The epoch time
+     */
     fun getEpochTime(dateTime: LocalDateTime): Long {
         val timeZone = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             ZoneId.systemDefault()
@@ -109,6 +133,21 @@ object Utils {
             TimeZone.getDefault().toZoneId()
         }
         return dateTime.atZone(timeZone).toInstant().toEpochMilli()
+    }
+
+    /** Open the web link in the browser.
+     *
+     * @param context The context
+     * @param url The URL to open
+     */
+    fun openWebLink(context: Context, url: String) {
+        val uri: Uri = Uri.parse(url)
+        val intent = Intent(Intent.ACTION_VIEW, uri)
+        try {
+            context.startActivity(intent)
+        } catch (exc: ActivityNotFoundException) {
+            exc.printStackTrace()
+        }
     }
 
 }

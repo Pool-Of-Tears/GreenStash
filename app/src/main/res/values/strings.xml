@@ -11,7 +11,15 @@
     <string name="drawer_home">Home</string>
     <string name="drawer_backups">Backups</string>
     <string name="drawer_settings">Settings</string>
+    <string name="drawer_rating">Rate Us</string>
+    <string name="drawer_share">Share</string>
+    <string name="drawer_privacy">Privacy</string>
     <string name="drawer_footer_text">Made with ❤️ in India.</string>
+    <string name="drawer_share_message">
+        Hey! Check out this amazing app called GreenStash.
+        It makes planning and managing your savings goals a breeze, helping you establish the habit of saving money for better things.
+        Download it now from the Play Store: %s
+    </string>
 
     <!-- Biometric Lock -->
     <string name="bio_lock_title">Unlock GreenStash</string>
@@ -141,10 +149,12 @@
     <string name="settings_screen_header">Settings</string>
     <string name="display_settings_title">Display</string>
     <string name="theme_setting">Default Theme</string>
+    <string name="theme_dialog_title">Change Theme</string>
     <string name="theme_dialog_option1">Light</string>
     <string name="theme_dialog_option2">Dark</string>
     <string name="theme_dialog_option3">System Default</string>
     <string name="amoled_theme_setting">Black Theme</string>
+    <string name="amoled_theme_desc">Enable black AMOLED theme</string>
     <string name="theme_dialog_apply_button">Apply</string>
     <string name="material_you_setting" translatable="false">Material You</string>
     <string name="material_you_setting_desc">Switch theme according to your wallpaper (A12+ Only)</string>

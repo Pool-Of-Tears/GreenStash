@@ -375,7 +375,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
 
                         GoalPriorityMenu(
                             selectedPriority = viewModel.state.priority,
-                            obPriorityChanged = { newValue ->
+                            onPriorityChanged = { newValue ->
                                 viewModel.updatePriority(newValue)
                             }
                         )
@@ -630,7 +630,7 @@ private fun IconPickerCard(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun GoalPriorityMenu(selectedPriority: String, obPriorityChanged: (String) -> Unit) {
+private fun GoalPriorityMenu(selectedPriority: String, onPriorityChanged: (String) -> Unit) {
     Card(
         modifier = Modifier.fillMaxWidth(0.86f), colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer
@@ -658,7 +658,7 @@ private fun GoalPriorityMenu(selectedPriority: String, obPriorityChanged: (Strin
                 ) {
                     SegmentedButton(
                         selected = selectedPriority == GoalPriority.High.name,
-                        onClick = { obPriorityChanged(GoalPriority.High.name) },
+                        onClick = { onPriorityChanged(GoalPriority.High.name) },
                         shape = RoundedCornerShape(topStart = 14.dp, bottomStart = 14.dp),
                         label = {
                             Text(
@@ -677,12 +677,14 @@ private fun GoalPriorityMenu(selectedPriority: String, obPriorityChanged: (Strin
                         colors = SegmentedButtonDefaults.colors(
                             activeContentColor = MaterialTheme.colorScheme.onPrimary,
                             activeContainerColor = MaterialTheme.colorScheme.primary,
+                            inactiveContainerColor = MaterialTheme.colorScheme.primaryContainer,
+                            inactiveContentColor = MaterialTheme.colorScheme.onPrimaryContainer
                         )
                     )
 
                     SegmentedButton(
                         selected = selectedPriority == GoalPriority.Normal.name,
-                        onClick = { obPriorityChanged(GoalPriority.Normal.name) },
+                        onClick = { onPriorityChanged(GoalPriority.Normal.name) },
                         shape = RectangleShape,
                         label = {
                             Text(
@@ -701,12 +703,14 @@ private fun GoalPriorityMenu(selectedPriority: String, obPriorityChanged: (Strin
                         colors = SegmentedButtonDefaults.colors(
                             activeContentColor = MaterialTheme.colorScheme.onPrimary,
                             activeContainerColor = MaterialTheme.colorScheme.primary,
+                            inactiveContainerColor = MaterialTheme.colorScheme.primaryContainer,
+                            inactiveContentColor = MaterialTheme.colorScheme.onPrimaryContainer
                         )
                     )
 
                     SegmentedButton(
                         selected = selectedPriority == GoalPriority.Low.name,
-                        onClick = { obPriorityChanged(GoalPriority.Low.name) },
+                        onClick = { onPriorityChanged(GoalPriority.Low.name) },
                         shape = RoundedCornerShape(topEnd = 14.dp, bottomEnd = 14.dp),
                         label = {
                             Text(
@@ -725,6 +729,8 @@ private fun GoalPriorityMenu(selectedPriority: String, obPriorityChanged: (Strin
                         colors = SegmentedButtonDefaults.colors(
                             activeContentColor = MaterialTheme.colorScheme.onPrimary,
                             activeContainerColor = MaterialTheme.colorScheme.primary,
+                            inactiveContainerColor = MaterialTheme.colorScheme.primaryContainer,
+                            inactiveContentColor = MaterialTheme.colorScheme.onPrimaryContainer
                         )
                     )
                 }

@@ -25,10 +25,6 @@
 
 package com.starry.greenstash.ui.screens.settings.composables
 
-import android.content.ActivityNotFoundException
-import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -60,6 +56,7 @@ import androidx.navigation.NavController
 import com.starry.greenstash.BuildConfig
 import com.starry.greenstash.R
 import com.starry.greenstash.ui.theme.greenstashFont
+import com.starry.greenstash.utils.Utils
 
 sealed class AboutLinks(val url: String) {
     data object ReadMe : AboutLinks("https://github.com/Pool-Of-Tears/GreenStash")
@@ -109,35 +106,35 @@ fun AboutScreen(navController: NavController) {
                 SettingsItem(title = stringResource(id = R.string.about_readme_title),
                     description = stringResource(id = R.string.about_readme_desc),
                     icon = Icons.AutoMirrored.Filled.Notes,
-                    onClick = { openWebLink(context, AboutLinks.ReadMe.url) }
+                    onClick = { Utils.openWebLink(context, AboutLinks.ReadMe.url) }
                 )
             }
             item {
                 SettingsItem(title = stringResource(id = R.string.about_privacy_title),
                     description = stringResource(id = R.string.about_privacy_desc),
                     icon = Icons.Filled.PrivacyTip,
-                    onClick = { openWebLink(context, AboutLinks.PrivacyPolicy.url) }
+                    onClick = { Utils.openWebLink(context, AboutLinks.PrivacyPolicy.url) }
                 )
             }
             item {
                 SettingsItem(title = stringResource(id = R.string.about_gh_issue_title),
                     description = stringResource(id = R.string.about_gh_issue_desc),
                     icon = ImageVector.vectorResource(id = R.drawable.ic_about_gh_issue),
-                    onClick = { openWebLink(context, AboutLinks.GithubIssues.url) }
+                    onClick = { Utils.openWebLink(context, AboutLinks.GithubIssues.url) }
                 )
             }
             item {
                 SettingsItem(title = stringResource(id = R.string.about_telegram_title),
                     description = stringResource(id = R.string.about_telegram_desc),
                     icon = ImageVector.vectorResource(id = R.drawable.ic_about_telegram),
-                    onClick = { openWebLink(context, AboutLinks.Telegram.url) }
+                    onClick = { Utils.openWebLink(context, AboutLinks.Telegram.url) }
                 )
             }
             item {
                 SettingsItem(title = stringResource(id = R.string.about_support_title),
                     description = stringResource(id = R.string.about_support_desc),
                     icon = Icons.Filled.Favorite,
-                    onClick = { openWebLink(context, AboutLinks.Sponsor.url) }
+                    onClick = { Utils.openWebLink(context, AboutLinks.Sponsor.url) }
                 )
             }
             item {
@@ -153,15 +150,6 @@ fun AboutScreen(navController: NavController) {
     }
 }
 
-fun openWebLink(context: Context, url: String) {
-    val uri: Uri = Uri.parse(url)
-    val intent = Intent(Intent.ACTION_VIEW, uri)
-    try {
-        context.startActivity(intent)
-    } catch (exc: ActivityNotFoundException) {
-        exc.printStackTrace()
-    }
-}
 
 fun getVersionReport(): String {
     val versionName = BuildConfig.VERSION_NAME

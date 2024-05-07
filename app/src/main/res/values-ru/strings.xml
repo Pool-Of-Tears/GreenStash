@@ -12,7 +12,16 @@
     <string name="drawer_home">Главная</string>
     <string name="drawer_backups">Резервные копии</string>
     <string name="drawer_settings">Настройки</string>
+    <string name="drawer_rating">Оценить нас</string>
+    <string name="drawer_share">Поделиться</string>
+    <string name="drawer_privacy">Конфиденциальность</string>
     <string name="drawer_footer_text">Сделано с ❤️ в Индии.</string>
+    <string name="drawer_share_message">
+        Привет! Посмотри это удивительное приложение под названием GreenStash.
+        Оно делает планирование и управление твоими финансовыми целями легким и приятным, помогая установить привычку экономить деньги для еще более лучших вещей.
+        Скачай его сейчас из Play Store: %s
+    </string>
+
 
     <!-- Biometric Lock -->
     <string name="bio_lock_title">Разблокировать GreenStash</string>
@@ -141,10 +150,12 @@
     <string name="settings_screen_header">Настройки</string>
     <string name="display_settings_title">Дисплей</string>
     <string name="theme_setting">Тема по умолчанию</string>
+    <string name="theme_dialog_title">Изменить тему</string>
     <string name="theme_dialog_option1">Светлая</string>
     <string name="theme_dialog_option2">Тёмная</string>
     <string name="theme_dialog_option3">Как в системе</string>
     <string name="amoled_theme_setting">Чёрная тема</string>
+    <string name="amoled_theme_desc">Включить черную тему AMOLED</string>
     <string name="theme_dialog_apply_button">Применить</string>
     <string name="material_you_setting_desc">Переключение темы в соответствии с вашими обоями (только для A12+)</string>
     <string name="material_you_error">Эта функция доступна только для устройств под управлением Android 12 или более поздней версии.</string>

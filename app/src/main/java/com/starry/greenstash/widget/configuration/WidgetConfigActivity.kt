@@ -29,6 +29,7 @@ import android.appwidget.AppWidgetManager
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
@@ -83,11 +84,10 @@ import com.airbnb.lottie.compose.LottieCompositionResult
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.starry.greenstash.MainActivity
 import com.starry.greenstash.R
 import com.starry.greenstash.ui.screens.settings.SettingsViewModel
-import com.starry.greenstash.ui.screens.settings.ThemeMode
+import com.starry.greenstash.ui.theme.AdjustEdgeToEdge
 import com.starry.greenstash.ui.theme.GreenStashTheme
 import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.widget.GoalWidget
@@ -103,21 +103,16 @@ class WidgetConfigActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        enableEdgeToEdge() // Enable edge-to-edge mode for the activity.
         settingsViewModel = ViewModelProvider(this)[SettingsViewModel::class.java]
 
         setContent {
             GreenStashTheme(settingsViewModel = settingsViewModel) {
-                val systemUiController = rememberSystemUiController()
-                systemUiController.setNavigationBarColor(
-                    color = MaterialTheme.colorScheme.background,
-                    darkIcons = settingsViewModel.getCurrentTheme() == ThemeMode.Light
+                // fix status bar icon color in dark mode.
+                AdjustEdgeToEdge(
+                    activity = this,
+                    themeState = settingsViewModel.getCurrentTheme()
                 )
-
-                systemUiController.setStatusBarColor(
-                    color = MaterialTheme.colorScheme.surfaceColorAtElevation(4.dp),
-                    darkIcons = settingsViewModel.getCurrentTheme() == ThemeMode.Light
-                )
-
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background

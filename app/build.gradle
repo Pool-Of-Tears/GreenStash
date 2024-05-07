@@ -17,7 +17,7 @@ android {
         minSdk 24
         targetSdk 34
         versionCode 350
-        versionName "3.5.0"
+        versionName "3.6.0-dev"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -94,8 +94,6 @@ dependencies {
     implementation "androidx.compose.animation:animation"
     implementation "androidx.compose.runtime:runtime-livedata"
     implementation "androidx.compose.material3:material3"
-    // Accompanist compose.
-    implementation "com.google.accompanist:accompanist-systemuicontroller:0.28.0"
     // Material theme for main activity.
     implementation 'com.google.android.material:material:1.11.0'
     // Android 12+ splash API.

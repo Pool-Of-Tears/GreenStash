@@ -11,7 +11,15 @@
     <string name="drawer_home">主页</string>
     <string name="drawer_backups">备份</string>
     <string name="drawer_settings">设置</string>
+    <string name="drawer_rating">给我们评分</string>
+    <string name="drawer_share">分享</string>
+    <string name="drawer_privacy">隐私</string>
     <string name="drawer_footer_text">用❤️制作于印度。</string>
+    <string name="drawer_share_message">
+        嘿！看看这款名为GreenStash的神奇应用吧。它让你规划和管理储蓄目标变得轻松愉快，帮助你养成为更好的事物储蓄的习惯
+        立即从Play Store下载：%s
+    </string>
+
 
     <!-- Biometric Lock -->
     <string name="bio_lock_title">解锁GreenStash</string>
@@ -141,10 +149,12 @@
     <string name="settings_screen_header">设置</string>
     <string name="display_settings_title">显示</string>
     <string name="theme_setting">默认主题</string>
+    <string name="theme_dialog_title">修改主题</string>
     <string name="theme_dialog_option1">明亮</string>
     <string name="theme_dialog_option2">暗色</string>
     <string name="theme_dialog_option3">系统默认</string>
     <string name="amoled_theme_setting">黑色主题</string>
+    <string name="amoled_theme_desc">启用黑色AMOLED主题</string>
     <string name="theme_dialog_apply_button">应用</string>
     <string name="material_you_setting">自适应</string>
     <string name="material_you_setting_desc">根据壁纸切换合适的主题（仅Android12+）</string>
