@@ -11,9 +11,9 @@
     <string name="drawer_home">Home</string>
     <string name="drawer_backups">Backups</string>
     <string name="drawer_settings">Settings</string>
-    <string name="drawer_rating">Rate the app</string>
-    <string name="drawer_share">Share the app</string>
-    <string name="drawer_privacy">Privacy Policy</string>
+    <string name="drawer_rating">Rate Us</string>
+    <string name="drawer_share">Share</string>
+    <string name="drawer_privacy">Privacy</string>
     <string name="drawer_footer_text">Made with ❤️ in India.</string>
     <string name="drawer_share_message">
         Hey! Check out this amazing app called GreenStash.

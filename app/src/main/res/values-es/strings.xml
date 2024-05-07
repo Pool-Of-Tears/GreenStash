@@ -11,9 +11,9 @@
     <string name="drawer_home">Inicio</string>
     <string name="drawer_backups">Respaldo</string>
     <string name="drawer_settings">Ajustes</string>
-    <string name="drawer_rating">Califica la aplicación</string>
-    <string name="drawer_share">Compartir la aplicación</string>
-    <string name="drawer_privacy">Política de privacidad</string>
+    <string name="drawer_rating">Calificarnos</string>
+    <string name="drawer_share">Compartir</string>
+    <string name="drawer_privacy">Privacidad</string>
     <string name="drawer_footer_text">Hecho con ❤️ en India.</string>
     <string name="drawer_share_message">
         ¡Hola! Echa un vistazo a esta increíble aplicación llamada GreenStash.

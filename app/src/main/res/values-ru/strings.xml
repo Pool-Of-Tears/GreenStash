@@ -12,9 +12,9 @@
     <string name="drawer_home">Главная</string>
     <string name="drawer_backups">Резервные копии</string>
     <string name="drawer_settings">Настройки</string>
-    <string name="drawer_rating">Оцените приложение</string>
-    <string name="drawer_share">Поделиться приложением</string>
-    <string name="drawer_privacy">Политика конфиденциальности</string>
+    <string name="drawer_rating">Оценить нас</string>
+    <string name="drawer_share">Поделиться</string>
+    <string name="drawer_privacy">Конфиденциальность</string>
     <string name="drawer_footer_text">Сделано с ❤️ в Индии.</string>
     <string name="drawer_share_message">
         Привет! Посмотри это удивительное приложение под названием GreenStash.

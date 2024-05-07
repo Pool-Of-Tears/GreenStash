@@ -11,9 +11,9 @@
     <string name="drawer_home">首頁</string>
     <string name="drawer_backups">備份</string>
     <string name="drawer_settings">設定</string>
-    <string name="drawer_rating">為應用程式評分</string>
-    <string name="drawer_share">分享應用程式</string>
-    <string name="drawer_privacy">隱私政策</string>
+    <string name="drawer_rating">給我們評分</string>
+    <string name="drawer_share">分享</string>
+    <string name="drawer_privacy">隱私</string>
     <string name="drawer_footer_text">在印度製作，充滿 ❤️。</string>
 
     <!-- Biometric Lock -->
