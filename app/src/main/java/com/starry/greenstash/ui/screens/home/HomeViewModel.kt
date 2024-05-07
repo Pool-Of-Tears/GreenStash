@@ -138,6 +138,16 @@ class HomeViewModel @Inject constructor(
     }
 
 
+    fun archiveGoal(goal: Goal) {
+        viewModelScope.launch(Dispatchers.IO) {
+           val updatedGoal = goal.copy(archived = true)
+            goalDao.updateGoal(updatedGoal)
+            if (reminderManager.isReminderSet(goal.goalId)) {
+                reminderManager.stopReminder(goal.goalId)
+            }
+        }
+    }
+
     fun deleteGoal(goal: Goal) {
         viewModelScope.launch(Dispatchers.IO) {
             goalDao.deleteGoal(goal.goalId)

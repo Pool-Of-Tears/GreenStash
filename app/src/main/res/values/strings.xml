@@ -141,6 +141,10 @@
     <string name="input_goal_remove_deadline">Do you want to remove deadline from this goal?</string>
     <string name="input_remove_deadline_tip">Tip! You can remove the deadline from existing goals by long-pressing on the deadline field.</string>
 
+    <!-- Archive Screen -->
+    <string name="archive_screen_header">Archived Goals</string>
+    <string name="archive_empty">No archived goals yet.</string>
+
     <!-- Backup Screen -->
     <string name="backup_screen_header">Backup &amp; Restore</string>
     <string name="backup_screen_text">Backup app data including all of your saving goals, current progress, transactions etc and easily restore it whenever you want.</string>

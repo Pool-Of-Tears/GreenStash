@@ -160,12 +160,13 @@ fun GoalCardStyle(navController: NavController) {
                                 secondaryText = "You have until 26/05/2023 (85) days left.\nYou need to save around $58.83/day, $416.67/week, $2,500.00/month.",
                                 goalProgress = 0.6f,
                                 goalImage = null,
+                                isGoalCompleted = false,
                                 onDepositClicked = { },
                                 onWithdrawClicked = { },
                                 onInfoClicked = { },
-                                onEditClicked = { }) {
-
-                            }
+                                onEditClicked = { },
+                                onDeleteClicked = { },
+                                onArchivedClicked = { })
                         }
 
                         GoalCardStyle.Compact -> {
@@ -175,11 +176,13 @@ fun GoalCardStyle(navController: NavController) {
                                 daysLeftText = "12 days left",
                                 goalProgress = 0.8f,
                                 goalIcon = ImageVector.vectorResource(id = R.drawable.ic_nav_rating),
+                                isGoalCompleted = false,
                                 onDepositClicked = {},
                                 onWithdrawClicked = {},
                                 onInfoClicked = {},
                                 onEditClicked = {},
-                                onDeleteClicked = {}
+                                onDeleteClicked = {},
+                                onArchivedClicked = { }
                             )
                         }
                     }
