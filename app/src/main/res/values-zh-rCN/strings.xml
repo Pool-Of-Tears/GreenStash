@@ -15,6 +15,11 @@
     <string name="drawer_share">分享应用</string>
     <string name="drawer_privacy">隐私政策</string>
     <string name="drawer_footer_text">用❤️制作于印度。</string>
+    <string name="drawer_share_message">
+        嘿！看看这款名为GreenStash的神奇应用吧。它让你规划和管理储蓄目标变得轻松愉快，帮助你养成为更好的事物储蓄的习惯
+        立即从Play Store下载：%s
+    </string>
+
 
     <!-- Biometric Lock -->
     <string name="bio_lock_title">解锁GreenStash</string>

@@ -87,8 +87,7 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.starry.greenstash.MainActivity
 import com.starry.greenstash.R
 import com.starry.greenstash.ui.screens.settings.SettingsViewModel
-import com.starry.greenstash.ui.screens.settings.ThemeMode
-import com.starry.greenstash.ui.theme.FixStatusBarIconsOnDarkTheme
+import com.starry.greenstash.ui.theme.AdjustEdgeToEdge
 import com.starry.greenstash.ui.theme.GreenStashTheme
 import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.widget.GoalWidget
@@ -109,9 +108,10 @@ class WidgetConfigActivity : AppCompatActivity() {
 
         setContent {
             GreenStashTheme(settingsViewModel = settingsViewModel) {
-                FixStatusBarIconsOnDarkTheme(
-                    darkTheme = settingsViewModel.getCurrentTheme() == ThemeMode.Dark,
+                // fix status bar icon color in dark mode.
+                AdjustEdgeToEdge(
                     activity = this,
+                    themeState = settingsViewModel.getCurrentTheme()
                 )
                 Surface(
                     modifier = Modifier.fillMaxSize(),

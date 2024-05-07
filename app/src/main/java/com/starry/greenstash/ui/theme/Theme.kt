@@ -160,17 +160,21 @@ private fun getColorScheme(
 }
 
 /**
- * Helper composable function to fix the status bar icons on dark theme.
- * @param darkTheme: Boolean to check if the theme is dark.
+ * Helper composable function to fix the status bar icons on dark theme
+ * when using edge-to-edge mode.
  * @param activity: MainActivity to enable edge-to-edge status bar.
+ * @param themeState: ThemeMode to check the current theme.
  */
 @Composable
-fun FixStatusBarIconsOnDarkTheme(darkTheme: Boolean, activity: AppCompatActivity) {
-    LaunchedEffect(darkTheme) {
-        if (darkTheme) {
+fun AdjustEdgeToEdge(activity: AppCompatActivity, themeState: ThemeMode) {
+    LaunchedEffect(themeState) {
+        if (themeState == ThemeMode.Dark) {
             activity.enableEdgeToEdge(
-                statusBarStyle = SystemBarStyle.dark(android.graphics.Color.TRANSPARENT)
+                statusBarStyle = SystemBarStyle.dark(android.graphics.Color.TRANSPARENT),
+                navigationBarStyle = SystemBarStyle.dark(android.graphics.Color.TRANSPARENT)
             )
+        } else {
+            activity.enableEdgeToEdge()
         }
     }
 }

@@ -22,6 +22,10 @@
     <string name="auth_successful">驗證成功！</string>
     <string name="auth_failed">驗證失敗！</string>
     <string name="auth_error">驗證錯誤：%s</string>
+    <string name="drawer_share_message">
+        嘿！看看這款名為GreenStash的神奇應用吧。它讓你規劃和管理儲蓄目標變得輕鬆愉快，幫助你養成為更好的事物儲蓄的習慣
+        立即從Play Store下載：%s
+    </string>
 
     <!-- Welcome Screen. -->
     <string name="welcome_screen_text">您好！請選擇您的預設貨幣以開始。</string>

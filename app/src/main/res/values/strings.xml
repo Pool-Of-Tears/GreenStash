@@ -15,6 +15,11 @@
     <string name="drawer_share">Share the app</string>
     <string name="drawer_privacy">Privacy Policy</string>
     <string name="drawer_footer_text">Made with ❤️ in India.</string>
+    <string name="drawer_share_message">
+        Hey! Check out this amazing app called GreenStash.
+        It makes planning and managing your savings goals a breeze, helping you establish the habit of saving money for better things.
+        Download it now from the Play Store: %s
+    </string>
 
     <!-- Biometric Lock -->
     <string name="bio_lock_title">Unlock GreenStash</string>

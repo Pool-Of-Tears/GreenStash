@@ -15,6 +15,12 @@
     <string name="drawer_share">Uygulamayı Paylaş</string>
     <string name="drawer_privacy">Gizlilik Politikası</string>
     <string name="drawer_footer_text">❤️ Hindistan\'da yapıldı.</string>
+    <string name="drawer_share_message">
+        Merhaba! GreenStash adlı bu harika uygulamaya göz at.
+        Tasarruf hedeflerinizi planlamanızı ve yönetmenizi kolaylaştırır, daha iyi şeyler için para biriktirme alışkanlığınızı kazanmanıza yardımcı olur.
+        Şimdi Play Store\'dan indirin: %s
+    </string>
+
 
     <!-- Biometric Lock -->
     <string name="bio_lock_title">GreenStash\'in Kilidini Aç</string>

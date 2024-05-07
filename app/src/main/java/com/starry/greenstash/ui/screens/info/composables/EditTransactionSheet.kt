@@ -25,25 +25,26 @@
 
 package com.starry.greenstash.ui.screens.info.composables
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
-import androidx.compose.material3.RadioButton
+import androidx.compose.material3.SegmentedButton
+import androidx.compose.material3.SegmentedButtonDefaults
+import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -52,7 +53,6 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
@@ -132,39 +132,59 @@ fun EditTransactionSheet(
                         .fillMaxWidth()
                         .padding(8.dp)
                 ) {
-                    OutlinedCard(
+                    SingleChoiceSegmentedButtonRow(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 18.dp, vertical = 6.dp)
                     ) {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .selectableGroup(),
-                            horizontalArrangement = Arrangement.SpaceEvenly,
-                        ) {
-                            Row(verticalAlignment = Alignment.CenterVertically) {
-                                RadioButton(
-                                    selected = selectedTransactionType == TransactionType.Deposit.name,
-                                    onClick = { onTransactionTypeSelected(TransactionType.Deposit.name) },
-                                )
+                        SegmentedButton(
+                            selected = selectedTransactionType == TransactionType.Deposit.name,
+                            onClick = { onTransactionTypeSelected(TransactionType.Deposit.name) },
+                            shape = RoundedCornerShape(topStart = 14.dp, bottomStart = 14.dp),
+                            label = {
                                 Text(
-                                    text = TransactionType.Deposit.name,
-                                    fontFamily = greenstashFont
+                                    text = TransactionType.Deposit.name, fontFamily = greenstashFont
                                 )
-                            }
+                            },
+                            icon = {
+                                if (selectedTransactionType == TransactionType.Deposit.name) {
+                                    Icon(
+                                        imageVector = Icons.Filled.Check,
+                                        contentDescription = null,
+                                        modifier = Modifier.size(16.dp)
+                                    )
+                                }
+                            },
+                            colors = SegmentedButtonDefaults.colors(
+                                activeContentColor = MaterialTheme.colorScheme.onPrimary,
+                                activeContainerColor = MaterialTheme.colorScheme.primary,
+                            )
+                        )
 
-                            Row(verticalAlignment = Alignment.CenterVertically) {
-                                RadioButton(
-                                    selected = selectedTransactionType == TransactionType.Withdraw.name,
-                                    onClick = { onTransactionTypeSelected(TransactionType.Withdraw.name) },
-                                )
+                        SegmentedButton(
+                            selected = selectedTransactionType == TransactionType.Withdraw.name,
+                            onClick = { onTransactionTypeSelected(TransactionType.Withdraw.name) },
+                            shape = RoundedCornerShape(topEnd = 14.dp, bottomEnd = 14.dp),
+                            label = {
                                 Text(
                                     text = TransactionType.Withdraw.name,
                                     fontFamily = greenstashFont
                                 )
-                            }
-                        }
+                            },
+                            icon = {
+                                if (selectedTransactionType == TransactionType.Withdraw.name) {
+                                    Icon(
+                                        imageVector = Icons.Filled.Check,
+                                        contentDescription = null,
+                                        modifier = Modifier.size(16.dp)
+                                    )
+                                }
+                            },
+                            colors = SegmentedButtonDefaults.colors(
+                                activeContentColor = MaterialTheme.colorScheme.onPrimary,
+                                activeContainerColor = MaterialTheme.colorScheme.primary,
+                            )
+                        )
                     }
 
                     DateTimeCard(

@@ -25,6 +25,10 @@
 
 package com.starry.greenstash.ui.screens.home.composables
 
+import android.content.ActivityNotFoundException
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -54,6 +58,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
@@ -67,7 +72,9 @@ import coil.compose.AsyncImage
 import com.starry.greenstash.R
 import com.starry.greenstash.ui.navigation.DrawerScreens
 import com.starry.greenstash.ui.screens.settings.ThemeMode
+import com.starry.greenstash.ui.screens.settings.composables.AboutLinks
 import com.starry.greenstash.ui.theme.greenstashFont
+import com.starry.greenstash.utils.Utils
 import com.starry.greenstash.utils.weakHapticFeedback
 import kotlinx.coroutines.launch
 
@@ -78,6 +85,7 @@ fun HomeDrawer(drawerState: DrawerState, navController: NavController, themeMode
     val selectedItem = remember { mutableStateOf(items[0]) }
 
     val view = LocalView.current
+    val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
 
     ModalDrawerSheet(
@@ -97,7 +105,7 @@ fun HomeDrawer(drawerState: DrawerState, navController: NavController, themeMode
                     .size(60.dp)
                     .background(
                         color = if (themeMode == ThemeMode.Light) MaterialTheme.colorScheme.onSurface
-                        else MaterialTheme.colorScheme.surface,
+                        else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.15f),
                         shape = CircleShape
                     )
             ) {
@@ -123,7 +131,7 @@ fun HomeDrawer(drawerState: DrawerState, navController: NavController, themeMode
                 .fillMaxWidth()
                 .padding(bottom = 16.dp),
             thickness = 0.5.dp,
-            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f)
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f)
         )
 
         items.forEach { item ->
@@ -160,15 +168,20 @@ fun HomeDrawer(drawerState: DrawerState, navController: NavController, themeMode
                 .fillMaxWidth()
                 .padding(top = 14.dp, bottom = 14.dp),
             thickness = 0.5.dp,
-            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f)
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f)
         )
+
+        // Non-navigational items in the drawer ========================================
 
         NavigationDrawerItem(
             modifier = Modifier
                 .width(280.dp)
                 .padding(NavigationDrawerItemDefaults.ItemPadding),
             selected = false,
-            onClick = { view.weakHapticFeedback() },
+            onClick = {
+                view.weakHapticFeedback()
+                onRatingClick(context)
+            },
             icon = {
                 Icon(
                     imageVector = ImageVector.vectorResource(id = R.drawable.ic_nav_rating),
@@ -188,7 +201,10 @@ fun HomeDrawer(drawerState: DrawerState, navController: NavController, themeMode
                 .width(280.dp)
                 .padding(NavigationDrawerItemDefaults.ItemPadding),
             selected = false,
-            onClick = { view.weakHapticFeedback() },
+            onClick = {
+                view.weakHapticFeedback()
+                onShareClick(context)
+            },
             icon = {
                 Icon(
                     imageVector = ImageVector.vectorResource(id = R.drawable.ic_nav_share),
@@ -208,7 +224,10 @@ fun HomeDrawer(drawerState: DrawerState, navController: NavController, themeMode
                 .width(280.dp)
                 .padding(NavigationDrawerItemDefaults.ItemPadding),
             selected = false,
-            onClick = { view.weakHapticFeedback() },
+            onClick = {
+                view.weakHapticFeedback()
+                onPrivacyClick(context)
+            },
             icon = {
                 Icon(
                     imageVector = ImageVector.vectorResource(id = R.drawable.ic_nav_privacy),
@@ -236,6 +255,42 @@ fun HomeDrawer(drawerState: DrawerState, navController: NavController, themeMode
         }
 
     }
+}
+
+private fun onRatingClick(context: Context) {
+    try {
+        context.startActivity(
+            Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("market://details?id=${context.packageName}")
+            )
+        )
+    } catch (e: ActivityNotFoundException) {
+        Utils.openWebLink(
+            context = context,
+            url = "https://play.google.com/store/apps/details?id=${context.packageName}"
+        )
+    }
+}
+
+private fun onShareClick(context: Context) {
+    val shareMessage =
+        context.getString(
+            R.string.drawer_share_message,
+            "https://play.google.com/store/apps/details?id=${context.packageName}"
+        ).trimIndent()
+    val shareIntent = Intent(Intent.ACTION_SEND).apply {
+        type = "text/plain"
+        putExtra(Intent.EXTRA_TEXT, shareMessage)
+    }
+    context.startActivity(Intent.createChooser(shareIntent, null))
+}
+
+private fun onPrivacyClick(context: Context) {
+    Utils.openWebLink(
+        context = context,
+        url = AboutLinks.PrivacyPolicy.url
+    )
 }
 
 @Preview

@@ -15,6 +15,12 @@
     <string name="drawer_share">Compartir la aplicación</string>
     <string name="drawer_privacy">Política de privacidad</string>
     <string name="drawer_footer_text">Hecho con ❤️ en India.</string>
+    <string name="drawer_share_message">
+        ¡Hola! Echa un vistazo a esta increíble aplicación llamada GreenStash.
+        Facilita la planificación y gestión de tus metas de ahorro, ayudándote a establecer el hábito de ahorrar dinero para cosas aún mejores.
+        Descárgala ahora desde la Play Store: %s
+    </string>
+
 
     <!-- Biometric Lock -->
     <string name="bio_lock_title">Desbloquear GreenStash</string>

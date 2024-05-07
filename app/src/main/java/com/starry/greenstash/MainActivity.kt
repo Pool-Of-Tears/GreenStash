@@ -47,8 +47,7 @@ import androidx.navigation.compose.rememberNavController
 import com.starry.greenstash.ui.navigation.NavGraph
 import com.starry.greenstash.ui.screens.other.AppLockedScreen
 import com.starry.greenstash.ui.screens.settings.SettingsViewModel
-import com.starry.greenstash.ui.screens.settings.ThemeMode
-import com.starry.greenstash.ui.theme.FixStatusBarIconsOnDarkTheme
+import com.starry.greenstash.ui.theme.AdjustEdgeToEdge
 import com.starry.greenstash.ui.theme.GreenStashTheme
 import com.starry.greenstash.utils.Utils
 import com.starry.greenstash.utils.toToast
@@ -140,10 +139,12 @@ class MainActivity : AppCompatActivity() {
     private fun setAppContents(showAppContents: State<Boolean>) {
         setContent {
             GreenStashTheme(settingsViewModel = settingsViewModel) {
-                FixStatusBarIconsOnDarkTheme(
-                    darkTheme = settingsViewModel.getCurrentTheme() == ThemeMode.Dark,
+                // fix status bar icon color in dark mode.
+                AdjustEdgeToEdge(
                     activity = this,
+                    themeState = settingsViewModel.getCurrentTheme()
                 )
+
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
