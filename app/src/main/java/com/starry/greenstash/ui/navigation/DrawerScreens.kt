@@ -28,7 +28,16 @@ package com.starry.greenstash.ui.navigation
 import com.starry.greenstash.R
 
 sealed class DrawerScreens(val route: String, val nameResId: Int, val iconResId: Int) {
+
+    companion object {
+        fun getAllItems() = listOf(Home, Archive, Backups, Settings)
+    }
+
     data object Home : DrawerScreens("home", R.string.drawer_home, R.drawable.ic_nav_home)
+
+    data object Archive :
+        DrawerScreens("archive", R.string.drawer_archive, R.drawable.ic_nav_archive)
+
     data object Backups :
         DrawerScreens("backups", R.string.drawer_backups, R.drawable.ic_nav_backups)
 

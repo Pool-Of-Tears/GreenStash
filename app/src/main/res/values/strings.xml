@@ -9,6 +9,7 @@
 
     <!-- Navigation Drawer -->
     <string name="drawer_home">Home</string>
+    <string name="drawer_archive">Archive</string>
     <string name="drawer_backups">Backups</string>
     <string name="drawer_settings">Settings</string>
     <string name="drawer_rating">Rate Us</string>

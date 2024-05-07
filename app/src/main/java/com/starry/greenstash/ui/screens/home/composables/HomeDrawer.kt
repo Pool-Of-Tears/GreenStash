@@ -81,7 +81,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun HomeDrawer(drawerState: DrawerState, navController: NavController, themeMode: ThemeMode) {
-    val items = listOf(DrawerScreens.Home, DrawerScreens.Backups, DrawerScreens.Settings)
+    val items = DrawerScreens.getAllItems()
     val selectedItem = remember { mutableStateOf(items[0]) }
 
     val view = LocalView.current

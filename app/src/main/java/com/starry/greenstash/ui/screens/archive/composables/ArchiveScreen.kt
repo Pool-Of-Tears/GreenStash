@@ -23,44 +23,16 @@
  */
 
 
-package com.starry.greenstash.database.widget
+package com.starry.greenstash.ui.screens.archive.composables
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
-import androidx.room.Update
+import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import com.starry.greenstash.ui.screens.archive.ArchiveViewModel
 
-@Dao
-interface WidgetDao {
+@Composable
+fun ArchiveScreen(navController: NavController) {
+    val viewModel: ArchiveViewModel = hiltViewModel()
 
-    /**
-     * Insert widget data.
-     * @param widgetData WidgetData to insert.
-     */
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertWidgetData(widgetData: WidgetData)
-
-    /**
-     * Delete widget data.
-     * @param widgetData WidgetData to delete.
-     */
-    @Delete
-    suspend fun deleteWidgetData(widgetData: WidgetData)
-
-    /**
-     * Update widget data.
-     * @param widgetData WidgetData to update.
-     */
-    @Update
-    suspend fun updateWidgetData(widgetData: WidgetData)
-
-    /**
-     * Get widget data by appWidgetId.
-     * @param appWidgetId AppWidgetId to get widget data.
-     * @return WidgetData.
-     */
-    @Query("SELECT * FROM widget_data WHERE appWidgetId = :appWidgetId")
-    suspend fun getWidgetData(appWidgetId: Int): WidgetData?
+    // TODO: Implement the Archive Screen
 }
