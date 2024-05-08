@@ -63,10 +63,12 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Image
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
+import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -149,8 +151,10 @@ import com.starry.greenstash.utils.toToast
 import com.starry.greenstash.utils.validateAmount
 import com.starry.greenstash.utils.weakHapticFeedback
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -242,13 +246,19 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
             Text(
                 text = stringResource(id = R.string.input_goal_remove_deadline),
                 color = MaterialTheme.colorScheme.onSurface,
-                fontFamily = greenstashFont
+                fontFamily = greenstashFont,
+                fontSize = 18.sp
             )
         }, confirmButton = {
-            TextButton(onClick = {
-                showRemoveDeadlineDialog.value = false
-                viewModel.removeDeadLine()
-            }) {
+            FilledTonalButton(
+                onClick = {
+                    showRemoveDeadlineDialog.value = false
+                    viewModel.removeDeadLine()
+                }, colors = ButtonDefaults.filledTonalButtonColors(
+                    containerColor = MaterialTheme.colorScheme.errorContainer,
+                    contentColor = MaterialTheme.colorScheme.onErrorContainer
+                )
+            ) {
                 Text(stringResource(id = R.string.confirm), fontFamily = greenstashFont)
             }
         }, dismissButton = {
@@ -462,8 +472,13 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                                     coroutineScope.launch {
                                         showGoalAddedAnim.value = true
                                         delay(1050)
-                                        navController.popBackStack(DrawerScreens.Home.route, true)
-                                        navController.navigate(DrawerScreens.Home.route)
+                                        withContext(Dispatchers.Main) {
+                                            navController.popBackStack(
+                                                DrawerScreens.Home.route,
+                                                true
+                                            )
+                                            navController.navigate(DrawerScreens.Home.route)
+                                        }
                                     }
                                 }
                             },
@@ -991,8 +1006,8 @@ private fun GoalAddedOREditedAnimation(editGoalId: String?) {
         }
         Text(
             text = textStr,
-            fontWeight = FontWeight.SemiBold,
-            fontSize = 20.sp,
+            fontWeight = FontWeight.Medium,
+            fontSize = 18.sp,
             fontFamily = greenstashFont
         )
 

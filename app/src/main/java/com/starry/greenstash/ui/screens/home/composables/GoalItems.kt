@@ -94,11 +94,13 @@ fun GoalItemClassic(
     secondaryText: String,
     goalProgress: Float,
     goalImage: Bitmap?,
+    isGoalCompleted: Boolean,
     onDepositClicked: () -> Unit,
     onWithdrawClicked: () -> Unit,
     onInfoClicked: () -> Unit,
     onEditClicked: () -> Unit,
     onDeleteClicked: () -> Unit,
+    onArchivedClicked: () -> Unit
 ) {
     val progress by animateFloatAsState(targetValue = goalProgress, label = "goal progress")
 
@@ -166,17 +168,30 @@ fun GoalItemClassic(
 
             /** Goal Buttons */
             Row(modifier = Modifier.padding(3.dp)) {
-
-                TextButton(
-                    onClick = { onDepositClicked() },
-                    modifier = Modifier.padding(end = 2.dp)
-                ) {
-                    Text(
-                        text = stringResource(id = R.string.deposit_button).uppercase(),
-                        fontWeight = FontWeight.SemiBold,
-                        color = MaterialTheme.colorScheme.onSurface,
-                        fontFamily = greenstashFont
-                    )
+                if (isGoalCompleted) {
+                    TextButton(
+                        onClick = { onArchivedClicked() },
+                        modifier = Modifier.padding(end = 2.dp)
+                    ) {
+                        Text(
+                            text = stringResource(id = R.string.archive_button).uppercase(),
+                            fontWeight = FontWeight.SemiBold,
+                            color = MaterialTheme.colorScheme.onSurface,
+                            fontFamily = greenstashFont
+                        )
+                    }
+                } else {
+                    TextButton(
+                        onClick = { onDepositClicked() },
+                        modifier = Modifier.padding(end = 2.dp)
+                    ) {
+                        Text(
+                            text = stringResource(id = R.string.deposit_button).uppercase(),
+                            fontWeight = FontWeight.SemiBold,
+                            color = MaterialTheme.colorScheme.onSurface,
+                            fontFamily = greenstashFont
+                        )
+                    }
                 }
                 TextButton(
                     onClick = { onWithdrawClicked() },
@@ -233,11 +248,13 @@ fun GoalItemCompact(
     daysLeftText: String,
     goalProgress: Float,
     goalIcon: ImageVector,
+    isGoalCompleted: Boolean,
     onDepositClicked: () -> Unit,
     onWithdrawClicked: () -> Unit,
     onInfoClicked: () -> Unit,
     onEditClicked: () -> Unit,
     onDeleteClicked: () -> Unit,
+    onArchivedClicked: () -> Unit
 ) {
     val coroutineScope = rememberCoroutineScope()
     val swipeState = rememberSwipeToDismissBoxState(
@@ -381,19 +398,36 @@ fun GoalItemCompact(
                             }
 
                             Row {
-                                IconButton(
-                                    onClick = { onDepositClicked() },
-                                    modifier = Modifier
-                                        .padding(top = 4.dp)
-                                        .offset((10).dp)
-                                        .size(54.dp)
-                                ) {
-                                    Icon(
-                                        modifier = Modifier.size(20.dp),
-                                        imageVector = ImageVector.vectorResource(id = R.drawable.ic_deposit_plus),
-                                        contentDescription = stringResource(id = R.string.deposit_button),
-                                        tint = MaterialTheme.colorScheme.onSecondaryContainer
-                                    )
+                                if (isGoalCompleted) {
+                                    IconButton(
+                                        onClick = { onArchivedClicked() },
+                                        modifier = Modifier
+                                            .padding(top = 4.dp)
+                                            .offset((10).dp)
+                                            .size(54.dp)
+                                    ) {
+                                        Icon(
+                                            modifier = Modifier.size(20.dp),
+                                            imageVector = ImageVector.vectorResource(id = R.drawable.ic_compact_goal_archve),
+                                            contentDescription = stringResource(id = R.string.archive_button),
+                                            tint = MaterialTheme.colorScheme.onSecondaryContainer
+                                        )
+                                    }
+                                } else {
+                                    IconButton(
+                                        onClick = { onDepositClicked() },
+                                        modifier = Modifier
+                                            .padding(top = 4.dp)
+                                            .offset((10).dp)
+                                            .size(54.dp)
+                                    ) {
+                                        Icon(
+                                            modifier = Modifier.size(20.dp),
+                                            imageVector = ImageVector.vectorResource(id = R.drawable.ic_compact_goal_deposit),
+                                            contentDescription = stringResource(id = R.string.deposit_button),
+                                            tint = MaterialTheme.colorScheme.onSecondaryContainer
+                                        )
+                                    }
                                 }
                                 IconButton(
                                     onClick = { onWithdrawClicked() }, modifier = Modifier
@@ -403,7 +437,7 @@ fun GoalItemCompact(
                                 ) {
                                     Icon(
                                         modifier = Modifier.size(20.dp),
-                                        imageVector = ImageVector.vectorResource(R.drawable.ic_withdraw_minus),
+                                        imageVector = ImageVector.vectorResource(R.drawable.ic_compact_goal_withdraw),
                                         contentDescription = stringResource(id = R.string.withdraw_button),
                                         tint = MaterialTheme.colorScheme.onSecondaryContainer
                                     )
@@ -463,12 +497,14 @@ fun GoalItemsPV() {
             secondaryText = "You have until 26/05/2023 (85) days left.\nYou need to save around $58.83/day, $416.67/week, $2,500.00/month.",
             goalProgress = 0.6f,
             goalImage = null,
+            isGoalCompleted = false,
             onDepositClicked = { },
             onWithdrawClicked = { },
             onInfoClicked = { },
-            onEditClicked = { }) {
-
-        }
+            onEditClicked = { },
+            onDeleteClicked = { },
+            onArchivedClicked = { },
+        )
 
         Spacer(modifier = Modifier.height(10.dp))
 
@@ -477,12 +513,14 @@ fun GoalItemsPV() {
             savedAmount = "$1,000.00",
             daysLeftText = "Goal Achieved! 🎉",
             goalProgress = 0.8f,
-            goalIcon = ImageVector.vectorResource(id = R.drawable.ic_nav_backups),
+            goalIcon = ImageVector.vectorResource(id = R.drawable.ic_nav_rating),
+            isGoalCompleted = true,
             onDepositClicked = {},
             onWithdrawClicked = {},
             onInfoClicked = {},
             onEditClicked = {},
-            onDeleteClicked = {}
+            onDeleteClicked = {},
+            onArchivedClicked = {},
         )
     }
 }

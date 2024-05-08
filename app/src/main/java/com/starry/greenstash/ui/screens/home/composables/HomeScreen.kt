@@ -40,6 +40,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -110,6 +111,7 @@ import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.utils.getActivity
 import com.starry.greenstash.utils.isScrollingUp
 import com.starry.greenstash.utils.weakHapticFeedback
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.Locale
@@ -243,7 +245,8 @@ fun HomeScreen(navController: NavController) {
                                 searchTextState = searchTextState,
                                 viewModel = viewModel,
                                 navController = navController,
-                                snackBarHostState = snackBarHostState
+                                snackBarHostState = snackBarHostState,
+                                coroutineScope = coroutineScope
                             )
                         } else {
                             AllGoalsList(
@@ -251,7 +254,8 @@ fun HomeScreen(navController: NavController) {
                                 allGoalState = allGoalState,
                                 viewModel = viewModel,
                                 navController = navController,
-                                snackBarHostState = snackBarHostState
+                                snackBarHostState = snackBarHostState,
+                                coroutineScope = coroutineScope
                             )
                         }
                     }
@@ -270,19 +274,15 @@ private fun GoalSearchResults(
     searchTextState: String,
     viewModel: HomeViewModel,
     navController: NavController,
-    snackBarHostState: SnackbarHostState
+    snackBarHostState: SnackbarHostState,
+    coroutineScope: CoroutineScope
 ) {
     val allGoals = allGoalState.value
-    val context = LocalContext.current
-    val filteredList: ArrayList<GoalWithTransactions> = ArrayList()
-
-    for (goalItem in allGoals) {
-        if (goalItem.goal.title.lowercase(Locale.getDefault())
-                .contains(searchTextState.lowercase(Locale.getDefault()))
-        ) {
-            filteredList.add(goalItem)
-        }
+    val filteredList = allGoals.filter { goalItem ->
+        goalItem.goal.title.lowercase(Locale.getDefault())
+            .contains(searchTextState.lowercase(Locale.getDefault()))
     }
+
     if (allGoals.isNotEmpty() && filteredList.isEmpty()) {
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -333,10 +333,10 @@ private fun GoalSearchResults(
                 val item = filteredList[idx]
                 Box(modifier = Modifier.animateItemPlacement()) {
                     GoalLazyColumnItem(
-                        context = context,
                         viewModel = viewModel,
                         item = item,
                         snackBarHostState = snackBarHostState,
+                        coroutineScope = coroutineScope,
                         navController = navController,
                         currentIndex = idx
                     )
@@ -355,10 +355,10 @@ private fun AllGoalsList(
     allGoalState: State<List<GoalWithTransactions>>,
     viewModel: HomeViewModel,
     navController: NavController,
-    snackBarHostState: SnackbarHostState
+    snackBarHostState: SnackbarHostState,
+    coroutineScope: CoroutineScope
 ) {
     val allGoals = allGoalState.value
-    val context = LocalContext.current
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -366,17 +366,17 @@ private fun AllGoalsList(
         state = lazyListState
     ) {
         items(
-            count = allGoalState.value.size,
-            key = { k -> allGoals[k].goal.goalId },
+            count = allGoals.size,
+            key = { i -> allGoals[i].goal.goalId },
             contentType = { 0 }
         ) { idx ->
             val item = allGoals[idx]
             Box(modifier = Modifier.animateItemPlacement()) {
                 GoalLazyColumnItem(
-                    context = context,
                     viewModel = viewModel,
                     item = item,
                     snackBarHostState = snackBarHostState,
+                    coroutineScope = coroutineScope,
                     navController = navController,
                     currentIndex = idx
                 )
@@ -530,10 +530,11 @@ private fun NoGoalAnimation() {
 
         Text(
             text = stringResource(id = R.string.no_goal_set),
-            fontWeight = FontWeight.Medium,
             fontFamily = greenstashFont,
-            fontSize = 18.sp,
-            modifier = Modifier.padding(start = 12.dp, end = 12.dp),
+            style = MaterialTheme.typography.titleMedium,
+            modifier = Modifier
+                .padding(start = 12.dp, end = 12.dp)
+                .offset(y = (-35).dp),
         )
 
         Spacer(modifier = Modifier.weight(2f))

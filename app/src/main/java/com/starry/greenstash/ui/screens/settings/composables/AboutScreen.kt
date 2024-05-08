@@ -26,6 +26,7 @@
 package com.starry.greenstash.ui.screens.settings.composables
 
 import android.os.Build
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
@@ -48,6 +49,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.AnnotatedString
@@ -57,6 +59,7 @@ import com.starry.greenstash.BuildConfig
 import com.starry.greenstash.R
 import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.utils.Utils
+import com.starry.greenstash.utils.weakHapticFeedback
 
 sealed class AboutLinks(val url: String) {
     data object ReadMe : AboutLinks("https://github.com/Pool-Of-Tears/GreenStash")
@@ -72,11 +75,14 @@ sealed class AboutLinks(val url: String) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AboutScreen(navController: NavController) {
+    val view = LocalView.current
     val context = LocalContext.current
     val clipboardManager = LocalClipboardManager.current
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 
-    Scaffold(modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+    Scaffold(modifier = Modifier
+        .fillMaxSize()
+        .nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             LargeTopAppBar(
                 title = {
@@ -88,7 +94,10 @@ fun AboutScreen(navController: NavController) {
                     )
                 },
                 navigationIcon = {
-                    IconButton(onClick = { navController.navigateUp() }) {
+                    IconButton(onClick = {
+                        view.weakHapticFeedback()
+                        navController.navigateUp()
+                    }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = null

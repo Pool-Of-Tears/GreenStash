@@ -34,6 +34,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.starry.greenstash.ui.screens.archive.composables.ArchiveScreen
 import com.starry.greenstash.ui.screens.backups.composables.BackupScreen
 import com.starry.greenstash.ui.screens.dwscreen.composables.DWScreen
 import com.starry.greenstash.ui.screens.home.composables.HomeScreen
@@ -70,8 +71,10 @@ fun NavGraph(
         /** Home Screen */
         composable(
             route = DrawerScreens.Home.route,
+            enterTransition = { enterTransition() },
             exitTransition = { exitTransition() },
             popEnterTransition = { popEnterTransition() },
+            popExitTransition = { popExitTransition() },
         ) {
             HomeScreen(navController)
         }
@@ -142,6 +145,17 @@ fun NavGraph(
             popExitTransition = { popExitTransition() },
         ) {
             CongratsScreen(navController = navController)
+        }
+
+        /** Archive Screen */
+        composable(
+            route = DrawerScreens.Archive.route,
+            enterTransition = { enterTransition() },
+            exitTransition = { exitTransition() },
+            popEnterTransition = { popEnterTransition() },
+            popExitTransition = { popExitTransition() },
+        ) {
+            ArchiveScreen(navController = navController)
         }
 
         /** Backup Screen */

@@ -10,7 +10,8 @@
 
     <!-- Navigation Drawer -->
     <string name="drawer_home">Главная</string>
-    <string name="drawer_backups">Резервные копии</string>
+    <string name="drawer_archive">Архив</string>
+    <string name="drawer_backup">Резервные копии</string>
     <string name="drawer_settings">Настройки</string>
     <string name="drawer_rating">Оценить нас</string>
     <string name="drawer_share">Поделиться</string>
@@ -71,6 +72,9 @@
     <string name="goal_already_achieved">Вы уже достигли этой цели.</string>
     <string name="withdraw_button">Вывести</string>
     <string name="withdraw_button_error">Вы еще не вносили никакой суммы.</string>
+    <string name="archive_button">Архивировать</string>
+    <string name="goal_archive_confirmation">Эта цель достигнута! Хотите ли вы архивировать её?</string>
+    <string name="goal_archive_success">Успешно архивировано.</string>
     <string name="goal_delete_confirmation">Вы уверены?</string>
     <string name="goal_delete_success">Удалено успешно.</string>
     <string name="info_button_description">Просмотр информации о цели.</string>
@@ -137,6 +141,12 @@
     <string name="input_goad_edit_success">Обновлена цель накопления.</string>
     <string name="input_goal_remove_deadline">Хотите удалить крайний срок для этой цели?</string>
     <string name="input_remove_deadline_tip">Совет! Вы можете удалить крайний срок из существующих целей, долго нажимая на поле крайнего срока.</string>
+
+    <!-- Archive Screen -->
+    <string name="archive_screen_header">Архивированные цели</string>
+    <string name="archive_empty">Пока нет архивированных целей.</string>
+    <string name="goal_restore_confirmation">Хотите восстановить эту цель?</string>
+    <string name="goal_restore_success">Успешно восстановлено.</string>
 
     <!-- Backup Screen -->
     <string name="backup_screen_header">Резервное копирование и восстановление</string>

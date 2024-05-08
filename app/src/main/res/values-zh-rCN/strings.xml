@@ -9,7 +9,8 @@
 
     <!-- Navigation Drawer -->
     <string name="drawer_home">主页</string>
-    <string name="drawer_backups">备份</string>
+    <string name="drawer_archive">存档</string>
+    <string name="drawer_backup">备份</string>
     <string name="drawer_settings">设置</string>
     <string name="drawer_rating">给我们评分</string>
     <string name="drawer_share">分享</string>
@@ -69,6 +70,9 @@
     <string name="goal_already_achieved">您已经实现了此目标。</string>
     <string name="withdraw_button">取钱</string>
     <string name="withdraw_button_error">您尚未存入任何金额。</string>
+    <string name="archive_button">存档</string>
+    <string name="goal_archive_confirmation">该目标已完成！您要将其存档吗？</string>
+    <string name="goal_archive_success">已成功存档。</string>
     <string name="goal_delete_confirmation">确定吗？</string>
     <string name="goal_delete_success">删除成功。</string>
     <string name="info_button_description">查看目标信息。</string>
@@ -136,6 +140,12 @@
     <string name="input_goad_edit_success">省钱目标已经更新</string>
     <string name="input_goal_remove_deadline">想要删除此目标的截止日期吗？</string>
     <string name="input_remove_deadline_tip">提示：您可以长按截止日期字段来删除现有目标的截止日期。</string>
+
+    <!-- Archive Screen -->
+    <string name="archive_screen_header">已存档目标</string>
+    <string name="archive_empty">目前没有已存档目标。</string>
+    <string name="goal_restore_confirmation">您要恢复此目标吗？</string>
+    <string name="goal_restore_success">恢复成功。</string>
 
     <!-- Backup Screen -->
     <string name="backup_screen_header">备份与恢复</string>

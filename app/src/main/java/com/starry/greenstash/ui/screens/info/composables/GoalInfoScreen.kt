@@ -36,6 +36,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -217,40 +218,7 @@ fun GoalInfoScreen(goalId: String, navController: NavController) {
                             )
 
                         } else {
-                            Column(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalAlignment = Alignment.CenterHorizontally
-                            ) {
-                                val compositionResult: LottieCompositionResult =
-                                    rememberLottieComposition(
-                                        spec = LottieCompositionSpec.RawRes(R.raw.no_transaction_found_lottie)
-                                    )
-                                val progressAnimation by animateLottieCompositionAsState(
-                                    compositionResult.value,
-                                    isPlaying = true,
-                                    iterations = 1,
-                                    speed = 1f
-                                )
-
-                                Spacer(modifier = Modifier.weight(1f))
-
-                                LottieAnimation(
-                                    composition = compositionResult.value,
-                                    progress = { progressAnimation },
-                                    modifier = Modifier.size(320.dp),
-                                    enableMergePaths = true
-                                )
-
-                                Text(
-                                    text = stringResource(id = R.string.info_goal_no_transactions),
-                                    fontWeight = FontWeight.SemiBold,
-                                    fontFamily = greenstashFont,
-                                    fontSize = 20.sp,
-                                    modifier = Modifier.padding(start = 12.dp, end = 12.dp)
-                                )
-
-                                Spacer(modifier = Modifier.weight(2f))
-                            }
+                            NoTransactionAnim()
                         }
                     }
                 }
@@ -411,6 +379,45 @@ fun GoalNotesCard(notesText: String) {
         description = notesText,
         showCopyButton = true
     )
+}
+
+@Composable
+private fun NoTransactionAnim() {
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        val compositionResult: LottieCompositionResult =
+            rememberLottieComposition(
+                spec = LottieCompositionSpec.RawRes(R.raw.no_transaction_found_lottie)
+            )
+        val progressAnimation by animateLottieCompositionAsState(
+            compositionResult.value,
+            isPlaying = true,
+            iterations = 1,
+            speed = 1f
+        )
+
+        Spacer(modifier = Modifier.weight(1f))
+
+        LottieAnimation(
+            composition = compositionResult.value,
+            progress = { progressAnimation },
+            modifier = Modifier.size(320.dp),
+            enableMergePaths = true
+        )
+
+        Text(
+            text = stringResource(id = R.string.info_goal_no_transactions),
+            fontFamily = greenstashFont,
+            style = MaterialTheme.typography.titleMedium,
+            modifier = Modifier
+                .padding(start = 12.dp, end = 12.dp)
+                .offset(y = (-16).dp)
+        )
+
+        Spacer(modifier = Modifier.weight(2f))
+    }
 }
 
 

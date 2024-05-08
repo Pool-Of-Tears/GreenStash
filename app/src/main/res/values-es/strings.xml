@@ -9,7 +9,8 @@
 
     <!-- Navigation Drawer -->
     <string name="drawer_home">Inicio</string>
-    <string name="drawer_backups">Respaldo</string>
+    <string name="drawer_archive">Archivo</string>
+    <string name="drawer_backup">Respaldo</string>
     <string name="drawer_settings">Ajustes</string>
     <string name="drawer_rating">Calificarnos</string>
     <string name="drawer_share">Compartir</string>
@@ -70,6 +71,9 @@
     <string name="goal_already_achieved">Ya has completado esta meta.</string>
     <string name="withdraw_button">Retirar</string>
     <string name="withdraw_button_error">No has depositado nada aún.</string>
+    <string name="archive_button">Archivar</string>
+    <string name="goal_archive_confirmation">¡Esta meta ha sido completada! ¿Te gustaría archivarla?</string>
+    <string name="goal_archive_success">Archivado correctamente.</string>
     <string name="goal_delete_confirmation">¿Estás seguro/a?</string>
     <string name="goal_delete_success">Eliminación exitosa.</string>
     <string name="info_button_description">Ver información de la meta.</string>
@@ -136,6 +140,13 @@
     <string name="input_goad_edit_success">Meta actualizada.</string>
     <string name="input_goal_remove_deadline">¿Quieres quitar la fecha límite de este objetivo?</string>
     <string name="input_remove_deadline_tip">Consejo: Puedes eliminar la fecha límite de los objetivos existentes manteniendo pulsado el campo de fecha límite.</string>
+
+    <!-- Archive Screen -->
+    <string name="archive_screen_header">Metas archivadas</string>
+    <string name="archive_empty">Todavía no hay metas archivadas.</string>
+    <string name="goal_restore_confirmation">¿Quieres restaurar esta meta?</string>
+    <string name="goal_restore_success">Restaurada exitosamente.</string>
+
 
     <!-- Backup Screen -->
     <string name="backup_screen_header">Respaldar y recuperar datos</string>

@@ -25,17 +25,17 @@
 
 package com.starry.greenstash.ui.screens.home.composables
 
-import android.content.Context
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -53,27 +53,32 @@ import com.starry.greenstash.utils.Utils
 import com.starry.greenstash.utils.getActivity
 import com.starry.greenstash.utils.strongHapticFeedback
 import com.starry.greenstash.utils.weakHapticFeedback
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 
 @Composable
 fun GoalLazyColumnItem(
-    context: Context,
     viewModel: HomeViewModel,
     item: GoalWithTransactions,
     snackBarHostState: SnackbarHostState,
+    coroutineScope: CoroutineScope,
     navController: NavController,
     currentIndex: Int
 ) {
+    val context = LocalContext.current
     val settingsVM = (context.getActivity() as MainActivity).settingsViewModel
     val goalCardStyle = settingsVM.goalCardStyle.observeAsState().value!!
 
-    val coroutineScope = rememberCoroutineScope()
+    val isGoalCompleted = remember(item.goal.goalId) {
+        item.getCurrentlySavedAmount() >= item.goal.targetAmount
+    }
     val progressPercent = remember(item.goal.goalId) {
         ((item.getCurrentlySavedAmount() / item.goal.targetAmount) * 100).toInt()
     }
 
     val openDeleteDialog = remember { mutableStateOf(false) }
+    val openArchiveDialog = remember { mutableStateOf(false) }
     val localView = LocalView.current
 
     when (goalCardStyle) {
@@ -93,6 +98,7 @@ fun GoalLazyColumnItem(
                 ),
                 goalProgress = progressPercent.toFloat() / 100,
                 goalImage = item.goal.goalImage,
+                isGoalCompleted = isGoalCompleted,
                 onDepositClicked = {
                     localView.weakHapticFeedback()
                     if (item.getCurrentlySavedAmount() >= item.goal.targetAmount) {
@@ -142,6 +148,10 @@ fun GoalLazyColumnItem(
                 onDeleteClicked = {
                     localView.strongHapticFeedback()
                     openDeleteDialog.value = true
+                },
+                onArchivedClicked = {
+                    localView.weakHapticFeedback()
+                    openArchiveDialog.value = true
                 }
             )
 
@@ -172,6 +182,7 @@ fun GoalLazyColumnItem(
                 ),
                 goalProgress = progressPercent.toFloat() / 100,
                 goalIcon = goalIcon,
+                isGoalCompleted = isGoalCompleted,
                 onDepositClicked = {
                     localView.weakHapticFeedback()
                     if (item.getCurrentlySavedAmount() >= item.goal.targetAmount) {
@@ -221,6 +232,10 @@ fun GoalLazyColumnItem(
                 onDeleteClicked = {
                     localView.strongHapticFeedback()
                     openDeleteDialog.value = true
+                },
+                onArchivedClicked = {
+                    localView.weakHapticFeedback()
+                    openArchiveDialog.value = true
                 }
             )
         }
@@ -228,10 +243,25 @@ fun GoalLazyColumnItem(
 
     HomeDialogs(
         openDeleteDialog = openDeleteDialog,
+        openArchiveDialog = openArchiveDialog,
         onDeleteConfirmed = {
             viewModel.deleteGoal(item.goal)
             coroutineScope.launch {
-                snackBarHostState.showSnackbar(context.getString(R.string.goal_delete_success))
+                snackBarHostState.showSnackbar(
+                    message = context.getString(R.string.goal_delete_success),
+                    actionLabel = context.getString(R.string.ok),
+                    duration = SnackbarDuration.Short
+                )
+            }
+        },
+        onArchiveConfirmed = {
+            viewModel.archiveGoal(item.goal)
+            coroutineScope.launch {
+                snackBarHostState.showSnackbar(
+                    message = context.getString(R.string.goal_archive_success),
+                    actionLabel = context.getString(R.string.ok),
+                    duration = SnackbarDuration.Short
+                )
             }
         }
     )
