@@ -489,7 +489,7 @@ fun GoalItemCompact(
                                     fontSize = 24.sp,
                                     fontFamily = greenstashNumberFont,
                                     fontWeight = FontWeight.Bold,
-                                    maxLines = 2,
+                                    maxLines = 1,
                                     color = MaterialTheme.colorScheme.onSecondaryContainer
                                 )
 
