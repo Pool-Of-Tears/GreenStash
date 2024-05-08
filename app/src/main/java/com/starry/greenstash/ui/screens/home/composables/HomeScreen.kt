@@ -40,6 +40,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -335,7 +336,7 @@ private fun GoalSearchResults(
                         viewModel = viewModel,
                         item = item,
                         snackBarHostState = snackBarHostState,
-                        coroutineScope= coroutineScope,
+                        coroutineScope = coroutineScope,
                         navController = navController,
                         currentIndex = idx
                     )
@@ -529,10 +530,11 @@ private fun NoGoalAnimation() {
 
         Text(
             text = stringResource(id = R.string.no_goal_set),
-            fontWeight = FontWeight.Medium,
             fontFamily = greenstashFont,
-            fontSize = 18.sp,
-            modifier = Modifier.padding(start = 12.dp, end = 12.dp),
+            style = MaterialTheme.typography.titleMedium,
+            modifier = Modifier
+                .padding(start = 12.dp, end = 12.dp)
+                .offset(y = (-35).dp),
         )
 
         Spacer(modifier = Modifier.weight(2f))

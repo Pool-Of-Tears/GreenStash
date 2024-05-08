@@ -73,7 +73,7 @@
     <string name="withdraw_button">Вывести</string>
     <string name="withdraw_button_error">Вы еще не вносили никакой суммы.</string>
     <string name="archive_button">Архивировать</string>
-    <string name="goal_archive_confirmation">Хотите ли вы архивировать эту цель?</string>
+    <string name="goal_archive_confirmation">Эта цель достигнута! Хотите ли вы архивировать её?</string>
     <string name="goal_archive_success">Успешно архивировано.</string>
     <string name="goal_delete_confirmation">Вы уверены?</string>
     <string name="goal_delete_success">Удалено успешно.</string>

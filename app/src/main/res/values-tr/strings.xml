@@ -72,7 +72,7 @@
     <string name="withdraw_button">çek</string>
     <string name="withdraw_button_error">Henüz herhangi bir tutar yatırmadın.</string>
     <string name="archive_button">Arşivle</string>
-    <string name="goal_archive_confirmation">Bu hedefi arşivlemek istiyor musunuz?</string>
+    <string name="goal_archive_confirmation">Bu hedef tamamlandı! Onu arşivlemek ister misiniz?</string>
     <string name="goal_archive_success">Başarıyla arşivlendi.</string>
     <string name="goal_delete_confirmation">Emin misin?</string>
     <string name="goal_delete_success">Başarıyla Silindi.</string>

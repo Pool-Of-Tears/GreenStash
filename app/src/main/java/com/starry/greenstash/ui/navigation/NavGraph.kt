@@ -71,8 +71,10 @@ fun NavGraph(
         /** Home Screen */
         composable(
             route = DrawerScreens.Home.route,
+            enterTransition = { enterTransition() },
             exitTransition = { exitTransition() },
             popEnterTransition = { popEnterTransition() },
+            popExitTransition = { popExitTransition() },
         ) {
             HomeScreen(navController)
         }

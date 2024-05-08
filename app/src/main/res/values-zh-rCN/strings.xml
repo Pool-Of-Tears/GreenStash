@@ -71,7 +71,7 @@
     <string name="withdraw_button">取钱</string>
     <string name="withdraw_button_error">您尚未存入任何金额。</string>
     <string name="archive_button">存档</string>
-    <string name="goal_archive_confirmation">您要存档此目标吗？</string>
+    <string name="goal_archive_confirmation">该目标已完成！您要将其存档吗？</string>
     <string name="goal_archive_success">已成功存档。</string>
     <string name="goal_delete_confirmation">确定吗？</string>
     <string name="goal_delete_success">删除成功。</string>

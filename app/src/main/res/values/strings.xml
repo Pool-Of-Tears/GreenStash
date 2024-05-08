@@ -71,7 +71,7 @@
     <string name="withdraw_button">Withdraw</string>
     <string name="withdraw_button_error">You haven\'t deposited any amount yet.</string>
     <string name="archive_button">Archive</string>
-    <string name="goal_archive_confirmation">Do you want to archive this goal?</string>
+    <string name="goal_archive_confirmation">This goal has been completed! Would you like to archive it?</string>
     <string name="goal_archive_success">Archived Successfully.</string>
     <string name="goal_delete_confirmation">Are you sure?</string>
     <string name="goal_delete_success">Deleted Successfully.</string>
@@ -144,6 +144,8 @@
     <!-- Archive Screen -->
     <string name="archive_screen_header">Archived Goals</string>
     <string name="archive_empty">No archived goals yet.</string>
+    <string name="goal_restore_confirmation">Do you want to restore this goal?</string>
+    <string name="goal_restore_success">Restored Successfully.</string>
 
     <!-- Backup Screen -->
     <string name="backup_screen_header">Backup &amp; Restore</string>

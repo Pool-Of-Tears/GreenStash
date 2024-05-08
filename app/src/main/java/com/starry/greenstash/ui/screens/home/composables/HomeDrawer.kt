@@ -31,6 +31,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -39,8 +40,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.HorizontalDivider
@@ -52,6 +55,7 @@ import androidx.compose.material3.NavigationDrawerItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -76,16 +80,16 @@ import com.starry.greenstash.ui.screens.settings.composables.AboutLinks
 import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.utils.Utils
 import com.starry.greenstash.utils.weakHapticFeedback
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 
 @Composable
 fun HomeDrawer(drawerState: DrawerState, navController: NavController, themeMode: ThemeMode) {
+    val context = LocalContext.current
+
     val items = DrawerScreens.getAllItems()
     val selectedItem = remember { mutableStateOf(items[0]) }
-
-    val view = LocalView.current
-    val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
 
     ModalDrawerSheet(
@@ -93,169 +97,208 @@ fun HomeDrawer(drawerState: DrawerState, navController: NavController, themeMode
         drawerShape = RoundedCornerShape(topEnd = 14.dp, bottomEnd = 14.dp),
         drawerTonalElevation = 2.dp,
     ) {
-        Row(
+        Column(
             modifier = Modifier
-                .height(140.dp)
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
         ) {
-            Spacer(modifier = Modifier.width(20.dp))
-            Box(
+            DrawerHeader(themeMode)
+
+            HorizontalDivider(
                 modifier = Modifier
-                    .size(60.dp)
-                    .background(
-                        color = if (themeMode == ThemeMode.Light) MaterialTheme.colorScheme.onSurface
-                        else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.15f),
-                        shape = CircleShape
-                    )
-            ) {
-                AsyncImage(
-                    model = R.drawable.ic_launcher_foreground,
-                    contentDescription = stringResource(id = R.string.app_name),
-                    modifier = Modifier.fillMaxSize(),
-                )
-            }
-
-            Spacer(modifier = Modifier.width(18.dp))
-            Text(
-                text = stringResource(id = R.string.app_name),
-                fontFamily = greenstashFont,
-                fontSize = 22.sp,
-                fontWeight = FontWeight.Bold
+                    .fillMaxWidth()
+                    .padding(bottom = 16.dp),
+                thickness = 0.5.dp,
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f)
             )
-        }
 
+            DrawerItems(items, selectedItem, drawerState, navController, coroutineScope)
 
-        HorizontalDivider(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 16.dp),
-            thickness = 0.5.dp,
-            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f)
-        )
-
-        items.forEach { item ->
-            NavigationDrawerItem(
-                icon = {
-                    Icon(
-                        imageVector = ImageVector.vectorResource(id = item.iconResId),
-                        contentDescription = null
-                    )
-                },
-                label = {
-                    Text(
-                        text = stringResource(id = item.nameResId), fontFamily = greenstashFont
-                    )
-                },
-                selected = item == selectedItem.value,
-                onClick = {
-                    view.weakHapticFeedback()
-                    selectedItem.value = item
-                    coroutineScope.launch {
-                        drawerState.close()
-                        navController.navigate(item.route)
-                    }
-                },
+            HorizontalDivider(
                 modifier = Modifier
-                    .width(280.dp)
-                    .padding(NavigationDrawerItemDefaults.ItemPadding)
+                    .fillMaxWidth()
+                    .padding(top = 14.dp, bottom = 14.dp),
+                thickness = 0.5.dp,
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f)
             )
-            Spacer(modifier = Modifier.height(4.dp))
-        }
 
-        HorizontalDivider(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 14.dp, bottom = 14.dp),
-            thickness = 0.5.dp,
-            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f)
-        )
-
-        // Non-navigational items in the drawer ========================================
-
-        NavigationDrawerItem(
-            modifier = Modifier
-                .width(280.dp)
-                .padding(NavigationDrawerItemDefaults.ItemPadding),
-            selected = false,
-            onClick = {
-                view.weakHapticFeedback()
-                onRatingClick(context)
-            },
-            icon = {
-                Icon(
-                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_nav_rating),
-                    contentDescription = null
-                )
-            },
-            label = {
-                Text(
-                    text = stringResource(id = R.string.drawer_rating),
-                    fontFamily = greenstashFont
-                )
-            },
-        )
-
-        NavigationDrawerItem(
-            modifier = Modifier
-                .width(280.dp)
-                .padding(NavigationDrawerItemDefaults.ItemPadding),
-            selected = false,
-            onClick = {
-                view.weakHapticFeedback()
-                onShareClick(context)
-            },
-            icon = {
-                Icon(
-                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_nav_share),
-                    contentDescription = null
-                )
-            },
-            label = {
-                Text(
-                    text = stringResource(id = R.string.drawer_share),
-                    fontFamily = greenstashFont
-                )
-            },
-        )
-
-        NavigationDrawerItem(
-            modifier = Modifier
-                .width(280.dp)
-                .padding(NavigationDrawerItemDefaults.ItemPadding),
-            selected = false,
-            onClick = {
-                view.weakHapticFeedback()
-                onPrivacyClick(context)
-            },
-            icon = {
-                Icon(
-                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_nav_privacy),
-                    contentDescription = null
-                )
-            },
-            label = {
-                Text(
-                    text = stringResource(id = R.string.drawer_privacy),
-                    fontFamily = greenstashFont
-                )
-            },
-        )
-
-        Spacer(Modifier.weight(1f))
-
-        Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
-            Text(
-                text = stringResource(id = R.string.drawer_footer_text),
-                modifier = Modifier.padding(bottom = 18.dp),
-                fontSize = 11.sp,
-                fontFamily = greenstashFont,
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.69f)
+            NonNavigationalDrawerItems(
+                onRatingClick = { onRatingClick(context) },
+                onShareClick = { onShareClick(context) },
+                onPrivacyClick = { onPrivacyClick(context) }
             )
-        }
 
+            Spacer(Modifier.weight(1f))
+
+            DrawerFooter()
+        }
     }
 }
+
+
+@Composable
+private fun DrawerHeader(themeMode: ThemeMode) {
+    Row(
+        modifier = Modifier
+            .height(140.dp)
+            .fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Spacer(modifier = Modifier.width(20.dp))
+        // Logo or image
+        Box(
+            modifier = Modifier
+                .size(60.dp)
+                .background(
+                    color = if (themeMode == ThemeMode.Light) MaterialTheme.colorScheme.onSurface
+                    else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.15f),
+                    shape = CircleShape
+                )
+        ) {
+            AsyncImage(
+                model = R.drawable.ic_launcher_foreground,
+                contentDescription = stringResource(id = R.string.app_name),
+                modifier = Modifier.fillMaxSize(),
+            )
+        }
+        Spacer(modifier = Modifier.width(18.dp))
+        // App name
+        Text(
+            text = stringResource(id = R.string.app_name),
+            fontFamily = greenstashFont,
+            fontSize = 22.sp,
+            fontWeight = FontWeight.Bold
+        )
+    }
+}
+
+@Composable
+private fun DrawerItems(
+    items: List<DrawerScreens>,
+    selectedItem: MutableState<DrawerScreens>,
+    drawerState: DrawerState,
+    navController: NavController,
+    coroutineScope: CoroutineScope
+) {
+    val view = LocalView.current
+    items.forEach { item ->
+        NavigationDrawerItem(
+            icon = {
+                Icon(
+                    imageVector = ImageVector.vectorResource(id = item.iconResId),
+                    contentDescription = null
+                )
+            },
+            label = {
+                Text(
+                    text = stringResource(id = item.nameResId), fontFamily = greenstashFont
+                )
+            },
+            selected = item == selectedItem.value,
+            onClick = {
+                view.weakHapticFeedback()
+                selectedItem.value = item
+                coroutineScope.launch {
+                    drawerState.close()
+                    navController.navigate(item.route)
+                }
+            },
+            modifier = Modifier
+                .width(280.dp)
+                .padding(NavigationDrawerItemDefaults.ItemPadding)
+        )
+        Spacer(modifier = Modifier.height(4.dp))
+    }
+}
+
+@Composable
+private fun NonNavigationalDrawerItems(
+    onRatingClick: () -> Unit,
+    onShareClick: () -> Unit,
+    onPrivacyClick: () -> Unit
+) {
+    val view = LocalView.current
+    NavigationDrawerItem(
+        modifier = Modifier
+            .width(280.dp)
+            .padding(NavigationDrawerItemDefaults.ItemPadding),
+        selected = false,
+        onClick = {
+            view.weakHapticFeedback()
+            onRatingClick()
+        },
+        icon = {
+            Icon(
+                imageVector = ImageVector.vectorResource(id = R.drawable.ic_nav_rating),
+                contentDescription = null
+            )
+        },
+        label = {
+            Text(
+                text = stringResource(id = R.string.drawer_rating),
+                fontFamily = greenstashFont
+            )
+        },
+    )
+    NavigationDrawerItem(
+        modifier = Modifier
+            .width(280.dp)
+            .padding(NavigationDrawerItemDefaults.ItemPadding),
+        selected = false,
+        onClick = {
+            view.weakHapticFeedback()
+            onShareClick()
+        },
+        icon = {
+            Icon(
+                imageVector = ImageVector.vectorResource(id = R.drawable.ic_nav_share),
+                contentDescription = null
+            )
+        },
+        label = {
+            Text(
+                text = stringResource(id = R.string.drawer_share),
+                fontFamily = greenstashFont
+            )
+        },
+    )
+    NavigationDrawerItem(
+        modifier = Modifier
+            .width(280.dp)
+            .padding(NavigationDrawerItemDefaults.ItemPadding),
+        selected = false,
+        onClick = {
+            view.weakHapticFeedback()
+            onPrivacyClick()
+        },
+        icon = {
+            Icon(
+                imageVector = ImageVector.vectorResource(id = R.drawable.ic_nav_privacy),
+                contentDescription = null
+            )
+        },
+        label = {
+            Text(
+                text = stringResource(id = R.string.drawer_privacy),
+                fontFamily = greenstashFont
+            )
+        },
+    )
+}
+
+@Composable
+fun DrawerFooter() {
+    Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+        Text(
+            text = stringResource(id = R.string.drawer_footer_text),
+            modifier = Modifier.padding(bottom = 18.dp),
+            fontSize = 11.sp,
+            fontFamily = greenstashFont,
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.69f)
+        )
+    }
+}
+
 
 private fun onRatingClick(context: Context) {
     try {

@@ -27,6 +27,7 @@ package com.starry.greenstash.ui.screens.home.composables
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -246,13 +247,21 @@ fun GoalLazyColumnItem(
         onDeleteConfirmed = {
             viewModel.deleteGoal(item.goal)
             coroutineScope.launch {
-                snackBarHostState.showSnackbar(context.getString(R.string.goal_delete_success))
+                snackBarHostState.showSnackbar(
+                    message = context.getString(R.string.goal_delete_success),
+                    actionLabel = context.getString(R.string.ok),
+                    duration = SnackbarDuration.Short
+                )
             }
         },
         onArchiveConfirmed = {
             viewModel.archiveGoal(item.goal)
             coroutineScope.launch {
-                snackBarHostState.showSnackbar(context.getString(R.string.goal_archive_success))
+                snackBarHostState.showSnackbar(
+                    message = context.getString(R.string.goal_archive_success),
+                    actionLabel = context.getString(R.string.ok),
+                    duration = SnackbarDuration.Short
+                )
             }
         }
     )

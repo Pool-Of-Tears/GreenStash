@@ -30,6 +30,7 @@ import androidx.lifecycle.viewModelScope
 import com.starry.greenstash.database.goal.Goal
 import com.starry.greenstash.database.goal.GoalDao
 import com.starry.greenstash.reminder.ReminderManager
+import com.starry.greenstash.utils.PreferenceUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -38,7 +39,8 @@ import javax.inject.Inject
 @HiltViewModel
 class ArchiveViewModel @Inject constructor(
     private val goalDao: GoalDao,
-    private val reminderManager: ReminderManager
+    private val reminderManager: ReminderManager,
+    private val preferenceUtil: PreferenceUtil
 ) : ViewModel() {
 
     val archivedGoals = goalDao.getAllArchivedGoals()
@@ -56,7 +58,12 @@ class ArchiveViewModel @Inject constructor(
     fun restoreGoal(goal: Goal) {
         viewModelScope.launch(Dispatchers.IO) {
             val updatedGoal = goal.copy(archived = false)
+            updatedGoal.goalId = goal.goalId
             goalDao.updateGoal(updatedGoal)
         }
+    }
+
+    fun getDefaultCurrency(): String {
+        return preferenceUtil.getString(PreferenceUtil.DEFAULT_CURRENCY_STR, "")!!
     }
 }
