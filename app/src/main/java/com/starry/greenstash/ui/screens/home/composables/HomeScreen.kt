@@ -366,8 +366,8 @@ private fun AllGoalsList(
         state = lazyListState
     ) {
         items(
-            count = allGoalState.value.size,
-            key = { k -> allGoals[k].goal.goalId },
+            count = allGoals.size,
+            key = { i -> allGoals[i].goal.goalId },
             contentType = { 0 }
         ) { idx ->
             val item = allGoals[idx]

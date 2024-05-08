@@ -140,7 +140,7 @@ class HomeViewModel @Inject constructor(
 
     fun archiveGoal(goal: Goal) {
         viewModelScope.launch(Dispatchers.IO) {
-           val updatedGoal = goal.copy(archived = true)
+            val updatedGoal = goal.copy(archived = true)
             updatedGoal.goalId = goal.goalId
             goalDao.updateGoal(updatedGoal)
             // Stop reminder if set for this goal

@@ -53,6 +53,7 @@ import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
@@ -174,9 +175,19 @@ fun ArchiveScreen(navController: NavController) {
             } else {
                 var showArchivedGoals by remember { mutableStateOf(false) }
                 LaunchedEffect(key1 = true, block = {
-                    delay(180)
+                    delay(400)
                     showArchivedGoals = true
                 })
+                if (!showArchivedGoals) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(bottom = 24.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        CircularProgressIndicator()
+                    }
+                }
                 AnimatedVisibility(
                     visible = showArchivedGoals,
                     enter = fadeIn(),
@@ -285,7 +296,7 @@ private fun ArchivedGoalItem(
         Column(
             Modifier
                 .fillMaxWidth()
-                .padding(16.dp)
+                .padding(top = 16.dp, start = 16.dp, end = 16.dp, bottom = 8.dp)
         ) {
             Row(
                 modifier = Modifier

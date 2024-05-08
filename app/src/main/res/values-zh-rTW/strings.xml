@@ -140,6 +140,12 @@
     <string name="input_goal_remove_deadline">您是否要從此目標中移除期限？</string>
     <string name="input_remove_deadline_tip">提示：您可以長按截止日期欄位來移除現有目標的截止日期。</string>
 
+    <!-- Archive Screen -->
+    <string name="archive_screen_header">已存檔目標</string>
+    <string name="archive_empty">目前沒有已存檔目標。</string>
+    <string name="goal_restore_confirmation">您要還原此目標嗎？</string>
+    <string name="goal_restore_success">還原成功。</string>
+
     <!-- Backup Screen -->
     <string name="backup_screen_header">備份與還原</string>
     <string name="backup_screen_text">備份應用程式資料，包括所有的儲蓄目標、目前進度、交易等，並在您需要時可以輕鬆還原。</string>

@@ -143,6 +143,12 @@
     <string name="input_goal_remove_deadline">Bu hedeften son tarihi kaldırmak istiyor musun?</string>
     <string name="input_remove_deadline_tip">İpucu: Var olan hedeflerden birinin son tarihini kaldırmak için son tarih alanında uzun basılı tutabilirsiniz.</string>
 
+    <!-- Archive Screen -->
+    <string name="archive_screen_header">Arşivlenmiş Hedefler</string>
+    <string name="archive_empty">Henüz arşivlenmiş hedef yok.</string>
+    <string name="goal_restore_confirmation">Bu hedefi geri yüklemek istiyor musunuz?</string>
+    <string name="goal_restore_success">Başarıyla geri yüklendi.</string>
+
     <!-- Backup Screen -->
     <string name="backup_screen_header">Yedekle &amp; Geri yükle</string>
     <string name="backup_screen_text">Tüm tasarruf hedefleriniz, mevcut ilerlemeniz, işlemleriniz vb. dahil olmak üzere uygulama verilerini yedekleyin ve istediğiniz zaman kolayca geri yükleyin.</string>

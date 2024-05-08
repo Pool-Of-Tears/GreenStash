@@ -81,7 +81,9 @@ import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.utils.Utils
 import com.starry.greenstash.utils.weakHapticFeedback
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 @Composable
@@ -200,7 +202,9 @@ private fun DrawerItems(
                 selectedItem.value = item
                 coroutineScope.launch {
                     drawerState.close()
-                    navController.navigate(item.route)
+                    withContext(Dispatchers.Main) {
+                        navController.navigate(item.route)
+                    }
                 }
             },
             modifier = Modifier
