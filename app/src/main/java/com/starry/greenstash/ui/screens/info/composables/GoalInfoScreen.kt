@@ -78,6 +78,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -274,6 +275,9 @@ fun GoalInfoCard(
                 fontWeight = FontWeight.Bold,
                 fontSize = 38.sp,
                 fontFamily = greenstashNumberFont,
+                maxLines = 3,
+                lineHeight = 1.3f.em,
+                overflow = TextOverflow.Ellipsis,
                 modifier = Modifier.padding(start = 8.dp)
             )
 

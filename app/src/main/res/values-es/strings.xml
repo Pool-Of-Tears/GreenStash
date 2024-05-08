@@ -173,6 +173,8 @@
     <string name="goal_card_option1">Clásico</string>
     <string name="goal_card_option2">Compacto</string>
     <string name="locales_setting_title">Configuración regional</string>
+    <string name="app_locale_setting">Idioma predeterminado</string>
+    <string name="app_locale_setting_desc">Selecciona tu idioma preferido</string>
     <string name="date_format_setting">Formato de Fecha</string>
     <string name="date_format_dialog_title">Cambiar Formato de Fecha</string>
     <string name="preferred_currency_setting">Moneda preferida</string>
