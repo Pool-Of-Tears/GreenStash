@@ -4,7 +4,7 @@
     <!-- Other Strings -->
     <string name="confirm">Conferma</string>
     <string name="cancel">Cancella</string>
-    <string name="OK">OK</string>
+    <string name="OK">oK</string>
     <string name="unknown_error">Ops! Qualcosa è andato storto.</string>
 
     <!-- Navigation Drawer -->
