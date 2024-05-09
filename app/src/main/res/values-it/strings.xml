@@ -201,7 +201,7 @@
     <string name="about_readme_desc">Vai a vedere il repository di GitHub e il README dell'app.</string>
     <string name="about_privacy_title">Informativa sulla Privacy</string>
     <string name="about_privacy_desc">Leggi l'informativa sulla privacy e i termini di servizio su GitHub.</string>
-    <string name="about_gh_issue_title"Issues di GitHub</string>
+    <string name="about_gh_issue_title">Issues di GitHub</string>
     <string name="about_gh_issue_desc">Invia segnalazioni di bug or richieste di funzionalità creando una issue su GitHub.</string>
     <string name="about_telegram_title">Gruppo Telegram/string>
     <string name="about_telegram_desc">Unisciti a noi su telegram per condividere le tue idee o semplicemente per chiacchierare!</string>
@@ -219,6 +219,6 @@
     <string name="reminder_notification_desc">Più risparmi, più velocemente raggiungerai il tuo obbiettivo! 💰</string>
     <string name="dismiss_notification_button">Scarta</string>
     <string name="notification_deposited_title">Ottimo Lavoro! 🎉</string>
-    <string name="notification_deposited_desc">Deposited %s con successo!</string>
+    <string name="notification_deposited_desc">Depositato %s con successo!</string>
 
 </resources>
