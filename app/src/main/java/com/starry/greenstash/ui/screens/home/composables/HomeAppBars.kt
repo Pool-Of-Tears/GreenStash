@@ -50,7 +50,12 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalView
@@ -60,43 +65,48 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.starry.greenstash.R
-import com.starry.greenstash.ui.screens.home.SearchWidgetState
+import com.starry.greenstash.ui.screens.home.SearchBarState
 import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.utils.weakHapticFeedback
 
 
 @Composable
 fun HomeAppBar(
+    searchBarState: SearchBarState,
+    searchTextState: String,
+    consumeBackPress: MutableState<Boolean>,
     onMenuClicked: () -> Unit,
     onFilterClicked: () -> Unit,
     onSearchClicked: () -> Unit,
-    searchWidgetState: SearchWidgetState,
-    searchTextState: String,
     onSearchTextChange: (String) -> Unit,
     onSearchCloseClicked: () -> Unit,
     onSearchImeAction: (String) -> Unit,
 ) {
     Crossfade(
-        targetState = searchWidgetState,
+        targetState = searchBarState,
         animationSpec = tween(durationMillis = 300),
         label = "searchbar cross-fade"
     ) {
         when (it) {
-            SearchWidgetState.CLOSED -> {
+            SearchBarState.CLOSED -> {
                 DefaultAppBar(
                     onMenuClicked = onMenuClicked,
                     onFilterClicked = onFilterClicked,
                     onSearchClicked = onSearchClicked
                 )
+                consumeBackPress.value = false
             }
 
-            SearchWidgetState.OPENED -> {
+            SearchBarState.OPENED -> {
                 SearchAppBar(
                     text = searchTextState,
                     onTextChange = onSearchTextChange,
                     onCloseClicked = onSearchCloseClicked,
                     onSearchClicked = onSearchImeAction
                 )
+                // Consume the system back button press when the search bar is open
+                // So we can close the search bar instead of navigating back.
+                consumeBackPress.value = true
             }
         }
     }
@@ -163,10 +173,12 @@ private fun SearchAppBar(
     onCloseClicked: () -> Unit,
     onSearchClicked: (String) -> Unit,
 ) {
+    val focusRequester = remember { FocusRequester() }
     Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .windowInsetsPadding(insets = WindowInsets.statusBars),
+            .windowInsetsPadding(insets = WindowInsets.statusBars)
+            .focusRequester(focusRequester),
         color = MaterialTheme.colorScheme.surface
     ) {
         OutlinedTextField(
@@ -223,5 +235,8 @@ private fun SearchAppBar(
             ),
             shape = RoundedCornerShape(24.dp)
         )
+
+        // Request focus on the search bar when it is opened
+        LaunchedEffect(Unit) { focusRequester.requestFocus() }
     }
 }
