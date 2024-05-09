@@ -173,6 +173,8 @@
     <string name="goal_card_option1">Classic</string>
     <string name="goal_card_option2">Compact</string>
     <string name="locales_setting_title">Locales</string>
+    <string name="app_locale_setting">Default Locale</string>
+    <string name="app_locale_setting_desc">Select your preferred locale</string>
     <string name="date_format_setting">Date Format</string>
     <string name="date_format_dialog_title">Change Date Format</string>
     <string name="preferred_currency_setting">Preferred Currency</string>

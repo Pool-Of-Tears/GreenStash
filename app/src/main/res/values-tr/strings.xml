@@ -175,6 +175,8 @@
     <string name="goal_card_option1">Klasik</string>
     <string name="goal_card_option2">Kompakt</string>
     <string name="locales_setting_title">Yerel</string>
+    <string name="app_locale_setting">Varsayılan Yerelleştirme</string>
+    <string name="app_locale_setting_desc">Tercih ettiğiniz yerelleştirmeyi seçin</string>
     <string name="date_format_setting">Tarih Biçimi</string>
     <string name="date_format_dialog_title">Tarih Biçimini Değiştir</string>
     <string name="preferred_currency_setting">Tercih Edilen Para Birimi</string>

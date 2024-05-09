@@ -456,28 +456,52 @@ fun GoalItemCompact(
                             color = MaterialTheme.colorScheme.onSecondaryContainer
                         )
 
-                        Row(
-                            Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
+                        if (savedAmount.length >= 12) {
                             Text(
                                 text = savedAmount,
                                 modifier = Modifier.padding(start = 4.dp),
                                 fontSize = 24.sp,
                                 fontFamily = greenstashNumberFont,
                                 fontWeight = FontWeight.Bold,
-                                maxLines = 2,
+                                maxLines = 3,
+                                overflow = TextOverflow.Ellipsis,
                                 color = MaterialTheme.colorScheme.onSecondaryContainer
                             )
 
-                            Text(
-                                text = daysLeftText,
-                                modifier = Modifier.padding(top = 18.dp),
-                                fontSize = 16.sp,
-                                fontFamily = greenstashFont,
-                                fontWeight = FontWeight.Medium,
-                                color = MaterialTheme.colorScheme.onSecondaryContainer
-                            )
+                            Row(Modifier.fillMaxWidth()) {
+                                Spacer(modifier = Modifier.weight(1f))
+                                Text(
+                                    text = daysLeftText,
+                                    fontSize = 16.sp,
+                                    fontFamily = greenstashFont,
+                                    fontWeight = FontWeight.Medium,
+                                    color = MaterialTheme.colorScheme.onSecondaryContainer
+                                )
+                            }
+                        } else {
+                            Row(
+                                Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween
+                            ) {
+                                Text(
+                                    text = savedAmount,
+                                    modifier = Modifier.padding(start = 4.dp),
+                                    fontSize = 24.sp,
+                                    fontFamily = greenstashNumberFont,
+                                    fontWeight = FontWeight.Bold,
+                                    maxLines = 1,
+                                    color = MaterialTheme.colorScheme.onSecondaryContainer
+                                )
+
+                                Text(
+                                    text = daysLeftText,
+                                    modifier = Modifier.padding(top = 18.dp),
+                                    fontSize = 16.sp,
+                                    fontFamily = greenstashFont,
+                                    fontWeight = FontWeight.Medium,
+                                    color = MaterialTheme.colorScheme.onSecondaryContainer
+                                )
+                            }
                         }
                     }
                 }

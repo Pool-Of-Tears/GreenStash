@@ -173,6 +173,8 @@
     <string name="goal_card_option1">Классический</string>
     <string name="goal_card_option2">Компактный</string>
     <string name="locales_setting_title">Региональные настройки</string>
+    <string name="app_locale_setting">Язык по умолчанию</string>
+    <string name="app_locale_setting_desc">Выберите предпочитаемый язык</string>
     <string name="date_format_setting">Формат даты</string>
     <string name="date_format_dialog_title">Изменить формат даты</string>
     <string name="preferred_currency_setting">Предпочтительная валюта</string>
