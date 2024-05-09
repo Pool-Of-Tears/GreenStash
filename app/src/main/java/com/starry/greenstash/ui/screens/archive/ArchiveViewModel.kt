@@ -60,8 +60,8 @@ class ArchiveViewModel @Inject constructor(
             val updatedGoal = goal.copy(archived = false)
             updatedGoal.goalId = goal.goalId
             goalDao.updateGoal(updatedGoal)
-            // Schedule the reminder if it was set for the goal
-            if (reminderManager.isReminderSet(goal.goalId)) {
+            // Schedule the reminder if it was enabled for the goal.
+            if (goal.reminder) {
                 reminderManager.scheduleReminder(goal.goalId)
             }
         }
