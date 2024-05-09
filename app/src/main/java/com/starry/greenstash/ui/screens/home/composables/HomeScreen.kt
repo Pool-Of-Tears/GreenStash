@@ -25,6 +25,7 @@
 
 package com.starry.greenstash.ui.screens.home.composables
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.keyframes
 import androidx.compose.animation.fadeIn
@@ -106,7 +107,7 @@ import com.starry.greenstash.ui.navigation.Screens
 import com.starry.greenstash.ui.screens.home.FilterField
 import com.starry.greenstash.ui.screens.home.FilterSortType
 import com.starry.greenstash.ui.screens.home.HomeViewModel
-import com.starry.greenstash.ui.screens.home.SearchWidgetState
+import com.starry.greenstash.ui.screens.home.SearchBarState
 import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.utils.getActivity
 import com.starry.greenstash.utils.isScrollingUp
@@ -129,12 +130,24 @@ fun HomeScreen(navController: NavController) {
     val filterSheetState = rememberModalBottomSheetState()
     val drawerState = rememberDrawerState(DrawerValue.Closed)
 
-    val searchWidgetState by viewModel.searchWidgetState
+    val searchBarState by viewModel.searchBarState
     val searchTextState by viewModel.searchTextState
 
     val lazyListState = rememberLazyListState()
     val snackBarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
+
+    // If search bar is open, then consume back button press to close it.
+    val consumeBackPress = remember { mutableStateOf(false) }
+    BackHandler(enabled = consumeBackPress.value) {
+        if (viewModel.searchBarState.value == SearchBarState.OPENED) {
+            if (searchTextState.isNotBlank()) {
+                viewModel.updateSearchTextState(newValue = "")
+            } else {
+                viewModel.updateSearchWidgetState(SearchBarState.CLOSED)
+            }
+        }
+    }
 
     if (showFilterSheet.value) {
         ModalBottomSheet(
@@ -175,17 +188,14 @@ fun HomeScreen(navController: NavController) {
                 snackbarHost = { SnackbarHost(snackBarHostState) },
                 topBar = {
                     HomeAppBar(
-                        onMenuClicked = { coroutineScope.launch { drawerState.open() } },
-                        onFilterClicked = {
-
-                            showFilterSheet.value = true
-
-                        },
-                        onSearchClicked = { viewModel.updateSearchWidgetState(newValue = SearchWidgetState.OPENED) },
-                        searchWidgetState = searchWidgetState,
+                        searchBarState = searchBarState,
                         searchTextState = searchTextState,
+                        consumeBackPress = consumeBackPress,
+                        onMenuClicked = { coroutineScope.launch { drawerState.open() } },
+                        onFilterClicked = { showFilterSheet.value = true },
+                        onSearchClicked = { viewModel.updateSearchWidgetState(newValue = SearchBarState.OPENED) },
                         onSearchTextChange = { viewModel.updateSearchTextState(newValue = it) },
-                        onSearchCloseClicked = { viewModel.updateSearchWidgetState(newValue = SearchWidgetState.CLOSED) },
+                        onSearchCloseClicked = { viewModel.updateSearchWidgetState(newValue = SearchBarState.CLOSED) },
                         onSearchImeAction = { println("Meow >~< | $it") },
                     )
                 },

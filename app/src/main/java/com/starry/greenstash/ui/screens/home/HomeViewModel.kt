@@ -43,7 +43,7 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-enum class SearchWidgetState { OPENED, CLOSED }
+enum class SearchBarState { OPENED, CLOSED }
 enum class FilterField { Title, Amount, Priority }
 enum class FilterSortType(val value: Int) { Ascending(1), Descending(2) }
 enum class GoalCardStyle { Classic, Compact }
@@ -97,9 +97,9 @@ class HomeViewModel @Inject constructor(
     }
     val goalsList = goalsListFlow.asLiveData()
 
-    private val _searchWidgetState: MutableState<SearchWidgetState> =
-        mutableStateOf(value = SearchWidgetState.CLOSED)
-    val searchWidgetState: State<SearchWidgetState> = _searchWidgetState
+    private val _searchBarState: MutableState<SearchBarState> =
+        mutableStateOf(value = SearchBarState.CLOSED)
+    val searchBarState: State<SearchBarState> = _searchBarState
 
     private val _searchTextState: MutableState<String> = mutableStateOf(value = "")
     val searchTextState: State<String> = _searchTextState
@@ -112,8 +112,8 @@ class HomeViewModel @Inject constructor(
     )
     val showOnboardingTapTargets: State<Boolean> = _showOnboardingTapTargets
 
-    fun updateSearchWidgetState(newValue: SearchWidgetState) {
-        _searchWidgetState.value = newValue
+    fun updateSearchWidgetState(newValue: SearchBarState) {
+        _searchBarState.value = newValue
     }
 
     fun updateSearchTextState(newValue: String) {
