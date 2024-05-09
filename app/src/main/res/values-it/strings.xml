@@ -172,9 +172,9 @@
     <string name="goal_card_setting">Stile scheda obbiettivo</string>
     <string name="goal_card_option1">Classica</string>
     <string name="goal_card_option2">Compatta</string>
-    <string name="locales_setting_title">Lingua</string>
-    <string name="app_locale_setting">Lingua predefinita</string>
-    <string name="app_locale_setting_desc">Seleziona la lingua preferita</string>
+    <string name="locales_setting_title">Localizzazione</string>
+    <string name="app_locale_setting">Localizzazione predefinita</string>
+    <string name="app_locale_setting_desc">Seleziona la localizzazione preferita</string>
     <string name="date_format_setting">Formato data</string>
     <string name="date_format_dialog_title">Cambia formato data</string>
     <string name="preferred_currency_setting">Valuta preferita</string>
