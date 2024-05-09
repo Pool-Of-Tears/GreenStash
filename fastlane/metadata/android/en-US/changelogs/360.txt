@@ -1,0 +1,7 @@
+- Now you can archive completed goals instead of deleting them.
+- Redesigned navigation drawer and some other UI improvements.
+- Added ability to change app locale regardless of system language on android 13 and above.
+- Added ability to automatically request focus when opening the search bar.
+- Removed 10 lines limit for notes in goal info screen.
+- Added Russian translation.
+- Some other minor improvements and bug fixes.

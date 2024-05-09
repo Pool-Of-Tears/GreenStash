@@ -25,12 +25,16 @@
 
 package com.starry.greenstash.ui.screens.settings.composables
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
+import android.provider.Settings
 import androidx.biometric.BiometricPrompt
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -42,6 +46,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.BrightnessMedium
 import androidx.compose.material.icons.filled.Contrast
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Language
 import androidx.compose.material.icons.filled.LocalPolice
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Palette
@@ -109,7 +114,9 @@ fun SettingsScreen(navController: NavController) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 
     Scaffold(
-        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        modifier = Modifier
+            .fillMaxSize()
+            .nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             LargeTopAppBar(title = {
                 Text(
@@ -353,6 +360,19 @@ private fun LocaleSettings(viewModel: SettingsViewModel) {
 
     SettingsContainer {
         SettingsCategory(title = stringResource(id = R.string.locales_setting_title))
+        // App locale setting is only available on Android 13+.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            SettingsItem(title = stringResource(id = R.string.app_locale_setting),
+                description = stringResource(id = R.string.app_locale_setting_desc),
+                icon = Icons.Filled.Language,
+                onClick = {
+                    val intent = Intent(Settings.ACTION_APP_LOCALE_SETTINGS).apply {
+                        data = Uri.parse("package:${context.packageName}")
+                    }
+                    context.startActivity(intent)
+                }
+            )
+        }
         SettingsItem(title = stringResource(id = R.string.date_format_setting),
             description = dateValue,
             icon = ImageVector.vectorResource(id = R.drawable.ic_settings_calender),

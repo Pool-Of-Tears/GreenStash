@@ -33,12 +33,24 @@ import androidx.room.Update
 @Dao
 interface TransactionDao {
 
+    /**
+     * Insert transaction.
+     * @param transaction Transaction to insert.
+     */
     @Insert
     suspend fun insertTransaction(transaction: Transaction)
 
+    /**
+     * Delete transaction.
+     * @param transaction Transaction to delete.
+     */
     @Delete
     suspend fun deleteTransaction(transaction: Transaction)
 
+    /**
+     * Update transaction.
+     * @param transaction Transaction to update.
+     */
     @Update
     suspend fun updateTransaction(transaction: Transaction)
 }

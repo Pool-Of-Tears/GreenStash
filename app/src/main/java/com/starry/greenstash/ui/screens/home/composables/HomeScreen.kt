@@ -25,6 +25,7 @@
 
 package com.starry.greenstash.ui.screens.home.composables
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.keyframes
 import androidx.compose.animation.fadeIn
@@ -40,6 +41,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -105,11 +107,12 @@ import com.starry.greenstash.ui.navigation.Screens
 import com.starry.greenstash.ui.screens.home.FilterField
 import com.starry.greenstash.ui.screens.home.FilterSortType
 import com.starry.greenstash.ui.screens.home.HomeViewModel
-import com.starry.greenstash.ui.screens.home.SearchWidgetState
+import com.starry.greenstash.ui.screens.home.SearchBarState
 import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.utils.getActivity
 import com.starry.greenstash.utils.isScrollingUp
 import com.starry.greenstash.utils.weakHapticFeedback
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.Locale
@@ -127,12 +130,24 @@ fun HomeScreen(navController: NavController) {
     val filterSheetState = rememberModalBottomSheetState()
     val drawerState = rememberDrawerState(DrawerValue.Closed)
 
-    val searchWidgetState by viewModel.searchWidgetState
+    val searchBarState by viewModel.searchBarState
     val searchTextState by viewModel.searchTextState
 
     val lazyListState = rememberLazyListState()
     val snackBarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
+
+    // If search bar is open, then consume back button press to close it.
+    val consumeBackPress = remember { mutableStateOf(false) }
+    BackHandler(enabled = consumeBackPress.value) {
+        if (viewModel.searchBarState.value == SearchBarState.OPENED) {
+            if (searchTextState.isNotBlank()) {
+                viewModel.updateSearchTextState(newValue = "")
+            } else {
+                viewModel.updateSearchWidgetState(SearchBarState.CLOSED)
+            }
+        }
+    }
 
     if (showFilterSheet.value) {
         ModalBottomSheet(
@@ -173,17 +188,14 @@ fun HomeScreen(navController: NavController) {
                 snackbarHost = { SnackbarHost(snackBarHostState) },
                 topBar = {
                     HomeAppBar(
-                        onMenuClicked = { coroutineScope.launch { drawerState.open() } },
-                        onFilterClicked = {
-
-                            showFilterSheet.value = true
-
-                        },
-                        onSearchClicked = { viewModel.updateSearchWidgetState(newValue = SearchWidgetState.OPENED) },
-                        searchWidgetState = searchWidgetState,
+                        searchBarState = searchBarState,
                         searchTextState = searchTextState,
+                        consumeBackPress = consumeBackPress,
+                        onMenuClicked = { coroutineScope.launch { drawerState.open() } },
+                        onFilterClicked = { showFilterSheet.value = true },
+                        onSearchClicked = { viewModel.updateSearchWidgetState(newValue = SearchBarState.OPENED) },
                         onSearchTextChange = { viewModel.updateSearchTextState(newValue = it) },
-                        onSearchCloseClicked = { viewModel.updateSearchWidgetState(newValue = SearchWidgetState.CLOSED) },
+                        onSearchCloseClicked = { viewModel.updateSearchWidgetState(newValue = SearchBarState.CLOSED) },
                         onSearchImeAction = { println("Meow >~< | $it") },
                     )
                 },
@@ -243,7 +255,8 @@ fun HomeScreen(navController: NavController) {
                                 searchTextState = searchTextState,
                                 viewModel = viewModel,
                                 navController = navController,
-                                snackBarHostState = snackBarHostState
+                                snackBarHostState = snackBarHostState,
+                                coroutineScope = coroutineScope
                             )
                         } else {
                             AllGoalsList(
@@ -251,7 +264,8 @@ fun HomeScreen(navController: NavController) {
                                 allGoalState = allGoalState,
                                 viewModel = viewModel,
                                 navController = navController,
-                                snackBarHostState = snackBarHostState
+                                snackBarHostState = snackBarHostState,
+                                coroutineScope = coroutineScope
                             )
                         }
                     }
@@ -270,19 +284,15 @@ private fun GoalSearchResults(
     searchTextState: String,
     viewModel: HomeViewModel,
     navController: NavController,
-    snackBarHostState: SnackbarHostState
+    snackBarHostState: SnackbarHostState,
+    coroutineScope: CoroutineScope
 ) {
     val allGoals = allGoalState.value
-    val context = LocalContext.current
-    val filteredList: ArrayList<GoalWithTransactions> = ArrayList()
-
-    for (goalItem in allGoals) {
-        if (goalItem.goal.title.lowercase(Locale.getDefault())
-                .contains(searchTextState.lowercase(Locale.getDefault()))
-        ) {
-            filteredList.add(goalItem)
-        }
+    val filteredList = allGoals.filter { goalItem ->
+        goalItem.goal.title.lowercase(Locale.getDefault())
+            .contains(searchTextState.lowercase(Locale.getDefault()))
     }
+
     if (allGoals.isNotEmpty() && filteredList.isEmpty()) {
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -333,10 +343,10 @@ private fun GoalSearchResults(
                 val item = filteredList[idx]
                 Box(modifier = Modifier.animateItemPlacement()) {
                     GoalLazyColumnItem(
-                        context = context,
                         viewModel = viewModel,
                         item = item,
                         snackBarHostState = snackBarHostState,
+                        coroutineScope = coroutineScope,
                         navController = navController,
                         currentIndex = idx
                     )
@@ -355,10 +365,10 @@ private fun AllGoalsList(
     allGoalState: State<List<GoalWithTransactions>>,
     viewModel: HomeViewModel,
     navController: NavController,
-    snackBarHostState: SnackbarHostState
+    snackBarHostState: SnackbarHostState,
+    coroutineScope: CoroutineScope
 ) {
     val allGoals = allGoalState.value
-    val context = LocalContext.current
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -366,17 +376,17 @@ private fun AllGoalsList(
         state = lazyListState
     ) {
         items(
-            count = allGoalState.value.size,
-            key = { k -> allGoals[k].goal.goalId },
+            count = allGoals.size,
+            key = { i -> allGoals[i].goal.goalId },
             contentType = { 0 }
         ) { idx ->
             val item = allGoals[idx]
             Box(modifier = Modifier.animateItemPlacement()) {
                 GoalLazyColumnItem(
-                    context = context,
                     viewModel = viewModel,
                     item = item,
                     snackBarHostState = snackBarHostState,
+                    coroutineScope = coroutineScope,
                     navController = navController,
                     currentIndex = idx
                 )
@@ -530,10 +540,11 @@ private fun NoGoalAnimation() {
 
         Text(
             text = stringResource(id = R.string.no_goal_set),
-            fontWeight = FontWeight.Medium,
             fontFamily = greenstashFont,
-            fontSize = 18.sp,
-            modifier = Modifier.padding(start = 12.dp, end = 12.dp),
+            style = MaterialTheme.typography.titleMedium,
+            modifier = Modifier
+                .padding(start = 12.dp, end = 12.dp)
+                .offset(y = (-35).dp),
         )
 
         Spacer(modifier = Modifier.weight(2f))

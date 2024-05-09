@@ -35,15 +35,32 @@ import androidx.room.Update
 @Dao
 interface WidgetDao {
 
+    /**
+     * Insert widget data.
+     * @param widgetData WidgetData to insert.
+     */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertWidgetData(widgetData: WidgetData)
 
+    /**
+     * Delete widget data.
+     * @param widgetData WidgetData to delete.
+     */
     @Delete
     suspend fun deleteWidgetData(widgetData: WidgetData)
 
+    /**
+     * Update widget data.
+     * @param widgetData WidgetData to update.
+     */
     @Update
     suspend fun updateWidgetData(widgetData: WidgetData)
 
+    /**
+     * Get widget data by appWidgetId.
+     * @param appWidgetId AppWidgetId to get widget data.
+     * @return WidgetData.
+     */
     @Query("SELECT * FROM widget_data WHERE appWidgetId = :appWidgetId")
     suspend fun getWidgetData(appWidgetId: Int): WidgetData?
 }

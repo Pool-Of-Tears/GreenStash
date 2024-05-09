@@ -164,7 +164,6 @@ fun ExpandableTextCard(
     descriptionFontSize: TextUnit = 14.sp,
     descriptionFontWeight: FontWeight = FontWeight.Normal,
     descriptionFontFamily: FontFamily = greenstashFont,
-    descriptionMaxLines: Int = 10,
     shape: Shape = RoundedCornerShape(8.dp),
     padding: Dp = 12.dp,
     showCopyButton: Boolean = false,
@@ -185,7 +184,6 @@ fun ExpandableTextCard(
             fontSize = descriptionFontSize,
             fontWeight = descriptionFontWeight,
             fontFamily = descriptionFontFamily,
-            maxLines = descriptionMaxLines,
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier.padding(start = 12.dp, end = 12.dp)
         )

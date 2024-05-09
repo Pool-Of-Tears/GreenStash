@@ -9,7 +9,8 @@
 
     <!-- Navigation Drawer -->
     <string name="drawer_home">Ana Sayfa</string>
-    <string name="drawer_backups">Yedekler</string>
+    <string name="drawer_archive">Arşiv</string>
+    <string name="drawer_backup">Yedekler</string>
     <string name="drawer_settings">Ayarlar</string>
     <string name="drawer_rating">Bizi Değerlendir</string>
     <string name="drawer_share">Paylaş</string>
@@ -70,6 +71,9 @@
     <string name="goal_already_achieved">Birikim hedefine zaten ulaştın.</string>
     <string name="withdraw_button">çek</string>
     <string name="withdraw_button_error">Henüz herhangi bir tutar yatırmadın.</string>
+    <string name="archive_button">Arşivle</string>
+    <string name="goal_archive_confirmation">Bu hedef tamamlandı! Onu arşivlemek ister misiniz?</string>
+    <string name="goal_archive_success">Başarıyla arşivlendi.</string>
     <string name="goal_delete_confirmation">Emin misin?</string>
     <string name="goal_delete_success">Başarıyla Silindi.</string>
     <string name="info_button_description">Hedef bilgilerini görüntüle.</string>
@@ -139,6 +143,12 @@
     <string name="input_goal_remove_deadline">Bu hedeften son tarihi kaldırmak istiyor musun?</string>
     <string name="input_remove_deadline_tip">İpucu: Var olan hedeflerden birinin son tarihini kaldırmak için son tarih alanında uzun basılı tutabilirsiniz.</string>
 
+    <!-- Archive Screen -->
+    <string name="archive_screen_header">Arşivlenmiş Hedefler</string>
+    <string name="archive_empty">Henüz arşivlenmiş hedef yok.</string>
+    <string name="goal_restore_confirmation">Bu hedefi geri yüklemek istiyor musunuz?</string>
+    <string name="goal_restore_success">Başarıyla geri yüklendi.</string>
+
     <!-- Backup Screen -->
     <string name="backup_screen_header">Yedekle &amp; Geri yükle</string>
     <string name="backup_screen_text">Tüm tasarruf hedefleriniz, mevcut ilerlemeniz, işlemleriniz vb. dahil olmak üzere uygulama verilerini yedekleyin ve istediğiniz zaman kolayca geri yükleyin.</string>
@@ -165,6 +175,8 @@
     <string name="goal_card_option1">Klasik</string>
     <string name="goal_card_option2">Kompakt</string>
     <string name="locales_setting_title">Yerel</string>
+    <string name="app_locale_setting">Varsayılan Yerelleştirme</string>
+    <string name="app_locale_setting_desc">Tercih ettiğiniz yerelleştirmeyi seçin</string>
     <string name="date_format_setting">Tarih Biçimi</string>
     <string name="date_format_dialog_title">Tarih Biçimini Değiştir</string>
     <string name="preferred_currency_setting">Tercih Edilen Para Birimi</string>

@@ -33,11 +33,17 @@ import android.util.Log
 import androidx.compose.material.icons.Icons
 import androidx.compose.ui.graphics.vector.ImageVector
 
+
+/** Utility class for image operations. */
 object ImageUtils {
 
     private const val TAG = "ImageUtils"
 
-    /** Create image vector from icon name. */
+    /**
+     * Create an image vector from the given name.
+     * @param name Name of the image vector.
+     * @return ImageVector object or null if not found.
+     */
     fun createIconVector(name: String): ImageVector? {
         return try {
             val className = "androidx.compose.material.icons.filled.${name}Kt"
@@ -50,13 +56,20 @@ object ImageUtils {
         }
     }
 
-    /** Get bitmap from image Uri. */
+    /**
+     * Convert the given image URI to a bitmap.
+     * @param uri URI of the image.
+     * @param context Context of the application.
+     * @param maxSize Maximum size of the image.
+     * @return Bitmap object.
+     */
     fun uriToBitmap(uri: Uri, context: Context, maxSize: Int): Bitmap {
         val stream = context.contentResolver.openInputStream(uri)
         val imageBm = BitmapFactory.decodeStream(stream)
         return compressBitmap(imageBm, maxSize)
     }
 
+    // Compress the bitmap to the given size.
     private fun compressBitmap(bitmap: Bitmap, maxSize: Int): Bitmap {
         var width = bitmap.width
         var height = bitmap.height

@@ -75,10 +75,11 @@ fun CongratsScreen(navController: NavController) {
         val context = LocalContext.current
         LaunchedEffect(key1 = true, block = {
             val mediaPlayer = MediaPlayer.create(context, R.raw.congrats_sound)
-            mediaPlayer.start()
             mediaPlayer.setOnCompletionListener {
+                println("Media Player Completed")
                 mediaPlayer.release() // release the media player on completion.
             }
+            mediaPlayer.start()
         })
 
         BackHandler {
@@ -144,7 +145,7 @@ fun CongratsScreen(navController: NavController) {
                 }
             }
 
-            SlideInAnimatedContainer(initialDelay = 3600) {
+            SlideInAnimatedContainer(initialDelay = 2000) {
                 FilledTonalButton(
                     onClick = {
                         navController.popBackStack(DrawerScreens.Home.route, true)

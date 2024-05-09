@@ -40,6 +40,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -53,25 +54,23 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
@@ -90,9 +89,9 @@ import com.starry.greenstash.ui.screens.settings.SettingsViewModel
 import com.starry.greenstash.ui.theme.AdjustEdgeToEdge
 import com.starry.greenstash.ui.theme.GreenStashTheme
 import com.starry.greenstash.ui.theme.greenstashFont
+import com.starry.greenstash.utils.weakHapticFeedback
 import com.starry.greenstash.widget.GoalWidget
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 
 
 @AndroidEntryPoint
@@ -138,84 +137,53 @@ class WidgetConfigActivity : AppCompatActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     private fun ConfigScreenContent(viewModel: WidgetConfigViewModel, appWidgetId: Int) {
+        val view = LocalView.current
+        val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
+
         Scaffold(
             modifier = Modifier
-                .background(MaterialTheme.colorScheme.background)
-                .fillMaxSize(),
+                .fillMaxSize()
+                .nestedScroll(scrollBehavior.nestedScrollConnection),
             topBar = {
-                TopAppBar(modifier = Modifier.fillMaxWidth(), title = {
-                    Text(
-                        text = stringResource(id = R.string.widget_config_screen_header),
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                        fontFamily = greenstashFont
-                    )
-                }, navigationIcon = {
-                    IconButton(onClick = {
-                        // Launch app by calling main activity when user press back button in
-                        // widget configuration screen.
-                        setResult(RESULT_CANCELED)
-                        val appIntent = Intent(this@WidgetConfigActivity, MainActivity::class.java)
-                        startActivity(appIntent)
-                        finish()
-                    }) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = null
+                LargeTopAppBar(
+                    title = {
+                        Text(
+                            text = stringResource(id = R.string.widget_config_screen_header),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                            fontFamily = greenstashFont
                         )
-                    }
-                }, colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(4.dp)
-                )
+                    },
+                    navigationIcon = {
+                        IconButton(onClick = {
+                            view.weakHapticFeedback()
+                            // Launch app by calling main activity when user press back button in
+                            // widget configuration screen.
+                            setResult(RESULT_CANCELED)
+                            val appIntent =
+                                Intent(this@WidgetConfigActivity, MainActivity::class.java)
+                            startActivity(appIntent)
+                            finish()
+                        }) {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                contentDescription = null
+                            )
+                        }
+                    },
+                    scrollBehavior = scrollBehavior,
+                    colors = TopAppBarDefaults.largeTopAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.surface,
+                        scrolledContainerColor = MaterialTheme.colorScheme.surface,
+                    )
                 )
             }
-        ) {
-            Column(modifier = Modifier.padding(it)) {
+        ) { paddingValues ->
+            Column(modifier = Modifier.padding(paddingValues)) {
                 val allGoals = viewModel.allGoals.observeAsState(listOf()).value
+
                 if (allGoals.isEmpty()) {
-                    var showNoGoalsAnimation by remember { mutableStateOf(false) }
-
-                    LaunchedEffect(key1 = true, block = {
-                        delay(200)
-                        showNoGoalsAnimation = true
-                    })
-
-                    if (showNoGoalsAnimation) {
-                        Column(
-                            modifier = Modifier.fillMaxSize(),
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
-                            val compositionResult: LottieCompositionResult =
-                                rememberLottieComposition(
-                                    spec = LottieCompositionSpec.RawRes(R.raw.no_goal_found_lottie)
-                                )
-                            val progressAnimation by animateLottieCompositionAsState(
-                                compositionResult.value,
-                                isPlaying = true,
-                                iterations = 1,
-                                speed = 1f
-                            )
-
-                            Spacer(modifier = Modifier.weight(1f))
-
-                            LottieAnimation(
-                                composition = compositionResult.value,
-                                progress = { progressAnimation },
-                                modifier = Modifier.size(335.dp),
-                                enableMergePaths = true
-                            )
-
-                            Text(
-                                text = stringResource(id = R.string.no_goal_set),
-                                fontWeight = FontWeight.Medium,
-                                fontSize = 18.sp,
-                                fontFamily = greenstashFont,
-                                modifier = Modifier.padding(start = 12.dp, end = 12.dp)
-                            )
-
-                            Spacer(modifier = Modifier.weight(2f))
-                        }
-                    }
+                    NoGoalAnimation()
                 } else {
                     LazyColumn(
                         modifier = Modifier
@@ -229,17 +197,13 @@ class WidgetConfigActivity : AppCompatActivity() {
                             val progressPercent =
                                 ((item.getCurrentlySavedAmount() / item.goal.targetAmount) * 100).toInt()
 
-                            Box(
-                                modifier = Modifier.fillMaxWidth(),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                GoalItem(
-                                    title = item.goal.title,
-                                    description = stringResource(id = R.string.goal_widget_desc).format(
-                                        "$defCurrency${item.getCurrentlySavedAmount()}/$defCurrency${item.goal.targetAmount}"
-                                    ),
-                                    progress = progressPercent.toFloat() / 100
-                                ) {
+                            GoalItem(
+                                title = item.goal.title,
+                                description = stringResource(id = R.string.goal_widget_desc).format(
+                                    "$defCurrency${item.getCurrentlySavedAmount()}/$defCurrency${item.goal.targetAmount}"
+                                ),
+                                progress = progressPercent.toFloat() / 100,
+                                onClick = {
                                     viewModel.setWidgetData(
                                         widgetId = appWidgetId,
                                         goalId = item.goal.goalId,
@@ -260,7 +224,7 @@ class WidgetConfigActivity : AppCompatActivity() {
                                         finish()
                                     }
                                 }
-                            }
+                            )
                         }
                     }
                 }
@@ -269,11 +233,16 @@ class WidgetConfigActivity : AppCompatActivity() {
     }
 
     @Composable
-    private fun GoalItem(title: String, description: String, progress: Float, onClick: () -> Unit) {
+    private fun GoalItem(
+        title: String,
+        description: String,
+        progress: Float,
+        onClick: () -> Unit
+    ) {
         Card(
             modifier = Modifier
-                .fillMaxWidth(0.95f)
-                .padding(top = 4.dp, bottom = 4.dp),
+                .fillMaxWidth()
+                .padding(vertical = 6.dp, horizontal = 12.dp),
             colors = CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(
                     3.dp
@@ -283,7 +252,7 @@ class WidgetConfigActivity : AppCompatActivity() {
             onClick = onClick
         ) {
             Row(
-                modifier = Modifier.padding(start = 12.dp, end = 12.dp),
+                modifier = Modifier.padding(12.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Box(
@@ -339,6 +308,45 @@ class WidgetConfigActivity : AppCompatActivity() {
                 }
 
             }
+        }
+    }
+
+    @Composable
+    private fun NoGoalAnimation() {
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            val compositionResult: LottieCompositionResult =
+                rememberLottieComposition(
+                    spec = LottieCompositionSpec.RawRes(R.raw.no_goal_found_lottie)
+                )
+            val progressAnimation by animateLottieCompositionAsState(
+                compositionResult.value,
+                isPlaying = true,
+                iterations = 1,
+                speed = 1f
+            )
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            LottieAnimation(
+                composition = compositionResult.value,
+                progress = { progressAnimation },
+                modifier = Modifier.size(335.dp),
+                enableMergePaths = true
+            )
+
+            Text(
+                text = stringResource(id = R.string.no_goal_set),
+                fontFamily = greenstashFont,
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier
+                    .padding(start = 12.dp, end = 12.dp)
+                    .offset(y = (-16).dp)
+            )
+
+            Spacer(modifier = Modifier.weight(2f))
         }
     }
 
