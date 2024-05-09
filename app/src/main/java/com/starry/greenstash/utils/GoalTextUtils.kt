@@ -35,6 +35,9 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 
+/**
+ * Utility class to build text for goal items.
+ */
 object GoalTextUtils {
 
     data class CalculatedDays(
@@ -42,6 +45,15 @@ object GoalTextUtils {
         val parsedEndDate: String
     )
 
+    /**
+     * Build primary text for the classic style goal item.
+     *
+     * @param context Context
+     * @param progressPercent Int
+     * @param goalItem GoalWithTransactions
+     * @param currencyCode String
+     * @return String
+     */
     fun buildPrimaryText(
         context: Context,
         progressPercent: Int,
@@ -81,6 +93,15 @@ object GoalTextUtils {
         return text
     }
 
+    /**
+     * Build secondary text for the classic style goal item.
+     *
+     * @param context Context
+     * @param goalItem GoalWithTransactions
+     * @param currencyCode String
+     * @param datePattern String
+     * @return String
+     */
     fun buildSecondaryText(
         context: Context,
         goalItem: GoalWithTransactions,
@@ -145,6 +166,14 @@ object GoalTextUtils {
 
     }
 
+    /**
+     * Get the remaining days text for the goal item.
+     *
+     * @param context Context
+     * @param goalItem GoalWithTransactions
+     * @param datePattern String
+     * @return String
+     */
     fun getRemainingDaysText(
         context: Context,
         goalItem: GoalWithTransactions,
@@ -164,6 +193,13 @@ object GoalTextUtils {
     }
 
 
+    /**
+     * Calculate the remaining days between today and the goal's deadline.
+     *
+     * @param goal Goal
+     * @param datePattern String
+     * @return CalculatedDays
+     */
     fun calcRemainingDays(goal: Goal, datePattern: String): CalculatedDays {
         // calculate remaining days between today and endDate (deadline).
         val dateFormatter: DateTimeFormatter =

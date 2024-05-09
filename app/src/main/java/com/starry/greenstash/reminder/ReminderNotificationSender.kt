@@ -41,6 +41,11 @@ import com.starry.greenstash.utils.PreferenceUtil
 import com.starry.greenstash.utils.Utils
 
 
+/**
+ * Handles the sending of notifications for goal reminders.
+ * @param context The context of the application.
+ * @param preferenceUtil The preference utility to access the user preferences.
+ */
 class ReminderNotificationSender(
     private val context: Context,
     private val preferenceUtil: PreferenceUtil
@@ -54,6 +59,13 @@ class ReminderNotificationSender(
     private val notificationManager =
         context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
+    /**
+     * Sends a notification to the user for the goal reminder.
+     * The notification contains the title of the goal, a description, and two actions:
+     * 1. Deposit: To deposit the calculated amount for the goal.
+     * 2. Dismiss: To dismiss the notification.
+     * @param goalItem The goal with transactions for which the notification is to be sent.
+     */
     fun sendNotification(goalItem: GoalWithTransactions) {
         val goal = goalItem.goal
 
@@ -129,6 +141,11 @@ class ReminderNotificationSender(
         notificationManager.notify(goal.goalId.toInt(), notification.build())
     }
 
+    /**
+     * Updates the notification with the deposited message.
+     * @param goalId The goal id for which the notification is to be updated.
+     * @param amount The amount deposited.
+     */
     fun updateWithDepositNotification(goalId: Long, amount: Double) {
         val defCurrency = preferenceUtil.getString(PreferenceUtil.DEFAULT_CURRENCY_STR, "")
         val notification = NotificationCompat.Builder(context, REMINDER_CHANNEL_ID)
@@ -148,8 +165,13 @@ class ReminderNotificationSender(
         notificationManager.notify(goalId.toInt(), notification.build())
     }
 
+    /**
+     * Dismisses the notification for the goal.
+     * @param goalId The goal id for which the notification is to be dismissed.
+     */
     fun dismissNotification(goalId: Long) = notificationManager.cancel(goalId.toInt())
 
+    // Creates a pending intent for the deposit action.
     private fun createDepositIntent(goalId: Long, amount: Double) =
         Intent(context, ReminderDepositReceiver::class.java).apply {
             putExtra(ReminderDepositReceiver.REMINDER_GOAL_ID, goalId)
@@ -161,6 +183,7 @@ class ReminderNotificationSender(
             )
         }
 
+    // Creates a pending intent for the dismiss action.
     private fun createDismissIntent(goalId: Long) =
         Intent(context, ReminderDismissReceiver::class.java).apply {
             putExtra(ReminderDismissReceiver.REMINDER_GOAL_ID, goalId)
@@ -171,6 +194,7 @@ class ReminderNotificationSender(
             )
         }
 
+    // Creates a pending intent to open the main activity when the notification is clicked.
     private fun createActivityIntent() = Intent(context, MainActivity::class.java).let { intent ->
         PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
     }

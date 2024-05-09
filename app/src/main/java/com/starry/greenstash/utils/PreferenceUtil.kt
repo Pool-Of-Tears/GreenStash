@@ -26,12 +26,16 @@
 package com.starry.greenstash.utils
 
 import android.content.Context
-import android.content.SharedPreferences
 import com.starry.greenstash.ui.screens.settings.DateStyle
 
+/**
+ * Utility class to handle shared preferences for the app.
+ * @param context The context of the app.
+ */
 class PreferenceUtil(context: Context) {
 
     companion object {
+        // Shared preferences file name
         private const val PREFS_NAME = "greenstash_settings"
 
         // Main preference keys
@@ -54,10 +58,10 @@ class PreferenceUtil(context: Context) {
         const val INFO_TRANSACTION_SWIPE_TIP_BOOL = "info_transaction_swipe_tip"
     }
 
-    private var prefs: SharedPreferences
+    // Shared preferences instance
+    private var prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
     init {
-        prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         // Pre-populate some preference data with default values
         if (!keyExists(DEFAULT_CURRENCY_STR)) {
             putString(DEFAULT_CURRENCY_STR, "USD")
@@ -67,36 +71,74 @@ class PreferenceUtil(context: Context) {
         }
     }
 
+    /**
+     * Check if a key exists in the shared preferences.
+     * @param key The key to check.
+     * @return true if the key exists, false otherwise.
+     */
     private fun keyExists(key: String): Boolean {
         return prefs.contains(key)
     }
 
+    /**
+     * Put a string value in the shared preferences.
+     * @param key The key to store the value under.
+     * @param value The value to store.
+     */
     fun putString(key: String, value: String) {
         val prefsEditor = prefs.edit()
         prefsEditor.putString(key, value)
         prefsEditor.apply()
     }
 
+    /**
+     * Put an integer value in the shared preferences.
+     * @param key The key to store the value under.
+     * @param value The value to store.
+     */
     fun putInt(key: String, value: Int) {
         val prefsEditor = prefs.edit()
         prefsEditor.putInt(key, value)
         prefsEditor.apply()
     }
 
+    /**
+     * Put a boolean value in the shared preferences.
+     * @param key The key to store the value under.
+     * @param value The value to store.
+     */
     fun putBoolean(key: String, value: Boolean) {
         val prefsEditor = prefs.edit()
         prefsEditor.putBoolean(key, value)
         prefsEditor.apply()
     }
 
+    /**
+     * Get a string value from the shared preferences.
+     * @param key The key to get the value from.
+     * @param defValue The default value to return if the key does not exist.
+     * @return The value stored under the key, or the default value if the key does not exist.
+     */
     fun getString(key: String, defValue: String): String? {
         return prefs.getString(key, defValue)
     }
 
+    /**
+     * Get an integer value from the shared preferences.
+     * @param key The key to get the value from.
+     * @param defValue The default value to return if the key does not exist.
+     * @return The value stored under the key, or the default value if the key does not exist.
+     */
     fun getInt(key: String, defValue: Int): Int {
         return prefs.getInt(key, defValue)
     }
 
+    /**
+     * Get a boolean value from the shared preferences.
+     * @param key The key to get the value from.
+     * @param defValue The default value to return if the key does not exist.
+     * @return The value stored under the key, or the default value if the key does not exist.
+     */
     fun getBoolean(key: String, defValue: Boolean): Boolean {
         return prefs.getBoolean(key, defValue)
     }

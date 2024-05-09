@@ -36,6 +36,14 @@ import java.util.Calendar
 import java.util.Locale
 
 
+/**
+ * Manages the reminders for goals.
+ * This class is responsible for scheduling and stopping reminders for goals.
+ * It uses [AlarmManager] to schedule reminders.
+ * The reminder time is set to 9:30 AM or 09:30 Hrs.
+ *
+ * @param context The context of the application.
+ */
 class ReminderManager(private val context: Context) {
 
     companion object {
@@ -47,7 +55,10 @@ class ReminderManager(private val context: Context) {
 
     private val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-    /** Schedule a reminder for given goal id.*/
+    /**
+     * Schedules reminder for the given goal id.
+     * @param goalId The id of the goal for which reminder is to be scheduled.
+     */
     fun scheduleReminder(goalId: Long) {
         val (hours, min) = REMINDER_TIME.split(":").map { it.toInt() }
         val calendarNow = Calendar.getInstance(Locale.ENGLISH)
@@ -75,7 +86,10 @@ class ReminderManager(private val context: Context) {
     }
 
 
-    /** Stops reminder for the given goal id */
+    /**
+     * Stops the reminder for the given goal id.
+     * @param goalId The id of the goal for which reminder is to be stopped.
+     */
     fun stopReminder(goalId: Long) {
         if (isReminderSet(goalId)) {
             val reminderIntent = createReminderIntent(
@@ -90,7 +104,11 @@ class ReminderManager(private val context: Context) {
         }
     }
 
-    /** Check if reminder is et for the given goalId.*/
+    /**
+     * Checks if reminder is set for the given goal id.
+     * @param goalId The id of the goal for which reminder is to be checked.
+     * @return true if reminder is set, false otherwise.
+     */
     fun isReminderSet(goalId: Long): Boolean {
         val reminderIntent = createReminderIntent(
             goalId = goalId, flags = PendingIntent.FLAG_NO_CREATE or PendingIntent.FLAG_IMMUTABLE
@@ -102,6 +120,7 @@ class ReminderManager(private val context: Context) {
      * Schedules reminder for goals which have reminder enabled
      * but reminder for them is not scheduled already, by calling
      * the [scheduleReminder] function internally.
+     * @param allGoals The list of goals with transactions.
      */
     fun checkAndScheduleReminders(allGoals: List<GoalWithTransactions>) {
         Log.d(TAG, "Scheduling reminders for goals with reminder.")
@@ -114,6 +133,7 @@ class ReminderManager(private val context: Context) {
         Log.d(TAG, "Scheduled reminders for goals with reminder.")
     }
 
+    // Creates a pending intent for the reminder.
     private fun createReminderIntent(goalId: Long, flags: Int) =
         Intent(context.applicationContext, AlarmReceiver::class.java).apply {
             putExtra(INTENT_EXTRA_GOAL_ID, goalId)
