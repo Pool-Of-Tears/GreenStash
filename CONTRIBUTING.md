@@ -10,9 +10,9 @@ When submitting a bug report, please make sure your issue contains **enough** in
 
 ## Feature Request
 
-**GreenStash** is designed to provide users with a straightforward and effective tool for managing their finances on Android. Our focus is to offer essential budgeting functionalities in an intuitive interface, helping users track their expenses and savings effortlessly. As such, we prioritize feature requests that align with our core mission and the fundamental principles of budget management.
+**GreenStash** is designed to provide users with a straightforward and effective tool for managing their finances on Android. Our focus is to offer essential budgeting functionalities in an intuitive interface, helping users track their savings effortlessly. As such, we prioritize feature requests that align with our core mission and the fundamental principles of budget management.
 
-Our app already includes a range of features designed to assist users in budgeting effectively, such as expense tracking, goal setting, and customizable categories. While we are open to suggestions for improvements and enhancements, we may not be able to accommodate requests for features that deviate significantly from our app's primary purpose or that are beyond the scope of traditional budget management. Therefore, we kindly ask our users to consider the app's intended functionality and limitations when submitting feature requests.
+Our app already includes a range of features designed to assist users in budgeting effectively, such as goal setting and customizable categories. While we are open to suggestions for improvements and enhancements, we may not be able to accommodate requests for features that deviate significantly from our app's primary purpose or that are beyond the scope of traditional budget management. Therefore, we kindly ask our users to consider the app's intended functionality and limitations when submitting feature requests.
 
 We appreciate the feedback and input from our users, and we are committed to continually improving **GreenStash** to meet the evolving needs of our user base. However, please understand that not all feature requests may be feasible or aligned with our app's mission and vision.
 
