@@ -4,7 +4,7 @@
 <h1 align="center">GreenStash</h1>
 
 <p align="center">
-  <a href="https://www.android.com"><img src="https://forthebadge.com/images/badges/built-for-android.svg"></a> <a href="https://www.github.com/starry-shivam"><img src="https://forthebadge.com/images/badges/built-with-love.svg"/></a>
+  <a href="https://www.android.com"><img src="https://forthebadge.com/images/badges/built-for-android.svg"></a> <a href="https://www.github.com/starry69"><img src="https://forthebadge.com/images/badges/built-with-love.svg"/></a>
 </p>
 
 <p align="center">
