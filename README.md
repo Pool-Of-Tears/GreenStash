@@ -103,7 +103,7 @@ It is easiest to make a translation using the Android Studio XML editor, but you
 
 ------
 
-## ⭐️ Star History
+<h2 align="center">Star History</h2>
 
 [![Star History Chart](https://api.star-history.com/svg?repos=Pool-Of-Tears/Greenstash&type=Timeline)](https://star-history.com/#Pool-Of-Tears/Greenstash&Timeline)
 
