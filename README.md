@@ -101,9 +101,11 @@ It is easiest to make a translation using the Android Studio XML editor, but you
 - [Dagger-Hilt](https://dagger.dev/hilt) For [Dependency injection (DI)](https://developer.android.com/training/dependency-injection)
 - [Room database](https://developer.android.com/jetpack/androidx/releases/room) - Persistence library provides an abstraction layer over SQLite to allow for more robust database access while harnessing the full power of SQLite.
 
+------
+
 ## ⭐️ Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=Pool-Of-Tears/Greenstash&type=Timeline)](https://star-history.com/#JunkFood02/Seal&Timeline)
+[![Star History Chart](https://api.star-history.com/svg?repos=Pool-Of-Tears/Greenstash&type=Timeline)](https://star-history.com/#Pool-Of-Tears/Greenstash&Timeline)
 
 ------
 

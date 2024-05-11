@@ -12,7 +12,9 @@
 
 ### Pull Request checklist
 <!-- Before submitting the PR, please address each item. Use [x] to check the boxes -->
-- [ ] The commit message follows our guidelines
+- [ ] The commit message uses the [conventional commiting method][conv-commits].
 - [ ] Made sure that your PR is not duplicate
 - [ ] **Tests**: This PR includes thorough tests or an explanation of why it does not (for bug fixes/features). Your PR should pass all CI checks in our Gtihub Actions [Workflow](https://github.com/Pool-Of-Tears/GreenStash/actions)
 - [ ] **Screenshots**: This PR includes screenshots or GIFs of the changes made or an explanation of why it does not (*optional*)
+
+[conv-commits]:https://kapeli.com/cheat_sheets/Conventional_Commits.docset/Contents/Resources/Documents/index
