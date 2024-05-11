@@ -1,5 +1,5 @@
 <resources>
-    <!-- Outras Strings -->
+    <!-- Other Strings -->
     <string name="confirm">Confirmar</string>
     <string name="cancel">Cancelar</string>
     <string name="ok">OK</string>
@@ -20,25 +20,25 @@
         Baixe agora na Play Store: %s
     </string>
 
-    <!-- Bloqueio Biométrico -->
+    <!-- Biometric Lock -->
     <string name="bio_lock_title">Desbloquear GreenStash</string>
     <string name="bio_lock_subtitle">Confirme seu bloqueio de tela, PIN ou senha.</string>
     <string name="auth_successful">Autenticação bem-sucedida!</string>
     <string name="auth_failed">Autenticação falhou!</string>
     <string name="auth_error">Erro de autenticação: %s</string>
 
-    <!-- Tela de Boas-Vindas -->
+    <!-- Welcome Screen. -->
     <string name="welcome_screen_text">Olá! Por favor, selecione sua moeda preferida para começar.</string>
     <string name="welcome_screen_button">Vamos começar!</string>
 
-    <!-- Tela de Bloqueio do Aplicativo -->
+    <!-- App Lock Screen -->
     <string name="app_lock_screen_title">GreenStash está bloqueado</string>
     <string name="app_lock_screen_subtitle">Clique no botão abaixo para autenticar.</string>
     <string name="app_lock_button_text">Autorizar</string>
     <string name="app_lock_button_icon_desc">Desbloquear aplicativo</string>
     <string name="app_lock_unable_to_authenticate">O bloqueio do aplicativo está desativado porque o dispositivo não consegue autenticar</string>
 
-    <!-- Tela Inicial -->
+    <!-- Home Screen -->
     <string name="home_screen_header">Metas de Economia</string>
     <string name="menu_button_desc">Abrir menu lateral</string>
     <string name="filter_button_desc">Filtrar suas metas de economia</string>
@@ -49,19 +49,19 @@
     <string name="home_search_label">Buscar aqui…</string>
     <string name="search_goal_not_found">404: Meta não encontrada!</string>
 
-    <!-- Tela de Depósito e Retirada -->
+    <!-- Deposit & Withdraw Screen -->
     <string name="deposit_screen_title">Incrível! Digite o valor</string>
     <string name="withdraw_screen_title">Legal! Digite o valor</string>
     <string name="deposit_successful">Depositado com sucesso!</string>
     <string name="withdraw_successful">Retirado com sucesso!</string>
     <string name="withdraw_overflow_error">O valor é maior do que o valor atual depositado!</string>
 
-    <!-- Tela de Parabéns -->
+    <!-- Congratulations Screen -->
     <string name="goal_achieved_heading">Parabéns 🥳</string>
     <string name="goal_achieved_subtext">Você alcançou sua meta de economia! Seu trabalho árduo e comprometimento levaram a esta conquista merecida. Celebre seu sucesso! 🎉</string>
     <string name="goal_achieved_button">Voltar para o início</string>
 
-    <!-- Strings usadas para cartões de metas de economia no painel -->
+    <!-- Strings used for dashboard saving goals cards -->
     <string name="no_goal_set">Nenhuma Meta de Economia Definida.</string>
     <string name="transaction_amount">Quantidade</string>
     <string name="deposit_button">Depositar</string>
@@ -84,8 +84,9 @@
     <string name="progress_greet5">Parabéns 🎉</string>
     <string name="currently_saved_incomplete">Salvo atualmente %s de %s.</string>
     <string name="currently_saved_complete">Você salvou %s de %s.</string>
+    <!-- Eg: You have until 25/12/2022 (152) days left. -->
     <string name="goal_days_left">Você tem até %s (%s) dias restantes.</string>
-    <!-- Por exemplo: Você precisa economizar cerca de $2/dia, $20/semana, $200/mês. -->
+    <!-- Eg: You need to save around $2/day, $20/week, $200/month. -->
     <string name="goal_approx_saving">Você precisa economizar cerca de %s/</string>
     <string name="goal_approx_saving_day">dia.</string>
     <string name="goal_approx_saving_week">semana.</string>
@@ -95,7 +96,7 @@
     <string name="no_goal_deadline_set">Como você não especificou nenhum prazo, você tem todo o tempo do mundo!</string>
     <string name="goal_achieved_desc">É hora de comemorar todo o trabalho árduo que levou a esta ocasião alegre.</string>
 
-    <!-- Tela de Informações da Meta -->
+    <!-- Goal Info Screen -->
     <string name="info_screen_header">Informações da Meta</string>
     <string name="info_card_title">Você Economizou</string>
     <string name="info_card_remaining_amount">De %s</string>
@@ -113,7 +114,7 @@
     <string name="info_edit_transaction_button">Atualizar Transação</string>
     <string name="info_transaction_swipe_tip">Dica! Deslize as transações para a esquerda ou direita para editá-las ou excluí-las.</string>
 
-    <!-- Tela de Entrada (Nova/Editar Meta) -->
+    <!-- Input (New/Edit Goal) Screen -->
     <string name="input_screen_header">É hora de economizar!</string>
     <string name="input_edit_goal_header">Editar Meta de Economia</string>
     <string name="input_pick_icon">Selecione um ícone para sua meta.</string>
@@ -139,13 +140,13 @@
     <string name="input_goal_remove_deadline">Você deseja remover o prazo desta meta?</string>
     <string name="input_remove_deadline_tip">Dica! Você pode remover o prazo de metas existentes pressionando longamente no campo de prazo.</string>
 
-    <!-- Tela de Arquivo -->
+    <!-- Archive Screen -->
     <string name="archive_screen_header">Metas Arquivadas</string>
     <string name="archive_empty">Ainda não há metas arquivadas.</string>
     <string name="goal_restore_confirmation">Você deseja restaurar esta meta?</string>
     <string name="goal_restore_success">Restaurado com sucesso.</string>
 
-    <!-- Tela de Backup -->
+    <!-- Backup Screen -->
     <string name="backup_screen_header">Backup &amp; Restauração</string>
     <string name="backup_screen_text">Faça backup dos dados do aplicativo, incluindo todas as suas metas de economia, progresso atual, transações, etc., e restaure facilmente sempre que quiser.</string>
     <string name="backup_screen_sub_text">Observe que os backups não incluem configurações do aplicativo.</string>
@@ -153,7 +154,7 @@
     <string name="restore_button">Restaurar</string>
     <string name="backup_restore_success">Backup restaurado com sucesso!</string>
 
-    <!-- Tela de Configurações -->
+    <!-- Settings Screen -->
     <string name="settings_screen_header">Configurações</string>
     <string name="display_settings_title">Visualização</string>
     <string name="theme_setting">Tema Padrão</string>
@@ -185,14 +186,14 @@
     <string name="app_info_setting">Informações do Aplicativo</string>
     <string name="app_info_setting_desc">Mostrar versão do aplicativo e links úteis.</string>
 
-    <!-- Estilo do Cartão de Meta -->
+    <!-- Goal Card Style -->
     <string name="goal_card_settings_header">Estilo da Meta</string>
     <string name="goal_card_settings_tip">Dica! Você pode deslizar um cartão estilizado compacto para a esquerda ou direita para editar ou excluir uma meta de economia.</string>
 
-    <!-- Tela de Bibliotecas de Código Aberto -->
+    <!-- OSL Screen -->
     <string name="osl_screen_header">Bibliotecas de Código Aberto</string>
 
-    <!-- Tela Sobre -->
+    <!-- About Screen -->
     <string name="about_screen_header">Sobre</string>
     <string name="about_readme_title">README</string>
     <string name="about_readme_desc">Confira o repositório GitHub e o README do aplicativo.</string>
@@ -207,11 +208,11 @@
     <string name="about_version_title">Versão</string>
     <string name="about_version_desc">Versão-%s</string>
 
-    <!-- Tela de Widget -->
+    <!-- Widget Screen -->
     <string name="widget_config_screen_header">Selecionar Meta</string>
     <string name="goal_widget_desc">Salvo %s</string>
 
-    <!-- Lembretes de Meta -->
+    <!-- Goal Reminders -->
     <string name="notification_permission_error">Por favor, conceda permissão de notificações! 😾</string>
     <string name="reminder_notification_desc">Quanto mais você economiza, mais rápido alcançará sua meta! 💰</string>
     <string name="dismiss_notification_button">Ignorar</string>
