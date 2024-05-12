@@ -25,7 +25,7 @@ If you wish to contribute to the project by submitting code directly, please fir
 As per our project's guidelines, we adhere to [conventional commits][conv-commits]. Therefore, it's expected that all PRs align with this convention. Should a PR not meet these standards, we'll kindly request a review and revision.
 
 Please use the provided Pull Request templates according to your needs. Currently, there are two to choose from:
-- [General PR](.github/PULL_REQUEST_TEMPLATE/pull_request_template.md): for all other PRs, including bug fixes, adding features etc.
+- [General PR](.github/PULL_REQUEST_TEMPLATE/general_template.md): for all other PRs, including bug fixes, adding features etc.
 - [Translation PR](.github/PULL_REQUEST_TEMPLATE/translations_template.md): specifically to be used for translation PRs
 
 > [!TIP]
