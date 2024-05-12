@@ -33,6 +33,9 @@ import android.os.Build
 import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG
 import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_WEAK
 import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
+import java.io.BufferedReader
+import java.io.IOException
+import java.io.InputStreamReader
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
@@ -43,12 +46,14 @@ import java.util.Currency
 import java.util.Locale
 import java.util.TimeZone
 
+
 /**
  * A collection of utility functions.
  */
 object Utils {
 
-    /** Get validated number from the text.
+    /**
+     * Get validated number from the text.
      *
      * @param text The text to validate
      * @return The validated number
@@ -69,7 +74,8 @@ object Utils {
         }
     }
 
-    /** Round the decimal number to two decimal places.
+    /**
+     * Round the decimal number to two decimal places.
      *
      * @param number The number to round
      * @return The rounded number
@@ -81,7 +87,8 @@ object Utils {
         return df.format(number).toDouble()
     }
 
-    /** Format currency based on the currency code.
+    /**
+     * Format currency based on the currency code.
      *
      * @param amount The amount to format
      * @param currencyCode The currency code
@@ -121,7 +128,8 @@ object Utils {
     }
 
 
-    /** Get the epoch time from the LocalDateTime.
+    /**
+     * Get the epoch time from the LocalDateTime.
      *
      * @param dateTime The LocalDateTime object
      * @return The epoch time
@@ -135,7 +143,8 @@ object Utils {
         return dateTime.atZone(timeZone).toInstant().toEpochMilli()
     }
 
-    /** Open the web link in the browser.
+    /**
+     * Open the web link in the browser.
      *
      * @param context The context
      * @param url The URL to open
@@ -149,5 +158,33 @@ object Utils {
             exc.printStackTrace()
         }
     }
+
+    /**
+     * Check if the device is running on MIUI.
+     *
+     * By default, HyperOS is excluded from the check.
+     * If you want to include HyperOS in the check, set excludeHyperOS to false.
+     *
+     * @param excludeHyperOS Whether to exclude HyperOS
+     * @return True if the device is running on MIUI, false otherwise
+     */
+    fun isMiui(excludeHyperOS: Boolean = true): Boolean {
+        val isMiui = !getProperty("ro.miui.ui.version.name").isNullOrBlank()
+        val isHyperOS = !getProperty("ro.mi.os.version.name").isNullOrBlank()
+        return isMiui && (!excludeHyperOS || !isHyperOS)
+    }
+
+    // Private function to get the property value from build.prop.
+    private fun getProperty(property: String): String? {
+        return try {
+            Runtime.getRuntime().exec("getprop $property").inputStream.use { input ->
+                BufferedReader(InputStreamReader(input), 1024).readLine()
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
+            null
+        }
+    }
+
 
 }
