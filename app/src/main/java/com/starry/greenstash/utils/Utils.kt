@@ -160,7 +160,7 @@ object Utils {
     }
 
     /**
-     * heck if the device is running on MIUI.
+     * Check if the device is running on MIUI.
      *
      * By default, HyperOS is excluded from the check.
      * If you want to include HyperOS in the check, set excludeHyperOS to false.
