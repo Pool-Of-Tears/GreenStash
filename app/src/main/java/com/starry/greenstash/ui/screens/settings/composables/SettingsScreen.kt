@@ -25,6 +25,7 @@
 
 package com.starry.greenstash.ui.screens.settings.composables
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -332,6 +333,7 @@ private fun ThemePickerDialog(
     }
 }
 
+@SuppressLint("InlinedApi")
 @Composable
 private fun LocaleSettings(viewModel: SettingsViewModel) {
     val context = LocalContext.current
@@ -360,8 +362,14 @@ private fun LocaleSettings(viewModel: SettingsViewModel) {
 
     SettingsContainer {
         SettingsCategory(title = stringResource(id = R.string.locales_setting_title))
-        // App locale setting is only available on Android 13+.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        // App locale setting is only available on Android 13+
+        // Also, it's not functional on MIUI devices even on Android 13,
+        // Thanks to Xiaomi's broken implementation of standard Android APIs.
+        // See: https://github.com/Pool-Of-Tears/GreenStash/issues/130 for more information.
+        val shouldShowAppLocaleSetting = remember {
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && !Utils.isMiui()
+        }
+        if (shouldShowAppLocaleSetting) {
             SettingsItem(title = stringResource(id = R.string.app_locale_setting),
                 description = stringResource(id = R.string.app_locale_setting_desc),
                 icon = Icons.Filled.Language,
