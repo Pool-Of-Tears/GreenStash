@@ -45,6 +45,9 @@ import java.time.LocalDateTime
 /**
  * Handles all backup & restore related functionalities.
  * Note: Access this class using DI instead of manually initialising.
+ *
+ * @param context [Context] instance.
+ * @param goalDao [GoalDao] instance.
  */
 class BackupManager(private val context: Context, private val goalDao: GoalDao) {
 
@@ -66,11 +69,18 @@ class BackupManager(private val context: Context, private val goalDao: GoalDao) 
 
         /** An ISO-8601 date format for Gson */
         private const val ISO8601_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+
+        /** Backup folder name inside cache directory. */
+        private const val BACKUP_FOLDER_NAME = "backups"
     }
 
     /**
      * Model for backup json data, containing current schema version
      * and timestamp when backup was created.
+     *
+     * @param version backup schema version.
+     * @param timestamp timestamp when backup was created.
+     * @param data list of [GoalWithTransactions] to be backed up.
      */
     @Keep
     data class BackupJsonModel(
@@ -104,8 +114,8 @@ class BackupManager(private val context: Context, private val goalDao: GoalDao) 
         )
 
         log("Creating backup json file inside cache directory...")
-        val fileName = "GreenStash-Backup (${LocalDateTime.now()}).json"
-        val file = File(context.cacheDir, fileName)
+        val fileName = "GreenStash-Backup(${System.currentTimeMillis()}).json"
+        val file = File(File(context.cacheDir, BACKUP_FOLDER_NAME).apply { mkdir() }, fileName)
         file.updateText(jsonString)
         val uri = FileProvider.getUriForFile(context, FILE_PROVIDER_AUTHORITY, file)
 
