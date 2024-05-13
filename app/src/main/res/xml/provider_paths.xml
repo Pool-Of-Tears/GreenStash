@@ -2,5 +2,5 @@
 <paths>
     <cache-path
         name="backup_and_restore"
-        path="/" />
+        path="backups/" />
 </paths>
