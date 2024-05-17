@@ -86,10 +86,10 @@
     <string name="progress_greet3">Если вы думаете, что сможете это сделать, значит, сможете.</string>
     <string name="progress_greet4">Почти у цели, вы получили это!</string>
     <string name="progress_greet5">Поздравляю 🎉</string>
-    <string name="currently_saved_incomplete" formatted="false">В настоящее время сохранены %s из %s.</string>
-    <string name="currently_saved_complete" formatted="false">Вы сохранили %s из %s .</string>
+    <string name="currently_saved_incomplete" formatted="false">В настоящее время сохранены %1$s из %2$s.</string>
+    <string name="currently_saved_complete" formatted="false">Вы сохранили %1$s из %2$s .</string>
     <!-- Eg: You have until 25/12/2022 (152) days left. -->
-    <string name="goal_days_left" formatted="false">У вас осталось времени до %s (%s) дней.</string>
+    <string name="goal_days_left" formatted="false">У вас осталось времени до %1$s (%2$s) дней.</string>
     <!-- Eg: You need to save around $2/day, $20/week, $200/month. -->
     <string name="goal_approx_saving">Вам нужно сберегать примерно %s в </string>
     <string name="goal_approx_saving_day">день.</string>
