@@ -456,7 +456,7 @@ fun GoalItemCompact(
                             color = MaterialTheme.colorScheme.onSecondaryContainer
                         )
 
-                        if (savedAmount.length >= 12) {
+                        if (savedAmount.length > 10) {
                             Text(
                                 text = savedAmount,
                                 modifier = Modifier.padding(start = 4.dp),
