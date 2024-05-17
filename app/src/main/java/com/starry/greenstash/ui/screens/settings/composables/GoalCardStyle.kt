@@ -132,7 +132,8 @@ fun GoalCardStyle(navController: NavController) {
                     scrolledContainerColor = MaterialTheme.colorScheme.surface,
                 )
             )
-        }) { paddingValues ->
+        }
+    ) { paddingValues ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
