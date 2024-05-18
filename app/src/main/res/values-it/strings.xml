@@ -84,10 +84,10 @@
     <string name="progress_greet3">Se pensi che puoi farcela, ce la fai.</string>
     <string name="progress_greet4">Ci siamo quasi, ci sei!</string>
     <string name="progress_greet5">Congratulazioni &#x1F389;</string>
-    <string name="currently_saved_incomplete">Attualmente hai risparmiato %s di %s.</string>
-    <string name="currently_saved_complete">Hai risparmiato %s su %s.</string>
+    <string name="currently_saved_incomplete">Attualmente hai risparmiato %1$s di %2$s.</string>
+    <string name="currently_saved_complete">Hai risparmiato %1$s su %2$s.</string>
     <!-- Eg: You have until 25/12/2022 (152) days left. -->
-    <string name="goal_days_left">Hai fino al %s (%s) giorni rimasti.</string>
+    <string name="goal_days_left">Hai fino al %1$s (%2$s) giorni rimasti.</string>
     <!-- Eg: You need to save around $2/day, $20/week, $200/month. -->
     <string name="goal_approx_saving">Devi risparmiare all\'incirca %s/</string>
     <string name="goal_approx_saving_day">giorno.</string>

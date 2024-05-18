@@ -85,10 +85,10 @@
     <string name="progress_greet3">Yapabileceğini düşünüyorsan, yapabilirsin.</string>
     <string name="progress_greet4">Neredeyse oldu, Halledeceksin!</string>
     <string name="progress_greet5">Tebrikler &#x1F389;</string>
-    <string name="currently_saved_incomplete">Biriktirilen: %s hedef: %s.</string>
-    <string name="currently_saved_complete">%s arasından %s biriktirdin.</string>
+    <string name="currently_saved_incomplete">Biriktirilen: %1$s hedef: %2$s.</string>
+    <string name="currently_saved_complete">%1$s arasından %2$s biriktirdin.</string>
     <!-- Eg: You have until 25/12/2022 (152) days left. -->
-    <string name="goal_days_left">%s tarihine kadar süren var (%s) gün kaldı.</string>
+    <string name="goal_days_left">%1$s tarihine kadar süren var (%2$s) gün kaldı.</string>
     <!-- Eg: You need to save around $2/day, $20/week, $200/month. -->
     <string name="goal_approx_saving">Yaklaşık olarak biriktirmen gereken: %s/</string>
     <string name="goal_approx_saving_day">gün.</string>

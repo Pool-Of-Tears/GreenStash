@@ -83,10 +83,10 @@
     <string name="progress_greet3">如果您認為自己能做到，那麼您就能做到。</string>
     <string name="progress_greet4">快到了，您可以做到！</string>
     <string name="progress_greet5">恭喜 &#x1F389;</string>
-    <string name="currently_saved_incomplete">目前已儲蓄 %s，目標 %s。</string>
-    <string name="currently_saved_complete">您已儲蓄 %s，目標 %s。</string>
+    <string name="currently_saved_incomplete">目前已儲蓄 %1$s，目標 %2$s。</string>
+    <string name="currently_saved_complete">您已儲蓄 %1$s，目標 %2$s。</string>
     <!-- Eg: You have until 25/12/2022 (152) days left. -->
-    <string name="goal_days_left">您還有到 %s 的時間，剩餘 (%s) 天。</string>
+    <string name="goal_days_left">您還有到 %1$s 的時間，剩餘 (%2$s) 天。</string>
     <!-- Eg: You need to save around $2/day, $20/week, $200/month. -->
     <string name="goal_approx_saving">您需要每天儲蓄約 %s/</string>
     <string name="goal_approx_saving_day">天。</string>
