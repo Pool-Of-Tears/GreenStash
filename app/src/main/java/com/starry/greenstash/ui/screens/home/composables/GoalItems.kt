@@ -206,29 +206,28 @@ fun GoalItemClassic(
 
                 Spacer(
                     modifier = Modifier
-                        .height(1.dp)
                         .weight(1f)
                 )
 
-                IconButton(onClick = { onInfoClicked() }) {
+                IconButton(onClick = onInfoClicked) {
                     Icon(
-                        modifier = Modifier.size(24.dp),
+                        modifier = Modifier.size(21.dp),
                         imageVector = ImageVector.vectorResource(id = R.drawable.ic_goal_info),
                         contentDescription = stringResource(id = R.string.info_button_description),
                         tint = MaterialTheme.colorScheme.onSurface
                     )
                 }
-                IconButton(onClick = { onEditClicked() }) {
+                IconButton(onClick = onEditClicked) {
                     Icon(
-                        modifier = Modifier.size(24.dp),
+                        modifier = Modifier.size(21.dp),
                         imageVector = ImageVector.vectorResource(id = R.drawable.ic_goal_edit),
                         contentDescription = stringResource(id = R.string.edit_button_description),
                         tint = MaterialTheme.colorScheme.onSurface
                     )
                 }
-                IconButton(onClick = { onDeleteClicked() }) {
+                IconButton(onClick = onDeleteClicked) {
                     Icon(
-                        modifier = Modifier.size(24.dp),
+                        modifier = Modifier.size(21.dp),
                         imageVector = ImageVector.vectorResource(id = R.drawable.ic_goal_delete),
                         contentDescription = stringResource(id = R.string.delete_button_description),
                         tint = MaterialTheme.colorScheme.onSurface
