@@ -33,8 +33,6 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.widget.RemoteViews
@@ -47,11 +45,13 @@ import dagger.hilt.EntryPoints
 
 
 private const val WIDGET_MANUAL_REFRESH = "widget_manual_refresh"
-private const val MAX_AMOUNT_DIGITS = 10000
+private const val MAX_AMOUNT_DIGITS = 1000
+private const val FULL_WIDGET_MIN_HEIGHT = 110
 
 class GoalWidget : AppWidgetProvider() {
+
+    // Viewmodel for the widget.
     private lateinit var viewModel: WidgetViewModel
-    private var isManualRefresh = false
 
     override fun onEnabled(context: Context) {
         super.onEnabled(context)
@@ -71,11 +71,6 @@ class GoalWidget : AppWidgetProvider() {
 
     override fun onReceive(context: Context, intent: Intent?) {
         super.onReceive(context, intent)
-        isManualRefresh = if (intent?.type != null) {
-            intent.type.equals(WIDGET_MANUAL_REFRESH)
-        } else {
-            false
-        }
         if (intent?.action.equals(Intent.ACTION_SCREEN_ON)) {
             val appWidgetManager = AppWidgetManager.getInstance(context)
             val ids = appWidgetManager.getAppWidgetIds(
@@ -96,27 +91,22 @@ class GoalWidget : AppWidgetProvider() {
         newOptions: Bundle?
     ) {
         super.onAppWidgetOptionsChanged(context, appWidgetManager, appWidgetId, newOptions)
-
-        initialiseVm(context) // Initialise viewmodel if not already initialised.
         val minHeight = newOptions?.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT, 0) ?: 0
-
+        initialiseVm(context)
         viewModel.getGoalFromWidgetId(appWidgetId) { goalItem ->
-            val views = RemoteViews(context.packageName, R.layout.goal_widget)
-            val visibility = if (minHeight >= 60) View.VISIBLE else View.GONE
-            views.setViewVisibility(R.id.amountDurationGroup, visibility)
-            updateWidgetContents(context, appWidgetId, goalItem)
-            appWidgetManager.partiallyUpdateAppWidget(appWidgetId, views)
+            updateWidgetContents(context, appWidgetId, goalItem, minHeight)
         }
     }
 
-    fun updateWidgetContents(context: Context, appWidgetId: Int, goalItem: GoalWithTransactions) {
+    fun updateWidgetContents(
+        context: Context,
+        appWidgetId: Int,
+        goalItem: GoalWithTransactions,
+        minHeight: Int? = null
+    ) {
         val preferenceUtil = PreferenceUtil(context)
         val appWidgetManager = AppWidgetManager.getInstance(context)
         val views = RemoteViews(context.packageName, R.layout.goal_widget)
-
-        if (isManualRefresh) {
-            handleManualRefresh(views, appWidgetManager, appWidgetId)
-        }
 
         // Set widget title.
         views.setCharSequence(R.id.widgetTitle, "setText", goalItem.goal.title)
@@ -140,10 +130,10 @@ class GoalWidget : AppWidgetProvider() {
         views.setCharSequence(R.id.widgetDesc, "setText", widgetDesc)
 
         // Calculate and display savings per day and week if applicable.
-        handleSavingsPerDuration(context, views, goalItem, defCurrency, datePattern)
+        handleSavingsPerDuration(context, views, goalItem, defCurrency, datePattern, minHeight)
 
         // Display appropriate views when the goal is achieved.
-        handleGoalAchieved(views, goalItem)
+        handleGoalAchieved(views, goalItem, minHeight)
 
         // Calculate current progress percentage.
         handleProgress(views, goalItem)
@@ -163,27 +153,10 @@ class GoalWidget : AppWidgetProvider() {
             intent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
-        views.setOnClickPendingIntent(R.id.widgetUpdateButton, pendingIntent)
+        views.setOnClickPendingIntent(R.id.widgetLayout, pendingIntent)
 
         // Update widget contents.
         appWidgetManager.updateAppWidget(appWidgetId, views)
-    }
-
-    private fun handleManualRefresh(
-        views: RemoteViews,
-        appWidgetManager: AppWidgetManager,
-        appWidgetId: Int
-    ) {
-        views.setViewVisibility(R.id.widgetUpdateButton, View.INVISIBLE)
-        views.setViewVisibility(R.id.widgetUpdateProgress, View.VISIBLE)
-        appWidgetManager.updateAppWidget(appWidgetId, views)
-
-        // Delayed update to show the button again.
-        Handler(Looper.getMainLooper()).postDelayed({
-            views.setViewVisibility(R.id.widgetUpdateButton, View.VISIBLE)
-            views.setViewVisibility(R.id.widgetUpdateProgress, View.GONE)
-            appWidgetManager.updateAppWidget(appWidgetId, views)
-        }, 750)
     }
 
     private fun handleSavingsPerDuration(
@@ -191,7 +164,8 @@ class GoalWidget : AppWidgetProvider() {
         views: RemoteViews,
         goalItem: GoalWithTransactions,
         defCurrency: String,
-        datePattern: String
+        datePattern: String,
+        minHeight: Int? = null
     ) {
         val remainingAmount = (goalItem.goal.targetAmount - goalItem.getCurrentlySavedAmount())
         // Check if system locale is english to drop full stop in remaining days or weeks.
@@ -235,15 +209,31 @@ class GoalWidget : AppWidgetProvider() {
                 views.setViewVisibility(R.id.widgetAmountWeek, View.VISIBLE)
             }
 
-            views.setViewVisibility(R.id.amountDurationGroup, View.VISIBLE)
+            // Hide views if the widget is too small.
+            if (minHeight != null && minHeight < FULL_WIDGET_MIN_HEIGHT) {
+                views.setViewVisibility(R.id.amountDurationGroup, View.GONE)
+            } else {
+                views.setViewVisibility(R.id.amountDurationGroup, View.VISIBLE)
+            }
+            // Always hide goal achieved view since the goal is not achieved.
             views.setViewVisibility(R.id.widgetGoalAchieved, View.GONE)
         }
     }
 
-    private fun handleGoalAchieved(views: RemoteViews, goalItem: GoalWithTransactions) {
+    private fun handleGoalAchieved(
+        views: RemoteViews,
+        goalItem: GoalWithTransactions,
+        minHeight: Int? = null
+    ) {
         if (goalItem.getCurrentlySavedAmount() >= goalItem.goal.targetAmount) {
+            // Hide goal achieved view if the widget is too small.
+            if (minHeight != null && minHeight < FULL_WIDGET_MIN_HEIGHT) {
+                views.setViewVisibility(R.id.widgetGoalAchieved, View.GONE)
+            } else {
+                views.setViewVisibility(R.id.widgetGoalAchieved, View.VISIBLE)
+            }
+            // Always hide amount per day and week views since the goal is achieved.
             views.setViewVisibility(R.id.amountDurationGroup, View.GONE)
-            views.setViewVisibility(R.id.widgetGoalAchieved, View.VISIBLE)
         }
     }
 

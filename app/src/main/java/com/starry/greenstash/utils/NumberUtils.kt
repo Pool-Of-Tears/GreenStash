@@ -111,7 +111,7 @@ object NumberUtils {
      * @return A string representation of the number with a magnitude suffix.
      */
     fun prettyCount(number: Number): String {
-        val suffix = charArrayOf(' ', 'k', 'M', 'B', 'T', 'P', 'E')
+        val suffix = charArrayOf(' ', 'K', 'M', 'B', 'T', 'P', 'E')
         val numValue = number.toLong()
         val value = floor(log10(numValue.toDouble())).toInt()
         val base = value / 3
