@@ -168,6 +168,8 @@ class GoalWidget : AppWidgetProvider() {
         datePattern: String
     ) {
         val remainingAmount = (goalItem.goal.targetAmount - goalItem.getCurrentlySavedAmount())
+        // Check if system locale is english to drop full stop in remaining days or weeks.
+        val localeEnglish = context.resources.configuration.locales[0].language == "en"
 
         if (remainingAmount > 0f && goalItem.goal.deadline.isNotEmpty()) {
             val calculatedDays = GoalTextUtils.calcRemainingDays(goalItem.goal, datePattern)
@@ -178,7 +180,9 @@ class GoalWidget : AppWidgetProvider() {
                         amount = Utils.roundDecimal(remainingAmount / calculatedDays.remainingDays),
                         currencyCode = defCurrency
                     )
-                }/${context.getString(R.string.goal_approx_saving_day)}"
+                }/${context.getString(R.string.goal_approx_saving_day)}".let {
+                    if (localeEnglish) it.dropLast(1) else it
+                }
                 views.setCharSequence(R.id.widgetAmountDay, "setText", amountDays)
                 views.setViewVisibility(R.id.widgetAmountDay, View.VISIBLE)
             }
@@ -189,7 +193,9 @@ class GoalWidget : AppWidgetProvider() {
                         amount = Utils.roundDecimal(remainingAmount / (calculatedDays.remainingDays / 7)),
                         currencyCode = defCurrency
                     )
-                }/${context.getString(R.string.goal_approx_saving_week)}"
+                }/${context.getString(R.string.goal_approx_saving_week)}".let {
+                    if (localeEnglish) it.dropLast(1) else it
+                }
                 views.setCharSequence(R.id.widgetAmountWeek, "setText", amountWeeks)
                 views.setViewVisibility(R.id.widgetAmountWeek, View.VISIBLE)
             }
