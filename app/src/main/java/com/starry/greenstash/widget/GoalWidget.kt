@@ -32,19 +32,22 @@ import android.appwidget.AppWidgetProvider
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import android.widget.RemoteViews
 import com.starry.greenstash.R
 import com.starry.greenstash.database.core.GoalWithTransactions
 import com.starry.greenstash.utils.GoalTextUtils
+import com.starry.greenstash.utils.NumberUtils
 import com.starry.greenstash.utils.PreferenceUtil
-import com.starry.greenstash.utils.Utils
 import dagger.hilt.EntryPoints
 
 
 private const val WIDGET_MANUAL_REFRESH = "widget_manual_refresh"
+private const val MAX_AMOUNT_DIGITS = 10000
 
 class GoalWidget : AppWidgetProvider() {
     private lateinit var viewModel: WidgetViewModel
@@ -86,6 +89,26 @@ class GoalWidget : AppWidgetProvider() {
         }
     }
 
+    override fun onAppWidgetOptionsChanged(
+        context: Context,
+        appWidgetManager: AppWidgetManager,
+        appWidgetId: Int,
+        newOptions: Bundle?
+    ) {
+        super.onAppWidgetOptionsChanged(context, appWidgetManager, appWidgetId, newOptions)
+
+        initialiseVm(context) // Initialise viewmodel if not already initialised.
+        val minHeight = newOptions?.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT, 0) ?: 0
+
+        viewModel.getGoalFromWidgetId(appWidgetId) { goalItem ->
+            val views = RemoteViews(context.packageName, R.layout.goal_widget)
+            val visibility = if (minHeight >= 60) View.VISIBLE else View.GONE
+            views.setViewVisibility(R.id.amountDurationGroup, visibility)
+            updateWidgetContents(context, appWidgetId, goalItem)
+            appWidgetManager.partiallyUpdateAppWidget(appWidgetId, views)
+        }
+    }
+
     fun updateWidgetContents(context: Context, appWidgetId: Int, goalItem: GoalWithTransactions) {
         val preferenceUtil = PreferenceUtil(context)
         val appWidgetManager = AppWidgetManager.getInstance(context)
@@ -102,15 +125,18 @@ class GoalWidget : AppWidgetProvider() {
         val defCurrency = preferenceUtil.getString(PreferenceUtil.DEFAULT_CURRENCY_STR, "")!!
         val datePattern = preferenceUtil.getString(PreferenceUtil.DATE_FORMAT_STR, "")!!
 
+        val savedAmount = goalItem.getCurrentlySavedAmount().let {
+            if (it > MAX_AMOUNT_DIGITS) {
+                "${NumberUtils.getCurrencySymbol(defCurrency)}${NumberUtils.prettyCount(it)}"
+            } else NumberUtils.formatCurrency(it, defCurrency)
+        }
+        val targetAmount = goalItem.goal.targetAmount.let {
+            if (it > MAX_AMOUNT_DIGITS) {
+                "${NumberUtils.getCurrencySymbol(defCurrency)}${NumberUtils.prettyCount(it)}"
+            } else NumberUtils.formatCurrency(it, defCurrency)
+        }
         val widgetDesc = context.getString(R.string.goal_widget_desc)
-            .format(
-                "${
-                    Utils.formatCurrency(
-                        goalItem.getCurrentlySavedAmount(),
-                        defCurrency
-                    )
-                } / ${Utils.formatCurrency(goalItem.goal.targetAmount, defCurrency)}"
-            )
+            .format("$savedAmount / $targetAmount")
         views.setCharSequence(R.id.widgetDesc, "setText", widgetDesc)
 
         // Calculate and display savings per day and week if applicable.
@@ -171,32 +197,41 @@ class GoalWidget : AppWidgetProvider() {
         // Check if system locale is english to drop full stop in remaining days or weeks.
         val localeEnglish = context.resources.configuration.locales[0].language == "en"
 
-        if (remainingAmount > 0f && goalItem.goal.deadline.isNotEmpty()) {
+        if (remainingAmount > 0f && goalItem.goal.deadline.isNotBlank()) {
             val calculatedDays = GoalTextUtils.calcRemainingDays(goalItem.goal, datePattern)
 
             if (calculatedDays.remainingDays > 2) {
-                val amountDays = "${
-                    Utils.formatCurrency(
-                        amount = Utils.roundDecimal(remainingAmount / calculatedDays.remainingDays),
-                        currencyCode = defCurrency
-                    )
-                }/${context.getString(R.string.goal_approx_saving_day)}".let {
+                // Calculate amount needed to save per day.
+                val calcPerDayAmount =
+                    NumberUtils.roundDecimal(remainingAmount / calculatedDays.remainingDays)
+                // Build amount per day text by checking if the amount is greater than MAX_AMOUNT_DIGITS,
+                // if yes, then use prettyCount to format the amount.
+                val amountPerDayText = calcPerDayAmount.let {
+                    if (it > MAX_AMOUNT_DIGITS) {
+                        "${NumberUtils.getCurrencySymbol(defCurrency)}${NumberUtils.prettyCount(it)}"
+                    } else NumberUtils.formatCurrency(it, defCurrency)
+                } + "/${context.getString(R.string.goal_approx_saving_day)}".let {
                     if (localeEnglish) it.dropLast(1) else it
                 }
-                views.setCharSequence(R.id.widgetAmountDay, "setText", amountDays)
+
+                views.setCharSequence(R.id.widgetAmountDay, "setText", amountPerDayText)
                 views.setViewVisibility(R.id.widgetAmountDay, View.VISIBLE)
             }
 
             if (calculatedDays.remainingDays > 7) {
-                val amountWeeks = "${
-                    Utils.formatCurrency(
-                        amount = Utils.roundDecimal(remainingAmount / (calculatedDays.remainingDays / 7)),
-                        currencyCode = defCurrency
-                    )
-                }/${context.getString(R.string.goal_approx_saving_week)}".let {
+                // Calculate amount needed to save per week.
+                val calcPerWeekAmount =
+                    NumberUtils.roundDecimal(remainingAmount / (calculatedDays.remainingDays / 7))
+                // Build amount per week text by checking if the amount is greater than MAX_AMOUNT_DIGITS,
+                // if yes, then use prettyCount to format the amount.
+                val amountPerWeekText = calcPerWeekAmount.let {
+                    if (it > MAX_AMOUNT_DIGITS) {
+                        "${NumberUtils.getCurrencySymbol(defCurrency)}${NumberUtils.prettyCount(it)}"
+                    } else NumberUtils.formatCurrency(it, defCurrency)
+                } + "/${context.getString(R.string.goal_approx_saving_week)}".let {
                     if (localeEnglish) it.dropLast(1) else it
                 }
-                views.setCharSequence(R.id.widgetAmountWeek, "setText", amountWeeks)
+                views.setCharSequence(R.id.widgetAmountWeek, "setText", amountPerWeekText)
                 views.setViewVisibility(R.id.widgetAmountWeek, View.VISIBLE)
             }
 
@@ -221,7 +256,7 @@ class GoalWidget : AppWidgetProvider() {
 
     private fun initialiseVm(context: Context) {
         if (!this::viewModel.isInitialized) {
-            println("viewmodel not initialised")
+            Log.d("GoalWidget", "Initialising viewmodel")
             viewModel = EntryPoints
                 .get(context.applicationContext, WidgetEntryPoint::class.java).getViewModel()
         }

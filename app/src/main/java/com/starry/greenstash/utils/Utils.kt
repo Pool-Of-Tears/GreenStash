@@ -36,14 +36,8 @@ import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
-import java.math.RoundingMode
-import java.text.DecimalFormat
-import java.text.DecimalFormatSymbols
-import java.text.NumberFormat
 import java.time.LocalDateTime
 import java.time.ZoneId
-import java.util.Currency
-import java.util.Locale
 import java.util.TimeZone
 
 
@@ -58,21 +52,11 @@ object Utils {
      * @param text The text to validate
      * @return The validated number
      */
-    fun getValidatedNumber(text: String): String {
-        val filteredChars = text.filterIndexed { index, c ->
-            c.isDigit() || (c == '.' && index != 0
-                    && text.indexOf('.') == index)
-                    || (c == '.' && index != 0
-                    && text.count { it == '.' } <= 1)
-        }
-        return if (filteredChars.count { it == '.' } == 1) {
-            val beforeDecimal = filteredChars.substringBefore('.')
-            val afterDecimal = filteredChars.substringAfter('.')
-            "$beforeDecimal.$afterDecimal"
-        } else {
-            filteredChars
-        }
-    }
+    @Deprecated(
+        "Use NumberUtils.getValidatedNumber instead",
+        ReplaceWith("NumberUtils.getValidatedNumber(text)")
+    )
+    fun getValidatedNumber(text: String) = NumberUtils.getValidatedNumber(text)
 
     /**
      * Round the decimal number to two decimal places.
@@ -80,12 +64,11 @@ object Utils {
      * @param number The number to round
      * @return The rounded number
      */
-    fun roundDecimal(number: Double): Double {
-        val locale = DecimalFormatSymbols(Locale.US)
-        val df = DecimalFormat("#.##", locale)
-        df.roundingMode = RoundingMode.CEILING
-        return df.format(number).toDouble()
-    }
+    @Deprecated(
+        "Use NumberUtils.roundDecimal instead",
+        ReplaceWith("NumberUtils.roundDecimal(number)")
+    )
+    fun roundDecimal(number: Double) = NumberUtils.roundDecimal(number)
 
     /**
      * Format currency based on the currency code.
@@ -94,17 +77,12 @@ object Utils {
      * @param currencyCode The currency code
      * @return The formatted currency
      */
-    fun formatCurrency(amount: Double, currencyCode: String): String {
-        val nf = NumberFormat.getCurrencyInstance().apply {
-            currency = Currency.getInstance(currencyCode)
-            maximumFractionDigits = if (currencyCode in setOf(
-                    "JPY", "DJF", "GNF", "IDR", "KMF", "KRW", "LAK",
-                    "PYG", "RWF", "VND", "VUV", "XAF", "XOF", "XPF"
-                )
-            ) 0 else 2
-        }
-        return nf.format(amount)
-    }
+    @Deprecated(
+        "Use NumberUtils.formatCurrency instead",
+        ReplaceWith("NumberUtils.formatCurrency(amount, currencyCode)")
+    )
+    fun formatCurrency(amount: Double, currencyCode: String) =
+        NumberUtils.formatCurrency(amount, currencyCode)
 
     /**
      * Get the authenticators based on the Android version.
