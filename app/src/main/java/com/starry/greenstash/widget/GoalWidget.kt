@@ -62,21 +62,22 @@ class GoalWidget : AppWidgetProvider() {
         context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray
     ) {
         initialiseVm(context)
-        for (appWidgetId in appWidgetIds) {
+        appWidgetIds.forEach { appWidgetId ->
+            val widgetOptions = appWidgetManager.getAppWidgetOptions(appWidgetId)
+            val minHeight = widgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT, 0)
             viewModel.getGoalFromWidgetId(appWidgetId) { goalItem ->
-                updateWidgetContents(context, appWidgetId, goalItem)
+                updateWidgetContents(context, appWidgetId, goalItem, minHeight)
             }
         }
     }
 
     override fun onReceive(context: Context, intent: Intent?) {
         super.onReceive(context, intent)
+        // Update widget when the screen is turned on.
         if (intent?.action.equals(Intent.ACTION_SCREEN_ON)) {
             val appWidgetManager = AppWidgetManager.getInstance(context)
             val ids = appWidgetManager.getAppWidgetIds(
-                ComponentName(
-                    context, GoalWidget::class.java
-                )
+                ComponentName(context, GoalWidget::class.java)
             )
             if (ids.isNotEmpty()) {
                 onUpdate(context, appWidgetManager, ids)
@@ -148,9 +149,7 @@ class GoalWidget : AppWidgetProvider() {
         }
 
         val pendingIntent = PendingIntent.getBroadcast(
-            context,
-            appWidgetId,
-            intent,
+            context, appWidgetId, intent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
         views.setOnClickPendingIntent(R.id.widgetLayout, pendingIntent)
