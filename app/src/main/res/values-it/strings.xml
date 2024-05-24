@@ -199,6 +199,8 @@
     <string name="about_screen_header">Informazioni</string>
     <string name="about_readme_title">README</string>
     <string name="about_readme_desc">Vai a vedere il repository di GitHub e il README dell\'app.</string>
+    <string name="about_website_title">Sito Web</string>
+    <string name="about_website_desc">Visita il nostro sito web per ulteriori informazioni ed esplora le nostre altre app e progetti!</string>
     <string name="about_privacy_title">Informativa sulla Privacy</string>
     <string name="about_privacy_desc">Leggi l\'informativa sulla privacy e i termini di servizio su GitHub.</string>
     <string name="about_gh_issue_title">Issues di GitHub</string>

@@ -201,6 +201,8 @@
     <string name="about_screen_header">Hakkında</string>
     <string name="about_readme_title">README</string>
     <string name="about_readme_desc">Github deposuna ve uygulamanın README\'sine göz at.</string>
+    <string name="about_website_title">Web Sitesi</string>
+    <string name="about_website_desc">Daha fazla bilgi için web sitemizi ziyaret edin ve diğer uygulamalarımızı ve projelerimizi keşfedin!</string>
     <string name="about_privacy_title">Gizlilik Sözleşmesi</string>
     <string name="about_privacy_desc">Github\'da güncel gizlilik sözleşmemizi ve kullanım koşullarını oku.</string>
     <string name="about_gh_issue_title">Github Sorunları</string>
