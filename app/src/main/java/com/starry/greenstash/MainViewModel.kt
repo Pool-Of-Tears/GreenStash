@@ -25,6 +25,13 @@
 
 package com.starry.greenstash
 
+import android.content.Context
+import android.content.Intent
+import android.content.pm.ShortcutInfo
+import android.graphics.drawable.Icon
+import android.net.Uri
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -39,6 +46,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 
@@ -62,6 +70,17 @@ class MainViewModel @Inject constructor(
         mutableStateOf(Screens.WelcomeScreen.route)
     val startDestination: State<String> = _startDestination
 
+    companion object {
+        // Must be same as the one in AndroidManifest.xml
+        const val LAUNCHER_SHORTCUT_SCHEME = "greenstash_lc_shortcut"
+
+        // Key to get goalId from intent.
+        const val LC_SHORTCUT_GOAL_ID = "lc_shortcut_goal_id"
+
+        // Key to detect new goal shortcut.
+        const val LC_SHORTCUT_NEW_GOAL = "lc_shortcut_new_goal"
+    }
+
     init {
         viewModelScope.launch {
             welcomeDataStore.readOnBoardingState().collect { completed ->
@@ -71,10 +90,16 @@ class MainViewModel @Inject constructor(
                     _startDestination.value = Screens.WelcomeScreen.route
                 }
 
-                delay(150)
+                delay(100)
                 _isLoading.value = false
             }
         }
+    }
+
+    fun isAppUnlocked(): Boolean = _appUnlocked
+
+    fun setAppUnlocked(value: Boolean) {
+        _appUnlocked = value
     }
 
     fun refreshReminders() {
@@ -83,9 +108,45 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun isAppUnlocked(): Boolean = _appUnlocked
+    @RequiresApi(Build.VERSION_CODES.N_MR1)
+    fun buildDynamicShortcuts(
+        context: Context,
+        limit: Int,
+        onComplete: (List<ShortcutInfo>) -> Unit
+    ) {
+        viewModelScope.launch(Dispatchers.IO) {
+            // get all goals and filter top goals up to limit by priority
+            val goals = goalDao.getAllGoals()
+            val topGoals = goals.sortedByDescending { goalItem ->
+                goalItem.goal.priority.value
+            }.take(limit - 1).map { it.goal } // -1 for new goal shortcut
 
-    fun setAppUnlocked(value: Boolean) {
-        _appUnlocked = value
+            val newGoalShortcut = ShortcutInfo.Builder(context, "new_goal").apply {
+                setShortLabel(context.getString(R.string.new_goal_fab))
+                setIcon(Icon.createWithResource(context, R.drawable.ic_shortcut_new_goal))
+                setIntent(Intent().apply {
+                    action = Intent.ACTION_VIEW
+                    data = Uri.parse("$LAUNCHER_SHORTCUT_SCHEME://newGoal")
+                    putExtra(LC_SHORTCUT_NEW_GOAL, true)
+                })
+            }.build()
+
+            val shortCuts = listOf(newGoalShortcut) + topGoals.map { goal ->
+                val intent = Intent().apply {
+                    action = Intent.ACTION_VIEW
+                    data = Uri.parse("$LAUNCHER_SHORTCUT_SCHEME://goalId")
+                    putExtra(LC_SHORTCUT_GOAL_ID, goal.goalId)
+                }
+
+                ShortcutInfo.Builder(context, goal.goalId.toString()).apply {
+                    setShortLabel(goal.title)
+                    setIcon(Icon.createWithResource(context, R.drawable.ic_widget_config_item))
+                    setIntent(intent)
+                }.build()
+            }
+
+            withContext(Dispatchers.Main) { onComplete(shortCuts) }
+        }
+
     }
 }

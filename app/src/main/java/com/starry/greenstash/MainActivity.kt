@@ -25,7 +25,10 @@
 
 package com.starry.greenstash
 
+import android.content.pm.ShortcutManager
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -36,15 +39,20 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.starry.greenstash.ui.navigation.NavGraph
+import com.starry.greenstash.ui.navigation.Screens
 import com.starry.greenstash.ui.screens.other.AppLockedScreen
 import com.starry.greenstash.ui.screens.settings.SettingsViewModel
 import com.starry.greenstash.ui.theme.AdjustEdgeToEdge
@@ -134,6 +142,8 @@ class MainActivity : AppCompatActivity() {
 
         // set app contents based on the value of showAppContents.
         setAppContents(showAppContents)
+        // Set launcher shortcuts on Android 7.1 and above.
+        setAppShortcuts()
     }
 
     private fun setAppContents(showAppContents: State<Boolean>) {
@@ -160,6 +170,15 @@ class MainActivity : AppCompatActivity() {
                         // show app contents only if user has authenticated.
                         if (showAppContents.value) {
                             NavGraph(navController = navController, startDestination)
+                            // Handle and navigate to shortcut destinations after the UI is
+                            // properly loaded.
+                            val shouldHandleShortCut = remember { mutableStateOf(false) }
+                            LaunchedEffect(key1 = true) {
+                                shouldHandleShortCut.value = true
+                            }
+                            if (shouldHandleShortCut.value) {
+                                HandleShortcutIntent(navController)
+                            }
                         } else {
                             // show app locked screen if user has not authenticated.
                             AppLockedScreen(onAuthRequest = {
@@ -170,5 +189,39 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    @Composable
+    private fun HandleShortcutIntent(navController: NavController) {
+        val data = intent.data
+        if (data != null && data.scheme == MainViewModel.LAUNCHER_SHORTCUT_SCHEME) {
+            val goalId = intent.getLongExtra(MainViewModel.LC_SHORTCUT_GOAL_ID, -100)
+            if (goalId != -100L) {
+                navController.navigate(Screens.GoalInfoScreen.withGoalId(goalId.toString()))
+                return
+            }
+            if (intent.getBooleanExtra(MainViewModel.LC_SHORTCUT_NEW_GOAL, false)) {
+                navController.navigate(Screens.InputScreen.route)
+            }
+        }
+    }
+
+    private fun setAppShortcuts() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N_MR1) {
+            return // shortcuts are not supported on this device.
+        }
+
+        val shortcutManager = getSystemService(ShortcutManager::class.java)
+        mainViewModel.buildDynamicShortcuts(
+            context = this,
+            limit = shortcutManager.maxShortcutCountPerActivity,
+            onComplete = { shortcuts ->
+                try {
+                    shortcutManager.dynamicShortcuts = shortcuts
+                } catch (e: IllegalArgumentException) {
+                    Log.e("MainActivity", "setAppShortcuts: ${e.message}")
+                }
+            }
+        )
     }
 }

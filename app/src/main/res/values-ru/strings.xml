@@ -199,6 +199,8 @@
     <string name="about_screen_header">О приложении</string>
     <string name="about_readme_title">ПРОЧТИ МЕНЯ</string>
     <string name="about_readme_desc">Ознакомьтесь с репозиторием на GitHub и README файл приложения.</string>
+    <string name="about_website_title">Веб-сайт</string>
+    <string name="about_website_desc">Посетите наш веб-сайт, чтобы получить больше информации и изучить наши другие приложения и проекты!</string>
     <string name="about_privacy_title">Политика конфиденциальности</string>
     <string name="about_privacy_desc">Ознакомьтесь с нашей последней политикой конфиденциальности и условиями обслуживания на GitHub.</string>
     <string name="about_gh_issue_title">Багтрекер GitHub</string>

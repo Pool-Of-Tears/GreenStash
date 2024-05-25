@@ -199,6 +199,8 @@
     <string name="about_screen_header">Acerca de</string>
     <string name="about_readme_title">LÉEME</string>
     <string name="about_readme_desc">Mira el repositorio de Github y el README de la aplicación.</string>
+    <string name="about_website_title">Sitio web</string>
+    <string name="about_website_desc">¡Visita nuestro sitio web para obtener más información y explorar nuestras otras aplicaciones y proyectos!</string>
     <string name="about_privacy_title">Política de Seguridad</string>
     <string name="about_privacy_desc">Lee nuestra última política de seguridad y términos de servicio en Github.</string>
     <string name="about_gh_issue_title">Solicitudes de Github</string>

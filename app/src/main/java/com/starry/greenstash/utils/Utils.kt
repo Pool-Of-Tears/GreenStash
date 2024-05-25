@@ -145,6 +145,10 @@ object Utils {
      * @return True if the device is running on MIUI, false otherwise
      */
     fun isMiui(excludeHyperOS: Boolean = true): Boolean {
+        // Check if the device is manufactured by Xiaomi, Redmi, or POCO.
+        val brand = Build.BRAND.lowercase()
+        if (!setOf("xiaomi", "redmi", "poco").contains(brand)) return false
+        // Check if the device is running on MIUI.
         val isMiui = !getProperty("ro.miui.ui.version.name").isNullOrBlank()
         val isHyperOS = !getProperty("ro.mi.os.version.name").isNullOrBlank()
         return isMiui && (!excludeHyperOS || !isHyperOS)

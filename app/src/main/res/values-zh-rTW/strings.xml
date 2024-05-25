@@ -198,6 +198,8 @@
     <string name="about_screen_header">關於</string>
     <string name="about_readme_title">讀我檔案</string>
     <string name="about_readme_desc">檢視 GitHub 專案及讀我檔案。</string>
+    <string name="about_website_title">網站</string>
+    <string name="about_website_desc">查看我們的網站以獲取更多信息，探索我們的其他應用和項目！</string>
     <string name="about_privacy_title">隱私權政策</string>
     <string name="about_privacy_desc">在 GitHub 上閱讀我們最新的隱私權政策和服務條款。</string>
     <string name="about_gh_issue_title">GitHub Issue</string>

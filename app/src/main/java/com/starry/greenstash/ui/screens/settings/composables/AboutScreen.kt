@@ -35,6 +35,7 @@ import androidx.compose.material.icons.automirrored.filled.Notes
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.PrivacyTip
+import androidx.compose.material.icons.filled.Web
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -54,7 +55,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.starry.greenstash.BuildConfig
 import com.starry.greenstash.R
 import com.starry.greenstash.ui.theme.greenstashFont
@@ -63,6 +66,7 @@ import com.starry.greenstash.utils.weakHapticFeedback
 
 sealed class AboutLinks(val url: String) {
     data object ReadMe : AboutLinks("https://github.com/Pool-Of-Tears/GreenStash")
+    data object Website : AboutLinks("https://pooloftears.in")
     data object PrivacyPolicy :
         AboutLinks("https://github.com/Pool-Of-Tears/GreenStash/blob/main/legal/PRIVACY-POLICY.md")
 
@@ -116,6 +120,13 @@ fun AboutScreen(navController: NavController) {
                     description = stringResource(id = R.string.about_readme_desc),
                     icon = Icons.AutoMirrored.Filled.Notes,
                     onClick = { Utils.openWebLink(context, AboutLinks.ReadMe.url) }
+                )
+            }
+            item {
+                SettingsItem(title = stringResource(id = R.string.about_website_title),
+                    description = stringResource(id = R.string.about_website_desc),
+                    icon = Icons.Filled.Web,
+                    onClick = { Utils.openWebLink(context, AboutLinks.Website.url)}
                 )
             }
             item {
@@ -173,4 +184,10 @@ fun getVersionReport(): String {
         .append("Device information: ${Build.MANUFACTURER} ${Build.MODEL} (${Build.DEVICE})\n")
         .append("Supported ABIs: ${Build.SUPPORTED_ABIS.contentToString()}\n")
         .toString()
+}
+
+@Preview
+@Composable
+fun AboutScreenPV() {
+    AboutScreen(navController = rememberNavController())
 }

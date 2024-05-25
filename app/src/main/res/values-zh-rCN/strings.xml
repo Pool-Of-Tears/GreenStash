@@ -199,6 +199,8 @@
     <string name="about_screen_header">关于</string>
     <string name="about_readme_title">README</string>
     <string name="about_readme_desc">在Github上查看应用及其README文档。</string>
+    <string name="about_website_title">网站</string>
+    <string name="about_website_desc">查看我们的网站获取更多信息，探索我们的其他应用和项目！</string>
     <string name="about_privacy_title">隐私政策</string>
     <string name="about_privacy_desc">在Github上阅读我们最新的隐私政策和服务条款。</string>
     <string name="about_gh_issue_title">Github问题</string>
