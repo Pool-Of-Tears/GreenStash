@@ -16,8 +16,8 @@ android {
         applicationId "com.starry.greenstash"
         minSdk 24
         targetSdk 34
-        versionCode 360
-        versionName "3.6.0"
+        versionCode 370
+        versionName "3.7.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -123,7 +123,7 @@ dependencies {
     implementation 'com.maxkeppeler.sheets-compose-dialogs:calendar:1.3.0'
     implementation 'com.maxkeppeler.sheets-compose-dialogs:date-time:1.3.0'
     // Tap-target compose.
-    implementation "com.pierfrancescosoffritti.taptargetcompose:core:1.1.1"
+    implementation "com.pierfrancescosoffritti.taptargetcompose:core:1.1.2"
     // Lottie animations.
     implementation "com.airbnb.android:lottie-compose:6.4.0"
     // Bio-metric authentication.
