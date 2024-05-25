@@ -1,0 +1,10 @@
+We now have a website! Come visit us at https://pooloftears.in to explore more!
+
+Changes:
+- Improved widget design and responsiveness.
+- Added launcher shortcuts for quick access to some functionalities.
+- Added Italian translations.
+- Added Portuguese translations.
+- Disabled app locale settings on MIUI devices to prevent crashes due to Xiaomi's broken implementation.
+- Fixed backup files were not being saved in some file managers, such as Solid Explorer.
+- Some other minor fixes and improvements.
