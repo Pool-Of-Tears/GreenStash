@@ -47,7 +47,7 @@ import com.starry.greenstash.ui.screens.settings.ThemeMode
 import com.starry.greenstash.ui.theme.AdjustEdgeToEdge
 
 /**
- * Main (container) screen of the app which contains the navigation graph.
+ * Main (container) screen of the app which contains the navigation graph
  * and authentication screen if app is locked.
  */
 @Composable
