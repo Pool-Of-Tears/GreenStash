@@ -131,7 +131,7 @@ class MainViewModel @Inject constructor(
                 })
             }.build()
 
-            val shortCuts = listOf(newGoalShortcut) + topGoals.map { goal ->
+            val shortcuts = listOf(newGoalShortcut) + topGoals.map { goal ->
                 val intent = Intent().apply {
                     action = Intent.ACTION_VIEW
                     data = Uri.parse("$LAUNCHER_SHORTCUT_SCHEME://goalId")
@@ -145,7 +145,7 @@ class MainViewModel @Inject constructor(
                 }.build()
             }
 
-            withContext(Dispatchers.Main) { onComplete(shortCuts) }
+            withContext(Dispatchers.Main) { onComplete(shortcuts) }
         }
 
     }

@@ -45,7 +45,6 @@ import dagger.hilt.EntryPoints
 
 
 private const val WIDGET_MANUAL_REFRESH = "widget_manual_refresh"
-private const val MAX_AMOUNT_DIGITS = 1000
 private const val FULL_WIDGET_MIN_HEIGHT = 110
 
 class GoalWidget : AppWidgetProvider() {
@@ -117,14 +116,10 @@ class GoalWidget : AppWidgetProvider() {
         val datePattern = preferenceUtil.getString(PreferenceUtil.DATE_FORMAT_STR, "")!!
 
         val savedAmount = goalItem.getCurrentlySavedAmount().let {
-            if (it > MAX_AMOUNT_DIGITS) {
-                "${NumberUtils.getCurrencySymbol(defCurrency)}${NumberUtils.prettyCount(it)}"
-            } else NumberUtils.formatCurrency(it, defCurrency)
+            "${NumberUtils.getCurrencySymbol(defCurrency)}${NumberUtils.prettyCount(it)}"
         }
         val targetAmount = goalItem.goal.targetAmount.let {
-            if (it > MAX_AMOUNT_DIGITS) {
-                "${NumberUtils.getCurrencySymbol(defCurrency)}${NumberUtils.prettyCount(it)}"
-            } else NumberUtils.formatCurrency(it, defCurrency)
+            "${NumberUtils.getCurrencySymbol(defCurrency)}${NumberUtils.prettyCount(it)}"
         }
         val widgetDesc = context.getString(R.string.goal_widget_desc)
             .format("$savedAmount / $targetAmount")
@@ -180,9 +175,7 @@ class GoalWidget : AppWidgetProvider() {
                 // Build amount per day text by checking if the amount is greater than MAX_AMOUNT_DIGITS,
                 // if yes, then use prettyCount to format the amount.
                 val amountPerDayText = calcPerDayAmount.let {
-                    if (it > MAX_AMOUNT_DIGITS) {
-                        "${NumberUtils.getCurrencySymbol(defCurrency)}${NumberUtils.prettyCount(it)}"
-                    } else NumberUtils.formatCurrency(it, defCurrency)
+                    "${NumberUtils.getCurrencySymbol(defCurrency)}${NumberUtils.prettyCount(it)}"
                 } + "/${context.getString(R.string.goal_approx_saving_day)}".let {
                     if (localeEnglish) it.dropLast(1) else it
                 }
@@ -198,9 +191,7 @@ class GoalWidget : AppWidgetProvider() {
                 // Build amount per week text by checking if the amount is greater than MAX_AMOUNT_DIGITS,
                 // if yes, then use prettyCount to format the amount.
                 val amountPerWeekText = calcPerWeekAmount.let {
-                    if (it > MAX_AMOUNT_DIGITS) {
-                        "${NumberUtils.getCurrencySymbol(defCurrency)}${NumberUtils.prettyCount(it)}"
-                    } else NumberUtils.formatCurrency(it, defCurrency)
+                    "${NumberUtils.getCurrencySymbol(defCurrency)}${NumberUtils.prettyCount(it)}"
                 } + "/${context.getString(R.string.goal_approx_saving_week)}".let {
                     if (localeEnglish) it.dropLast(1) else it
                 }
