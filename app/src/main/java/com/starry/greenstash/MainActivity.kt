@@ -34,28 +34,13 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
-import androidx.compose.animation.Crossfade
-import androidx.compose.animation.core.tween
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Modifier
 import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
-import com.starry.greenstash.ui.navigation.NavGraph
-import com.starry.greenstash.ui.navigation.Screens
-import com.starry.greenstash.ui.screens.other.AppLockedScreen
+import com.starry.greenstash.ui.screens.main.MainScreen
 import com.starry.greenstash.ui.screens.settings.SettingsViewModel
-import com.starry.greenstash.ui.theme.AdjustEdgeToEdge
 import com.starry.greenstash.ui.theme.GreenStashTheme
 import com.starry.greenstash.utils.Utils
 import com.starry.greenstash.utils.toToast
@@ -142,71 +127,31 @@ class MainActivity : AppCompatActivity() {
 
         // set app contents based on the value of showAppContents.
         setAppContents(showAppContents)
-        // Set launcher shortcuts on Android 7.1 and above.
-        setAppShortcuts()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // update shortcuts when app is resumed.
+        updateShortcuts()
     }
 
     private fun setAppContents(showAppContents: State<Boolean>) {
         setContent {
             GreenStashTheme(settingsViewModel = settingsViewModel) {
-                // fix status bar icon color in dark mode.
-                AdjustEdgeToEdge(
+                MainScreen(
                     activity = this,
-                    themeState = settingsViewModel.getCurrentTheme()
-                )
-
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    val navController = rememberNavController()
-                    val startDestination by mainViewModel.startDestination
-
-                    Crossfade(
-                        targetState = showAppContents,
-                        label = "AppLockCrossFade",
-                        animationSpec = tween(500)
-                    ) { showAppContents ->
-                        // show app contents only if user has authenticated.
-                        if (showAppContents.value) {
-                            NavGraph(navController = navController, startDestination)
-                            // Handle and navigate to shortcut destinations after the UI is
-                            // properly loaded.
-                            val shouldHandleShortCut = remember { mutableStateOf(false) }
-                            LaunchedEffect(key1 = true) {
-                                shouldHandleShortCut.value = true
-                            }
-                            if (shouldHandleShortCut.value) {
-                                HandleShortcutIntent(navController)
-                            }
-                        } else {
-                            // show app locked screen if user has not authenticated.
-                            AppLockedScreen(onAuthRequest = {
-                                biometricPrompt.authenticate(promptInfo)
-                            })
-                        }
+                    showAppContents = showAppContents.value,
+                    startDestination = mainViewModel.startDestination.value,
+                    currentThemeMode = settingsViewModel.getCurrentTheme(),
+                    onAuthRequest = {
+                        biometricPrompt.authenticate(promptInfo)
                     }
-                }
+                )
             }
         }
     }
 
-    @Composable
-    private fun HandleShortcutIntent(navController: NavController) {
-        val data = intent.data
-        if (data != null && data.scheme == MainViewModel.LAUNCHER_SHORTCUT_SCHEME) {
-            val goalId = intent.getLongExtra(MainViewModel.LC_SHORTCUT_GOAL_ID, -100)
-            if (goalId != -100L) {
-                navController.navigate(Screens.GoalInfoScreen.withGoalId(goalId.toString()))
-                return
-            }
-            if (intent.getBooleanExtra(MainViewModel.LC_SHORTCUT_NEW_GOAL, false)) {
-                navController.navigate(Screens.InputScreen.route)
-            }
-        }
-    }
-
-    private fun setAppShortcuts() {
+    private fun updateShortcuts() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N_MR1) {
             return // shortcuts are not supported on this device.
         }
@@ -219,7 +164,7 @@ class MainActivity : AppCompatActivity() {
                 try {
                     shortcutManager.dynamicShortcuts = shortcuts
                 } catch (e: IllegalArgumentException) {
-                    Log.e("MainActivity", "setAppShortcuts: ${e.message}")
+                    Log.e("MainActivity", "Failed to update shortcuts", e)
                 }
             }
         )
