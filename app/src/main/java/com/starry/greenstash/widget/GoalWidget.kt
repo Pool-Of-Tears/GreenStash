@@ -172,8 +172,7 @@ class GoalWidget : AppWidgetProvider() {
                 // Calculate amount needed to save per day.
                 val calcPerDayAmount =
                     NumberUtils.roundDecimal(remainingAmount / calculatedDays.remainingDays)
-                // Build amount per day text by checking if the amount is greater than MAX_AMOUNT_DIGITS,
-                // if yes, then use prettyCount to format the amount.
+                // Build amount per day text using prettyCount to format the amount.
                 val amountPerDayText = calcPerDayAmount.let {
                     "${NumberUtils.getCurrencySymbol(defCurrency)}${NumberUtils.prettyCount(it)}"
                 } + "/${context.getString(R.string.goal_approx_saving_day)}".let {
@@ -188,8 +187,7 @@ class GoalWidget : AppWidgetProvider() {
                 // Calculate amount needed to save per week.
                 val calcPerWeekAmount =
                     NumberUtils.roundDecimal(remainingAmount / (calculatedDays.remainingDays / 7))
-                // Build amount per week text by checking if the amount is greater than MAX_AMOUNT_DIGITS,
-                // if yes, then use prettyCount to format the amount.
+                // Build amount per week text using prettyCount to format the amount.
                 val amountPerWeekText = calcPerWeekAmount.let {
                     "${NumberUtils.getCurrencySymbol(defCurrency)}${NumberUtils.prettyCount(it)}"
                 } + "/${context.getString(R.string.goal_approx_saving_week)}".let {
