@@ -90,7 +90,7 @@ class MainViewModel @Inject constructor(
                     _startDestination.value = Screens.WelcomeScreen.route
                 }
 
-                delay(100)
+                delay(120)
                 _isLoading.value = false
             }
         }

@@ -31,7 +31,7 @@
 
     <!-- Welcome Screen. -->
     <string name="welcome_screen_text">Hello! Please select your preferred currency to get started.</string>
-    <string name="welcome_screen_button">Let\'s Get Started!</string>
+    <string name="welcome_screen_button">Get Started!</string>
 
     <!-- App Lock Screen -->
     <string name="app_lock_screen_title">GreenStash is locked</string>
