@@ -34,18 +34,17 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -68,6 +67,7 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.starry.greenstash.R
 import com.starry.greenstash.ui.common.CurrencyPicker
 import com.starry.greenstash.ui.common.CurrencyPickerData
+import com.starry.greenstash.ui.common.SlideInAnimatedContainer
 import com.starry.greenstash.ui.navigation.DrawerScreens
 import com.starry.greenstash.ui.screens.welcome.WelcomeViewModel
 import com.starry.greenstash.ui.theme.greenstashFont
@@ -92,7 +92,8 @@ fun WelcomeScreen(navController: NavController) {
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
             .verticalScroll(rememberScrollState()),
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         val compositionResult: LottieCompositionResult =
             rememberLottieComposition(
@@ -105,7 +106,11 @@ fun WelcomeScreen(navController: NavController) {
             speed = 1f
         )
 
-        Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .offset(y = 25.dp), contentAlignment = Alignment.Center
+        ) {
             LottieAnimation(
                 composition = compositionResult.value,
                 progress = { progressAnimation },
@@ -114,16 +119,7 @@ fun WelcomeScreen(navController: NavController) {
             )
         }
 
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 24.dp, vertical = 14.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(
-                    4.dp
-                )
-            )
-        ) {
+        SlideInAnimatedContainer(initialDelay = 2800L) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -138,13 +134,17 @@ fun WelcomeScreen(navController: NavController) {
                     textAlign = TextAlign.Center,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 24.dp, vertical = 12.dp)
+                        .padding(horizontal = 24.dp)
                 )
+
+                Spacer(modifier = Modifier.height(24.dp))
 
                 OutlinedButton(
                     onClick = { currencyDialog.value = true },
-                    modifier = Modifier.animateContentSize(),
-                    shape = RoundedCornerShape(12.dp),
+                    modifier = Modifier
+                        .width(230.dp)
+                        .animateContentSize(),
+                    shape = RoundedCornerShape(16.dp),
                 ) {
                     Text(
                         text = selectedCurrencyName.value,
@@ -155,34 +155,26 @@ fun WelcomeScreen(navController: NavController) {
                 }
 
                 Spacer(modifier = Modifier.height(8.dp))
-            }
 
-        }
-
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(44.dp),
-            contentAlignment = Alignment.Center
-        ) {
-            FilledTonalButton(
-                onClick = {
-                    viewModel.saveOnBoardingState(completed = true)
-                    navController.popBackStack()
-                    navController.navigate(DrawerScreens.Home.route)
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 26.dp),
-                shape = RoundedCornerShape(12.dp)
-            ) {
-                Text(
-                    text = stringResource(id = R.string.welcome_screen_button),
-                    fontFamily = greenstashFont,
-                    fontWeight = FontWeight.Medium
-                )
+                FilledTonalButton(
+                    onClick = {
+                        viewModel.saveOnBoardingState(completed = true)
+                        navController.popBackStack()
+                        navController.navigate(DrawerScreens.Home.route)
+                    },
+                    modifier = Modifier.width(230.dp),
+                    shape = RoundedCornerShape(16.dp)
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.welcome_screen_button),
+                        fontFamily = greenstashFont,
+                        fontWeight = FontWeight.Medium
+                    )
+                }
             }
         }
+
+        Spacer(modifier = Modifier.height(24.dp))
 
         CurrencyPicker(
             defaultCurrencyValue = viewModel.getDefaultCurrencyValue()
