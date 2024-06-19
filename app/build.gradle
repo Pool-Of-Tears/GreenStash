@@ -79,17 +79,17 @@ aboutLibraries {
 
 dependencies {
 
-    def composeBom = platform('androidx.compose:compose-bom:2024.05.00')
+    def composeBom = platform('androidx.compose:compose-bom:2024.06.00')
     implementation composeBom
     androidTestImplementation composeBom
 
     // Android core components.
     implementation 'androidx.core:core-ktx:1.13.1'
     implementation 'androidx.appcompat:appcompat:1.7.0'
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.7.0'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.8.2'
     implementation 'androidx.activity:activity-compose:1.9.0'
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.7.0"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.8.2"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.8.2"
     implementation "androidx.navigation:navigation-compose:2.7.7"
     // Jetpack compose.
     implementation "androidx.compose.ui:ui"
@@ -103,7 +103,7 @@ dependencies {
     // Android 12+ splash API.
     implementation 'androidx.core:core-splashscreen:1.0.1'
     // Material icons.
-    implementation 'androidx.compose.material:material-icons-extended:1.6.7'
+    implementation 'androidx.compose.material:material-icons-extended:1.6.8'
     // Room database
     implementation "androidx.room:room-ktx:$room_version"
     ksp "androidx.room:room-compiler:$room_version"
@@ -118,7 +118,7 @@ dependencies {
     // Gson JSON parser.
     implementation 'com.google.code.gson:gson:2.10.1'
     // Coil Image loading library.
-    implementation "io.coil-kt:coil-compose:2.4.0"
+    implementation "io.coil-kt:coil-compose:2.6.0"
     // Material 3 calender / Date picker.
     implementation 'com.maxkeppeler.sheets-compose-dialogs:core:1.3.0'
     implementation 'com.maxkeppeler.sheets-compose-dialogs:calendar:1.3.0'
