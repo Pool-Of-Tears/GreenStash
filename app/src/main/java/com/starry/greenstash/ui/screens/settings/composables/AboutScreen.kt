@@ -126,7 +126,7 @@ fun AboutScreen(navController: NavController) {
                 SettingsItem(title = stringResource(id = R.string.about_website_title),
                     description = stringResource(id = R.string.about_website_desc),
                     icon = Icons.Filled.Web,
-                    onClick = { Utils.openWebLink(context, AboutLinks.Website.url)}
+                    onClick = { Utils.openWebLink(context, AboutLinks.Website.url) }
                 )
             }
             item {

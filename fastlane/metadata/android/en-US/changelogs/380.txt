@@ -1,0 +1,5 @@
+- Improved the update method for launcher shortcuts so you no longer need to relaunch the app to update them.
+- Enhanced the UI of the welcome/onboarding screen.
+- improved performance in some cases such as navigating between screens.
+- Fixed the amount truncation logic in widgets.
+- Adjusted the line height of title and description texts in classic style goal items.
