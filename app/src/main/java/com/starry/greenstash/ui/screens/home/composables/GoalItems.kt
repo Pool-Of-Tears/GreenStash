@@ -151,7 +151,7 @@ fun GoalItemClassic(
                 Text(
                     text = primaryText,
                     modifier = Modifier.padding(start = 8.dp, top = 6.dp),
-                    lineHeight = 1.2f.em,
+                    lineHeight = 1.25f.em,
                     fontSize = 14.sp,
                     fontFamily = greenstashFont,
                     color = MaterialTheme.colorScheme.onSurface
@@ -159,7 +159,7 @@ fun GoalItemClassic(
                 Text(
                     text = secondaryText,
                     modifier = Modifier.padding(start = 8.dp, top = 8.dp),
-                    lineHeight = 1.1f.em,
+                    lineHeight = 1.3f.em,
                     fontSize = 14.sp,
                     fontFamily = greenstashFont,
                     color = MaterialTheme.colorScheme.onSurface
