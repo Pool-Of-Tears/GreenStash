@@ -52,6 +52,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -71,10 +72,12 @@ import com.starry.greenstash.ui.common.SlideInAnimatedContainer
 import com.starry.greenstash.ui.navigation.DrawerScreens
 import com.starry.greenstash.ui.screens.welcome.WelcomeViewModel
 import com.starry.greenstash.ui.theme.greenstashFont
+import com.starry.greenstash.utils.weakHapticFeedback
 
 
 @Composable
 fun WelcomeScreen(navController: NavController) {
+    val view = LocalView.current
     val context = LocalContext.current
     val viewModel: WelcomeViewModel = hiltViewModel()
 
@@ -142,7 +145,7 @@ fun WelcomeScreen(navController: NavController) {
                 OutlinedButton(
                     onClick = { currencyDialog.value = true },
                     modifier = Modifier
-                        .width(230.dp)
+                        .width(245.dp)
                         .animateContentSize(),
                     shape = RoundedCornerShape(16.dp),
                 ) {
@@ -158,11 +161,12 @@ fun WelcomeScreen(navController: NavController) {
 
                 FilledTonalButton(
                     onClick = {
+                        view.weakHapticFeedback()
                         viewModel.saveOnBoardingState(completed = true)
                         navController.popBackStack()
                         navController.navigate(DrawerScreens.Home.route)
                     },
-                    modifier = Modifier.width(230.dp),
+                    modifier = Modifier.width(245.dp),
                     shape = RoundedCornerShape(16.dp)
                 ) {
                     Text(
@@ -174,7 +178,7 @@ fun WelcomeScreen(navController: NavController) {
             }
         }
 
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(34.dp))
 
         CurrencyPicker(
             defaultCurrencyValue = viewModel.getDefaultCurrencyValue()
