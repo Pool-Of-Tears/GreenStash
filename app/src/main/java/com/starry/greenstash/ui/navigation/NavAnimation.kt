@@ -35,7 +35,7 @@ import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 
 // Duration of the navigation animation
-private const val NAVIGATION_ANIM_DURATION = 360
+private const val NAVIGATION_ANIM_DURATION = 300
 
 /**
  * Enter transition for the navigation animation
