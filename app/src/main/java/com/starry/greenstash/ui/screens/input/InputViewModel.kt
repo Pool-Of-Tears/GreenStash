@@ -43,8 +43,8 @@ import com.starry.greenstash.database.goal.GoalPriority
 import com.starry.greenstash.reminder.ReminderManager
 import com.starry.greenstash.ui.screens.settings.DateStyle
 import com.starry.greenstash.utils.ImageUtils
+import com.starry.greenstash.utils.NumberUtils
 import com.starry.greenstash.utils.PreferenceUtil
-import com.starry.greenstash.utils.Utils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -107,7 +107,7 @@ class InputViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             val goal = Goal(
                 title = state.goalTitleText,
-                targetAmount = Utils.roundDecimal(state.targetAmount.toDouble()),
+                targetAmount = NumberUtils.roundDecimal(state.targetAmount.toDouble()),
                 deadline = state.deadline,
                 goalImage = if (state.goalImageUri != null) ImageUtils.uriToBitmap(
                     uri = state.goalImageUri!!, context = context, maxSize = 1024
@@ -152,7 +152,7 @@ class InputViewModel @Inject constructor(
             val goal = goalDao.getGoalById(goalId)!!
             val newGoal = Goal(
                 title = state.goalTitleText,
-                targetAmount = Utils.roundDecimal(state.targetAmount.toDouble()),
+                targetAmount = NumberUtils.roundDecimal(state.targetAmount.toDouble()),
                 deadline = state.deadline,
                 goalImage = if (state.goalImageUri != null) ImageUtils.uriToBitmap(
                     uri = state.goalImageUri!!, context = context, maxSize = 1024

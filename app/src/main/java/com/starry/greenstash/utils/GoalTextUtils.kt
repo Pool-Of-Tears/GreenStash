@@ -87,8 +87,11 @@ object GoalTextUtils {
             "\n" + context.getString(R.string.currently_saved_complete)
         }
         text = text.format(
-            Utils.formatCurrency(goalItem.getCurrentlySavedAmount(), currencyCode = currencyCode),
-            Utils.formatCurrency(goalItem.goal.targetAmount, currencyCode = currencyCode)
+            NumberUtils.formatCurrency(
+                goalItem.getCurrentlySavedAmount(),
+                currencyCode = currencyCode
+            ),
+            NumberUtils.formatCurrency(goalItem.goal.targetAmount, currencyCode = currencyCode)
         )
         return text
     }
@@ -117,8 +120,8 @@ object GoalTextUtils {
                     .format(calculatedDays.parsedEndDate, calculatedDays.remainingDays) + "\n"
                 if (calculatedDays.remainingDays > 2) {
                     text += context.getString(R.string.goal_approx_saving).format(
-                        Utils.formatCurrency(
-                            Utils.roundDecimal(remainingAmount / calculatedDays.remainingDays),
+                        NumberUtils.formatCurrency(
+                            NumberUtils.roundDecimal(remainingAmount / calculatedDays.remainingDays),
                             currencyCode = currencyCode
                         )
                     )
@@ -127,8 +130,8 @@ object GoalTextUtils {
                         val weeks = calculatedDays.remainingDays / 7
                         text = text.dropLast(1) // remove full stop
                         text += ", ${
-                            Utils.formatCurrency(
-                                Utils.roundDecimal(
+                            NumberUtils.formatCurrency(
+                                NumberUtils.roundDecimal(
                                     remainingAmount / weeks
                                 ),
                                 currencyCode = currencyCode
@@ -142,8 +145,8 @@ object GoalTextUtils {
                             val months = calculatedDays.remainingDays / 30
                             text = text.dropLast(1) // remove full stop
                             text += ", ${
-                                Utils.formatCurrency(
-                                    Utils.roundDecimal(
+                                NumberUtils.formatCurrency(
+                                    NumberUtils.roundDecimal(
                                         remainingAmount / months
                                     ),
                                     currencyCode = currencyCode

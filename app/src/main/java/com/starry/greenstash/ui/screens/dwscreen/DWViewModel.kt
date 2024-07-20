@@ -10,6 +10,7 @@ import com.starry.greenstash.database.transaction.Transaction
 import com.starry.greenstash.database.transaction.TransactionDao
 import com.starry.greenstash.database.transaction.TransactionType
 import com.starry.greenstash.ui.screens.settings.DateStyle
+import com.starry.greenstash.utils.NumberUtils
 import com.starry.greenstash.utils.PreferenceUtil
 import com.starry.greenstash.utils.Utils
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -111,7 +112,7 @@ class DWViewModel @Inject constructor(
         }
     }
 
-    private fun amountToDouble(amount: String) = Utils.roundDecimal(amount.toDouble())
+    private fun amountToDouble(amount: String) = NumberUtils.roundDecimal(amount.toDouble())
 
     private suspend fun getGoalById(goalId: Long) = goalDao.getGoalById(goalId)
 

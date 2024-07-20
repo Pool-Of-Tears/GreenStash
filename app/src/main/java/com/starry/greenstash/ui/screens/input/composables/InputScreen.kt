@@ -144,7 +144,7 @@ import com.starry.greenstash.ui.navigation.DrawerScreens
 import com.starry.greenstash.ui.screens.input.InputViewModel
 import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.utils.ImageUtils
-import com.starry.greenstash.utils.Utils
+import com.starry.greenstash.utils.NumberUtils
 import com.starry.greenstash.utils.getActivity
 import com.starry.greenstash.utils.hasNotificationPermission
 import com.starry.greenstash.utils.toToast
@@ -883,7 +883,7 @@ private fun InputTextFields(
 
     OutlinedTextField(
         value = targetAmount,
-        onValueChange = { newText -> onAmountChange(Utils.getValidatedNumber(newText)) },
+        onValueChange = { newText -> onAmountChange(NumberUtils.getValidatedNumber(newText)) },
         modifier = Modifier.fillMaxWidth(0.86f),
         label = {
             Text(
