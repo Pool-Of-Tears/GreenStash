@@ -69,7 +69,7 @@ import com.starry.greenstash.database.transaction.TransactionType
 import com.starry.greenstash.ui.common.DateTimeCard
 import com.starry.greenstash.ui.screens.info.InfoViewModel
 import com.starry.greenstash.ui.theme.greenstashFont
-import com.starry.greenstash.utils.Utils
+import com.starry.greenstash.utils.NumberUtils
 import com.starry.greenstash.utils.toToast
 import com.starry.greenstash.utils.validateAmount
 import kotlinx.coroutines.delay
@@ -198,7 +198,7 @@ fun EditTransactionSheet(
                         onValueChange = { newText ->
                             viewModel.editGoalState =
                                 viewModel.editGoalState.copy(
-                                    amount = Utils.getValidatedNumber(
+                                    amount = NumberUtils.getValidatedNumber(
                                         newText
                                     )
                                 )
