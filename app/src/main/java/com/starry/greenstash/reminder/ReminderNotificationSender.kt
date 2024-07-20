@@ -37,8 +37,8 @@ import com.starry.greenstash.database.goal.GoalPriority
 import com.starry.greenstash.reminder.receivers.ReminderDepositReceiver
 import com.starry.greenstash.reminder.receivers.ReminderDismissReceiver
 import com.starry.greenstash.utils.GoalTextUtils
+import com.starry.greenstash.utils.NumberUtils
 import com.starry.greenstash.utils.PreferenceUtil
-import com.starry.greenstash.utils.Utils
 
 
 /**
@@ -94,8 +94,8 @@ class ReminderNotificationSender(
                     notification.addAction(
                         R.drawable.ic_notification_deposit,
                         "${context.getString(R.string.deposit_button)} ${
-                            Utils.formatCurrency(
-                                amount = Utils.roundDecimal(amountDay),
+                            NumberUtils.formatCurrency(
+                                amount = NumberUtils.roundDecimal(amountDay),
                                 currencyCode = defCurrency
                             )
                         }",
@@ -108,8 +108,8 @@ class ReminderNotificationSender(
                     notification.addAction(
                         R.drawable.ic_notification_deposit,
                         "${context.getString(R.string.deposit_button)} ${
-                            Utils.formatCurrency(
-                                amount = Utils.roundDecimal(amountSemiWeek),
+                            NumberUtils.formatCurrency(
+                                amount = NumberUtils.roundDecimal(amountSemiWeek),
                                 currencyCode = defCurrency
                             )
                         }",
@@ -122,8 +122,8 @@ class ReminderNotificationSender(
                     notification.addAction(
                         R.drawable.ic_notification_deposit,
                         "${context.getString(R.string.deposit_button)} ${
-                            Utils.formatCurrency(
-                                amount = Utils.roundDecimal(amountWeek),
+                            NumberUtils.formatCurrency(
+                                amount = NumberUtils.roundDecimal(amountWeek),
                                 currencyCode = defCurrency
                             )
                         }",
@@ -153,7 +153,12 @@ class ReminderNotificationSender(
             .setContentTitle(context.getString(R.string.notification_deposited_title))
             .setContentText(
                 context.getString(R.string.notification_deposited_desc)
-                    .format(Utils.formatCurrency(Utils.roundDecimal(amount), defCurrency!!))
+                    .format(
+                        NumberUtils.formatCurrency(
+                            NumberUtils.roundDecimal(amount),
+                            defCurrency!!
+                        )
+                    )
             )
             .setStyle(NotificationCompat.BigTextStyle())
             .setContentIntent(createActivityIntent())

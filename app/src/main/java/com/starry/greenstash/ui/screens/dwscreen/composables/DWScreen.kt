@@ -87,7 +87,7 @@ import com.starry.greenstash.ui.navigation.DrawerScreens
 import com.starry.greenstash.ui.navigation.Screens
 import com.starry.greenstash.ui.screens.dwscreen.DWViewModel
 import com.starry.greenstash.ui.theme.greenstashFont
-import com.starry.greenstash.utils.Utils
+import com.starry.greenstash.utils.NumberUtils
 import com.starry.greenstash.utils.validateAmount
 import com.starry.greenstash.utils.weakHapticFeedback
 import kotlinx.coroutines.CoroutineScope
@@ -181,7 +181,7 @@ fun DWScreen(goalId: String, transactionTypeName: String, navController: NavCont
                     notesValue = viewModel.state.notes,
                     onAmountChange = { amount ->
                         viewModel.state =
-                            viewModel.state.copy(amount = Utils.getValidatedNumber(amount))
+                            viewModel.state.copy(amount = NumberUtils.getValidatedNumber(amount))
                     },
                     onNotesChange = { notes ->
                         viewModel.state = viewModel.state.copy(notes = notes)

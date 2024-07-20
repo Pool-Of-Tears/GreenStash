@@ -103,7 +103,7 @@ import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.ui.theme.greenstashNumberFont
 import com.starry.greenstash.utils.Constants
 import com.starry.greenstash.utils.ImageUtils
-import com.starry.greenstash.utils.Utils
+import com.starry.greenstash.utils.NumberUtils
 import com.starry.greenstash.utils.weakHapticFeedback
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -257,7 +257,7 @@ private fun ArchivedLazyItem(
         ArchivedGoalItem(
             title = goalItem.goal.title,
             icon = goalIcon,
-            savedAmount = Utils.formatCurrency(
+            savedAmount = NumberUtils.formatCurrency(
                 goalItem.getCurrentlySavedAmount(),
                 defaultCurrency
             ),

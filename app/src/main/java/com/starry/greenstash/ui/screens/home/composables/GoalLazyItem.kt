@@ -49,7 +49,7 @@ import com.starry.greenstash.ui.screens.home.HomeViewModel
 import com.starry.greenstash.utils.Constants
 import com.starry.greenstash.utils.GoalTextUtils
 import com.starry.greenstash.utils.ImageUtils
-import com.starry.greenstash.utils.Utils
+import com.starry.greenstash.utils.NumberUtils
 import com.starry.greenstash.utils.getActivity
 import com.starry.greenstash.utils.strongHapticFeedback
 import com.starry.greenstash.utils.weakHapticFeedback
@@ -171,7 +171,7 @@ fun GoalLazyColumnItem(
 
             GoalItemCompact(
                 title = item.goal.title,
-                savedAmount = Utils.formatCurrency(
+                savedAmount = NumberUtils.formatCurrency(
                     item.getCurrentlySavedAmount(),
                     viewModel.getDefaultCurrency()
                 ),
