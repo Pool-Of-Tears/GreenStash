@@ -62,6 +62,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.maxkeppeker.sheets.core.models.base.rememberUseCaseState
 import com.maxkeppeler.sheets.date_time.DateTimeDialog
+import com.maxkeppeler.sheets.date_time.models.DateTimeConfig
 import com.maxkeppeler.sheets.date_time.models.DateTimeSelection
 import com.starry.greenstash.R
 import com.starry.greenstash.database.transaction.Transaction
@@ -76,6 +77,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.time.Instant
 import java.time.LocalDateTime
+import java.util.Locale
 import java.util.TimeZone
 
 
@@ -109,7 +111,8 @@ fun EditTransactionSheet(
         selection = DateTimeSelection.DateTime(
             selectedDate = selectedDateTime.value.toLocalDate(),
             selectedTime = selectedDateTime.value.toLocalTime(),
-        ) { newDateTime -> selectedDateTime.value = newDateTime }
+        ) { newDateTime -> selectedDateTime.value = newDateTime },
+        config = DateTimeConfig(locale = Locale.US)
     )
 
     if (showEditTransaction.value) {
