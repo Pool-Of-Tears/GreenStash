@@ -1,0 +1,3 @@
+- Fixed inconsistent behavior of date & time picker dialog in different locales.
+- Bump target SDK version to v35 (Android 15).
+- Update dependencies & some minor improvements.
