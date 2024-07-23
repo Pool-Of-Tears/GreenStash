@@ -1,0 +1,212 @@
+<resources>
+    <string name="app_name" translatable="false">GreenStash</string>
+
+    <!-- Other Strings -->
+    <string name="confirm">تأكيد</string>
+    <string name="cancel">إلغاء</string>
+    <string name="ok">حسنًا</string>
+    <string name="unknown_error">عذرًا! حدث خطأ ما.</string>
+
+    <!-- Navigation Drawer -->
+    <string name="drawer_home">الصفحة الرئيسة</string>
+    <string name="drawer_archive">الأرشيف</string>
+    <string name="drawer_backup">النسخ الاحتياطي</string>
+    <string name="drawer_settings">الإعدادات</string>
+    <string name="drawer_rating">قيّمنا</string>
+    <string name="drawer_share">مشاركة</string>
+    <string name="drawer_privacy">الخصوصية</string>
+    <string name="drawer_footer_text">مصنوع بحب في الهند.</string>
+    <string name="drawer_share_message">
+        مرحبًا! تحقق من هذا التطبيق الرائع المسمى GreenStash.
+        إنه يسهل التخطيط وإدارة أهداف التوفير الخاصة بك، ويساعدك في إنشاء عادة التوفير للأشياء الأفضل.
+        قم بتنزيله الآن من متجر Play: %s
+    </string>
+
+    <!-- Biometric Lock -->
+    <string name="bio_lock_title">افتح GreenStash</string>
+    <string name="bio_lock_subtitle">أكد قفل الشاشة أو رمز PIN أو كلمة المرور الخاصة بك.</string>
+    <string name="auth_successful">تمت المصادقة بنجاح!</string>
+    <string name="auth_failed">فشلت المصادقة!</string>
+    <string name="auth_error">خطأ في المصادقة: %s</string>
+
+    <!-- Welcome Screen. -->
+    <string name="welcome_screen_text">مرحبًا! يرجى اختيار العملة المفضلة لديك للبدء.</string>
+    <string name="welcome_screen_button">ابدأ الآن!</string>
+
+    <!-- App Lock Screen -->
+    <string name="app_lock_screen_title">تم قفل GreenStash</string>
+    <string name="app_lock_screen_subtitle">انقر على الزر أدناه للمصادقة.</string>
+    <string name="app_lock_button_text">تخويل</string>
+    <string name="app_lock_button_icon_desc">افتح التطبيق</string>
+    <string name="app_lock_unable_to_authenticate">تم تعطيل قفل التطبيق لأن الجهاز غير قادر على المصادقة</string>
+
+    <!-- Home Screen -->
+    <string name="home_screen_header">أهداف التوفير</string>
+    <string name="menu_button_desc">افتح القائمة الجانبية</string>
+    <string name="filter_button_desc">تصفية أهداف التوفير الخاصة بك</string>
+    <string name="search_button_desc">ابحث عن هدف توفير محدد.</string>
+    <string name="new_goal_fab">هدف جديد</string>
+    <string name="new_goal_onboarding_title">لنبدأ بإنشاء هدف توفير جديد!</string>
+    <string name="new_goal_onboarding_desc">انقر على زر الإجراء العائم لإنشاء هدف توفير جديد.</string>
+    <string name="home_search_label">ابحث هنا…</string>
+    <string name="search_goal_not_found">404: الهدف غير موجود!</string>
+
+    <!-- Deposit & Withdraw Screen -->
+    <string name="deposit_screen_title">رائع! أدخل المبلغ</string>
+    <string name="withdraw_screen_title">رائع! أدخل المبلغ</string>
+    <string name="deposit_successful">تم الإيداع بنجاح!</string>
+    <string name="withdraw_successful">تم السحب بنجاح!</string>
+    <string name="withdraw_overflow_error">المبلغ أكبر من المبلغ المودع الحالي!</string>
+
+    <!-- Congratulations Screen -->
+    <string name="goal_achieved_heading">تهانينا 🥳</string>
+    <string name="goal_achieved_subtext">لقد وصلت إلى هدف التوفير الخاص بك! عملك الجاد والتزامك أدى إلى هذا الإنجاز المستحق. احتفل بنجاحك! 🎉</string>
+    <string name="goal_achieved_button">عد إلى الصفحة الرئيسية</string>
+
+    <!-- Strings used for dashboard saving goals cards -->
+    <string name="no_goal_set">لم يتم تعيين أي أهداف توفير.</string>
+    <string name="transaction_amount">المبلغ</string>
+    <string name="deposit_button">إيداع</string>
+    <string name="goal_already_achieved">لقد حققت هذا الهدف بالفعل.</string>
+    <string name="withdraw_button">سحب</string>
+    <string name="withdraw_button_error">لم تقم بإيداع أي مبلغ حتى الآن.</string>
+    <string name="archive_button">أرشيف</string>
+    <string name="goal_archive_confirmation">تم الانتهاء من هذا الهدف! هل ترغب في أرشفته؟</string>
+    <string name="goal_archive_success">تم الأرشفة بنجاح.</string>
+    <string name="goal_delete_confirmation">هل أنت متأكد؟</string>
+    <string name="goal_delete_success">تم الحذف بنجاح.</string>
+    <string name="info_button_description">عرض معلومات الهدف.</string>
+    <string name="edit_button_description">تعديل هذا الهدف</string>
+    <string name="delete_button_description">حذف هذا الهدف</string>
+    <string name="add_fab_button_title">هدف جديد</string>
+    <string name="progress_greet1">أنت في طريقك لبداية رائعة!</string>
+    <string name="progress_greet2">استمر في الاستمرار!</string>
+    <string name="progress_greet3">إذا كنت تعتقد أنك تستطيع، فأنت تستطيع.</string>
+    <string name="progress_greet4">تقريبًا هناك، يمكنك تحقيق ذلك!</string>
+    <string name="progress_greet5">تهانينا 🎉</string>
+    <string name="currently_saved_incomplete">حاليًا تم توفير %1$s من %2$s.</string>
+    <string name="currently_saved_complete">لقد قمت بتوفير %1$s من %2$s.</string>
+    <!-- Eg: You have until 25/12/2022 (152) days left. -->
+    <string name="goal_days_left">لديك حتى %1$s (%2$s) أيام متبقية.</string>
+    <!-- Eg: You need to save around $2/day, $20/week, $200/month. -->
+    <string name="goal_approx_saving">تحتاج إلى توفير حوالي %s/</string>
+    <string name="goal_approx_saving_day">اليوم.</string>
+    <string name="goal_approx_saving_week">الأسبوع.</string>
+    <string name="goal_approx_saving_month">الشهر.</string>
+    <string name="no_goal_deadline_set">بما أنك لم تحدد أي موعد نهائي، لديك كل الوقت في العالم!</string>
+    <string name="goal_achieved_desc">حان الوقت للاحتفال بكل العمل الجاد الذي أدى إلى هذه المناسبة السعيدة.</string>
+
+    <!-- Goal Info Screen -->
+    <string name="info_screen_header">معلومات الهدف</string>
+    <string name="info_card_title">لقد وفرت</string>
+    <string name="info_card_remaining_amount">من %s</string>
+    <string name="info_card_remaining_days">%s أيام متبقية.</string>
+    <string name="info_card_no_deadline_set">لم يتم تعيين موعد نهائي.</string>
+    <string name="info_card_goal_achieved">الهدف تحقق! 🎉</string>
+    <string name="info_goal_priority">أولوية الهدف هي %s</string>
+    <string name="info_reminder_status_on">تم تفعيل التذكيرات</string>
+    <string name="info_reminder_status_off">تم تعطيل التذكيرات</string>
+    <string name="info_notes_card_title">ملاحظات</string>
+    <string name="info_copy_notes_button">نسخ</string>
+    <string name="info_copy_notes_icon_desc">نسخ الملاحظات</string>
+    <string name="info_copy_notes_alert">تم النسخ بنجاح!</string>
+    <string name="info_goal_no_transactions">لا توجد معاملات حتى الآن.</string>
+    <string name="info_edit_transaction_button">تحديث المعاملة</string>
+    <string name="info_transaction_swipe_tip">تلميح! اسحب المعاملات إلى اليسار أو اليمين لتعديلها أو حذفها.</string>
+
+    <!-- Input (New/Edit Goal) Screen -->
+    <string name="input_screen_header">حان وقت التوفير!</string>
+    <string name="input_edit_goal_header">تعديل هدف التوفير</string>
+    <string name="input_pick_icon">اختر رمزًا لهدفك.</string>
+    <string name="input_pick_icon_onboarding_title">...أو إذا كان الأسلوب البسيط هو ما تفضله، أضف رمزًا لهدفك.</string>
+    <string name="input_pick_icon_onboarding_desc">سيتم استخدام رموز الأهداف في بطاقات الأهداف ذات النمط المضغوط، الإعدادات > نمط بطاقة الهدف</string>
+    <string name="input_pick_image_fab">صورة الهدف</string>
+    <string name="input_pick_image_onboarding_title">أضف صورة لهدفك.</string>
+    <string name="input_pick_image_onboarding_desc">سيتم استخدام صورة الهدف في بطاقات الأهداف ذات النمط الممتد، الإعدادات > نمط بطاقة الهدف</string>
+    <string name="input_title">عنوان الهدف</string>
+    <string name="input_title_onboarding_desc">أعط هدفك عنوانًا رائعًا!</string>
+    <string name="input_desc">وصف الهدف</string>
+    <string name="input_desc_onboarding_desc">صف هدفك ببضع كلمات.</string>
+    <string name="input_amount">كم تحتاج لتوفير؟</string>
+    <string name="input_amount_onboarding_desc">أدخل المبلغ الذي ترغب في تحقيقه.</string>
+    <string name="input_date">موعد الإنجاز</string>
+    <string name="input_date_onboarding_desc">موعد نهائي لهدفك؟ أدخل التاريخ هنا.</string>
+    <string name="input_priority">أولوية الهدف</string>
+    <string name="input_priority_low">منخفض</string>
+    <string name="input_priority_medium">متوسط</string>
+    <string name="input_priority_high">عالي</string>
+    <string name="input_priority_onboarding_desc">اختر مستوى أولوية هدفك.</string>
+    <string name="input_notes">ملاحظات</string>
+    <string name="input_notes_onboarding_desc">أي شيء إضافي تريد إضافته إلى الهدف؟ اكتب ملاحظاتك هنا.</string>
+    <string name="input_reminder">تذكير يومي</string>
+    <string name="input_reminder_onboarding_desc">هل تريد أن نتذكر نحن تذكيرك بالتوفير يوميًا؟ تفعيل التذكير اليومي هنا.</string>
+    <string name="input_add_button">أضف الهدف</string>
+    <string name="input_update_button">تحديث الهدف</string>
+    <string name="input_error_title">يجب ألا يكون عنوان الهدف فارغًا!</string>
+    <string name="input_error_amount">يجب أن يكون المبلغ الذي ترغب في تحقيقه أكبر من 0!</string>
+    <string name="input_error_amount_nan">تأكد من أنك أدخلت عددًا صحيحًا كمبلغ التوفير.</string>
+    <string name="input_error_date">التاريخ المدخل يجب أن يكون تاريخًا مستقبليًا!</string>
+
+    <!-- Filter & Sort Screen -->
+    <string name="filter_title">تصفية أهداف التوفير</string>
+    <string name="filter_priority">الأولوية</string>
+    <string name="filter_priority_low">منخفضة</string>
+    <string name="filter_priority_medium">متوسطة</string>
+    <string name="filter_priority_high">عالية</string>
+    <string name="filter_status">الحالة</string>
+    <string name="filter_status_complete">مكتمل</string>
+    <string name="filter_status_incomplete">غير مكتمل</string>
+    <string name="filter_button_text">تطبيق الفلتر</string>
+    <string name="clear_filter_button_text">إعادة ضبط الفلاتر</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_title">الإعدادات</string>
+    <string name="setting_card_icons">اختر رموز الأهداف</string>
+    <string name="setting_card_images">اختر صور الأهداف</string>
+    <string name="setting_theme_mode">وضع التطبيق</string>
+    <string name="setting_theme_light">نهاري</string>
+    <string name="setting_theme_dark">ليلي</string>
+    <string name="setting_theme_system">افتراضي النظام</string>
+    <string name="setting_theme_onboarding_title">اختر الوضع المفضل لديك.</string>
+    <string name="setting_theme_onboarding_desc">افتح الإعدادات واختر بين الوضع النهاري أو الليلي.</string>
+    <string name="setting_goal_card_style">نمط بطاقات الأهداف</string>
+    <string name="setting_goal_card_style_compact">مضغوط</string>
+    <string name="setting_goal_card_style_extended">ممتد</string>
+    <string name="setting_goal_card_onboarding_title">اختر نمط البطاقة المفضل لديك.</string>
+    <string name="setting_goal_card_onboarding_desc">بطاقات الأهداف تأتي بأنماط متعددة. جربها جميعًا واختار ما يناسبك.</string>
+    <string name="setting_currency">اختر العملة المفضلة لديك</string>
+    <string name="setting_currency_onboarding_title">العملة التي تفضلها؟</string>
+    <string name="setting_currency_onboarding_desc">GreenStash يدعم عدة عملات. اختر العملة التي تفضلها في الإعدادات.</string>
+    <string name="setting_enable_biometrics">تفعيل قفل التطبيق باستخدام القياسات الحيوية؟</string>
+    <string name="setting_enable_biometrics_desc">أدخل الأمان الإضافي باستخدام القفل البيومتري.</string>
+    <string name="setting_enable_notifications">تفعيل الإشعارات؟</string>
+    <string name="setting_enable_notifications_desc">استمر في التحديثات حول تقدم هدفك باستخدام الإشعارات.</string>
+    <string name="setting_backups">النسخ الاحتياطي</string>
+    <string name="setting_backups_desc">حافظ على أمان بياناتك من خلال النسخ الاحتياطي المنتظم.</string>
+    <string name="setting_about">حول</string>
+    <string name="setting_about_desc">اعرف المزيد حول تطبيق GreenStash.</string>
+    <string name="setting_privacy">الخصوصية</string>
+    <string name="setting_privacy_desc">قراءة سياسة الخصوصية.</string>
+    <string name="setting_version">إصدار التطبيق</string>
+
+    <!-- Backup Screen -->
+    <string name="backup_title">النسخ الاحتياطي</string>
+    <string name="backup_import">استيراد النسخ الاحتياطي</string>
+    <string name="backup_export">تصدير النسخ الاحتياطي</string>
+    <string name="backup_export_desc">احتفظ بنسخة من بياناتك.</string>
+    <string name="backup_import_desc">استيراد البيانات المحفوظة سابقًا.</string>
+    <string name="backup_export_success">تم التصدير بنجاح.</string>
+    <string name="backup_import_success">تم الاستيراد بنجاح.</string>
+    <string name="backup_export_failed">فشل التصدير.</string>
+    <string name="backup_import_failed">فشل الاستيراد.</string>
+
+    <!-- Archive Screen -->
+    <string name="archive_screen_header">الأرشيف</string>
+    <string name="archive_empty_placeholder">لا توجد أهداف مؤرشفة حتى الآن.</string>
+
+    <!-- Rate Us Dialog -->
+    <string name="rating_dialog_title">هل تستمتع باستخدام GreenStash؟</string>
+    <string name="rating_dialog_subtitle">ساعدنا في تحسين تجربتك بمشاركة ملاحظاتك!</string>
+    <string name="rating_dialog_cta_positive">نعم، سأقيّم التطبيق</string>
+    <string name="rating_dialog_cta_negative">ليس الآن</string>
+</resources>
