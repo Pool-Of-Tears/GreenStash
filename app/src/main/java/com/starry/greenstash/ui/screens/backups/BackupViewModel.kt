@@ -25,7 +25,7 @@ class BackupViewModel @Inject constructor(
     fun restoreBackup(jsonString: String, onSuccess: () -> Unit, onFailure: () -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
             backupManager.restoreDatabaseBackup(
-                jsonString = jsonString,
+                backupString = jsonString,
                 onSuccess = onSuccess,
                 onFailure = onFailure
             )
