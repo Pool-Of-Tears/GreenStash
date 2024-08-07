@@ -53,7 +53,7 @@ interface GoalDao {
      * @param goalsWithTransactions List of GoalWithTransactions.
      */
     @Transaction
-    suspend fun insertGoalWithTransaction(goalsWithTransactions: List<GoalWithTransactions>) {
+    suspend fun insertGoalWithTransactions(goalsWithTransactions: List<GoalWithTransactions>) {
         goalsWithTransactions.forEach { goalWithTransactions ->
             // Set placeholder id.
             goalWithTransactions.goal.goalId = 0L
