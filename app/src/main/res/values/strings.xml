@@ -152,7 +152,11 @@
     <string name="backup_screen_text">Backup app data including all of your saving goals, current progress, transactions etc and easily restore it whenever you want.</string>
     <string name="backup_screen_sub_text">Please note that backups do not include app settings.</string>
     <string name="backup_button">Backup</string>
-    <string name="restore_button">Restore</string>
+    <string name="backup_restore_button">Restore</string>
+    <string name="backup_select_file_type">Select backup file type</string>
+    <string name="backup_csv_note">Note: Due to limitations of the CSV format, goal images will not be backed up.</string>
+    <string name="backup_ftp_create_button">Create Backup</string>
+    <string name="backup_ftp_restore_button">Restore Backup</string>
     <string name="backup_restore_success">Backup restored successfully!</string>
 
     <!-- Settings Screen -->

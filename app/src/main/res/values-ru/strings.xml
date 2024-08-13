@@ -153,7 +153,11 @@
     <string name="backup_screen_text">Создайте резервную копию данных приложения, включая все цели накопления, текущий прогресс, транзакции и т. д., и легко восстановите ее в любое время.</string>
     <string name="backup_screen_sub_text">Обратите внимание, что резервные копии не включают настройки приложения.</string>
     <string name="backup_button">Резервное копирование</string>
-    <string name="restore_button">Восстановить</string>
+    <string name="backup_restore_button">Восстановить</string>
+    <string name="backup_select_file_type">Выберите тип файла резервной копии</string>
+    <string name="backup_csv_note">Примечание: Из-за ограничений формата CSV изображения целей не будут включены в резервную копию.</string>
+    <string name="backup_ftp_create_button">Создать резервную копию</string>
+    <string name="backup_ftp_restore_button">Восстановить резервную копию</string>
     <string name="backup_restore_success">Резервная копия успешно восстановлена!</string>
 
     <!-- Settings Screen -->

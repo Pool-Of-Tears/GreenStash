@@ -152,7 +152,11 @@
     <string name="backup_screen_text">备份应用数据——包括您所有的省钱目标、当前进展、收支等等，并且可以随时轻松恢复。</string>
     <string name="backup_screen_sub_text">注意：备份不包括应用设置信息。</string>
     <string name="backup_button">备份</string>
-    <string name="restore_button">恢复</string>
+    <string name="backup_restore_button">恢复</string>
+    <string name="backup_select_file_type">选择备份文件类型</string>
+    <string name="backup_csv_note">注意：由于CSV格式的限制，目标图片将不会备份。</string>
+    <string name="backup_ftp_create_button">创建备份</string>
+    <string name="backup_ftp_restore_button">恢复备份</string>
     <string name="backup_restore_success">备份成功恢复！</string>
 
     <!-- Settings Screen -->
