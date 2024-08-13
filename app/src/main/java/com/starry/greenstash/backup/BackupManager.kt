@@ -27,20 +27,19 @@ package com.starry.greenstash.backup
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
 import android.util.Log
-import androidx.annotation.Keep
 import androidx.core.content.FileProvider
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import com.starry.greenstash.BuildConfig
-import com.starry.greenstash.database.core.GoalWithTransactions
+import com.starry.greenstash.backup.BackupType.CSV
+import com.starry.greenstash.backup.BackupType.JSON
 import com.starry.greenstash.database.goal.GoalDao
 import com.starry.greenstash.utils.updateText
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
 import java.time.LocalDateTime
+import java.util.Locale
+import java.util.UUID
 
 /**
  * Handles all backup & restore related functionalities.
@@ -51,43 +50,18 @@ import java.time.LocalDateTime
  */
 class BackupManager(private val context: Context, private val goalDao: GoalDao) {
 
-    /**
-     * Instance of [Gson] with custom type adaptor applied for serializing
-     * and deserializing [Bitmap] fields.
-     */
-    private val gsonInstance = GsonBuilder()
-        .registerTypeAdapter(Bitmap::class.java, BitmapTypeAdapter())
-        .setDateFormat(ISO8601_DATE_FORMAT)
-        .create()
-
     companion object {
-        /** Backup schema version. */
-        const val BACKUP_SCHEMA_VERSION = 1
 
         /** Authority for using file provider API. */
         private const val FILE_PROVIDER_AUTHORITY = "${BuildConfig.APPLICATION_ID}.provider"
-
-        /** An ISO-8601 date format for Gson */
-        private const val ISO8601_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
 
         /** Backup folder name inside cache directory. */
         private const val BACKUP_FOLDER_NAME = "backups"
     }
 
-    /**
-     * Model for backup json data, containing current schema version
-     * and timestamp when backup was created.
-     *
-     * @param version backup schema version.
-     * @param timestamp timestamp when backup was created.
-     * @param data list of [GoalWithTransactions] to be backed up.
-     */
-    @Keep
-    data class BackupJsonModel(
-        val version: Int = BACKUP_SCHEMA_VERSION,
-        val timestamp: Long,
-        val data: List<GoalWithTransactions>
-    )
+    // Converters for different backup types.
+    private val goalToJsonConverter = GoalToJSONConverter()
+    private val goalToCsvConverter = GoalToCSVConverter()
 
     /**
      * Logger function with pre-applied tag.
@@ -103,51 +77,64 @@ class BackupManager(private val context: Context, private val goalDao: GoalDao) 
      *
      * @return a chooser [Intent] for newly created backup file.
      */
-    suspend fun createDatabaseBackup(): Intent = withContext(Dispatchers.IO) {
-        log("Fetching goals from database and serialising into json...")
+    suspend fun createDatabaseBackup(backupType: BackupType): Intent = withContext(Dispatchers.IO) {
+        log("Fetching goals from database and serialising into ${backupType.name}...")
         val goalsWithTransactions = goalDao.getAllGoals()
-        val jsonString = gsonInstance.toJson(
-            BackupJsonModel(
-                timestamp = System.currentTimeMillis(),
-                data = goalsWithTransactions
-            )
-        )
+        val backupString = when (backupType) {
+            BackupType.JSON -> goalToJsonConverter.convertToJson(goalsWithTransactions)
+            BackupType.CSV -> goalToCsvConverter.convertToCSV(goalsWithTransactions)
+        }
 
-        log("Creating backup json file inside cache directory...")
-        val fileName = "GreenStash-Backup(${System.currentTimeMillis()}).json"
+        log("Creating a ${backupType.name} file inside cache directory...")
+        val fileName = "GreenStash-(${UUID.randomUUID()}).${backupType.name.lowercase(Locale.US)}"
         val file = File(File(context.cacheDir, BACKUP_FOLDER_NAME).apply { mkdir() }, fileName)
-        file.updateText(jsonString)
+        file.updateText(backupString)
         val uri = FileProvider.getUriForFile(context, FILE_PROVIDER_AUTHORITY, file)
 
         log("Building and returning chooser intent for backup file.")
+        val intentType = when (backupType) {
+            BackupType.JSON -> "application/json"
+            BackupType.CSV -> "text/csv"
+        }
         return@withContext Intent(Intent.ACTION_SEND).apply {
-            type = "application/json"
+            type = intentType
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             putExtra(Intent.EXTRA_STREAM, uri)
             putExtra(Intent.EXTRA_SUBJECT, "Greenstash Backup")
             putExtra(Intent.EXTRA_TEXT, "Created at ${LocalDateTime.now()}")
         }.let { intent -> Intent.createChooser(intent, fileName) }
-
     }
 
     /**
-     * Restores a database backup by deserializing the backup json string
+     * Restores a database backup by deserializing the backup json or csv string
      * and saving goals and transactions back into the database.
      *
-     * @param jsonString a valid backup json as sting.
+     * @param backupString a valid backup json or csv string.
      * @param onFailure callback to be called if [BackupManager] failed parse the json string.
      * @param onSuccess callback to be called after backup was successfully restored.
      */
     suspend fun restoreDatabaseBackup(
-        jsonString: String,
+        backupString: String,
+        backupType: BackupType = BackupType.JSON,
+        onFailure: () -> Unit,
+        onSuccess: () -> Unit,
+    ) = withContext(Dispatchers.IO) {
+        log("Parsing backup file...")
+        when (backupType) {
+            BackupType.JSON -> restoreJsonBackup(backupString, onFailure, onSuccess)
+            BackupType.CSV -> restoreCsvBackup(backupString, onFailure, onSuccess)
+        }
+    }
+
+    // Restores json backup by converting json string into [BackupJsonModel] and
+    // then inserting goals and transactions into the database.
+    private suspend fun restoreJsonBackup(
+        backupString: String,
         onFailure: () -> Unit,
         onSuccess: () -> Unit
-    ) = withContext(Dispatchers.IO) {
-
-        // Parse json string.
-        log("Parsing backup json file...")
-        val backupData: BackupJsonModel? = try {
-            gsonInstance.fromJson(jsonString, BackupJsonModel::class.java)
+    ) {
+        val backupData = try {
+            goalToJsonConverter.convertFromJson(backupString)
         } catch (exc: Exception) {
             log("Failed to parse backup json file! Err: ${exc.message}")
             exc.printStackTrace()
@@ -156,12 +143,47 @@ class BackupManager(private val context: Context, private val goalDao: GoalDao) 
 
         if (backupData?.data == null) {
             withContext(Dispatchers.Main) { onFailure() }
-            return@withContext
+            return
         }
 
-        // Insert goal & transaction data into database.
         log("Inserting goals & transactions into the database...")
-        goalDao.insertGoalWithTransaction(backupData.data)
+        goalDao.insertGoalWithTransactions(backupData.data)
         withContext(Dispatchers.Main) { onSuccess() }
     }
+
+    // Restores csv backup by converting csv string into [GoalWithTransactions] list.
+    private suspend fun restoreCsvBackup(
+        backupString: String,
+        onFailure: () -> Unit,
+        onSuccess: () -> Unit
+    ) {
+        val backupData = try {
+            goalToCsvConverter.convertFromCSV(backupString)
+        } catch (exc: Exception) {
+            log("Failed to parse backup csv file! Err: ${exc.message}")
+            exc.printStackTrace()
+            null
+        }
+
+        if (backupData?.data == null) {
+            withContext(Dispatchers.Main) { onFailure() }
+            return
+        }
+
+        log("Inserting goals & transactions into the database...")
+        goalDao.insertGoalWithTransactions(backupData.data)
+        withContext(Dispatchers.Main) { onSuccess() }
+    }
+
 }
+
+
+/**
+ * Type of backup file.
+ *
+ * @property JSON for JSON backup file.
+ * @property CSV for CSV backup file.
+ *
+ * @see [BackupManager]
+ */
+enum class BackupType { JSON, CSV }

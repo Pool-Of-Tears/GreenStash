@@ -153,7 +153,11 @@
     <string name="backup_screen_text">Haz una copia de seguridad de tus datos incluyendo metas, progreso actual, transacciones, etc para recuperarlos cuando quieras.</string>
     <string name="backup_screen_sub_text">Nota: La copia de seguridad no incluye la configuración de la app.</string>
     <string name="backup_button">Respaldar</string>
-    <string name="restore_button">Restaurar</string>
+    <string name="backup_restore_button">Restaurar</string>
+    <string name="backup_select_file_type">Seleccionar tipo de archivo de respaldo</string>
+    <string name="backup_csv_note">Nota: Debido a las limitaciones del formato CSV, las imágenes de los objetivos no se respaldarán.</string>
+    <string name="backup_ftp_create_button">Crear Respaldo</string>
+    <string name="backup_ftp_restore_button">Restaurar Respaldo</string>
     <string name="backup_restore_success">¡La copia de seguridad se ha restaurado correctamente!</string>
 
     <!-- Settings Screen -->
