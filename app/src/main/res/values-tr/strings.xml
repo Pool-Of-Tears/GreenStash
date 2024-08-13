@@ -154,7 +154,11 @@
     <string name="backup_screen_text">Tüm tasarruf hedefleriniz, mevcut ilerlemeniz, işlemleriniz vb. dahil olmak üzere uygulama verilerini yedekleyin ve istediğiniz zaman kolayca geri yükleyin.</string>
     <string name="backup_screen_sub_text">Not: Yedekler uygulama ayarlarını içermez.</string>
     <string name="backup_button">Yedekle</string>
-    <string name="restore_button">Geri Yükle</string>
+    <string name="backup_restore_button">Geri Yükle</string>
+    <string name="backup_select_file_type">Yedekleme dosya türünü seç</string>
+    <string name="backup_csv_note">Not: CSV formatının sınırlamaları nedeniyle, hedef resimleri yedeklenmeyecektir.</string>
+    <string name="backup_ftp_create_button">Yedek Oluştur</string>
+    <string name="backup_ftp_restore_button">Yedeği Geri Yükle</string>
     <string name="backup_restore_success">Yedek başarıyla geri yüklendi!</string>
 
     <!-- Settings Screen -->

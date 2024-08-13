@@ -42,6 +42,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -50,32 +52,44 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SegmentedButton
+import androidx.compose.material3.SegmentedButtonDefaults
+import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.starry.greenstash.R
+import com.starry.greenstash.backup.BackupType
+import com.starry.greenstash.ui.common.TipCardNoDismiss
 import com.starry.greenstash.ui.screens.backups.BackupViewModel
 import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.utils.weakHapticFeedback
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.io.InputStreamReader
 import java.io.Reader
@@ -123,7 +137,11 @@ fun BackupScreen(navController: NavController) {
                 )
             )
         }, content = {
-            val backupLauncher =
+            val ftpButtonText = remember { mutableStateOf("") }
+            val selectedBackupType = remember { mutableStateOf(BackupType.JSON) }
+            val showFileTypePicker = remember { mutableStateOf(false) }
+
+            val backupRestoreLauncher =
                 rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
                     uri?.let { fileUri ->
                         context.contentResolver.openInputStream(fileUri)?.let { ips ->
@@ -139,7 +157,9 @@ fun BackupScreen(navController: NavController) {
                                 out.appendRange(buffer, 0, numRead)
                             }
 
-                            viewModel.restoreBackup(jsonString = out.toString(),
+                            viewModel.restoreBackup(
+                                backupType = selectedBackupType.value,
+                                backupString = out.toString(),
                                 onSuccess = {
                                     coroutineScope.launch {
                                         snackBarHostState.showSnackbar(context.getString(R.string.backup_restore_success))
@@ -156,9 +176,56 @@ fun BackupScreen(navController: NavController) {
 
                 }
 
+
+            if (showFileTypePicker.value) {
+                BackupFileTypePicker(
+                    showFileTypePicker = showFileTypePicker,
+                    buttonText = ftpButtonText.value,
+                    onConfirm = { backupType ->
+                        // Used for restoring backup inside file picker launcher.
+                        selectedBackupType.value = backupType
+
+                        if (ftpButtonText.value.isEmpty()) {
+                            return@BackupFileTypePicker
+                        }
+
+                        if (ftpButtonText.value == context.getString(R.string.backup_ftp_create_button)) {
+                            viewModel.takeBackup(backupType) { intent ->
+                                context.startActivity(intent)
+                            }
+                        } else {
+                            // Restore backup
+                            when (backupType) {
+                                BackupType.JSON -> {
+                                    backupRestoreLauncher.launch(arrayOf("application/json"))
+                                }
+
+                                BackupType.CSV -> {
+                                    backupRestoreLauncher.launch(
+                                        arrayOf(
+                                            "text/csv",
+                                            "text/comma-separated-values",
+                                            "application/vnd.ms-excel"
+                                        )
+                                    )
+                                }
+                            }
+                        }
+                    }
+                )
+            }
+
             BackupScreenContent(paddingValues = it,
-                onBackupClicked = { viewModel.takeBackup { intent -> context.startActivity(intent) } },
-                onRestoreClicked = { backupLauncher.launch(arrayOf("application/json")) }
+                onBackupClicked = {
+                    ftpButtonText.value =
+                        context.getString(R.string.backup_ftp_create_button)
+                    showFileTypePicker.value = true
+                },
+                onRestoreClicked = {
+                    ftpButtonText.value =
+                        context.getString(R.string.backup_ftp_restore_button)
+                    showFileTypePicker.value = true
+                }
             )
         })
 }
@@ -222,7 +289,6 @@ private fun BackupScreenContent(
 
         Spacer(modifier = Modifier.height(14.dp))
 
-
         Row(
             modifier = Modifier.fillMaxWidth()
         ) {
@@ -249,10 +315,137 @@ private fun BackupScreenContent(
                 shape = RoundedCornerShape(12.dp),
             ) {
                 Text(
-                    text = stringResource(id = R.string.restore_button),
+                    text = stringResource(id = R.string.backup_restore_button),
                     fontFamily = greenstashFont
                 )
             }
         }
     }
 }
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun BackupFileTypePicker(
+    showFileTypePicker: MutableState<Boolean>,
+    buttonText: String,
+    onConfirm: (BackupType) -> Unit
+) {
+    val sheetState = rememberModalBottomSheetState()
+    val coroutineScope = rememberCoroutineScope()
+
+    ModalBottomSheet(
+        onDismissRequest = {
+            coroutineScope.launch {
+                sheetState.hide()
+                delay(300)
+                showFileTypePicker.value = false
+            }
+        },
+        sheetState = sheetState
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(12.dp)
+        ) {
+            val (selectedBackupType, onBackupTypeSelected) = remember {
+                mutableStateOf(BackupType.JSON)
+            }
+
+            Text(
+                text = stringResource(id = R.string.backup_select_file_type),
+                fontFamily = greenstashFont,
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier.padding(horizontal = 20.dp, vertical = 6.dp)
+            )
+
+            SingleChoiceSegmentedButtonRow(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 18.dp, vertical = 6.dp)
+            ) {
+                SegmentedButton(
+                    selected = selectedBackupType == BackupType.JSON,
+                    onClick = { onBackupTypeSelected(BackupType.JSON) },
+                    shape = RoundedCornerShape(topStart = 14.dp, bottomStart = 14.dp),
+                    label = {
+                        Text(
+                            text = BackupType.JSON.name, fontFamily = greenstashFont
+                        )
+                    },
+                    icon = {
+                        if (selectedBackupType == BackupType.JSON) {
+                            Icon(
+                                imageVector = Icons.Filled.Check,
+                                contentDescription = null,
+                                modifier = Modifier.size(16.dp)
+                            )
+                        }
+                    },
+                    colors = SegmentedButtonDefaults.colors(
+                        activeContentColor = MaterialTheme.colorScheme.onPrimary,
+                        activeContainerColor = MaterialTheme.colorScheme.primary,
+                    )
+                )
+
+                SegmentedButton(
+                    selected = selectedBackupType == BackupType.CSV,
+                    onClick = { onBackupTypeSelected(BackupType.CSV) },
+                    shape = RoundedCornerShape(topEnd = 14.dp, bottomEnd = 14.dp),
+                    label = {
+                        Text(
+                            text = BackupType.CSV.name,
+                            fontFamily = greenstashFont
+                        )
+                    },
+                    icon = {
+                        if (selectedBackupType == BackupType.CSV) {
+                            Icon(
+                                imageVector = Icons.Filled.Check,
+                                contentDescription = null,
+                                modifier = Modifier.size(16.dp)
+                            )
+                        }
+                    },
+                    colors = SegmentedButtonDefaults.colors(
+                        activeContentColor = MaterialTheme.colorScheme.onPrimary,
+                        activeContainerColor = MaterialTheme.colorScheme.primary,
+                    )
+                )
+            }
+
+
+            Spacer(modifier = Modifier.height(4.dp))
+
+            TipCardNoDismiss(
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp),
+                icon = ImageVector.vectorResource(id = R.drawable.ic_backup_csv),
+                description = stringResource(id = R.string.backup_csv_note),
+                showTipCard = selectedBackupType == BackupType.CSV,
+            )
+
+            Button(
+                onClick = {
+                    onConfirm(selectedBackupType)
+                    coroutineScope.launch {
+                        sheetState.hide()
+                        delay(300)
+                        showFileTypePicker.value = false
+                    }
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
+                shape = RoundedCornerShape(14.dp),
+            ) {
+                Text(
+                    text = buttonText,
+                    fontFamily = greenstashFont
+                )
+            }
+
+            Spacer(modifier = Modifier.height(12.dp))
+        }
+    }
+}
+

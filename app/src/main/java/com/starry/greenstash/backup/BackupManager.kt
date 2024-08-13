@@ -30,6 +30,8 @@ import android.content.Intent
 import android.util.Log
 import androidx.core.content.FileProvider
 import com.starry.greenstash.BuildConfig
+import com.starry.greenstash.backup.BackupType.CSV
+import com.starry.greenstash.backup.BackupType.JSON
 import com.starry.greenstash.database.goal.GoalDao
 import com.starry.greenstash.utils.updateText
 import kotlinx.coroutines.Dispatchers
@@ -57,14 +59,9 @@ class BackupManager(private val context: Context, private val goalDao: GoalDao) 
         private const val BACKUP_FOLDER_NAME = "backups"
     }
 
-    /**
-     * Type of backup file.
-     */
-    enum class BackupType { JSON, CSV }
-
     // Converters for different backup types.
-    private val goalToJsonConverter = GoalToJsonConverter()
-    private val goalToCsvConverter = GoalToCsvConverter()
+    private val goalToJsonConverter = GoalToJSONConverter()
+    private val goalToCsvConverter = GoalToCSVConverter()
 
     /**
      * Logger function with pre-applied tag.
@@ -80,7 +77,7 @@ class BackupManager(private val context: Context, private val goalDao: GoalDao) 
      *
      * @return a chooser [Intent] for newly created backup file.
      */
-    suspend fun createDatabaseBackup(backupType: BackupType = BackupType.JSON): Intent = withContext(Dispatchers.IO) {
+    suspend fun createDatabaseBackup(backupType: BackupType): Intent = withContext(Dispatchers.IO) {
         log("Fetching goals from database and serialising into ${backupType.name}...")
         val goalsWithTransactions = goalDao.getAllGoals()
         val backupString = when (backupType) {
@@ -168,14 +165,25 @@ class BackupManager(private val context: Context, private val goalDao: GoalDao) 
             null
         }
 
-        if (backupData.isNullOrEmpty()) {
+        if (backupData?.data == null) {
             withContext(Dispatchers.Main) { onFailure() }
             return
         }
 
         log("Inserting goals & transactions into the database...")
-        goalDao.insertGoalWithTransactions(backupData)
+        goalDao.insertGoalWithTransactions(backupData.data)
         withContext(Dispatchers.Main) { onSuccess() }
     }
 
 }
+
+
+/**
+ * Type of backup file.
+ *
+ * @property JSON for JSON backup file.
+ * @property CSV for CSV backup file.
+ *
+ * @see [BackupManager]
+ */
+enum class BackupType { JSON, CSV }
