@@ -152,7 +152,11 @@
     <string name="backup_screen_text">Esegui il backup dei dati dell\'app, compresi tutti gli obiettivi di risparmio, i progressi attuali, le transazioni e così via, e ripristinali facilmente ogni volta che lo desideri.</string>
     <string name="backup_screen_sub_text">Ricordati che i backup non includono le impostazioni dell\'app.</string>
     <string name="backup_button">Fai il Backup</string>
-    <string name="restore_button">Ripristina</string>
+    <string name="backup_restore_button">Ripristina</string>
+    <string name="backup_select_file_type">Seleziona il tipo di file di backup</string>
+    <string name="backup_csv_note">Nota: A causa delle limitazioni del formato CSV, le immagini degli obiettivi non verranno salvate nel backup.</string>
+    <string name="backup_ftp_create_button">Crea Backup</string>
+    <string name="backup_ftp_restore_button">Ripristina Backup</string>
     <string name="backup_restore_success">Backup ripristinato con successo!</string>
 
     <!-- Settings Screen -->

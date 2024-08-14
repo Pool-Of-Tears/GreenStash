@@ -79,6 +79,7 @@ import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.maxkeppeker.sheets.core.models.base.rememberUseCaseState
 import com.maxkeppeler.sheets.date_time.DateTimeDialog
+import com.maxkeppeler.sheets.date_time.models.DateTimeConfig
 import com.maxkeppeler.sheets.date_time.models.DateTimeSelection
 import com.starry.greenstash.R
 import com.starry.greenstash.database.transaction.TransactionType
@@ -87,7 +88,7 @@ import com.starry.greenstash.ui.navigation.DrawerScreens
 import com.starry.greenstash.ui.navigation.Screens
 import com.starry.greenstash.ui.screens.dwscreen.DWViewModel
 import com.starry.greenstash.ui.theme.greenstashFont
-import com.starry.greenstash.utils.Utils
+import com.starry.greenstash.utils.NumberUtils
 import com.starry.greenstash.utils.validateAmount
 import com.starry.greenstash.utils.weakHapticFeedback
 import kotlinx.coroutines.CoroutineScope
@@ -96,6 +97,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.LocalDateTime
+import java.util.Locale
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -124,6 +126,7 @@ fun DWScreen(goalId: String, transactionTypeName: String, navController: NavCont
         ) { newDateTime ->
             selectedDateTime.value = newDateTime
         },
+        config = DateTimeConfig(locale = Locale.US)
     )
 
     Scaffold(
@@ -181,7 +184,7 @@ fun DWScreen(goalId: String, transactionTypeName: String, navController: NavCont
                     notesValue = viewModel.state.notes,
                     onAmountChange = { amount ->
                         viewModel.state =
-                            viewModel.state.copy(amount = Utils.getValidatedNumber(amount))
+                            viewModel.state.copy(amount = NumberUtils.getValidatedNumber(amount))
                     },
                     onNotesChange = { notes ->
                         viewModel.state = viewModel.state.copy(notes = notes)

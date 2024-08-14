@@ -47,44 +47,6 @@ import java.util.TimeZone
 object Utils {
 
     /**
-     * Get validated number from the text.
-     *
-     * @param text The text to validate
-     * @return The validated number
-     */
-    @Deprecated(
-        "Use NumberUtils.getValidatedNumber instead",
-        ReplaceWith("NumberUtils.getValidatedNumber(text)")
-    )
-    fun getValidatedNumber(text: String) = NumberUtils.getValidatedNumber(text)
-
-    /**
-     * Round the decimal number to two decimal places.
-     *
-     * @param number The number to round
-     * @return The rounded number
-     */
-    @Deprecated(
-        "Use NumberUtils.roundDecimal instead",
-        ReplaceWith("NumberUtils.roundDecimal(number)")
-    )
-    fun roundDecimal(number: Double) = NumberUtils.roundDecimal(number)
-
-    /**
-     * Format currency based on the currency code.
-     *
-     * @param amount The amount to format
-     * @param currencyCode The currency code
-     * @return The formatted currency
-     */
-    @Deprecated(
-        "Use NumberUtils.formatCurrency instead",
-        ReplaceWith("NumberUtils.formatCurrency(amount, currencyCode)")
-    )
-    fun formatCurrency(amount: Double, currencyCode: String) =
-        NumberUtils.formatCurrency(amount, currencyCode)
-
-    /**
      * Retrieves the appropriate authenticators based on the Android version.
      *
      * - For Android 9 (Pie) and Android 10 (Q), the authenticators are `BIOMETRIC_WEAK` and `DEVICE_CREDENTIAL`.

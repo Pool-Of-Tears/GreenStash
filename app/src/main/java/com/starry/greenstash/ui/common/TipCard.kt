@@ -54,12 +54,50 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.starry.greenstash.ui.theme.greenstashFont
 
+
 @Composable
 fun TipCard(
     modifier: Modifier = Modifier,
     icon: ImageVector = Icons.Filled.Lightbulb,
     description: String,
     showTipCard: Boolean,
+    onDismissRequest: () -> Unit
+) {
+    TipCard(
+        modifier = modifier,
+        icon = icon,
+        description = description,
+        showTipCard = showTipCard,
+        showDismissButton = true,
+        onDismissRequest = onDismissRequest
+    )
+}
+
+
+@Composable
+fun TipCardNoDismiss(
+    modifier: Modifier = Modifier,
+    icon: ImageVector = Icons.Filled.Lightbulb,
+    description: String,
+    showTipCard: Boolean,
+) {
+    TipCard(
+        modifier = modifier,
+        icon = icon,
+        description = description,
+        showTipCard = showTipCard,
+        showDismissButton = false,
+        onDismissRequest = {}
+    )
+}
+
+@Composable
+private fun TipCard(
+    modifier: Modifier = Modifier,
+    icon: ImageVector = Icons.Filled.Lightbulb,
+    description: String,
+    showTipCard: Boolean,
+    showDismissButton: Boolean = true,
     onDismissRequest: () -> Unit
 ) {
     Column(
@@ -102,11 +140,13 @@ fun TipCard(
                         )
                     }
                     Spacer(modifier = Modifier.height(16.dp))
-                    Button(
-                        onClick = { onDismissRequest() },
-                        modifier = Modifier.align(Alignment.End)
-                    ) {
-                        Text(text = "OK")
+                    if (showDismissButton) {
+                        Button(
+                            onClick = { onDismissRequest() },
+                            modifier = Modifier.align(Alignment.End)
+                        ) {
+                            Text(text = "OK")
+                        }
                     }
                 }
             }

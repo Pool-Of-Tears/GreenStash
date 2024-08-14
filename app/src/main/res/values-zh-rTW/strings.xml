@@ -151,7 +151,11 @@
     <string name="backup_screen_text">備份應用程式資料，包括所有的儲蓄目標、目前進度、交易等，並在您需要時可以輕鬆還原。</string>
     <string name="backup_screen_sub_text">請注意，備份不包括應用程式設定。</string>
     <string name="backup_button">備份</string>
-    <string name="restore_button">還原</string>
+    <string name="backup_restore_button">還原</string>
+    <string name="backup_select_file_type">選擇備份檔案類型</string>
+    <string name="backup_csv_note">注意：由於CSV格式的限制，目標圖片將不會備份。</string>
+    <string name="backup_ftp_create_button">創建備份</string>
+    <string name="backup_ftp_restore_button">恢復備份</string>
     <string name="backup_restore_success">備份已成功還原！</string>
 
     <!-- Settings Screen -->

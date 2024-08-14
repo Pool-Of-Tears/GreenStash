@@ -99,7 +99,7 @@ import com.starry.greenstash.ui.screens.info.InfoViewModel
 import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.ui.theme.greenstashNumberFont
 import com.starry.greenstash.utils.GoalTextUtils
-import com.starry.greenstash.utils.Utils
+import com.starry.greenstash.utils.NumberUtils
 import com.starry.greenstash.utils.weakHapticFeedback
 import kotlinx.coroutines.delay
 
@@ -238,9 +238,9 @@ fun GoalInfoCard(
     progress: Float
 ) {
     val formattedTargetAmount =
-        Utils.formatCurrency(Utils.roundDecimal(targetAmount), currencySymbol)
+        NumberUtils.formatCurrency(NumberUtils.roundDecimal(targetAmount), currencySymbol)
     val formattedSavedAmount =
-        Utils.formatCurrency(Utils.roundDecimal(savedAmount), currencySymbol)
+        NumberUtils.formatCurrency(NumberUtils.roundDecimal(savedAmount), currencySymbol)
     val animatedProgress = animateFloatAsState(targetValue = progress, label = "progress")
 
     Card(
