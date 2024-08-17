@@ -17,8 +17,8 @@ android {
         applicationId "com.starry.greenstash"
         minSdk 24
         targetSdk 35
-        versionCode 381
-        versionName "3.8.1"
+        versionCode 390
+        versionName "3.9.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {

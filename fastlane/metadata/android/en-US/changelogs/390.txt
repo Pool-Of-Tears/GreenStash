@@ -1,0 +1,3 @@
+- Added ability to export app data to a CSV file.
+- Some minor bug fixes and improvements.
+- Updated dependencies.
