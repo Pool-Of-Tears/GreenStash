@@ -31,7 +31,6 @@ import androidx.compose.animation.core.keyframes
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -277,7 +276,6 @@ fun HomeScreen(navController: NavController) {
 }
 
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun GoalSearchResults(
     allGoalState: State<List<GoalWithTransactions>>,
@@ -341,7 +339,7 @@ private fun GoalSearchResults(
                 contentType = { 0 }
             ) { idx ->
                 val item = filteredList[idx]
-                Box(modifier = Modifier.animateItemPlacement()) {
+                Box(modifier = Modifier.animateItem(fadeInSpec = null, fadeOutSpec = null)) {
                     GoalLazyColumnItem(
                         viewModel = viewModel,
                         item = item,
@@ -358,7 +356,6 @@ private fun GoalSearchResults(
 }
 
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun AllGoalsList(
     lazyListState: LazyListState,
@@ -381,7 +378,7 @@ private fun AllGoalsList(
             contentType = { 0 }
         ) { idx ->
             val item = allGoals[idx]
-            Box(modifier = Modifier.animateItemPlacement()) {
+            Box(modifier = Modifier.animateItem(fadeInSpec = null, fadeOutSpec = null)) {
                 GoalLazyColumnItem(
                     viewModel = viewModel,
                     item = item,
