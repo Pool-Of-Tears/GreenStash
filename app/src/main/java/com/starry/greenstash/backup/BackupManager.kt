@@ -81,8 +81,8 @@ class BackupManager(private val context: Context, private val goalDao: GoalDao) 
         log("Fetching goals from database and serialising into ${backupType.name}...")
         val goalsWithTransactions = goalDao.getAllGoals()
         val backupString = when (backupType) {
-            BackupType.JSON -> goalToJsonConverter.convertToJson(goalsWithTransactions)
-            BackupType.CSV -> goalToCsvConverter.convertToCSV(goalsWithTransactions)
+            JSON -> goalToJsonConverter.convertToJson(goalsWithTransactions)
+            CSV -> goalToCsvConverter.convertToCSV(goalsWithTransactions)
         }
 
         log("Creating a ${backupType.name} file inside cache directory...")
@@ -93,8 +93,8 @@ class BackupManager(private val context: Context, private val goalDao: GoalDao) 
 
         log("Building and returning chooser intent for backup file.")
         val intentType = when (backupType) {
-            BackupType.JSON -> "application/json"
-            BackupType.CSV -> "text/csv"
+            JSON -> "application/json"
+            CSV -> "text/csv"
         }
         return@withContext Intent(Intent.ACTION_SEND).apply {
             type = intentType
@@ -115,14 +115,14 @@ class BackupManager(private val context: Context, private val goalDao: GoalDao) 
      */
     suspend fun restoreDatabaseBackup(
         backupString: String,
-        backupType: BackupType = BackupType.JSON,
+        backupType: BackupType = JSON,
         onFailure: () -> Unit,
         onSuccess: () -> Unit,
     ) = withContext(Dispatchers.IO) {
         log("Parsing backup file...")
         when (backupType) {
-            BackupType.JSON -> restoreJsonBackup(backupString, onFailure, onSuccess)
-            BackupType.CSV -> restoreCsvBackup(backupString, onFailure, onSuccess)
+            JSON -> restoreJsonBackup(backupString, onFailure, onSuccess)
+            CSV -> restoreCsvBackup(backupString, onFailure, onSuccess)
         }
     }
 
