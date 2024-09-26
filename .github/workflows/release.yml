@@ -46,7 +46,7 @@ jobs:
           BUILD_TOOLS_VERSION: ${{ env.BUILD_TOOL_VERSION }}
 
       - name: Make artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: Signed APP APK
           path: ${{steps.sign_apk.outputs.signedReleaseFile}}
@@ -67,7 +67,7 @@ jobs:
           BUILD_TOOLS_VERSION: ${{ env.BUILD_TOOL_VERSION }}
 
       - name: Make artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: Signed APP Bundle
           path: ${{steps.sign_aab.outputs.signedReleaseFile}}
