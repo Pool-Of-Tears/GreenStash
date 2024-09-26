@@ -25,32 +25,26 @@
 
 package com.starry.greenstash.backup
 
-import android.graphics.Bitmap
 import androidx.annotation.Keep
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import com.starry.greenstash.database.core.GoalWithTransactions
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
 
 /**
  * Converts [GoalWithTransactions] data to JSON format and vice versa.
  */
 class GoalToJSONConverter {
 
-    /**
-     * Instance of [Gson] with custom type adaptor applied for serializing
-     * and deserializing [Bitmap] fields.
-     */
-    private val gsonInstance = GsonBuilder()
-        .registerTypeAdapter(Bitmap::class.java, BitmapTypeAdapter())
-        .setDateFormat(ISO8601_DATE_FORMAT)
-        .create()
+    // JSON serializer/deserializer.
+    private val json = Json {
+        ignoreUnknownKeys = true
+        encodeDefaults = true
+        explicitNulls = false
+    }
 
     companion object {
         /** Backup schema version. */
         const val BACKUP_SCHEMA_VERSION = 1
-
-        /** An ISO-8601 date format for Gson */
-        private const val ISO8601_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
     }
 
     /**
@@ -62,6 +56,7 @@ class GoalToJSONConverter {
      * @param data list of [GoalWithTransactions] to be backed up.
      */
     @Keep
+    @Serializable
     data class BackupJsonModel(
         val version: Int = BACKUP_SCHEMA_VERSION,
         val timestamp: Long,
@@ -69,10 +64,11 @@ class GoalToJSONConverter {
     )
 
     fun convertToJson(goalWithTransactions: List<GoalWithTransactions>): String =
-        gsonInstance.toJson(
+        json.encodeToString(
+            BackupJsonModel.serializer(),
             BackupJsonModel(timestamp = System.currentTimeMillis(), data = goalWithTransactions)
         )
 
-    fun convertFromJson(json: String): BackupJsonModel =
-        gsonInstance.fromJson(json, BackupJsonModel::class.java)
+    fun convertFromJson(jsonString: String): BackupJsonModel =
+        json.decodeFromString(BackupJsonModel.serializer(), jsonString)
 }

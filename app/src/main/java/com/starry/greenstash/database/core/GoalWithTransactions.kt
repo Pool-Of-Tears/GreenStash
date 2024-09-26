@@ -31,8 +31,10 @@ import androidx.room.Relation
 import com.starry.greenstash.database.goal.Goal
 import com.starry.greenstash.database.transaction.Transaction
 import com.starry.greenstash.database.transaction.TransactionType
+import kotlinx.serialization.Serializable
 
 @Keep
+@Serializable
 data class GoalWithTransactions(
     @Embedded val goal: Goal,
     @Relation(

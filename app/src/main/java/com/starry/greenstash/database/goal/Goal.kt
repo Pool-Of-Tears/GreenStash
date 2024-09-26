@@ -30,15 +30,19 @@ import androidx.annotation.Keep
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.starry.greenstash.backup.BitmapSerializer
+import kotlinx.serialization.Serializable
 
 enum class GoalPriority(val value: Int) { High(3), Normal(2), Low(1) }
 
 @Keep
+@Serializable
 @Entity(tableName = "saving_goal")
 data class Goal(
     val title: String,
     val targetAmount: Double,
     val deadline: String,
+    @Serializable(with = BitmapSerializer::class)
     val goalImage: Bitmap?,
     val additionalNotes: String,
 

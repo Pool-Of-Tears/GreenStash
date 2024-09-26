@@ -31,6 +31,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import com.starry.greenstash.database.goal.Goal
+import kotlinx.serialization.Serializable
 import java.text.DateFormat
 import java.util.Date
 
@@ -39,6 +40,7 @@ enum class TransactionType {
 }
 
 @Keep
+@Serializable
 @Entity(
     tableName = "transaction", foreignKeys = [
         ForeignKey(

@@ -18,7 +18,9 @@
 
 ------
 
-**GreenStash** is a simple [FOSS](https://en.m.wikipedia.org/wiki/Free_and_open-source_software) android app to help you plan and manage your savings goals easily and establish the habit of saving money.
+**GreenStash** is a simple [FOSS](https://en.m.wikipedia.org/wiki/Free_and_open-source_software)
+android app to help you plan and manage your savings goals easily and establish the habit of saving
+money.
 
 ------
 
@@ -32,17 +34,20 @@
 
 <h2 align="center">Highlights</h2>
 
-- Clean & beautiful UI based on Google's [material design three](https://m3.material.io/) guidelines.
+- Clean & beautiful UI based on Google's [material design three](https://m3.material.io/)
+  guidelines.
 - Add images to your saving goals to keep you motivated!
 - View how much you need to save daily/weekly/monthly to achieve your goal before deadline.
 - View detailed transaction (withdraw/deposit) history.
-- Get daily, semi-weekly or weekly reminders for your saving goals based on goal priority. 
+- Get daily, semi-weekly or weekly reminders for your saving goals based on goal priority.
 - Supports around 100+ local currency symbols.
 - Inbuilt biometric app lock to keep your financial data safe and secure.
 - Fully offline, greenstash doens't require internet permission to work.
 - Compatible with Android 7.0 and above (API 24+)
-- Supports [Material You](https://www.androidpolice.com/everything-we-love-about-material-you/amp/) theming in devices running on Android 12+
-- MAD: UI and logic written with pure Kotlin. Single activity, no fragments, only composable destinations.
+- Supports [Material You](https://www.androidpolice.com/everything-we-love-about-material-you/amp/)
+  theming in devices running on Android 12+
+- MAD: UI and logic written with pure Kotlin. Single activity, no fragments, only composable
+  destinations.
 
 ------
 
@@ -60,46 +65,68 @@
 <h2 align="center">Donations</h2>
 
 GreenStash doesn't contain any ads and doesn't sell your data.
-The development of the app is financed by individual user contributions, such as you purchasing the app via Google Play or becoming a sponsor on Github ❤️
+The development of the app is financed by individual user contributions, such as you purchasing the
+app via Google Play or becoming a sponsor on Github ❤️
 
-Become a [Sponsor](https://github.com/sponsors/starry-shivam) on Github | Purchase it on [Google Play](https://play.google.com/store/apps/details?id=com.starry.greenstash)
+Become a [Sponsor](https://github.com/sponsors/starry-shivam) on Github | Purchase it
+on [Google Play](https://play.google.com/store/apps/details?id=com.starry.greenstash)
 
 ------
 
 <h2 align="center">Contributions</h2>
 
-Contributions are welcome! 
+Contributions are welcome!
 
->[!Note]
+> [!Note]
 >
->For submitting bug reports, feature requests, questions, or any other ideas to improve, please read [CONTRIBUTING.md](/CONTRIBUTING.md) for instructions and guidelines first.
+>For submitting bug reports, feature requests, questions, or any other ideas to improve, please
+> read [CONTRIBUTING.md](/CONTRIBUTING.md) for instructions and guidelines first.
 
 ------
 
 <h2 align="center">Translations</h2>
 
-If you want to make the app available in your language, you're welcome to create a pull request with your translation file. The base string resources can be found under:
+If you want to make the app available in your language, you're welcome to create a pull request with
+your translation file. The base string resources can be found under:
+
 ```
 /app/src/main/res/values/strings.xml
 ```
-It is easiest to make a translation using the Android Studio XML editor, but you can always use your favorite XML text editor instead. Check out this guide to learn more about translation strings from [Helpshift](https://developers.helpshift.com/android/i18n/) for Android.
+
+It is easiest to make a translation using the Android Studio XML editor, but you can always use your
+favorite XML text editor instead. Check out this guide to learn more about translation strings
+from [Helpshift](https://developers.helpshift.com/android/i18n/) for Android.
 
 ------
 
 <h2 align="center">Tech Stack</h2>
 
-- [Kotlin](https://kotlinlang.org/) - First class and official programming language for Android development.
-- [Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html) - To improve performance by doing I/O tasks out of main thread asynchronously.
-- [Flow](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-flow/) - A cold asynchronous data stream that sequentially emits values and completes normally or with an exception.
-- [Android Architecture Components](https://developer.android.com/topic/libraries/architecture) - Collection of libraries that help you design robust, testable, and maintainable apps.
-  - [Jetpack Compose](https://developer.android.com/jetpack/compose?gclsrc=ds&gclsrc=ds) - Jetpack Compose is Android’s recommended modern toolkit for building native UI
-  - [LiveData](https://developer.android.com/topic/libraries/architecture/livedata) - Data objects that notify views when the underlying database changes.
-  - [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) - Stores UI-related data that isn't destroyed on UI changes.
-- [Lottie](https://airbnb.design/lottie) - Lottie is an Android, iOS and React Native library that renders After Effects animations in real time.
-- [Coil](https://coil-kt.github.io/coil/compose) - An image loading library for Android backed by Kotlin Coroutines.
-- [Gson](https://github.com/google/gson) - A Java serialization/deserialization library to convert Java Objects into JSON and back.
-- [Dagger-Hilt](https://dagger.dev/hilt) For [Dependency injection (DI)](https://developer.android.com/training/dependency-injection)
-- [Room database](https://developer.android.com/jetpack/androidx/releases/room) - Persistence library provides an abstraction layer over SQLite to allow for more robust database access while harnessing the full power of SQLite.
+- [Kotlin](https://kotlinlang.org/) - First class and official programming language for Android
+  development.
+- [Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html) - To improve
+  performance by doing I/O tasks out of main thread asynchronously.
+- [Flow](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-flow/) -
+  A cold asynchronous data stream that sequentially emits values and completes normally or with an
+  exception.
+- [Android Architecture Components](https://developer.android.com/topic/libraries/architecture) -
+  Collection of libraries that help you design robust, testable, and maintainable apps.
+    - [Jetpack Compose](https://developer.android.com/jetpack/compose?gclsrc=ds&gclsrc=ds) - Jetpack
+      Compose is Android’s recommended modern toolkit for building native UI
+    - [LiveData](https://developer.android.com/topic/libraries/architecture/livedata) - Data objects
+      that notify views when the underlying database changes.
+    - [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) - Stores
+      UI-related data that isn't destroyed on UI changes.
+- [Lottie](https://airbnb.design/lottie) - Lottie is an Android, iOS and React Native library that
+  renders After Effects animations in real time.
+- [Coil](https://coil-kt.github.io/coil/compose) - An image loading library for Android backed by
+  Kotlin Coroutines.
+- [Kotlinx.serialization](https://kotlinlang.org/docs/serialization.html) - Provides sets of
+  libraries for various serialization formats – JSON, CBOR, protocol buffers, and others.
+- [Dagger-Hilt](https://dagger.dev/hilt)
+  For [Dependency injection (DI)](https://developer.android.com/training/dependency-injection)
+- [Room database](https://developer.android.com/jetpack/androidx/releases/room) - Persistence
+  library provides an abstraction layer over SQLite to allow for more robust database access while
+  harnessing the full power of SQLite.
 
 ------
 
@@ -114,6 +141,7 @@ It is easiest to make a translation using the Android Studio XML editor, but you
 [MIT License][license] © [Stɑrry Shivɑm][github]
 
 [license]: /LICENSE
+
 [github]: https://github.com/starry-shivam
 
 ```

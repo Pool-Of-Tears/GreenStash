@@ -1,7 +1,7 @@
 name: Feature Request
 description: Suggest a new feature or an UI/UX enhancements.
 title: "[Feature Request]"
-labels: [enhancement]
+labels: [ enhancement ]
 body:
   - type: checkboxes
     id: checklist
@@ -14,7 +14,7 @@ body:
           required: true
         - label: I checked, but didn't find any duplicates (open OR closed) of this issue in the repo.
           required: true
-        - label:  This feature is merely an UI/UX update.
+        - label: This feature is merely an UI/UX update.
           required: false
         - label: This feature is not going to conflict with many of the existing features/options.
           required: true
