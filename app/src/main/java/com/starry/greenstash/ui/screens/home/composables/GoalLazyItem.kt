@@ -43,6 +43,9 @@ import com.starry.greenstash.MainActivity
 import com.starry.greenstash.R
 import com.starry.greenstash.database.core.GoalWithTransactions
 import com.starry.greenstash.database.transaction.TransactionType
+import com.starry.greenstash.ui.navigation.DWScreen
+import com.starry.greenstash.ui.navigation.GoalInfoScreen
+import com.starry.greenstash.ui.navigation.InputScreen
 import com.starry.greenstash.ui.navigation.Screens
 import com.starry.greenstash.ui.screens.home.GoalCardStyle
 import com.starry.greenstash.ui.screens.home.HomeViewModel
@@ -107,9 +110,9 @@ fun GoalLazyColumnItem(
                         }
                     } else {
                         navController.navigate(
-                            Screens.DWScreen.withGoalId(
+                            DWScreen(
                                 goalId = item.goal.goalId.toString(),
-                                trasactionType = TransactionType.Deposit.name
+                                transactionType = TransactionType.Deposit.name
                             )
                         )
                     }
@@ -122,9 +125,9 @@ fun GoalLazyColumnItem(
                         }
                     } else {
                         navController.navigate(
-                            Screens.DWScreen.withGoalId(
+                            DWScreen(
                                 goalId = item.goal.goalId.toString(),
-                                trasactionType = TransactionType.Withdraw.name
+                                transactionType = TransactionType.Withdraw.name
                             )
                         )
                     }
@@ -132,7 +135,7 @@ fun GoalLazyColumnItem(
                 onInfoClicked = {
                     localView.weakHapticFeedback()
                     navController.navigate(
-                        Screens.GoalInfoScreen.withGoalId(
+                       GoalInfoScreen(
                             goalId = item.goal.goalId.toString()
                         )
                     )
@@ -140,7 +143,7 @@ fun GoalLazyColumnItem(
                 onEditClicked = {
                     localView.weakHapticFeedback()
                     navController.navigate(
-                        Screens.InputScreen.withGoalToEdit(
+                        InputScreen(
                             goalId = item.goal.goalId.toString()
                         )
                     )
@@ -191,9 +194,9 @@ fun GoalLazyColumnItem(
                         }
                     } else {
                         navController.navigate(
-                            Screens.DWScreen.withGoalId(
+                            DWScreen(
                                 goalId = item.goal.goalId.toString(),
-                                trasactionType = TransactionType.Deposit.name
+                                transactionType = TransactionType.Deposit.name
                             )
                         )
                     }
@@ -206,9 +209,9 @@ fun GoalLazyColumnItem(
                         }
                     } else {
                         navController.navigate(
-                            Screens.DWScreen.withGoalId(
+                            DWScreen(
                                 goalId = item.goal.goalId.toString(),
-                                trasactionType = TransactionType.Withdraw.name
+                                transactionType = TransactionType.Withdraw.name
                             )
                         )
                     }
@@ -216,7 +219,7 @@ fun GoalLazyColumnItem(
                 onInfoClicked = {
                     localView.weakHapticFeedback()
                     navController.navigate(
-                        Screens.GoalInfoScreen.withGoalId(
+                        GoalInfoScreen(
                             goalId = item.goal.goalId.toString()
                         )
                     )
@@ -224,7 +227,7 @@ fun GoalLazyColumnItem(
                 onEditClicked = {
                     localView.weakHapticFeedback()
                     navController.navigate(
-                        Screens.InputScreen.withGoalToEdit(
+                        InputScreen(
                             goalId = item.goal.goalId.toString()
                         )
                     )

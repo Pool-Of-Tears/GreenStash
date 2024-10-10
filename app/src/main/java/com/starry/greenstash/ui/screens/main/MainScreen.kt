@@ -40,6 +40,8 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.starry.greenstash.MainActivity
 import com.starry.greenstash.MainViewModel
+import com.starry.greenstash.ui.navigation.GoalInfoScreen
+import com.starry.greenstash.ui.navigation.InputScreen
 import com.starry.greenstash.ui.navigation.NavGraph
 import com.starry.greenstash.ui.navigation.Screens
 import com.starry.greenstash.ui.screens.other.AppLockedScreen
@@ -98,11 +100,11 @@ private fun HandleShortcutIntent(intent: Intent, navController: NavController) {
     if (data != null && data.scheme == MainViewModel.LAUNCHER_SHORTCUT_SCHEME) {
         val goalId = intent.getLongExtra(MainViewModel.LC_SHORTCUT_GOAL_ID, -100)
         if (goalId != -100L) {
-            navController.navigate(Screens.GoalInfoScreen.withGoalId(goalId.toString()))
+            navController.navigate(GoalInfoScreen(goalId.toString()))
             return
         }
         if (intent.getBooleanExtra(MainViewModel.LC_SHORTCUT_NEW_GOAL, false)) {
-            navController.navigate(Screens.InputScreen.route)
+            navController.navigate(InputScreen)
         }
     }
 }

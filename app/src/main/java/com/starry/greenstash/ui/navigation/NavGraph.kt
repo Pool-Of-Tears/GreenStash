@@ -30,10 +30,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
+import androidx.navigation.toRoute
 import com.starry.greenstash.ui.screens.archive.composables.ArchiveScreen
 import com.starry.greenstash.ui.screens.backups.composables.BackupScreen
 import com.starry.greenstash.ui.screens.dwscreen.composables.DWScreen
@@ -80,60 +79,40 @@ fun NavGraph(
         }
 
         /** Deposit Withdraw Screen */
-        composable(
-            route = Screens.DWScreen.route,
+        composable<DWScreen>(
             enterTransition = { enterTransition() },
             exitTransition = { exitTransition() },
             popEnterTransition = { popEnterTransition() },
-            popExitTransition = { popExitTransition() },
-            arguments = listOf(
-                navArgument(DW_GOAL_ID_ARG_KEY) {
-                    type = NavType.StringType
-                },
-            ),
+            popExitTransition = { popExitTransition() }
         ) { backStackEntry ->
-            val goalId = backStackEntry.arguments!!.getString(DW_GOAL_ID_ARG_KEY)!!
-            val transactionType =
-                backStackEntry.arguments!!.getString(DW_TRANSACTION_TYPE_ARG_KEY)!!
+            val args = backStackEntry.toRoute<DWScreen>()
             DWScreen(
-                goalId = goalId,
-                transactionTypeName = transactionType,
+                goalId = args.goalId,
+                transactionTypeName = args.transactionType,
                 navController = navController
             )
         }
 
         /** Goal Info Screen */
-        composable(
-            route = Screens.GoalInfoScreen.route,
+        composable<GoalInfoScreen>(
             enterTransition = { enterTransition() },
             exitTransition = { exitTransition() },
             popEnterTransition = { popEnterTransition() },
-            popExitTransition = { popExitTransition() },
-            arguments = listOf(
-                navArgument(GOAL_INFO_ARG_KEY) {
-                    type = NavType.StringType
-                },
-            ),
+            popExitTransition = { popExitTransition() }
         ) { backStackEntry ->
-            val goalId = backStackEntry.arguments!!.getString(GOAL_INFO_ARG_KEY)!!
-            GoalInfoScreen(goalId = goalId, navController = navController)
+            val args = backStackEntry.toRoute<GoalInfoScreen>()
+            GoalInfoScreen(goalId = args.goalId, navController = navController)
         }
 
         /** Input Screen */
-        composable(
-            route = Screens.InputScreen.route,
+        composable<InputScreen>(
             enterTransition = { enterTransition() },
             exitTransition = { exitTransition() },
             popEnterTransition = { popEnterTransition() },
-            popExitTransition = { popExitTransition() },
-            arguments = listOf(navArgument(EDIT_GOAL_ARG_KEY) {
-                nullable = true
-                defaultValue = null
-                type = NavType.StringType
-            })
+            popExitTransition = { popExitTransition() }
         ) { backStackEntry ->
-            val editGoalId = backStackEntry.arguments!!.getString(EDIT_GOAL_ARG_KEY)
-            InputScreen(editGoalId = editGoalId, navController = navController)
+            val args = backStackEntry.toRoute<InputScreen>()
+            InputScreen(editGoalId = args.goalId, navController = navController)
         }
 
         /** Goal Achieved Screen */
