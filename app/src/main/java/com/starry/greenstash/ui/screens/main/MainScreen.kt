@@ -40,9 +40,9 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.starry.greenstash.MainActivity
 import com.starry.greenstash.MainViewModel
-import com.starry.greenstash.ui.navigation.GoalInfoScreen
-import com.starry.greenstash.ui.navigation.InputScreen
+import com.starry.greenstash.ui.navigation.NormalScreens
 import com.starry.greenstash.ui.navigation.NavGraph
+import com.starry.greenstash.ui.navigation.Screen
 import com.starry.greenstash.ui.screens.other.AppLockedScreen
 import com.starry.greenstash.ui.screens.settings.ThemeMode
 import com.starry.greenstash.ui.theme.AdjustEdgeToEdge
@@ -55,7 +55,7 @@ import com.starry.greenstash.ui.theme.AdjustEdgeToEdge
 fun MainScreen(
     activity: MainActivity,
     showAppContents: Boolean,
-    startDestination: Any,
+    startDestination: Screen,
     currentThemeMode: ThemeMode,
     onAuthRequest: () -> Unit,
 ) {
@@ -99,11 +99,11 @@ private fun HandleShortcutIntent(intent: Intent, navController: NavController) {
     if (data != null && data.scheme == MainViewModel.LAUNCHER_SHORTCUT_SCHEME) {
         val goalId = intent.getLongExtra(MainViewModel.LC_SHORTCUT_GOAL_ID, -100)
         if (goalId != -100L) {
-            navController.navigate(GoalInfoScreen(goalId.toString()))
+            navController.navigate(NormalScreens.GoalInfoScreen(goalId.toString()))
             return
         }
         if (intent.getBooleanExtra(MainViewModel.LC_SHORTCUT_NEW_GOAL, false)) {
-            navController.navigate(InputScreen)
+            navController.navigate(NormalScreens.InputScreen)
         }
     }
 }

@@ -91,7 +91,6 @@ dependencies {
     implementation 'androidx.activity:activity-compose:1.9.2'
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.8.6"
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.8.6"
-    // TODO: Needs migration to type-safe navigation in v2.8.x
     implementation "androidx.navigation:navigation-compose:2.8.2"
     // Jetpack compose.
     implementation "androidx.compose.ui:ui"

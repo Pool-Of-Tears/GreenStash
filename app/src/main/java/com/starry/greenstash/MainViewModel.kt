@@ -40,8 +40,9 @@ import androidx.lifecycle.viewModelScope
 import com.starry.greenstash.database.goal.GoalDao
 import com.starry.greenstash.other.WelcomeDataStore
 import com.starry.greenstash.reminder.ReminderManager
+import com.starry.greenstash.ui.navigation.NormalScreens
 import com.starry.greenstash.ui.navigation.DrawerScreens
-import com.starry.greenstash.ui.navigation.WelcomeScreen
+import com.starry.greenstash.ui.navigation.Screen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -66,9 +67,9 @@ class MainViewModel @Inject constructor(
     private val _isLoading: MutableState<Boolean> = mutableStateOf(true)
     val isLoading: State<Boolean> = _isLoading
 
-    private val _startDestination: MutableState<Any> =
-        mutableStateOf(WelcomeScreen)
-    val startDestination: State<Any> = _startDestination
+    private val _startDestination: MutableState<Screen> =
+        mutableStateOf(NormalScreens.WelcomeScreen)
+    val startDestination: State<Screen> = _startDestination
 
     companion object {
         // Must be same as the one in AndroidManifest.xml
@@ -87,7 +88,7 @@ class MainViewModel @Inject constructor(
                 if (completed) {
                     _startDestination.value = DrawerScreens.Home
                 } else {
-                    _startDestination.value = WelcomeScreen
+                    _startDestination.value = NormalScreens.WelcomeScreen
                 }
 
                 delay(120)
