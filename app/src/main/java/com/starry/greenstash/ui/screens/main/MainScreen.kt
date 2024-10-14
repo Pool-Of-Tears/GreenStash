@@ -43,7 +43,6 @@ import com.starry.greenstash.MainViewModel
 import com.starry.greenstash.ui.navigation.GoalInfoScreen
 import com.starry.greenstash.ui.navigation.InputScreen
 import com.starry.greenstash.ui.navigation.NavGraph
-import com.starry.greenstash.ui.navigation.Screens
 import com.starry.greenstash.ui.screens.other.AppLockedScreen
 import com.starry.greenstash.ui.screens.settings.ThemeMode
 import com.starry.greenstash.ui.theme.AdjustEdgeToEdge
@@ -56,7 +55,7 @@ import com.starry.greenstash.ui.theme.AdjustEdgeToEdge
 fun MainScreen(
     activity: MainActivity,
     showAppContents: Boolean,
-    startDestination: String,
+    startDestination: Any,
     currentThemeMode: ThemeMode,
     onAuthRequest: () -> Unit,
 ) {

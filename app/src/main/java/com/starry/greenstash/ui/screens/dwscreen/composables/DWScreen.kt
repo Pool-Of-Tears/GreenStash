@@ -84,8 +84,8 @@ import com.maxkeppeler.sheets.date_time.models.DateTimeSelection
 import com.starry.greenstash.R
 import com.starry.greenstash.database.transaction.TransactionType
 import com.starry.greenstash.ui.common.DateTimeCard
+import com.starry.greenstash.ui.navigation.CongratsScreen
 import com.starry.greenstash.ui.navigation.DrawerScreens
-import com.starry.greenstash.ui.navigation.Screens
 import com.starry.greenstash.ui.screens.dwscreen.DWViewModel
 import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.utils.NumberUtils
@@ -208,7 +208,7 @@ fun DWScreen(goalId: String, transactionTypeName: String, navController: NavCont
                                                 showTransactionAddedAnim.value = true
                                                 delay(1100)
                                                 withContext(Dispatchers.Main) {
-                                                    navController.navigate(Screens.CongratsScreen.route)
+                                                    navController.navigate(CongratsScreen)
                                                 }
                                             }
                                         }, onComplete = {
@@ -414,8 +414,8 @@ private fun navigateToHome(
         showTransactionAddedAnim.value = true
         delay(1100)
         withContext(Dispatchers.Main) {
-            navController.popBackStack(DrawerScreens.Home.route, true)
-            navController.navigate(DrawerScreens.Home.route)
+            navController.popBackStack(DrawerScreens.Home, true)
+            navController.navigate(DrawerScreens.Home)
         }
     }
 }

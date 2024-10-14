@@ -103,7 +103,6 @@ import com.starry.greenstash.MainActivity
 import com.starry.greenstash.R
 import com.starry.greenstash.database.core.GoalWithTransactions
 import com.starry.greenstash.ui.navigation.InputScreen
-import com.starry.greenstash.ui.navigation.Screens
 import com.starry.greenstash.ui.screens.home.FilterField
 import com.starry.greenstash.ui.screens.home.FilterSortType
 import com.starry.greenstash.ui.screens.home.HomeViewModel

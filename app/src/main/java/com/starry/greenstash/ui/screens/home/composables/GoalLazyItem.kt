@@ -46,7 +46,6 @@ import com.starry.greenstash.database.transaction.TransactionType
 import com.starry.greenstash.ui.navigation.DWScreen
 import com.starry.greenstash.ui.navigation.GoalInfoScreen
 import com.starry.greenstash.ui.navigation.InputScreen
-import com.starry.greenstash.ui.navigation.Screens
 import com.starry.greenstash.ui.screens.home.GoalCardStyle
 import com.starry.greenstash.ui.screens.home.HomeViewModel
 import com.starry.greenstash.utils.Constants

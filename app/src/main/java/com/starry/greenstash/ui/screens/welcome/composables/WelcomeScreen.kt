@@ -164,7 +164,7 @@ fun WelcomeScreen(navController: NavController) {
                         view.weakHapticFeedback()
                         viewModel.saveOnBoardingState(completed = true)
                         navController.popBackStack()
-                        navController.navigate(DrawerScreens.Home.route)
+                        navController.navigate(DrawerScreens.Home)
                     },
                     modifier = Modifier.width(245.dp),
                     shape = RoundedCornerShape(16.dp)

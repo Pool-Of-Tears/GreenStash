@@ -1,45 +1,36 @@
-/**
- * MIT License
- *
- * Copyright (c) [2022 - Present] Stɑrry Shivɑm
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
-
-
 package com.starry.greenstash.ui.navigation
 
-sealed class Screens(val route: String) {
-    // Settings Screens
-
-    data object GoalCardStyle : Screens("goal_card_style")
+import kotlinx.serialization.Serializable
 
 
-    data object AboutScreen : Screens("about_screen")
+@Serializable
+data class DWScreen(val goalId: String, val transactionType: String)
 
 
-    data object OSLScreen : Screens("osl_screen")
+@Serializable
+data class InputScreen(val goalId: String? = null)
 
-    // Goal Achieved Screen
 
-    data object CongratsScreen : Screens("goal_achieved_screen")
+@Serializable
+data class GoalInfoScreen(val goalId: String)
 
-    // Welcome / Onboarding Screen
-    data object WelcomeScreen : Screens("welcome_screen")
-}
+@Serializable
+object AboutScreen
+
+@Serializable
+object OSLScreen
+
+@Serializable
+object GoalCardStyleScreen
+
+
+// Goal Achieved Screen
+@Serializable
+object CongratsScreen
+
+// Welcome / Onboarding Screen
+@Serializable
+object WelcomeScreen
+
+
+

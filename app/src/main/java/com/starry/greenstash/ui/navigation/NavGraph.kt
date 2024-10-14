@@ -50,8 +50,9 @@ import com.starry.greenstash.ui.screens.welcome.composables.WelcomeScreen
 @Composable
 fun NavGraph(
     navController: NavHostController,
-    startDestination: String
+    startDestination: Any
 ) {
+
     NavHost(
         navController = navController,
         startDestination = startDestination,
@@ -59,8 +60,7 @@ fun NavGraph(
 
     ) {
         /** Welcome Screen */
-        composable(
-            route = Screens.WelcomeScreen.route,
+        composable<WelcomeScreen>(
             exitTransition = { exitTransition() },
             popEnterTransition = { popEnterTransition() },
         ) {
@@ -68,8 +68,7 @@ fun NavGraph(
         }
 
         /** Home Screen */
-        composable(
-            route = DrawerScreens.Home.route,
+        composable<DrawerScreens.Home>(
             enterTransition = { enterTransition() },
             exitTransition = { exitTransition() },
             popEnterTransition = { popEnterTransition() },
@@ -116,8 +115,7 @@ fun NavGraph(
         }
 
         /** Goal Achieved Screen */
-        composable(
-            route = Screens.CongratsScreen.route,
+        composable<CongratsScreen>(
             enterTransition = { enterTransition() },
             exitTransition = { exitTransition() },
             popEnterTransition = { popEnterTransition() },
@@ -127,8 +125,7 @@ fun NavGraph(
         }
 
         /** Archive Screen */
-        composable(
-            route = DrawerScreens.Archive.route,
+        composable<DrawerScreens.Archive>(
             enterTransition = { enterTransition() },
             exitTransition = { exitTransition() },
             popEnterTransition = { popEnterTransition() },
@@ -138,8 +135,7 @@ fun NavGraph(
         }
 
         /** Backup Screen */
-        composable(
-            route = DrawerScreens.Backups.route,
+        composable<DrawerScreens.Backups>(
             enterTransition = { enterTransition() },
             exitTransition = { exitTransition() },
             popEnterTransition = { popEnterTransition() },
@@ -149,8 +145,7 @@ fun NavGraph(
         }
 
         /** Settings Screen */
-        composable(
-            route = DrawerScreens.Settings.route,
+        composable<DrawerScreens.Settings>(
             enterTransition = { enterTransition() },
             exitTransition = { exitTransition() },
             popEnterTransition = { popEnterTransition() },
@@ -160,8 +155,7 @@ fun NavGraph(
         }
 
         /** Goal Ui Settings Screen */
-        composable(
-            route = Screens.GoalCardStyle.route,
+        composable<GoalCardStyleScreen>(
             enterTransition = { enterTransition() },
             popExitTransition = { popExitTransition() },
         ) {
@@ -169,8 +163,7 @@ fun NavGraph(
         }
 
         /** Open Source Licenses Screen */
-        composable(
-            route = Screens.OSLScreen.route,
+        composable<OSLScreen>(
             enterTransition = { enterTransition() },
             popExitTransition = { popExitTransition() },
         ) {
@@ -178,8 +171,7 @@ fun NavGraph(
         }
 
         /** About Screen */
-        composable(
-            route = Screens.AboutScreen.route,
+        composable<AboutScreen>(
             enterTransition = { enterTransition() },
             popExitTransition = { popExitTransition() },
         ) {

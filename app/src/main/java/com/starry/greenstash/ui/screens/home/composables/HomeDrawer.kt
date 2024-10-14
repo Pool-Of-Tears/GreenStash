@@ -199,12 +199,14 @@ private fun DrawerItems(
             selected = item == selectedItem.value,
             onClick = {
                 view.weakHapticFeedback()
-                selectedItem.value = item
                 coroutineScope.launch {
                     drawerState.close()
-                    withContext(Dispatchers.Main) {
-                        navController.navigate(item.route)
+                    if (item != selectedItem.value) {
+                        withContext(Dispatchers.Main) {
+                            navController.navigate(item)
+                        }
                     }
+                    selectedItem.value = item
                 }
             },
             modifier = Modifier

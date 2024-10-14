@@ -26,23 +26,29 @@
 package com.starry.greenstash.ui.navigation
 
 import com.starry.greenstash.R
+import kotlinx.serialization.Serializable
 
-sealed class DrawerScreens(val route: String, val nameResId: Int, val iconResId: Int) {
+@Serializable
+sealed class DrawerScreens( val nameResId: Int, val iconResId: Int) {
 
     companion object {
         fun getAllItems() = listOf(Home, Archive, Backups, Settings)
     }
 
-    data object Home : DrawerScreens("home", R.string.drawer_home, R.drawable.ic_nav_home)
+    @Serializable
+    data object Home : DrawerScreens( R.string.drawer_home, R.drawable.ic_nav_home)
 
+    @Serializable
     data object Archive :
-        DrawerScreens("archive", R.string.drawer_archive, R.drawable.ic_nav_archive)
+        DrawerScreens( R.string.drawer_archive, R.drawable.ic_nav_archive)
 
+    @Serializable
     data object Backups :
-        DrawerScreens("backups", R.string.drawer_backup, R.drawable.ic_nav_backups)
+        DrawerScreens( R.string.drawer_backup, R.drawable.ic_nav_backups)
 
+    @Serializable
     data object Settings :
-        DrawerScreens("settings", R.string.drawer_settings, R.drawable.ic_nav_settings)
+        DrawerScreens( R.string.drawer_settings, R.drawable.ic_nav_settings)
 }
 
 
