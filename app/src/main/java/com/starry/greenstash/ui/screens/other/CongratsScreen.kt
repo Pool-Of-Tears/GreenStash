@@ -83,8 +83,8 @@ fun CongratsScreen(navController: NavController) {
         })
 
         BackHandler {
-            navController.popBackStack(DrawerScreens.Home.route, true)
-            navController.navigate(DrawerScreens.Home.route)
+            navController.popBackStack(DrawerScreens.Home, true)
+            navController.navigate(DrawerScreens.Home)
         }
 
         Column(
@@ -148,8 +148,8 @@ fun CongratsScreen(navController: NavController) {
             SlideInAnimatedContainer(initialDelay = 2000) {
                 FilledTonalButton(
                     onClick = {
-                        navController.popBackStack(DrawerScreens.Home.route, true)
-                        navController.navigate(DrawerScreens.Home.route)
+                        navController.popBackStack(DrawerScreens.Home, true)
+                        navController.navigate(DrawerScreens.Home)
                     },
                     shape = RoundedCornerShape(12.dp),
                     modifier = Modifier

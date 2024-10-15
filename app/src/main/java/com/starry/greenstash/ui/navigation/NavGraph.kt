@@ -30,10 +30,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
+import androidx.navigation.toRoute
 import com.starry.greenstash.ui.screens.archive.composables.ArchiveScreen
 import com.starry.greenstash.ui.screens.backups.composables.BackupScreen
 import com.starry.greenstash.ui.screens.dwscreen.composables.DWScreen
@@ -51,8 +50,9 @@ import com.starry.greenstash.ui.screens.welcome.composables.WelcomeScreen
 @Composable
 fun NavGraph(
     navController: NavHostController,
-    startDestination: String
+    startDestination: Screen
 ) {
+
     NavHost(
         navController = navController,
         startDestination = startDestination,
@@ -60,8 +60,7 @@ fun NavGraph(
 
     ) {
         /** Welcome Screen */
-        composable(
-            route = Screens.WelcomeScreen.route,
+        composable<NormalScreens.WelcomeScreen>(
             exitTransition = { exitTransition() },
             popEnterTransition = { popEnterTransition() },
         ) {
@@ -69,8 +68,7 @@ fun NavGraph(
         }
 
         /** Home Screen */
-        composable(
-            route = DrawerScreens.Home.route,
+        composable<DrawerScreens.Home>(
             enterTransition = { enterTransition() },
             exitTransition = { exitTransition() },
             popEnterTransition = { popEnterTransition() },
@@ -80,65 +78,44 @@ fun NavGraph(
         }
 
         /** Deposit Withdraw Screen */
-        composable(
-            route = Screens.DWScreen.route,
+        composable<NormalScreens.DWScreen>(
             enterTransition = { enterTransition() },
             exitTransition = { exitTransition() },
             popEnterTransition = { popEnterTransition() },
-            popExitTransition = { popExitTransition() },
-            arguments = listOf(
-                navArgument(DW_GOAL_ID_ARG_KEY) {
-                    type = NavType.StringType
-                },
-            ),
+            popExitTransition = { popExitTransition() }
         ) { backStackEntry ->
-            val goalId = backStackEntry.arguments!!.getString(DW_GOAL_ID_ARG_KEY)!!
-            val transactionType =
-                backStackEntry.arguments!!.getString(DW_TRANSACTION_TYPE_ARG_KEY)!!
+            val args = backStackEntry.toRoute<NormalScreens.DWScreen>()
             DWScreen(
-                goalId = goalId,
-                transactionTypeName = transactionType,
+                goalId = args.goalId,
+                transactionTypeName = args.transactionType,
                 navController = navController
             )
         }
 
         /** Goal Info Screen */
-        composable(
-            route = Screens.GoalInfoScreen.route,
+        composable<NormalScreens.GoalInfoScreen>(
             enterTransition = { enterTransition() },
             exitTransition = { exitTransition() },
             popEnterTransition = { popEnterTransition() },
-            popExitTransition = { popExitTransition() },
-            arguments = listOf(
-                navArgument(GOAL_INFO_ARG_KEY) {
-                    type = NavType.StringType
-                },
-            ),
+            popExitTransition = { popExitTransition() }
         ) { backStackEntry ->
-            val goalId = backStackEntry.arguments!!.getString(GOAL_INFO_ARG_KEY)!!
-            GoalInfoScreen(goalId = goalId, navController = navController)
+            val args = backStackEntry.toRoute<NormalScreens.GoalInfoScreen>()
+            GoalInfoScreen(goalId = args.goalId, navController = navController)
         }
 
         /** Input Screen */
-        composable(
-            route = Screens.InputScreen.route,
+        composable<NormalScreens.InputScreen>(
             enterTransition = { enterTransition() },
             exitTransition = { exitTransition() },
             popEnterTransition = { popEnterTransition() },
-            popExitTransition = { popExitTransition() },
-            arguments = listOf(navArgument(EDIT_GOAL_ARG_KEY) {
-                nullable = true
-                defaultValue = null
-                type = NavType.StringType
-            })
+            popExitTransition = { popExitTransition() }
         ) { backStackEntry ->
-            val editGoalId = backStackEntry.arguments!!.getString(EDIT_GOAL_ARG_KEY)
-            InputScreen(editGoalId = editGoalId, navController = navController)
+            val args = backStackEntry.toRoute<NormalScreens.InputScreen>()
+            InputScreen(editGoalId = args.goalId, navController = navController)
         }
 
         /** Goal Achieved Screen */
-        composable(
-            route = Screens.CongratsScreen.route,
+        composable<NormalScreens.CongratsScreen>(
             enterTransition = { enterTransition() },
             exitTransition = { exitTransition() },
             popEnterTransition = { popEnterTransition() },
@@ -148,8 +125,7 @@ fun NavGraph(
         }
 
         /** Archive Screen */
-        composable(
-            route = DrawerScreens.Archive.route,
+        composable<DrawerScreens.Archive>(
             enterTransition = { enterTransition() },
             exitTransition = { exitTransition() },
             popEnterTransition = { popEnterTransition() },
@@ -159,8 +135,7 @@ fun NavGraph(
         }
 
         /** Backup Screen */
-        composable(
-            route = DrawerScreens.Backups.route,
+        composable<DrawerScreens.Backups>(
             enterTransition = { enterTransition() },
             exitTransition = { exitTransition() },
             popEnterTransition = { popEnterTransition() },
@@ -170,8 +145,7 @@ fun NavGraph(
         }
 
         /** Settings Screen */
-        composable(
-            route = DrawerScreens.Settings.route,
+        composable<DrawerScreens.Settings>(
             enterTransition = { enterTransition() },
             exitTransition = { exitTransition() },
             popEnterTransition = { popEnterTransition() },
@@ -181,8 +155,7 @@ fun NavGraph(
         }
 
         /** Goal Ui Settings Screen */
-        composable(
-            route = Screens.GoalCardStyle.route,
+        composable<NormalScreens.GoalCardStyleScreen>(
             enterTransition = { enterTransition() },
             popExitTransition = { popExitTransition() },
         ) {
@@ -190,8 +163,7 @@ fun NavGraph(
         }
 
         /** Open Source Licenses Screen */
-        composable(
-            route = Screens.OSLScreen.route,
+        composable<NormalScreens.OSLScreen>(
             enterTransition = { enterTransition() },
             popExitTransition = { popExitTransition() },
         ) {
@@ -199,8 +171,7 @@ fun NavGraph(
         }
 
         /** About Screen */
-        composable(
-            route = Screens.AboutScreen.route,
+        composable<NormalScreens.AboutScreen>(
             enterTransition = { enterTransition() },
             popExitTransition = { popExitTransition() },
         ) {

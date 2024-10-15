@@ -474,10 +474,10 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                                         delay(1050)
                                         withContext(Dispatchers.Main) {
                                             navController.popBackStack(
-                                                DrawerScreens.Home.route,
+                                                DrawerScreens.Home,
                                                 true
                                             )
-                                            navController.navigate(DrawerScreens.Home.route)
+                                            navController.navigate(DrawerScreens.Home)
                                         }
                                     }
                                 }

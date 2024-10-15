@@ -23,32 +23,39 @@
  */
 
 
+
 package com.starry.greenstash.ui.navigation
 
-import com.starry.greenstash.R
 import kotlinx.serialization.Serializable
 
-@Serializable
-sealed class DrawerScreens(val nameResId: Int, val iconResId: Int) : Screen() {
-
-    companion object {
-        fun getAllItems() = listOf(Home, Archive, Backups, Settings)
-    }
+sealed class NormalScreens : Screen() {
 
     @Serializable
-    data object Home : DrawerScreens(R.string.drawer_home, R.drawable.ic_nav_home)
+    data class DWScreen(val goalId: String, val transactionType: String)
 
     @Serializable
-    data object Archive :
-        DrawerScreens(R.string.drawer_archive, R.drawable.ic_nav_archive)
+    data class InputScreen(val goalId: String? = null)
 
     @Serializable
-    data object Backups :
-        DrawerScreens(R.string.drawer_backup, R.drawable.ic_nav_backups)
+    data class GoalInfoScreen(val goalId: String)
 
     @Serializable
-    data object Settings :
-        DrawerScreens(R.string.drawer_settings, R.drawable.ic_nav_settings)
+    data object AboutScreen
+
+    @Serializable
+    data object OSLScreen
+
+    @Serializable
+    data object GoalCardStyleScreen
+
+
+    // Goal Achieved Screen
+    @Serializable
+    data object CongratsScreen
+
+    // Welcome / Onboarding Screen
+    @Serializable
+    data object WelcomeScreen : NormalScreens()
 }
 
 
