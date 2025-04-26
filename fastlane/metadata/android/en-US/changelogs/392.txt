@@ -1,0 +1,3 @@
+- Migrate to type-safe navigation API
+- Updated dependencies & AGP version
+- Minor fixes and code cleanup.
