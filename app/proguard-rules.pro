@@ -20,13 +20,6 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
-# Prevent proguard from stripping interface information from TypeAdapter, TypeAdapterFactory,
-# JsonSerializer, JsonDeserializer instances (so they can be used in @JsonAdapter)
--keep class * implements com.google.gson.TypeAdapter
--keep class * implements com.google.gson.TypeAdapterFactory
--keep class * implements com.google.gson.JsonSerializer
--keep class * implements com.google.gson.JsonDeserializer
-
 # Prevent R8 from removing icons used in goal icon picker.
 -keep class androidx.compose.material.icons.filled.** { *; }
 
