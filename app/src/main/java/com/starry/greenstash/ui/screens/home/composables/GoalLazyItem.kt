@@ -43,7 +43,7 @@ import com.starry.greenstash.MainActivity
 import com.starry.greenstash.R
 import com.starry.greenstash.database.core.GoalWithTransactions
 import com.starry.greenstash.database.transaction.TransactionType
-import com.starry.greenstash.ui.navigation.NormalScreens
+import com.starry.greenstash.ui.navigation.OtherScreens
 import com.starry.greenstash.ui.screens.home.GoalCardStyle
 import com.starry.greenstash.ui.screens.home.HomeViewModel
 import com.starry.greenstash.utils.Constants
@@ -107,7 +107,7 @@ fun GoalLazyColumnItem(
                         }
                     } else {
                         navController.navigate(
-                            NormalScreens.DWScreen(
+                            OtherScreens.DWScreen(
                                 goalId = item.goal.goalId.toString(),
                                 transactionType = TransactionType.Deposit.name
                             )
@@ -122,7 +122,7 @@ fun GoalLazyColumnItem(
                         }
                     } else {
                         navController.navigate(
-                            NormalScreens.DWScreen(
+                            OtherScreens.DWScreen(
                                 goalId = item.goal.goalId.toString(),
                                 transactionType = TransactionType.Withdraw.name
                             )
@@ -132,7 +132,7 @@ fun GoalLazyColumnItem(
                 onInfoClicked = {
                     localView.weakHapticFeedback()
                     navController.navigate(
-                        NormalScreens.GoalInfoScreen(
+                        OtherScreens.GoalInfoScreen(
                             goalId = item.goal.goalId.toString()
                         )
                     )
@@ -140,7 +140,7 @@ fun GoalLazyColumnItem(
                 onEditClicked = {
                     localView.weakHapticFeedback()
                     navController.navigate(
-                        NormalScreens.InputScreen(
+                        OtherScreens.InputScreen(
                             goalId = item.goal.goalId.toString()
                         )
                     )
@@ -191,7 +191,7 @@ fun GoalLazyColumnItem(
                         }
                     } else {
                         navController.navigate(
-                            NormalScreens.DWScreen(
+                            OtherScreens.DWScreen(
                                 goalId = item.goal.goalId.toString(),
                                 transactionType = TransactionType.Deposit.name
                             )
@@ -206,7 +206,7 @@ fun GoalLazyColumnItem(
                         }
                     } else {
                         navController.navigate(
-                            NormalScreens.DWScreen(
+                            OtherScreens.DWScreen(
                                 goalId = item.goal.goalId.toString(),
                                 transactionType = TransactionType.Withdraw.name
                             )
@@ -216,7 +216,7 @@ fun GoalLazyColumnItem(
                 onInfoClicked = {
                     localView.weakHapticFeedback()
                     navController.navigate(
-                        NormalScreens.GoalInfoScreen(
+                        OtherScreens.GoalInfoScreen(
                             goalId = item.goal.goalId.toString()
                         )
                     )
@@ -224,7 +224,7 @@ fun GoalLazyColumnItem(
                 onEditClicked = {
                     localView.weakHapticFeedback()
                     navController.navigate(
-                        NormalScreens.InputScreen(
+                        OtherScreens.InputScreen(
                             goalId = item.goal.goalId.toString()
                         )
                     )
