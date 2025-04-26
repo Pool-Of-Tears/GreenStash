@@ -29,7 +29,7 @@ import com.starry.greenstash.R
 import kotlinx.serialization.Serializable
 
 @Serializable
-sealed class DrawerScreens(val nameResId: Int, val iconResId: Int) : Screen() {
+sealed class DrawerScreens(val nameResId: Int, val iconResId: Int) : BaseScreen() {
 
     companion object {
         fun getAllItems() = listOf(Home, Archive, Backups, Settings)

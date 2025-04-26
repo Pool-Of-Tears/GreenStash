@@ -35,7 +35,6 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.combinedClickable
@@ -115,7 +114,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat.startActivity
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
@@ -643,7 +641,6 @@ private fun IconPickerCard(
 }
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun GoalPriorityMenu(selectedPriority: String, onPriorityChanged: (String) -> Unit) {
     Card(
@@ -788,7 +785,7 @@ private fun GoalReminderMenu(
                                 val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
                                 val uri = Uri.fromParts("package", BuildConfig.APPLICATION_ID, null)
                                 intent.data = uri
-                                startActivity(context, intent, null)
+                                context.startActivity(intent, null)
                             }
                         }
                     }
@@ -835,7 +832,6 @@ private fun GoalReminderMenu(
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun InputTextFields(
     goalTitle: String,

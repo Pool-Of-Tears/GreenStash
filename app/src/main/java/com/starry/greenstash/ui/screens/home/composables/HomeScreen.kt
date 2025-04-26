@@ -102,7 +102,7 @@ import com.psoffritti.taptargetcompose.TextDefinition
 import com.starry.greenstash.MainActivity
 import com.starry.greenstash.R
 import com.starry.greenstash.database.core.GoalWithTransactions
-import com.starry.greenstash.ui.navigation.NormalScreens
+import com.starry.greenstash.ui.navigation.OtherScreens
 import com.starry.greenstash.ui.screens.home.FilterField
 import com.starry.greenstash.ui.screens.home.FilterSortType
 import com.starry.greenstash.ui.screens.home.HomeViewModel
@@ -418,7 +418,7 @@ private fun HomeExtendedFAB(
             modifier = modifier.padding(end = 10.dp, bottom = 12.dp),
             onClick = {
                 view.weakHapticFeedback()
-                navController.navigate(NormalScreens.InputScreen())
+                navController.navigate(OtherScreens.InputScreen())
             },
             elevation = FloatingActionButtonDefaults.elevation(8.dp)
         ) {

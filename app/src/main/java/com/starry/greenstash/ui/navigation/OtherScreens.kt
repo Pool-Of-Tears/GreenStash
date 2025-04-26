@@ -23,12 +23,11 @@
  */
 
 
-
 package com.starry.greenstash.ui.navigation
 
 import kotlinx.serialization.Serializable
 
-sealed class NormalScreens : Screen() {
+sealed class OtherScreens : BaseScreen() {
 
     @Serializable
     data class DWScreen(val goalId: String, val transactionType: String)
@@ -55,7 +54,7 @@ sealed class NormalScreens : Screen() {
 
     // Welcome / Onboarding Screen
     @Serializable
-    data object WelcomeScreen : NormalScreens()
+    data object WelcomeScreen : OtherScreens()
 }
 
 

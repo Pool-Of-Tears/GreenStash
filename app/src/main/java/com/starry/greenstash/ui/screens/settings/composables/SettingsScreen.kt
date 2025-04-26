@@ -93,7 +93,7 @@ import com.starry.greenstash.MainActivity
 import com.starry.greenstash.R
 import com.starry.greenstash.ui.common.CurrencyPicker
 import com.starry.greenstash.ui.common.CurrencyPickerData
-import com.starry.greenstash.ui.navigation.NormalScreens
+import com.starry.greenstash.ui.navigation.OtherScreens
 import com.starry.greenstash.ui.screens.home.GoalCardStyle
 import com.starry.greenstash.ui.screens.settings.DateStyle
 import com.starry.greenstash.ui.screens.settings.SettingsViewModel
@@ -231,7 +231,7 @@ private fun DisplaySettings(viewModel: SettingsViewModel, navController: NavCont
         SettingsItem(title = stringResource(id = R.string.goal_card_setting),
             description = goalStyleValue,
             icon = Icons.Filled.Style,
-            onClick = { navController.navigate(NormalScreens.GoalCardStyleScreen) })
+            onClick = { navController.navigate(OtherScreens.GoalCardStyleScreen) })
 
         if (showThemeSheet.value) {
             ThemePickerDialog(
@@ -553,11 +553,11 @@ private fun MiscSettings(navController: NavController) {
         SettingsItem(title = stringResource(id = R.string.license_setting),
             description = stringResource(id = R.string.license_setting_desc),
             icon = Icons.Filled.LocalPolice,
-            onClick = { navController.navigate(NormalScreens.OSLScreen) })
+            onClick = { navController.navigate(OtherScreens.OSLScreen) })
         SettingsItem(title = stringResource(id = R.string.app_info_setting),
             description = stringResource(id = R.string.app_info_setting_desc),
             icon = Icons.Filled.Info,
-            onClick = { navController.navigate(NormalScreens.AboutScreen) })
+            onClick = { navController.navigate(OtherScreens.AboutScreen) })
     }
     Spacer(modifier = Modifier.height(2.dp)) // Last item padding.
 }
