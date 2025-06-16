@@ -43,10 +43,18 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.onClick
+import androidx.compose.ui.semantics.role
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
 import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.utils.weakHapticFeedback
+import com.starry.greenstash.R
 
 @Composable
 fun SettingsItem(title: String, description: String, icon: ImageVector, onClick: () -> Unit) {
@@ -97,8 +105,19 @@ fun SettingsItem(
     onCheckChange: (Boolean) -> Unit,
 ) {
     val view = LocalView.current
+    val context = LocalContext.current
     Row(
         modifier = Modifier
+            .clearAndSetSemantics {
+                role = Role.Switch
+                contentDescription = "$title, $description"
+                stateDescription = if (switchState.value) context.getString(R.string.switch_state_open) else context.getString(R.string.switch_state_close)
+                onClick(label = if (switchState.value) context.getString(R.string.switch_action_close) else context.getString(R.string.switch_action_open)) {
+                    view.weakHapticFeedback()
+                    onCheckChange(!switchState.value)
+                    true
+                }
+            }
             .fillMaxWidth()
             .padding(8.dp, 20.dp),
         verticalAlignment = Alignment.CenterVertically,

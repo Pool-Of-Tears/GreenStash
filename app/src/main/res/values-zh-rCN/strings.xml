@@ -191,6 +191,11 @@
     <string name="license_setting_desc">显示开源许可协议信息。</string>
     <string name="app_info_setting">应用信息</string>
     <string name="app_info_setting_desc">显示应用版本和有用的链接。</string>
+    <string name="switch_action_close">关闭</string>
+    <string name="switch_action_open">打开</string>
+    <string name="switch_state_close">已关闭</string>
+    <string name="switch_state_open">已打开</string>
+    <string name="navigate_back_desc">返回</string>
 
     <!-- Goal Card STyle -->
     <string name="goal_card_settings_header">目标样式</string>
