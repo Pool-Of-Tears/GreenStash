@@ -192,6 +192,12 @@
     <string name="app_info_setting">Informazioni App</string>
     <string name="app_info_setting_desc">Mostra la versione dell\'app e altri link utili.</string>
 
+    <string name="switch_action_close">Close</string>
+    <string name="switch_action_open">Open</string>
+    <string name="switch_state_close">off</string>
+    <string name="switch_state_open">on</string>
+    <string name="navigate_back_desc">Navigate Back</string>
+
     <!-- Goal Card Style -->
     <string name="goal_card_settings_header">Stile Obbiettivo</string>
     <string name="goal_card_settings_tip">Suggerimento! Puoi scorrere una scheda in stile compatto a sinistra o destra per modificare o eliminare un obbiettivo di risparmio.</string>
