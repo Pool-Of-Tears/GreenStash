@@ -191,6 +191,11 @@
     <string name="license_setting_desc">Show open source license information.</string>
     <string name="app_info_setting">App Information</string>
     <string name="app_info_setting_desc">Show app version and useful links.</string>
+    <string name="switch_action_close">Close</string>
+    <string name="switch_action_open">Open</string>
+    <string name="switch_state_close">off</string>
+    <string name="switch_state_open">on</string>
+    <string name="navigate_back_desc">Navigate Back</string>
 
     <!-- Goal Card Style -->
     <string name="goal_card_settings_header">Goal Style</string>

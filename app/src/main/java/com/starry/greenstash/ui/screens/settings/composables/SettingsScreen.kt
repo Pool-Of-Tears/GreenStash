@@ -83,6 +83,8 @@ import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.onClick
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -127,10 +129,14 @@ fun SettingsScreen(navController: NavController) {
                     fontFamily = greenstashFont
                 )
             }, navigationIcon = {
-                IconButton(onClick = {
-                    view.weakHapticFeedback()
-                    navController.navigateUp()
-                }) {
+                IconButton(
+                    onClick = {
+                        view.weakHapticFeedback()
+                        navController.navigateUp()
+                    },
+                    Modifier.semantics {
+                        onClick(label = context.getString(R.string.navigate_back_desc)) { true }
+                    }) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = null
