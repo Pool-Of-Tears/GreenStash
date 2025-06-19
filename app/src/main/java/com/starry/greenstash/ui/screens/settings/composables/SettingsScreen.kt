@@ -121,7 +121,8 @@ fun SettingsScreen(navController: NavController) {
             .fillMaxSize()
             .nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            LargeTopAppBar(title = {
+            LargeTopAppBar(
+                title = {
                 Text(
                     stringResource(id = R.string.settings_screen_header),
                     maxLines = 1,
@@ -197,7 +198,8 @@ private fun DisplaySettings(viewModel: SettingsViewModel, navController: NavCont
 
     SettingsContainer {
         SettingsCategory(title = stringResource(id = R.string.display_settings_title))
-        SettingsItem(title = stringResource(id = R.string.theme_setting),
+        SettingsItem(
+            title = stringResource(id = R.string.theme_setting),
             description = themeValue,
             icon = Icons.Filled.BrightnessMedium,
             onClick = { showThemeSheet.value = true })
@@ -213,7 +215,8 @@ private fun DisplaySettings(viewModel: SettingsViewModel, navController: NavCont
             }
         )
 
-        SettingsItem(title = stringResource(id = R.string.material_you_setting),
+        SettingsItem(
+            title = stringResource(id = R.string.material_you_setting),
             description = stringResource(
                 id = R.string.material_you_setting_desc
             ),
@@ -234,7 +237,8 @@ private fun DisplaySettings(viewModel: SettingsViewModel, navController: NavCont
                 }
             })
 
-        SettingsItem(title = stringResource(id = R.string.goal_card_setting),
+        SettingsItem(
+            title = stringResource(id = R.string.goal_card_setting),
             description = goalStyleValue,
             icon = Icons.Filled.Style,
             onClick = { navController.navigate(OtherScreens.GoalCardStyleScreen) })
@@ -376,7 +380,8 @@ private fun LocaleSettings(viewModel: SettingsViewModel) {
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && !Utils.isMiui()
         }
         if (shouldShowAppLocaleSetting) {
-            SettingsItem(title = stringResource(id = R.string.app_locale_setting),
+            SettingsItem(
+                title = stringResource(id = R.string.app_locale_setting),
                 description = stringResource(id = R.string.app_locale_setting_desc),
                 icon = Icons.Filled.Language,
                 onClick = {
@@ -387,12 +392,14 @@ private fun LocaleSettings(viewModel: SettingsViewModel) {
                 }
             )
         }
-        SettingsItem(title = stringResource(id = R.string.date_format_setting),
+        SettingsItem(
+            title = stringResource(id = R.string.date_format_setting),
             description = dateValue,
             icon = ImageVector.vectorResource(id = R.drawable.ic_settings_calender),
             onClick = { dateDialog.value = true })
 
-        SettingsItem(title = stringResource(id = R.string.preferred_currency_setting),
+        SettingsItem(
+            title = stringResource(id = R.string.preferred_currency_setting),
             description = selectedCurrencyName.value,
             icon = ImageVector.vectorResource(id = R.drawable.ic_settings_currency),
             onClick = { currencyDialog.value = true })
@@ -475,8 +482,9 @@ private fun LocaleSettings(viewModel: SettingsViewModel) {
             })
         }
 
-        CurrencyPicker(defaultCurrencyValue = viewModel.getDefaultCurrencyValue()
-            ?: currencyValues.first(),
+        CurrencyPicker(
+            defaultCurrencyValue = viewModel.getDefaultCurrencyValue()
+                ?: currencyValues.first(),
             currencyPickerData = CurrencyPickerData(
                 currencyNames = currencyNames,
                 currencyValues = currencyValues,
@@ -500,7 +508,8 @@ private fun SecuritySettings(viewModel: SettingsViewModel) {
 
     SettingsContainer {
         SettingsCategory(title = stringResource(id = R.string.security_settings_title))
-        SettingsItem(title = stringResource(id = R.string.app_lock_setting),
+        SettingsItem(
+            title = stringResource(id = R.string.app_lock_setting),
             description = stringResource(id = R.string.app_lock_setting_desc),
             icon = Icons.Filled.Lock,
             switchState = appLockSwitch,
@@ -509,7 +518,8 @@ private fun SecuritySettings(viewModel: SettingsViewModel) {
                 if (newValue) {
                     val mainActivity = context.getActivity() as MainActivity
                     executor = ContextCompat.getMainExecutor(context)
-                    biometricPrompt = BiometricPrompt(mainActivity,
+                    biometricPrompt = BiometricPrompt(
+                        mainActivity,
                         executor,
                         object : BiometricPrompt.AuthenticationCallback() {
                             override fun onAuthenticationError(
@@ -556,11 +566,13 @@ private fun SecuritySettings(viewModel: SettingsViewModel) {
 private fun MiscSettings(navController: NavController) {
     SettingsContainer {
         SettingsCategory(title = stringResource(id = R.string.misc_setting_title))
-        SettingsItem(title = stringResource(id = R.string.license_setting),
+        SettingsItem(
+            title = stringResource(id = R.string.license_setting),
             description = stringResource(id = R.string.license_setting_desc),
             icon = Icons.Filled.LocalPolice,
             onClick = { navController.navigate(OtherScreens.OSLScreen) })
-        SettingsItem(title = stringResource(id = R.string.app_info_setting),
+        SettingsItem(
+            title = stringResource(id = R.string.app_info_setting),
             description = stringResource(id = R.string.app_info_setting_desc),
             icon = Icons.Filled.Info,
             onClick = { navController.navigate(OtherScreens.AboutScreen) })

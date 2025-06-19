@@ -89,9 +89,10 @@ fun ArchiveScreen(navController: NavController) {
 
     val archivedGoals by viewModel.archivedGoals.collectAsState(initial = listOf())
 
-    Scaffold(modifier = Modifier
-        .fillMaxSize()
-        .nestedScroll(scrollBehavior.nestedScrollConnection),
+    Scaffold(
+        modifier = Modifier
+            .fillMaxSize()
+            .nestedScroll(scrollBehavior.nestedScrollConnection),
         snackbarHost = { SnackbarHost(snackBarHostState) },
         topBar = {
             LargeTopAppBar(

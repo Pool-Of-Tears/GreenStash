@@ -162,7 +162,8 @@ fun ArchiveDialogs(
     onDeleteConfirmed: () -> Unit
 ) {
     if (showRestoreDialog.value) {
-        AlertDialog(onDismissRequest = {
+        AlertDialog(
+            onDismissRequest = {
             showRestoreDialog.value = false
         }, title = {
             Text(
@@ -201,7 +202,8 @@ fun ArchiveDialogs(
     }
 
     if (showDeleteDialog.value) {
-        AlertDialog(onDismissRequest = {
+        AlertDialog(
+            onDismissRequest = {
             showDeleteDialog.value = false
         }, title = {
             Text(

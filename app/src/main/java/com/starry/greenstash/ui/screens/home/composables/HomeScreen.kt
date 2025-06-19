@@ -183,7 +183,8 @@ fun HomeScreen(navController: NavController) {
             showTapTargets = showTapTargets.value,
             onComplete = { viewModel.onboardingTapTargetsShown() }
         ) {
-            Scaffold(modifier = Modifier.fillMaxSize(),
+            Scaffold(
+                modifier = Modifier.fillMaxSize(),
                 snackbarHost = { SnackbarHost(snackBarHostState) },
                 topBar = {
                     HomeAppBar(

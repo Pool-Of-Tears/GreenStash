@@ -51,7 +51,8 @@ fun HomeDialogs(
 ) {
     if (openDeleteDialog.value) {
 
-        AlertDialog(onDismissRequest = {
+        AlertDialog(
+            onDismissRequest = {
             openDeleteDialog.value = false
         }, title = {
             Text(
@@ -91,7 +92,8 @@ fun HomeDialogs(
 
     if (openArchiveDialog.value) {
 
-        AlertDialog(onDismissRequest = {
+        AlertDialog(
+            onDismissRequest = {
             openArchiveDialog.value = false
         }, title = {
             Text(

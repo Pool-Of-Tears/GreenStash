@@ -181,7 +181,8 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
 
     if (editGoalId != null) {
         LaunchedEffect(key1 = true, block = {
-            viewModel.setEditGoalData(goalId = editGoalId.toLong(),
+            viewModel.setEditGoalData(
+                goalId = editGoalId.toLong(),
                 onEditDataSet = { goalImageBm, goalIconId ->
                     goalImageBm?.let { goalImage = it }
                     goalIconId?.let { id ->
@@ -227,7 +228,8 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
 
     // Icon Picker Dialog.
     val showIconPickerDialog = remember { mutableStateOf(false) }
-    IconPickerDialog(viewModel = viewModel,
+    IconPickerDialog(
+        viewModel = viewModel,
         showDialog = showIconPickerDialog,
         onIconSelected = { icon ->
             icon?.let {
@@ -281,9 +283,10 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
         onComplete = { viewModel.onboardingTapTargetsShown() },
         modifier = Modifier.fillMaxSize()
     ) {
-        Scaffold(modifier = Modifier
-            .fillMaxSize()
-            .imePadding(),
+        Scaffold(
+            modifier = Modifier
+                .fillMaxSize()
+                .imePadding(),
             snackbarHost = { SnackbarHost(snackBarHostState) },
             topBar = {
                 TopAppBar(modifier = Modifier.fillMaxWidth(), title = {
@@ -430,7 +433,8 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                             }
                         }
 
-                        TipCard(modifier = Modifier.fillMaxWidth(0.86f),
+                        TipCard(
+                            modifier = Modifier.fillMaxWidth(0.86f),
                             description = stringResource(id = R.string.input_remove_deadline_tip),
                             showTipCard = showRemoveDeadlineTip.value,
                             onDismissRequest = {
@@ -766,7 +770,8 @@ private fun GoalReminderMenu(
     var hasNotificationPermission by remember { mutableStateOf(context.hasNotificationPermission()) }
 
     val launcher =
-        rememberLauncherForActivityResult(contract = ActivityResultContracts.RequestPermission(),
+        rememberLauncherForActivityResult(
+            contract = ActivityResultContracts.RequestPermission(),
             onResult = { isGranted ->
                 hasNotificationPermission = isGranted
                 if (!isGranted) {
@@ -810,7 +815,8 @@ private fun GoalReminderMenu(
                 fontFamily = greenstashFont
             )
             Spacer(modifier = Modifier.weight(1f))
-            Switch(checked = reminderState, onCheckedChange = { newValue ->
+            Switch(
+                checked = reminderState, onCheckedChange = { newValue ->
                 view.weakHapticFeedback()
                 onReminderChanged(newValue)
                 // Ask for notification permission if android ver > 13.
@@ -912,14 +918,15 @@ private fun InputTextFields(
         onValueChange = { newText -> onDeadlineChange(newText) },
         modifier = Modifier
             .fillMaxWidth(0.86f)
-            .combinedClickable(onClick = { calenderState.show() }, onLongClick = {
-                haptic.performHapticFeedback(
-                    HapticFeedbackType.LongPress
-                )
-                if (deadline.isNotEmpty()) {
-                    showRemoveDeadlineDialog.value = true
-                }
-            }, interactionSource = interactionSource, indication = null
+            .combinedClickable(
+                onClick = { calenderState.show() }, onLongClick = {
+                    haptic.performHapticFeedback(
+                        HapticFeedbackType.LongPress
+                    )
+                    if (deadline.isNotEmpty()) {
+                        showRemoveDeadlineDialog.value = true
+                    }
+                }, interactionSource = interactionSource, indication = null
             ),
         label = {
             Text(

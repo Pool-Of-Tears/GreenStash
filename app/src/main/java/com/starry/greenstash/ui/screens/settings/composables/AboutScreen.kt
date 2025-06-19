@@ -25,6 +25,7 @@
 
 package com.starry.greenstash.ui.screens.settings.composables
 
+import android.content.ClipData
 import android.os.Build
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -45,15 +46,16 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.platform.ClipEntry
+import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
@@ -63,6 +65,7 @@ import com.starry.greenstash.R
 import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.utils.Utils
 import com.starry.greenstash.utils.weakHapticFeedback
+import kotlinx.coroutines.launch
 
 sealed class AboutLinks(val url: String) {
     data object ReadMe : AboutLinks("https://github.com/Pool-Of-Tears/GreenStash")
@@ -81,12 +84,14 @@ sealed class AboutLinks(val url: String) {
 fun AboutScreen(navController: NavController) {
     val view = LocalView.current
     val context = LocalContext.current
-    val clipboardManager = LocalClipboardManager.current
+    val coroutineScope = rememberCoroutineScope()
+    val clipboard = LocalClipboard.current
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 
-    Scaffold(modifier = Modifier
-        .fillMaxSize()
-        .nestedScroll(scrollBehavior.nestedScrollConnection),
+    Scaffold(
+        modifier = Modifier
+            .fillMaxSize()
+            .nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             LargeTopAppBar(
                 title = {
@@ -116,54 +121,67 @@ fun AboutScreen(navController: NavController) {
         }) {
         LazyColumn(modifier = Modifier.padding(it)) {
             item {
-                SettingsItem(title = stringResource(id = R.string.about_readme_title),
+                SettingsItem(
+                    title = stringResource(id = R.string.about_readme_title),
                     description = stringResource(id = R.string.about_readme_desc),
                     icon = Icons.AutoMirrored.Filled.Notes,
                     onClick = { Utils.openWebLink(context, AboutLinks.ReadMe.url) }
                 )
             }
             item {
-                SettingsItem(title = stringResource(id = R.string.about_website_title),
+                SettingsItem(
+                    title = stringResource(id = R.string.about_website_title),
                     description = stringResource(id = R.string.about_website_desc),
                     icon = Icons.Filled.Web,
                     onClick = { Utils.openWebLink(context, AboutLinks.Website.url) }
                 )
             }
             item {
-                SettingsItem(title = stringResource(id = R.string.about_privacy_title),
+                SettingsItem(
+                    title = stringResource(id = R.string.about_privacy_title),
                     description = stringResource(id = R.string.about_privacy_desc),
                     icon = Icons.Filled.PrivacyTip,
                     onClick = { Utils.openWebLink(context, AboutLinks.PrivacyPolicy.url) }
                 )
             }
             item {
-                SettingsItem(title = stringResource(id = R.string.about_gh_issue_title),
+                SettingsItem(
+                    title = stringResource(id = R.string.about_gh_issue_title),
                     description = stringResource(id = R.string.about_gh_issue_desc),
                     icon = ImageVector.vectorResource(id = R.drawable.ic_about_gh_issue),
                     onClick = { Utils.openWebLink(context, AboutLinks.GithubIssues.url) }
                 )
             }
             item {
-                SettingsItem(title = stringResource(id = R.string.about_telegram_title),
+                SettingsItem(
+                    title = stringResource(id = R.string.about_telegram_title),
                     description = stringResource(id = R.string.about_telegram_desc),
                     icon = ImageVector.vectorResource(id = R.drawable.ic_about_telegram),
                     onClick = { Utils.openWebLink(context, AboutLinks.Telegram.url) }
                 )
             }
             item {
-                SettingsItem(title = stringResource(id = R.string.about_support_title),
+                SettingsItem(
+                    title = stringResource(id = R.string.about_support_title),
                     description = stringResource(id = R.string.about_support_desc),
                     icon = Icons.Filled.Favorite,
                     onClick = { Utils.openWebLink(context, AboutLinks.Sponsor.url) }
                 )
             }
             item {
-                SettingsItem(title = stringResource(id = R.string.about_version_title),
+                SettingsItem(
+                    title = stringResource(id = R.string.about_version_title),
                     description = stringResource(id = R.string.about_version_desc).format(
                         BuildConfig.VERSION_NAME
                     ),
                     icon = Icons.Filled.Info,
-                    onClick = { clipboardManager.setText(AnnotatedString(getVersionReport())) }
+                    onClick = {
+                        coroutineScope.launch {
+                            val clipData = ClipData.newPlainText("", getVersionReport())
+                            clipboard.setClipEntry(ClipEntry(clipData))
+
+                        }
+                    }
                 )
             }
         }

@@ -108,9 +108,10 @@ fun BackupScreen(navController: NavController) {
 
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 
-    Scaffold(modifier = Modifier
-        .fillMaxSize()
-        .nestedScroll(scrollBehavior.nestedScrollConnection),
+    Scaffold(
+        modifier = Modifier
+            .fillMaxSize()
+            .nestedScroll(scrollBehavior.nestedScrollConnection),
         snackbarHost = { SnackbarHost(snackBarHostState) },
         topBar = {
             LargeTopAppBar(
@@ -215,7 +216,8 @@ fun BackupScreen(navController: NavController) {
                 )
             }
 
-            BackupScreenContent(paddingValues = it,
+            BackupScreenContent(
+                paddingValues = it,
                 onBackupClicked = {
                     ftpButtonText.value =
                         context.getString(R.string.backup_ftp_create_button)

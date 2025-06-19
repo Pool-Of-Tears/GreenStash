@@ -79,7 +79,8 @@ class MainActivity : AppCompatActivity() {
         // check if app lock is enabled and user has not unlocked the app.
         if (appLockStatus && !mainViewModel.isAppUnlocked()) {
             executor = ContextCompat.getMainExecutor(this)
-            biometricPrompt = BiometricPrompt(this, executor,
+            biometricPrompt = BiometricPrompt(
+                this, executor,
                 object : BiometricPrompt.AuthenticationCallback() {
 
                     override fun onAuthenticationSucceeded(
