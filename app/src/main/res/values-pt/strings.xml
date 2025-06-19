@@ -189,12 +189,12 @@
     <string name="license_setting_desc">Mostrar informações de licença de código aberto.</string>
     <string name="app_info_setting">Informações do Aplicativo</string>
     <string name="app_info_setting_desc">Mostrar versão do aplicativo e links úteis.</string>
-
-    <string name="switch_action_close">Close</string>
-    <string name="switch_action_open">Open</string>
-    <string name="switch_state_close">off</string>
-    <string name="switch_state_open">on</string>
-    <string name="navigate_back_desc">Navigate Back</string>
+    <!-- Accessibility strings for settings -->
+    <string name="switch_action_close">Fechar</string>
+    <string name="switch_action_open">Abrir</string>
+    <string name="switch_state_close">desligado</string>
+    <string name="switch_state_open">ligado</string>
+    <string name="navigate_back_desc">Navegar para trás</string>
 
     <!-- Goal Card Style -->
     <string name="goal_card_settings_header">Estilo da Meta</string>

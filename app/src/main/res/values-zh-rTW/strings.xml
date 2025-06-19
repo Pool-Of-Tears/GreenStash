@@ -190,12 +190,12 @@
     <string name="license_setting_desc">顯示開放原始碼授權資訊。</string>
     <string name="app_info_setting">應用程式資訊</string>
     <string name="app_info_setting_desc">顯示應用程式版本和連結。</string>
-
-    <string name="switch_action_close">Close</string>
-    <string name="switch_action_open">Open</string>
-    <string name="switch_state_close">off</string>
-    <string name="switch_state_open">on</string>
-    <string name="navigate_back_desc">Navigate Back</string>
+    <!-- Accessibility strings for settings -->
+    <string name="switch_action_close">關閉</string>
+    <string name="switch_action_open">開啟</string>
+    <string name="switch_state_close">關</string>
+    <string name="switch_state_open">開</string>
+    <string name="navigate_back_desc">返回</string>
 
     <!-- Goal Card Style -->
     <string name="goal_card_settings_header">目標樣式</string>
