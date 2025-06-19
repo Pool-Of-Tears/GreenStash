@@ -80,18 +80,18 @@ aboutLibraries {
 
 dependencies {
 
-    def composeBom = platform('androidx.compose:compose-bom:2025.04.01')
+    def composeBom = platform('androidx.compose:compose-bom:2025.06.01')
     implementation composeBom
     androidTestImplementation composeBom
 
     // Android core components.
     implementation 'androidx.core:core-ktx:1.16.0'
-    implementation 'androidx.appcompat:appcompat:1.7.0'
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.8.7'
+    implementation 'androidx.appcompat:appcompat:1.7.1'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.9.1'
     implementation 'androidx.activity:activity-compose:1.10.1'
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.8.7"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.8.7"
-    implementation "androidx.navigation:navigation-compose:2.8.9"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.9.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.9.1"
+    implementation "androidx.navigation:navigation-compose:2.9.0"
     // Jetpack compose.
     implementation "androidx.compose.ui:ui"
     implementation "androidx.compose.ui:ui-tooling-preview"
@@ -115,7 +115,7 @@ dependencies {
     ksp "com.google.dagger:hilt-android-compiler:$hilt_version"
     ksp "androidx.hilt:hilt-compiler:1.2.0"
     // DataStore Preferences.
-    implementation("androidx.datastore:datastore-preferences:1.1.1")
+    implementation("androidx.datastore:datastore-preferences:1.1.7")
     // Kotlin Serialization.
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3"
     // Coil Image loading library.
