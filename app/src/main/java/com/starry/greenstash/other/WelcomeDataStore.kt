@@ -62,7 +62,7 @@ class WelcomeDataStore(context: Context) {
                 }
             }
             .map { preferences ->
-                val onBoardingState = preferences[PreferencesKey.onBoardingKey] ?: false
+                val onBoardingState = preferences[PreferencesKey.onBoardingKey] == true
                 onBoardingState
             }
     }

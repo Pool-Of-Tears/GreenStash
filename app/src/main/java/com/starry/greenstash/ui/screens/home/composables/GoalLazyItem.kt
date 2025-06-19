@@ -83,7 +83,8 @@ fun GoalLazyColumnItem(
 
     when (goalCardStyle) {
         GoalCardStyle.Classic -> {
-            GoalItemClassic(title = item.goal.title,
+            GoalItemClassic(
+                title = item.goal.title,
                 primaryText = GoalTextUtils.buildPrimaryText(
                     context = context,
                     progressPercent = progressPercent,

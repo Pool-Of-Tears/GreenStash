@@ -1,9 +1,9 @@
 buildscript {
     ext {
         kotlin_version = '2.1.20'
-        gradle_version = '8.8.0'
+        gradle_version = '8.10.1'
         hilt_version = '2.56.2'
-        room_version = '2.7.1'
+        room_version = '2.7.2'
     }
     repositories {
         google()

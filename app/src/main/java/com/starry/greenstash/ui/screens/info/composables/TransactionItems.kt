@@ -150,7 +150,8 @@ private fun TransactionItem(
     )
 
     if (showDeleteDialog.value) {
-        AlertDialog(onDismissRequest = {
+        AlertDialog(
+            onDismissRequest = {
             showDeleteDialog.value = false
         }, title = {
             Text(

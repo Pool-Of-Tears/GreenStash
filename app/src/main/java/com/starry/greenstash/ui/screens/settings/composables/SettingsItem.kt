@@ -52,9 +52,9 @@ import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
+import com.starry.greenstash.R
 import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.utils.weakHapticFeedback
-import com.starry.greenstash.R
 
 @Composable
 fun SettingsItem(title: String, description: String, icon: ImageVector, onClick: () -> Unit) {
@@ -111,8 +111,15 @@ fun SettingsItem(
             .clearAndSetSemantics {
                 role = Role.Switch
                 contentDescription = "$title, $description"
-                stateDescription = if (switchState.value) context.getString(R.string.switch_state_open) else context.getString(R.string.switch_state_close)
-                onClick(label = if (switchState.value) context.getString(R.string.switch_action_close) else context.getString(R.string.switch_action_open)) {
+                stateDescription =
+                    if (switchState.value) context.getString(R.string.switch_state_open) else context.getString(
+                        R.string.switch_state_close
+                    )
+                onClick(
+                    label = if (switchState.value) context.getString(R.string.switch_action_close) else context.getString(
+                        R.string.switch_action_open
+                    )
+                ) {
                     view.weakHapticFeedback()
                     onCheckChange(!switchState.value)
                     true
