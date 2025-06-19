@@ -191,12 +191,12 @@
     <string name="license_setting_desc">Mostrar información de la licencia de código abierto.</string>
     <string name="app_info_setting">Información de la aplicación</string>
     <string name="app_info_setting_desc">Muestra la versión de la aplicación y enlaces útiles.</string>
-
-    <string name="switch_action_close">Close</string>
-    <string name="switch_action_open">Open</string>
-    <string name="switch_state_close">off</string>
-    <string name="switch_state_open">on</string>
-    <string name="navigate_back_desc">Navigate Back</string>
+    <!-- Accessibility strings for settings -->
+    <string name="switch_action_close">Cerrar</string>
+    <string name="switch_action_open">Abrir</string>
+    <string name="switch_state_close">apagado</string>
+    <string name="switch_state_open">encendido</string>
+    <string name="navigate_back_desc">Navegar hacia atrás</string>
 
     <!-- Goal Card Style -->
     <string name="goal_card_settings_header">Estilo de la Tarjeta de Objetivo</string>
