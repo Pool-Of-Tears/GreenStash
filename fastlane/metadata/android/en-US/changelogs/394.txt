@@ -1,0 +1,2 @@
+- Improve accessibility for visually impaired users by grouping related elements together.
+- Minor bug fixes and performance improvements.
