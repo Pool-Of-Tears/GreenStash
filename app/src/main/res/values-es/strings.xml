@@ -12,7 +12,7 @@
     <string name="drawer_archive">Archivo</string>
     <string name="drawer_backup">Respaldo</string>
     <string name="drawer_settings">Ajustes</string>
-    <string name="drawer_rating">Calificarnos</string>
+    <string name="drawer_rating">Valóranos</string>
     <string name="drawer_share">Compartir</string>
     <string name="drawer_privacy">Privacidad</string>
     <string name="drawer_footer_text">Hecho con ❤️ en India.</string>
@@ -25,30 +25,30 @@
 
     <!-- Biometric Lock -->
     <string name="bio_lock_title">Desbloquear GreenStash</string>
-    <string name="bio_lock_subtitle">Confirma tú código de bloqueo, PIN o contraseña.</string>
+    <string name="bio_lock_subtitle">Confirma tu código de bloqueo, PIN o contraseña.</string>
     <string name="auth_successful">¡Autenticación exitosa!</string>
     <string name="auth_failed">¡Autenticación fallida!</string>
     <string name="auth_error">Error de autenticación: %s</string>
 
     <!-- Welcome Screen. -->
-    <string name="welcome_screen_text">¡Hola! Por favor selecciona tú moneda preferida para iniciar.</string>
+    <string name="welcome_screen_text">¡Hola! Por favor selecciona tu moneda preferida para comenzar.</string>
     <string name="welcome_screen_button">Comencemos</string>
 
     <!-- App Lock Screen -->
     <string name="app_lock_screen_title">GreenStash está bloqueado</string>
-    <string name="app_lock_screen_subtitle">Haz clic en el botón de abajo para autenticar.</string>
+    <string name="app_lock_screen_subtitle">Haz clic en el botón de abajo para autenticarse.</string>
     <string name="app_lock_button_text">Autorizar</string>
-    <string name="app_lock_button_icon_desc">Desbloquear Aplicación</string>
+    <string name="app_lock_button_icon_desc">Desbloquear aplicación</string>
     <string name="app_lock_unable_to_authenticate">El bloqueo de la aplicación está desactivado porque el dispositivo no puede autenticarse</string>
 
     <!-- Home Screen -->
-    <string name="home_screen_header">Metas de Ahorro</string>
-    <string name="menu_button_desc">Open side menu</string>
-    <string name="filter_button_desc">Filter your saving goals</string>
-    <string name="search_button_desc">Search for specific saving goal.</string>
-    <string name="new_goal_fab">Nueva Meta</string>
-    <string name="new_goal_onboarding_title">¡Comencemos creando un nuevo objetivo de ahorro!</string>
-    <string name="new_goal_onboarding_desc">Haz clic en el botón de acción flotante para crear un nuevo objetivo de ahorro.</string>
+    <string name="home_screen_header">Metas de ahorro</string>
+    <string name="menu_button_desc">Abrir menú lateral</string>
+    <string name="filter_button_desc">Filtra tus metas de ahorro</string>
+    <string name="search_button_desc">Buscar una meta de ahorro específica.</string>
+    <string name="new_goal_fab">Nueva meta</string>
+    <string name="new_goal_onboarding_title">¡Comencemos creando una nueva meta de ahorro!</string>
+    <string name="new_goal_onboarding_desc">Haz clic en el botón de acción flotante para crear una nueva meta de ahorro.</string>
     <string name="home_search_label">Busca aquí…</string>
     <string name="search_goal_not_found">404: ¡Meta no encontrada!</string>
 
@@ -56,12 +56,12 @@
     <string name="deposit_screen_title">¡Excelente! Ingresa la cantidad</string>
     <string name="withdraw_screen_title">¡Bien! Ingresa la cantidad</string>
     <string name="deposit_successful">¡Depósito exitoso!</string>
-    <string name="withdraw_successful">¡Retiro exitoso!</string>
+    <string name="withdraw_successful">¡Retirada exitosa!</string>
     <string name="withdraw_overflow_error">¡La cantidad supera lo depositado!</string>
 
     <!-- Congratulations Screen -->
     <string name="goal_achieved_heading">Felicitaciones 🥳</string>
-    <string name="goal_achieved_subtext">¡Has alcanzado tu objetivo de ahorro! Tu arduo trabajo y compromiso te han llevado a este logro bien merecido. ¡Celebra tu éxito!</string>
+    <string name="goal_achieved_subtext">¡Has alcanzado tu meta de ahorro! Tu arduo trabajo y compromiso te han llevado a este logro bien merecido. ¡Celebra tu éxito!</string>
     <string name="goal_achieved_button">Volver a inicio</string>
 
     <!-- Strings used for dashboard saving goals cards -->
@@ -77,8 +77,8 @@
     <string name="goal_delete_confirmation">¿Estás seguro/a?</string>
     <string name="goal_delete_success">Eliminación exitosa.</string>
     <string name="info_button_description">Ver información de la meta.</string>
-    <string name="edit_button_description">Edit this goal</string>
-    <string name="delete_button_description">Delete This Goal</string>
+    <string name="edit_button_description">Editar esta meta</string>
+    <string name="delete_button_description">Eliminar esta meta</string>
     <string name="add_fab_button_title">Nueva meta</string>
     <string name="progress_greet1">¡Que buén comienzo!</string>
     <string name="progress_greet2">¡Sigue así, sigue así!</string>
@@ -94,17 +94,17 @@
     <string name="goal_approx_saving_day">día.</string>
     <string name="goal_approx_saving_week">semana.</string>
     <string name="goal_approx_saving_month">mes.</string>
-    <string name="no_goal_deadline_set">Como no has configurado una fecha objetivo, ¡Tienes todo el tiempo del mundo!</string>
+    <string name="no_goal_deadline_set">Como no has configurado una fecha límite, ¡Tienes todo el tiempo del mundo!</string>
     <string name="goal_achieved_desc">Es momento de celebrar el trabajo duro que conllevó a este maravilloso momento.</string>
 
     <!-- Goal Info Screen -->
     <string name="info_screen_header">Información de la meta</string>
     <string name="info_card_title">Has ahorrado</string>
-    <string name="info_card_remaining_amount">De %s</string>
+    <string name="info_card_remaining_amount">de %s</string>
     <string name="info_card_remaining_days">%s días restantes.</string>
-    <string name="info_card_no_deadline_set">Sin fecha objetivo.</string>
+    <string name="info_card_no_deadline_set">Sin fecha límite.</string>
     <string name="info_card_goal_achieved">Meta alcanzada. ¡Felicitaciones!</string>
-    <string name="info_goal_priority">La prioridad del objetivo es %s</string>
+    <string name="info_goal_priority">La prioridad de la meta es %s</string>
     <string name="info_reminder_status_on">Los recordatorios están activados</string>
     <string name="info_reminder_status_off">Los recordatorios están desactivados</string>
     <string name="info_notes_card_title">Notas</string>
@@ -112,38 +112,38 @@
     <string name="info_copy_notes_icon_desc">Copiar notas</string>
     <string name="info_copy_notes_alert">¡Copiado correctamente!</string>
     <string name="info_goal_no_transactions">Sin transacciones aún.</string>
-    <string name="info_edit_transaction_button">Actualizar Transacción</string>
+    <string name="info_edit_transaction_button">Actualizar transacción</string>
     <string name="info_transaction_swipe_tip">Consejo: Desliza las transacciones hacia la izquierda o hacia la derecha para editarlas o eliminarlas.</string>
 
     <!-- Input (New/Edit Goal) Screen -->
     <string name="input_screen_header">¡Es momento de ahorrar!</string>
-    <string name="input_edit_goal_header">Editar Meta de Ahorro</string>
-    <string name="input_pick_icon">Selecciona ícono para tu objetivo.</string>
-    <string name="input_pick_icon_onboarding_title">…O si el minimalismo es tu estilo, agrega un icono para tu objetivo.</string>
-    <string name="input_pick_icon_onboarding_desc">Los iconos de objetivo se usarán en las tarjetas de objetivo con estilo compacto, Configuración > Estilo de Tarjeta de Objetivo</string>
+    <string name="input_edit_goal_header">Editar meta de ahorro</string>
+    <string name="input_pick_icon">Selecciona un icono para tu meta.</string>
+    <string name="input_pick_icon_onboarding_title">…O si el minimalismo es tu estilo, agrega un icono para tu meta.</string>
+    <string name="input_pick_icon_onboarding_desc">Los iconos de meta se usarán en las tarjetas de meta con estilo compacto, Configuración > Estilo de tarjeta de meta</string>
     <string name="input_pick_image_fab">Imagen de la meta</string>
-    <string name="input_pick_image_onboarding_title">¡Agrega imágenes a tus objetivos para darles un aspecto personalizado!</string>
-    <string name="input_pick_image_onboarding_desc">Haz clic en el botón de acción flotante para agregar una imagen a tu objetivo.</string>
-    <string name="input_goal_priority">Selecciona la prioridad para este objetivo.</string>
+    <string name="input_pick_image_onboarding_title">¡Agrega imágenes a tus metas para darles un aspecto personalizado!</string>
+    <string name="input_pick_image_onboarding_desc">Haz clic en el botón de acción flotante para agregar una imagen a tu meta.</string>
+    <string name="input_goal_priority">Selecciona la prioridad para esta meta.</string>
     <string name="input_goal_reminder">Recordatorios de ahorro</string>
-    <string name="input_goal_reminders_onboarding_title">¡Habilita los recordatorios para mantenerte actualizado sobre tus objetivos!</string>
-    <string name="input_goal_reminders_onboarding_desc">Se enviarán recordatorios diarios, semanalmente o según la prioridad del objetivo.</string>
-    <string name="input_text_title">Título del Ahorro</string>
-    <string name="title_empty_err">¡Oops! el título está vacío.</string>
-    <string name="input_text_amount">Meta</string>
-    <string name="amount_empty_err">¡Oops! la cantidad está vacía o es inválida</string>
-    <string name="input_deadline">Fecha objetivo (Opcional)</string>
+    <string name="input_goal_reminders_onboarding_title">¡Habilita los recordatorios para mantenerte actualizado sobre tus metras!</string>
+    <string name="input_goal_reminders_onboarding_desc">Se enviarán recordatorios diarios, semanalmente o según la prioridad de la meta.</string>
+    <string name="input_text_title">Título de la meta</string>
+    <string name="title_empty_err">¡Vaya! El título está vacío.</string>
+    <string name="input_text_amount">Cantidad objetivo</string>
+    <string name="amount_empty_err">¡Vaya! La cantidad está vacía o no es válida</string>
+    <string name="input_deadline">Fecha límite (Opcional)</string>
     <string name="input_additional_notes">Notas (Opcional)</string>
-    <string name="input_add_goal_button">Agregar Nueva Meta</string>
-    <string name="input_edit_goal_button">Actualizar Meta</string>
-    <string name="input_goal_saved_success">¡Buen trabajo! Meta agregada.</string>
-    <string name="input_goad_edit_success">Meta actualizada.</string>
-    <string name="input_goal_remove_deadline">¿Quieres quitar la fecha límite de este objetivo?</string>
-    <string name="input_remove_deadline_tip">Consejo: Puedes eliminar la fecha límite de los objetivos existentes manteniendo pulsado el campo de fecha límite.</string>
+    <string name="input_add_goal_button">Establecer una nueva meta de ahorro</string>
+    <string name="input_edit_goal_button">Actualizar meta de ahorro</string>
+    <string name="input_goal_saved_success">¡Genial! Meta de ahorro establecida.</string>
+    <string name="input_goad_edit_success">Meta de ahorro actualizada.</string>
+    <string name="input_goal_remove_deadline">¿Quieres quitar la fecha límite de esta meta?</string>
+    <string name="input_remove_deadline_tip">Consejo: Puedes eliminar la fecha límite de las metas existentes manteniendo pulsado el campo de fecha límite.</string>
 
     <!-- Archive Screen -->
     <string name="archive_screen_header">Metas archivadas</string>
-    <string name="archive_empty">Todavía no hay metas archivadas.</string>
+    <string name="archive_empty">No hay metas archivadas aún.</string>
     <string name="goal_restore_confirmation">¿Quieres restaurar esta meta?</string>
     <string name="goal_restore_success">Restaurada exitosamente.</string>
 
@@ -151,41 +151,41 @@
     <!-- Backup Screen -->
     <string name="backup_screen_header">Respaldar y recuperar datos</string>
     <string name="backup_screen_text">Haz una copia de seguridad de tus datos incluyendo metas, progreso actual, transacciones, etc para recuperarlos cuando quieras.</string>
-    <string name="backup_screen_sub_text">Nota: La copia de seguridad no incluye la configuración de la app.</string>
+    <string name="backup_screen_sub_text">Nota: La copia de seguridad no incluye la configuración de la aplicación.</string>
     <string name="backup_button">Respaldar</string>
     <string name="backup_restore_button">Restaurar</string>
     <string name="backup_select_file_type">Seleccionar tipo de archivo de respaldo</string>
-    <string name="backup_csv_note">Nota: Debido a las limitaciones del formato CSV, las imágenes de los objetivos no se respaldarán.</string>
-    <string name="backup_ftp_create_button">Crear Respaldo</string>
-    <string name="backup_ftp_restore_button">Restaurar Respaldo</string>
+    <string name="backup_csv_note">Nota: Debido a las limitaciones del formato CSV, las imágenes de las metas no se respaldarán.</string>
+    <string name="backup_ftp_create_button">Crear respaldo</string>
+    <string name="backup_ftp_restore_button">Restaurar respaldo</string>
     <string name="backup_restore_success">¡La copia de seguridad se ha restaurado correctamente!</string>
 
     <!-- Settings Screen -->
-    <string name="settings_screen_header">Configuración</string>
+    <string name="settings_screen_header">Ajustes</string>
     <string name="display_settings_title">Pantalla</string>
     <string name="theme_setting">Tema predeterminado</string>
     <string name="theme_dialog_title">Cambiar tema</string>
     <string name="theme_dialog_option1">Claro</string>
     <string name="theme_dialog_option2">Oscuro</string>
     <string name="theme_dialog_option3">Predeterminado del sistema</string>
-    <string name="amoled_theme_setting">Tema Oscuro</string>
+    <string name="amoled_theme_setting">Tema oscuro</string>
     <string name="amoled_theme_desc">Activar tema AMOLED negro</string>
     <string name="theme_dialog_apply_button">Aplicar</string>
-    <string name="material_you_setting_desc">Cambia el tema según tú fondo de pantalla (A12 en adelante)</string>
-    <string name="material_you_error">Esta característica es sólo para dispositivos con Android 12 en adelante.</string>
-    <string name="goal_card_setting">Estilo de la Tarjeta de Objetivo</string>
+    <string name="material_you_setting_desc">Cambia el tema según tu fondo de pantalla (A12 en adelante)</string>
+    <string name="material_you_error">Esta característica es solo para dispositivos con Android 12 en adelante.</string>
+    <string name="goal_card_setting">Estilo de la tarjeta de meta</string>
     <string name="goal_card_option1">Clásico</string>
     <string name="goal_card_option2">Compacto</string>
     <string name="locales_setting_title">Configuración regional</string>
     <string name="app_locale_setting">Idioma predeterminado</string>
     <string name="app_locale_setting_desc">Selecciona tu idioma preferido</string>
-    <string name="date_format_setting">Formato de Fecha</string>
-    <string name="date_format_dialog_title">Cambiar Formato de Fecha</string>
+    <string name="date_format_setting">Formato de fecha</string>
+    <string name="date_format_dialog_title">Cambiar formato de fecha</string>
     <string name="preferred_currency_setting">Moneda preferida</string>
-    <string name="currency_dialog_title">Selecciona tu Moneda Preferida</string>
+    <string name="currency_dialog_title">Selecciona tu moneda preferida</string>
     <string name="security_settings_title">Seguridad</string>
-    <string name="app_lock_setting">Bloqueo Biométrico</string>
-    <string name="app_lock_setting_desc">Utiliza tu huella o contraseña de bloqueo para desbloquear GreenStash</string>
+    <string name="app_lock_setting">Bloqueo biométrico</string>
+    <string name="app_lock_setting_desc">Usa tu huella o contraseña de bloqueo para desbloquear GreenStash</string>
     <string name="misc_setting_title">Varios</string>
     <string name="license_setting">Licencia y reconocimiento</string>
     <string name="license_setting_desc">Mostrar información de la licencia de código abierto.</string>
@@ -199,8 +199,8 @@
     <string name="navigate_back_desc">Navegar hacia atrás</string>
 
     <!-- Goal Card Style -->
-    <string name="goal_card_settings_header">Estilo de la Tarjeta de Objetivo</string>
-    <string name="goal_card_settings_tip">¡Consejo! Puedes deslizar una tarjeta con estilo compacto hacia la izquierda o hacia la derecha para editar o eliminar un objetivo de ahorro.</string>
+    <string name="goal_card_settings_header">Estilo de la meta</string>
+    <string name="goal_card_settings_tip">¡Consejo! Puedes deslizar una tarjeta con estilo compacto hacia la izquierda o hacia la derecha para editar o eliminar una meta de ahorro.</string>
 
     <!-- OSL Screen -->
     <string name="osl_screen_header">Librerías de código abierto</string>
@@ -211,26 +211,26 @@
     <string name="about_readme_desc">Mira el repositorio de Github y el README de la aplicación.</string>
     <string name="about_website_title">Sitio web</string>
     <string name="about_website_desc">¡Visita nuestro sitio web para obtener más información y explorar nuestras otras aplicaciones y proyectos!</string>
-    <string name="about_privacy_title">Política de Seguridad</string>
-    <string name="about_privacy_desc">Lee nuestra última política de seguridad y términos de servicio en Github.</string>
-    <string name="about_gh_issue_title">Solicitudes de Github</string>
-    <string name="about_gh_issue_desc">Envía reportes de errores o solicitud de características creando una nueva solicitud en Github</string>
+    <string name="about_privacy_title">Política de privacidad</string>
+    <string name="about_privacy_desc">Lee nuestra última política de privacidad y términos de servicio en Github.</string>
+    <string name="about_gh_issue_title">Incidencias de Github</string>
+    <string name="about_gh_issue_desc">Envía reportes de errores o solicitud de características creando una nueva incidencia en Github</string>
     <string name="about_telegram_title">Grupo de Telegram</string>
-    <string name="about_telegram_desc">¡Únete a nosotros en telegram para compartir tus ideas o simplemente hablar!</string>
-    <string name="about_support_title">Apoya el Desarrollo</string>
+    <string name="about_telegram_desc">¡Únete a nosotros en Telegram para compartir tus ideas o simplemente hablar!</string>
+    <string name="about_support_title">Apoya el desarrollo</string>
     <string name="about_support_desc">Si crees que merezco algunas galletas por mi trabajo, puedes comprarme algunas haciendo clic aquí.</string>
     <string name="about_version_title">Versión</string>
     <string name="about_version_desc">Versión-%s</string>
 
     <!-- Widget Screen -->
-    <string name="widget_config_screen_header">Seleccionar Meta</string>
+    <string name="widget_config_screen_header">Seleccionar meta</string>
     <string name="goal_widget_desc">Ahorrado %s</string>
 
     <!-- Goal Reminders -->
     <string name="notification_permission_error">Please allow notification permission! 😾</string>
-    <string name="reminder_notification_desc">The more you save, the quicker you’ll reach your goal! 💰</string>
-    <string name="dismiss_notification_button">Dismiss</string>
-    <string name="notification_deposited_title">Great Work 🎉</string>
-    <string name="notification_deposited_desc">Successfully deposited %s!</string>
+    <string name="reminder_notification_desc">¡Cuanto más ahorres, más rápido alcanzarás tu meta! 💰</string>
+    <string name="dismiss_notification_button">Descartar</string>
+    <string name="notification_deposited_title">¡Buen trabajo! 🎉</string>
+    <string name="notification_deposited_desc">¡%s depositado con éxito!</string>
 
 </resources>
