@@ -143,6 +143,7 @@ import com.starry.greenstash.ui.screens.input.InputViewModel
 import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.utils.ImageUtils
 import com.starry.greenstash.utils.NumberUtils
+import com.starry.greenstash.utils.displayName
 import com.starry.greenstash.utils.getActivity
 import com.starry.greenstash.utils.hasNotificationPermission
 import com.starry.greenstash.utils.toToast
@@ -678,7 +679,7 @@ private fun GoalPriorityMenu(selectedPriority: String, onPriorityChanged: (Strin
                         shape = RoundedCornerShape(topStart = 14.dp, bottomStart = 14.dp),
                         label = {
                             Text(
-                                text = GoalPriority.High.name, fontFamily = greenstashFont
+                                text = GoalPriority.High.displayName(), fontFamily = greenstashFont
                             )
                         },
                         icon = {
@@ -704,7 +705,7 @@ private fun GoalPriorityMenu(selectedPriority: String, onPriorityChanged: (Strin
                         shape = RectangleShape,
                         label = {
                             Text(
-                                text = GoalPriority.Normal.name, fontFamily = greenstashFont
+                                text = GoalPriority.Normal.displayName(), fontFamily = greenstashFont
                             )
                         },
                         icon = {
@@ -730,7 +731,7 @@ private fun GoalPriorityMenu(selectedPriority: String, onPriorityChanged: (Strin
                         shape = RoundedCornerShape(topEnd = 14.dp, bottomEnd = 14.dp),
                         label = {
                             Text(
-                                text = GoalPriority.Low.name, fontFamily = greenstashFont
+                                text = GoalPriority.Low.displayName(), fontFamily = greenstashFont
                             )
                         },
                         icon = {
