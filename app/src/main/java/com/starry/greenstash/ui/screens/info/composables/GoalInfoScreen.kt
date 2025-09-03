@@ -100,6 +100,7 @@ import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.ui.theme.greenstashNumberFont
 import com.starry.greenstash.utils.GoalTextUtils
 import com.starry.greenstash.utils.NumberUtils
+import com.starry.greenstash.utils.displayName
 import com.starry.greenstash.utils.weakHapticFeedback
 import kotlinx.coroutines.delay
 
@@ -364,7 +365,7 @@ fun GoalPriorityCard(goalPriority: GoalPriority, reminders: Boolean) {
             }
             Text(
                 modifier = Modifier.padding(start = 12.dp),
-                text = stringResource(id = R.string.info_goal_priority).format(goalPriority.name),
+                text = stringResource(id = R.string.info_goal_priority).format(goalPriority.displayName()),
                 fontWeight = FontWeight.Medium,
                 fontFamily = greenstashFont
             )
