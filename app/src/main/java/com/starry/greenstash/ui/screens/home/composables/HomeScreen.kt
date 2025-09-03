@@ -108,6 +108,7 @@ import com.starry.greenstash.ui.screens.home.FilterSortType
 import com.starry.greenstash.ui.screens.home.HomeViewModel
 import com.starry.greenstash.ui.screens.home.SearchBarState
 import com.starry.greenstash.ui.theme.greenstashFont
+import com.starry.greenstash.utils.displayName
 import com.starry.greenstash.utils.getActivity
 import com.starry.greenstash.utils.isScrollingUp
 import com.starry.greenstash.utils.weakHapticFeedback
@@ -450,7 +451,7 @@ private fun FilterSheetContent(viewModel: HomeViewModel) {
             Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.Center) {
                 FilterField.entries.forEach {
                     FilterButton(
-                        text = it.name,
+                        text = it.displayName(),
                         isSelected = it == viewModel.filterFlowData.value.filterField,
                         onClick = { viewModel.updateFilterField(it) })
                 }
@@ -458,7 +459,7 @@ private fun FilterSheetContent(viewModel: HomeViewModel) {
             Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.Center) {
                 FilterSortType.entries.forEach {
                     FilterButton(
-                        text = it.name,
+                        text = it.displayName(),
                         isSelected = viewModel.filterFlowData.value.sortType.name == it.name,
                         onClick = { viewModel.updateFilterSort(it) })
                 }

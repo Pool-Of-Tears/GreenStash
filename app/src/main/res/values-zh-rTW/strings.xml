@@ -49,6 +49,11 @@
     <string name="new_goal_onboarding_desc">點選浮動動作按鈕以建立新的儲蓄目標。</string>
     <string name="home_search_label">在此搜尋…</string>
     <string name="search_goal_not_found">404：找不到目標！</string>
+    <string name="filter_title">Title</string>
+    <string name="filter_amount">Amount</string>
+    <string name="filter_priority">Priority</string>
+    <string name="sort_ascending">Ascending</string>
+    <string name="sort_descending">Descending</string>
 
     <!-- Deposit & Withdraw Screen -->
     <string name="deposit_screen_title">太棒了！請輸入金額</string>
@@ -124,6 +129,9 @@
     <string name="input_pick_image_onboarding_desc">點選浮動動作按鈕以為您的目標新增圖片。</string>
     <string name="input_page_quote">千里之行，始於足下</string>
     <string name="input_goal_priority">選擇您的目標優先順序。</string>
+    <string name="priority_high">High</string>
+    <string name="priority_normal">Normal</string>
+    <string name="priority_low">Low</string>
     <string name="input_goal_reminder">儲蓄提醒</string>
     <string name="input_goal_reminders_onboarding_title">啟用提醒以隨時更新您的目標！</string>
     <string name="input_goal_reminders_onboarding_desc">根據目標優先順序，提醒將每天、每週或每兩週傳送一次。</string>
@@ -173,6 +181,10 @@
     <string name="material_you_setting_desc">根據您的桌布切換主題（僅限 Android 12+）</string>
     <string name="material_you_error">此功能僅適用於執行 Android 12 或以上版本的裝置。</string>
     <string name="goal_card_setting">目標卡片樣式</string>
+    <string name="preview">Preview</string>
+    <string name="preview_example_title">Home Decorations</string>
+    <string name="preview_example_primary_text">You\'re off to a great start! Currently saved %s out of %s</string>
+    <string name="preview_example_secondary_text">You have until 26/05/2023 (85) days left. You need to save around %s/day, %s/week, %s/month</string>
     <string name="goal_card_option1">傳統</string>
     <string name="goal_card_option2">緊湊</string>
     <string name="locales_setting_title">地區</string>
@@ -182,6 +194,8 @@
     <string name="date_format_dialog_title">更改日期格式</string>
     <string name="preferred_currency_setting">預設貨幣</string>
     <string name="currency_dialog_title">選擇預設貨幣</string>
+    <string name="search_currency">Search currency</string>
+    <string name="search">Search</string>
     <string name="security_settings_title">安全</string>
     <string name="app_lock_setting">生物辨識鎖定</string>
     <string name="app_lock_setting_desc">使用您的指紋或螢幕鎖定密碼來解鎖 GreenStash</string>

@@ -41,7 +41,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.res.stringResource
 import androidx.core.content.ContextCompat
+import com.starry.greenstash.R
+import com.starry.greenstash.database.goal.GoalPriority
+import com.starry.greenstash.ui.screens.home.FilterField
+import com.starry.greenstash.ui.screens.home.FilterSortType
 import java.io.File
 import java.io.PrintWriter
 
@@ -136,4 +141,39 @@ fun View.weakHapticFeedback() {
  */
 fun View.strongHapticFeedback() {
     this.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
+}
+
+/**
+ * Translates FilterField enum values
+ */
+@Composable
+fun FilterField.displayName(): String {
+    return when (this) {
+        FilterField.Title -> stringResource(R.string.filter_title)
+        FilterField.Amount -> stringResource(R.string.filter_amount)
+        FilterField.Priority -> stringResource(R.string.filter_priority)
+    }
+}
+
+/**
+ * Translates FilterSortType enum values
+ */
+@Composable
+fun FilterSortType.displayName(): String {
+    return when (this) {
+        FilterSortType.Ascending -> stringResource(R.string.sort_ascending)
+        FilterSortType.Descending -> stringResource(R.string.sort_descending)
+    }
+}
+
+/**
+ * Translates GoalPriority enum values
+ */
+@Composable
+fun GoalPriority.displayName(): String {
+    return when (this) {
+        GoalPriority.High -> stringResource(R.string.priority_high)
+        GoalPriority.Normal -> stringResource(R.string.priority_normal)
+        GoalPriority.Low -> stringResource(R.string.priority_low)
+    }
 }
