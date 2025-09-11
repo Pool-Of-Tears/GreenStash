@@ -184,8 +184,8 @@
     <string name="goal_card_setting">Estilo de la tarjeta de meta</string>
     <string name="preview">Vista previa</string>
     <string name="preview_example_title">Decoración del hogar</string>
-    <string name="preview_example_primary_text">¡Has empezado con muy buen pie! Actualmente has ahorrado %s de %s</string>
-    <string name="preview_example_secondary_text">Tienes hasta el 26/05/2023 (85) días restantes. Necesitas ahorrar alrededor de %s al día, %s a la semana, %s al mes</string>
+    <string name="preview_example_primary_text">¡Has empezado con muy buen pie! Actualmente has ahorrado %1$s de %2$s</string>
+    <string name="preview_example_secondary_text">Tienes hasta el 26/05/2023 (85) días restantes. Necesitas ahorrar alrededor de %1$s al día, %2$s a la semana, %3$s al mes</string>
     <string name="goal_card_option1">Clásico</string>
     <string name="goal_card_option2">Compacto</string>
     <string name="locales_setting_title">Configuración regional</string>

@@ -44,8 +44,7 @@ import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.navigation.NavController
-import com.mikepenz.aboutlibraries.ui.compose.LibrariesContainer
-import com.mikepenz.aboutlibraries.ui.compose.LibraryDefaults
+import com.mikepenz.aboutlibraries.ui.compose.m3.LibrariesContainer
 import com.starry.greenstash.R
 import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.utils.weakHapticFeedback
@@ -96,12 +95,6 @@ fun OSLScreen(navController: NavController) {
             showAuthor = true,
             showVersion = true,
             showLicenseBadges = true,
-            colors = LibraryDefaults.libraryColors(
-                backgroundColor = MaterialTheme.colorScheme.background,
-                contentColor = MaterialTheme.colorScheme.onBackground,
-                badgeBackgroundColor = MaterialTheme.colorScheme.primary,
-                badgeContentColor = MaterialTheme.colorScheme.onPrimary
-            )
         )
     }
 }

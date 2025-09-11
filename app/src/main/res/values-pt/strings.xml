@@ -182,8 +182,8 @@
     <string name="goal_card_setting">Estilo do Cartão de Meta</string>
     <string name="preview">Preview</string>
     <string name="preview_example_title">Home Decorations</string>
-    <string name="preview_example_primary_text">You\'re off to a great start! Currently saved %s out of %s</string>
-    <string name="preview_example_secondary_text">You have until 26/05/2023 (85) days left. You need to save around %s/day, %s/week, %s/month</string>
+    <string name="preview_example_primary_text">You\'re off to a great start! Currently saved %1$s out of %2$s</string>
+    <string name="preview_example_secondary_text">You have until 26/05/2023 (85) days left. You need to save around %1$s/day, %2$s/week, %3$s/month</string>
     <string name="goal_card_option1">Clássico</string>
     <string name="goal_card_option2">Compacto</string>
     <string name="locales_setting_title">Idiomas</string>
