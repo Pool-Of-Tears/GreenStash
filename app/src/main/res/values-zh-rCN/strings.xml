@@ -49,7 +49,12 @@
     <string name="new_goal_onboarding_title">让我们从创建一个新的储蓄目标开始吧！</string>
     <string name="new_goal_onboarding_desc">点击浮动操作按钮创建一个新的储蓄目标。</string>
     <string name="home_search_label">搜索此处…</string>
-    <string name="search_goal_not_found">404: 目标未发现！</string>>
+    <string name="search_goal_not_found">404: 目标未发现！</string>
+    <string name="filter_title">Title</string>
+    <string name="filter_amount">Amount</string>
+    <string name="filter_priority">Priority</string>
+    <string name="sort_ascending">Ascending</string>
+    <string name="sort_descending">Descending</string>
 
     <!-- Deposit & Withdraw Screen -->
     <string name="deposit_screen_title">很棒！存入多少</string>
@@ -125,6 +130,9 @@
     <string name="input_pick_image_onboarding_desc">点击浮动操作按钮为您的目标添加图片。</string>
     <string name="input_page_quote">千里之行，始于足下</string>
     <string name="input_goal_priority">为此目标选择优先级。</string>
+    <string name="priority_high">High</string>
+    <string name="priority_normal">Normal</string>
+    <string name="priority_low">Low</string>
     <string name="input_goal_reminder">储蓄提醒</string>
     <string name="input_goal_reminders_onboarding_title">启用提醒，及时了解您的目标进展！</string>
     <string name="input_goal_reminders_onboarding_desc">根据目标优先级，将每日、半周或每周发送提醒。</string>
@@ -174,6 +182,10 @@
     <string name="material_you_setting_desc">根据壁纸切换合适的主题（仅Android12+）</string>
     <string name="material_you_error">此功能仅在Android 12或更高版本上有效。</string>
     <string name="goal_card_setting">目标卡样式</string>
+    <string name="preview">Preview</string>
+    <string name="preview_example_title">Home Decorations</string>
+    <string name="preview_example_primary_text">You\'re off to a great start! Currently saved %1$s out of %2$s</string>
+    <string name="preview_example_secondary_text">You have until 26/05/2023 (85) days left. You need to save around %1$s/day, %2$s/week, %3$s/month</string>
     <string name="goal_card_option1">经典</string>
     <string name="goal_card_option2">紧凑</string>
     <string name="locales_setting_title">地区</string>
@@ -183,6 +195,8 @@
     <string name="date_format_dialog_title">修改日期格式</string>
     <string name="preferred_currency_setting">首选货币</string>
     <string name="currency_dialog_title">选择首选货币</string>
+    <string name="search_currency">Search currency</string>
+    <string name="search">Search</string>
     <string name="security_settings_title">安全</string>
     <string name="app_lock_setting">生物锁</string>
     <string name="app_lock_setting_desc">使用您的指纹或锁屏密码来解锁GreenStash</string>

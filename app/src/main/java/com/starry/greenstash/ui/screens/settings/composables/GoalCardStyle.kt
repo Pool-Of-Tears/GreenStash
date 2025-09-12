@@ -87,6 +87,8 @@ import com.starry.greenstash.ui.screens.home.GoalCardStyle
 import com.starry.greenstash.ui.screens.home.composables.GoalItemClassic
 import com.starry.greenstash.ui.screens.home.composables.GoalItemCompact
 import com.starry.greenstash.ui.theme.greenstashFont
+import com.starry.greenstash.utils.NumberUtils
+import com.starry.greenstash.utils.PreferenceUtil
 import com.starry.greenstash.utils.getActivity
 import com.starry.greenstash.utils.weakHapticFeedback
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -98,6 +100,7 @@ import kotlinx.coroutines.delay
 fun GoalCardStyle(navController: NavController) {
     val view = LocalView.current
     val context = navController.context
+    val preferenceUtil = PreferenceUtil(context)
 
     val settingsVM = (context.getActivity() as MainActivity).settingsViewModel
     val currentStyle = settingsVM.goalCardStyle.observeAsState().value!!
@@ -147,7 +150,7 @@ fun GoalCardStyle(navController: NavController) {
                     .animateContentSize()
             ) {
                 Text(
-                    text = "Preview",
+                    text = stringResource(R.string.preview),
                     modifier = Modifier.padding(start = 16.dp, top = 14.dp),
                     fontFamily = greenstashFont,
                     fontSize = 17.sp,
@@ -158,12 +161,24 @@ fun GoalCardStyle(navController: NavController) {
                     targetState = currentStyle,
                     label = "GoalStyleAnimation"
                 ) { state ->
+                    val currency =
+                        preferenceUtil.getString(PreferenceUtil.DEFAULT_CURRENCY_STR, "")!!
+
                     when (state) {
                         GoalCardStyle.Classic -> {
                             GoalItemClassic(
-                                title = "Home Decorations",
-                                primaryText = "You're off to a great start!\nCurrently  saved $500.00 out of $5,000.00.",
-                                secondaryText = "You have until 26/05/2023 (85) days left.\nYou need to save around $58.83/day, $416.67/week, $2,500.00/month.",
+                                title = stringResource(R.string.preview_example_title),
+                                primaryText = stringResource(R.string.preview_example_primary_text)
+                                    .format(
+                                        NumberUtils.formatCurrency(500.00, currency),
+                                        NumberUtils.formatCurrency(5000.00, currency)
+                                    ),
+                                secondaryText = stringResource(R.string.preview_example_secondary_text)
+                                    .format(
+                                        NumberUtils.formatCurrency(58.83, currency),
+                                        NumberUtils.formatCurrency(416.67, currency),
+                                        NumberUtils.formatCurrency(2500.00, currency)
+                                    ),
                                 goalProgress = 0.6f,
                                 goalImage = null,
                                 isGoalCompleted = false,
@@ -177,9 +192,11 @@ fun GoalCardStyle(navController: NavController) {
 
                         GoalCardStyle.Compact -> {
                             GoalItemCompact(
-                                title = "Home Decorations",
-                                savedAmount = "$1,000.00",
-                                daysLeftText = "12 days left",
+                                title = stringResource(R.string.preview_example_title),
+                                savedAmount = NumberUtils.formatCurrency(1000.00, currency),
+                                daysLeftText = stringResource(R.string.info_card_remaining_days).format(
+                                    12
+                                ),
                                 goalProgress = 0.8f,
                                 goalIcon = ImageVector.vectorResource(id = R.drawable.ic_nav_rating),
                                 isGoalCompleted = false,

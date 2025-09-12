@@ -50,7 +50,12 @@
     <string name="new_goal_onboarding_title">Yeni bir tasarruf hedefi oluşturarak başlayalım!</string>
     <string name="new_goal_onboarding_desc">Yeni bir tasarruf hedefi oluşturmak için hareketli işlem düğmesine tıklayın.</string>
     <string name="home_search_label">Ara…</string>
-    <string name="search_goal_not_found">404: Hedef bulunamadı!</string>>
+    <string name="search_goal_not_found">404: Hedef bulunamadı!</string>
+    <string name="filter_title">Title</string>
+    <string name="filter_amount">Amount</string>
+    <string name="filter_priority">Priority</string>
+    <string name="sort_ascending">Ascending</string>
+    <string name="sort_descending">Descending</string>
 
     <!-- Deposit & Withdraw Screen -->
     <string name="deposit_screen_title">Harika! tutar girin</string>
@@ -127,6 +132,9 @@
     <string name="input_pick_image_onboarding_desc">Hedefinize bir resim eklemek için hareketli işlem düğmesine tıklayın.</string>
     <string name="input_page_quote">Merdivenin tamamını görmek zorunda değilsin, sadece ilk adımı at. – Martin Luther King, Jr.  </string>
     <string name="input_goal_priority">Bu hedef için öncelik seçin.</string>
+    <string name="priority_high">High</string>
+    <string name="priority_normal">Normal</string>
+    <string name="priority_low">Low</string>
     <string name="input_goal_reminder">Tasarruf Hatırlatıcıları</string>
     <string name="input_goal_reminders_onboarding_title">Hedeflerinizle Güncel Kalabilmek için Hatırlatıcıları Etkinleştirin!</string>
     <string name="input_goal_reminders_onboarding_desc">Hatırlatıcılar, hedef önceliğine bağlı olarak günlük, haftalık veya yarı haftalık olarak gönderilecektir.</string>
@@ -176,6 +184,10 @@
     <string name="material_you_setting_desc">Temayı duvar kağıdınıza göre değiştirin (Yalnızca A12+)</string>
     <string name="material_you_error">Bu özellik yalnızca Android 12 ve üstü cihazlar içindir.</string>
     <string name="goal_card_setting">Hedef Kartı Stili</string>
+    <string name="preview">Preview</string>
+    <string name="preview_example_title">Home Decorations</string>
+    <string name="preview_example_primary_text">You\'re off to a great start! Currently saved %1$s out of %2$s</string>
+    <string name="preview_example_secondary_text">You have until 26/05/2023 (85) days left. You need to save around %1$s/day, %2$s/week, %3$s/month</string>
     <string name="goal_card_option1">Klasik</string>
     <string name="goal_card_option2">Kompakt</string>
     <string name="locales_setting_title">Yerel</string>
@@ -185,6 +197,8 @@
     <string name="date_format_dialog_title">Tarih Biçimini Değiştir</string>
     <string name="preferred_currency_setting">Tercih Edilen Para Birimi</string>
     <string name="currency_dialog_title">Tercih Edilen Para Birimini Seç</string>
+    <string name="search_currency">Search currency</string>
+    <string name="search">Search</string>
     <string name="security_settings_title">Güvenlik</string>
     <string name="app_lock_setting">Biyometrik Kilit</string>
     <string name="app_lock_setting_desc">GreenStash\'in kilidini açmak için parmak izini ya da ekran kilidini kullan</string>

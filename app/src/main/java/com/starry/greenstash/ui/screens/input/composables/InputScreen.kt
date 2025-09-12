@@ -114,7 +114,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.app.ActivityCompat
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
@@ -143,6 +143,8 @@ import com.starry.greenstash.ui.screens.input.InputViewModel
 import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.utils.ImageUtils
 import com.starry.greenstash.utils.NumberUtils
+import com.starry.greenstash.utils.Utils
+import com.starry.greenstash.utils.displayName
 import com.starry.greenstash.utils.getActivity
 import com.starry.greenstash.utils.hasNotificationPermission
 import com.starry.greenstash.utils.toToast
@@ -190,6 +192,16 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                     }
                 })
         })
+        LaunchedEffect(true) {
+            delay(500L)
+            selectedDate.value = viewModel.state.deadline
+                .takeIf { it.isNotEmpty() }
+                ?.let { deadline ->
+                    Utils.parseDateStyle(deadline)?.let { style ->
+                        LocalDate.parse(deadline, DateTimeFormatter.ofPattern(style.pattern))
+                    }
+                } ?: LocalDate.now()
+        }
         topBarText = stringResource(id = R.string.input_edit_goal_header)
         buttonText = stringResource(id = R.string.input_edit_goal_button)
     } else {
@@ -678,7 +690,7 @@ private fun GoalPriorityMenu(selectedPriority: String, onPriorityChanged: (Strin
                         shape = RoundedCornerShape(topStart = 14.dp, bottomStart = 14.dp),
                         label = {
                             Text(
-                                text = GoalPriority.High.name, fontFamily = greenstashFont
+                                text = GoalPriority.High.displayName(), fontFamily = greenstashFont
                             )
                         },
                         icon = {
@@ -704,7 +716,8 @@ private fun GoalPriorityMenu(selectedPriority: String, onPriorityChanged: (Strin
                         shape = RectangleShape,
                         label = {
                             Text(
-                                text = GoalPriority.Normal.name, fontFamily = greenstashFont
+                                text = GoalPriority.Normal.displayName(),
+                                fontFamily = greenstashFont
                             )
                         },
                         icon = {
@@ -730,7 +743,7 @@ private fun GoalPriorityMenu(selectedPriority: String, onPriorityChanged: (Strin
                         shape = RoundedCornerShape(topEnd = 14.dp, bottomEnd = 14.dp),
                         label = {
                             Text(
-                                text = GoalPriority.Low.name, fontFamily = greenstashFont
+                                text = GoalPriority.Low.displayName(), fontFamily = greenstashFont
                             )
                         },
                         icon = {
@@ -817,23 +830,23 @@ private fun GoalReminderMenu(
             Spacer(modifier = Modifier.weight(1f))
             Switch(
                 checked = reminderState, onCheckedChange = { newValue ->
-                view.weakHapticFeedback()
-                onReminderChanged(newValue)
-                // Ask for notification permission if android ver > 13.
-                if (newValue && !hasNotificationPermission && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    launcher.launch(Manifest.permission.POST_NOTIFICATIONS)
-                }
-            }, thumbContent = if (reminderState) {
-                {
-                    Icon(
-                        imageVector = Icons.Filled.Check,
-                        contentDescription = null,
-                        modifier = Modifier.size(SwitchDefaults.IconSize),
-                    )
-                }
-            } else {
-                null
-            }, modifier = modifier)
+                    view.weakHapticFeedback()
+                    onReminderChanged(newValue)
+                    // Ask for notification permission if android ver > 13.
+                    if (newValue && !hasNotificationPermission && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        launcher.launch(Manifest.permission.POST_NOTIFICATIONS)
+                    }
+                }, thumbContent = if (reminderState) {
+                    {
+                        Icon(
+                            imageVector = Icons.Filled.Check,
+                            contentDescription = null,
+                            modifier = Modifier.size(SwitchDefaults.IconSize),
+                        )
+                    }
+                } else {
+                    null
+                }, modifier = modifier)
         }
     }
 }

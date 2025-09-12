@@ -48,6 +48,11 @@
     <string name="new_goal_onboarding_desc">Clique no botão de ação flutuante para criar uma nova meta de economia.</string>
     <string name="home_search_label">Buscar aqui…</string>
     <string name="search_goal_not_found">404: Meta não encontrada!</string>
+    <string name="filter_title">Title</string>
+    <string name="filter_amount">Amount</string>
+    <string name="filter_priority">Priority</string>
+    <string name="sort_ascending">Ascending</string>
+    <string name="sort_descending">Descending</string>
 
     <!-- Deposit & Withdraw Screen -->
     <string name="deposit_screen_title">Incrível! Digite o valor</string>
@@ -124,6 +129,9 @@
     <string name="input_pick_image_onboarding_title">Adicione imagens às suas metas para dar a elas um visual personalizado!</string>
     <string name="input_pick_image_onboarding_desc">Clique no botão de ação flutuante para adicionar uma imagem à sua meta.</string>
     <string name="input_goal_priority">Selecione a prioridade para sua meta.</string>
+    <string name="priority_high">High</string>
+    <string name="priority_normal">Normal</string>
+    <string name="priority_low">Low</string>
     <string name="input_goal_reminder">Lembretes de Economia</string>
     <string name="input_goal_reminders_onboarding_title">Ative Lembretes para Ficar Atualizado sobre suas Metas!</string>
     <string name="input_goal_reminders_onboarding_desc">Os lembretes serão enviados diariamente, duas vezes por semana ou semanalmente, dependendo da prioridade da meta.</string>
@@ -172,6 +180,10 @@
     <string name="material_you_setting_desc">Alterar tema de acordo com seu papel de parede (A12+ Somente)</string>
     <string name="material_you_error">Este recurso é apenas para dispositivos executando Android 12 ou superior.</string>
     <string name="goal_card_setting">Estilo do Cartão de Meta</string>
+    <string name="preview">Preview</string>
+    <string name="preview_example_title">Home Decorations</string>
+    <string name="preview_example_primary_text">You\'re off to a great start! Currently saved %1$s out of %2$s</string>
+    <string name="preview_example_secondary_text">You have until 26/05/2023 (85) days left. You need to save around %1$s/day, %2$s/week, %3$s/month</string>
     <string name="goal_card_option1">Clássico</string>
     <string name="goal_card_option2">Compacto</string>
     <string name="locales_setting_title">Idiomas</string>
@@ -181,6 +193,8 @@
     <string name="date_format_dialog_title">Alterar Formato de Data</string>
     <string name="preferred_currency_setting">Moeda Preferida</string>
     <string name="currency_dialog_title">Selecione a Moeda Preferida</string>
+    <string name="search_currency">Search currency</string>
+    <string name="search">Search</string>
     <string name="security_settings_title">Segurança</string>
     <string name="app_lock_setting">Bloqueio Biométrico</string>
     <string name="app_lock_setting_desc">Use sua impressão digital ou senha do bloqueio de tela para desbloquear o GreenStash</string>

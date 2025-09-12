@@ -139,11 +139,11 @@ fun CurrencyPicker(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(16.dp),
-                        placeholder = { Text("Search currency") },
+                        placeholder = { Text(stringResource(R.string.search_currency)) },
                         leadingIcon = {
                             Icon(
                                 imageVector = Icons.Default.Search,
-                                contentDescription = "Search"
+                                contentDescription = stringResource(R.string.search)
                             )
                         }, shape = RoundedCornerShape(12.dp)
                     )

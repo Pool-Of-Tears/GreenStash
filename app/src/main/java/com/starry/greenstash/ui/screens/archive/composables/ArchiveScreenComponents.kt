@@ -164,34 +164,34 @@ fun ArchiveDialogs(
     if (showRestoreDialog.value) {
         AlertDialog(
             onDismissRequest = {
-            showRestoreDialog.value = false
-        }, title = {
-            Text(
-                text = stringResource(id = R.string.goal_restore_confirmation),
-                color = MaterialTheme.colorScheme.onSurface,
-                fontFamily = greenstashFont,
-                fontSize = 18.sp
-            )
-        }, confirmButton = {
-            FilledTonalButton(
-                onClick = {
-                    showRestoreDialog.value = false
-                    onRestoreConfirmed()
-                },
-                colors = ButtonDefaults.filledTonalButtonColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                )
-            ) {
-                Text(stringResource(id = R.string.confirm), fontFamily = greenstashFont)
-            }
-        }, dismissButton = {
-            TextButton(onClick = {
                 showRestoreDialog.value = false
-            }) {
-                Text(stringResource(id = R.string.cancel), fontFamily = greenstashFont)
-            }
-        },
+            }, title = {
+                Text(
+                    text = stringResource(id = R.string.goal_restore_confirmation),
+                    color = MaterialTheme.colorScheme.onSurface,
+                    fontFamily = greenstashFont,
+                    fontSize = 18.sp
+                )
+            }, confirmButton = {
+                FilledTonalButton(
+                    onClick = {
+                        showRestoreDialog.value = false
+                        onRestoreConfirmed()
+                    },
+                    colors = ButtonDefaults.filledTonalButtonColors(
+                        containerColor = MaterialTheme.colorScheme.primaryContainer,
+                        contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                    )
+                ) {
+                    Text(stringResource(id = R.string.confirm), fontFamily = greenstashFont)
+                }
+            }, dismissButton = {
+                TextButton(onClick = {
+                    showRestoreDialog.value = false
+                }) {
+                    Text(stringResource(id = R.string.cancel), fontFamily = greenstashFont)
+                }
+            },
             icon = {
                 Icon(
                     imageVector = Icons.Filled.Refresh,
@@ -204,34 +204,34 @@ fun ArchiveDialogs(
     if (showDeleteDialog.value) {
         AlertDialog(
             onDismissRequest = {
-            showDeleteDialog.value = false
-        }, title = {
-            Text(
-                text = stringResource(id = R.string.goal_delete_confirmation),
-                color = MaterialTheme.colorScheme.onSurface,
-                fontFamily = greenstashFont,
-                fontSize = 18.sp
-            )
-        }, confirmButton = {
-            FilledTonalButton(
-                onClick = {
-                    showDeleteDialog.value = false
-                    onDeleteConfirmed()
-                },
-                colors = ButtonDefaults.filledTonalButtonColors(
-                    containerColor = MaterialTheme.colorScheme.errorContainer,
-                    contentColor = MaterialTheme.colorScheme.onErrorContainer
-                )
-            ) {
-                Text(stringResource(id = R.string.confirm), fontFamily = greenstashFont)
-            }
-        }, dismissButton = {
-            TextButton(onClick = {
                 showDeleteDialog.value = false
-            }) {
-                Text(stringResource(id = R.string.cancel), fontFamily = greenstashFont)
-            }
-        },
+            }, title = {
+                Text(
+                    text = stringResource(id = R.string.goal_delete_confirmation),
+                    color = MaterialTheme.colorScheme.onSurface,
+                    fontFamily = greenstashFont,
+                    fontSize = 18.sp
+                )
+            }, confirmButton = {
+                FilledTonalButton(
+                    onClick = {
+                        showDeleteDialog.value = false
+                        onDeleteConfirmed()
+                    },
+                    colors = ButtonDefaults.filledTonalButtonColors(
+                        containerColor = MaterialTheme.colorScheme.errorContainer,
+                        contentColor = MaterialTheme.colorScheme.onErrorContainer
+                    )
+                ) {
+                    Text(stringResource(id = R.string.confirm), fontFamily = greenstashFont)
+                }
+            }, dismissButton = {
+                TextButton(onClick = {
+                    showDeleteDialog.value = false
+                }) {
+                    Text(stringResource(id = R.string.cancel), fontFamily = greenstashFont)
+                }
+            },
             icon = {
                 Icon(
                     imageVector = Icons.Outlined.Delete,

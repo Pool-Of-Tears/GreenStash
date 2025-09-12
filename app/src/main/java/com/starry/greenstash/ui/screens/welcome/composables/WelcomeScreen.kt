@@ -58,7 +58,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionResult
@@ -82,8 +82,10 @@ fun WelcomeScreen(navController: NavController) {
     val viewModel: WelcomeViewModel = hiltViewModel()
 
     val currencyDialog = remember { mutableStateOf(false) }
-    val currencyNames = context.resources.getStringArray(R.array.currency_names)
-    val currencyValues = context.resources.getStringArray(R.array.currency_values)
+    val currencyNames =
+        context.applicationContext.resources.getStringArray(R.array.currency_names)
+    val currencyValues =
+        context.applicationContext.resources.getStringArray(R.array.currency_values)
 
 
     val selectedCurrencyName = remember {

@@ -50,8 +50,13 @@
     <string name="new_goal_fab">Новая цель</string>
     <string name="new_goal_onboarding_title">Давайте начнем с создания новой цели накопления!</string>
     <string name="new_goal_onboarding_desc">Нажмите на плавающую кнопку действия, чтобы создать новую цель накопления.</string>
-    <string name="home_search_label">Искать здесь...</string>
+    <string name="home_search_label">Искать здесь…</string>
     <string name="search_goal_not_found">404: Цель не найдена!</string>
+    <string name="filter_title">Title</string>
+    <string name="filter_amount">Amount</string>
+    <string name="filter_priority">Priority</string>
+    <string name="sort_ascending">Ascending</string>
+    <string name="sort_descending">Descending</string>
 
     <!-- Deposit & Withdraw Screen -->
     <string name="deposit_screen_title">Замечательно! Введите сумму</string>
@@ -126,6 +131,9 @@
     <string name="input_pick_image_onboarding_title">Добавьте изображения к своим целям, чтобы придать им индивидуальный вид!</string>
     <string name="input_pick_image_onboarding_desc">Нажмите на плавающую кнопку действия, чтобы добавить изображение к своей цели.</string>
     <string name="input_goal_priority">Выберите приоритет для своей цели.</string>
+    <string name="priority_high">High</string>
+    <string name="priority_normal">Normal</string>
+    <string name="priority_low">Low</string>
     <string name="input_goal_reminder">Сохранение напоминаний</string>
     <string name="input_goal_reminders_onboarding_title">Включите напоминания, чтобы быть в курсе своих целей!</string>
     <string name="input_goal_reminders_onboarding_desc">Напоминания будут отправляться ежедневно, раз в полнедели или раз в неделю, в зависимости от приоритета цели.</string>
@@ -174,6 +182,10 @@
     <string name="material_you_setting_desc">Переключение темы в соответствии с вашими обоями (только для A12+)</string>
     <string name="material_you_error">Эта функция доступна только для устройств под управлением Android 12 или более поздней версии.</string>
     <string name="goal_card_setting">Стиль карты цели</string>
+    <string name="preview">Preview</string>
+    <string name="preview_example_title">Home Decorations</string>
+    <string name="preview_example_primary_text">You\'re off to a great start! Currently saved %1$s out of %2$s</string>
+    <string name="preview_example_secondary_text">You have until 26/05/2023 (85) days left. You need to save around %1$s/day, %2$s/week, %3$s/month</string>
     <string name="goal_card_option1">Классический</string>
     <string name="goal_card_option2">Компактный</string>
     <string name="locales_setting_title">Региональные настройки</string>
@@ -183,6 +195,8 @@
     <string name="date_format_dialog_title">Изменить формат даты</string>
     <string name="preferred_currency_setting">Предпочтительная валюта</string>
     <string name="currency_dialog_title">Выберите предпочтительную валюту</string>
+    <string name="search_currency">Search currency</string>
+    <string name="search">Search</string>
     <string name="security_settings_title">Безопасность</string>
     <string name="app_lock_setting">Биометрическая блокировка</string>
     <string name="app_lock_setting_desc">Используйте свой отпечаток пальца или пароль блокировки экрана, чтобы разблокировать GreenStash.</string>

@@ -152,33 +152,33 @@ private fun TransactionItem(
     if (showDeleteDialog.value) {
         AlertDialog(
             onDismissRequest = {
-            showDeleteDialog.value = false
-        }, title = {
-            Text(
-                text = stringResource(id = R.string.goal_delete_confirmation),
-                color = MaterialTheme.colorScheme.onSurface,
-                fontFamily = greenstashFont,
-            )
-        }, confirmButton = {
-            FilledTonalButton(
-                onClick = {
-                    showDeleteDialog.value = false
-                    viewModel.deleteTransaction(transaction)
-                },
-                colors = ButtonDefaults.filledTonalButtonColors(
-                    containerColor = MaterialTheme.colorScheme.errorContainer,
-                    contentColor = MaterialTheme.colorScheme.onErrorContainer
-                )
-            ) {
-                Text(stringResource(id = R.string.confirm), fontFamily = greenstashFont)
-            }
-        }, dismissButton = {
-            TextButton(onClick = {
                 showDeleteDialog.value = false
-            }) {
-                Text(stringResource(id = R.string.cancel), fontFamily = greenstashFont)
-            }
-        },
+            }, title = {
+                Text(
+                    text = stringResource(id = R.string.goal_delete_confirmation),
+                    color = MaterialTheme.colorScheme.onSurface,
+                    fontFamily = greenstashFont,
+                )
+            }, confirmButton = {
+                FilledTonalButton(
+                    onClick = {
+                        showDeleteDialog.value = false
+                        viewModel.deleteTransaction(transaction)
+                    },
+                    colors = ButtonDefaults.filledTonalButtonColors(
+                        containerColor = MaterialTheme.colorScheme.errorContainer,
+                        contentColor = MaterialTheme.colorScheme.onErrorContainer
+                    )
+                ) {
+                    Text(stringResource(id = R.string.confirm), fontFamily = greenstashFont)
+                }
+            }, dismissButton = {
+                TextButton(onClick = {
+                    showDeleteDialog.value = false
+                }) {
+                    Text(stringResource(id = R.string.cancel), fontFamily = greenstashFont)
+                }
+            },
             icon = {
                 Icon(imageVector = Icons.Rounded.Delete, contentDescription = null)
             }
