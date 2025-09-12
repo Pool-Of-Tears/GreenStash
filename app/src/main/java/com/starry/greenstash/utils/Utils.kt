@@ -33,6 +33,8 @@ import android.os.Build
 import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG
 import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_WEAK
 import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
+import androidx.core.net.toUri
+import com.starry.greenstash.ui.screens.settings.DateStyle
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
@@ -82,13 +84,34 @@ object Utils {
     }
 
     /**
+     * Detects the DateStyle of a given date string based on its format.
+     *
+     * Assumes date is separated by "/".
+     *
+     * @param dateStr String (date in string format)
+     * @return DateStyle (detected style), or null if unknown
+     */
+    fun parseDateStyle(dateStr: String): DateStyle? {
+        val parts = dateStr.split("/")
+        if (parts.size != 3) return null
+        return when (parts[0].length) {
+            // Case: starts with YYYY
+            4 -> DateStyle.YearMonthDate
+            // Case: starts with DD (common dd/MM/yyyy)
+            2 -> DateStyle.DateMonthYear
+            // Unsupported format
+            else -> null
+        }
+    }
+
+    /**
      * Open the web link in the browser.
      *
      * @param context The context
      * @param url The URL to open
      */
     fun openWebLink(context: Context, url: String) {
-        val uri: Uri = Uri.parse(url)
+        val uri: Uri = url.toUri()
         val intent = Intent(Intent.ACTION_VIEW, uri)
         try {
             context.startActivity(intent)

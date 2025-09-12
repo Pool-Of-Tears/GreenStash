@@ -27,7 +27,6 @@ package com.starry.greenstash.ui.screens.settings.composables
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import android.provider.Settings
 import androidx.biometric.BiometricPrompt
@@ -71,6 +70,8 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.State
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -90,6 +91,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.navigation.NavController
 import com.starry.greenstash.MainActivity
 import com.starry.greenstash.R
@@ -123,30 +125,30 @@ fun SettingsScreen(navController: NavController) {
         topBar = {
             LargeTopAppBar(
                 title = {
-                Text(
-                    stringResource(id = R.string.settings_screen_header),
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    fontFamily = greenstashFont
-                )
-            }, navigationIcon = {
-                IconButton(
-                    onClick = {
-                        view.weakHapticFeedback()
-                        navController.navigateUp()
-                    },
-                    Modifier.semantics {
-                        onClick(label = context.getString(R.string.navigate_back_desc)) { true }
-                    }) {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = null
+                    Text(
+                        stringResource(id = R.string.settings_screen_header),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        fontFamily = greenstashFont
                     )
-                }
-            }, scrollBehavior = scrollBehavior, colors = TopAppBarDefaults.largeTopAppBarColors(
-                containerColor = MaterialTheme.colorScheme.surface,
-                scrolledContainerColor = MaterialTheme.colorScheme.surface,
-            )
+                }, navigationIcon = {
+                    IconButton(
+                        onClick = {
+                            view.weakHapticFeedback()
+                            navController.navigateUp()
+                        },
+                        Modifier.semantics {
+                            onClick(label = context.getString(R.string.navigate_back_desc)) { true }
+                        }) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = null
+                        )
+                    }
+                }, scrollBehavior = scrollBehavior, colors = TopAppBarDefaults.largeTopAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.surface,
+                    scrolledContainerColor = MaterialTheme.colorScheme.surface,
+                )
             )
         },
     ) {
@@ -172,26 +174,15 @@ private fun DisplaySettings(viewModel: SettingsViewModel, navController: NavCont
     val showThemeSheet = remember { mutableStateOf(false) }
 
     // Theme related values.
-    val themeValue = when (viewModel.getThemeValue()) {
-        ThemeMode.Light.ordinal -> stringResource(id = R.string.theme_dialog_option1)
-        ThemeMode.Dark.ordinal -> stringResource(id = R.string.theme_dialog_option2)
+    val themeValue = when (viewModel.theme.value!!) {
+        ThemeMode.Light -> stringResource(id = R.string.theme_dialog_option1)
+        ThemeMode.Dark -> stringResource(id = R.string.theme_dialog_option2)
         else -> stringResource(id = R.string.theme_dialog_option3)
     }
 
-    // Amoled theme state.
-    val amoledThemeValue = remember {
-        mutableStateOf(viewModel.getAmoledThemeValue())
-    }
-
-    // Material You theme state.
-    val materialYouValue = remember {
-        mutableStateOf(viewModel.getMaterialYouValue())
-    }
-
-    val goalStyleValue = when (viewModel.getGoalCardStyleValue()) {
-        GoalCardStyle.Classic.ordinal -> stringResource(id = R.string.goal_card_option1)
-        GoalCardStyle.Compact.ordinal -> stringResource(id = R.string.goal_card_option2)
-        else -> stringResource(id = R.string.goal_card_option1)
+    val goalStyleValue = when (viewModel.goalCardStyle.value!!) {
+        GoalCardStyle.Classic -> stringResource(id = R.string.goal_card_option1)
+        GoalCardStyle.Compact -> stringResource(id = R.string.goal_card_option2)
     }
 
     Spacer(modifier = Modifier.height(8.dp))
@@ -208,9 +199,8 @@ private fun DisplaySettings(viewModel: SettingsViewModel, navController: NavCont
             title = stringResource(id = R.string.amoled_theme_setting),
             description = stringResource(id = R.string.amoled_theme_desc),
             icon = Icons.Filled.Contrast,
-            switchState = amoledThemeValue,
+            switchState = viewModel.amoledTheme.observeAsState() as State<Boolean>,
             onCheckChange = { newValue ->
-                amoledThemeValue.value = newValue
                 viewModel.setAmoledTheme(newValue)
             }
         )
@@ -221,15 +211,13 @@ private fun DisplaySettings(viewModel: SettingsViewModel, navController: NavCont
                 id = R.string.material_you_setting_desc
             ),
             icon = Icons.Filled.Palette,
-            switchState = materialYouValue,
+            switchState = viewModel.materialYou.observeAsState() as State<Boolean>,
             onCheckChange = { newValue ->
-                materialYouValue.value = newValue
-
                 if (newValue) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                         viewModel.setMaterialYou(true)
                     } else {
-                        materialYouValue.value = false
+                        viewModel.setMaterialYou(false)
                         context.getString(R.string.material_you_error).toToast(context)
                     }
                 } else {
@@ -348,22 +336,19 @@ private fun ThemePickerDialog(
 private fun LocaleSettings(viewModel: SettingsViewModel) {
     val context = LocalContext.current
     // Date related values.
-    val dateValue = if (viewModel.getDateStyleValue() == DateStyle.YearMonthDate.pattern) {
-        "YYYY/MM/DD"
-    } else {
-        "DD/MM/YYYY"
-    }
-
+    val dateValue = viewModel.dateStyle.observeAsState().value!!.pattern
     val dateDialog = remember { mutableStateOf(false) }
-    val dateRadioOptions = listOf("DD/MM/YYYY", "YYYY/MM/DD")
+    val dateRadioOptions = listOf(DateStyle.DateMonthYear.pattern, DateStyle.YearMonthDate.pattern)
     val (selectedDateOption, onDateOptionSelected) = remember {
         mutableStateOf(dateValue)
     }
 
     // Currency related values.
     val currencyDialog = remember { mutableStateOf(false) }
-    val currencyNames = context.resources.getStringArray(R.array.currency_names)
-    val currencyValues = context.resources.getStringArray(R.array.currency_values)
+    val currencyNames =
+        context.applicationContext.resources.getStringArray(R.array.currency_names)
+    val currencyValues =
+        context.applicationContext.resources.getStringArray(R.array.currency_values)
 
     val selectedCurrencyName = remember {
         mutableStateOf(currencyNames[currencyValues.indexOf(viewModel.getDefaultCurrencyValue())])
@@ -386,7 +371,7 @@ private fun LocaleSettings(viewModel: SettingsViewModel) {
                 icon = Icons.Filled.Language,
                 onClick = {
                     val intent = Intent(Settings.ACTION_APP_LOCALE_SETTINGS).apply {
-                        data = Uri.parse("package:${context.packageName}")
+                        data = "package:${context.packageName}".toUri()
                     }
                     context.startActivity(intent)
                 }
@@ -453,15 +438,7 @@ private fun LocaleSettings(viewModel: SettingsViewModel) {
                 FilledTonalButton(
                     onClick = {
                         dateDialog.value = false
-                        when (selectedDateOption) {
-                            "DD/MM/YYYY" -> {
-                                viewModel.setDateStyle(DateStyle.DateMonthYear.pattern)
-                            }
-
-                            "YYYY/MM/DD" -> {
-                                viewModel.setDateStyle(DateStyle.YearMonthDate.pattern)
-                            }
-                        }
+                        viewModel.setDateStyle(selectedDateOption)
                     }, colors = ButtonDefaults.filledTonalButtonColors(
                         containerColor = MaterialTheme.colorScheme.primary,
                         contentColor = MaterialTheme.colorScheme.onPrimary

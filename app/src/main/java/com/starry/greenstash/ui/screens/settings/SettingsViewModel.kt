@@ -65,11 +65,13 @@ class SettingsViewModel @Inject constructor(
     private val _amoledTheme = MutableLiveData(false)
     private val _materialYou = MutableLiveData(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
     private val _goalCardStyle = MutableLiveData(GoalCardStyle.Classic)
+    private val _dateStyle = MutableLiveData<DateStyle>(DateStyle.DateMonthYear)
 
     val theme: LiveData<ThemeMode> = _theme
     val amoledTheme: LiveData<Boolean> = _amoledTheme
     val materialYou: LiveData<Boolean> = _materialYou
     val goalCardStyle: LiveData<GoalCardStyle> = _goalCardStyle
+    val dateStyle: LiveData<DateStyle> = _dateStyle
 
     // Initialize preferences --------------------------------------------
     init {
@@ -77,6 +79,11 @@ class SettingsViewModel @Inject constructor(
         _amoledTheme.value = getAmoledThemeValue()
         _materialYou.value = getMaterialYouValue()
         _goalCardStyle.value = GoalCardStyle.entries.toTypedArray()[getGoalCardStyleValue()]
+        _dateStyle.value = when (getDateStyleValue()) {
+            DateStyle.DateMonthYear.pattern -> DateStyle.DateMonthYear
+            DateStyle.YearMonthDate.pattern -> DateStyle.YearMonthDate
+            else -> DateStyle.DateMonthYear
+        }
     }
 
     // Setters for preferences --------------------------------------------
@@ -101,6 +108,12 @@ class SettingsViewModel @Inject constructor(
     }
 
     fun setDateStyle(newValue: String) {
+        val dateStyle = when (newValue) {
+            DateStyle.DateMonthYear.pattern -> DateStyle.DateMonthYear
+            DateStyle.YearMonthDate.pattern -> DateStyle.YearMonthDate
+            else -> DateStyle.DateMonthYear
+        }
+        _dateStyle.postValue(dateStyle)
         preferenceUtil.putString(PreferenceUtil.DATE_FORMAT_STR, newValue)
     }
 
@@ -113,25 +126,6 @@ class SettingsViewModel @Inject constructor(
     }
 
     // Getters for preferences --------------------------------------------
-    fun getThemeValue() = preferenceUtil.getInt(
-        PreferenceUtil.APP_THEME_INT, ThemeMode.Auto.ordinal
-    )
-
-    fun getAmoledThemeValue() = preferenceUtil.getBoolean(
-        PreferenceUtil.AMOLED_THEME_BOOL, false
-    )
-
-    fun getMaterialYouValue() = preferenceUtil.getBoolean(
-        PreferenceUtil.MATERIAL_YOU_BOOL, Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
-    )
-
-    fun getGoalCardStyleValue() = preferenceUtil.getInt(
-        PreferenceUtil.GOAL_CARD_STYLE_INT, GoalCardStyle.Classic.ordinal
-    )
-
-    fun getDateStyleValue() = preferenceUtil.getString(
-        PreferenceUtil.DATE_FORMAT_STR, DateStyle.DateMonthYear.pattern
-    )
 
     fun getDefaultCurrencyValue() = preferenceUtil.getString(
         PreferenceUtil.DEFAULT_CURRENCY_STR, "USD"
@@ -153,4 +147,30 @@ class SettingsViewModel @Inject constructor(
             if (isSystemInDarkTheme()) ThemeMode.Dark else ThemeMode.Light
         } else theme.value!!
     }
+
+
+    // Only used in init block
+    private fun getThemeValue() = preferenceUtil.getInt(
+        PreferenceUtil.APP_THEME_INT, ThemeMode.Auto.ordinal
+    )
+
+    // Only used in init block
+    private fun getAmoledThemeValue() = preferenceUtil.getBoolean(
+        PreferenceUtil.AMOLED_THEME_BOOL, false
+    )
+
+    // Only used in init block
+    private fun getMaterialYouValue() = preferenceUtil.getBoolean(
+        PreferenceUtil.MATERIAL_YOU_BOOL, Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+    )
+
+    // Only used in init block
+    private fun getGoalCardStyleValue() = preferenceUtil.getInt(
+        PreferenceUtil.GOAL_CARD_STYLE_INT, GoalCardStyle.Classic.ordinal
+    )
+
+    // Only used in init block
+    private fun getDateStyleValue() = preferenceUtil.getString(
+        PreferenceUtil.DATE_FORMAT_STR, DateStyle.DateMonthYear.pattern
+    )
 }
