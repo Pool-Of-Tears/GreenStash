@@ -1,0 +1,6 @@
+- Update target SDK to Android 16 (API 36)
+- Added predictive back gesture support throughout the UI
+- Date picker now defaults to the selected date instead of the current date when editing a goal
+- Fixed issue where the date style option in settings did not reflect changes until reloading the screen
+- Updated Spanish translation and made other translation improvements
+- Minor fixes and dependency updates for smoother, faster performance

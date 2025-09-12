@@ -69,7 +69,7 @@ import kotlinx.coroutines.launch
 
 sealed class AboutLinks(val url: String) {
     data object ReadMe : AboutLinks("https://github.com/Pool-Of-Tears/GreenStash")
-    data object Website : AboutLinks("https://pooloftears.in")
+    data object Website : AboutLinks("https://pool-of-tears.github.io")
     data object PrivacyPolicy :
         AboutLinks("https://github.com/Pool-Of-Tears/GreenStash/blob/main/legal/PRIVACY-POLICY.md")
 
