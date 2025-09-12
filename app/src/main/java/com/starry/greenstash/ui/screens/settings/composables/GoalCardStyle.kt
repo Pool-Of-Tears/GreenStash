@@ -194,7 +194,9 @@ fun GoalCardStyle(navController: NavController) {
                             GoalItemCompact(
                                 title = stringResource(R.string.preview_example_title),
                                 savedAmount = NumberUtils.formatCurrency(1000.00, currency),
-                                daysLeftText = stringResource(R.string.info_card_remaining_days).format(12),
+                                daysLeftText = stringResource(R.string.info_card_remaining_days).format(
+                                    12
+                                ),
                                 goalProgress = 0.8f,
                                 goalIcon = ImageVector.vectorResource(id = R.drawable.ic_nav_rating),
                                 isGoalCompleted = false,

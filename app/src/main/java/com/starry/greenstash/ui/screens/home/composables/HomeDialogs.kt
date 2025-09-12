@@ -53,34 +53,34 @@ fun HomeDialogs(
 
         AlertDialog(
             onDismissRequest = {
-            openDeleteDialog.value = false
-        }, title = {
-            Text(
-                text = stringResource(id = R.string.goal_delete_confirmation),
-                color = MaterialTheme.colorScheme.onSurface,
-                fontFamily = greenstashFont,
-                fontSize = 18.sp
-            )
-        }, confirmButton = {
-            FilledTonalButton(
-                onClick = {
-                    openDeleteDialog.value = false
-                    onDeleteConfirmed()
-                },
-                colors = ButtonDefaults.filledTonalButtonColors(
-                    containerColor = MaterialTheme.colorScheme.errorContainer,
-                    contentColor = MaterialTheme.colorScheme.onErrorContainer
-                )
-            ) {
-                Text(stringResource(id = R.string.confirm), fontFamily = greenstashFont)
-            }
-        }, dismissButton = {
-            TextButton(onClick = {
                 openDeleteDialog.value = false
-            }) {
-                Text(stringResource(id = R.string.cancel), fontFamily = greenstashFont)
-            }
-        },
+            }, title = {
+                Text(
+                    text = stringResource(id = R.string.goal_delete_confirmation),
+                    color = MaterialTheme.colorScheme.onSurface,
+                    fontFamily = greenstashFont,
+                    fontSize = 18.sp
+                )
+            }, confirmButton = {
+                FilledTonalButton(
+                    onClick = {
+                        openDeleteDialog.value = false
+                        onDeleteConfirmed()
+                    },
+                    colors = ButtonDefaults.filledTonalButtonColors(
+                        containerColor = MaterialTheme.colorScheme.errorContainer,
+                        contentColor = MaterialTheme.colorScheme.onErrorContainer
+                    )
+                ) {
+                    Text(stringResource(id = R.string.confirm), fontFamily = greenstashFont)
+                }
+            }, dismissButton = {
+                TextButton(onClick = {
+                    openDeleteDialog.value = false
+                }) {
+                    Text(stringResource(id = R.string.cancel), fontFamily = greenstashFont)
+                }
+            },
             icon = {
                 Icon(
                     imageVector = ImageVector.vectorResource(id = R.drawable.ic_goal_delete),
@@ -94,34 +94,34 @@ fun HomeDialogs(
 
         AlertDialog(
             onDismissRequest = {
-            openArchiveDialog.value = false
-        }, title = {
-            Text(
-                text = stringResource(id = R.string.goal_archive_confirmation),
-                color = MaterialTheme.colorScheme.onSurface,
-                fontFamily = greenstashFont,
-                fontSize = 18.sp
-            )
-        }, confirmButton = {
-            FilledTonalButton(
-                onClick = {
-                    openArchiveDialog.value = false
-                    onArchiveConfirmed()
-                },
-                colors = ButtonDefaults.filledTonalButtonColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                )
-            ) {
-                Text(stringResource(id = R.string.confirm), fontFamily = greenstashFont)
-            }
-        }, dismissButton = {
-            TextButton(onClick = {
                 openArchiveDialog.value = false
-            }) {
-                Text(stringResource(id = R.string.cancel), fontFamily = greenstashFont)
-            }
-        },
+            }, title = {
+                Text(
+                    text = stringResource(id = R.string.goal_archive_confirmation),
+                    color = MaterialTheme.colorScheme.onSurface,
+                    fontFamily = greenstashFont,
+                    fontSize = 18.sp
+                )
+            }, confirmButton = {
+                FilledTonalButton(
+                    onClick = {
+                        openArchiveDialog.value = false
+                        onArchiveConfirmed()
+                    },
+                    colors = ButtonDefaults.filledTonalButtonColors(
+                        containerColor = MaterialTheme.colorScheme.primaryContainer,
+                        contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                    )
+                ) {
+                    Text(stringResource(id = R.string.confirm), fontFamily = greenstashFont)
+                }
+            }, dismissButton = {
+                TextButton(onClick = {
+                    openArchiveDialog.value = false
+                }) {
+                    Text(stringResource(id = R.string.cancel), fontFamily = greenstashFont)
+                }
+            },
             icon = {
                 Icon(
                     imageVector = ImageVector.vectorResource(id = R.drawable.ic_compact_goal_archve),
