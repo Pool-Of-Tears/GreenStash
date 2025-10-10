@@ -86,14 +86,14 @@ Contributions are welcome!
 
 <h2 align="center">Translations</h2>
 
-Please help to translate the app on [Weblate](https://toolate.othing.xyz/projects/greenstash/).
+You can help translate the app on [Weblate](https://toolate.othing.xyz/projects/greenstash/).
 
 <a href="https://toolate.othing.xyz/projects/greenstash/">
 <img src="https://toolate.othing.xyz/widget/greenstash/multi-auto.svg" alt="Translation status" />
 </a>
 
-You can also translate manually and create a pull request with
-your translation file. The base string resources can be found under:
+Alternatively, you can translate manually and create a pull request with your translation file.
+The base string resources can be found at:
 
 ```
 /app/src/main/res/values/strings.xml
