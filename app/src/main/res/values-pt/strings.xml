@@ -1,10 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Other Strings -->
     <string name="confirm">Confirmar</string>
     <string name="cancel">Cancelar</string>
     <string name="ok">OK</string>
     <string name="unknown_error">Oops! Algo deu errado.</string>
-
     <!-- Navigation Drawer -->
     <string name="drawer_home">Início</string>
     <string name="drawer_archive">Arquivo</string>
@@ -14,30 +14,22 @@
     <string name="drawer_share">Compartilhar</string>
     <string name="drawer_privacy">Privacidade</string>
     <string name="drawer_footer_text">Feito com ❤️ na Índia.</string>
-    <string name="drawer_share_message">
-        Ei! Confira este aplicativo incrível chamado GreenStash.
-        Facilita o planejamento e gerenciamento de suas metas de economia, ajudando você a estabelecer o hábito de economizar dinheiro para coisas melhores.
-        Baixe agora na Play Store: %s
-    </string>
-
+    <string name="drawer_share_message">Ei! Confira este aplicativo incrível chamado GreenStash. Facilita o planejamento e gerenciamento de suas metas de economia, ajudando você a estabelecer o hábito de economizar dinheiro para coisas melhores. Baixe agora na Play Store: %s</string>
     <!-- Biometric Lock -->
     <string name="bio_lock_title">Desbloquear GreenStash</string>
     <string name="bio_lock_subtitle">Confirme seu bloqueio de tela, PIN ou senha.</string>
     <string name="auth_successful">Autenticação bem-sucedida!</string>
     <string name="auth_failed">Autenticação falhou!</string>
     <string name="auth_error">Erro de autenticação: %s</string>
-
     <!-- Welcome Screen. -->
     <string name="welcome_screen_text">Olá! Por favor, selecione sua moeda preferida para começar.</string>
     <string name="welcome_screen_button">Vamos começar!</string>
-
     <!-- App Lock Screen -->
     <string name="app_lock_screen_title">GreenStash está bloqueado</string>
     <string name="app_lock_screen_subtitle">Clique no botão abaixo para autenticar.</string>
     <string name="app_lock_button_text">Autorizar</string>
     <string name="app_lock_button_icon_desc">Desbloquear aplicativo</string>
     <string name="app_lock_unable_to_authenticate">O bloqueio do aplicativo está desativado porque o dispositivo não consegue autenticar</string>
-
     <!-- Home Screen -->
     <string name="home_screen_header">Metas de Economia</string>
     <string name="menu_button_desc">Abrir menu lateral</string>
@@ -53,19 +45,16 @@
     <string name="filter_priority">Priority</string>
     <string name="sort_ascending">Ascending</string>
     <string name="sort_descending">Descending</string>
-
     <!-- Deposit & Withdraw Screen -->
     <string name="deposit_screen_title">Incrível! Digite o valor</string>
     <string name="withdraw_screen_title">Legal! Digite o valor</string>
     <string name="deposit_successful">Depositado com sucesso!</string>
     <string name="withdraw_successful">Retirado com sucesso!</string>
     <string name="withdraw_overflow_error">O valor é maior do que o valor atual depositado!</string>
-
     <!-- Congratulations Screen -->
     <string name="goal_achieved_heading">Parabéns 🥳</string>
     <string name="goal_achieved_subtext">Você alcançou sua meta de economia! Seu trabalho árduo e comprometimento levaram a esta conquista merecida. Celebre seu sucesso! 🎉</string>
     <string name="goal_achieved_button">Voltar para o início</string>
-
     <!-- Strings used for dashboard saving goals cards -->
     <string name="no_goal_set">Nenhuma Meta de Economia Definida.</string>
     <string name="transaction_amount">Quantidade</string>
@@ -96,11 +85,8 @@
     <string name="goal_approx_saving_day">dia.</string>
     <string name="goal_approx_saving_week">semana.</string>
     <string name="goal_approx_saving_month">mês.</string>
-
-
     <string name="no_goal_deadline_set">Como você não especificou nenhum prazo, você tem todo o tempo do mundo!</string>
     <string name="goal_achieved_desc">É hora de comemorar todo o trabalho árduo que levou a esta ocasião alegre.</string>
-
     <!-- Goal Info Screen -->
     <string name="info_screen_header">Informações da Meta</string>
     <string name="info_card_title">Você Economizou</string>
@@ -118,13 +104,12 @@
     <string name="info_goal_no_transactions">Ainda não há transações.</string>
     <string name="info_edit_transaction_button">Atualizar Transação</string>
     <string name="info_transaction_swipe_tip">Dica! Deslize as transações para a esquerda ou direita para editá-las ou excluí-las.</string>
-
     <!-- Input (New/Edit Goal) Screen -->
     <string name="input_screen_header">É hora de economizar!</string>
     <string name="input_edit_goal_header">Editar Meta de Economia</string>
     <string name="input_pick_icon">Selecione um ícone para sua meta.</string>
     <string name="input_pick_icon_onboarding_title">…Ou se o minimalismo é seu estilo, adicione um ícone para sua meta.</string>
-    <string name="input_pick_icon_onboarding_desc">Os ícones de meta serão usados em cartões de meta estilizados compactos, Configurações > Estilo do Cartão de Meta</string>
+    <string name="input_pick_icon_onboarding_desc">Os ícones de meta serão usados em cartões de meta estilizados compactos, Configurações &gt; Estilo do Cartão de Meta</string>
     <string name="input_pick_image_fab">Imagem da Meta</string>
     <string name="input_pick_image_onboarding_title">Adicione imagens às suas metas para dar a elas um visual personalizado!</string>
     <string name="input_pick_image_onboarding_desc">Clique no botão de ação flutuante para adicionar uma imagem à sua meta.</string>
@@ -147,13 +132,11 @@
     <string name="input_goad_edit_success">Meta de economia atualizada.</string>
     <string name="input_goal_remove_deadline">Você deseja remover o prazo desta meta?</string>
     <string name="input_remove_deadline_tip">Dica! Você pode remover o prazo de metas existentes pressionando longamente no campo de prazo.</string>
-
     <!-- Archive Screen -->
     <string name="archive_screen_header">Metas Arquivadas</string>
     <string name="archive_empty">Ainda não há metas arquivadas.</string>
     <string name="goal_restore_confirmation">Você deseja restaurar esta meta?</string>
     <string name="goal_restore_success">Restaurado com sucesso.</string>
-
     <!-- Backup Screen -->
     <string name="backup_screen_header">Backup &amp; Restauração</string>
     <string name="backup_screen_text">Faça backup dos dados do aplicativo, incluindo todas as suas metas de economia, progresso atual, transações, etc., e restaure facilmente sempre que quiser.</string>
@@ -165,7 +148,6 @@
     <string name="backup_ftp_create_button">Criar Backup</string>
     <string name="backup_ftp_restore_button">Restaurar Backup</string>
     <string name="backup_restore_success">Backup restaurado com sucesso!</string>
-
     <!-- Settings Screen -->
     <string name="settings_screen_header">Configurações</string>
     <string name="display_settings_title">Visualização</string>
@@ -209,14 +191,11 @@
     <string name="switch_state_close">desligado</string>
     <string name="switch_state_open">ligado</string>
     <string name="navigate_back_desc">Navegar para trás</string>
-
     <!-- Goal Card Style -->
     <string name="goal_card_settings_header">Estilo da Meta</string>
     <string name="goal_card_settings_tip">Dica! Você pode deslizar um cartão estilizado compacto para a esquerda ou direita para editar ou excluir uma meta de economia.</string>
-
     <!-- OSL Screen -->
     <string name="osl_screen_header">Bibliotecas de Código Aberto</string>
-
     <!-- About Screen -->
     <string name="about_screen_header">Sobre</string>
     <string name="about_readme_title">README</string>
@@ -233,16 +212,16 @@
     <string name="about_support_desc">Se você acha que mereço biscoitos pelo meu trabalho, você pode me comprar alguns clicando aqui.</string>
     <string name="about_version_title">Versão</string>
     <string name="about_version_desc">Versão-%s</string>
-
     <!-- Widget Screen -->
     <string name="widget_config_screen_header">Selecionar Meta</string>
     <string name="goal_widget_desc">Salvo %s</string>
-
     <!-- Goal Reminders -->
     <string name="notification_permission_error">Por favor, conceda permissão de notificações! 😾</string>
     <string name="reminder_notification_desc">Quanto mais você economiza, mais rápido alcançará sua meta! 💰</string>
     <string name="dismiss_notification_button">Ignorar</string>
     <string name="notification_deposited_title">Ótimo Trabalho 🎉</string>
     <string name="notification_deposited_desc">Depositado com sucesso %s!</string>
-
+    <string name="app_name" translatable="false"></string>
+    <string name="input_page_quote" translatable="false"></string>
+    <string name="material_you_setting" translatable="false"></string>
 </resources>
