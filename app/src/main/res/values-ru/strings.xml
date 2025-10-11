@@ -15,11 +15,7 @@
     <string name="drawer_share">Поделиться</string>
     <string name="drawer_privacy">Конфиденциальность</string>
     <string name="drawer_footer_text">Сделано с ❤️ в Индии</string>
-    <string name="drawer_share_message">
-        Привет! Посмотри это удивительное приложение под названием GreenStash.
-        Оно делает планирование и управление твоими финансовыми целями легким и приятным, помогая установить привычку экономить деньги для еще более лучших вещей.
-        Скачай его сейчас из Play Store: %s
-    </string>
+    <string name="drawer_share_message">Привет! Посмотри это удивительное приложение под названием GreenStash. Оно делает планирование и управление твоими финансовыми целями легким и приятным, помогая установить привычку экономить деньги для еще более лучших вещей. Скачай его сейчас из Play Store: %s</string>
     <!-- Biometric Lock -->
     <string name="bio_lock_title">Разблокировать GreenStash</string>
     <string name="bio_lock_subtitle">Подтвердите блокировку экрана, ПИН-код или пароль.</string>
@@ -86,7 +82,7 @@
     <!-- Eg: You have until 25/12/2022 (152) days left. -->
     <string name="goal_days_left" formatted="false">У вас осталось времени до %1$s (%2$s) дней.</string>
     <!-- Eg: You need to save around $2/day, $20/week, $200/month. -->
-    <string name="goal_approx_saving">Вам нужно сберегать примерно %s в </string>
+    <string name="goal_approx_saving">Вам нужно сберегать примерно %s в</string>
     <string name="goal_approx_saving_day">день.</string>
     <string name="goal_approx_saving_week">неделю.</string>
     <string name="goal_approx_saving_month">месяц.</string>
@@ -226,4 +222,6 @@
     <string name="dismiss_notification_button">Закрыть</string>
     <string name="notification_deposited_title">Отличная работа 🎉</string>
     <string name="notification_deposited_desc">Успешно пополнено %s !</string>
+    <string name="input_page_quote" translatable="false"></string>
+    <string name="material_you_setting" translatable="false"></string>
 </resources>
