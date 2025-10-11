@@ -1,12 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name" translatable="false">GreenStash</string>
-
     <!-- Other Strings -->
     <string name="confirm">Bestätigen</string>
     <string name="cancel">Abbrechen</string>
     <string name="ok">OK</string>
     <string name="unknown_error">Oops! Da ist etwas schief gelaufen</string>
-
     <!-- Navigation Drawer -->
     <string name="drawer_home">Home</string>
     <string name="drawer_archive">Archiv</string>
@@ -16,30 +15,22 @@
     <string name="drawer_share">Teilen</string>
     <string name="drawer_privacy">Datenschutz</string>
     <string name="drawer_footer_text">Entwickelt mit ❤️ in Indien</string>
-    <string name="drawer_share_message">
-    Hallo! Schauen Sie sich diese erstaunliche App namens GreenStash an.
-    Sie macht die Planung und Verwaltung Ihrer Sparziele zum Kinderspiel und hilft Ihnen, die Gewohnheit des Sparens für bessere Dinge zu etablieren.
-    Laden Sie sie jetzt aus dem Play Store herunter: %s
-    </string>
-
+    <string name="drawer_share_message">Hallo! Schauen Sie sich diese erstaunliche App namens GreenStash an. Sie macht die Planung und Verwaltung Ihrer Sparziele zum Kinderspiel und hilft Ihnen, die Gewohnheit des Sparens für bessere Dinge zu etablieren. Laden Sie sie jetzt aus dem Play Store herunter: %s</string>
     <!-- Biometric Lock -->
     <string name="bio_lock_title">GreenStash entsperren</string>
     <string name="bio_lock_subtitle">Bestätigen Sie Ihre Bildschirmsperre, PIN oder Passwort</string>
     <string name="auth_successful">Authentifizierung erfolgreich!</string>
     <string name="auth_failed">Authentifizierung fehlgeschlagen!</string>
     <string name="auth_error">Authentifizierungsfehler: %s</string>
-
     <!-- Welcome Screen. -->
     <string name="welcome_screen_text">Hallo! Bitte wählen Sie Ihre bevorzugte Währung um fortzufahren</string>
     <string name="welcome_screen_button">Beginnen!</string>
-
     <!-- App Lock Screen -->
     <string name="app_lock_screen_title">GreenStash ist gesperrt</string>
     <string name="app_lock_screen_subtitle">Klicke Sie den Button zur Authentifizierung</string>
     <string name="app_lock_button_text">Erlauben</string>
     <string name="app_lock_button_icon_desc">App entsperren</string>
     <string name="app_lock_unable_to_authenticate">App-lock ist deaktiviert, da das Gerät nicht authentifiziert werden kann</string>
-
     <!-- Home Screen -->
     <string name="home_screen_header">Sparziele</string>
     <string name="menu_button_desc">Seitenmenü öffnen</string>
@@ -55,19 +46,16 @@
     <string name="filter_priority">Priorität</string>
     <string name="sort_ascending">Aufsteigend</string>
     <string name="sort_descending">Absteigend</string>
-
     <!-- Deposit & Withdraw Screen -->
     <string name="deposit_screen_title">Super! Betrag eingeben</string>
     <string name="withdraw_screen_title">Cool! Betrag eingeben</string>
     <string name="deposit_successful">Erfolgreich hinzugefügt!</string>
     <string name="withdraw_successful">Erfolgreich entnommen!</string>
     <string name="withdraw_overflow_error">Der Betrag ist höher, als der aktuell hinzugefügte!</string>
-
     <!-- Congratulations Screen -->
     <string name="goal_achieved_heading">Glückwunsch 🥳</string>
     <string name="goal_achieved_subtext">Sie haben Ihr Sparziel erreicht! Ihre harte Arbeit und Ihr Engagement haben zu diesem wohlverdienten Erfolg geführt. Feiern Sie Ihren Erfolg! 🎉</string>
     <string name="goal_achieved_button">Zurück zum Home-Bildschirm</string>
-
     <!-- Strings used for dashboard saving goals cards -->
     <string name="no_goal_set">Keine Sparziele festgelegt</string>
     <string name="transaction_amount">Betrag</string>
@@ -88,7 +76,7 @@
     <string name="progress_greet2">Bleiben Sie dran!</string>
     <string name="progress_greet3">Sie schaffen es, wenn Sie selbst davon überzeugt sind</string>
     <string name="progress_greet4">Sie sind fast am Ziel!</string>
-    <string name="progress_greet5">Glückwunsch &#x1F389;</string>
+    <string name="progress_greet5">Glückwunsch 🎉</string>
     <string name="currently_saved_incomplete">Derzeit %1$s von %2$s gespart</string>
     <string name="currently_saved_complete">Sie haben %1$s von %2$s gespart</string>
     <!-- Eg: You have until 25/12/2022 (152) days left. -->
@@ -100,7 +88,6 @@
     <string name="goal_approx_saving_month">Monat</string>
     <string name="no_goal_deadline_set">Da Sie keine Frist festgelegt haben, haben Sie alle Zeit der Welt!</string>
     <string name="goal_achieved_desc">Es ist an der Zeit, all die harte Arbeit zu würdigen, die zu diesem freudigen Anlass geführt hat</string>
-
     <!-- Goal Info Screen -->
     <string name="info_screen_header">Sparziel-Informationen</string>
     <string name="info_card_title">Bereits</string>
@@ -118,17 +105,16 @@
     <string name="info_goal_no_transactions">Bislang keine Transaktionen</string>
     <string name="info_edit_transaction_button">Transaktion bearbeiten</string>
     <string name="info_transaction_swipe_tip">Tipp! Wischen Sie die Transaktionen von links oder rechts, um die Sie zu bearbeiten oder zu löschen</string>
-
     <!-- Input (New/Edit Goal) Screen -->
     <string name="input_screen_header">Es ist Zeit zum Sparen!</string>
     <string name="input_edit_goal_header">Sparziel bearbeiten</string>
     <string name="input_pick_icon">Wählen Sie ein Icon für das Sparziel</string>
     <string name="input_pick_icon_onboarding_title">…Oder fügen Sie dem Ziel ein Icon hinzu, wenn Sie es minimalistisch mögen</string>
-    <string name="input_pick_icon_onboarding_desc">Die Sparziel-Icons werden auf den Sparzielkarten im kompakten Stil eingesetzt (Einstellungen > Stil der Zielkarte)</string>
+    <string name="input_pick_icon_onboarding_desc">Die Sparziel-Icons werden auf den Sparzielkarten im kompakten Stil eingesetzt (Einstellungen &gt; Stil der Zielkarte)</string>
     <string name="input_pick_image_fab">Sparziel Bild</string>
     <string name="input_pick_image_onboarding_title">Fügen Sie Ihren Sparzielen Bilder hinzu, um ihnen einen personalisierten Look zu geben!</string>
     <string name="input_pick_image_onboarding_desc">Klicken Sie auf den schwebenden Aktionsbutton, um dem Sparziel ein Bild hunzuzufügen</string>
-    <string name="input_page_quote" translatable="false">Du musst nicht die gesamte Treppe überblicken, wage einfach den ersten Schritt. – Martin Luther King, Jr.  </string>
+    <string name="input_page_quote" translatable="false">Du musst nicht die gesamte Treppe überblicken, wage einfach den ersten Schritt. – Martin Luther King, Jr.</string>
     <string name="input_goal_priority">Wählen Sie die Priorität des Sparziels</string>
     <string name="priority_high">Hoch</string>
     <string name="priority_normal">Normal</string>
@@ -148,13 +134,11 @@
     <string name="input_goad_edit_success">Sparziel bearbeitet</string>
     <string name="input_goal_remove_deadline">Wollen Sie die Frist dieses Sparziels entfernen?</string>
     <string name="input_remove_deadline_tip">Tipp: Sie können die Frist eines bestehenden Sparziels entfernen, indem Sie lange auf das Frist-Feld drücken</string>
-
     <!-- Archive Screen -->
     <string name="archive_screen_header">Archivierte Sparziele</string>
     <string name="archive_empty">Keine archivierten Sparziele vorhanden</string>
     <string name="goal_restore_confirmation">Wollen Sie dieses Sparziel wiederherstellen?</string>
     <string name="goal_restore_success">Erfolgreich wiederhergestellt</string>
-
     <!-- Backup Screen -->
     <string name="backup_screen_header">Backup &amp; Wiederherstellung</string>
     <string name="backup_screen_text">Sichern Sie Ihre App-Daten, einschließlich all Ihrer Sparziele, Ihres aktuellen Fortschritts, der Transaktionen etc., und stellen Sie diese jederzeit mühelos wieder her.</string>
@@ -166,7 +150,6 @@
     <string name="backup_ftp_create_button">Backup erstellen</string>
     <string name="backup_ftp_restore_button">Backup wiederherstellen</string>
     <string name="backup_restore_success">Backup erfolgreich wiederhergestellt!</string>
-
     <!-- Settings Screen -->
     <string name="settings_screen_header">Einstellungen</string>
     <string name="display_settings_title">Bildschirm</string>
@@ -211,44 +194,34 @@
     <string name="switch_state_close">aus</string>
     <string name="switch_state_open">an</string>
     <string name="navigate_back_desc">Zurück</string>
-
     <!-- Goal Card Style -->
     <string name="goal_card_settings_header">Sparziel-Stil</string>
-    <string name="goal_card_settings_tip">Tipp! Sie können eine Karte im kompakten Stil nach links oder rechts wischen, um ein Sparziel zu bearbeiten oder zu löschen
-    </string>
-
+    <string name="goal_card_settings_tip">Tipp! Sie können eine Karte im kompakten Stil nach links oder rechts wischen, um ein Sparziel zu bearbeiten oder zu löschen</string>
     <!-- OSL Screen -->
     <string name="osl_screen_header">Open Source Bibliotheken</string>
-
     <!-- About Screen -->
     <string name="about_screen_header">Über</string>
     <string name="about_readme_title">LIESMICH</string>
     <string name="about_readme_desc">Sehen Sie sich die GitHub Repository und die LIESMICH-Informationen an</string>
     <string name="about_website_title">Webseite</string>
-    <string name="about_website_desc">Besuchen Sie unsere Webseite für weitere Informationen und entdecken Sie weitere Apps und Projekte
-    </string>
+    <string name="about_website_desc">Besuchen Sie unsere Webseite für weitere Informationen und entdecken Sie weitere Apps und Projekte</string>
     <string name="about_privacy_title">Datenschutzhinweise</string>
     <string name="about_privacy_desc">Sehen Sie sich unsere aktuellen Datenschutzhinweise und Nutzungsbedingungen auf GitHub an</string>
     <string name="about_gh_issue_title">GitHub Issues</string>
-    <string name="about_gh_issue_desc">Übermitteln Sie Fehler oder Featureanfragen über die issues auf GitHub
-    </string>
+    <string name="about_gh_issue_desc">Übermitteln Sie Fehler oder Featureanfragen über die issues auf GitHub</string>
     <string name="about_telegram_title">Telegramgruppe</string>
-    <string name="about_telegram_desc">Auf Telegram können Sie Ihre Ideen mit uns teilen oder einfach mit und chatten!
-    </string>
+    <string name="about_telegram_desc">Auf Telegram können Sie Ihre Ideen mit uns teilen oder einfach mit und chatten!</string>
     <string name="about_support_title">Unterstützen Sie die Entwicklung</string>
     <string name="about_support_desc">Wenn Sie der Meinung sind, dass ich für meine Arbeit Kekse verdient habe, können Sie mir welche kaufen, indem Sie hier klicken.</string>
     <string name="about_version_title">Version</string>
     <string name="about_version_desc">Version-%s</string>
-
     <!-- Widget Screen -->
     <string name="widget_config_screen_header">Sparziel auswählen</string>
     <string name="goal_widget_desc">Gespeichert %s</string>
-
     <!-- Goal Reminders -->
     <string name="notification_permission_error">Bitte gewähren Sie Benachrichtigungsberechtigungen! 😾</string>
     <string name="reminder_notification_desc">Je mehr sie sparen, desto früher erreichen Sie Ihr Ziel! 💰</string>
     <string name="dismiss_notification_button">Ablehnen</string>
     <string name="notification_deposited_title">Gute Arbeit 🎉</string>
     <string name="notification_deposited_desc">Erfolgreich angelegt %s!</string>
-
 </resources>

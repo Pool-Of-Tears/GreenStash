@@ -1,12 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">GreenStash</string>
-
+    <string name="app_name" translatable="false">GreenStash</string>
     <!-- Other Strings -->
     <string name="confirm">Confirmar</string>
     <string name="cancel">Cancelar</string>
     <string name="ok">Aceptar</string>
     <string name="unknown_error">¡Vaya! Algo salió mal</string>
-
     <!-- Navigation Drawer -->
     <string name="drawer_home">Inicio</string>
     <string name="drawer_archive">Archivo</string>
@@ -16,31 +15,22 @@
     <string name="drawer_share">Compartir</string>
     <string name="drawer_privacy">Privacidad</string>
     <string name="drawer_footer_text">Hecho con ❤️ en India</string>
-    <string name="drawer_share_message">
-        ¡Hola! Echa un vistazo a esta increíble aplicación llamada GreenStash.
-        Facilita la planificación y gestión de tus metas de ahorro, ayudándote a establecer el hábito de ahorrar dinero para cosas aún mejores.
-        Descárgala ahora desde la Play Store: %s
-    </string>
-
-
+    <string name="drawer_share_message">¡Hola! Echa un vistazo a esta increíble aplicación llamada GreenStash. Facilita la planificación y gestión de tus metas de ahorro, ayudándote a establecer el hábito de ahorrar dinero para cosas aún mejores. Descárgala ahora desde la Play Store: %s</string>
     <!-- Biometric Lock -->
     <string name="bio_lock_title">Desbloquear GreenStash</string>
     <string name="bio_lock_subtitle">Confirma tu código de bloqueo, PIN o contraseña</string>
     <string name="auth_successful">¡Autenticación exitosa!</string>
     <string name="auth_failed">¡Autenticación fallida!</string>
     <string name="auth_error">Error de autenticación: %s</string>
-
     <!-- Welcome Screen. -->
     <string name="welcome_screen_text">¡Hola! Por favor selecciona tu moneda preferida para comenzar</string>
     <string name="welcome_screen_button">Comencemos</string>
-
     <!-- App Lock Screen -->
     <string name="app_lock_screen_title">GreenStash está bloqueado</string>
     <string name="app_lock_screen_subtitle">Haz clic en el botón de abajo para autenticarse</string>
     <string name="app_lock_button_text">Autorizar</string>
     <string name="app_lock_button_icon_desc">Desbloquear aplicación</string>
     <string name="app_lock_unable_to_authenticate">El bloqueo de la aplicación está desactivado porque el dispositivo no puede autenticarse</string>
-
     <!-- Home Screen -->
     <string name="home_screen_header">Metas de ahorro</string>
     <string name="menu_button_desc">Abrir menú lateral</string>
@@ -59,19 +49,16 @@
     <string name="filter_priority">Prioridad</string>
     <string name="sort_ascending">Ascendente</string>
     <string name="sort_descending">Descendente</string>
-
     <!-- Deposit & Withdraw Screen -->
     <string name="deposit_screen_title">¡Excelente! Ingresa la cantidad</string>
     <string name="withdraw_screen_title">¡Bien! Ingresa la cantidad</string>
     <string name="deposit_successful">¡Depósito exitoso!</string>
     <string name="withdraw_successful">¡Retirada exitosa!</string>
     <string name="withdraw_overflow_error">¡La cantidad supera lo depositado!</string>
-
     <!-- Congratulations Screen -->
     <string name="goal_achieved_heading">Felicitaciones 🥳</string>
     <string name="goal_achieved_subtext">¡Has alcanzado tu meta de ahorro! Tu arduo trabajo y compromiso te han llevado a este logro bien merecido. ¡Celebra tu éxito!</string>
     <string name="goal_achieved_button">Volver a inicio</string>
-
     <!-- Strings used for dashboard saving goals cards -->
     <string name="no_goal_set">No hay metas aún</string>
     <string name="transaction_amount">Ingresa la cantidad</string>
@@ -92,7 +79,7 @@
     <string name="progress_greet2">¡Sigue así, sigue así!</string>
     <string name="progress_greet3">Si crees que puedes hacerlo, lo puedes hacer</string>
     <string name="progress_greet4">Ya casi lo logras, ¡Tú puedes!</string>
-    <string name="progress_greet5">Felicitaciones &#x1F389;</string>
+    <string name="progress_greet5">Felicitaciones 🎉</string>
     <string name="currently_saved_incomplete">Ahorrado actualmente %1$s de %2$s</string>
     <string name="currently_saved_complete">Has ahorrado %1$s de %2$s</string>
     <!-- Eg: You have until 25/12/2022 (152) days left. -->
@@ -104,7 +91,6 @@
     <string name="goal_approx_saving_month">mes</string>
     <string name="no_goal_deadline_set">Como no has configurado una fecha límite, ¡Tienes todo el tiempo del mundo!</string>
     <string name="goal_achieved_desc">Es momento de celebrar el trabajo duro que conllevó a este maravilloso momento</string>
-
     <!-- Goal Info Screen -->
     <string name="info_screen_header">Información de la meta</string>
     <string name="info_card_title">Has ahorrado</string>
@@ -122,13 +108,12 @@
     <string name="info_goal_no_transactions">Sin transacciones aún</string>
     <string name="info_edit_transaction_button">Actualizar transacción</string>
     <string name="info_transaction_swipe_tip">Consejo: Desliza las transacciones hacia la izquierda o hacia la derecha para editarlas o eliminarlas</string>
-
     <!-- Input (New/Edit Goal) Screen -->
     <string name="input_screen_header">¡Es momento de ahorrar!</string>
     <string name="input_edit_goal_header">Editar meta de ahorro</string>
     <string name="input_pick_icon">Selecciona un icono para tu meta</string>
     <string name="input_pick_icon_onboarding_title">…O si el minimalismo es tu estilo, agrega un icono para tu meta</string>
-    <string name="input_pick_icon_onboarding_desc">Los iconos de meta se usarán en las tarjetas de meta con estilo compacto, Configuración > Estilo de tarjeta de meta</string>
+    <string name="input_pick_icon_onboarding_desc">Los iconos de meta se usarán en las tarjetas de meta con estilo compacto, Configuración &gt; Estilo de tarjeta de meta</string>
     <string name="input_pick_image_fab">Imagen de la meta</string>
     <string name="input_pick_image_onboarding_title">¡Agrega imágenes a tus metas para darles un aspecto personalizado!</string>
     <string name="input_pick_image_onboarding_desc">Haz clic en el botón de acción flotante para agregar una imagen a tu meta</string>
@@ -148,14 +133,11 @@
     <string name="input_goad_edit_success">Meta de ahorro actualizada</string>
     <string name="input_goal_remove_deadline">¿Quieres quitar la fecha límite de esta meta?</string>
     <string name="input_remove_deadline_tip">Consejo: Puedes eliminar la fecha límite de las metas existentes manteniendo pulsado el campo de fecha límite</string>
-
     <!-- Archive Screen -->
     <string name="archive_screen_header">Metas archivadas</string>
     <string name="archive_empty">No hay metas archivadas aún</string>
     <string name="goal_restore_confirmation">¿Quieres restaurar esta meta?</string>
     <string name="goal_restore_success">Restaurada exitosamente</string>
-
-
     <!-- Backup Screen -->
     <string name="backup_screen_header">Respaldar y recuperar datos</string>
     <string name="backup_screen_text">Haz una copia de seguridad de tus datos incluyendo metas, progreso actual, transacciones, etc para recuperarlos cuando quieras</string>
@@ -167,7 +149,6 @@
     <string name="backup_ftp_create_button">Crear respaldo</string>
     <string name="backup_ftp_restore_button">Restaurar respaldo</string>
     <string name="backup_restore_success">¡La copia de seguridad se ha restaurado correctamente!</string>
-
     <!-- Settings Screen -->
     <string name="settings_screen_header">Ajustes</string>
     <string name="display_settings_title">Pantalla</string>
@@ -211,14 +192,11 @@
     <string name="switch_state_close">apagado</string>
     <string name="switch_state_open">encendido</string>
     <string name="navigate_back_desc">Navegar hacia atrás</string>
-
     <!-- Goal Card Style -->
     <string name="goal_card_settings_header">Estilo de la meta</string>
     <string name="goal_card_settings_tip">¡Consejo! Puedes deslizar una tarjeta con estilo compacto hacia la izquierda o hacia la derecha para editar o eliminar una meta de ahorro</string>
-
     <!-- OSL Screen -->
     <string name="osl_screen_header">Librerías de código abierto</string>
-
     <!-- About Screen -->
     <string name="about_screen_header">Acerca de</string>
     <string name="about_readme_title">LÉEME</string>
@@ -235,16 +213,15 @@
     <string name="about_support_desc">Si crees que merezco algunas galletas por mi trabajo, puedes comprarme algunas haciendo clic aquí</string>
     <string name="about_version_title">Versión</string>
     <string name="about_version_desc">Versión-%s</string>
-
     <!-- Widget Screen -->
     <string name="widget_config_screen_header">Seleccionar meta</string>
     <string name="goal_widget_desc">Ahorrado %s</string>
-
     <!-- Goal Reminders -->
     <string name="notification_permission_error">Please allow notification permission! 😾</string>
     <string name="reminder_notification_desc">¡Cuanto más ahorres, más rápido alcanzarás tu meta! 💰</string>
     <string name="dismiss_notification_button">Descartar</string>
     <string name="notification_deposited_title">¡Buen trabajo! 🎉</string>
     <string name="notification_deposited_desc">¡%s depositado con éxito!</string>
-
+    <string name="input_page_quote" translatable="false"></string>
+    <string name="material_you_setting" translatable="false"></string>
 </resources>

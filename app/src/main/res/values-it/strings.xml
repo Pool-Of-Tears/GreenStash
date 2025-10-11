@@ -1,12 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">GreenStash</string>
-
+    <string name="app_name" translatable="false">GreenStash</string>
     <!-- Other Strings -->
     <string name="confirm">Conferma</string>
     <string name="cancel">Cancella</string>
     <string name="ok">OK</string>
     <string name="unknown_error">Ops! Qualcosa è andato storto.</string>
-
     <!-- Navigation Drawer -->
     <string name="drawer_home">Inizio</string>
     <string name="drawer_archive">Archivio</string>
@@ -16,34 +15,26 @@
     <string name="drawer_share">Condividi</string>
     <string name="drawer_privacy">Privacy</string>
     <string name="drawer_footer_text">Fatto con ❤️ in India.</string>
-    <string name="drawer_share_message">
-        Hey! Dai un\'occhiata a quest\'app fantastica chiamata GreenStash.
-        Rende la pianificazione e la gestione dei tuoi risparmi molto più facile, aiutandoti ad instaurare l\'abitudine di risparmiare soldi per cose migliori. 
-        Scaricala ora dal Play Store: %s
-    </string>
-
+    <string name="drawer_share_message">Hey! Dai un\'occhiata a quest\'app fantastica chiamata GreenStash. Rende la pianificazione e la gestione dei tuoi risparmi molto più facile, aiutandoti ad instaurare l\'abitudine di risparmiare soldi per cose migliori. Scaricala ora dal Play Store: %s</string>
     <!-- Biometric Lock -->
     <string name="bio_lock_title">Sblocca GreenStash</string>
     <string name="bio_lock_subtitle">Conferma il tuo blocco, il PIN o la password.</string>
     <string name="auth_successful">Autenticazione Riuscita!</string>
     <string name="auth_failed">Autenticazione Fallita!</string>
     <string name="auth_error">Errore di Autenticazione: %s</string>
-
     <!-- Welcome Screen. -->
     <string name="welcome_screen_text">Ciao! Per favore seleziona la tua valuta per iniziare.</string>
     <string name="welcome_screen_button">Iniziamo!</string>
-
     <!-- App Lock Screen -->
     <string name="app_lock_screen_title">GreenStash è bloccato</string>
     <string name="app_lock_screen_subtitle">Tocca il tasto in basso per autenticarti.</string>
     <string name="app_lock_button_text">Autorizza</string>
     <string name="app_lock_button_icon_desc">Sblocca App</string>
     <string name="app_lock_unable_to_authenticate">App-lock è disattivato perché il dispositivo non è in grado di autenticare.</string>
-
     <!-- Home Screen -->
     <string name="home_screen_header">Obbiettivi di Risparmio</string>
     <string name="menu_button_desc">Apri menu laterale</string>
-    <string name="filter_button_desc">Filtra i  tuoi obbiettivi di risparmio</string>
+    <string name="filter_button_desc">Filtra i tuoi obbiettivi di risparmio</string>
     <string name="search_button_desc">Cerca degli obbiettivi di risparmio specifici.</string>
     <string name="new_goal_fab">Nuovo Obbiettivo</string>
     <string name="new_goal_onboarding_title">Iniziamo a creare un nuovo obbiettivo di risparmio!</string>
@@ -55,19 +46,16 @@
     <string name="filter_priority">Priority</string>
     <string name="sort_ascending">Ascending</string>
     <string name="sort_descending">Descending</string>
-
     <!-- Deposit & Withdraw Screen -->
     <string name="deposit_screen_title">Fantastico! Inserisci l\'importo</string>
     <string name="withdraw_screen_title">Figo! Inserisci l\'importo</string>
     <string name="deposit_successful">Depositato con successo!</string>
     <string name="withdraw_successful">Prelevato con successo!</string>
     <string name="withdraw_overflow_error">L\'importo è di più di quanto è attualmente depositato!</string>
-
     <!-- Congratulations Screen -->
     <string name="goal_achieved_heading">Congratulazioni! 🥳</string>
     <string name="goal_achieved_subtext">Hai raggiunto il tuo obbiettivo di risparmio! Il tuo duro lavoro e impegno hanno portato a questo meritato traguardo. Celebra il tuo successo! 🎉</string>
     <string name="goal_achieved_button">Torna indietro al menu</string>
-
     <!-- Strings used for dashboard saving goals cards -->
     <string name="no_goal_set">Nessun obbiettivo impostato.</string>
     <string name="transaction_amount">Importo</string>
@@ -88,7 +76,7 @@
     <string name="progress_greet2">Continua ad andare avanti!</string>
     <string name="progress_greet3">Se pensi che puoi farcela, ce la fai.</string>
     <string name="progress_greet4">Ci siamo quasi, ci sei!</string>
-    <string name="progress_greet5">Congratulazioni &#x1F389;</string>
+    <string name="progress_greet5">Congratulazioni 🎉</string>
     <string name="currently_saved_incomplete">Attualmente hai risparmiato %1$s di %2$s.</string>
     <string name="currently_saved_complete">Hai risparmiato %1$s su %2$s.</string>
     <!-- Eg: You have until 25/12/2022 (152) days left. -->
@@ -100,7 +88,6 @@
     <string name="goal_approx_saving_month">mese.</string>
     <string name="no_goal_deadline_set">Visto che non hai specificato nessuna scadenza, hai tutto il tempo del mondo!</string>
     <string name="goal_achieved_desc">È tempo di celebrare tutto il duro lavoro che ha portato a questa gioiosa occasione.</string>
-
     <!-- Goal Info Screen -->
     <string name="info_screen_header">Informazioni obbiettivo</string>
     <string name="info_card_title">Hai Risparmiato</string>
@@ -118,17 +105,16 @@
     <string name="info_goal_no_transactions">Ancora nessuna transazione.</string>
     <string name="info_edit_transaction_button">Aggiorna Transazione</string>
     <string name="info_transaction_swipe_tip">Suggerimento! Scorri le transazioni a sinistra o a destra per modificarle o eliminarle.</string>
-
     <!-- Input (New/Edit Goal) Screen -->
     <string name="input_screen_header">È ora di risparmiare!</string>
     <string name="input_edit_goal_header">Modifica obbiettivo di risparmio.</string>
     <string name="input_pick_icon">Seleziona un\'icona per il tuo obbiettivo.</string>
     <string name="input_pick_icon_onboarding_title">…O se il minimalismo è il tuo stile, aggiungi un\'icona per il tuo obbiettivo.</string>
-    <string name="input_pick_icon_onboarding_desc">Le icone dell\'obiettivo verranno usate sulle schede degli obbiettivi in stile compatto, Impostazioni > Stile schede obbiettivo</string>
+    <string name="input_pick_icon_onboarding_desc">Le icone dell\'obiettivo verranno usate sulle schede degli obbiettivi in stile compatto, Impostazioni &gt; Stile schede obbiettivo</string>
     <string name="input_pick_image_fab">Immagine obbiettivo</string>
     <string name="input_pick_image_onboarding_title">Aggiungi un\'immagine al tuo obbiettivo!</string>
     <string name="input_pick_image_onboarding_desc">Tocca sul tasto d\'azione fluttuante per aggiungere un\'immagine al tuo obbiettivo.</string>
-    <string name="input_page_quote" translatable="false">Non devi vedere tutta la scalinata, devi solo fare il primo passo. – Martin Luther King, Jr.  </string>
+    <string name="input_page_quote" translatable="false">Non devi vedere tutta la scalinata, devi solo fare il primo passo. – Martin Luther King, Jr.</string>
     <string name="input_goal_priority">Seleziona la priorità per il tuo obbiettivo.</string>
     <string name="priority_high">High</string>
     <string name="priority_normal">Normal</string>
@@ -148,13 +134,11 @@
     <string name="input_goad_edit_success">obbiettivo di risparmio aggiornato.</string>
     <string name="input_goal_remove_deadline">Vuoi rimuovere la scadenza da questo obbiettivo?</string>
     <string name="input_remove_deadline_tip">Suggerimento! Puoi Rimuovere la scadenza dagli obbiettivi esistenti premendo a lungo sul campo della scadenza.</string>
-
     <!-- Archive Screen -->
     <string name="archive_screen_header">Obbiettivi Archiviati</string>
     <string name="archive_empty">Non ci sono ancora obiettivi archiviati.</string>
     <string name="goal_restore_confirmation">Vorresti ripristinare questo obbiettivo?</string>
     <string name="goal_restore_success">Ripristinato con successo.</string>
-
     <!-- Backup Screen -->
     <string name="backup_screen_header">Backup &amp; Ripristina</string>
     <string name="backup_screen_text">Esegui il backup dei dati dell\'app, compresi tutti gli obiettivi di risparmio, i progressi attuali, le transazioni e così via, e ripristinali facilmente ogni volta che lo desideri.</string>
@@ -166,7 +150,6 @@
     <string name="backup_ftp_create_button">Crea Backup</string>
     <string name="backup_ftp_restore_button">Ripristina Backup</string>
     <string name="backup_restore_success">Backup ripristinato con successo!</string>
-
     <!-- Settings Screen -->
     <string name="settings_screen_header">Impostazioni</string>
     <string name="display_settings_title">Aspetto</string>
@@ -199,7 +182,7 @@
     <string name="search">Search</string>
     <string name="security_settings_title">Sicurezza</string>
     <string name="app_lock_setting">Blocco biometrico</string>
-    <string name="app_lock_setting_desc">Usa  la tua impronta digitale o la password di blocco schermo per sbloccare GreenStash</string>
+    <string name="app_lock_setting_desc">Usa la tua impronta digitale o la password di blocco schermo per sbloccare GreenStash</string>
     <string name="misc_setting_title">Miscellanee</string>
     <string name="license_setting">Licenza &amp; Riconoscimenti</string>
     <string name="license_setting_desc">Mostra le informazioni sulla licenza open source.</string>
@@ -211,14 +194,11 @@
     <string name="switch_state_close">spento</string>
     <string name="switch_state_open">acceso</string>
     <string name="navigate_back_desc">Torna indietro</string>
-
     <!-- Goal Card Style -->
     <string name="goal_card_settings_header">Stile Obbiettivo</string>
     <string name="goal_card_settings_tip">Suggerimento! Puoi scorrere una scheda in stile compatto a sinistra o destra per modificare o eliminare un obbiettivo di risparmio.</string>
-
     <!-- OSL Screen -->
     <string name="osl_screen_header">Librerie Open Source</string>
-
     <!-- About Screen -->
     <string name="about_screen_header">Informazioni</string>
     <string name="about_readme_title">README</string>
@@ -235,16 +215,13 @@
     <string name="about_support_desc">Se pensi che mi merito dei biscotti per il mio lavoro, puoi comprarne alcuni per me toccando qui.</string>
     <string name="about_version_title">Versione</string>
     <string name="about_version_desc">Versione-%s</string>
-
     <!-- Widget Screen -->
     <string name="widget_config_screen_header">Seleziona obbiettivo</string>
     <string name="goal_widget_desc">Salvato %s</string>
-
     <!-- Goal Reminders -->
     <string name="notification_permission_error">Concedi l\'autorizzazione alle notifiche! 😾</string>
     <string name="reminder_notification_desc">Più risparmi, più velocemente raggiungerai il tuo obbiettivo! 💰</string>
     <string name="dismiss_notification_button">Scarta</string>
     <string name="notification_deposited_title">Ottimo Lavoro! 🎉</string>
     <string name="notification_deposited_desc">Depositato %s con successo!</string>
-
 </resources>
