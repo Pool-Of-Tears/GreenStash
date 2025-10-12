@@ -141,7 +141,7 @@
     <string name="goal_restore_success">Erfolgreich wiederhergestellt</string>
     <!-- Backup Screen -->
     <string name="backup_screen_header">Backup &amp; Wiederherstellung</string>
-    <string name="backup_screen_text">Sichern Sie Ihre App-Daten, einschließlich all Ihrer Sparziele, Ihres aktuellen Fortschritts, der Transaktionen etc., und stellen Sie diese jederzeit mühelos wieder her.</string>
+    <string name="backup_screen_text">Sichern Sie Ihre App-Daten, einschließlich all Ihrer Sparziele, Ihres aktuellen Fortschritts, der Transaktionen etc., und stellen Sie diese jederzeit mühelos wieder her</string>
     <string name="backup_screen_sub_text">Bitte beachten Sie, dass Backups keine App-Einstellungen beinhalten</string>
     <string name="backup_button">Backup</string>
     <string name="backup_restore_button">Wiederherstellen</string>
@@ -212,7 +212,7 @@
     <string name="about_telegram_title">Telegramgruppe</string>
     <string name="about_telegram_desc">Auf Telegram können Sie Ihre Ideen mit uns teilen oder einfach mit und chatten!</string>
     <string name="about_support_title">Unterstützen Sie die Entwicklung</string>
-    <string name="about_support_desc">Wenn Sie der Meinung sind, dass ich für meine Arbeit Kekse verdient habe, können Sie mir welche kaufen, indem Sie hier klicken.</string>
+    <string name="about_support_desc">Wenn Sie der Meinung sind, dass ich für meine Arbeit Kekse verdient habe, können Sie mir welche kaufen, indem Sie hier klicken</string>
     <string name="about_version_title">Version</string>
     <string name="about_version_desc">Version-%s</string>
     <!-- Widget Screen -->
