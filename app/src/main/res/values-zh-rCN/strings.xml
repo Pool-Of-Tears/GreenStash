@@ -5,7 +5,7 @@
     <string name="confirm">确认</string>
     <string name="cancel">取消</string>
     <string name="ok">确定</string>
-    <string name="unknown_error">糟糕！出了点问题。</string>
+    <string name="unknown_error">糟糕！出了点问题</string>
     <!-- Navigation Drawer -->
     <string name="drawer_home">主页</string>
     <string name="drawer_archive">存档</string>
@@ -14,20 +14,20 @@
     <string name="drawer_rating">给我们评分</string>
     <string name="drawer_share">分享</string>
     <string name="drawer_privacy">隐私</string>
-    <string name="drawer_footer_text">用❤️制作于印度。</string>
-    <string name="drawer_share_message">嘿！看看这款名为GreenStash的神奇应用吧。它让你规划和管理储蓄目标变得轻松愉快，帮助你养成为更好的事物储蓄的习惯 立即从Play Store下载：%s</string>
+    <string name="drawer_footer_text">用❤️制作于印度</string>
+    <string name="drawer_share_message">嘿！看看这款名为 GreenStash 的神奇应用吧。它让你规划和管理储蓄目标变得轻松愉快，帮助你养成为更好的事物储蓄的习惯。立即从 Play Store 下载：%s</string>
     <!-- Biometric Lock -->
-    <string name="bio_lock_title">解锁GreenStash</string>
-    <string name="bio_lock_subtitle">确认屏幕锁、PIN码或密码。</string>
+    <string name="bio_lock_title">解锁 GreenStash</string>
+    <string name="bio_lock_subtitle">确认屏幕锁、PIN码或密码</string>
     <string name="auth_successful">授权成功！</string>
     <string name="auth_failed">授权失败！</string>
     <string name="auth_error">授权错误：%s</string>
     <!-- Welcome Screen. -->
-    <string name="welcome_screen_text">您好！请选择您的货币。</string>
-    <string name="welcome_screen_button">开始</string>
+    <string name="welcome_screen_text">您好！请选择您的货币</string>
+    <string name="welcome_screen_button">开始！</string>
     <!-- App Lock Screen -->
-    <string name="app_lock_screen_title">GreenStash已锁定</string>
-    <string name="app_lock_screen_subtitle">点击下面的按钮进行身份验证。</string>
+    <string name="app_lock_screen_title">GreenStash 已锁定</string>
+    <string name="app_lock_screen_subtitle">点击下面的按钮进行身份验证</string>
     <string name="app_lock_button_text">授权</string>
     <string name="app_lock_button_icon_desc">解锁应用</string>
     <string name="app_lock_unable_to_authenticate">由于设备无法进行身份验证，应用程序锁定已禁用</string>
@@ -35,17 +35,17 @@
     <string name="home_screen_header">省钱目标</string>
     <string name="menu_button_desc">打开侧边菜单</string>
     <string name="filter_button_desc">过滤省钱目标</string>
-    <string name="search_button_desc">搜索某些省钱目标。</string>
+    <string name="search_button_desc">搜索某些省钱目标</string>
     <string name="new_goal_fab">新目标</string>
     <string name="new_goal_onboarding_title">让我们从创建一个新的储蓄目标开始吧！</string>
-    <string name="new_goal_onboarding_desc">点击浮动操作按钮创建一个新的储蓄目标。</string>
+    <string name="new_goal_onboarding_desc">点击浮动操作按钮创建一个新的储蓄目标</string>
     <string name="home_search_label">搜索此处…</string>
-    <string name="search_goal_not_found">404: 目标未发现！</string>
-    <string name="filter_title">Title</string>
-    <string name="filter_amount">Amount</string>
-    <string name="filter_priority">Priority</string>
-    <string name="sort_ascending">Ascending</string>
-    <string name="sort_descending">Descending</string>
+    <string name="search_goal_not_found">404：目标未发现！</string>
+    <string name="filter_title">标题</string>
+    <string name="filter_amount">金额</string>
+    <string name="filter_priority">优先级</string>
+    <string name="sort_ascending">升序</string>
+    <string name="sort_descending">降序</string>
     <!-- Deposit & Withdraw Screen -->
     <string name="deposit_screen_title">很棒！存入多少</string>
     <string name="withdraw_screen_title">酷！取出多少</string>
@@ -54,47 +54,47 @@
     <string name="withdraw_overflow_error">取出金额多于当前存入的金额！</string>
     <!-- Congratulations Screen -->
     <string name="goal_achieved_heading">恭喜 🥳</string>
-    <string name="goal_achieved_subtext">您已经达到了您的储蓄目标！您的辛勤工作和承诺带来了这个当之无愧的成就。庆祝您的成功！</string>
+    <string name="goal_achieved_subtext">您达成了储蓄目标！您的决心与付出带来了这份实至名归的成就。恭喜你！🎉</string>
     <string name="goal_achieved_button">返回主页</string>
     <!-- Strings used for dashboard saving goals cards -->
-    <string name="no_goal_set">没有设置省钱目标。</string>
+    <string name="no_goal_set">没有设置省钱目标</string>
     <string name="transaction_amount">输入金额</string>
     <string name="deposit_button">存钱</string>
-    <string name="goal_already_achieved">您已经实现了此目标。</string>
+    <string name="goal_already_achieved">您已经实现了此目标</string>
     <string name="withdraw_button">取钱</string>
-    <string name="withdraw_button_error">您尚未存入任何金额。</string>
+    <string name="withdraw_button_error">您尚未存入任何金额</string>
     <string name="archive_button">存档</string>
     <string name="goal_archive_confirmation">该目标已完成！您要将其存档吗？</string>
-    <string name="goal_archive_success">已成功存档。</string>
+    <string name="goal_archive_success">已成功存档</string>
     <string name="goal_delete_confirmation">确定吗？</string>
-    <string name="goal_delete_success">删除成功。</string>
-    <string name="info_button_description">查看目标信息。</string>
+    <string name="goal_delete_success">删除成功</string>
+    <string name="info_button_description">查看目标信息</string>
     <string name="edit_button_description">编辑此目标</string>
     <string name="delete_button_description">删除此目标</string>
     <string name="add_fab_button_title">新目标</string>
     <string name="progress_greet1">开局良好！</string>
     <string name="progress_greet2">继续保持！</string>
-    <string name="progress_greet3">只要想干，就一定能够成功。</string>
+    <string name="progress_greet3">相信自己，你能做到</string>
     <string name="progress_greet4">即将完成，您快成功了！</string>
     <string name="progress_greet5">恭喜 🎉</string>
-    <string name="currently_saved_incomplete">当前已省钱%1$s，目标是%2$s。</string>
-    <string name="currently_saved_complete">您已经省钱%1$s，目标是省钱%2$s。</string>
+    <string name="currently_saved_incomplete">当前已省钱%1$s，目标是%2$s</string>
+    <string name="currently_saved_complete">您已经省钱%1$s，目标是省钱%2$s</string>
     <!-- Eg: You have until 25/12/2022 (152) days left. -->
-    <string name="goal_days_left">还剩%1$s天（共%2$s天）。</string>
+    <string name="goal_days_left">还剩%1$s天（共%2$s天）</string>
     <!-- Eg: You need to save around $2/day, $20/week, $200/month. -->
     <string name="goal_approx_saving">您需要省钱大约%s/</string>
     <string name="goal_approx_saving_day">天。</string>
     <string name="goal_approx_saving_week">周。</string>
-    <string name="goal_approx_saving_month">月。</string>
+    <string name="goal_approx_saving_month">月</string>
     <string name="no_goal_deadline_set">因为未设置截止日期，您可以一直推进！</string>
-    <string name="goal_achieved_desc">一份耕耘一份收获。庆祝这个快乐时刻吧！</string>
+    <string name="goal_achieved_desc">一份耕耘一份收获，庆祝这个快乐时刻吧！</string>
     <!-- Goal Info Screen -->
     <string name="info_screen_header">目标信息</string>
     <string name="info_card_title">您已经省钱</string>
     <string name="info_card_remaining_amount">%s</string>
-    <string name="info_card_remaining_days">还剩%s天。</string>
-    <string name="info_card_no_deadline_set">未设置截止日期。</string>
-    <string name="info_card_goal_achieved">目标实现。恭喜！</string>
+    <string name="info_card_remaining_days">还剩%s天</string>
+    <string name="info_card_no_deadline_set">未设置截止日期</string>
+    <string name="info_card_goal_achieved">目标实现，恭喜！🎉</string>
     <string name="info_goal_priority">目标优先级是%s</string>
     <string name="info_reminder_status_on">提醒已启用</string>
     <string name="info_reminder_status_off">提醒已禁用</string>
@@ -102,51 +102,51 @@
     <string name="info_copy_notes_button">复制</string>
     <string name="info_copy_notes_icon_desc">复制笔记</string>
     <string name="info_copy_notes_alert">复制成功！</string>
-    <string name="info_goal_no_transactions">尚无收支。</string>
+    <string name="info_goal_no_transactions">尚无收支</string>
     <string name="info_edit_transaction_button">更新交易</string>
-    <string name="info_transaction_swipe_tip">提示：左右滑动交易以编辑或删除它们。</string>
+    <string name="info_transaction_swipe_tip">提示：左右滑动交易以编辑或删除它们</string>
     <!-- Input (New/Edit Goal) Screen -->
     <string name="input_screen_header">省钱时间到！</string>
     <string name="input_edit_goal_header">编辑省钱目标</string>
-    <string name="input_pick_icon">为您的目标选择一个图标。</string>
-    <string name="input_pick_icon_onboarding_title">…或者如果简约风格是您的风格，请为您的目标添加图标。</string>
+    <string name="input_pick_icon">为您的目标选择一个图标</string>
+    <string name="input_pick_icon_onboarding_title">…或者如果简约风格是您的风格，请为您的目标添加图标</string>
     <string name="input_pick_icon_onboarding_desc">目标图标将用于紧凑样式的目标卡上，设置 &gt; 目标卡样式</string>
     <string name="input_pick_image_fab">目标图片</string>
     <string name="input_pick_image_onboarding_title">为您的目标添加图片，赋予它们个性化的外观！</string>
-    <string name="input_pick_image_onboarding_desc">点击浮动操作按钮为您的目标添加图片。</string>
+    <string name="input_pick_image_onboarding_desc">点击浮动操作按钮为您的目标添加图片</string>
     <string name="input_page_quote" translatable="false">千里之行，始于足下</string>
-    <string name="input_goal_priority">为此目标选择优先级。</string>
-    <string name="priority_high">High</string>
-    <string name="priority_normal">Normal</string>
-    <string name="priority_low">Low</string>
+    <string name="input_goal_priority">为此目标选择优先级</string>
+    <string name="priority_high">高</string>
+    <string name="priority_normal">正常</string>
+    <string name="priority_low">低</string>
     <string name="input_goal_reminder">储蓄提醒</string>
     <string name="input_goal_reminders_onboarding_title">启用提醒，及时了解您的目标进展！</string>
-    <string name="input_goal_reminders_onboarding_desc">根据目标优先级，将每日、半周或每周发送提醒。</string>
+    <string name="input_goal_reminders_onboarding_desc">根据目标优先级，将每日、半周或每周发送提醒</string>
     <string name="input_text_title">目标标题</string>
-    <string name="title_empty_err">哇！尚无标题。</string>
+    <string name="title_empty_err">哇！标题是空的</string>
     <string name="input_text_amount">目标金额</string>
-    <string name="amount_empty_err">哇！金额为空或无效。</string>
+    <string name="amount_empty_err">哇！金额为空或无效的</string>
     <string name="input_deadline">截止日期（可选）</string>
     <string name="input_additional_notes">备注（可选）</string>
     <string name="input_add_goal_button">设置新的省钱目标</string>
     <string name="input_edit_goal_button">更新省钱目标</string>
-    <string name="input_goal_saved_success">干得漂亮！省钱目标已经设置。</string>
+    <string name="input_goal_saved_success">干得漂亮！省钱目标已经设置</string>
     <string name="input_goad_edit_success">省钱目标已经更新</string>
     <string name="input_goal_remove_deadline">想要删除此目标的截止日期吗？</string>
-    <string name="input_remove_deadline_tip">提示：您可以长按截止日期字段来删除现有目标的截止日期。</string>
+    <string name="input_remove_deadline_tip">提示：您可以长按截止日期字段来删除现有目标的截止日期</string>
     <!-- Archive Screen -->
     <string name="archive_screen_header">已存档目标</string>
-    <string name="archive_empty">目前没有已存档目标。</string>
+    <string name="archive_empty">目前没有已存档目标</string>
     <string name="goal_restore_confirmation">您要恢复此目标吗？</string>
-    <string name="goal_restore_success">恢复成功。</string>
+    <string name="goal_restore_success">恢复成功</string>
     <!-- Backup Screen -->
     <string name="backup_screen_header">备份与恢复</string>
-    <string name="backup_screen_text">备份应用数据——包括您所有的省钱目标、当前进展、收支等等，并且可以随时轻松恢复。</string>
-    <string name="backup_screen_sub_text">注意：备份不包括应用设置信息。</string>
+    <string name="backup_screen_text">备份应用数据——包括您所有的省钱目标、当前进展、收支等等，并且可以随时轻松恢复</string>
+    <string name="backup_screen_sub_text">注意：备份不包括应用设置信息</string>
     <string name="backup_button">备份</string>
     <string name="backup_restore_button">恢复</string>
     <string name="backup_select_file_type">选择备份文件类型</string>
-    <string name="backup_csv_note">注意：由于CSV格式的限制，目标图片将不会备份。</string>
+    <string name="backup_csv_note">注意：由于 CSV 格式的限制，目标图片将不会备份</string>
     <string name="backup_ftp_create_button">创建备份</string>
     <string name="backup_ftp_restore_button">恢复备份</string>
     <string name="backup_restore_success">备份成功恢复！</string>
@@ -163,12 +163,12 @@
     <string name="theme_dialog_apply_button">应用</string>
     <string name="material_you_setting" translatable="false">自适应</string>
     <string name="material_you_setting_desc">根据壁纸切换合适的主题（仅Android12+）</string>
-    <string name="material_you_error">此功能仅在Android 12或更高版本上有效。</string>
+    <string name="material_you_error">此功能仅在 Android 12 及更高版本上有效</string>
     <string name="goal_card_setting">目标卡样式</string>
-    <string name="preview">Preview</string>
-    <string name="preview_example_title">Home Decorations</string>
-    <string name="preview_example_primary_text">You\'re off to a great start! Currently saved %1$s out of %2$s</string>
-    <string name="preview_example_secondary_text">You have until 26/05/2023 (85) days left. You need to save around %1$s/day, %2$s/week, %3$s/month</string>
+    <string name="preview">预览</string>
+    <string name="preview_example_title">家装用款</string>
+    <string name="preview_example_primary_text">开局不错！当前已储蓄%1$s（共%2$s）</string>
+    <string name="preview_example_secondary_text">你的截止日期是 2023年5月26日（85）天。你需要每天、每周、每月分别存下%1$s、%2$s和%3$s左右的钱</string>
     <string name="goal_card_option1">经典</string>
     <string name="goal_card_option2">紧凑</string>
     <string name="locales_setting_title">地区</string>
@@ -178,16 +178,16 @@
     <string name="date_format_dialog_title">修改日期格式</string>
     <string name="preferred_currency_setting">首选货币</string>
     <string name="currency_dialog_title">选择首选货币</string>
-    <string name="search_currency">Search currency</string>
-    <string name="search">Search</string>
+    <string name="search_currency">搜索货币</string>
+    <string name="search">搜索</string>
     <string name="security_settings_title">安全</string>
     <string name="app_lock_setting">生物锁</string>
     <string name="app_lock_setting_desc">使用您的指纹或锁屏密码来解锁GreenStash</string>
     <string name="misc_setting_title">更多</string>
     <string name="license_setting">许可协议与致谢</string>
-    <string name="license_setting_desc">显示开源许可协议信息。</string>
+    <string name="license_setting_desc">显示开源许可协议信息</string>
     <string name="app_info_setting">应用信息</string>
-    <string name="app_info_setting_desc">显示应用版本和有用的链接。</string>
+    <string name="app_info_setting_desc">显示应用版本和有用的链接</string>
     <!-- Accessibility strings for settings -->
     <string name="switch_action_close">关闭</string>
     <string name="switch_action_open">打开</string>
@@ -196,23 +196,23 @@
     <string name="navigate_back_desc">返回</string>
     <!-- Goal Card STyle -->
     <string name="goal_card_settings_header">目标样式</string>
-    <string name="goal_card_settings_tip">提示！你可以向左或向右滑动一个紧凑样式的卡片来编辑或删除一个储蓄目标。</string>
+    <string name="goal_card_settings_tip">提示！你可以向左或向右滑动一个紧凑样式的卡片来编辑或删除一个储蓄目标</string>
     <!-- OSL Screen -->
     <string name="osl_screen_header">开源库</string>
     <!-- About Screen -->
     <string name="about_screen_header">关于</string>
     <string name="about_readme_title">README</string>
-    <string name="about_readme_desc">在Github上查看应用及其README文档。</string>
+    <string name="about_readme_desc">在 GitHub 上查看应用仓库及其 README 文档</string>
     <string name="about_website_title">网站</string>
-    <string name="about_website_desc">查看我们的网站获取更多信息，探索我们的其他应用和项目！</string>
+    <string name="about_website_desc">查看我们的网站获取更多信息，探索我们的其他应用和项目</string>
     <string name="about_privacy_title">隐私政策</string>
-    <string name="about_privacy_desc">在Github上阅读我们最新的隐私政策和服务条款。</string>
+    <string name="about_privacy_desc">在 GitHub 上阅读我们最新的隐私政策和服务条款</string>
     <string name="about_gh_issue_title">Github问题</string>
-    <string name="about_gh_issue_desc">通过在Github上创建问题来提交bug报告或功能需求。</string>
+    <string name="about_gh_issue_desc">通过在 GitHub 上创建问题来提交 bug 报告或功能需求</string>
     <string name="about_telegram_title">Telegram组</string>
     <string name="about_telegram_desc">加入我们的 Telegram，分享您的想法或进行聊天！</string>
     <string name="about_support_title">支持开发</string>
-    <string name="about_support_desc">如果您认为我的工作值得一些饼干，您可以点击这里购买给我一些。</string>
+    <string name="about_support_desc">如果您认为我的工作值得一些饼干，您可以点击这里购买给我一些</string>
     <string name="about_version_title">版本</string>
     <string name="about_version_desc">版本-%s</string>
     <!-- Widget Screen -->
