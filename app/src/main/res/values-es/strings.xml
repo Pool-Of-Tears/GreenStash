@@ -24,7 +24,7 @@
     <string name="auth_error">Error de autenticación: %s</string>
     <!-- Welcome Screen. -->
     <string name="welcome_screen_text">¡Hola! Por favor selecciona tu moneda preferida para comenzar</string>
-    <string name="welcome_screen_button">Comencemos</string>
+    <string name="welcome_screen_button">¡Comencemos!</string>
     <!-- App Lock Screen -->
     <string name="app_lock_screen_title">GreenStash está bloqueado</string>
     <string name="app_lock_screen_subtitle">Haz clic en el botón de abajo para autenticarse</string>
@@ -57,7 +57,7 @@
     <string name="withdraw_overflow_error">¡La cantidad supera lo depositado!</string>
     <!-- Congratulations Screen -->
     <string name="goal_achieved_heading">Felicitaciones 🥳</string>
-    <string name="goal_achieved_subtext">¡Has alcanzado tu meta de ahorro! Tu arduo trabajo y compromiso te han llevado a este logro bien merecido. ¡Celebra tu éxito!</string>
+    <string name="goal_achieved_subtext">¡Has alcanzado tu meta de ahorro! Tu arduo trabajo y compromiso te han llevado a este logro bien merecido. ¡Celebra tu éxito! 🎉</string>
     <string name="goal_achieved_button">Volver a inicio</string>
     <!-- Strings used for dashboard saving goals cards -->
     <string name="no_goal_set">No hay metas aún</string>
@@ -97,7 +97,7 @@
     <string name="info_card_remaining_amount">de %s</string>
     <string name="info_card_remaining_days">%s días restantes</string>
     <string name="info_card_no_deadline_set">Sin fecha límite</string>
-    <string name="info_card_goal_achieved">Meta alcanzada. ¡Felicitaciones!</string>
+    <string name="info_card_goal_achieved">¡Meta alcanzada! 🎉</string>
     <string name="info_goal_priority">La prioridad de la meta es %s</string>
     <string name="info_reminder_status_on">Los recordatorios están activados</string>
     <string name="info_reminder_status_off">Los recordatorios están desactivados</string>
@@ -202,7 +202,7 @@
     <string name="about_readme_title">LÉEME</string>
     <string name="about_readme_desc">Mira el repositorio de Github y el README de la aplicación</string>
     <string name="about_website_title">Sitio web</string>
-    <string name="about_website_desc">¡Visita nuestro sitio web para obtener más información y explorar nuestras otras aplicaciones y proyectos!</string>
+    <string name="about_website_desc">Visita nuestro sitio web para obtener más información y explorar nuestras otras aplicaciones y proyectos</string>
     <string name="about_privacy_title">Política de privacidad</string>
     <string name="about_privacy_desc">Lee nuestra última política de privacidad y términos de servicio en Github</string>
     <string name="about_gh_issue_title">Incidencias de Github</string>
@@ -222,6 +222,6 @@
     <string name="dismiss_notification_button">Descartar</string>
     <string name="notification_deposited_title">¡Buen trabajo! 🎉</string>
     <string name="notification_deposited_desc">¡%s depositado con éxito!</string>
-    <string name="input_page_quote" translatable="false"></string>
-    <string name="material_you_setting" translatable="false"></string>
+    <string name="input_page_quote" translatable="false"/>
+    <string name="material_you_setting" translatable="false"/>
 </resources>
