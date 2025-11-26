@@ -132,7 +132,7 @@ fun BackupScreen(navController: NavController) {
                             contentDescription = null
                         )
                     }
-                }, scrollBehavior = scrollBehavior, colors = TopAppBarDefaults.largeTopAppBarColors(
+                }, scrollBehavior = scrollBehavior, colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.surface,
                     scrolledContainerColor = MaterialTheme.colorScheme.surface,
                 )
