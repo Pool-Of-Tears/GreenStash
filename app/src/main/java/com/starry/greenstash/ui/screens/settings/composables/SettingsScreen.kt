@@ -70,7 +70,6 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.State
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -145,7 +144,7 @@ fun SettingsScreen(navController: NavController) {
                             contentDescription = null
                         )
                     }
-                }, scrollBehavior = scrollBehavior, colors = TopAppBarDefaults.largeTopAppBarColors(
+                }, scrollBehavior = scrollBehavior, colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.surface,
                     scrolledContainerColor = MaterialTheme.colorScheme.surface,
                 )
@@ -199,7 +198,7 @@ private fun DisplaySettings(viewModel: SettingsViewModel, navController: NavCont
             title = stringResource(id = R.string.amoled_theme_setting),
             description = stringResource(id = R.string.amoled_theme_desc),
             icon = Icons.Filled.Contrast,
-            switchState = viewModel.amoledTheme.observeAsState() as State<Boolean>,
+            switchState = viewModel.amoledTheme.observeAsState(initial = false),
             onCheckChange = { newValue ->
                 viewModel.setAmoledTheme(newValue)
             }
@@ -211,7 +210,7 @@ private fun DisplaySettings(viewModel: SettingsViewModel, navController: NavCont
                 id = R.string.material_you_setting_desc
             ),
             icon = Icons.Filled.Palette,
-            switchState = viewModel.materialYou.observeAsState() as State<Boolean>,
+            switchState = viewModel.materialYou.observeAsState(initial = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S),
             onCheckChange = { newValue ->
                 if (newValue) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
