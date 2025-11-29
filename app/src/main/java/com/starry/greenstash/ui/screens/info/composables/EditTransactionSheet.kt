@@ -36,6 +36,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -90,7 +91,9 @@ fun EditTransactionSheet(
 ) {
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
-    val sheetState = rememberModalBottomSheetState()
+    val sheetState = rememberModalBottomSheetState(
+        skipPartiallyExpanded = true
+    )
 
     val selectedDateTime = remember {
         val instant = Instant.ofEpochMilli(transaction.timeStamp)
@@ -103,7 +106,7 @@ fun EditTransactionSheet(
     }
     val dateTimeDialogState = rememberUseCaseState(visible = false)
     val (selectedTransactionType, onTransactionTypeSelected) = remember {
-        mutableStateOf(transaction.type.name)
+        mutableStateOf(transaction.type)
     }
 
     DateTimeDialog(
@@ -117,7 +120,7 @@ fun EditTransactionSheet(
 
     if (showEditTransaction.value) {
         LaunchedEffect(key1 = true) {
-            viewModel.setEditAmountAndNotes(transaction)
+            viewModel.setEditTransactionState(transaction)
         }
 
         ModalBottomSheet(
@@ -128,168 +131,193 @@ fun EditTransactionSheet(
                     showEditTransaction.value = false
                 }
             },
-            sheetState = sheetState,
-            content = {
-                Column(
+            sheetState = sheetState
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp)
+            ) {
+                SingleChoiceSegmentedButtonRow(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(8.dp)
+                        .padding(horizontal = 18.dp, vertical = 6.dp)
                 ) {
-                    SingleChoiceSegmentedButtonRow(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 18.dp, vertical = 6.dp)
-                    ) {
-                        SegmentedButton(
-                            selected = selectedTransactionType == TransactionType.Deposit.name,
-                            onClick = { onTransactionTypeSelected(TransactionType.Deposit.name) },
-                            shape = RoundedCornerShape(topStart = 14.dp, bottomStart = 14.dp),
-                            label = {
-                                Text(
-                                    text = TransactionType.Deposit.name, fontFamily = greenstashFont
-                                )
-                            },
-                            icon = {
-                                if (selectedTransactionType == TransactionType.Deposit.name) {
-                                    Icon(
-                                        imageVector = Icons.Filled.Check,
-                                        contentDescription = null,
-                                        modifier = Modifier.size(16.dp)
-                                    )
-                                }
-                            },
-                            colors = SegmentedButtonDefaults.colors(
-                                activeContentColor = MaterialTheme.colorScheme.onPrimary,
-                                activeContainerColor = MaterialTheme.colorScheme.primary,
-                            )
-                        )
-
-                        SegmentedButton(
-                            selected = selectedTransactionType == TransactionType.Withdraw.name,
-                            onClick = { onTransactionTypeSelected(TransactionType.Withdraw.name) },
-                            shape = RoundedCornerShape(topEnd = 14.dp, bottomEnd = 14.dp),
-                            label = {
-                                Text(
-                                    text = TransactionType.Withdraw.name,
-                                    fontFamily = greenstashFont
-                                )
-                            },
-                            icon = {
-                                if (selectedTransactionType == TransactionType.Withdraw.name) {
-                                    Icon(
-                                        imageVector = Icons.Filled.Check,
-                                        contentDescription = null,
-                                        modifier = Modifier.size(16.dp)
-                                    )
-                                }
-                            },
-                            colors = SegmentedButtonDefaults.colors(
-                                activeContentColor = MaterialTheme.colorScheme.onPrimary,
-                                activeContainerColor = MaterialTheme.colorScheme.primary,
-                            )
-                        )
-                    }
-
-                    DateTimeCard(
-                        selectedDateTime = selectedDateTime.value,
-                        dateTimeStyle = { viewModel.getDateStyle() },
-                        onClick = { dateTimeDialogState.show() }
-                    )
-
-                    OutlinedTextField(
-                        value = viewModel.editGoalState.amount,
-                        onValueChange = { newText ->
-                            viewModel.editGoalState =
-                                viewModel.editGoalState.copy(
-                                    amount = NumberUtils.getValidatedNumber(
-                                        newText
-                                    )
-                                )
-                        },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 18.dp, vertical = 4.dp),
+                    SegmentedButton(
+                        selected = selectedTransactionType == TransactionType.Deposit,
+                        onClick = { onTransactionTypeSelected(TransactionType.Deposit) },
+                        shape = RoundedCornerShape(topStart = 14.dp, bottomStart = 14.dp),
                         label = {
                             Text(
-                                text = stringResource(id = R.string.transaction_amount),
-                                fontFamily = greenstashFont
+                                text = TransactionType.Deposit.name, fontFamily = greenstashFont
                             )
                         },
-                        leadingIcon = {
-                            Icon(
-                                imageVector = ImageVector.vectorResource(id = R.drawable.ic_input_amount),
-                                contentDescription = null
-                            )
-                        },
-                        colors = OutlinedTextFieldDefaults.colors(
-                            focusedBorderColor = MaterialTheme.colorScheme.primary,
-                            unfocusedBorderColor = MaterialTheme.colorScheme.onBackground,
-                        ),
-                        shape = RoundedCornerShape(14.dp),
-                        singleLine = true,
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                    )
-
-                    OutlinedTextField(
-                        value = viewModel.editGoalState.notes,
-                        onValueChange = { newText ->
-                            viewModel.editGoalState = viewModel.editGoalState.copy(notes = newText)
-                        },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 18.dp, vertical = 2.dp),
-                        label = {
-                            Text(
-                                text = stringResource(id = R.string.input_additional_notes),
-                                fontFamily = greenstashFont
-                            )
-                        },
-                        leadingIcon = {
-                            Icon(
-                                imageVector = ImageVector.vectorResource(id = R.drawable.ic_input_additional_notes),
-                                contentDescription = null
-                            )
-                        },
-                        colors = OutlinedTextFieldDefaults.colors(
-                            focusedBorderColor = MaterialTheme.colorScheme.primary,
-                            unfocusedBorderColor = MaterialTheme.colorScheme.onBackground,
-                        ),
-                        shape = RoundedCornerShape(14.dp),
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-                    )
-
-                    Button(
-                        onClick = {
-                            if (!viewModel.editGoalState.amount.validateAmount()) {
-                                context.getString(R.string.amount_empty_err).toToast(context)
-                            } else {
-                                viewModel.updateTransaction(
-                                    transaction = transaction,
-                                    transactionTime = selectedDateTime.value,
-                                    transactionType = selectedTransactionType,
+                        icon = {
+                            if (selectedTransactionType == TransactionType.Deposit) {
+                                Icon(
+                                    imageVector = Icons.Filled.Check,
+                                    contentDescription = null,
+                                    modifier = Modifier.size(16.dp)
                                 )
-                                coroutineScope.launch {
-                                    sheetState.hide()
-                                    delay(300)
-                                    showEditTransaction.value = false
-                                }
                             }
-
                         },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 18.dp, vertical = 8.dp),
-                        shape = RoundedCornerShape(12.dp),
-                    ) {
+                        colors = SegmentedButtonDefaults.colors(
+                            activeContentColor = MaterialTheme.colorScheme.onPrimary,
+                            activeContainerColor = MaterialTheme.colorScheme.primary,
+                        )
+                    )
+
+                    SegmentedButton(
+                        selected = selectedTransactionType == TransactionType.Withdraw,
+                        onClick = { onTransactionTypeSelected(TransactionType.Withdraw) },
+                        shape = RoundedCornerShape(topEnd = 14.dp, bottomEnd = 14.dp),
+                        label = {
+                            Text(
+                                text = TransactionType.Withdraw.name,
+                                fontFamily = greenstashFont
+                            )
+                        },
+                        icon = {
+                            if (selectedTransactionType == TransactionType.Withdraw) {
+                                Icon(
+                                    imageVector = Icons.Filled.Check,
+                                    contentDescription = null,
+                                    modifier = Modifier.size(16.dp)
+                                )
+                            }
+                        },
+                        colors = SegmentedButtonDefaults.colors(
+                            activeContentColor = MaterialTheme.colorScheme.onPrimary,
+                            activeContainerColor = MaterialTheme.colorScheme.primary,
+                        )
+                    )
+                }
+
+                DateTimeCard(
+                    selectedDateTime = selectedDateTime.value,
+                    dateTimeStyle = { viewModel.getDateStyle() },
+                    onClick = { dateTimeDialogState.show() }
+                )
+
+                OutlinedTextField(
+                    value = viewModel.editTransactionState.amount,
+                    onValueChange = { newText ->
+                        viewModel.editTransactionState =
+                            viewModel.editTransactionState.copy(
+                                amount = NumberUtils.getValidatedNumber(
+                                    newText
+                                )
+                            )
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 18.dp, vertical = 4.dp),
+                    label = {
                         Text(
-                            text = stringResource(id = R.string.info_edit_transaction_button),
+                            text = stringResource(id = R.string.transaction_amount),
                             fontFamily = greenstashFont
                         )
-                    }
+                    },
+                    leadingIcon = {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(id = R.drawable.ic_input_amount),
+                            contentDescription = null
+                        )
+                    },
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedBorderColor = MaterialTheme.colorScheme.primary,
+                        unfocusedBorderColor = MaterialTheme.colorScheme.onBackground,
+                    ),
+                    shape = RoundedCornerShape(14.dp),
+                    singleLine = true,
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                )
 
-                    Spacer(modifier = Modifier.height(18.dp))
+                OutlinedTextField(
+                    value = viewModel.editTransactionState.notes,
+                    onValueChange = { newText ->
+                        viewModel.editTransactionState =
+                            viewModel.editTransactionState.copy(notes = newText)
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 18.dp, vertical = 2.dp),
+                    label = {
+                        Text(
+                            text = stringResource(id = R.string.input_additional_notes),
+                            fontFamily = greenstashFont
+                        )
+                    },
+                    leadingIcon = {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(id = R.drawable.ic_input_additional_notes),
+                            contentDescription = null
+                        )
+                    },
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedBorderColor = MaterialTheme.colorScheme.primary,
+                        unfocusedBorderColor = MaterialTheme.colorScheme.onBackground,
+                    ),
+                    shape = RoundedCornerShape(14.dp),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+                )
+
+                Button(
+                    onClick = {
+                        if (!viewModel.editTransactionState.amount.validateAmount()) {
+                            context.getString(R.string.amount_empty_err).toToast(context)
+                        } else {
+                            viewModel.updateTransaction(
+                                transaction = transaction,
+                                transactionTime = selectedDateTime.value,
+                                transactionType = selectedTransactionType,
+                            )
+                            coroutineScope.launch {
+                                sheetState.hide()
+                                delay(300)
+                                showEditTransaction.value = false
+                            }
+                        }
+
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 18.dp, vertical = 8.dp),
+                    shape = RoundedCornerShape(12.dp),
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.info_edit_transaction_button),
+                        fontFamily = greenstashFont
+                    )
                 }
+
+                Button(
+                    onClick = {
+                        viewModel.duplicateTransaction(transaction, selectedTransactionType)
+                        // Close sheet
+                        coroutineScope.launch {
+                            sheetState.hide()
+                            delay(300)
+                            showEditTransaction.value = false
+                        }
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 18.dp),
+                    shape = RoundedCornerShape(12.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.primaryContainer,
+                        contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                    )
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.info_duplicate_transaction_button),
+                        fontFamily = greenstashFont
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(18.dp))
             }
-        )
+        }
     }
 }

@@ -104,6 +104,7 @@
     <string name="info_copy_notes_alert">Başarıyla Kopyalandı!</string>
     <string name="info_goal_no_transactions">Henüz İşlem Yok.</string>
     <string name="info_edit_transaction_button">İşlemi Güncelle</string>
+    <string name="info_duplicate_transaction_button">İşlemi Kopyala</string>
     <string name="info_transaction_swipe_tip">İpucu: İşlemleri düzenlemek veya silmek için sola veya sağa kaydırın.</string>
     <!-- Input (New/Edit Goal) Screen -->
     <string name="input_screen_header">Birikim yapma zamanı!</string>
