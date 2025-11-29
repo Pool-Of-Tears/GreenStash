@@ -1,0 +1,4 @@
+- Added the ability to duplicate transactions. The new transaction will be created with today’s date and time, but you’re free to edit any other fields as needed before duplicating.
+- Added German translations and update some existing translations.
+- Bunch of small cleanups and improvements under the hood.
+- Updated dependencies, AGP and kotlin versions.
