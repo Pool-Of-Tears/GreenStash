@@ -78,6 +78,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.starry.greenstash.MainActivity
@@ -359,4 +360,19 @@ private fun TransactionCard(transaction: Transaction, currencySymbol: String) {
         }
 
     }
+}
+
+@Composable
+@Preview(showBackground = true)
+fun TransactionPreview() {
+    TransactionCard(
+        transaction = Transaction(
+            ownerGoalId = 0L,
+            type = TransactionType.Deposit,
+            timeStamp = 1669852800L,
+            amount = 2500.0,
+            notes = "Demo Transaction Note"
+        ),
+        currencySymbol = "$"
+    )
 }

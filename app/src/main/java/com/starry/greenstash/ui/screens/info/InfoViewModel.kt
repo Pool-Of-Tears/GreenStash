@@ -51,7 +51,7 @@ data class InfoScreenState(
     val goalData: Flow<GoalWithTransactions?>? = null
 )
 
-data class EditGoalState(
+data class EditTransactionState(
     val amount: String = "",
     val notes: String = "",
 )
@@ -64,7 +64,7 @@ class InfoViewModel @Inject constructor(
 ) : ViewModel() {
 
     var state by mutableStateOf(InfoScreenState())
-    var editGoalState by mutableStateOf(EditGoalState())
+    var editTransactionState by mutableStateOf(EditTransactionState())
 
     fun loadGoalData(goalId: Long) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -74,8 +74,8 @@ class InfoViewModel @Inject constructor(
         }
     }
 
-    fun setEditAmountAndNotes(transaction: Transaction) {
-        editGoalState = EditGoalState(
+    fun setEditTransactionState(transaction: Transaction) {
+        editTransactionState = EditTransactionState(
             amount = transaction.amount.toString(),
             notes = transaction.notes,
         )
@@ -90,17 +90,34 @@ class InfoViewModel @Inject constructor(
     fun updateTransaction(
         transaction: Transaction,
         transactionTime: LocalDateTime,
-        transactionType: String
+        transactionType: TransactionType
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             val newTransaction = transaction.copy(
-                type = TransactionType.valueOf(transactionType),
+                type = transactionType,
                 timeStamp = Utils.getEpochTime(transactionTime),
-                amount = NumberUtils.roundDecimal(editGoalState.amount.toDouble()),
-                notes = editGoalState.notes
+                amount = NumberUtils.roundDecimal(editTransactionState.amount.toDouble()),
+                notes = editTransactionState.notes
             )
             newTransaction.transactionId = transaction.transactionId
             transactionDao.updateTransaction(newTransaction)
+        }
+    }
+
+    // Duplicate transaction:
+    // Creates a new transaction while respecting the edited fields (if any),
+    // but with a new (current) timestamp.
+    fun duplicateTransaction(transaction: Transaction, transactionType: TransactionType) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val newTransaction = transaction.copy(
+                type = transactionType,
+                timeStamp = Utils.getEpochTime(LocalDateTime.now()),
+                amount = NumberUtils.roundDecimal(editTransactionState.amount.toDouble()),
+                notes = editTransactionState.notes
+            )
+            // Reset ID to insert as new entry
+            newTransaction.transactionId = 0L
+            transactionDao.insertTransaction(newTransaction)
         }
     }
 

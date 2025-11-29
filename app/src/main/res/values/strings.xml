@@ -117,6 +117,7 @@
     <string name="info_copy_notes_alert">Copied Successfully!</string>
     <string name="info_goal_no_transactions">No Transactions Yet</string>
     <string name="info_edit_transaction_button">Update Transaction</string>
+    <string name="info_duplicate_transaction_button">Duplicate Transaction</string>
     <string name="info_transaction_swipe_tip">Tip! Swipe transactions left or right to edit or delete them</string>
 
     <!-- Input (New/Edit Goal) Screen -->
