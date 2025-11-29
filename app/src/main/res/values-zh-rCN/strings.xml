@@ -104,6 +104,7 @@
     <string name="info_copy_notes_alert">复制成功！</string>
     <string name="info_goal_no_transactions">尚无收支</string>
     <string name="info_edit_transaction_button">更新交易</string>
+    <string name="info_duplicate_transaction_button">复制交易</string>
     <string name="info_transaction_swipe_tip">提示：左右滑动交易以编辑或删除它们</string>
     <!-- Input (New/Edit Goal) Screen -->
     <string name="input_screen_header">省钱时间到！</string>

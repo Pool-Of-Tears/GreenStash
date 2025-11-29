@@ -104,6 +104,7 @@
     <string name="info_copy_notes_alert">Copiato con successo!</string>
     <string name="info_goal_no_transactions">Ancora nessuna transazione.</string>
     <string name="info_edit_transaction_button">Aggiorna Transazione</string>
+    <string name="info_duplicate_transaction_button">Duplica Transazione</string>
     <string name="info_transaction_swipe_tip">Suggerimento! Scorri le transazioni a sinistra o a destra per modificarle o eliminarle.</string>
     <!-- Input (New/Edit Goal) Screen -->
     <string name="input_screen_header">È ora di risparmiare!</string>
