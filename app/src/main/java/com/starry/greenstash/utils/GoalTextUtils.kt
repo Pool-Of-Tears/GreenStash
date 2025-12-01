@@ -224,13 +224,11 @@ object GoalTextUtils {
             goal.deadline.split("/").reversed().joinToString(separator = "/")
         }
 
-        val endDate = when {
-            goal.deadline.split("/").first().length == 2 &&
-                    datePattern != DateStyle.DateMonthYear.pattern ->
+        val endDate = when (goal.deadline.split("/").first().length) {
+            2 if datePattern != DateStyle.DateMonthYear.pattern ->
                 reverseDate(goal.deadline)
 
-            goal.deadline.split("/").first().length == 4 &&
-                    datePattern != DateStyle.YearMonthDate.pattern ->
+            4 if datePattern != DateStyle.YearMonthDate.pattern ->
                 reverseDate(goal.deadline)
 
             else -> goal.deadline
