@@ -111,62 +111,69 @@ object GoalTextUtils {
         currencyCode: String,
         datePattern: String
     ): String {
-        val remainingAmount = (goalItem.goal.targetAmount - goalItem.getCurrentlySavedAmount())
-        if ((remainingAmount > 0f)) {
-            if (goalItem.goal.deadline.isNotEmpty() && goalItem.goal.deadline.isNotBlank()) {
-                val calculatedDays = calcRemainingDays(goalItem.goal, datePattern)
-                // build description string.
-                var text = context.getString(R.string.goal_days_left)
-                    .format(calculatedDays.parsedEndDate, calculatedDays.remainingDays) + "\n"
-                if (calculatedDays.remainingDays > 2) {
-                    text += context.getString(R.string.goal_approx_saving).format(
-                        NumberUtils.formatCurrency(
-                            NumberUtils.roundDecimal(remainingAmount / calculatedDays.remainingDays),
-                            currencyCode = currencyCode
-                        )
-                    )
-                    text += context.getString(R.string.goal_approx_saving_day)
-                    if (calculatedDays.remainingDays > 14) {
-                        val weeks = calculatedDays.remainingDays / 7
-                        text = text.dropLast(1) // remove full stop
-                        text += ", ${
-                            NumberUtils.formatCurrency(
-                                NumberUtils.roundDecimal(
-                                    remainingAmount / weeks
-                                ),
-                                currencyCode = currencyCode
-                            )
-                        }/${
-                            context.getString(
-                                R.string.goal_approx_saving_week
-                            )
-                        }"
-                        if (calculatedDays.remainingDays > 60) {
-                            val months = calculatedDays.remainingDays / 30
-                            text = text.dropLast(1) // remove full stop
-                            text += ", ${
-                                NumberUtils.formatCurrency(
-                                    NumberUtils.roundDecimal(
-                                        remainingAmount / months
-                                    ),
-                                    currencyCode = currencyCode
-                                )
-                            }/${
-                                context.getString(
-                                    R.string.goal_approx_saving_month
-                                )
-                            }"
-                        }
-                    }
-                }
-                return text
-            } else {
-                return context.getString(R.string.no_goal_deadline_set)
-            }
-        } else {
+        val remainingAmount = goalItem.goal.targetAmount - goalItem.getCurrentlySavedAmount()
+
+        if (remainingAmount <= 0f || remainingAmount.isNaN()) {
             return context.getString(R.string.goal_achieved_desc)
         }
 
+        val deadline = goalItem.goal.deadline
+        if (deadline.isBlank()) {
+            return context.getString(R.string.no_goal_deadline_set)
+        }
+
+        val calculatedDays = calcRemainingDays(goalItem.goal, datePattern)
+        val remainingDays = calculatedDays.remainingDays
+
+        val builder = StringBuilder()
+
+        builder.append(
+            context.getString(R.string.goal_days_left)
+                .format(calculatedDays.parsedEndDate, remainingDays)
+        ).append('\n')
+
+        if (remainingDays > 2) {
+            // Per-day saving
+            val perDay = NumberUtils.formatCurrency(
+                NumberUtils.roundDecimal(remainingAmount / remainingDays),
+                currencyCode = currencyCode
+            )
+
+            builder.append(
+                context.getString(R.string.goal_approx_saving).format(perDay)
+            )
+            builder.append(context.getString(R.string.goal_approx_saving_day))
+
+            if (remainingDays > 14) {
+                // Per-week saving
+                val weeks = remainingDays / 7
+                val perWeek = NumberUtils.formatCurrency(
+                    NumberUtils.roundDecimal(remainingAmount / weeks),
+                    currencyCode = currencyCode
+                )
+
+                builder.append(", ")
+                    .append(perWeek)
+                    .append("/")
+                    .append(context.getString(R.string.goal_approx_saving_week))
+
+                if (remainingDays > 60) {
+                    // Per-month saving
+                    val months = remainingDays / 30
+                    val perMonth = NumberUtils.formatCurrency(
+                        NumberUtils.roundDecimal(remainingAmount / months),
+                        currencyCode = currencyCode
+                    )
+
+                    builder.append(", ")
+                        .append(perMonth)
+                        .append("/")
+                        .append(context.getString(R.string.goal_approx_saving_month))
+                }
+            }
+        }
+
+        return builder.toString()
     }
 
     /**
