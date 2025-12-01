@@ -99,7 +99,7 @@
     <string name="goal_approx_saving_week">week</string>
     <string name="goal_approx_saving_month">month</string>
     <string name="no_goal_deadline_set">As you\'ve not specified any deadline, you got all the time in the world!</string>
-    <string name="goal_achieved_desc">It\'s time to celebrate all the hard work that led to this joyful occasion</string>
+    <string name="goal_achieved_desc">It\'s time to celebrate all the hard work that led to this joyful occasion!</string>
 
     <!-- Goal Info Screen -->
     <string name="info_screen_header">Goal Information</string>
