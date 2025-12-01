@@ -219,6 +219,16 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
         }
     }
 
+    // if selected date is in past set boundary from past selected date to 100 years ahead
+    // to allow user to set correct deadline without crashing, otherwise set boundary from
+    // today to 100 years ahead.
+    val boundary =
+        if (selectedDate.value != null && selectedDate.value!!.isBefore(LocalDate.now())) {
+            selectedDate.value!!..LocalDate.now().plusYears(100)
+        } else {
+            LocalDate.now()..LocalDate.now().plusYears(100)
+        }
+
     // Deadline Calendar Dialog.
     CalendarDialog(
         state = calenderState,
@@ -226,7 +236,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
             yearSelection = true,
             monthSelection = true,
             style = CalendarStyle.MONTH,
-            boundary = LocalDate.now()..LocalDate.now().plusYears(100)
+            boundary = boundary
         ),
         selection = CalendarSelection.Date(
             selectedDate = selectedDate.value
