@@ -27,6 +27,7 @@ package com.starry.greenstash.utils
 
 import android.content.Context
 import com.starry.greenstash.ui.screens.settings.DateStyle
+import androidx.core.content.edit
 
 /**
  * Utility class to handle shared preferences for the app.
@@ -43,7 +44,7 @@ class PreferenceUtil(context: Context) {
         const val AMOLED_THEME_BOOL = "amoled_theme"
         const val MATERIAL_YOU_BOOL = "material_you"
         const val DEFAULT_CURRENCY_STR = "default_currency_code"
-        const val DATE_FORMAT_STR = "date_format"
+        const val DATE_STYLE_INT = "date_format_style"
         const val APP_LOCK_BOOL = "app_lock"
         const val GOAL_CARD_STYLE_INT = "goal_card_style"
 
@@ -66,8 +67,8 @@ class PreferenceUtil(context: Context) {
         if (!keyExists(DEFAULT_CURRENCY_STR)) {
             putString(DEFAULT_CURRENCY_STR, "USD")
         }
-        if (!keyExists(DATE_FORMAT_STR)) {
-            putString(DATE_FORMAT_STR, DateStyle.DateMonthYear.pattern)
+        if (!keyExists(DATE_STYLE_INT)) {
+            putInt(DATE_STYLE_INT, DateStyle.DD_MM_YYYY.ordinal)
         }
     }
 
@@ -86,9 +87,7 @@ class PreferenceUtil(context: Context) {
      * @param value The value to store.
      */
     fun putString(key: String, value: String) {
-        val prefsEditor = prefs.edit()
-        prefsEditor.putString(key, value)
-        prefsEditor.apply()
+        prefs.edit { putString(key, value) }
     }
 
     /**
@@ -97,9 +96,7 @@ class PreferenceUtil(context: Context) {
      * @param value The value to store.
      */
     fun putInt(key: String, value: Int) {
-        val prefsEditor = prefs.edit()
-        prefsEditor.putInt(key, value)
-        prefsEditor.apply()
+        prefs.edit { putInt(key, value) }
     }
 
     /**
@@ -108,9 +105,7 @@ class PreferenceUtil(context: Context) {
      * @param value The value to store.
      */
     fun putBoolean(key: String, value: Boolean) {
-        val prefsEditor = prefs.edit()
-        prefsEditor.putBoolean(key, value)
-        prefsEditor.apply()
+        prefs.edit { putBoolean(key, value) }
     }
 
     /**

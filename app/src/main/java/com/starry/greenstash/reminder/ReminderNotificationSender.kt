@@ -36,6 +36,7 @@ import com.starry.greenstash.database.core.GoalWithTransactions
 import com.starry.greenstash.database.goal.GoalPriority
 import com.starry.greenstash.reminder.receivers.ReminderDepositReceiver
 import com.starry.greenstash.reminder.receivers.ReminderDismissReceiver
+import com.starry.greenstash.ui.screens.settings.DateStyle
 import com.starry.greenstash.utils.GoalTextUtils
 import com.starry.greenstash.utils.NumberUtils
 import com.starry.greenstash.utils.PreferenceUtil
@@ -84,10 +85,13 @@ class ReminderNotificationSender(
 
         val remainingAmount = (goal.targetAmount - goalItem.getCurrentlySavedAmount())
         val defCurrency = preferenceUtil.getString(PreferenceUtil.DEFAULT_CURRENCY_STR, "")!!
-        val datePattern = preferenceUtil.getString(PreferenceUtil.DATE_FORMAT_STR, "")!!
+        val dateStyle = DateStyle.entries[preferenceUtil.getInt(
+            PreferenceUtil.DATE_STYLE_INT,
+            DateStyle.DD_MM_YYYY.ordinal
+        )]
 
-        if (goal.deadline.isNotEmpty() && goal.deadline.isNotBlank()) {
-            val calculatedDays = GoalTextUtils.calcRemainingDays(goal, datePattern)
+        if (goal.deadline != 0L) {
+            val calculatedDays = GoalTextUtils.calcRemainingDays(goal.deadline, dateStyle)
             when (goal.priority) {
                 GoalPriority.High -> {
                     val amountDay = remainingAmount / calculatedDays.remainingDays

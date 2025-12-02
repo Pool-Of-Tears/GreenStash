@@ -175,7 +175,7 @@ fun DWScreen(goalId: String, transactionTypeName: String, navController: NavCont
 
                 DateTimeCard(
                     selectedDateTime = selectedDateTime.value,
-                    dateTimeStyle = { viewModel.getDateStyle() },
+                    dateStyle = { viewModel.getDateStyle() },
                     onClick = { dateTimeDialogState.show() }
                 )
 

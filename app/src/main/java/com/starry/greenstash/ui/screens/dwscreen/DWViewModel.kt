@@ -35,15 +35,8 @@ class DWViewModel @Inject constructor(
     var state by mutableStateOf(DWScreenState())
 
     fun getDateStyle(): DateStyle {
-        val dateStyleValue = preferenceUtil.getString(
-            PreferenceUtil.DATE_FORMAT_STR,
-            DateStyle.DateMonthYear.pattern
-        )
-        return if (dateStyleValue == DateStyle.DateMonthYear.pattern) {
-            DateStyle.DateMonthYear
-        } else {
-            DateStyle.YearMonthDate
-        }
+        return preferenceUtil.getInt(PreferenceUtil.DATE_STYLE_INT, DateStyle.DD_MM_YYYY.ordinal)
+            .let { DateStyle.entries[it] }
     }
 
     fun convertTransactionType(type: String): TransactionType {

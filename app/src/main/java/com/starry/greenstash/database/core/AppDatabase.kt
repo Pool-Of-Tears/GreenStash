@@ -24,22 +24,127 @@
 
 package com.starry.greenstash.database.core
 
+import android.content.ContentValues
 import android.content.Context
 import androidx.room.AutoMigration
 import androidx.room.Database
+import androidx.room.OnConflictStrategy
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.starry.greenstash.database.goal.Goal
 import com.starry.greenstash.database.goal.GoalDao
 import com.starry.greenstash.database.transaction.Transaction
 import com.starry.greenstash.database.transaction.TransactionDao
 import com.starry.greenstash.database.widget.WidgetDao
 import com.starry.greenstash.database.widget.WidgetData
+import java.time.LocalDate
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+
+
+val MIGRATION_7_8 = object : Migration(7, 8) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+
+        // Create new table with correct schema (deadline as INTEGER)
+        db.execSQL(
+            """
+            CREATE TABLE IF NOT EXISTS `saving_goal_new` (
+                `goalId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                `title` TEXT NOT NULL,
+                `targetAmount` REAL NOT NULL,
+                `deadline` INTEGER NOT NULL,
+                `goalImage` BLOB,
+                `additionalNotes` TEXT NOT NULL,
+                `priority` INTEGER NOT NULL DEFAULT 2,
+                `reminder` INTEGER NOT NULL DEFAULT 0,
+                `goalIconId` TEXT DEFAULT 'Image',
+                `archived` INTEGER NOT NULL DEFAULT 0
+            )
+            """.trimIndent()
+        )
+
+        // Copy data from old table
+        val cursor = db.query(
+            """
+            SELECT goalId, title, targetAmount, deadline, goalImage, additionalNotes,
+                   priority, reminder, goalIconId, archived
+            FROM saving_goal
+            """.trimIndent()
+        )
+
+        // Migrate each row
+        while (cursor.moveToNext()) {
+            val goalId = cursor.getLong(0)
+            val title = cursor.getString(1)
+            val targetAmount = cursor.getDouble(2)
+            val deadlineString = cursor.getString(3)
+            val goalImage = cursor.getBlob(4)
+            val additionalNotes = cursor.getString(5)
+            val priorityInt = cursor.getInt(6)          // note: INTEGER
+            val reminder = cursor.getInt(7)
+            val goalIconId = if (!cursor.isNull(8)) cursor.getString(8) else null
+            val archived = cursor.getInt(9)
+
+            val deadlineMillis = parseOldDeadlineToMillis(deadlineString)
+
+            val values = ContentValues().apply {
+                put("goalId", goalId)
+                put("title", title)
+                put("targetAmount", targetAmount)
+                put("deadline", deadlineMillis)
+                put("goalImage", goalImage)
+                put("additionalNotes", additionalNotes)
+                put("priority", priorityInt)
+                put("reminder", reminder)
+                // if old value missing, DB-level default 'Image' will be used
+                put("goalIconId", goalIconId)
+                put("archived", archived)
+            }
+
+            db.insert("saving_goal_new", OnConflictStrategy.REPLACE, values)
+        }
+        cursor.close()
+
+        // Drop old table and rename new table
+        db.execSQL("DROP TABLE saving_goal")
+        db.execSQL("ALTER TABLE saving_goal_new RENAME TO saving_goal")
+    }
+}
+
+// Helper function to parse old deadline string to epoch millis
+fun parseOldDeadlineToMillis(raw: String?): Long {
+    if (raw.isNullOrBlank()) return 0L
+
+    return try {
+        val normalized = raw.trim()
+
+        val date: LocalDate = if (normalized.matches(Regex("""\d{4}[/\-]\d{2}[/\-]\d{2}"""))) {
+            // yyyy/MM/dd (or with -)
+            LocalDate.parse(
+                normalized.replace('-', '/'),
+                DateTimeFormatter.ofPattern("yyyy/MM/dd")
+            )
+        } else {
+            // dd/MM/yyyy
+            LocalDate.parse(
+                normalized,
+                DateTimeFormatter.ofPattern("dd/MM/yyyy")
+            )
+        }
+
+        date.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli()
+    } catch (e: Exception) {
+        e.printStackTrace()
+        0L
+    }
+}
 
 @Database(
     entities = [Goal::class, Transaction::class, WidgetData::class],
-    version = 7,
+    version = 8,
     exportSchema = true,
     autoMigrations = [
         AutoMigration(from = 1, to = 2),
@@ -72,7 +177,7 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     DATABASE_NAME
-                ).build()
+                ).addMigrations(MIGRATION_7_8).build()
                 INSTANCE = instance
                 // return instance
                 instance

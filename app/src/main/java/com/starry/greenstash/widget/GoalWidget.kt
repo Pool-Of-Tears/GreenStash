@@ -38,6 +38,7 @@ import android.view.View
 import android.widget.RemoteViews
 import com.starry.greenstash.R
 import com.starry.greenstash.database.core.GoalWithTransactions
+import com.starry.greenstash.ui.screens.settings.DateStyle
 import com.starry.greenstash.utils.GoalTextUtils
 import com.starry.greenstash.utils.NumberUtils
 import com.starry.greenstash.utils.PreferenceUtil
@@ -85,10 +86,7 @@ class GoalWidget : AppWidgetProvider() {
     }
 
     override fun onAppWidgetOptionsChanged(
-        context: Context,
-        appWidgetManager: AppWidgetManager,
-        appWidgetId: Int,
-        newOptions: Bundle?
+        context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int, newOptions: Bundle?
     ) {
         super.onAppWidgetOptionsChanged(context, appWidgetManager, appWidgetId, newOptions)
         val minHeight = newOptions?.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT, 0) ?: 0
@@ -99,10 +97,7 @@ class GoalWidget : AppWidgetProvider() {
     }
 
     fun updateWidgetContents(
-        context: Context,
-        appWidgetId: Int,
-        goalItem: GoalWithTransactions,
-        minHeight: Int? = null
+        context: Context, appWidgetId: Int, goalItem: GoalWithTransactions, minHeight: Int? = null
     ) {
         val preferenceUtil = PreferenceUtil(context)
         val appWidgetManager = AppWidgetManager.getInstance(context)
@@ -113,7 +108,10 @@ class GoalWidget : AppWidgetProvider() {
 
         // Set Widget description.
         val defCurrency = preferenceUtil.getString(PreferenceUtil.DEFAULT_CURRENCY_STR, "")!!
-        val datePattern = preferenceUtil.getString(PreferenceUtil.DATE_FORMAT_STR, "")!!
+        val datePattern = DateStyle.entries[preferenceUtil.getInt(
+            PreferenceUtil.DATE_STYLE_INT,
+            DateStyle.DD_MM_YYYY.ordinal
+        )]
 
         val savedAmount = goalItem.getCurrentlySavedAmount().let {
             "${NumberUtils.getCurrencySymbol(defCurrency)}${NumberUtils.prettyCount(it)}"
@@ -121,8 +119,8 @@ class GoalWidget : AppWidgetProvider() {
         val targetAmount = goalItem.goal.targetAmount.let {
             "${NumberUtils.getCurrencySymbol(defCurrency)}${NumberUtils.prettyCount(it)}"
         }
-        val widgetDesc = context.getString(R.string.goal_widget_desc)
-            .format("$savedAmount / $targetAmount")
+        val widgetDesc =
+            context.getString(R.string.goal_widget_desc).format("$savedAmount / $targetAmount")
         views.setCharSequence(R.id.widgetDesc, "setText", widgetDesc)
 
         // Calculate and display savings per day and week if applicable.
@@ -144,7 +142,9 @@ class GoalWidget : AppWidgetProvider() {
         }
 
         val pendingIntent = PendingIntent.getBroadcast(
-            context, appWidgetId, intent,
+            context,
+            appWidgetId,
+            intent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
         views.setOnClickPendingIntent(R.id.widgetLayout, pendingIntent)
@@ -158,15 +158,15 @@ class GoalWidget : AppWidgetProvider() {
         views: RemoteViews,
         goalItem: GoalWithTransactions,
         defCurrency: String,
-        datePattern: String,
+        dateStyle: DateStyle,
         minHeight: Int? = null
     ) {
         val remainingAmount = (goalItem.goal.targetAmount - goalItem.getCurrentlySavedAmount())
         // Check if system locale is english to drop full stop in remaining days or weeks.
         val localeEnglish = context.resources.configuration.locales[0].language == "en"
 
-        if (remainingAmount > 0f && goalItem.goal.deadline.isNotBlank()) {
-            val calculatedDays = GoalTextUtils.calcRemainingDays(goalItem.goal, datePattern)
+        if (remainingAmount > 0f && goalItem.goal.deadline != 0L) {
+            val calculatedDays = GoalTextUtils.calcRemainingDays(goalItem.goal.deadline, dateStyle)
 
             if (calculatedDays.remainingDays > 2) {
                 // Calculate amount needed to save per day.
@@ -209,9 +209,7 @@ class GoalWidget : AppWidgetProvider() {
     }
 
     private fun handleGoalAchieved(
-        views: RemoteViews,
-        goalItem: GoalWithTransactions,
-        minHeight: Int? = null
+        views: RemoteViews, goalItem: GoalWithTransactions, minHeight: Int? = null
     ) {
         if (goalItem.getCurrentlySavedAmount() >= goalItem.goal.targetAmount) {
             // Hide goal achieved view if the widget is too small.
@@ -235,8 +233,8 @@ class GoalWidget : AppWidgetProvider() {
     private fun initialiseVm(context: Context) {
         if (!this::viewModel.isInitialized) {
             Log.d("GoalWidget", "Initialising viewmodel")
-            viewModel = EntryPoints
-                .get(context.applicationContext, WidgetEntryPoint::class.java).getViewModel()
+            viewModel = EntryPoints.get(context.applicationContext, WidgetEntryPoint::class.java)
+                .getViewModel()
         }
     }
 

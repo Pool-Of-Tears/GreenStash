@@ -101,6 +101,7 @@ import com.starry.greenstash.ui.screens.home.GoalCardStyle
 import com.starry.greenstash.ui.screens.settings.DateStyle
 import com.starry.greenstash.ui.screens.settings.SettingsViewModel
 import com.starry.greenstash.ui.screens.settings.ThemeMode
+import com.starry.greenstash.ui.screens.settings.dateStyleToDisplayFormat
 import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.utils.Utils
 import com.starry.greenstash.utils.getActivity
@@ -335,9 +336,9 @@ private fun ThemePickerDialog(
 private fun LocaleSettings(viewModel: SettingsViewModel) {
     val context = LocalContext.current
     // Date related values.
-    val dateValue = viewModel.dateStyle.observeAsState().value!!.pattern
+    val dateValue = dateStyleToDisplayFormat(viewModel.dateStyle.observeAsState().value!!)
     val dateDialog = remember { mutableStateOf(false) }
-    val dateRadioOptions = listOf(DateStyle.DateMonthYear.pattern, DateStyle.YearMonthDate.pattern)
+    val dateRadioOptions = DateStyle.entries.map { dateStyleToDisplayFormat(it) }
     val (selectedDateOption, onDateOptionSelected) = remember {
         mutableStateOf(dateValue)
     }
@@ -437,7 +438,9 @@ private fun LocaleSettings(viewModel: SettingsViewModel) {
                 FilledTonalButton(
                     onClick = {
                         dateDialog.value = false
-                        viewModel.setDateStyle(selectedDateOption)
+                        viewModel.setDateStyle(
+                            DateStyle.entries.first { dateStyleToDisplayFormat(it) == selectedDateOption }
+                        )
                     }, colors = ButtonDefaults.filledTonalButtonColors(
                         containerColor = MaterialTheme.colorScheme.primary,
                         contentColor = MaterialTheme.colorScheme.onPrimary
