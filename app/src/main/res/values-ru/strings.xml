@@ -223,6 +223,6 @@
     <string name="dismiss_notification_button">Закрыть</string>
     <string name="notification_deposited_title">Отличная работа 🎉</string>
     <string name="notification_deposited_desc">Успешно пополнено %s !</string>
-    <string name="input_page_quote" translatable="false"></string>
-    <string name="material_you_setting" translatable="false"></string>
+    <string name="input_page_quote" translatable="false"/>
+    <string name="material_you_setting" translatable="false"/>
 </resources>
