@@ -159,7 +159,7 @@ class GoalToCSVConverter {
             if (line.isBlank()) return@forEach
             val columns = line.split(CSV_DELIMITER)
 
-            // Check if version = 1 to properly convert old deadline format
+            // Check if version == 1 to properly convert old deadline format
             // which was string either dd/MM/yyyy or yyyy/MM/dd, to Long (epoch millis)
             val deadline = if (version == 1) {
                 parseOldDeadlineToMillis(columns[3])

@@ -142,7 +142,7 @@ class GoalToJSONConverter {
 
     fun convertFromJson(jsonString: String): BackupJsonModel {
 
-        // find if version = 1 in jsonString to properly convert old deadline format
+        // Check if version == 1 in jsonString to properly convert old deadline format
         // which was string either dd/MM/yyyy or yyyy/MM/dd, to Long (epoch millis)
         val jsonElement = json.parseToJsonElement(jsonString)
         val version = jsonElement.jsonObject["version"]?.jsonPrimitive?.intOrNull
