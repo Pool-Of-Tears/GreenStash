@@ -24,7 +24,7 @@
     <string name="auth_error">Doğrulama hatası: %s</string>
     <!-- Welcome Screen. -->
     <string name="welcome_screen_text">Merhaba! Lütfen başlamak için tercih edilen para birimini seçin.</string>
-    <string name="welcome_screen_button">Başla</string>
+    <string name="welcome_screen_button">Başla!</string>
     <!-- App Lock Screen -->
     <string name="app_lock_screen_title">GreenStash kilitli</string>
     <string name="app_lock_screen_subtitle">Kimlik doğrulamak için aşağıdaki düğmeye tıklayın.</string>
@@ -54,7 +54,7 @@
     <string name="withdraw_overflow_error">Tutar, mevcut yatırılan tutardan daha fazla!</string>
     <!-- Congratulations Screen -->
     <string name="goal_achieved_heading">Tebrikler 🥳</string>
-    <string name="goal_achieved_subtext">Tasarruf hedefinize ulaştınız! Sıkı çalışmanız ve bağlılığınız bu hak ettiğiniz başarıya yol açtı. Başarınızı kutlayın!</string>
+    <string name="goal_achieved_subtext">Tasarruf hedefinize ulaştınız! Sıkı çalışmanız ve kararlılığınız bu hak ettiğiniz başarıya ulaşmanızı sağladı. Başarınızı kutlayın! 🎉</string>
     <string name="goal_achieved_button">Ana ekrana dön</string>
     <!-- Strings used for dashboard saving goals cards -->
     <string name="no_goal_set">Birikim Hedefi Yok.</string>
@@ -87,14 +87,14 @@
     <string name="goal_approx_saving_week">hafta.</string>
     <string name="goal_approx_saving_month">ay.</string>
     <string name="no_goal_deadline_set">Herhangi bir son tarih belirtmedin, dünyadaki tüm zamana sahipsin!</string>
-    <string name="goal_achieved_desc">Bu neşeli olaya yol açan tüm sıkı çalışmaları kutlamanın zamanı geldi.</string>
+    <string name="goal_achieved_desc">Bu mutlu anı mümkün kılan tüm emeklerinizi kutlamanın zamanı geldi!</string>
     <!-- Goal Info Screen -->
     <string name="info_screen_header">Hedef Bilgileri</string>
     <string name="info_card_title">Biriktirilen:</string>
     <string name="info_card_remaining_amount">%s arasından</string>
     <string name="info_card_remaining_days">%s gün kaldı.</string>
     <string name="info_card_no_deadline_set">Son tarih belirlenmedi.</string>
-    <string name="info_card_goal_achieved">Hedefe ulaşıldı. Tebrikler!</string>
+    <string name="info_card_goal_achieved">Hedefe ulaşıldı! 🎉</string>
     <string name="info_goal_priority">Hedef Önceliği: %s</string>
     <string name="info_reminder_status_on">Hatırlatıcılar etkin</string>
     <string name="info_reminder_status_off">Hatırlatıcılar devre dışı</string>
