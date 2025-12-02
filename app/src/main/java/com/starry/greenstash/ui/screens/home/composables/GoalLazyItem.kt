@@ -95,7 +95,7 @@ fun GoalLazyColumnItem(
                     context = context,
                     goalItem = item,
                     currencyCode = viewModel.getDefaultCurrency(),
-                    datePattern = viewModel.getDateFormatPattern()
+                    dateStyle = viewModel.getDateStyle()
                 ),
                 goalProgress = progressPercent.toFloat() / 100,
                 goalImage = item.goal.goalImage,
@@ -179,7 +179,7 @@ fun GoalLazyColumnItem(
                 daysLeftText = GoalTextUtils.getRemainingDaysText(
                     context = context,
                     goalItem = item,
-                    datePattern = viewModel.getDateFormatPattern()
+                    dateStyle = viewModel.getDateStyle()
                 ),
                 goalProgress = progressPercent.toFloat() / 100,
                 goalIcon = goalIcon,

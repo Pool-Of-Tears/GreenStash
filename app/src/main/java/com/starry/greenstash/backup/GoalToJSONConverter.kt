@@ -25,10 +25,18 @@
 
 package com.starry.greenstash.backup
 
+import android.graphics.Bitmap
 import androidx.annotation.Keep
 import com.starry.greenstash.database.core.GoalWithTransactions
+import com.starry.greenstash.database.core.parseOldDeadlineToMillis
+import com.starry.greenstash.database.goal.Goal
+import com.starry.greenstash.database.goal.GoalPriority
+import com.starry.greenstash.database.transaction.Transaction
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.intOrNull
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 
 /**
  * Converts [GoalWithTransactions] data to JSON format and vice versa.
@@ -63,12 +71,86 @@ class GoalToJSONConverter {
         val data: List<GoalWithTransactions>
     )
 
+    /**
+     * Legacy backup model (v1), where Goal.deadline was a String.
+     * We only use this when *reading* old backups.
+     */
+    @Serializable
+    data class BackupJsonModelV1(
+        val version: Int = 1,
+        val timestamp: Long,
+        val data: List<GoalWithTransactionsV1>
+    )
+
+    @Serializable
+    data class GoalWithTransactionsV1(
+        val goal: GoalV1,
+        val transactions: List<Transaction>
+    )
+
+    @Serializable
+    data class GoalV1(
+        val title: String,
+        val targetAmount: Double,
+        val deadline: String, // OLD representation: "dd/MM/yyyy" or "yyyy/MM/dd"
+        @Serializable(with = BitmapSerializer::class)
+        val goalImage: Bitmap? = null,
+        val additionalNotes: String = "",
+        val priority: GoalPriority = GoalPriority.Normal,
+        val reminder: Boolean = false,
+        val goalIconId: String? = "Image",
+        val archived: Boolean = false,
+        val goalId: Long = 0L
+    )
+
+    private fun BackupJsonModelV1.toCurrentModel(): BackupJsonModel {
+        val convertedData = data.map { oldItem ->
+            val oldGoal = oldItem.goal
+            val deadlineMillis = parseOldDeadlineToMillis(oldGoal.deadline)
+            // Build current Goal (which now has deadline: Long)
+            val newGoal = Goal(
+                title = oldGoal.title,
+                targetAmount = oldGoal.targetAmount,
+                deadline = deadlineMillis,
+                goalImage = oldGoal.goalImage,
+                additionalNotes = oldGoal.additionalNotes,
+                priority = oldGoal.priority,
+                reminder = oldGoal.reminder,
+                goalIconId = oldGoal.goalIconId,
+                archived = oldGoal.archived
+            ).apply {
+                goalId = oldGoal.goalId
+            }
+            GoalWithTransactions(
+                goal = newGoal,
+                transactions = oldItem.transactions
+            )
+        }
+
+        return BackupJsonModel(
+            version = BACKUP_SCHEMA_VERSION,
+            timestamp = this.timestamp,
+            data = convertedData
+        )
+    }
+
     fun convertToJson(goalWithTransactions: List<GoalWithTransactions>): String =
         json.encodeToString(
             BackupJsonModel.serializer(),
             BackupJsonModel(timestamp = System.currentTimeMillis(), data = goalWithTransactions)
         )
 
-    fun convertFromJson(jsonString: String): BackupJsonModel =
-        json.decodeFromString(BackupJsonModel.serializer(), jsonString)
+    fun convertFromJson(jsonString: String): BackupJsonModel {
+
+        // find if version = 1 in jsonString to properly convert old deadline format
+        // which was string either dd/MM/yyyy or yyyy/MM/dd, to Long (epoch millis)
+        val jsonElement = json.parseToJsonElement(jsonString)
+        val version = jsonElement.jsonObject["version"]?.jsonPrimitive?.intOrNull
+        if (version == 1) {
+            val oldModel = json.decodeFromString(BackupJsonModelV1.serializer(), jsonString)
+            return oldModel.toCurrentModel()
+        }
+
+        return json.decodeFromString(BackupJsonModel.serializer(), jsonString)
+    }
 }

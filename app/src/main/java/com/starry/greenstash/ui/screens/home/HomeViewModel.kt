@@ -34,6 +34,7 @@ import androidx.lifecycle.viewModelScope
 import com.starry.greenstash.database.goal.Goal
 import com.starry.greenstash.database.goal.GoalDao
 import com.starry.greenstash.reminder.ReminderManager
+import com.starry.greenstash.ui.screens.settings.DateStyle
 import com.starry.greenstash.utils.PreferenceUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -164,8 +165,9 @@ class HomeViewModel @Inject constructor(
         return preferenceUtil.getString(PreferenceUtil.DEFAULT_CURRENCY_STR, "")!!
     }
 
-    fun getDateFormatPattern(): String {
-        return preferenceUtil.getString(PreferenceUtil.DATE_FORMAT_STR, "")!!
+    fun getDateStyle(): DateStyle {
+        return preferenceUtil.getInt(PreferenceUtil.DATE_STYLE_INT, DateStyle.DD_MM_YYYY.ordinal)
+            .let { DateStyle.entries[it] }
     }
 
     fun onboardingTapTargetsShown() {

@@ -195,7 +195,7 @@ fun EditTransactionSheet(
 
                 DateTimeCard(
                     selectedDateTime = selectedDateTime.value,
-                    dateTimeStyle = { viewModel.getDateStyle() },
+                    dateStyle = { viewModel.getDateStyle() },
                     onClick = { dateTimeDialogState.show() }
                 )
 

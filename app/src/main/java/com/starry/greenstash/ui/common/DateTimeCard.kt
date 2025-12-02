@@ -46,15 +46,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.starry.greenstash.R
 import com.starry.greenstash.ui.screens.settings.DateStyle
+import com.starry.greenstash.ui.screens.settings.dateStyleToDisplayFormat
 import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.utils.weakHapticFeedback
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 @Composable
 fun DateTimeCard(
     selectedDateTime: LocalDateTime,
-    dateTimeStyle: () -> DateStyle,
+    dateStyle: () -> DateStyle,
     onClick: () -> Unit
 ) {
     val view = LocalView.current
@@ -81,7 +83,10 @@ fun DateTimeCard(
                 )
                 Text(
                     text = selectedDateTime.format(
-                        DateTimeFormatter.ofPattern(dateTimeStyle().pattern)
+                        DateTimeFormatter.ofPattern(
+                            dateStyleToDisplayFormat(dateStyle()),
+                            Locale.ENGLISH
+                        )
                     ),
                     fontFamily = greenstashFont,
                     fontWeight = FontWeight.Medium,
@@ -113,7 +118,7 @@ fun DateTimeCard(
 private fun DateTimeCardPreview() {
     DateTimeCard(
         selectedDateTime = LocalDateTime.now(),
-        dateTimeStyle = { DateStyle.DateMonthYear },
+        dateStyle = { DateStyle.DD_MM_YYYY },
         onClick = {}
     )
 }

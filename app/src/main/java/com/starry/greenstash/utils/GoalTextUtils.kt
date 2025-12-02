@@ -28,10 +28,9 @@ package com.starry.greenstash.utils
 import android.content.Context
 import com.starry.greenstash.R
 import com.starry.greenstash.database.core.GoalWithTransactions
-import com.starry.greenstash.database.goal.Goal
 import com.starry.greenstash.ui.screens.settings.DateStyle
+import com.starry.greenstash.ui.screens.settings.dateStyleToDisplayFormat
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 
@@ -102,14 +101,14 @@ object GoalTextUtils {
      * @param context Context
      * @param goalItem GoalWithTransactions
      * @param currencyCode String
-     * @param datePattern String
+     * @param dateStyle DateStyle
      * @return String
      */
     fun buildSecondaryText(
         context: Context,
         goalItem: GoalWithTransactions,
         currencyCode: String,
-        datePattern: String
+        dateStyle: DateStyle
     ): String {
         val remainingAmount = goalItem.goal.targetAmount - goalItem.getCurrentlySavedAmount()
 
@@ -118,11 +117,11 @@ object GoalTextUtils {
         }
 
         val deadline = goalItem.goal.deadline
-        if (deadline.isBlank()) {
+        if (deadline == 0L) {
             return context.getString(R.string.no_goal_deadline_set)
         }
 
-        val calculatedDays = calcRemainingDays(goalItem.goal, datePattern)
+        val calculatedDays = calcRemainingDays(deadline, dateStyle)
         val remainingDays = calculatedDays.remainingDays
 
         val builder = StringBuilder()
@@ -181,19 +180,19 @@ object GoalTextUtils {
      *
      * @param context Context
      * @param goalItem GoalWithTransactions
-     * @param datePattern String
+     * @param dateStyle DateStyle
      * @return String
      */
     fun getRemainingDaysText(
         context: Context,
         goalItem: GoalWithTransactions,
-        datePattern: String
+        dateStyle: DateStyle
     ): String {
         return if (goalItem.getCurrentlySavedAmount() >= goalItem.goal.targetAmount) {
             context.getString(R.string.info_card_goal_achieved)
         } else {
-            if (goalItem.goal.deadline.isNotEmpty() && goalItem.goal.deadline.isNotBlank()) {
-                val calculatedDays = calcRemainingDays(goalItem.goal, datePattern)
+            if (goalItem.goal.deadline != 0L) {
+                val calculatedDays = calcRemainingDays(goalItem.goal.deadline, dateStyle)
                 context.getString(R.string.info_card_remaining_days)
                     .format(calculatedDays.remainingDays)
             } else {
@@ -206,38 +205,23 @@ object GoalTextUtils {
     /**
      * Calculate the remaining days between today and the goal's deadline.
      *
-     * @param goal Goal
-     * @param datePattern String
-     * @return CalculatedDays
+     * @param deadline Long The deadline epoch time
+     * @param dateStyle DateStyle The date style for formatting
+     * @return CalculatedDays The calculated remaining days and formatted end date
      */
-    fun calcRemainingDays(goal: Goal, datePattern: String): CalculatedDays {
-        // calculate remaining days between today and endDate (deadline).
-        val dateFormatter: DateTimeFormatter =
-            DateTimeFormatter.ofPattern(datePattern)
-        val startDate = LocalDateTime.now().format(dateFormatter)
+    fun calcRemainingDays(deadline: Long, dateStyle: DateStyle): CalculatedDays {
+        val endDate = Utils.convertEpochToLocalDate(deadline)
+        val today = LocalDate.now()
+        val remainingDays = ChronoUnit.DAYS.between(today, endDate).coerceAtLeast(0)
 
-        /**
-         * If date format is set as DD/MM/YYYY but date in database is saved
-         * in YYYY/MM/DD format, then reverse the date string before parsing.
-         */
-        val reverseDate: (String) -> String = {
-            goal.deadline.split("/").reversed().joinToString(separator = "/")
-        }
+        val pattern = dateStyleToDisplayFormat(dateStyle)
+        val formatter = DateTimeFormatter.ofPattern(pattern, java.util.Locale.ENGLISH)
+        val parsedEndDate = endDate.format(formatter)
 
-        val endDate = when (goal.deadline.split("/").first().length) {
-            2 if datePattern != DateStyle.DateMonthYear.pattern ->
-                reverseDate(goal.deadline)
-
-            4 if datePattern != DateStyle.YearMonthDate.pattern ->
-                reverseDate(goal.deadline)
-
-            else -> goal.deadline
-        }
-
-        val startDateValue: LocalDate = LocalDate.parse(startDate, dateFormatter)
-        val endDateValue: LocalDate = LocalDate.parse(endDate, dateFormatter)
-        val days = ChronoUnit.DAYS.between(startDateValue, endDateValue)
-        return CalculatedDays(remainingDays = days, parsedEndDate = endDate)
+        return CalculatedDays(
+            remainingDays = remainingDays,
+            parsedEndDate = parsedEndDate
+        )
     }
 
 }

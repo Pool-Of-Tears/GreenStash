@@ -126,15 +126,8 @@ class InfoViewModel @Inject constructor(
     )!!
 
     fun getDateStyle(): DateStyle {
-        val dateStyleValue = preferenceUtil.getString(
-            PreferenceUtil.DATE_FORMAT_STR,
-            DateStyle.DateMonthYear.pattern
-        )
-        return if (dateStyleValue == DateStyle.DateMonthYear.pattern) {
-            DateStyle.DateMonthYear
-        } else {
-            DateStyle.YearMonthDate
-        }
+        return preferenceUtil.getInt(PreferenceUtil.DATE_STYLE_INT, DateStyle.DD_MM_YYYY.ordinal)
+            .let { DateStyle.entries[it] }
     }
 
     fun shouldShowTransactionTip() = preferenceUtil.getBoolean(

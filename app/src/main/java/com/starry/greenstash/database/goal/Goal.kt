@@ -41,11 +41,12 @@ enum class GoalPriority(val value: Int) { High(3), Normal(2), Low(1) }
 data class Goal(
     val title: String,
     val targetAmount: Double,
-    val deadline: String,
+    // Modified from string (dd/MM/yyyy) & (MM/dd/yyyy) to Long in database schema v8
+    // Due to mess caused by different date formats and to support easier date calculations.
+    val deadline: Long,
     @Serializable(with = BitmapSerializer::class)
     val goalImage: Bitmap?,
     val additionalNotes: String,
-
     // Added in database schema v3
     @ColumnInfo(defaultValue = "2")
     val priority: GoalPriority,

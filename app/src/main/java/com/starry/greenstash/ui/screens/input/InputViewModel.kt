@@ -42,6 +42,7 @@ import com.starry.greenstash.database.goal.GoalDao
 import com.starry.greenstash.database.goal.GoalPriority
 import com.starry.greenstash.reminder.ReminderManager
 import com.starry.greenstash.ui.screens.settings.DateStyle
+import com.starry.greenstash.ui.screens.settings.dateStyleToDisplayFormat
 import com.starry.greenstash.utils.ImageUtils
 import com.starry.greenstash.utils.NumberUtils
 import com.starry.greenstash.utils.PreferenceUtil
@@ -73,7 +74,7 @@ data class InputScreenState(
     val goalImageUri: Uri? = null,
     val goalTitleText: String = "",
     val targetAmount: String = "",
-    val deadline: String = "",
+    val deadline: Long = 0L,
     val additionalNotes: String = "",
     val priority: String = GoalPriority.Normal.name,
     val reminder: Boolean = false
@@ -194,21 +195,21 @@ class InputViewModel @Inject constructor(
         state = state.copy(targetAmount = amount)
     }
 
-    fun updateDeadline(deadline: String) {
-        state = state.copy(deadline = deadline)
-    }
-
     fun removeDeadLine() {
-        state = state.copy(deadline = "")
+        state = state.copy(deadline = 0L)
     }
 
     fun updateAdditionalNotes(notes: String) {
         state = state.copy(additionalNotes = notes)
     }
 
-    fun getDateStyleValue() = preferenceUtil.getString(
-        PreferenceUtil.DATE_FORMAT_STR, DateStyle.DateMonthYear.pattern
-    )
+    fun getDateStyleFormat(): String {
+        preferenceUtil.getInt(
+            PreferenceUtil.DATE_STYLE_INT, DateStyle.DD_MM_YYYY.ordinal
+        ).let {
+            return dateStyleToDisplayFormat(DateStyle.entries[it])
+        }
+    }
 
     // Icon picker ==============
 
@@ -268,7 +269,7 @@ class InputViewModel @Inject constructor(
     }
 
     fun shouldShowRemoveDeadlineTip(): Boolean {
-        return state.deadline.isNotBlank() && preferenceUtil.getBoolean(
+        return state.deadline != 0L && preferenceUtil.getBoolean(
             PreferenceUtil.INPUT_REMOVE_DEADLINE_TIP_BOOL, true
         )
     }

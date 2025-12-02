@@ -36,25 +36,8 @@ import com.starry.greenstash.utils.PreferenceUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-/**
- * Enum class for the theme mode of the app.
- * [ThemeMode.Light] - Light theme
- * [ThemeMode.Dark] - Dark theme
- * [ThemeMode.Auto] - Follow system theme
- */
-enum class ThemeMode {
-    Light, Dark, Auto
-}
 
-/**
- * Sealed class for the date style of the app.
- * [DateStyle.DateMonthYear] - Date in the format dd/MM/yyyy
- * [DateStyle.YearMonthDate] - Date in the format yyyy/MM/dd
- */
-sealed class DateStyle(val pattern: String) {
-    data object DateMonthYear : DateStyle("dd/MM/yyyy")
-    data object YearMonthDate : DateStyle("yyyy/MM/dd")
-}
+
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
@@ -65,7 +48,7 @@ class SettingsViewModel @Inject constructor(
     private val _amoledTheme = MutableLiveData(false)
     private val _materialYou = MutableLiveData(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
     private val _goalCardStyle = MutableLiveData(GoalCardStyle.Classic)
-    private val _dateStyle = MutableLiveData<DateStyle>(DateStyle.DateMonthYear)
+    private val _dateStyle = MutableLiveData(DateStyle.DD_MM_YYYY)
 
     val theme: LiveData<ThemeMode> = _theme
     val amoledTheme: LiveData<Boolean> = _amoledTheme
@@ -79,11 +62,7 @@ class SettingsViewModel @Inject constructor(
         _amoledTheme.value = getAmoledThemeValue()
         _materialYou.value = getMaterialYouValue()
         _goalCardStyle.value = GoalCardStyle.entries.toTypedArray()[getGoalCardStyleValue()]
-        _dateStyle.value = when (getDateStyleValue()) {
-            DateStyle.DateMonthYear.pattern -> DateStyle.DateMonthYear
-            DateStyle.YearMonthDate.pattern -> DateStyle.YearMonthDate
-            else -> DateStyle.DateMonthYear
-        }
+        _dateStyle.value  = DateStyle.entries.toTypedArray()[getDateStyleValue()]
     }
 
     // Setters for preferences --------------------------------------------
@@ -107,14 +86,9 @@ class SettingsViewModel @Inject constructor(
         preferenceUtil.putInt(PreferenceUtil.GOAL_CARD_STYLE_INT, newValue.ordinal)
     }
 
-    fun setDateStyle(newValue: String) {
-        val dateStyle = when (newValue) {
-            DateStyle.DateMonthYear.pattern -> DateStyle.DateMonthYear
-            DateStyle.YearMonthDate.pattern -> DateStyle.YearMonthDate
-            else -> DateStyle.DateMonthYear
-        }
-        _dateStyle.postValue(dateStyle)
-        preferenceUtil.putString(PreferenceUtil.DATE_FORMAT_STR, newValue)
+    fun setDateStyle(newValue: DateStyle) {
+        _dateStyle.postValue(newValue)
+        preferenceUtil.putInt(PreferenceUtil.DATE_STYLE_INT, newValue.ordinal)
     }
 
     fun setDefaultCurrency(newValue: String) {
@@ -170,7 +144,7 @@ class SettingsViewModel @Inject constructor(
     )
 
     // Only used in init block
-    private fun getDateStyleValue() = preferenceUtil.getString(
-        PreferenceUtil.DATE_FORMAT_STR, DateStyle.DateMonthYear.pattern
+    private fun getDateStyleValue() = preferenceUtil.getInt(
+        PreferenceUtil.DATE_STYLE_INT, DateStyle.DD_MM_YYYY.ordinal
     )
 }

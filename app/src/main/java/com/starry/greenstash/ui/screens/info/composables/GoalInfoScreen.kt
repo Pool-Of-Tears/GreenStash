@@ -178,7 +178,7 @@ fun GoalInfoScreen(goalId: String, navController: NavController) {
                             daysLeftText = GoalTextUtils.getRemainingDaysText(
                                 context = context,
                                 goalItem = goalData,
-                                datePattern = viewModel.getDateStyle().pattern
+                                dateStyle = viewModel.getDateStyle()
                             ),
                             progress = progressPercent.toFloat() / 100
                         )

@@ -27,6 +27,7 @@ package com.starry.greenstash.backup
 
 import androidx.annotation.Keep
 import com.starry.greenstash.database.core.GoalWithTransactions
+import com.starry.greenstash.database.core.parseOldDeadlineToMillis
 import com.starry.greenstash.database.goal.Goal
 import com.starry.greenstash.database.goal.GoalPriority
 import com.starry.greenstash.database.transaction.Transaction
@@ -158,10 +159,18 @@ class GoalToCSVConverter {
             if (line.isBlank()) return@forEach
             val columns = line.split(CSV_DELIMITER)
 
+            // Check if version = 1 to properly convert old deadline format
+            // which was string either dd/MM/yyyy or yyyy/MM/dd, to Long (epoch millis)
+            val deadline = if (version == 1) {
+                parseOldDeadlineToMillis(columns[3])
+            } else {
+                columns[3].toLong()
+            }
+
             val goal = Goal(
                 title = columns[1],
                 targetAmount = columns[2].toDouble(),
-                deadline = columns[3],
+                deadline = deadline,
                 priority = GoalPriority.valueOf(columns[4]),
                 reminder = columns[5].toBoolean(),
                 goalIconId = columns[6].ifEmpty { null },

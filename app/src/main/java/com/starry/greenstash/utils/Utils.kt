@@ -34,10 +34,10 @@ import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG
 import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_WEAK
 import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
 import androidx.core.net.toUri
-import com.starry.greenstash.ui.screens.settings.DateStyle
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.util.TimeZone
@@ -84,24 +84,42 @@ object Utils {
     }
 
     /**
-     * Detects the DateStyle of a given date string based on its format.
+     * Convert epoch time to LocalDate.
      *
-     * Assumes date is separated by "/".
-     *
-     * @param dateStr String (date in string format)
-     * @return DateStyle (detected style), or null if unknown
+     * @param epochTime The epoch time
+     * @return The LocalDate object
      */
-    fun parseDateStyle(dateStr: String): DateStyle? {
-        val parts = dateStr.split("/")
-        if (parts.size != 3) return null
-        return when (parts[0].length) {
-            // Case: starts with YYYY
-            4 -> DateStyle.YearMonthDate
-            // Case: starts with DD (common dd/MM/yyyy)
-            2 -> DateStyle.DateMonthYear
-            // Unsupported format
-            else -> null
+    fun convertEpochToLocalDate(epochTime: Long): LocalDate {
+        val timeZone = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            ZoneId.systemDefault()
+        } else {
+            TimeZone.getDefault().toZoneId()
         }
+        return LocalDateTime.ofInstant(
+            java.time.Instant.ofEpochMilli(epochTime),
+            timeZone
+        ).toLocalDate()
+    }
+
+    /**
+     * Convert LocalDate to epoch time.
+     *
+     * @param date The LocalDate object
+     * @param endOfDay Whether to set the time to the end of the day
+     * @return The epoch time
+     */
+    fun convertLocalDateToEpoch(date: LocalDate, endOfDay: Boolean = false): Long {
+        val timeZone = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            ZoneId.systemDefault()
+        } else {
+            TimeZone.getDefault().toZoneId()
+        }
+        val dateTime = if (endOfDay) {
+            date.atTime(23, 59, 59)
+        } else {
+            date.atStartOfDay()
+        }
+        return dateTime.atZone(timeZone).toInstant().toEpochMilli()
     }
 
     /**

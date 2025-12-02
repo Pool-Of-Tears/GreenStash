@@ -157,6 +157,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -195,12 +196,8 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
         LaunchedEffect(true) {
             delay(500L)
             selectedDate.value = viewModel.state.deadline
-                .takeIf { it.isNotEmpty() }
-                ?.let { deadline ->
-                    Utils.parseDateStyle(deadline)?.let { style ->
-                        LocalDate.parse(deadline, DateTimeFormatter.ofPattern(style.pattern))
-                    }
-                } ?: LocalDate.now()
+                .takeIf { it != 0L }
+                ?.let { epochTime -> Utils.convertEpochToLocalDate(epochTime) } ?: LocalDate.now()
         }
         topBarText = stringResource(id = R.string.input_edit_goal_header)
         buttonText = stringResource(id = R.string.input_edit_goal_button)
@@ -243,7 +240,7 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
         ) { newDate ->
             selectedDate.value = newDate
             viewModel.state = viewModel.state.copy(
-                deadline = selectedDate.value!!.format(DateTimeFormatter.ofPattern(viewModel.getDateStyleValue()))
+                deadline = Utils.convertLocalDateToEpoch(newDate)
             )
         },
     )
@@ -468,11 +465,19 @@ fun InputScreen(editGoalId: String?, navController: NavController) {
                         InputTextFields(
                             goalTitle = viewModel.state.goalTitleText,
                             targetAmount = viewModel.state.targetAmount,
-                            deadline = viewModel.state.deadline,
+                            deadline = viewModel.state.deadline.let {
+                                if (it == 0L) "" else Utils.convertEpochToLocalDate(it)
+                                    .format(
+                                        DateTimeFormatter.ofPattern(
+                                            viewModel.getDateStyleFormat(),
+                                            Locale.ENGLISH
+                                        )
+                                    )
+                            },
                             additionalNotes = viewModel.state.additionalNotes,
                             onTitleChange = { newText -> viewModel.updateTitle(newText) },
                             onAmountChange = { newText -> viewModel.updateTargetAmount(newText) },
-                            onDeadlineChange = { newText -> viewModel.updateDeadline(newText) },
+                            onDeadlineChange = { },
                             onNotesChange = { newText -> viewModel.updateAdditionalNotes(newText) },
                             calenderState = calenderState,
                             showRemoveDeadlineDialog = showRemoveDeadlineDialog
@@ -880,7 +885,7 @@ private fun InputTextFields(
 
     OutlinedTextField(
         value = goalTitle,
-        onValueChange = { newText -> onTitleChange(newText) },
+        onValueChange = onTitleChange,
         modifier = Modifier.fillMaxWidth(0.86f),
         label = {
             Text(
@@ -938,7 +943,7 @@ private fun InputTextFields(
 
     OutlinedTextField(
         value = deadline,
-        onValueChange = { newText -> onDeadlineChange(newText) },
+        onValueChange = onDeadlineChange,
         modifier = Modifier
             .fillMaxWidth(0.86f)
             .combinedClickable(
@@ -981,7 +986,7 @@ private fun InputTextFields(
 
     OutlinedTextField(
         value = additionalNotes,
-        onValueChange = { newText -> onNotesChange(newText) },
+        onValueChange = onNotesChange,
         modifier = Modifier.fillMaxWidth(0.86f),
         label = {
             Text(
