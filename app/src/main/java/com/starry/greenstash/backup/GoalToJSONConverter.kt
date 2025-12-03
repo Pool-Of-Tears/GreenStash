@@ -72,7 +72,7 @@ class GoalToJSONConverter {
     )
 
 
-    //  Compatibility layer for supporting old backup format where Goal.deadline was String
+    // Compatibility layer for supporting old backup format where Goal.deadline was String
     // in "dd/MM/yyyy" or "yyyy/MM/dd" format.  We convert it to current model with deadline
     // as Long (epoch millis).
     //
