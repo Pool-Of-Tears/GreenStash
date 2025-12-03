@@ -83,7 +83,7 @@ val MIGRATION_7_8 = object : Migration(7, 8) {
             val deadlineString = cursor.getString(3)
             val goalImage = cursor.getBlob(4)
             val additionalNotes = cursor.getString(5)
-            val priorityInt = cursor.getInt(6)          // note: INTEGER
+            val priorityInt = cursor.getInt(6)
             val reminder = cursor.getInt(7)
             val goalIconId = if (!cursor.isNull(8)) cursor.getString(8) else null
             val archived = cursor.getInt(9)
@@ -138,7 +138,7 @@ fun parseOldDeadlineToMillis(raw: String?): Long {
         date.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli()
     } catch (e: Exception) {
         e.printStackTrace()
-        0L
+        0L // Default to 0 if parsing fails, equivalent to no deadline
     }
 }
 

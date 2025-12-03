@@ -41,7 +41,7 @@ class GoalToCSVConverter {
 
     companion object {
         /** Backup schema version. */
-        const val BACKUP_SCHEMA_VERSION = 1
+        const val BACKUP_SCHEMA_VERSION = 2
 
         /** CSV delimiter. */
         const val CSV_DELIMITER = ","
@@ -161,11 +161,15 @@ class GoalToCSVConverter {
 
             // Check if version == 1 to properly convert old deadline format
             // which was string either dd/MM/yyyy or yyyy/MM/dd, to Long (epoch millis)
+            //
+            // Note: This is a temporary compatibility layer to support old backups
+            // and will be removed in future versions.
             val deadline = if (version == 1) {
                 parseOldDeadlineToMillis(columns[3])
             } else {
                 columns[3].toLong()
             }
+            // End of compatibility layer
 
             val goal = Goal(
                 title = columns[1],

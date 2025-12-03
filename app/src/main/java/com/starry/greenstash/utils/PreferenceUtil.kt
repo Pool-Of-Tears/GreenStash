@@ -44,7 +44,7 @@ class PreferenceUtil(context: Context) {
         const val AMOLED_THEME_BOOL = "amoled_theme"
         const val MATERIAL_YOU_BOOL = "material_you"
         const val DEFAULT_CURRENCY_STR = "default_currency_code"
-        const val DATE_STYLE_INT = "date_format_style"
+        const val DATE_STYLE_INT = "date_style"
         const val APP_LOCK_BOOL = "app_lock"
         const val GOAL_CARD_STYLE_INT = "goal_card_style"
 
