@@ -52,7 +52,7 @@ class GoalToJSONConverter {
 
     companion object {
         /** Backup schema version. */
-        const val BACKUP_SCHEMA_VERSION = 1
+        const val BACKUP_SCHEMA_VERSION = 2
     }
 
     /**
@@ -71,10 +71,14 @@ class GoalToJSONConverter {
         val data: List<GoalWithTransactions>
     )
 
-    /**
-     * Legacy backup model (v1), where Goal.deadline was a String.
-     * We only use this when *reading* old backups.
-     */
+
+    //  Compatibility layer for supporting old backup format where Goal.deadline was String
+    // in "dd/MM/yyyy" or "yyyy/MM/dd" format.  We convert it to current model with deadline
+    // as Long (epoch millis).
+    //
+    // Note: This Compatibility layer can be removed in future versions when we no longer
+    // need to support old backups.
+    @Keep
     @Serializable
     data class BackupJsonModelV1(
         val version: Int = 1,
@@ -82,12 +86,14 @@ class GoalToJSONConverter {
         val data: List<GoalWithTransactionsV1>
     )
 
+    @Keep
     @Serializable
     data class GoalWithTransactionsV1(
         val goal: GoalV1,
         val transactions: List<Transaction>
     )
 
+    @Keep
     @Serializable
     data class GoalV1(
         val title: String,
@@ -133,6 +139,8 @@ class GoalToJSONConverter {
             data = convertedData
         )
     }
+    // End of compatibility layer. ==================================
+
 
     fun convertToJson(goalWithTransactions: List<GoalWithTransactions>): String =
         json.encodeToString(
@@ -141,7 +149,7 @@ class GoalToJSONConverter {
         )
 
     fun convertFromJson(jsonString: String): BackupJsonModel {
-
+        // Compatibility layer for old backup format.
         // Check if version == 1 in jsonString to properly convert old deadline format
         // which was string either dd/MM/yyyy or yyyy/MM/dd, to Long (epoch millis)
         val jsonElement = json.parseToJsonElement(jsonString)
@@ -150,7 +158,7 @@ class GoalToJSONConverter {
             val oldModel = json.decodeFromString(BackupJsonModelV1.serializer(), jsonString)
             return oldModel.toCurrentModel()
         }
-
+        // End of compatibility layer
         return json.decodeFromString(BackupJsonModel.serializer(), jsonString)
     }
 }
