@@ -29,24 +29,12 @@ package com.starry.greenstash
 import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.content.Context
 import android.os.Build
-import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.ui.ExperimentalComposeUiApi
 import cat.ereza.customactivityoncrash.config.CaocConfig
 import com.starry.greenstash.reminder.ReminderNotificationSender
 import dagger.hilt.android.HiltAndroidApp
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-@ExperimentalCoroutinesApi
-@ExperimentalMaterial3Api
-@ExperimentalAnimationApi
-@ExperimentalComposeUiApi
-@ExperimentalFoundationApi
-@ExperimentalMaterialApi
+
 @HiltAndroidApp
 class GreenStashApp : Application() {
     override fun onCreate() {
@@ -65,7 +53,7 @@ class GreenStashApp : Application() {
             channel.description = "Used to send reminders for your saving goals."
 
             val notificationManager =
-                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                getSystemService(NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
         }
     }
