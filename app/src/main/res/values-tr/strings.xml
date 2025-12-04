@@ -90,7 +90,7 @@
     <string name="goal_achieved_desc">Bu mutlu anı mümkün kılan tüm emeklerinizi kutlamanın zamanı geldi!</string>
     <!-- Goal Info Screen -->
     <string name="info_screen_header">Hedef Bilgileri</string>
-    <string name="info_card_title">Biriktirilen:</string>
+    <string name="info_card_title">Biriktirilen</string>
     <string name="info_card_remaining_amount">%s arasından</string>
     <string name="info_card_remaining_days">%s gün kaldı.</string>
     <string name="info_card_no_deadline_set">Son tarih belirlenmedi.</string>
