@@ -223,6 +223,6 @@
     <string name="dismiss_notification_button">Descartar</string>
     <string name="notification_deposited_title">¡Buen trabajo! 🎉</string>
     <string name="notification_deposited_desc">¡%s depositado con éxito!</string>
-    <string name="input_page_quote" translatable="false"/>
-    <string name="material_you_setting" translatable="false"/>
+    <string name="input_page_quote" translatable="false" />
+    <string name="material_you_setting" translatable="false" />
 </resources>

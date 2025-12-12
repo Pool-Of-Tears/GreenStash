@@ -100,6 +100,7 @@ import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.ui.theme.greenstashNumberFont
 import com.starry.greenstash.utils.GoalTextUtils
 import com.starry.greenstash.utils.NumberUtils
+import com.starry.greenstash.utils.Utils
 import com.starry.greenstash.utils.displayName
 import com.starry.greenstash.utils.weakHapticFeedback
 import kotlinx.coroutines.delay
@@ -186,7 +187,7 @@ fun GoalInfoScreen(goalId: String, navController: NavController) {
                             goalPriority = goalData.goal.priority,
                             reminders = goalData.goal.reminder
                         )
-                        if (goalData.goal.additionalNotes.isNotEmpty() && goalData.goal.additionalNotes.isNotBlank()) {
+                        if (goalData.goal.additionalNotes.isNotBlank()) {
                             GoalNotesCard(
                                 notesText = goalData.goal.additionalNotes
                             )
@@ -379,10 +380,12 @@ fun GoalPriorityCard(goalPriority: GoalPriority, reminders: Boolean) {
 @ExperimentalMaterial3Api
 @Composable
 fun GoalNotesCard(notesText: String) {
+    val extractedUrl = Utils.extractFirstUrl(notesText)
     ExpandableTextCard(
         title = stringResource(id = R.string.info_notes_card_title),
         description = notesText,
-        showCopyButton = true
+        showCopyButton = true,
+        urlToOpen = extractedUrl
     )
 }
 

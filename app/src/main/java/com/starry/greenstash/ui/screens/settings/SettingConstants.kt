@@ -14,10 +14,12 @@ enum class DateStyle {
     // Day in beginning
     DD_MM_YYYY,
     DD_MM_YY,
+
     // Month in beginning
     MM_DD_YYYY,
     MMM_DD_YYYY,
     MMM_DD_YY,
+
     // Year in beginning
     YYYY_MM_DD
 }
@@ -30,10 +32,10 @@ enum class DateStyle {
  */
 fun dateStyleToDisplayFormat(style: DateStyle): String = when (style) {
     DateStyle.DD_MM_YYYY -> "dd/MM/yyyy"
-    DateStyle.DD_MM_YY   -> "dd/MM/yy"
+    DateStyle.DD_MM_YY -> "dd/MM/yy"
     DateStyle.MM_DD_YYYY -> "MM/dd/yyyy"
     DateStyle.MMM_DD_YYYY -> "MMM/dd/yyyy"
-    DateStyle.MMM_DD_YY   -> "MMM/dd/yy"
+    DateStyle.MMM_DD_YY -> "MMM/dd/yy"
     DateStyle.YYYY_MM_DD -> "yyyy/MM/dd"
 }
 

@@ -48,6 +48,11 @@ import java.util.TimeZone
  */
 object Utils {
 
+    // Regular expression to match URLs in text.
+    private val urlRegex = Regex(
+        pattern = """(?i)\b((https?://|www\.)\S+|[a-z0-9.-]+\.[a-z]{2,}\b\S*)"""
+    )
+
     /**
      * Retrieves the appropriate authenticators based on the Android version.
      *
@@ -139,6 +144,16 @@ object Utils {
     }
 
     /**
+     * Extract the first URL from the given text.
+     *
+     * @param text The input text
+     * @return The first URL if found, null otherwise
+     */
+    fun extractFirstUrl(text: String): String? {
+        return urlRegex.find(text)?.value
+    }
+
+    /**
      * Check if the device is running on MIUI.
      *
      * By default, HyperOS is excluded from the check.
@@ -168,6 +183,4 @@ object Utils {
             null
         }
     }
-
-
 }
