@@ -37,8 +37,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 
-
-
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
     private val preferenceUtil: PreferenceUtil
@@ -62,7 +60,7 @@ class SettingsViewModel @Inject constructor(
         _amoledTheme.value = getAmoledThemeValue()
         _materialYou.value = getMaterialYouValue()
         _goalCardStyle.value = GoalCardStyle.entries.toTypedArray()[getGoalCardStyleValue()]
-        _dateStyle.value  = DateStyle.entries.toTypedArray()[getDateStyleValue()]
+        _dateStyle.value = DateStyle.entries.toTypedArray()[getDateStyleValue()]
     }
 
     // Setters for preferences --------------------------------------------

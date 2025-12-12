@@ -222,7 +222,7 @@
     <string name="dismiss_notification_button">Ignorar</string>
     <string name="notification_deposited_title">Ótimo Trabalho 🎉</string>
     <string name="notification_deposited_desc">Depositado com sucesso %s!</string>
-    <string name="app_name" translatable="false"/>
-    <string name="input_page_quote" translatable="false"/>
-    <string name="material_you_setting" translatable="false"/>
+    <string name="app_name" translatable="false" />
+    <string name="input_page_quote" translatable="false" />
+    <string name="material_you_setting" translatable="false" />
 </resources>

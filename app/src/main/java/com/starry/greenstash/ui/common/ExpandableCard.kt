@@ -41,6 +41,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.OpenInNew
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material3.ButtonDefaults
@@ -76,6 +77,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.starry.greenstash.R
 import com.starry.greenstash.ui.theme.greenstashFont
+import com.starry.greenstash.utils.Utils
 import com.starry.greenstash.utils.toToast
 import kotlinx.coroutines.launch
 
@@ -170,6 +172,7 @@ fun ExpandableTextCard(
     shape: Shape = RoundedCornerShape(8.dp),
     padding: Dp = 12.dp,
     showCopyButton: Boolean = false,
+    urlToOpen: String? = null
 ) {
     val context = LocalContext.current
     val clipboard = LocalClipboard.current
@@ -191,31 +194,59 @@ fun ExpandableTextCard(
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier.padding(start = 12.dp, end = 12.dp)
         )
-        if (showCopyButton) {
-            FilledTonalButton(
-                onClick = {
-                    coroutineScope.launch {
-                        val clipData = ClipData.newPlainText("", description)
-                        clipboard.setClipEntry(ClipEntry(clipData))
+
+        Row {
+            if (showCopyButton) {
+                FilledTonalButton(
+                    onClick = {
+                        coroutineScope.launch {
+                            val clipData = ClipData.newPlainText("", description)
+                            clipboard.setClipEntry(ClipEntry(clipData))
+                        }
+                        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) {
+                            context.getString(R.string.info_copy_notes_alert).toToast(context)
+                        }
+                    },
+                    modifier = Modifier.padding(start = 8.dp, top = 8.dp)
+                ) {
+                    Row {
+                        Icon(
+                            Icons.Filled.ContentCopy,
+                            contentDescription = stringResource(R.string.info_copy_notes_icon_desc),
+                            modifier = Modifier.size(ButtonDefaults.IconSize)
+                        )
+                        Spacer(Modifier.width(ButtonDefaults.IconSpacing))
+                        Text(
+                            text = stringResource(id = R.string.info_copy_notes_button),
+                            fontFamily = greenstashFont,
+                            fontSize = 14.sp
+                        )
                     }
-                    if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) {
-                        context.getString(R.string.info_copy_notes_alert).toToast(context)
+                }
+            }
+
+            Spacer(Modifier.width(8.dp))
+
+            if (urlToOpen != null) {
+                FilledTonalButton(
+                    onClick = {
+                        Utils.openWebLink(context, urlToOpen)
+                    },
+                    modifier = Modifier.padding(start = 8.dp, top = 8.dp)
+                ) {
+                    Row {
+                        Icon(
+                            Icons.AutoMirrored.Filled.OpenInNew,
+                            contentDescription = stringResource(R.string.switch_action_open),
+                            modifier = Modifier.size(ButtonDefaults.IconSize)
+                        )
+                        Spacer(Modifier.width(ButtonDefaults.IconSpacing))
+                        Text(
+                            text = stringResource(id = R.string.switch_action_open),
+                            fontFamily = greenstashFont,
+                            fontSize = 14.sp
+                        )
                     }
-                },
-                modifier = Modifier.padding(start = 8.dp, top = 8.dp)
-            ) {
-                Row {
-                    Icon(
-                        Icons.Filled.ContentCopy,
-                        contentDescription = stringResource(R.string.info_copy_notes_icon_desc),
-                        modifier = Modifier.size(ButtonDefaults.IconSize)
-                    )
-                    Spacer(Modifier.width(ButtonDefaults.IconSpacing))
-                    Text(
-                        text = stringResource(id = R.string.info_copy_notes_button),
-                        fontFamily = greenstashFont,
-                        fontSize = 14.sp
-                    )
                 }
             }
         }
