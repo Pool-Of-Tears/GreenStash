@@ -1,0 +1,4 @@
+- Refactor deadline handling logic and add new date formats.
+- Added ability to open links saved inside goal notes.
+- Bunch of under-the-hood improvements and small fixes.
+- Updated translations & dependencies.
