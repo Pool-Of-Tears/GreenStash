@@ -90,7 +90,7 @@
     <string name="goal_approx_saving_week">semana</string>
     <string name="goal_approx_saving_month">mes</string>
     <string name="no_goal_deadline_set">Como no has configurado una fecha límite, ¡Tienes todo el tiempo del mundo!</string>
-    <string name="goal_achieved_desc">Es momento de celebrar el trabajo duro que conllevó a este maravilloso momento</string>
+    <string name="goal_achieved_desc">¡Es hora de celebrar todo el arduo trabajo que condujo a esta alegre ocasión!</string>
     <!-- Goal Info Screen -->
     <string name="info_screen_header">Información de la meta</string>
     <string name="info_card_title">Has ahorrado</string>
@@ -223,6 +223,6 @@
     <string name="dismiss_notification_button">Descartar</string>
     <string name="notification_deposited_title">¡Buen trabajo! 🎉</string>
     <string name="notification_deposited_desc">¡%s depositado con éxito!</string>
-    <string name="input_page_quote" translatable="false" />
-    <string name="material_you_setting" translatable="false" />
+    <string name="input_page_quote" translatable="false"/>
+    <string name="material_you_setting" translatable="false"/>
 </resources>
