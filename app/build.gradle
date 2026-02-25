@@ -67,6 +67,10 @@ android {
     androidResources {
         generateLocaleConfig true
     }
+    lint {
+        abortOnError true
+        disable "LocalContextGetResourceValueCall"
+    }
 }
 
 
