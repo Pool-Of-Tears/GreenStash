@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
@@ -5,7 +7,7 @@ plugins {
     id 'dagger.hilt.android.plugin'
     id 'com.google.devtools.ksp'
     id 'org.jetbrains.kotlin.plugin.serialization'
-    id "com.mikepenz.aboutlibraries.plugin.android" version "13.1.0"
+    id "com.mikepenz.aboutlibraries.plugin.android" version "13.2.1"
 }
 
 
@@ -49,10 +51,6 @@ android {
         targetCompatibility JavaVersion.VERSION_17
         coreLibraryDesugaringEnabled true
     }
-    kotlinOptions {
-        jvmTarget = '17'
-        freeCompilerArgs = []
-    }
     buildFeatures {
         compose true
         buildConfig = true
@@ -69,12 +67,20 @@ android {
     androidResources {
         generateLocaleConfig true
     }
+    lint {
+        abortOnError true
+        disable "LocalContextGetResourceValueCall"
+    }
 }
 
 
+kotlin {
+    compilerOptions { jvmTarget.set(JvmTarget.JVM_17) }
+}
+
 dependencies {
 
-    def composeBom = platform('androidx.compose:compose-bom:2025.11.01')
+    def composeBom = platform('androidx.compose:compose-bom:2026.02.00')
     implementation composeBom
     androidTestImplementation composeBom
 
@@ -82,10 +88,10 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.17.0'
     implementation 'androidx.appcompat:appcompat:1.7.1'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.10.0'
-    implementation 'androidx.activity:activity-compose:1.12.0'
+    implementation 'androidx.activity:activity-compose:1.12.4'
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.10.0"
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.10.0"
-    implementation "androidx.navigation:navigation-compose:2.9.6"
+    implementation "androidx.navigation:navigation-compose:2.9.7"
     // Jetpack compose.
     implementation "androidx.compose.ui:ui"
     implementation "androidx.compose.ui:ui-tooling-preview"
@@ -112,7 +118,7 @@ dependencies {
     // DataStore Preferences.
     implementation("androidx.datastore:datastore-preferences:1.2.0")
     // Kotlin Serialization.
-    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.10.0"
     // Coil Image loading library.
     implementation "io.coil-kt:coil-compose:2.7.0"
     // Material 3 calender / Date picker.
@@ -126,8 +132,8 @@ dependencies {
     // Bio-metric authentication.
     implementation "androidx.biometric:biometric:1.1.0"
     // Open Source Libraries Screen.
-    implementation "com.mikepenz:aboutlibraries-core:13.1.0"
-    implementation "com.mikepenz:aboutlibraries-compose-m3:13.1.0"
+    implementation "com.mikepenz:aboutlibraries-core:13.2.1"
+    implementation "com.mikepenz:aboutlibraries-compose-m3:13.2.1"
     // Crash Handler.
     implementation 'cat.ereza:customactivityoncrash:2.4.0'
     // Oreo back-ports for API 24 (N)
