@@ -87,7 +87,7 @@
     <string name="goal_approx_saving_week">неделю.</string>
     <string name="goal_approx_saving_month">месяц.</string>
     <string name="no_goal_deadline_set">Поскольку вы не указали никаких сроков, у вас есть все время в мире!</string>
-    <string name="goal_achieved_desc">Пришло время отметить все труды, которые привели к этому радостному событию.</string>
+    <string name="goal_achieved_desc">Пришло время отметить все труды, которые привели к этому радостному событию!</string>
     <!-- Goal Info Screen -->
     <string name="info_screen_header">Информация о цели</string>
     <string name="info_card_title">Вы сэкономили</string>
@@ -223,6 +223,6 @@
     <string name="dismiss_notification_button">Закрыть</string>
     <string name="notification_deposited_title">Отличная работа 🎉</string>
     <string name="notification_deposited_desc">Успешно пополнено %s !</string>
-    <string name="input_page_quote" translatable="false" />
-    <string name="material_you_setting" translatable="false" />
+    <string name="input_page_quote" translatable="false"/>
+    <string name="material_you_setting" translatable="false"/>
 </resources>
