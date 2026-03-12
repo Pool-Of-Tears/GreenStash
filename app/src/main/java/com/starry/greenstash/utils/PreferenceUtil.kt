@@ -57,6 +57,12 @@ class PreferenceUtil(context: Context) {
         const val INPUT_SCREEN_ONBOARDING_BOOL = "show_input_onboarding"
         const val INPUT_REMOVE_DEADLINE_TIP_BOOL = "input_remove_deadline_tip"
         const val INFO_TRANSACTION_SWIPE_TIP_BOOL = "info_transaction_swipe_tip"
+
+        // Automatic backup preferences
+        const val AUTO_BACKUP_BOOL = "auto_backup"
+        const val AUTO_BACKUP_DIRECTORY_URI_STR = "auto_backup_directory_uri"
+        const val AUTO_BACKUP_INTERVAL_DAYS_INT = "auto_backup_interval_days"
+        const val AUTO_BACKUP_LAST_TIME_MS_LONG = "auto_backup_last_time_ms"
     }
 
     // Shared preferences instance
@@ -109,6 +115,15 @@ class PreferenceUtil(context: Context) {
     }
 
     /**
+     * Put a long value in the shared preferences.
+     * @param key The key to store the value under.
+     * @param value The value to store.
+     */
+    fun putLong(key: String, value: Long) {
+        prefs.edit { putLong(key, value) }
+    }
+
+    /**
      * Get a string value from the shared preferences.
      * @param key The key to get the value from.
      * @param defValue The default value to return if the key does not exist.
@@ -136,5 +151,15 @@ class PreferenceUtil(context: Context) {
      */
     fun getBoolean(key: String, defValue: Boolean): Boolean {
         return prefs.getBoolean(key, defValue)
+    }
+
+    /**
+     * Get a long value from the shared preferences.
+     * @param key The key to get the value from.
+     * @param defValue The default value to return if the key does not exist.
+     * @return The value stored under the key, or the default value if the key does not exist.
+     */
+    fun getLong(key: String, defValue: Long): Long {
+        return prefs.getLong(key, defValue)
     }
 }

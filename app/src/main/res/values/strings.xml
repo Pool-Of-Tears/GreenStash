@@ -248,4 +248,16 @@
     <string name="notification_deposited_title">Great Work 🎉</string>
     <string name="notification_deposited_desc">Successfully deposited %s!</string>
 
+    <!-- Automatic Backups -->
+    <string name="auto_backup_settings_title">Automatic Backups</string>
+    <string name="auto_backup_setting">Enable Auto Backups</string>
+    <string name="auto_backup_setting_desc">Automatically backup your data to a selected folder</string>
+    <string name="auto_backup_directory_setting">Backup Directory</string>
+    <string name="auto_backup_directory_setting_desc">Select a folder where backups will be saved</string>
+    <string name="auto_backup_interval_setting">Backup Interval</string>
+    <string name="auto_backup_interval_days">Every %d days</string>
+    <string name="auto_backup_last_time_title">Last Backup</string>
+    <string name="auto_backup_last_time_format">Last backup: %s</string>
+    <string name="auto_backup_never">Never</string>
+
 </resources>

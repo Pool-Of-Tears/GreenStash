@@ -51,18 +51,19 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.stateDescription
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.starry.greenstash.R
 import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.utils.weakHapticFeedback
 
 @Composable
-fun SettingsItem(title: String, description: String, icon: ImageVector, onClick: () -> Unit) {
+fun SettingsItem(title: String, description: String?, icon: ImageVector, onClick: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .clickable { onClick() }
-            .padding(horizontal = 8.dp, vertical = 14.dp),
+            .padding(horizontal = 8.dp, vertical = 16.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
@@ -81,16 +82,19 @@ fun SettingsItem(title: String, description: String, icon: ImageVector, onClick:
             Text(
                 text = title,
                 maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onSurface,
                 fontFamily = greenstashFont
             )
-            Text(
-                text = description,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                style = MaterialTheme.typography.bodySmall,
-                fontFamily = greenstashFont
-            )
+            if (!description.isNullOrBlank()) {
+                Text(
+                    text = description,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = MaterialTheme.typography.bodySmall,
+                    fontFamily = greenstashFont
+                )
+            }
         }
     }
 
@@ -99,7 +103,7 @@ fun SettingsItem(title: String, description: String, icon: ImageVector, onClick:
 @Composable
 fun SettingsItem(
     title: String,
-    description: String,
+    description: String?,
     icon: ImageVector,
     switchState: State<Boolean>,
     onCheckChange: (Boolean) -> Unit,
@@ -126,7 +130,7 @@ fun SettingsItem(
                 }
             }
             .fillMaxWidth()
-            .padding(8.dp, 20.dp),
+            .padding(horizontal = 8.dp, vertical = 16.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
@@ -145,16 +149,19 @@ fun SettingsItem(
             Text(
                 text = title,
                 maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onSurface,
                 fontFamily = greenstashFont
             )
-            Text(
-                text = description,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                style = MaterialTheme.typography.bodySmall,
-                fontFamily = greenstashFont
-            )
+            if (!description.isNullOrBlank()) {
+                Text(
+                    text = description,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = MaterialTheme.typography.bodySmall,
+                    fontFamily = greenstashFont
+                )
+            }
         }
         Switch(
             checked = switchState.value,

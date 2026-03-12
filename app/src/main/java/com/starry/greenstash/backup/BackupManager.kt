@@ -27,8 +27,10 @@ package com.starry.greenstash.backup
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import androidx.core.content.FileProvider
+import androidx.documentfile.provider.DocumentFile
 import com.starry.greenstash.BuildConfig
 import com.starry.greenstash.backup.BackupType.CSV
 import com.starry.greenstash.backup.BackupType.JSON
@@ -38,6 +40,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.Locale
 import java.util.UUID
 
@@ -103,6 +106,46 @@ class BackupManager(private val context: Context, private val goalDao: GoalDao) 
             putExtra(Intent.EXTRA_SUBJECT, "Greenstash Backup")
             putExtra(Intent.EXTRA_TEXT, "Created at ${LocalDateTime.now()}")
         }.let { intent -> Intent.createChooser(intent, fileName) }
+    }
+
+    /**
+     * Performs an automatic backup and saves it to the specified directory URI.
+     *
+     * @param directoryUri URI of the directory where the backup should be saved.
+     * @return true if backup was successful, false otherwise.
+     */
+    suspend fun performAutomaticBackup(directoryUri: Uri): Boolean = withContext(Dispatchers.IO) {
+        try {
+            log("Starting automatic backup...")
+            val goalsWithTransactions = goalDao.getAllGoals()
+            val backupString = goalToJsonConverter.convertToJson(goalsWithTransactions)
+
+            val timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"))
+            val fileName = "GreenStash_AutoBackup_$timestamp.json"
+
+            val pickedDir = DocumentFile.fromTreeUri(context, directoryUri)
+            if (pickedDir == null || !pickedDir.canWrite()) {
+                log("Cannot write to the picked directory!")
+                return@withContext false
+            }
+
+            val newFile = pickedDir.createFile("application/json", fileName)
+            if (newFile == null) {
+                log("Failed to create backup file in the specified directory!")
+                return@withContext false
+            }
+
+            context.contentResolver.openOutputStream(newFile.uri)?.use { outputStream ->
+                outputStream.write(backupString.toByteArray())
+            }
+
+            log("Automatic backup successful: $fileName")
+            true
+        } catch (e: Exception) {
+            log("Automatic backup failed! Err: ${e.message}")
+            e.printStackTrace()
+            false
+        }
     }
 
     /**
