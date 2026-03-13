@@ -63,6 +63,7 @@ class PreferenceUtil(context: Context) {
         const val AUTO_BACKUP_DIRECTORY_URI_STR = "auto_backup_directory_uri"
         const val AUTO_BACKUP_INTERVAL_DAYS_INT = "auto_backup_interval_days"
         const val AUTO_BACKUP_LAST_TIME_MS_LONG = "auto_backup_last_time_ms"
+        const val AUTO_BACKUP_MAX_KEEP_INT = "auto_backup_max_keep"
     }
 
     // Shared preferences instance

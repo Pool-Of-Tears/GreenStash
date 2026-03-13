@@ -50,6 +50,7 @@ import androidx.compose.material.icons.filled.Backup
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Folder
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Numbers
 import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -364,12 +365,19 @@ private fun AutoBackupSettings(viewModel: BackupViewModel) {
     val autoBackup = viewModel.autoBackup.observeAsState(initial = false)
     val autoBackupDir = viewModel.autoBackupDirectory.observeAsState(initial = "")
     val autoBackupInterval = viewModel.autoBackupInterval.observeAsState(initial = 1)
+    val autoBackupMaxKeep = viewModel.autoBackupMaxKeep.observeAsState(initial = 5)
     val lastBackupTime = viewModel.lastBackupTime.observeAsState(initial = 0L)
 
     val intervalDialog = remember { mutableStateOf(false) }
     val intervalOptions = listOf(1, 3, 7, 14, 30)
     val (selectedInterval, onIntervalSelected) = remember {
         mutableStateOf(autoBackupInterval.value)
+    }
+
+    val maxKeepDialog = remember { mutableStateOf(false) }
+    val maxKeepOptions = listOf(3, 5, 7, 14)
+    val (selectedMaxKeep, onMaxKeepSelected) = remember {
+        mutableStateOf(autoBackupMaxKeep.value)
     }
 
     val directoryLauncher = rememberLauncherForActivityResult(
@@ -434,6 +442,15 @@ private fun AutoBackupSettings(viewModel: BackupViewModel) {
                 ),
                 icon = Icons.Filled.Schedule,
                 onClick = { intervalDialog.value = true }
+            )
+
+            SettingsItem(
+                title = stringResource(id = R.string.auto_backup_max_keep_setting),
+                description = stringResource(id = R.string.auto_backup_max_keep_count).format(
+                    autoBackupMaxKeep.value
+                ),
+                icon = Icons.Filled.Numbers,
+                onClick = { maxKeepDialog.value = true }
             )
 
             val lastBackupStr = if (lastBackupTime.value == 0L) {
@@ -510,6 +527,75 @@ private fun AutoBackupSettings(viewModel: BackupViewModel) {
                 }, dismissButton = {
                     TextButton(onClick = {
                         intervalDialog.value = false
+                    }) {
+                        Text(
+                            stringResource(id = R.string.cancel), fontFamily = greenstashFont
+                        )
+                    }
+                })
+            }
+
+            if (maxKeepDialog.value) {
+                AlertDialog(onDismissRequest = {
+                    maxKeepDialog.value = false
+                }, title = {
+                    Text(
+                        text = stringResource(id = R.string.auto_backup_max_keep_setting),
+                        color = MaterialTheme.colorScheme.onSurface,
+                        fontFamily = greenstashFont
+                    )
+                }, text = {
+                    Column(
+                        modifier = Modifier.selectableGroup(),
+                        verticalArrangement = Arrangement.Center,
+                    ) {
+                        maxKeepOptions.forEach { count ->
+                            val text = stringResource(id = R.string.auto_backup_max_keep_count).format(count)
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(46.dp)
+                                    .selectable(
+                                        selected = (count == selectedMaxKeep),
+                                        onClick = { onMaxKeepSelected(count) },
+                                        role = Role.RadioButton,
+                                    ),
+                                verticalAlignment = Alignment.CenterVertically,
+                            ) {
+                                RadioButton(
+                                    selected = (count == selectedMaxKeep),
+                                    onClick = null,
+                                    colors = RadioButtonDefaults.colors(
+                                        selectedColor = MaterialTheme.colorScheme.primary,
+                                        unselectedColor = MaterialTheme.colorScheme.inversePrimary,
+                                    ),
+                                )
+                                Text(
+                                    text = text,
+                                    modifier = Modifier.padding(start = 16.dp),
+                                    color = MaterialTheme.colorScheme.onSurface,
+                                    fontFamily = greenstashFont
+                                )
+                            }
+                        }
+                    }
+                }, confirmButton = {
+                    FilledTonalButton(
+                        onClick = {
+                            maxKeepDialog.value = false
+                            viewModel.setAutoBackupMaxKeep(selectedMaxKeep)
+                        }, colors = ButtonDefaults.filledTonalButtonColors(
+                            containerColor = MaterialTheme.colorScheme.primary,
+                            contentColor = MaterialTheme.colorScheme.onPrimary
+                        )
+                    ) {
+                        Text(
+                            stringResource(id = R.string.confirm), fontFamily = greenstashFont
+                        )
+                    }
+                }, dismissButton = {
+                    TextButton(onClick = {
+                        maxKeepDialog.value = false
                     }) {
                         Text(
                             stringResource(id = R.string.cancel), fontFamily = greenstashFont

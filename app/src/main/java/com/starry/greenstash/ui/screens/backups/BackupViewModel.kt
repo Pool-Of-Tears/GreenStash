@@ -59,11 +59,13 @@ class BackupViewModel @Inject constructor(
     private val _autoBackup = MutableLiveData(false)
     private val _autoBackupDirectory = MutableLiveData("")
     private val _autoBackupInterval = MutableLiveData(1)
+    private val _autoBackupMaxKeep = MutableLiveData(5)
     private val _lastBackupTime = MutableLiveData(0L)
 
     val autoBackup: LiveData<Boolean> = _autoBackup
     val autoBackupDirectory: LiveData<String> = _autoBackupDirectory
     val autoBackupInterval: LiveData<Int> = _autoBackupInterval
+    val autoBackupMaxKeep: LiveData<Int> = _autoBackupMaxKeep
     val lastBackupTime: LiveData<Long> = _lastBackupTime
 
     companion object {
@@ -74,6 +76,7 @@ class BackupViewModel @Inject constructor(
         _autoBackup.value = preferenceUtil.getBoolean(PreferenceUtil.AUTO_BACKUP_BOOL, false)
         _autoBackupDirectory.value = preferenceUtil.getString(PreferenceUtil.AUTO_BACKUP_DIRECTORY_URI_STR, "")
         _autoBackupInterval.value = preferenceUtil.getInt(PreferenceUtil.AUTO_BACKUP_INTERVAL_DAYS_INT, 1)
+        _autoBackupMaxKeep.value = preferenceUtil.getInt(PreferenceUtil.AUTO_BACKUP_MAX_KEEP_INT, 5)
         _lastBackupTime.value = preferenceUtil.getLong(PreferenceUtil.AUTO_BACKUP_LAST_TIME_MS_LONG, 0L)
     }
 
@@ -117,7 +120,7 @@ class BackupViewModel @Inject constructor(
     }
 
     fun setAutoBackupDirectory(uri: String) {
-        _autoBackupDirectory.value = uri
+        _autoBackupDirectory.postValue(uri)
         preferenceUtil.putString(PreferenceUtil.AUTO_BACKUP_DIRECTORY_URI_STR, uri)
         if (autoBackup.value == true) {
             scheduleAutoBackup()
@@ -130,6 +133,11 @@ class BackupViewModel @Inject constructor(
         if (autoBackup.value == true) {
             scheduleAutoBackup()
         }
+    }
+
+    fun setAutoBackupMaxKeep(maxKeep: Int) {
+        _autoBackupMaxKeep.postValue(maxKeep)
+        preferenceUtil.putInt(PreferenceUtil.AUTO_BACKUP_MAX_KEEP_INT, maxKeep)
     }
 
     private fun scheduleAutoBackup() {

@@ -46,13 +46,14 @@ class AutoBackupWorker @AssistedInject constructor(
     override suspend fun doWork(): ListenableWorker.Result {
         val isAutoBackupEnabled = preferenceUtil.getBoolean(PreferenceUtil.AUTO_BACKUP_BOOL, false)
         val directoryUriStr = preferenceUtil.getString(PreferenceUtil.AUTO_BACKUP_DIRECTORY_URI_STR, "")
+        val maxKeep = preferenceUtil.getInt(PreferenceUtil.AUTO_BACKUP_MAX_KEEP_INT, 5)
 
         if (!isAutoBackupEnabled || directoryUriStr.isNullOrEmpty()) {
             return ListenableWorker.Result.success()
         }
 
         val directoryUri = directoryUriStr.toUri()
-        val success = backupManager.performAutomaticBackup(directoryUri)
+        val success = backupManager.performAutomaticBackup(directoryUri, maxKeep)
 
         return if (success) {
             preferenceUtil.putLong(PreferenceUtil.AUTO_BACKUP_LAST_TIME_MS_LONG, System.currentTimeMillis())

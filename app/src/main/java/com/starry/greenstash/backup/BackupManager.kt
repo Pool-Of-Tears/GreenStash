@@ -112,9 +112,10 @@ class BackupManager(private val context: Context, private val goalDao: GoalDao) 
      * Performs an automatic backup and saves it to the specified directory URI.
      *
      * @param directoryUri URI of the directory where the backup should be saved.
+     * @param maxKeep Max number of backups to keep in the directory.
      * @return true if backup was successful, false otherwise.
      */
-    suspend fun performAutomaticBackup(directoryUri: Uri): Boolean = withContext(Dispatchers.IO) {
+    suspend fun performAutomaticBackup(directoryUri: Uri, maxKeep: Int): Boolean = withContext(Dispatchers.IO) {
         try {
             log("Starting automatic backup...")
             val goalsWithTransactions = goalDao.getAllGoals()
@@ -127,6 +128,16 @@ class BackupManager(private val context: Context, private val goalDao: GoalDao) 
             if (pickedDir == null || !pickedDir.canWrite()) {
                 log("Cannot write to the picked directory!")
                 return@withContext false
+            }
+
+            // Delete old backups if they exceed the maxKeep count.
+            val backupFiles = pickedDir.listFiles()
+                .filter { it.name != null && it.name!!.startsWith("GreenStash_AutoBackup_") && it.name!!.endsWith(".json") }
+                .sortedByDescending { it.lastModified() }
+
+            if (backupFiles.size >= maxKeep) {
+                log("Max backup limit reached (${maxKeep}), deleting old backups...")
+                backupFiles.drop(maxKeep - 1).forEach { it.delete() }
             }
 
             val newFile = pickedDir.createFile("application/json", fileName)
