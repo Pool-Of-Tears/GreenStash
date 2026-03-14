@@ -167,6 +167,19 @@
     <string name="backup_ftp_create_button">Create Backup</string>
     <string name="backup_ftp_restore_button">Restore Backup</string>
     <string name="backup_restore_success">Backup restored successfully!</string>
+    <!-- Automatic Backups -->
+    <string name="auto_backup_settings_title">Automatic Backups</string>
+    <string name="auto_backup_setting">Enable Auto Backups</string>
+    <string name="auto_backup_setting_desc">Automatically backup your data to a selected folder</string>
+    <string name="auto_backup_directory_setting">Backup Directory</string>
+    <string name="auto_backup_directory_setting_desc">Select a folder where backups will be saved</string>
+    <string name="auto_backup_interval_setting">Backup Interval</string>
+    <string name="auto_backup_interval_days">Every %d days</string>
+    <string name="auto_backup_max_keep_setting">Max Backups to Keep</string>
+    <string name="auto_backup_max_keep_count">%d Backups</string>
+    <string name="auto_backup_last_time_title">Last Backup</string>
+    <string name="auto_backup_last_time_format">Last backup: %s</string>
+    <string name="auto_backup_never">Never</string>
 
     <!-- Settings Screen -->
     <string name="settings_screen_header">Settings</string>
