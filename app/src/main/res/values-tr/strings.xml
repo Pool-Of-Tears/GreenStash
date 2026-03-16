@@ -225,4 +225,16 @@
     <string name="dismiss_notification_button">Görmezden gel</string>
     <string name="notification_deposited_title">Harika iş 🎉</string>
     <string name="notification_deposited_desc">%s başarıyla yatırıldı!</string>
+    <string name="auto_backup_settings_title">Otomatik Yedekler</string>
+    <string name="auto_backup_setting">Otomatik Yedekleri Aç</string>
+    <string name="auto_backup_setting_desc">Verilerini otomatik olarak seçilen klasöre yedekler</string>
+    <string name="auto_backup_directory_setting">Yedekleme Klasörü</string>
+    <string name="auto_backup_directory_setting_desc">Yedeklerin kaydedileceği bir klasör seç</string>
+    <string name="auto_backup_interval_setting">Yedek Aralığı</string>
+    <string name="auto_backup_interval_days">Her %d günde bir</string>
+    <string name="auto_backup_max_keep_setting">Tutulacak Maksimum Yedek</string>
+    <string name="auto_backup_max_keep_count">%d Yedek</string>
+    <string name="auto_backup_last_time_title">Son Yedek</string>
+    <string name="auto_backup_last_time_format">Son yedek: %s</string>
+    <string name="auto_backup_never">Asla</string>
 </resources>
