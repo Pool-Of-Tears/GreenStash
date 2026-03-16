@@ -1,0 +1,4 @@
+- Added a new automatic backup feature with the ability to set a custom backup directory, backup interval, and the maximum number of backups to retain.
+- Added 'East Caribbean Dollar' in supported currencies.
+- Updated Russian and Spanish translations.
+- Updated dependencies and other minor improvements.
