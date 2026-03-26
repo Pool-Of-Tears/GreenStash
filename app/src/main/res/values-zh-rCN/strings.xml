@@ -225,4 +225,16 @@
     <string name="dismiss_notification_button">清除</string>
     <string name="notification_deposited_title">干得漂亮 🎉</string>
     <string name="notification_deposited_desc">已成功存钱%s！</string>
+    <string name="auto_backup_settings_title">自动备份</string>
+    <string name="auto_backup_setting">启用自动备份</string>
+    <string name="auto_backup_setting_desc">自动备份数据到所选文件夹</string>
+    <string name="auto_backup_directory_setting">备份目录</string>
+    <string name="auto_backup_directory_setting_desc">选择保存备份的文件夹</string>
+    <string name="auto_backup_interval_setting">备份间隔</string>
+    <string name="auto_backup_interval_days">每 %d 天</string>
+    <string name="auto_backup_max_keep_setting">最多保留几个备份</string>
+    <string name="auto_backup_max_keep_count">%d 个备份</string>
+    <string name="auto_backup_last_time_title">上次备份</string>
+    <string name="auto_backup_last_time_format">上次备份：%s</string>
+    <string name="auto_backup_never">永不</string>
 </resources>
