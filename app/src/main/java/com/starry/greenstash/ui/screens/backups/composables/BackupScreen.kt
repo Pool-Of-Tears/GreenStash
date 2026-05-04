@@ -89,6 +89,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
@@ -362,6 +363,7 @@ private fun BackupScreenContent(
 @Composable
 private fun AutoBackupSettings(viewModel: BackupViewModel) {
     val context = LocalContext.current
+    val locale = LocalConfiguration.current.locales[0]
     val autoBackup = viewModel.autoBackup.observeAsState(initial = false)
     val autoBackupDir = viewModel.autoBackupDirectory.observeAsState(initial = "")
     val autoBackupInterval = viewModel.autoBackupInterval.observeAsState(initial = 1)
@@ -456,7 +458,7 @@ private fun AutoBackupSettings(viewModel: BackupViewModel) {
             val lastBackupStr = if (lastBackupTime.value == 0L) {
                 stringResource(id = R.string.auto_backup_never)
             } else {
-                SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()).format(Date(lastBackupTime.value))
+                SimpleDateFormat("dd/MM/yyyy HH:mm", locale).format(Date(lastBackupTime.value))
             }
 
             SettingsItem(

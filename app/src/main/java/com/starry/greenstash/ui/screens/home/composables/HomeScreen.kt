@@ -78,6 +78,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalView
@@ -287,10 +288,11 @@ private fun GoalSearchResults(
     snackBarHostState: SnackbarHostState,
     coroutineScope: CoroutineScope
 ) {
+    val locale = LocalConfiguration.current.locales[0]
     val allGoals = allGoalState.value
     val filteredList = allGoals.filter { goalItem ->
-        goalItem.goal.title.lowercase(Locale.getDefault())
-            .contains(searchTextState.lowercase(Locale.getDefault()))
+        goalItem.goal.title.lowercase(locale)
+            .contains(searchTextState.lowercase(locale))
     }
 
     if (allGoals.isNotEmpty() && filteredList.isEmpty()) {
