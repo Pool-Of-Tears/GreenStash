@@ -35,7 +35,7 @@ import androidx.compose.animation.slideOutVertically
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import kotlinx.coroutines.delay
 
@@ -44,7 +44,7 @@ fun SlideInAnimatedContainer(
     initialDelay: Long, content:
     @Composable () -> Unit
 ) {
-    val showContent = remember { mutableStateOf(false) }
+    val showContent = rememberSaveable { mutableStateOf(false) }
     LaunchedEffect(key1 = true) {
         delay(initialDelay)
         showContent.value = true
