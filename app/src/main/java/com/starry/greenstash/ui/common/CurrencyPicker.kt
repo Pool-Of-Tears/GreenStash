@@ -51,8 +51,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -108,10 +108,10 @@ fun CurrencyPicker(
     val currencyValues = currencyPickerData.currencyValues
 
     val defaultCurrencyEntry = currencyNames[currencyValues.indexOf(defaultCurrencyValue)]
-    val (selectedCurrencyOption, onCurrencyOptionSelected) = remember {
+    val (selectedCurrencyOption, onCurrencyOptionSelected) = rememberSaveable {
         mutableStateOf(defaultCurrencyEntry)
     }
-    val (searchText, onSearchTextChanged) = remember { mutableStateOf("") }
+    val (searchText, onSearchTextChanged) = rememberSaveable { mutableStateOf("") }
     val filteredCurrencies = currencyNames.filter { it.contains(searchText, ignoreCase = true) }
 
     val coroutineScope = rememberCoroutineScope()

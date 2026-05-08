@@ -48,7 +48,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -81,14 +81,14 @@ fun WelcomeScreen(navController: NavController) {
     val context = LocalContext.current
     val viewModel: WelcomeViewModel = hiltViewModel()
 
-    val currencyDialog = remember { mutableStateOf(false) }
+    val currencyDialog = rememberSaveable { mutableStateOf(false) }
     val currencyNames =
         context.applicationContext.resources.getStringArray(R.array.currency_names)
     val currencyValues =
         context.applicationContext.resources.getStringArray(R.array.currency_values)
 
 
-    val selectedCurrencyName = remember {
+    val selectedCurrencyName = rememberSaveable {
         mutableStateOf(currencyNames[currencyValues.indexOf(viewModel.getDefaultCurrencyValue())])
     }
 

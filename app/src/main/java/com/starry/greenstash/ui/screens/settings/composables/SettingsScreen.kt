@@ -73,6 +73,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -337,20 +338,20 @@ private fun LocaleSettings(viewModel: SettingsViewModel) {
     val context = LocalContext.current
     // Date related values.
     val dateValue = dateStyleToDisplayFormat(viewModel.dateStyle.observeAsState().value!!)
-    val dateDialog = remember { mutableStateOf(false) }
+    val dateDialog = rememberSaveable { mutableStateOf(false) }
     val dateRadioOptions = DateStyle.entries.map { dateStyleToDisplayFormat(it) }
-    val (selectedDateOption, onDateOptionSelected) = remember {
+    val (selectedDateOption, onDateOptionSelected) = rememberSaveable {
         mutableStateOf(dateValue)
     }
 
     // Currency related values.
-    val currencyDialog = remember { mutableStateOf(false) }
+    val currencyDialog = rememberSaveable { mutableStateOf(false) }
     val currencyNames =
         context.applicationContext.resources.getStringArray(R.array.currency_names)
     val currencyValues =
         context.applicationContext.resources.getStringArray(R.array.currency_values)
 
-    val selectedCurrencyName = remember {
+    val selectedCurrencyName = rememberSaveable {
         mutableStateOf(currencyNames[currencyValues.indexOf(viewModel.getDefaultCurrencyValue())])
     }
 
