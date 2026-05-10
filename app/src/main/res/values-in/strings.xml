@@ -40,7 +40,7 @@
     <string name="sort_ascending">Meningkat</string>
     <string name="sort_descending">Menurun</string>
     <string name="deposit_screen_title">Mantap! Masukkan nominal</string>
-    <string name="withdraw_screen_title">Keren! Masukkan nominal</string>
+    <string name="withdraw_screen_title">Yahh... Masukkan nominal</string>
     <string name="deposit_successful">Setoran Berhasil!</string>
     <string name="withdraw_successful">Penarikan Berhasil!</string>
     <string name="withdraw_overflow_error">Nominal melebihi jumlah simpanan saat ini!</string>
@@ -70,7 +70,7 @@
     <string name="currently_saved_incomplete">Saat ini tersimpan %1$s dari %2$s</string>
     <string name="currently_saved_complete">Kamu menyimpan %1$s dari %2$s</string>
     <string name="goal_days_left">Kamu punya waktu hingga %1$s (%2$s) hari lagi</string>
-    <string name="goal_approx_saving">Kamu perlu menyimpan sekitar %s/</string>
+    <string name="goal_approx_saving">Kamu perlu menabung sekitar %s/</string>
     <string name="goal_approx_saving_day">hari</string>
     <string name="goal_approx_saving_week">minggu</string>
     <string name="goal_approx_saving_month">bulan</string>
@@ -166,7 +166,7 @@
     <string name="goal_card_option2">Ringkas</string>
     <string name="preview_example_secondary_text">Kamu punya waktu hingga 26/05/2023(85) hari lagi. Kamu harus menabung sekitar %1$s/hari, %2$s/minggu, %3$s/bulan</string>
     <string name="locales_setting_title">Bahasa &amp; Wilayah</string>
-    <string name="app_locale_setting">Bahasa Bawaan</string>
+    <string name="app_locale_setting">Bahasa</string>
     <string name="app_locale_setting_desc">Pilih bahasa yang kamu inginkan</string>
     <string name="date_format_setting">Format Tanggal</string>
     <string name="date_format_dialog_title">Ubah Format Tanggal</string>
@@ -191,13 +191,13 @@
     <string name="goal_card_settings_tip">Tips! Anda bisa menggeser kartu bergaya ringkas ke kiri atau kanan untuk mengubah atau menghapus target menabung</string>
     <string name="osl_screen_header">Pustaka Sumber Terbuka</string>
     <string name="about_screen_header">Tentang</string>
-    <string name="about_readme_title">BACA SAYA</string>
-    <string name="about_readme_desc">Lihat repositori GitHub dan BACA SAYA aplikasi ini</string>
+    <string name="about_readme_title">ReadMe</string>
+    <string name="about_readme_desc">Lihat repositori GitHub dan baca \"README\" aplikasi ini</string>
     <string name="about_website_title">Situs Web</string>
     <string name="about_website_desc">Kunjungi situs web kami untuk informasi lebih lanjut dan jelajahi aplikasi serta proyek kami lainnya</string>
     <string name="about_privacy_title">Kebijakan Privasi</string>
     <string name="about_privacy_desc">Baca kebijakan privasi dan ketentuan layanan terbaru kami di GitHub</string>
-    <string name="about_gh_issue_title">Laporan Masalah GitHub</string>
+    <string name="about_gh_issue_title">Laporkan Masalah</string>
     <string name="about_gh_issue_desc">Kirim laporan bug atau permintaan fitur dengan membuat \"issue\" di GitHub</string>
     <string name="about_telegram_title">Grup Telegram</string>
     <string name="about_telegram_desc">Bergabunglah dengan kami di Telegram untuk berbagi ide atau sekadar mengobrol!</string>
