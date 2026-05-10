@@ -1,0 +1,13 @@
+GreenStash adalah aplikasi yang sederhana, bersifat open-source, dan ramah privasi yang dirancang untuk membantu Anda merencanakan dan mengelola target tabungan dengan mudah, serta membangun kebiasaan menabung untuk masa depan yang lebih baik.
+
+🌟 Fitur / Keunggulan Utama:
+• Antarmuka pengguna (UI) yang bersih dan menarik, dibuat berdasarkan pedoman Material-3 Design dari Google.
+• Tambahkan gambar pada target tabungan Anda untuk terus menjaga motivasi!
+• Pantau jumlah nominal harian, mingguan, atau bulanan yang diperlukan untuk mencapai target sesuai batas waktu yang ditentukan.
+• Lacak riwayat transaksi secara terperinci (penarikan/setoran).
+• Dapatkan pengingat harian, dua kali seminggu, atau mingguan untuk target tabungan Anda berdasarkan tingkat prioritas.
+• Mendukung lebih dari 100 simbol mata uang lokal.
+• Dilengkapi dengan kunci aplikasi biometrik bawaan untuk memastikan keamanan data finansial Anda.
+• Berfungsi sepenuhnya secara offline; GreenStash dapat beroperasi tanpa memerlukan izin akses internet.
+• Kompatibel dengan tema Material You pada perangkat dengan OS Android 12 ke atas.
+• Tersedia dalam mode terang (light mode) maupun mode gelap (dark mode).
