@@ -7,18 +7,18 @@ plugins {
     id 'dagger.hilt.android.plugin'
     id 'com.google.devtools.ksp'
     id 'org.jetbrains.kotlin.plugin.serialization'
-    id "com.mikepenz.aboutlibraries.plugin.android" version "14.1.0"
+    id "com.mikepenz.aboutlibraries.plugin.android" version "14.2.0"
 }
 
 
 android {
     namespace 'com.starry.greenstash'
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         applicationId "com.starry.greenstash"
         minSdk 24
-        targetSdk 36
+        targetSdk 37
         versionCode 430
         versionName "4.3.0"
 
@@ -81,7 +81,7 @@ kotlin {
 
 dependencies {
 
-    def composeBom = platform('androidx.compose:compose-bom:2026.04.01')
+    def composeBom = platform('androidx.compose:compose-bom:2026.05.01')
     implementation composeBom
     androidTestImplementation composeBom
 
@@ -101,7 +101,7 @@ dependencies {
     implementation "androidx.compose.runtime:runtime-livedata"
     implementation "androidx.compose.material3:material3"
     // Material theme for main activity.
-    implementation 'com.google.android.material:material:1.13.0'
+    implementation 'com.google.android.material:material:1.14.0'
     // Android 12+ splash API.
     implementation 'androidx.core:core-splashscreen:1.2.0'
     // Material icons.
@@ -138,8 +138,8 @@ dependencies {
     // Bio-metric authentication.
     implementation "androidx.biometric:biometric:1.1.0"
     // Open Source Libraries Screen.
-    implementation "com.mikepenz:aboutlibraries-core:14.1.0"
-    implementation "com.mikepenz:aboutlibraries-compose-m3:14.1.0"
+    implementation "com.mikepenz:aboutlibraries-core:14.2.0"
+    implementation "com.mikepenz:aboutlibraries-compose-m3:14.2.0"
     // Crash Handler.
     implementation 'cat.ereza:customactivityoncrash:2.4.0'
     // Oreo back-ports for API 24 (N)
