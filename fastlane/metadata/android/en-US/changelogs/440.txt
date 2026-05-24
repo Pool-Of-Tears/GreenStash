@@ -1,0 +1,6 @@
+- Update target SDK to Android 17 (API 37).
+- Fix Currency picker state resetting in onboarding screen on screen rotation.
+- Added Indonesian translation
+- Updated Chinese translation
+- Updated Turkish translation
+- Update the Kotlin version and all major/minor dependencies
