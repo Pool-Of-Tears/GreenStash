@@ -47,6 +47,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.navigation.NavController
 import com.mikepenz.aboutlibraries.ui.compose.android.produceLibraries
 import com.mikepenz.aboutlibraries.ui.compose.m3.LibrariesContainer
+import com.mikepenz.aboutlibraries.ui.compose.variant.LibraryBadges
 import com.starry.greenstash.R
 import com.starry.greenstash.ui.theme.greenstashFont
 import com.starry.greenstash.utils.weakHapticFeedback
@@ -97,9 +98,11 @@ fun OSLScreen(navController: NavController) {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(it),
-            showAuthor = true,
-            showVersion = true,
-            showLicenseBadges = true,
+            badges = LibraryBadges(
+                author = true,
+                version = true,
+                license = true,
+            )
         )
     }
 }
