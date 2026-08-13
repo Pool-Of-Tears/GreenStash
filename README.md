@@ -138,7 +138,7 @@ from [Helpshift](https://developers.helpshift.com/android/i18n/) for Android.
 
 <h2 align="center">Star History</h2>
 
-[![Star History Chart](https://api.star-history.com/svg?repos=Pool-Of-Tears/Greenstash&type=Timeline)](https://star-history.com/#Pool-Of-Tears/Greenstash&Timeline)
+[![Star History Chart](https://star-history.dera.page/svg?repos=Pool-Of-Tears/Greenstash&type=Timeline)](https://star-history.dera.page/#Pool-Of-Tears/Greenstash&Timeline)
 
 ------
 
